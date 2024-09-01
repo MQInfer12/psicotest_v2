@@ -26,7 +26,7 @@ class U_userController extends Controller
         $validatedData = $request->validated();
         $user = U_user::create($validatedData);
         return $this->successResponse(
-            "Usuarios obtenidos correctamente.",
+            "Usuario creado correctamente.",
             new U_userResource($user)
         );
     }
