@@ -1,5 +1,5 @@
 import { toast, ExternalToast } from "sonner";
-import Icon from "@/global/components/icons/Icon";
+import Icon from "../components/icons/Icon";
 
 interface Options extends ExternalToast {
   title?: string;

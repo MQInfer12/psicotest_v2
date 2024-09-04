@@ -12,7 +12,8 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as rootIndexImport } from './routes/(root)/index'
-import { Route as rootUsersImport } from './routes/(root)/users'
+import { Route as rootDashboardImport } from './routes/(root)/dashboard'
+import { Route as rootDashboardUsersImport } from './routes/(root)/dashboard/users'
 
 // Create/Update Routes
 
@@ -21,20 +22,25 @@ const rootIndexRoute = rootIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const rootUsersRoute = rootUsersImport.update({
-  path: '/users',
+const rootDashboardRoute = rootDashboardImport.update({
+  path: '/dashboard',
   getParentRoute: () => rootRoute,
+} as any)
+
+const rootDashboardUsersRoute = rootDashboardUsersImport.update({
+  path: '/users',
+  getParentRoute: () => rootDashboardRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/(root)/users': {
-      id: '/users'
-      path: '/users'
-      fullPath: '/users'
-      preLoaderRoute: typeof rootUsersImport
+    '/(root)/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof rootDashboardImport
       parentRoute: typeof rootRoute
     }
     '/(root)/': {
@@ -44,13 +50,22 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof rootIndexImport
       parentRoute: typeof rootRoute
     }
+    '/(root)/dashboard/users': {
+      id: '/dashboard/users'
+      path: '/users'
+      fullPath: '/dashboard/users'
+      preLoaderRoute: typeof rootDashboardUsersImport
+      parentRoute: typeof rootDashboardImport
+    }
   }
 }
 
 // Create and export the route tree
 
 export const routeTree = rootRoute.addChildren({
-  rootUsersRoute,
+  rootDashboardRoute: rootDashboardRoute.addChildren({
+    rootDashboardUsersRoute,
+  }),
   rootIndexRoute,
 })
 
@@ -62,15 +77,22 @@ export const routeTree = rootRoute.addChildren({
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/users",
+        "/dashboard",
         "/"
       ]
     },
-    "/users": {
-      "filePath": "(root)/users.tsx"
+    "/dashboard": {
+      "filePath": "(root)/dashboard.tsx",
+      "children": [
+        "/dashboard/users"
+      ]
     },
     "/": {
       "filePath": "(root)/index.tsx"
+    },
+    "/dashboard/users": {
+      "filePath": "(root)/dashboard/users.tsx",
+      "parent": "/dashboard"
     }
   }
 }

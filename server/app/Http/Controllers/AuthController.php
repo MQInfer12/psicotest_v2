@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\U_userResource;
 use App\Models\U_user;
 use App\Traits\ApiResponse;
 use Firebase\JWT\JWK;
@@ -45,12 +46,15 @@ class AuthController extends Controller
 
         Auth::login($user);
         $token = $user->createToken('auth_token')->plainTextToken;
-        return $this->successResponse("Inicio de sesión correcto.", $token);
+        return $this->successResponse("Inicio de sesión correcto.", [
+            'user' => new U_userResource($user),
+            'token' => $token
+        ]);
     }
 
     public function me(Request $request)
     {
-        return $this->successResponse("Usuario obtenido correctamente.", $request->user());
+        return $this->successResponse("Usuario obtenido correctamente.", new U_userResource($request->user()));
     }
 
     public function logout(Request $request)

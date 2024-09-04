@@ -1,32 +1,18 @@
-import useFetch from "@/hooks/useFetch";
-import { Timestamps } from "@/types/Timestamps";
-import { toastSuccess } from "@/utils/toasts";
-import { createFileRoute } from "@tanstack/react-router";
+import useFetch from "@/modules/core/hooks/useFetch";
+import { toastSuccess } from "@/modules/core/utils/toasts";
 import { useState } from "react";
+import { UserDTO } from "../api/dtos";
 
-interface UserForm {
-  email: string;
-  nombre: string;
-}
-
-interface User extends Timestamps {
-  email: string;
-  nombre: string;
-  genero: string | null;
-  foto: string | null;
-  fecha_nacimiento: string | null;
-}
-
-const initialForm = {
+const initialForm: UserDTO = {
   email: "",
   nombre: "",
 };
 
-const Users = () => {
+const UserPage = () => {
   const { fetchData, postData } = useFetch();
-  const { data, setData } = fetchData<User[]>(["users"], "/user");
-  const mutation = postData<User, UserForm>("/user");
-  const [form, setForm] = useState<UserForm>(initialForm);
+  const { data, setData } = fetchData(["users"], "GET /user");
+  const mutation = postData("POST /user");
+  const [form, setForm] = useState<UserDTO>(initialForm);
 
   const handleSend = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
@@ -67,7 +53,7 @@ const Users = () => {
       <br />
       <ul>
         {data?.map((user) => (
-          <li>
+          <li key={user.email}>
             {user.email}: {user.nombre}
           </li>
         ))}
@@ -76,6 +62,4 @@ const Users = () => {
   );
 };
 
-export const Route = createFileRoute("/(root)/users")({
-  component: Users,
-});
+export default UserPage;
