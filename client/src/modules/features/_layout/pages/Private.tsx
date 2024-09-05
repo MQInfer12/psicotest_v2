@@ -5,7 +5,7 @@ import { Link, Navigate, Outlet } from "@tanstack/react-router";
 
 const Dashboard = () => {
   const { user, state, logout } = useUserContext();
-  if (state === "unlogged") return <Navigate to="/" />;
+  if (state === "unlogged") return <Navigate to="/login" />;
 
   const { postData } = useFetch();
   const logoutMutation = postData("POST /logout");
@@ -20,11 +20,12 @@ const Dashboard = () => {
   };
 
   if (state === "loading") return <div>Cargando...</div>;
+
   return (
     <>
       <div className="p-2 flex gap-2 justify-between">
         <p>Bienvenido {user?.nombre}</p>
-        <Link to="/dashboard/users" className="[&.active]:font-bold">
+        <Link to="/users" className="[&.active]:font-bold">
           Usuarios
         </Link>
         <button onClick={handleLogout} className="bg-gray-300">

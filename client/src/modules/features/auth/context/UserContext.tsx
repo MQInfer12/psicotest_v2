@@ -25,13 +25,29 @@ interface Props {
   children: React.ReactNode;
 }
 
+const GetUser = () => {
+  const { state, login } = useUserContext();
+  const { postData } = useFetch();
+  const mutation = postData("GET /me");
+
+  useEffect(() => {
+    if (state === "loading") {
+      mutation.mutate(null, {
+        onSuccess: (res) => {
+          login(res.data, localStorage.getItem(TOKEN_NAME)!);
+        },
+      });
+    }
+  }, []);
+
+  return null;
+};
+
 export const UserContextProvider = ({ children }: Props) => {
   const [user, setUser] = useState<User | null>(null);
   const stateRef = useRef<UserContextState>(
     localStorage.getItem(TOKEN_NAME) ? "loading" : "unlogged"
   );
-  const { postData } = useFetch();
-  const mutation = postData("GET /me");
 
   const login = useCallback((user: User, token: string) => {
     localStorage.setItem(TOKEN_NAME, token);
@@ -45,21 +61,12 @@ export const UserContextProvider = ({ children }: Props) => {
     stateRef.current = "unlogged";
   }, []);
 
-  useEffect(() => {
-    if (stateRef.current === "loading") {
-      mutation.mutate(null, {
-        onSuccess: (res) => {
-          login(res.data, localStorage.getItem(TOKEN_NAME)!);
-        },
-      });
-    }
-  }, []);
-
   return (
     <UserContext.Provider
       value={{ user, state: stateRef.current, login, logout }}
     >
       {children}
+      <GetUser />
     </UserContext.Provider>
   );
 };

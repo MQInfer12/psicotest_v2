@@ -1,14 +1,15 @@
-import { UserContextState } from "@/modules/features/auth/context/UserContext";
-import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
-
-interface RouterContext {
-  state: UserContextState;
-}
+import { UserContextProvider } from "@/modules/features/auth/context/UserContext";
+import { createRootRoute, Navigate, Outlet } from "@tanstack/react-router";
 
 const Root = () => {
-  return <Outlet />;
+  return (
+    <UserContextProvider>
+      <Outlet />
+    </UserContextProvider>
+  );
 };
 
-export const Route = createRootRouteWithContext<RouterContext>()({
+export const Route = createRootRoute({
   component: Root,
+  notFoundComponent: () => <Navigate to="/login" />,
 });

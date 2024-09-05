@@ -11,51 +11,77 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as rootIndexImport } from './routes/(root)/index'
-import { Route as rootDashboardImport } from './routes/(root)/dashboard'
-import { Route as rootDashboardUsersImport } from './routes/(root)/dashboard/users'
+import { Route as PublicImport } from './routes/_public'
+import { Route as PrivateImport } from './routes/_private'
+import { Route as PublicIndexImport } from './routes/_public/index'
+import { Route as PublicLoginImport } from './routes/_public/login'
+import { Route as PrivateUsersImport } from './routes/_private/users'
 
 // Create/Update Routes
 
-const rootIndexRoute = rootIndexImport.update({
+const PublicRoute = PublicImport.update({
+  id: '/_public',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PrivateRoute = PrivateImport.update({
+  id: '/_private',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PublicIndexRoute = PublicIndexImport.update({
   path: '/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => PublicRoute,
 } as any)
 
-const rootDashboardRoute = rootDashboardImport.update({
-  path: '/dashboard',
-  getParentRoute: () => rootRoute,
+const PublicLoginRoute = PublicLoginImport.update({
+  path: '/login',
+  getParentRoute: () => PublicRoute,
 } as any)
 
-const rootDashboardUsersRoute = rootDashboardUsersImport.update({
+const PrivateUsersRoute = PrivateUsersImport.update({
   path: '/users',
-  getParentRoute: () => rootDashboardRoute,
+  getParentRoute: () => PrivateRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/(root)/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof rootDashboardImport
+    '/_private': {
+      id: '/_private'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof PrivateImport
       parentRoute: typeof rootRoute
     }
-    '/(root)/': {
-      id: '/'
+    '/_public': {
+      id: '/_public'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof PublicImport
+      parentRoute: typeof rootRoute
+    }
+    '/_private/users': {
+      id: '/_private/users'
+      path: '/users'
+      fullPath: '/users'
+      preLoaderRoute: typeof PrivateUsersImport
+      parentRoute: typeof PrivateImport
+    }
+    '/_public/login': {
+      id: '/_public/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof PublicLoginImport
+      parentRoute: typeof PublicImport
+    }
+    '/_public/': {
+      id: '/_public/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof rootIndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/(root)/dashboard/users': {
-      id: '/dashboard/users'
-      path: '/users'
-      fullPath: '/dashboard/users'
-      preLoaderRoute: typeof rootDashboardUsersImport
-      parentRoute: typeof rootDashboardImport
+      preLoaderRoute: typeof PublicIndexImport
+      parentRoute: typeof PublicImport
     }
   }
 }
@@ -63,10 +89,8 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export const routeTree = rootRoute.addChildren({
-  rootDashboardRoute: rootDashboardRoute.addChildren({
-    rootDashboardUsersRoute,
-  }),
-  rootIndexRoute,
+  PrivateRoute: PrivateRoute.addChildren({ PrivateUsersRoute }),
+  PublicRoute: PublicRoute.addChildren({ PublicLoginRoute, PublicIndexRoute }),
 })
 
 /* prettier-ignore-end */
@@ -77,22 +101,34 @@ export const routeTree = rootRoute.addChildren({
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/dashboard",
-        "/"
+        "/_private",
+        "/_public"
       ]
     },
-    "/dashboard": {
-      "filePath": "(root)/dashboard.tsx",
+    "/_private": {
+      "filePath": "_private.tsx",
       "children": [
-        "/dashboard/users"
+        "/_private/users"
       ]
     },
-    "/": {
-      "filePath": "(root)/index.tsx"
+    "/_public": {
+      "filePath": "_public.tsx",
+      "children": [
+        "/_public/login",
+        "/_public/"
+      ]
     },
-    "/dashboard/users": {
-      "filePath": "(root)/dashboard/users.tsx",
-      "parent": "/dashboard"
+    "/_private/users": {
+      "filePath": "_private/users.tsx",
+      "parent": "/_private"
+    },
+    "/_public/login": {
+      "filePath": "_public/login.tsx",
+      "parent": "/_public"
+    },
+    "/_public/": {
+      "filePath": "_public/index.tsx",
+      "parent": "/_public"
     }
   }
 }

@@ -2,7 +2,6 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import { Toaster } from "sonner";
-import { UserContextProvider } from "./modules/features/auth/context/UserContext";
 import {
   QueryCache,
   QueryClient,
@@ -24,9 +23,7 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Toaster position="top-right" />
     <QueryClientProvider client={queryClient}>
-      <UserContextProvider>
         <RouterSetup />
-      </UserContextProvider>
     </QueryClientProvider>
   </StrictMode>
 );

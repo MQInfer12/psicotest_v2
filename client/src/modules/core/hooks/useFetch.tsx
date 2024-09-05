@@ -9,6 +9,8 @@ import { ApiErrorResponse, ApiSuccessResponse } from "../types/ApiResponse";
 import { toastError } from "@/modules/core/utils/toasts";
 import { TOKEN_NAME } from "@/modules/core/constants/CONSTANTS";
 import { HttpMethod } from "../types/HttpMethod";
+import { useNavigate } from "@tanstack/react-router";
+import { useUserContext } from "@/modules/features/auth/context/UserContext";
 
 //* BUILD URL WITH PARAMS
 const buildUrl = (endpoint: string, params?: Record<string, any>): string => {
@@ -21,23 +23,25 @@ const buildUrl = (endpoint: string, params?: Record<string, any>): string => {
   return url;
 };
 
-//* FETCH ERROR HANDLER
-const handleResponse = async <T,>(response: Response): Promise<T> => {
-  if (!response.ok) {
-    let msg = "Error del servidor";
-    if (response.status === 401) {
-      localStorage.removeItem(TOKEN_NAME);
-    }
-    if (response.status !== 500) {
-      const error = (await response.json()) as ApiErrorResponse;
-      msg = error.message;
-    }
-    throw new Error(`${response.status}: ` + msg || "Algo salió mal");
-  }
-  return response.json();
-};
-
 const useFetch = () => {
+  const { logout } = useUserContext();
+
+  //* FETCH ERROR HANDLER
+  const handleResponse = async <T,>(response: Response): Promise<T> => {
+    if (!response.ok) {
+      let msg = "Error del servidor";
+      if (response.status === 401) {
+        logout();
+      }
+      if (response.status !== 500) {
+        const error = (await response.json()) as ApiErrorResponse;
+        msg = error.message;
+      }
+      throw new Error(`${response.status}: ` + msg || "Algo salió mal");
+    }
+    return response.json();
+  };
+
   //* FETCHING IN COMPONENT RENDERING
   const fetchData = <K extends keyof EndpointMap>(
     key: QueryKey,
