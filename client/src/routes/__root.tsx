@@ -11,5 +11,5 @@ const Root = () => {
 
 export const Route = createRootRoute({
   component: Root,
-  notFoundComponent: () => <Navigate to="/login" />,
+  notFoundComponent: () => <Navigate to="/" />,
 });

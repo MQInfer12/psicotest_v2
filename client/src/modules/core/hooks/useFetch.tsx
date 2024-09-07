@@ -9,7 +9,6 @@ import { ApiErrorResponse, ApiSuccessResponse } from "../types/ApiResponse";
 import { toastError } from "@/modules/core/utils/toasts";
 import { TOKEN_NAME } from "@/modules/core/constants/CONSTANTS";
 import { HttpMethod } from "../types/HttpMethod";
-import { useNavigate } from "@tanstack/react-router";
 import { useUserContext } from "@/modules/features/auth/context/UserContext";
 
 //* BUILD URL WITH PARAMS

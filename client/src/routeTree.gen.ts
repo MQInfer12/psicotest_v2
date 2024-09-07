@@ -14,7 +14,6 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as PublicImport } from './routes/_public'
 import { Route as PrivateImport } from './routes/_private'
 import { Route as PublicIndexImport } from './routes/_public/index'
-import { Route as PublicLoginImport } from './routes/_public/login'
 import { Route as PrivateUsersImport } from './routes/_private/users'
 
 // Create/Update Routes
@@ -31,11 +30,6 @@ const PrivateRoute = PrivateImport.update({
 
 const PublicIndexRoute = PublicIndexImport.update({
   path: '/',
-  getParentRoute: () => PublicRoute,
-} as any)
-
-const PublicLoginRoute = PublicLoginImport.update({
-  path: '/login',
   getParentRoute: () => PublicRoute,
 } as any)
 
@@ -69,13 +63,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivateUsersImport
       parentRoute: typeof PrivateImport
     }
-    '/_public/login': {
-      id: '/_public/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof PublicLoginImport
-      parentRoute: typeof PublicImport
-    }
     '/_public/': {
       id: '/_public/'
       path: '/'
@@ -90,7 +77,7 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   PrivateRoute: PrivateRoute.addChildren({ PrivateUsersRoute }),
-  PublicRoute: PublicRoute.addChildren({ PublicLoginRoute, PublicIndexRoute }),
+  PublicRoute: PublicRoute.addChildren({ PublicIndexRoute }),
 })
 
 /* prettier-ignore-end */
@@ -114,17 +101,12 @@ export const routeTree = rootRoute.addChildren({
     "/_public": {
       "filePath": "_public.tsx",
       "children": [
-        "/_public/login",
         "/_public/"
       ]
     },
     "/_private/users": {
       "filePath": "_private/users.tsx",
       "parent": "/_private"
-    },
-    "/_public/login": {
-      "filePath": "_public/login.tsx",
-      "parent": "/_public"
     },
     "/_public/": {
       "filePath": "_public/index.tsx",

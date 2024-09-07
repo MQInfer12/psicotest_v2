@@ -5,7 +5,7 @@ import { Link, Navigate, Outlet } from "@tanstack/react-router";
 
 const Dashboard = () => {
   const { user, state, logout } = useUserContext();
-  if (state === "unlogged") return <Navigate to="/login" />;
+  if (state === "unlogged") return <Navigate to="/" />;
 
   const { postData } = useFetch();
   const logoutMutation = postData("POST /logout");

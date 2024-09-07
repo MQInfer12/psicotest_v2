@@ -1,6 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
+import "./fonts.css";
 import { Toaster } from "sonner";
 import {
   QueryCache,
@@ -23,7 +24,7 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Toaster position="top-right" />
     <QueryClientProvider client={queryClient}>
-        <RouterSetup />
+      <RouterSetup />
     </QueryClientProvider>
   </StrictMode>
 );

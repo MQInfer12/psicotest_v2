@@ -1,25 +1,42 @@
 import { useUserContext } from "../../auth/context/UserContext";
 import { Link, Navigate, Outlet } from "@tanstack/react-router";
+import Logo from "../components/Logo";
+import UnifranzLogo from "@assets/images/unifranz-logo.png";
+import { PUBLIC_NAVBAR_HEIGHT } from "../constants/LAYOUT_SIZES";
+import LoginCard from "../../auth/components/LoginCard";
 
 const Public = () => {
   const { state } = useUserContext();
   if (state !== "unlogged") return <Navigate to="/users" />;
 
   return (
-    <div className="flex flex-col h-screen">
-      <div className="p-2 flex gap-2 justify-between">
-        <p>Bienvenido</p>
-        <Link to="/" className="[&.active]:font-bold">
-          Inicio
+    <>
+      <nav
+        style={{
+          height: PUBLIC_NAVBAR_HEIGHT,
+        }}
+        className="px-20 p-2 flex items-center gap-2 justify-between fixed top-0 w-screen"
+      >
+        <Link className="flex flex-1" to="/">
+          <Logo />
         </Link>
-        <Link to="/login" className="[&.active]:font-bold">
-          Login
-        </Link>
-      </div>
-      <div className="flex-1">
+        {/* <div className="flex gap-10">
+          <Link className="flex flex-1" to="/">
+            Inicio
+          </Link>
+          <Link className="flex flex-1" to="/">
+            Blogs
+          </Link>
+        </div> */}
+        <div className="flex-1 flex justify-end">
+          <img src={UnifranzLogo} className="h-12 w-auto" alt="logo-unifranz" />
+        </div>
+      </nav>
+      <LoginCard />
+      <div className="min-h-screen bg-alto-100 overflow-x-hidden">
         <Outlet />
       </div>
-    </div>
+    </>
   );
 };
 

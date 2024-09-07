@@ -1,14 +1,14 @@
-import { GOOGLE_CLIENT_ID } from "@/modules/core/constants/ENVIRONMENT";
-import useFetch from "@/modules/core/hooks/useFetch";
-import { toastSuccess } from "@/modules/core/utils/toasts";
 import {
   CredentialResponse,
   GoogleLogin,
   GoogleOAuthProvider,
 } from "@react-oauth/google";
 import { useUserContext } from "../context/UserContext";
+import useFetch from "@/modules/core/hooks/useFetch";
+import { GOOGLE_CLIENT_ID } from "@/modules/core/constants/ENVIRONMENT";
+import { toastSuccess } from "@/modules/core/utils/toasts";
 
-const LoginPage = () => {
+const LoginButton = () => {
   const { login } = useUserContext();
   const { postData } = useFetch();
   const loginMutation = postData("POST /login");
@@ -27,14 +27,11 @@ const LoginPage = () => {
       }
     );
   };
-
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-      <div className="h-full flex items-center justify-center bg-[#121212]">
-        <GoogleLogin onSuccess={handleLogin} shape="circle" size="medium" />
-      </div>
+      <GoogleLogin onSuccess={handleLogin} shape="circle" size="medium" />
     </GoogleOAuthProvider>
   );
 };
 
-export default LoginPage;
+export default LoginButton;
