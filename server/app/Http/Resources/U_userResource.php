@@ -13,6 +13,7 @@ class U_userResource extends JsonResource
             'foto' => $this->foto,
             'genero' => $this->genero,
             'fecha_nacimiento' => $this->fecha_nacimiento,
+            'estado' => $this->estado,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

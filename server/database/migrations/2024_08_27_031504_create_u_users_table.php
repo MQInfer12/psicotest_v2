@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('foto')->nullable();
             $table->string('genero')->nullable();
             $table->date('fecha_nacimiento')->nullable();
+            $table->boolean('estado')->default(true);
             $table->timestamps();
         });
     }

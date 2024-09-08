@@ -25,6 +25,7 @@ class U_userController extends Controller
     {
         $validatedData = $request->validated();
         $user = U_user::create($validatedData);
+        $user['estado'] = true;
         return $this->successResponse(
             "Usuario creado correctamente.",
             new U_userResource($user)
@@ -50,6 +51,19 @@ class U_userController extends Controller
 
         return $this->successResponse(
             "Usuario actualizado correctamente.",
+            new U_userResource($user)
+        );
+    }
+
+    public function changeState($id)
+    {
+        $user = U_user::findOrFail($id);
+        $user->estado = !$user->estado;
+
+        $user->save();
+
+        return $this->successResponse(
+            "Estado del usuario actualizado correctamente.",
             new U_userResource($user)
         );
     }

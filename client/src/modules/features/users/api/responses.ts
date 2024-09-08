@@ -6,4 +6,5 @@ export interface User extends Timestamps {
   genero: string | null;
   foto: string | null;
   fecha_nacimiento: string | null;
+  estado: boolean;
 }

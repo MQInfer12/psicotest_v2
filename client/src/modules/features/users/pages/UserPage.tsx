@@ -8,6 +8,7 @@ import { useUserContext } from "../../auth/context/UserContext";
 const UserPage = () => {
   const { fetchData, postData } = useFetch();
   const deleteMutation = postData("DELETE /user/:id");
+  const changeStateMutation = postData("PATCH /user/change-state/:id");
   const { data, setData } = fetchData(["users"], "GET /user");
   const { modal, setOpen } = useModal<User>();
   const { user } = useUserContext();
@@ -21,6 +22,22 @@ const UserPage = () => {
         onSuccess: (res) => {
           toastSuccess(res.message);
           setData((prev) => prev.filter((v) => v.email !== id));
+        },
+      })
+    );
+  };
+
+  const handleChangeState = (id: string) => {
+    toastConfirm("¿Quires cambiar el estado de este usuario?", () =>
+      changeStateMutation(null, {
+        params: {
+          id,
+        },
+        onSuccess: (res) => {
+          toastSuccess(res.message);
+          setData((prev) =>
+            prev.map((v) => (v.email === res.data.email ? res.data : v))
+          );
         },
       })
     );
@@ -51,18 +68,25 @@ const UserPage = () => {
             <p>
               {u.email}: {u.nombre}
             </p>
-            <button
-              disabled={u.email === user?.email}
-              onClick={() => setOpen(u)}
-            >
-              Editar
-            </button>
-            <button
-              disabled={u.email === user?.email}
-              onClick={() => handleDelete(u.email)}
-            >
-              Eliminar
-            </button>
+            <div className="flex gap-4 justify-center">
+              <button
+                disabled={u.email === user?.email}
+                onClick={() => setOpen(u)}
+              >
+                Editar
+              </button>
+              <button
+                disabled={u.email === user?.email}
+                onClick={() => handleDelete(u.email)}
+              >
+                Eliminar
+              </button>
+              {u.email !== user?.email && (
+                <button onClick={() => handleChangeState(u.email)}>
+                  {!u.estado ? "Habilitar" : "Deshabilitar"}
+                </button>
+              )}
+            </div>
           </li>
         ))}
       </ul>

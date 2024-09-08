@@ -28,5 +28,10 @@ declare global {
       request: never;
       response: User;
     };
+    "PATCH /user/change-state/:id":{
+      params: {id:string};
+      request: null;
+      response: User;
+    }
   }
 }

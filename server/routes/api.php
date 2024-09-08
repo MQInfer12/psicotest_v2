@@ -27,4 +27,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me', [AuthController::class, 'me']);
     
     Route::apiResource('/user', U_userController::class);
+    Route::patch('/user/change-state/{id}', [U_userController::class,'changeState']);
 });

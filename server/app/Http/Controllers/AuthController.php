@@ -41,9 +41,13 @@ class AuthController extends Controller
                 'foto' => $tokenData['picture'],
                 'genero' => null,
                 'fecha_nacimiento' => null,
+                'estado' => true,
             ]);
         }
-
+        if($user->estado === false)
+        {
+            return $this->unauthorizedResponse('El usuario se encuentra deshabilitado.');
+        }
         Auth::login($user);
         $token = $user->createToken('auth_token')->plainTextToken;
         return $this->successResponse("Inicio de sesión correcto.", [
