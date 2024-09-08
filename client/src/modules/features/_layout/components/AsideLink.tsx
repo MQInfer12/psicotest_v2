@@ -1,7 +1,7 @@
 import Icon, { ICON } from "@/modules/core/components/icons/Icon";
+import Appear from "@/modules/core/components/utils/Appear";
 import { Link, LinkOptions } from "@tanstack/react-router";
 import clsx from "clsx";
-import { AnimatePresence, motion } from "framer-motion";
 
 interface Props extends LinkOptions {
   icon: ICON;
@@ -38,18 +38,9 @@ const AsideLink = ({
       <div className="h-full aspect-square">
         <Icon type={icon} />
       </div>
-      <AnimatePresence>
-        {showText && (
-          <motion.span
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="font-normal whitespace-nowrap"
-          >
-            {title}
-          </motion.span>
-        )}
-      </AnimatePresence>
+      <Appear open={showText} className="font-normal whitespace-nowrap">
+        {title}
+      </Appear>
     </>
   );
 

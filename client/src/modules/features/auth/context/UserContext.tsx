@@ -32,7 +32,7 @@ const GetUser = () => {
 
   useEffect(() => {
     if (state === "loading") {
-      mutation.mutate(null, {
+      mutation(null, {
         onSuccess: (res) => {
           login(res.data, localStorage.getItem(TOKEN_NAME)!);
         },

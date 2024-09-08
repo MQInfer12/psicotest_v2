@@ -13,6 +13,16 @@ declare global {
       request: UserDTO;
       response: User;
     };
+    "PUT /user/:id": {
+      params: { id: string };
+      request: Partial<UserDTO>;
+      response: User;
+    };
+    "DELETE /user/:id": {
+      params: { id: string };
+      request: null;
+      response: null;
+    };
     "GET /user/:id": {
       params: { id: string };
       request: never;

@@ -24,7 +24,7 @@ const Dashboard = () => {
 
   const handleLogout = () => {
     toastConfirm("¿Quieres cerrar sesión?", () =>
-      logoutMutation.mutate(null, {
+      logoutMutation(null, {
         onSuccess: (res) => {
           logout();
           toastSuccess(res.message);
@@ -49,7 +49,7 @@ const Dashboard = () => {
         </Link>
         <div className="px-4 flex flex-col gap-2 overflow-hidden">
           {PRIVATE_LINKS.map((link) => (
-            <AsideLink showText={open} type="link" {...link} />
+            <AsideLink key={link.title} showText={open} type="link" {...link} />
           ))}
           <AsideLink
             type="button"

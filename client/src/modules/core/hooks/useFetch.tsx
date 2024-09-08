@@ -1,4 +1,5 @@
 import {
+  MutateOptions,
   QueryKey,
   useMutation,
   useQuery,
@@ -99,23 +100,27 @@ const useFetch = () => {
 
   //* FETCHING IN CODE
   const postData = <K extends keyof EndpointMap>(
-    endpointConfig: K | [K, EndpointMap[K]["params"]],
+    endpointConfig: K,
     config: RequestInit = {}
   ) => {
     type TResponse = EndpointMap[K]["response"];
     type TBody = EndpointMap[K]["request"];
+    type TParams = EndpointMap[K]["params"];
+    const paramsLocalStorageKey = "useFetchRequestParams";
 
     const endpoint: string = Array.isArray(endpointConfig)
       ? endpointConfig[0]
       : endpointConfig;
-    const params = Array.isArray(endpointConfig)
-      ? endpointConfig[1]
-      : undefined;
     const [method] = endpoint.split(" ") as [HttpMethod, string];
-    const urlBuild = buildUrl(endpoint, params);
 
-    return useMutation<ApiSuccessResponse<TResponse>, Error, TBody>({
+    const mutation = useMutation<ApiSuccessResponse<TResponse>, Error, TBody>({
       mutationFn: async (payload: TBody) => {
+        const parameters = JSON.parse(
+          sessionStorage.getItem(paramsLocalStorageKey) || "{}"
+        );
+        const urlBuild = buildUrl(endpoint, parameters);
+        sessionStorage.removeItem(paramsLocalStorageKey);
+
         const token = localStorage.getItem(TOKEN_NAME);
         const response = await fetch(API_URL + urlBuild, {
           method: method,
@@ -137,6 +142,29 @@ const useFetch = () => {
         toastError(error.message);
       },
     });
+
+    interface CustomMutationOptions<T1, T2, T3, T4>
+      extends MutateOptions<T1, T2, T3, T4> {
+      params?: TParams extends never ? void : TParams;
+    }
+
+    const customMutation = (
+      variables: TBody,
+      options?: CustomMutationOptions<
+        ApiSuccessResponse<TResponse>,
+        Error,
+        TBody,
+        unknown
+      >
+    ) => {
+      sessionStorage.setItem(
+        paramsLocalStorageKey,
+        JSON.stringify(options?.params || {})
+      );
+      mutation.mutate(variables, options);
+    };
+
+    return customMutation;
   };
 
   return { fetchData, postData };

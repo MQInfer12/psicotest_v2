@@ -15,7 +15,7 @@ const LoginButton = () => {
 
   const handleLogin = (data: CredentialResponse) => {
     if (!data.credential) return;
-    loginMutation.mutate(
+    loginMutation(
       {
         token: data.credential,
       },
