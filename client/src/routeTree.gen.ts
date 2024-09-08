@@ -15,6 +15,9 @@ import { Route as PublicImport } from './routes/_public'
 import { Route as PrivateImport } from './routes/_private'
 import { Route as PublicIndexImport } from './routes/_public/index'
 import { Route as PrivateUsersImport } from './routes/_private/users'
+import { Route as PrivateTestsImport } from './routes/_private/tests'
+import { Route as PrivateChatImport } from './routes/_private/chat'
+import { Route as PrivateCalendarImport } from './routes/_private/calendar'
 
 // Create/Update Routes
 
@@ -38,6 +41,21 @@ const PrivateUsersRoute = PrivateUsersImport.update({
   getParentRoute: () => PrivateRoute,
 } as any)
 
+const PrivateTestsRoute = PrivateTestsImport.update({
+  path: '/tests',
+  getParentRoute: () => PrivateRoute,
+} as any)
+
+const PrivateChatRoute = PrivateChatImport.update({
+  path: '/chat',
+  getParentRoute: () => PrivateRoute,
+} as any)
+
+const PrivateCalendarRoute = PrivateCalendarImport.update({
+  path: '/calendar',
+  getParentRoute: () => PrivateRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -55,6 +73,27 @@ declare module '@tanstack/react-router' {
       fullPath: ''
       preLoaderRoute: typeof PublicImport
       parentRoute: typeof rootRoute
+    }
+    '/_private/calendar': {
+      id: '/_private/calendar'
+      path: '/calendar'
+      fullPath: '/calendar'
+      preLoaderRoute: typeof PrivateCalendarImport
+      parentRoute: typeof PrivateImport
+    }
+    '/_private/chat': {
+      id: '/_private/chat'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof PrivateChatImport
+      parentRoute: typeof PrivateImport
+    }
+    '/_private/tests': {
+      id: '/_private/tests'
+      path: '/tests'
+      fullPath: '/tests'
+      preLoaderRoute: typeof PrivateTestsImport
+      parentRoute: typeof PrivateImport
     }
     '/_private/users': {
       id: '/_private/users'
@@ -76,7 +115,12 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export const routeTree = rootRoute.addChildren({
-  PrivateRoute: PrivateRoute.addChildren({ PrivateUsersRoute }),
+  PrivateRoute: PrivateRoute.addChildren({
+    PrivateCalendarRoute,
+    PrivateChatRoute,
+    PrivateTestsRoute,
+    PrivateUsersRoute,
+  }),
   PublicRoute: PublicRoute.addChildren({ PublicIndexRoute }),
 })
 
@@ -95,6 +139,9 @@ export const routeTree = rootRoute.addChildren({
     "/_private": {
       "filePath": "_private.tsx",
       "children": [
+        "/_private/calendar",
+        "/_private/chat",
+        "/_private/tests",
         "/_private/users"
       ]
     },
@@ -103,6 +150,18 @@ export const routeTree = rootRoute.addChildren({
       "children": [
         "/_public/"
       ]
+    },
+    "/_private/calendar": {
+      "filePath": "_private/calendar.tsx",
+      "parent": "/_private"
+    },
+    "/_private/chat": {
+      "filePath": "_private/chat.tsx",
+      "parent": "/_private"
+    },
+    "/_private/tests": {
+      "filePath": "_private/tests.tsx",
+      "parent": "/_private"
     },
     "/_private/users": {
       "filePath": "_private/users.tsx",

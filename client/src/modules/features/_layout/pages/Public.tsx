@@ -15,7 +15,7 @@ const Public = () => {
         style={{
           height: PUBLIC_NAVBAR_HEIGHT,
         }}
-        className="px-20 p-2 flex items-center gap-2 justify-between fixed top-0 w-screen"
+        className="px-20 p-2 flex items-center gap-2 justify-between fixed top-0 w-screen z-30"
       >
         <Link className="flex flex-1" to="/">
           <Logo />

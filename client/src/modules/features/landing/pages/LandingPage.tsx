@@ -19,13 +19,13 @@ const LandingPage = () => {
   }, [carouselIndex]);
 
   return (
-    <section
-      style={{
-        paddingTop: PUBLIC_NAVBAR_HEIGHT,
-      }}
-      className="h-screen flex"
-    >
-      <div className="flex-1 relative flex items-center justify-center isolate">
+    <section className="h-screen flex">
+      <div
+        className="flex-1 relative flex items-center justify-center isolate"
+        style={{
+          paddingTop: PUBLIC_NAVBAR_HEIGHT,
+        }}
+      >
         <div className="flex flex-col absolute mr-80 mt-80 gap-2 z-10">
           <div className="bg-alto-50 p-2 shadow-lg rounded-md flex flex-col gap-2 max-w-fit">
             <small className="p-1 px-2 text-xs bg-primary-200 text-primary-800 max-w-fit rounded-md whitespace-nowrap">
@@ -47,6 +47,7 @@ const LandingPage = () => {
                 animate={{
                   translateX: `-${carouselIndex * 100}%`,
                 }}
+                className="w-full h-full"
                 transition={{
                   ease: "easeIn",
                   duration: 0.6,
@@ -81,7 +82,12 @@ const LandingPage = () => {
           <Hexagon />
         </div>
       </div>
-      <div className="flex-1 flex items-center justify-center">
+      <div
+        style={{
+          paddingTop: PUBLIC_NAVBAR_HEIGHT,
+        }}
+        className="flex-1 flex items-center justify-center bg-alto-50  rounded-bl-[100px]"
+      >
         <motion.div
           initial={{
             opacity: 0,

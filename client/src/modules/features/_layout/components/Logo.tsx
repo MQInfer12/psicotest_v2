@@ -1,15 +1,31 @@
 import Psicotest from "@/assets/images/logo.png";
+import { AnimatePresence, motion } from "framer-motion";
 
-const Logo = () => {
+interface Props {
+  showText?: boolean;
+}
+
+const Logo = ({ showText = true }: Props) => {
   return (
     <h1 className="text-xl font-light flex gap-2">
-      <img className="h-10 w-auto" alt="psicotest-logo" src={Psicotest} />
-      <div className="flex flex-col">
-        <div>
-          <span className="font-semibold">Psico</span>test
-        </div>
-        <small className="text-[10px] -mt-3 self-end opacity-80">v2.0</small>
-      </div>
+      <img className="w-14 h-auto" alt="psicotest-logo" src={Psicotest} />
+      <AnimatePresence>
+        {showText && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="flex flex-col"
+          >
+            <div>
+              <span className="font-semibold">Psico</span>test
+            </div>
+            <small className="text-[10px] self-end opacity-80 leading-none">
+              v{APP_VERSION}
+            </small>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </h1>
   );
 };

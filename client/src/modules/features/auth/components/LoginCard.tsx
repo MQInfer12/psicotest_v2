@@ -18,7 +18,7 @@ const LoginCard = () => {
               objectPosition: "0 -64px",
             }}
             alt="login-illustration"
-            className="object-top group-hover:scale-125 transition-all duration-300"
+            className="object-top group-hover:scale-125 transition-all duration-300 w-full h-full"
           />
         </div>
         <div className="absolute inset-0 bg-primary-950/40 flex flex-col items-center justify-center p-2 gap-4">
