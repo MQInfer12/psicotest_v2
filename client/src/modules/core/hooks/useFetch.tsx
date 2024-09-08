@@ -157,10 +157,12 @@ const useFetch = () => {
         unknown
       >
     ) => {
-      sessionStorage.setItem(
-        paramsLocalStorageKey,
-        JSON.stringify(options?.params || {})
-      );
+      if (options?.params) {
+        sessionStorage.setItem(
+          paramsLocalStorageKey,
+          JSON.stringify(options.params)
+        );
+      }
       mutation.mutate(variables, options);
     };
 
