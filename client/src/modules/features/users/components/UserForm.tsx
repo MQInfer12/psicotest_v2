@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { UserDTOSchema } from "../validations/UserDTOSchema";
 import { toastSuccess } from "@/modules/core/utils/toasts";
+import { Genero } from "../types/Genero";
 
 interface Props {
   user: User | null;
@@ -21,8 +22,8 @@ const UserForm = ({ user, onSuccess }: Props) => {
       email: user?.email,
       nombre: user?.nombre,
       foto: user?.foto,
-      fechaNacimiento: user?.fecha_nacimiento,
-      genero: user?.genero,
+      fecha_nacimiento: user?.fecha_nacimiento,
+      genero: user?.genero ? String(user.genero) : "",
     },
     resolver: yupResolver(UserDTOSchema),
   });
@@ -51,12 +52,27 @@ const UserForm = ({ user, onSuccess }: Props) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
+        <p>Nombre</p>
+        <input type="text" {...register("nombre")} />
+      </div>
+      <div>
         <p>Email</p>
         <input type="text" {...register("email")} />
       </div>
       <div>
-        <p>Nombre</p>
-        <input type="text" {...register("nombre")} />
+        <p>Fecha de nacimiento</p>
+        <input type="date" {...register("fecha_nacimiento")} />
+      </div>
+      <div>
+        <p>Género</p>
+        <select {...register("genero")}>
+          <option value="">Sin especificar</option>
+          {Object.values(Genero).map((genero) => (
+            <option key={genero} value={genero}>
+              {genero}
+            </option>
+          ))}
+        </select>
       </div>
       <button>Enviar</button>
     </form>

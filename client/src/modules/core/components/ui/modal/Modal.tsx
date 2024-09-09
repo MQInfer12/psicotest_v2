@@ -12,7 +12,7 @@ const Modal = ({ open, children, close }: Props) => {
   return createPortal(
     <Appear
       open={open}
-      className="bg-black/40 fixed inset-0 flex items-center justify-center"
+      className="bg-black/40 fixed inset-0 flex items-center justify-center z-40"
       onClick={close}
     >
       <motion.section

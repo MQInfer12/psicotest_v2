@@ -12,6 +12,8 @@ import { TOKEN_NAME } from "@/modules/core/constants/CONSTANTS";
 import { HttpMethod } from "../types/HttpMethod";
 import { useUserContext } from "@/modules/features/auth/context/UserContext";
 
+export type SetData<T> = (setter: T | ((prev: T) => T)) => void;
+
 //* BUILD URL WITH PARAMS
 const buildUrl = (endpoint: string, params?: Record<string, any>): string => {
   let url = endpoint.split(" ")[1];
@@ -79,13 +81,16 @@ const useFetch = () => {
       retry: false,
     });
 
-    const setData = (setter: TResponse | ((prev: TResponse) => TResponse)) => {
+    const setData: SetData<TResponse> = (setter) => {
       if (!returnValue.data) return;
       queryClient.setQueryData(
         queryKey,
         (old: ApiSuccessResponse<TResponse>) => ({
           ...old,
-          data: typeof setter === "function" ? setter(old.data) : setter,
+          data:
+            typeof setter === "function"
+              ? setter(old.data as TResponse)
+              : setter,
         })
       );
     };

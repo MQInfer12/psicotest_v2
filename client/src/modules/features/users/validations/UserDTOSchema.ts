@@ -8,5 +8,5 @@ export const UserDTOSchema = yup.object({
     .required("El email es requerido"),
   foto: yup.string().nullable(),
   genero: yup.string().nullable(),
-  fechaNacimiento: yup.string().nullable(),
+  fecha_nacimiento: yup.string().nullable(),
 });
