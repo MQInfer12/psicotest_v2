@@ -6,6 +6,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { UserDTOSchema } from "../validations/UserDTOSchema";
 import { toastSuccess } from "@/modules/core/utils/toasts";
 import { Genero } from "../types/Genero";
+import Input from "@/modules/core/components/ui/Input";
+import Button from "@/modules/core/components/ui/Button";
 
 interface Props {
   user: User | null;
@@ -50,31 +52,23 @@ const UserForm = ({ user, onSuccess }: Props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <p>Nombre</p>
-        <input type="text" {...register("nombre")} />
-      </div>
-      <div>
-        <p>Email</p>
-        <input type="text" {...register("email")} />
-      </div>
-      <div>
-        <p>Fecha de nacimiento</p>
-        <input type="date" {...register("fecha_nacimiento")} />
-      </div>
-      <div>
-        <p>Género</p>
-        <select {...register("genero")}>
-          <option value="">Sin especificar</option>
-          {Object.values(Genero).map((genero) => (
-            <option key={genero} value={genero}>
-              {genero}
-            </option>
-          ))}
-        </select>
-      </div>
-      <button>Enviar</button>
+    <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
+      <Input label="Nombre" {...register("nombre")} />
+      <Input label="Email" type="email" {...register("email")} />
+      <Input
+        label="Fecha de nacimiento"
+        type="date"
+        {...register("fecha_nacimiento")}
+      />
+      <Input label="Género" type="select" {...register("genero")}>
+        <option value="">Sin especificar</option>
+        {Object.values(Genero).map((genero) => (
+          <option key={genero} value={genero}>
+            {genero}
+          </option>
+        ))}
+      </Input>
+      <Button type="submit">Enviar</Button>
     </form>
   );
 };

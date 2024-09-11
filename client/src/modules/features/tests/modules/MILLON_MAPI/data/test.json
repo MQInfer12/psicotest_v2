@@ -1,0 +1,63 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "descripcion": "Me siento bien mostrando mi cuerpo en traje de baño."
+    },
+    {
+      "id": 2,
+      "descripcion": "Casi siempre pienso antes de actuar."
+    }
+  ],
+  "opciones": [
+    {
+      "id": 1,
+      "descripcion": "Verdadero"
+    },
+    {
+      "id": 2,
+      "descripcion": "Falso"
+    }
+  ],
+  "dimensiones": [
+    {
+      "id": 1,
+      "descripcion": "Introvertido",
+      "abreviacion": "1",
+      "items": [
+        {
+          "id_pregunta": 1,
+          "id_opcion": 1,
+          "puntuacion": 1
+        },
+        {
+          "id_pregunta": 1,
+          "id_opcion": 1,
+          "puntuacion": 1
+        }
+      ]
+    }
+  ],
+  "escalas": [
+    {
+      "id": 1,
+      "descripcion": "T",
+      "conversiones": [
+        {
+          "edad_minima": 13,
+          "edad_maxima": 15,
+          "genero": "Hombre",
+          "dimensiones": [
+            {
+              "id_dimension": 1,
+              "mapeo": {
+                "4": 31,
+                "5": 33
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

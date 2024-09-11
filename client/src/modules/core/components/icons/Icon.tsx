@@ -6,7 +6,10 @@ import IconCircle from "./tabler/iconCircle";
 import IconGender from "./tabler/iconGender";
 import IconLogout from "./tabler/iconLogout";
 import IconNotes from "./tabler/iconNotes";
+import IconPencil from "./tabler/iconPencil";
+import IconPersonActive from "./tabler/iconPersonActive";
 import IconQuestion from "./tabler/iconQuestion";
+import IconTrash from "./tabler/iconTrash";
 import IconUsers from "./tabler/iconUsers";
 import IconX from "./tabler/iconX";
 
@@ -25,6 +28,10 @@ export enum ICON {
   GENDER_NONE = "gender_none",
   CIRCLE = "circle",
   CIRCLE_ACTIVE = "circle_active",
+  PENCIL = "pencil",
+  TRASH = "trash",
+  PERSON_ACTIVE = "person_active",
+  PERSON_INACTIVE = "person_inactive",
 }
 
 interface Props {
@@ -47,6 +54,10 @@ const Icon = ({ type }: Props) => {
     [ICON.GENDER_NONE]: <IconGender type="none" />,
     [ICON.CIRCLE]: <IconCircle />,
     [ICON.CIRCLE_ACTIVE]: <IconCircle active />,
+    [ICON.PENCIL]: <IconPencil />,
+    [ICON.TRASH]: <IconTrash />,
+    [ICON.PERSON_ACTIVE]: <IconPersonActive />,
+    [ICON.PERSON_INACTIVE]: <IconPersonActive x />,
   };
   return icons[type];
 };

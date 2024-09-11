@@ -5,6 +5,7 @@ import { toastConfirm, toastSuccess } from "@/modules/core/utils/toasts";
 import Icon from "@/modules/core/components/icons/Icon";
 import DefaultPhoto from "@/assets/images/defaultPhoto.jpg";
 import clsx from "clsx";
+import Button from "@/modules/core/components/ui/Button";
 
 interface Props {
   user: User;
@@ -51,7 +52,7 @@ const UserCard = ({ user, setOpen, setData }: Props) => {
 
   return (
     <div
-      className="w-80 bg-alto-200 flex flex-col p-6 gap-4 rounded-lg relative isolate mt-10 shadow-lg"
+      className="w-80 bg-alto-200 flex flex-col p-6 px-8 gap-4 rounded-lg relative isolate mt-4 shadow-lg"
       key={user.email}
     >
       <div className="w-24 aspect-square absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 rounded-lg overflow-hidden shadow-md">
@@ -63,10 +64,10 @@ const UserCard = ({ user, setOpen, setData }: Props) => {
       </div>
       <div
         className={clsx(
-          "absolute top-6 left-6 flex items-center gap-2 transition-all duration-300",
+          "absolute top-6 left-8 flex items-center gap-2 transition-all duration-300",
           {
-            "text-emerald-500": user.estado,
-            "text-rose-500": !user.estado,
+            "text-success": user.estado,
+            "text-danger": !user.estado,
           }
         )}
       >
@@ -75,7 +76,9 @@ const UserCard = ({ user, setOpen, setData }: Props) => {
             type={user.estado ? Icon.Types.CIRCLE_ACTIVE : Icon.Types.CIRCLE}
           />
         </div>
-        <p className="text-xs">{user.estado ? "Activo" : "Inactivo"}</p>
+        <p className="text-xs font-medium">
+          {user.estado ? "Activo" : "Inactivo"}
+        </p>
       </div>
       <div className="flex flex-col pt-10">
         <strong
@@ -86,12 +89,12 @@ const UserCard = ({ user, setOpen, setData }: Props) => {
         </strong>
         <small
           title={user.email}
-          className="w-full text-center text-alto-800 text-ellipsis whitespace-nowrap overflow-hidden"
+          className="w-full text-center text-alto-500 text-ellipsis whitespace-nowrap overflow-hidden"
         >
           {user.email}
         </small>
       </div>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 text-alto-700">
         <div className="flex gap-4 text-sm items-center">
           <div className="w-5 aspect-square">
             <Icon type={Icon.Types.GENDER_NONE} />
@@ -105,24 +108,32 @@ const UserCard = ({ user, setOpen, setData }: Props) => {
           <p>{user.fecha_nacimiento || "Sin especificar"}</p>
         </div>
       </div>
-      <div className="flex gap-4 justify-center">
-        <button
+      <div className="flex gap-4 justify-center pt-1">
+        <Button
           disabled={user.email === loggedUser?.email}
           onClick={() => setOpen(user)}
+          icon={Icon.Types.PENCIL}
+          title="Editar usuario"
         >
           Editar
-        </button>
-        <button
+        </Button>
+        <Button
+          btnType="secondary"
+          danger
           disabled={user.email === loggedUser?.email}
           onClick={() => handleDelete(user.email)}
-        >
-          Eliminar
-        </button>
-        {user.email !== loggedUser?.email && (
-          <button onClick={() => handleChangeState(user.email)}>
-            {!user.estado ? "Habilitar" : "Deshabilitar"}
-          </button>
-        )}
+          icon={Icon.Types.TRASH}
+          title="Eliminar usuario"
+        />
+        <Button
+          btnType="secondary"
+          disabled={user.email === loggedUser?.email}
+          onClick={() => handleChangeState(user.email)}
+          icon={
+            user.estado ? Icon.Types.PERSON_ACTIVE : Icon.Types.PERSON_INACTIVE
+          }
+          title="Cambiar estado del usuario"
+        />
       </div>
     </div>
   );

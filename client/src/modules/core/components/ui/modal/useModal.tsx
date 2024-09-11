@@ -16,9 +16,10 @@ export const useModal = <T,>() => {
   };
 
   const modal = (
+    title: string,
     children: ((item: T | null) => React.ReactNode) | React.ReactNode
   ) => (
-    <Modal open={open} close={() => setOpen(false)}>
+    <Modal title={title} open={open} close={() => setOpen(false)}>
       {typeof children === "function" ? children(item) : children}
     </Modal>
   );

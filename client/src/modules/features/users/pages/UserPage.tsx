@@ -3,6 +3,7 @@ import { useModal } from "@/modules/core/components/ui/modal/useModal";
 import { User } from "../api/responses";
 import UserForm from "../components/UserForm";
 import UserCard from "../components/UserCard";
+import Button from "@/modules/core/components/ui/Button";
 
 const UserPage = () => {
   const { fetchData } = useFetch();
@@ -10,8 +11,8 @@ const UserPage = () => {
   const { modal, setOpen } = useModal<User>();
 
   return (
-    <div className="w-full flex flex-col items-center pb-20 px-10">
-      {modal((item) => (
+    <div className="w-full flex flex-col items-center pb-20 px-10 gap-12">
+      {modal("Formulario de usuario", (item) => (
         <UserForm
           user={item}
           onSuccess={(user) => {
@@ -26,10 +27,9 @@ const UserPage = () => {
           }}
         />
       ))}
-      <button className="sticky top-0" onClick={() => setOpen(true)}>
+      <Button btnType="secondary" onClick={() => setOpen(true)}>
         Añadir usuario
-      </button>
-      <br />
+      </Button>
       <div className="flex gap-16 flex-wrap items-center justify-center">
         {data?.map((u) => (
           <UserCard
