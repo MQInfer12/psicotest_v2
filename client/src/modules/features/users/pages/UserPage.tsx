@@ -4,6 +4,7 @@ import { User } from "../api/responses";
 import UserForm from "../components/UserForm";
 import UserCard from "../components/UserCard";
 import Button from "@/modules/core/components/ui/Button";
+import Loader from "@/modules/core/components/ui/loader/Loader";
 
 const UserPage = () => {
   const { fetchData } = useFetch();
@@ -11,7 +12,7 @@ const UserPage = () => {
   const { modal, setOpen } = useModal<User>();
 
   return (
-    <div className="w-full flex flex-col items-center pb-20 px-10 gap-12">
+    <div className="w-full flex-1 flex flex-col items-center pb-20 px-10 gap-12">
       {modal("Formulario de usuario", (item) => (
         <UserForm
           user={item}
@@ -30,16 +31,22 @@ const UserPage = () => {
       <Button btnType="secondary" onClick={() => setOpen(true)}>
         Añadir usuario
       </Button>
-      <div className="flex gap-16 flex-wrap items-center justify-center">
-        {data?.map((u) => (
-          <UserCard
-            key={u.email}
-            user={u}
-            setOpen={setOpen}
-            setData={setData}
-          />
-        ))}
-      </div>
+      {data ? (
+        <div className="flex gap-16 flex-wrap items-center justify-center">
+          {data?.map((u) => (
+            <UserCard
+              key={u.email}
+              user={u}
+              setOpen={setOpen}
+              setData={setData}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="flex-1 flex items-center justify-center">
+          <Loader />
+        </div>
+      )}
     </div>
   );
 };

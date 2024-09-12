@@ -14,6 +14,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Logo from "../components/Logo";
 import Breadcrumb from "../components/Breadcrumb";
+import Loader from "@/modules/core/components/ui/loader/Loader";
 
 const Dashboard = () => {
   const { user, state, logout } = useUserContext();
@@ -35,7 +36,12 @@ const Dashboard = () => {
     );
   };
 
-  if (state === "loading") return <div>Cargando...</div>;
+  if (state === "loading")
+    return (
+      <div className="w-screen h-screen bg-alto-100">
+        <Loader />
+      </div>
+    );
   return (
     <>
       <motion.aside
@@ -96,7 +102,7 @@ const Dashboard = () => {
             </button>
           </div>
         </header>
-        <section className="flex-1 overflow-auto">
+        <section className="flex-1 overflow-auto flex flex-col">
           <Outlet />
         </section>
       </main>

@@ -1,3 +1,5 @@
+import IconCheckAnimated from "./css/iconCheckAnimated";
+import IconArrow from "./tabler/iconArrow";
 import IconBell from "./tabler/iconBell";
 import IconCalendar from "./tabler/iconCalendar";
 import IconChat from "./tabler/iconChat";
@@ -15,6 +17,7 @@ import IconX from "./tabler/iconX";
 
 export enum ICON {
   CHECK = "check",
+  CHECK_ANIMATED = "check_animated",
   X = "x",
   QUESTION = "question",
   USERS = "users",
@@ -32,6 +35,8 @@ export enum ICON {
   TRASH = "trash",
   PERSON_ACTIVE = "person_active",
   PERSON_INACTIVE = "person_inactive",
+  ARROW_RIGHT = "arrow_right",
+  ARROW_LEFT = "arrow_left",
 }
 
 interface Props {
@@ -41,6 +46,7 @@ interface Props {
 const Icon = ({ type }: Props) => {
   const icons: Record<ICON, JSX.Element> = {
     [ICON.CHECK]: <IconCheck />,
+    [ICON.CHECK_ANIMATED]: <IconCheckAnimated />,
     [ICON.X]: <IconX />,
     [ICON.QUESTION]: <IconQuestion />,
     [ICON.USERS]: <IconUsers />,
@@ -58,6 +64,8 @@ const Icon = ({ type }: Props) => {
     [ICON.TRASH]: <IconTrash />,
     [ICON.PERSON_ACTIVE]: <IconPersonActive />,
     [ICON.PERSON_INACTIVE]: <IconPersonActive x />,
+    [ICON.ARROW_RIGHT]: <IconArrow type="right" />,
+    [ICON.ARROW_LEFT]: <IconArrow type="left" />,
   };
   return icons[type];
 };

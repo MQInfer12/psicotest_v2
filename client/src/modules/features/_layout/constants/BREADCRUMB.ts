@@ -27,4 +27,9 @@ export const BREADCRUMB: Breadcrumb[] = [
     match: "/users",
     breadcrumb: ["/users"],
   },
+  {
+    name: "Test MAPI",
+    match: "/tests/mapi",
+    breadcrumb: ["/tests", "/tests/mapi"],
+  },
 ];

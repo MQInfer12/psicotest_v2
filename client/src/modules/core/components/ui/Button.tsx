@@ -7,6 +7,7 @@ interface Props extends HTMLMotionProps<"button"> {
   btnType?: "primary" | "secondary";
   danger?: boolean;
   icon?: ICON;
+  reverse?: boolean;
   children?: React.ReactNode;
 }
 
@@ -17,6 +18,7 @@ const Button = ({
   children,
   className,
   disabled,
+  reverse,
   ...props
 }: Props) => {
   const getColors = (hover: boolean) => {
@@ -82,10 +84,13 @@ const Button = ({
       animate={getColors(false)}
       whileHover={getColors(true)}
       className={clsx(
-        "py-2 px-4 rounded-lg border text-sm flex items-center gap-3 cursor-pointer disabled:cursor-auto justify-center outline-none ring-0 ring-inset focus:ring-1 transition-[box-shadow]",
+        "py-2 h-fit px-4 rounded-lg border text-sm flex items-center gap-3 cursor-pointer disabled:cursor-auto justify-center outline-none ring-0 ring-inset focus:ring-1 transition-[box-shadow]",
         {
           "ring-primary-400": btnType === "secondary",
           "ring-white": btnType === "primary",
+        },
+        {
+          "flex-row-reverse": reverse,
         },
         className
       )}

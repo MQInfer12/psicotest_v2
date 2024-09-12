@@ -15,9 +15,10 @@ import { Route as PublicImport } from './routes/_public'
 import { Route as PrivateImport } from './routes/_private'
 import { Route as PublicIndexImport } from './routes/_public/index'
 import { Route as PrivateUsersImport } from './routes/_private/users'
-import { Route as PrivateTestsImport } from './routes/_private/tests'
 import { Route as PrivateChatImport } from './routes/_private/chat'
 import { Route as PrivateCalendarImport } from './routes/_private/calendar'
+import { Route as PrivateTestsIndexImport } from './routes/_private/tests/index'
+import { Route as PrivateTestsMapiImport } from './routes/_private/tests/mapi'
 
 // Create/Update Routes
 
@@ -41,11 +42,6 @@ const PrivateUsersRoute = PrivateUsersImport.update({
   getParentRoute: () => PrivateRoute,
 } as any)
 
-const PrivateTestsRoute = PrivateTestsImport.update({
-  path: '/tests',
-  getParentRoute: () => PrivateRoute,
-} as any)
-
 const PrivateChatRoute = PrivateChatImport.update({
   path: '/chat',
   getParentRoute: () => PrivateRoute,
@@ -53,6 +49,16 @@ const PrivateChatRoute = PrivateChatImport.update({
 
 const PrivateCalendarRoute = PrivateCalendarImport.update({
   path: '/calendar',
+  getParentRoute: () => PrivateRoute,
+} as any)
+
+const PrivateTestsIndexRoute = PrivateTestsIndexImport.update({
+  path: '/tests/',
+  getParentRoute: () => PrivateRoute,
+} as any)
+
+const PrivateTestsMapiRoute = PrivateTestsMapiImport.update({
+  path: '/tests/mapi',
   getParentRoute: () => PrivateRoute,
 } as any)
 
@@ -88,13 +94,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivateChatImport
       parentRoute: typeof PrivateImport
     }
-    '/_private/tests': {
-      id: '/_private/tests'
-      path: '/tests'
-      fullPath: '/tests'
-      preLoaderRoute: typeof PrivateTestsImport
-      parentRoute: typeof PrivateImport
-    }
     '/_private/users': {
       id: '/_private/users'
       path: '/users'
@@ -109,6 +108,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicIndexImport
       parentRoute: typeof PublicImport
     }
+    '/_private/tests/mapi': {
+      id: '/_private/tests/mapi'
+      path: '/tests/mapi'
+      fullPath: '/tests/mapi'
+      preLoaderRoute: typeof PrivateTestsMapiImport
+      parentRoute: typeof PrivateImport
+    }
+    '/_private/tests/': {
+      id: '/_private/tests/'
+      path: '/tests'
+      fullPath: '/tests'
+      preLoaderRoute: typeof PrivateTestsIndexImport
+      parentRoute: typeof PrivateImport
+    }
   }
 }
 
@@ -118,8 +131,9 @@ export const routeTree = rootRoute.addChildren({
   PrivateRoute: PrivateRoute.addChildren({
     PrivateCalendarRoute,
     PrivateChatRoute,
-    PrivateTestsRoute,
     PrivateUsersRoute,
+    PrivateTestsMapiRoute,
+    PrivateTestsIndexRoute,
   }),
   PublicRoute: PublicRoute.addChildren({ PublicIndexRoute }),
 })
@@ -141,8 +155,9 @@ export const routeTree = rootRoute.addChildren({
       "children": [
         "/_private/calendar",
         "/_private/chat",
-        "/_private/tests",
-        "/_private/users"
+        "/_private/users",
+        "/_private/tests/mapi",
+        "/_private/tests/"
       ]
     },
     "/_public": {
@@ -159,10 +174,6 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_private/chat.tsx",
       "parent": "/_private"
     },
-    "/_private/tests": {
-      "filePath": "_private/tests.tsx",
-      "parent": "/_private"
-    },
     "/_private/users": {
       "filePath": "_private/users.tsx",
       "parent": "/_private"
@@ -170,6 +181,14 @@ export const routeTree = rootRoute.addChildren({
     "/_public/": {
       "filePath": "_public/index.tsx",
       "parent": "/_public"
+    },
+    "/_private/tests/mapi": {
+      "filePath": "_private/tests/mapi.tsx",
+      "parent": "/_private"
+    },
+    "/_private/tests/": {
+      "filePath": "_private/tests/index.tsx",
+      "parent": "/_private"
     }
   }
 }

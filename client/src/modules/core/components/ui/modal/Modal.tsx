@@ -4,12 +4,16 @@ import { motion } from "framer-motion";
 import Button from "../Button";
 import Icon from "../../icons/Icon";
 import { useEffect, useRef } from "react";
+import clsx from "clsx";
 
 interface Props {
   open: boolean;
   title: string;
   children: React.ReactNode;
   close: () => void;
+  blur?: boolean;
+  width?: number;
+  titleBar?: boolean;
 }
 
 const getFocusableElements = (
@@ -48,7 +52,15 @@ const getFocusableElements = (
   return elements;
 };
 
-const Modal = ({ open, title, children, close }: Props) => {
+const Modal = ({
+  open,
+  title,
+  children,
+  close,
+  blur,
+  width,
+  titleBar,
+}: Props) => {
   const lastFocusedElement = useRef<HTMLElement | null>(null);
   const modalRef = useRef<HTMLDivElement | null>(null);
 
@@ -95,7 +107,10 @@ const Modal = ({ open, title, children, close }: Props) => {
   return createPortal(
     <Appear
       open={open}
-      className="bg-black/40 fixed inset-0 flex items-center justify-center z-40"
+      className={clsx(
+        "bg-black/40 fixed inset-0 flex items-center justify-center z-40",
+        { "backdrop-blur-sm": blur }
+      )}
       onClick={close}
     >
       <motion.section
@@ -106,11 +121,18 @@ const Modal = ({ open, title, children, close }: Props) => {
         animate={{
           scale: 1,
         }}
+        style={{
+          width: width ?? 384,
+        }}
         exit={{ scale: 0 }}
         onClick={(e) => e.stopPropagation()}
-        className="w-96 max-w-full bg-alto-50 rounded-lg flex flex-col"
+        className="max-w-full bg-alto-50 rounded-lg flex flex-col"
       >
-        <header className="flex justify-between items-center px-4 py-2 border-b border-alto-300/70 gap-4">
+        <header
+          className={clsx("flex justify-between items-center px-4 py-2 gap-4", {
+            "border-b border-alto-300/70": titleBar,
+          })}
+        >
           <strong className="whitespace-nowrap overflow-hidden text-ellipsis">
             {title}
           </strong>
@@ -121,7 +143,13 @@ const Modal = ({ open, title, children, close }: Props) => {
             icon={Icon.Types.X}
           />
         </header>
-        <main className="p-4">{children}</main>
+        <main
+          className={clsx("p-4", {
+            "pt-0": !titleBar,
+          })}
+        >
+          {children}
+        </main>
       </motion.section>
     </Appear>,
     document.getElementById("modal") || document.body

@@ -1,6 +1,12 @@
 import { useState } from "react";
 import Modal from "./Modal";
 
+interface Options {
+  width?: number;
+  blur?: boolean;
+  titleBar?: boolean;
+}
+
 export const useModal = <T,>() => {
   const [open, _setOpen] = useState(false);
   const [item, setItem] = useState<T | null>(null);
@@ -17,9 +23,17 @@ export const useModal = <T,>() => {
 
   const modal = (
     title: string,
-    children: ((item: T | null) => React.ReactNode) | React.ReactNode
+    children: ((item: T | null) => React.ReactNode) | React.ReactNode,
+    options?: Options
   ) => (
-    <Modal title={title} open={open} close={() => setOpen(false)}>
+    <Modal
+      title={title}
+      open={open}
+      close={() => setOpen(false)}
+      blur={options?.blur}
+      width={options?.width}
+      titleBar={options?.titleBar ?? true}
+    >
       {typeof children === "function" ? children(item) : children}
     </Modal>
   );
