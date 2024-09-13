@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Icon from "../../icons/Icon";
 import Button from "../Button";
 import { useModal } from "../modal/useModal";
@@ -6,26 +6,39 @@ import { CANVAS_PADDING } from "./constants/CANVAS";
 import MAPITest from "@/modules/features/tests/modules/MAPI/data/test.json";
 import { AnimatePresence, motion } from "framer-motion";
 import clsx from "clsx";
+import { FRASES } from "@/modules/core/data";
 
 interface TestForm {
   idPregunta: number;
   idOpcion: number;
 }
 
+function obtenerFraseAleatoria() {
+  const indiceAleatorio = Math.floor(Math.random() * FRASES.length);
+  return FRASES[indiceAleatorio];
+}
+
 const Test = () => {
   const { modal, setOpen } = useModal();
   const [[preguntaIndex, direction], setCurrentPage] = useState([0, 1]);
   const [form, setForm] = useState<TestForm[]>([]);
+  const frase = useMemo(() => obtenerFraseAleatoria(), []);
+  const timerRef = useRef<any>();
+  const pregunta = MAPITest.items[preguntaIndex];
+  const exist = form.find((v) => v.idPregunta === pregunta.id);
+
+  const [finalizedAnimation, setFinalizedAnimation] = useState(!!exist);
+  useEffect(() => {
+    setFinalizedAnimation(!!exist);
+  }, [preguntaIndex]);
 
   function setPreguntaIndex(newPage: number, newDirection: number) {
     if (!newDirection) newDirection = newPage - preguntaIndex;
     setCurrentPage([newPage, newDirection]);
   }
 
-  const pregunta = MAPITest.items[preguntaIndex];
-  const exist = form.find((v) => v.idPregunta === pregunta.id);
-
   const handleOption = (idOpcion: number) => {
+    clearTimeout(timerRef.current);
     setForm((prev) => {
       if (exist) {
         return prev.map((v) => {
@@ -44,9 +57,10 @@ const Test = () => {
         ];
       }
     });
-    if (!exist) {
-      setTimeout(() => {
+    if (!exist || !finalizedAnimation) {
+      timerRef.current = setTimeout(() => {
         setPreguntaIndex(preguntaIndex + 1, 1);
+        setFinalizedAnimation(true);
       }, 1500);
     }
   };
@@ -86,18 +100,17 @@ const Test = () => {
           </h3>
           <strong className="text-alto-800">¡Inicia tu test ahora!</strong>
         </div>
-        <Button onClick={() => setOpen(true)}>Comienza tu test</Button>
+        <Button onClick={() => setOpen(true)} icon={Icon.Types.ARROW_RIGHT}>
+          {form.length > 0 ? "Continuar el test" : "¡Comienza tu test!"}
+        </Button>
       </div>
       {modal(
         "Test MAPI",
         <div className="flex flex-col gap-2">
           <small className="text-alto-700 flex gap-2">
-            <span className="italic text-xs">
-              "Supongo que es tentador tratar todo como si fuera un clavo, si la
-              única herramienta que tienes es un martillo"
-            </span>
+            <span className="italic text-xs">"{frase.frase}"</span>
             <span className="text-[10px] text-primary-400">
-              (Abraham Maslow)
+              ({frase.autor})
             </span>
           </small>
           <div className="w-full flex items-center gap-4">
@@ -199,7 +212,7 @@ const Test = () => {
               Anterior
             </Button>
             <Button
-              disabled={!exist}
+              disabled={!exist || !finalizedAnimation}
               onClick={() => {
                 setPreguntaIndex(preguntaIndex + 1, 1);
               }}

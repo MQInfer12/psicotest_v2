@@ -1,17 +1,23 @@
 import IconCheckAnimated from "./css/iconCheckAnimated";
 import IconArrow from "./tabler/iconArrow";
 import IconBell from "./tabler/iconBell";
+import IconBrain from "./tabler/iconBrain";
 import IconCalendar from "./tabler/iconCalendar";
 import IconChat from "./tabler/iconChat";
 import IconCheck from "./tabler/iconCheck";
 import IconCircle from "./tabler/iconCircle";
+import IconDots from "./tabler/iconDots";
 import IconGender from "./tabler/iconGender";
 import IconLogout from "./tabler/iconLogout";
 import IconNotes from "./tabler/iconNotes";
 import IconPencil from "./tabler/iconPencil";
 import IconPersonActive from "./tabler/iconPersonActive";
+import IconQR from "./tabler/iconQR";
 import IconQuestion from "./tabler/iconQuestion";
+import IconSchool from "./tabler/iconSchool";
+import IconStarred from "./tabler/iconStarred";
 import IconTrash from "./tabler/iconTrash";
+import IconUser from "./tabler/iconUser";
 import IconUsers from "./tabler/iconUsers";
 import IconX from "./tabler/iconX";
 
@@ -37,6 +43,12 @@ export enum ICON {
   PERSON_INACTIVE = "person_inactive",
   ARROW_RIGHT = "arrow_right",
   ARROW_LEFT = "arrow_left",
+  USER = "user",
+  SCHOOL = "school",
+  DOTS = "dots",
+  BRAIN = "brain",
+  QR = "QR",
+  STARRED = "starred",
 }
 
 interface Props {
@@ -66,6 +78,12 @@ const Icon = ({ type }: Props) => {
     [ICON.PERSON_INACTIVE]: <IconPersonActive x />,
     [ICON.ARROW_RIGHT]: <IconArrow type="right" />,
     [ICON.ARROW_LEFT]: <IconArrow type="left" />,
+    [ICON.USER]: <IconUser />,
+    [ICON.SCHOOL]: <IconSchool />,
+    [ICON.DOTS]: <IconDots />,
+    [ICON.BRAIN]: <IconBrain />,
+    [ICON.QR]: <IconQR />,
+    [ICON.STARRED]: <IconStarred />,
   };
   return icons[type];
 };

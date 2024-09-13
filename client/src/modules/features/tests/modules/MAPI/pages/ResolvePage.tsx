@@ -3,7 +3,7 @@ import Canvas from "@/modules/core/components/ui/canvas/Canvas";
 const ResolvePage = () => {
   return (
     <Canvas>
-      <Canvas.Title>Test MAPI</Canvas.Title>
+      <Canvas.Title subtitle="MILLON">Test MAPI</Canvas.Title>
       <Canvas.Subtitle>Descripción</Canvas.Subtitle>
       <Canvas.Paragraph>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat,
@@ -17,10 +17,7 @@ const ResolvePage = () => {
         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non ratione
         voluptatibus dolore sapiente quasi repellendus molestias at doloremque
         consequatur rem consequuntur, assumenda dolorem suscipit perferendis
-        voluptas neque quo? Ut totam unde commodi magnam velit dignissimos iusto
-        hic molestiae, laboriosam et! Quidem, quia vero quasi, corporis vitae
-        odio quos ea corrupti iste magnam quae nisi minima aperiam quisquam.
-        Placeat, architecto maiores!
+        voluptas neque quo? Ut totam unde commodi magnam veli.
       </Canvas.Paragraph>
       <Canvas.Subtitle>¿Cómo resolver?</Canvas.Subtitle>
       <Canvas.Paragraph>

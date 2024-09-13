@@ -7,7 +7,7 @@ import LoginCard from "../../auth/components/LoginCard";
 
 const Public = () => {
   const { state } = useUserContext();
-  if (state !== "unlogged") return <Navigate to="/users" />;
+  if (state !== "unlogged") return <Navigate to="/tests" />;
 
   return (
     <>

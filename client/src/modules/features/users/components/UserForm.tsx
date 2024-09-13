@@ -19,7 +19,11 @@ const UserForm = ({ user, onSuccess }: Props) => {
   const postMutation = postData("POST /user");
   const putMutation = postData("PUT /user/:id");
 
-  const { register, handleSubmit } = useForm<UserDTO>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UserDTO>({
     defaultValues: {
       email: user?.email,
       nombre: user?.nombre,
@@ -53,14 +57,29 @@ const UserForm = ({ user, onSuccess }: Props) => {
 
   return (
     <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
-      <Input label="Nombre" {...register("nombre")} />
-      <Input label="Email" type="email" {...register("email")} />
+      <Input
+        label="Nombre"
+        error={errors.nombre?.message}
+        {...register("nombre")}
+      />
+      <Input
+        label="Email"
+        error={errors.email?.message}
+        type="email"
+        {...register("email")}
+      />
       <Input
         label="Fecha de nacimiento"
         type="date"
+        error={errors.fecha_nacimiento?.message}
         {...register("fecha_nacimiento")}
       />
-      <Input label="Género" type="select" {...register("genero")}>
+      <Input
+        label="Género"
+        error={errors.genero?.message}
+        type="select"
+        {...register("genero")}
+      >
         <option value="">Sin especificar</option>
         {Object.values(Genero).map((genero) => (
           <option key={genero} value={genero}>
