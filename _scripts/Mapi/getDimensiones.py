@@ -31,9 +31,13 @@ for texto in textos:
     array_verdaderos = []
     for verdadero in verdaderos:
       objeto_verdaderos = {
-        "id_pregunta": int(verdadero.strip()),
-        "id_opcion": 1,
-        "puntuacion": 1
+        "puntuacion": 1,
+        "condiciones":[
+          {
+          "id_pregunta": int(verdadero.strip()),
+          "id_opcion": 1,
+          }
+        ]
       }
       array_verdaderos.append(objeto_verdaderos)
     cont_verdadero += 4
@@ -45,9 +49,13 @@ for texto in textos:
       falsos = falsos_exist[1].split("-")
       for falso in falsos:
         objeto_falsos = {
-          "id_pregunta": int(falso.strip()),
-          "id_opcion": 2,
-          "puntuacion": 1
+          "puntuacion": 1,
+          "condiciones": [
+            {
+              "id_pregunta": int(falso.strip()),
+              "id_opcion": 2,
+            }
+          ]
         }
         array_falsos.append(objeto_falsos)
     dimensiones_dict["items"] = array_verdaderos + array_falsos
@@ -121,18 +129,19 @@ for texto in textos_incoherencias:
   else:
     second_option = 2
 
-  array_incoherencia = [
-     {
+  array_incoherencia = {
+    "puntuacion": 1,
+    "condiciones": [  
+      {
         "id_pregunta": int(first_number.strip()),
         "id_opcion": first_option,
-        "puntuacion": 1
-     },
-     {
+      },
+      {
         "id_pregunta": int(second_number.strip()),
         "id_opcion": second_option,
-        "puntuacion": 1
-     }
-  ]
+      }
+    ]
+  }
 
   incoherencias.append(array_incoherencia)
 dimensiones_dict["items"] = incoherencias
