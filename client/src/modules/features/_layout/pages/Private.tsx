@@ -1,11 +1,18 @@
 import useFetch from "@/modules/core/hooks/useFetch";
 import { useUserContext } from "../../auth/context/UserContext";
 import { toastConfirm, toastSuccess } from "@/modules/core/utils/toasts";
-import { Link, Navigate, Outlet } from "@tanstack/react-router";
+import {
+  Link,
+  Navigate,
+  Outlet,
+  useLocation,
+  useNavigate,
+} from "@tanstack/react-router";
 import {
   PRIVATE_ASIDE_WIDTH,
   PRIVATE_ASIDE_WIDTH_THIN,
   PRIVATE_HEADER_HEIGHT,
+  PRIVATE_PADDING_INLINE,
 } from "../constants/LAYOUT_SIZES";
 import Icon, { ICON } from "@/modules/core/components/icons/Icon";
 import AsideLink from "../components/AsideLink";
@@ -13,13 +20,16 @@ import { PRIVATE_LINKS } from "../constants/PRIVATE_LINKS";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Logo from "../components/Logo";
-import Breadcrumb from "../components/Breadcrumb";
+import Breadcrumb from "../components/breadcrumb/Breadcrumb";
 import Loader from "@/modules/core/components/ui/loader/Loader";
+import { getActiveBreadcrumb } from "../components/breadcrumb/utils/getActiveBreadcrumb";
 
 const Dashboard = () => {
   const { user, state, logout } = useUserContext();
   if (state === "unlogged") return <Navigate to="/" />;
 
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
 
   const { postData } = useFetch();
@@ -39,9 +49,17 @@ const Dashboard = () => {
   if (state === "loading")
     return (
       <div className="w-screen h-screen bg-alto-100">
-        <Loader />
+        <Loader text="Cargando datos de usuario..." />
       </div>
     );
+
+  const activeBreadcrumb = getActiveBreadcrumb(pathname);
+  const lastPage = activeBreadcrumb
+    ? activeBreadcrumb.breadcrumb.length > 1
+      ? activeBreadcrumb.breadcrumb[activeBreadcrumb.breadcrumb.length - 2]
+      : undefined
+    : undefined;
+
   return (
     <>
       <motion.aside
@@ -84,21 +102,46 @@ const Dashboard = () => {
         <header
           style={{
             minHeight: PRIVATE_HEADER_HEIGHT,
+            paddingInline: PRIVATE_PADDING_INLINE,
           }}
-          className="flex items-center justify-between px-10 bg-alto-100 z-20"
+          className="flex items-center justify-between bg-alto-100 z-20"
         >
-          <div className="flex flex-col gap-1">
-            <h2 className="text-lg">
-              ¡Bienvenido, {user?.nombre.split(" ")[0]}!
-            </h2>
+          <div className="flex flex-col gap-2">
             <Breadcrumb />
+            <div className="flex items-center">
+              {lastPage && (
+                <button
+                  className="flex items-center justify-center text-alto-500 hover:text-primary-900/70 transition-all duration-300 pr-2"
+                  onClick={() =>
+                    navigate({
+                      to: lastPage,
+                    })
+                  }
+                >
+                  <Icon type={Icon.Types.CHEVRON_LEFT} />
+                </button>
+              )}
+              <h2 className="text-2xl font-bold text-alto-950">
+                {activeBreadcrumb?.name}
+              </h2>
+            </div>
           </div>
-          <div className="flex gap-8">
-            <button className="w-12 aspect-square rounded-lg bg-alto-200 flex items-center justify-center p-3 text-alto-400">
-              <Icon type={Icon.Types.BELL} />
+          <div className="flex gap-4">
+            <button className="w-48 flex overflow-hidden items-center border border-alto-200 rounded-lg bg-alto-50">
+              <div className="w-12 aspect-square rounded-lg bg-alto-200 overflow-hidden flex items-center justify-center">
+                {user?.foto && (
+                  <img className="w-full h-full" src={user.foto} />
+                )}
+              </div>
+              <div className="flex-1 overflow-hidden flex flex-col justify-center px-2">
+                <p className="text-xs font-semibold text-primary-950 whitespace-nowrap overflow-hidden text-ellipsis">
+                  {user?.nombre}
+                </p>
+                <small className="text-[10px]">¡Bienvenido!</small>
+              </div>
             </button>
-            <button className="w-12 aspect-square rounded-lg bg-alto-200 flex items-center justify-center overflow-hidden">
-              {user?.foto && <img className="w-full h-full" src={user.foto} />}
+            <button className="w-12 aspect-square rounded-lg bg-alto-50 border border-alto-200 flex items-center justify-center p-3 text-alto-400">
+              <Icon type={Icon.Types.BELL} />
             </button>
           </div>
         </header>

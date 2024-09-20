@@ -5,12 +5,14 @@ import Appear from "../utils/Appear";
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: string;
+  inputSize?: "base" | "small";
 }
 
 interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   label?: string;
   type?: "select";
   error?: string;
+  inputSize?: "base" | "small";
 }
 
 type Props = InputProps | SelectProps;
@@ -21,7 +23,7 @@ const isSelect = (props: Props): props is SelectProps => {
 
 const Input = forwardRef((props: Props, ref: ForwardedRef<any>) => {
   const id = useId();
-  const { label, className, error } = props;
+  const { label, className, error, inputSize = "base" } = props;
 
   return (
     <div className="flex flex-col w-full">
@@ -48,8 +50,12 @@ const Input = forwardRef((props: Props, ref: ForwardedRef<any>) => {
           id={id}
           ref={ref}
           className={clsx(
-            "w-full border border-alto-300/70 text-sm rounded-lg outline-none py-2 px-3 bg-white",
+            "w-full border border-alto-300/70 rounded-lg outline-none bg-white",
             "ring-0 ring-inset ring-primary-400 focus:ring-1 transition-all duration-300",
+            {
+              "text-sm h-[38px] px-3": inputSize === "base",
+              "text-xs h-[34px] px-2": inputSize === "small",
+            },
             className
           )}
           autoComplete="off"
@@ -64,8 +70,12 @@ const Input = forwardRef((props: Props, ref: ForwardedRef<any>) => {
           type="text"
           autoComplete="off"
           className={clsx(
-            "w-full border border-alto-300/70 text-sm rounded-lg outline-none py-2 px-3 bg-white",
+            "w-full border border-alto-300/70 rounded-lg outline-none bg-white",
             "ring-0 ring-inset ring-primary-400 focus:ring-1 transition-all duration-300",
+            {
+              "text-sm h-[38px] px-3": inputSize === "base",
+              "text-xs h-[34px] px-3": inputSize === "small",
+            },
             className
           )}
           {...props}

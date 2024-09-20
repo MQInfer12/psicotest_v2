@@ -6,7 +6,6 @@ import {
   useCallback,
   useContext,
   useEffect,
-  useRef,
   useState,
 } from "react";
 
@@ -45,26 +44,24 @@ const GetUser = () => {
 
 export const UserContextProvider = ({ children }: Props) => {
   const [user, setUser] = useState<User | null>(null);
-  const stateRef = useRef<UserContextState>(
+  const [state, setState] = useState<UserContextState>(
     localStorage.getItem(TOKEN_NAME) ? "loading" : "unlogged"
   );
 
   const login = useCallback((user: User, token: string) => {
     localStorage.setItem(TOKEN_NAME, token);
     setUser(user);
-    stateRef.current = "logged";
+    setState("logged");
   }, []);
 
   const logout = useCallback(() => {
     localStorage.removeItem(TOKEN_NAME);
     setUser(null);
-    stateRef.current = "unlogged";
+    setState("unlogged");
   }, []);
 
   return (
-    <UserContext.Provider
-      value={{ user, state: stateRef.current, login, logout }}
-    >
+    <UserContext.Provider value={{ user, state, login, logout }}>
       {children}
       <GetUser />
     </UserContext.Provider>

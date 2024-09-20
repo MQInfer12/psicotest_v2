@@ -19,7 +19,7 @@ class Authenticate extends Middleware
         abort(response()->json([
             'status' => 401,
             'data' => null,
-            'message' => 'Sin autorización.',
+            'message' => 'Tu sesión ha expirado.',
         ], 401));
     }
 }

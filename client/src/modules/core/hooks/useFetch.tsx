@@ -1,6 +1,5 @@
 import {
   MutateOptions,
-  QueryKey,
   useMutation,
   useQuery,
   useQueryClient,
@@ -46,7 +45,6 @@ const useFetch = () => {
 
   //* FETCHING IN COMPONENT RENDERING
   const fetchData = <K extends keyof EndpointMap>(
-    key: QueryKey,
     endpointConfig: K | [K, EndpointMap[K]["params"]],
     config: RequestInit = {}
   ) => {
@@ -62,7 +60,7 @@ const useFetch = () => {
       : undefined;
     const urlBuild = buildUrl(endpoint, params);
 
-    const queryKey = params ? [...key, ...Object.values(params)] : key;
+    const queryKey = params ? [endpoint, ...Object.values(params)] : [endpoint];
 
     const returnValue = useQuery<ApiSuccessResponse<TResponse>>({
       queryKey,

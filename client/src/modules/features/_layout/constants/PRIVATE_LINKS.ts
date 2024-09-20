@@ -10,8 +10,13 @@ interface PrivateLink {
 export const PRIVATE_LINKS: PrivateLink[] = [
   {
     to: "/tests",
-    icon: ICON.NOTES,
+    icon: ICON.BRAIN,
     title: "Tests",
+  },
+  {
+    to: "/answers",
+    icon: ICON.NOTES,
+    title: "Respuestas",
   },
   {
     to: "/calendar",

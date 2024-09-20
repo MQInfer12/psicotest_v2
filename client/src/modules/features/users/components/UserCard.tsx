@@ -52,7 +52,7 @@ const UserCard = ({ user, setOpen, setData }: Props) => {
 
   return (
     <div
-      className="w-80 bg-alto-50 flex flex-col p-6 px-8 gap-4 rounded-lg relative isolate mt-4 shadow-lg"
+      className="w-full bg-alto-50 flex flex-col p-6 px-8 gap-4 rounded-lg relative isolate shadow-lg"
       key={user.email}
     >
       <div className="w-24 aspect-square absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 rounded-lg overflow-hidden shadow-md">
@@ -97,7 +97,15 @@ const UserCard = ({ user, setOpen, setData }: Props) => {
       <div className="flex flex-col gap-3 text-alto-700">
         <div className="flex gap-4 text-sm items-center">
           <div className="w-5 aspect-square text-primary-400">
-            <Icon type={Icon.Types.GENDER_NONE} />
+            <Icon
+              type={
+                user.genero
+                  ? user.genero === "Hombre"
+                    ? Icon.Types.GENDER_MALE
+                    : Icon.Types.GENDER_FEMALE
+                  : Icon.Types.GENDER_NONE
+              }
+            />
           </div>
           <p>{user.genero || "Sin especificar"}</p>
         </div>

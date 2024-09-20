@@ -5,6 +5,7 @@ import Icon, { ICON } from "../icons/Icon";
 
 interface Props extends HTMLMotionProps<"button"> {
   btnType?: "primary" | "secondary";
+  btnSize?: "base" | "small";
   danger?: boolean;
   icon?: ICON;
   reverse?: boolean;
@@ -13,6 +14,7 @@ interface Props extends HTMLMotionProps<"button"> {
 
 const Button = ({
   btnType = "primary",
+  btnSize = "base",
   danger,
   icon,
   children,
@@ -81,13 +83,18 @@ const Button = ({
 
   return (
     <motion.button
+      initial={getColors(false)}
       animate={getColors(false)}
       whileHover={getColors(true)}
       className={clsx(
-        "py-2 h-fit px-4 rounded-lg border text-sm flex items-center gap-3 cursor-pointer disabled:cursor-auto justify-center outline-none ring-0 ring-inset focus:ring-1 transition-[box-shadow]",
+        "h-fit rounded-lg border flex items-center cursor-pointer disabled:cursor-auto justify-center outline-none ring-0 ring-inset focus:ring-1 transition-[box-shadow]",
         {
           "ring-primary-400": btnType === "secondary",
           "ring-white": btnType === "primary",
+        },
+        {
+          "py-2 px-4 text-sm gap-3": btnSize === "base",
+          "py-2 px-3 text-xs gap-2": btnSize === "small",
         },
         {
           "flex-row-reverse": reverse,
@@ -99,7 +106,12 @@ const Button = ({
     >
       {children}
       {icon && (
-        <div className="w-5 aspect-square">
+        <div
+          className={clsx("aspect-square", {
+            "w-5": btnSize === "base",
+            "w-4": btnSize === "small",
+          })}
+        >
           <Icon type={icon} />
         </div>
       )}

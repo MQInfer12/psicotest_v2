@@ -2,3 +2,4 @@ export const PUBLIC_NAVBAR_HEIGHT = 80;
 export const PRIVATE_ASIDE_WIDTH_THIN = 88;
 export const PRIVATE_ASIDE_WIDTH = 256;
 export const PRIVATE_HEADER_HEIGHT = 120;
+export const PRIVATE_PADDING_INLINE = 40;

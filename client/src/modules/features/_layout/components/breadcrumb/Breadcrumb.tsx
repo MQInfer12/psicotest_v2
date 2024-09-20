@@ -1,12 +1,12 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { BREADCRUMB } from "../constants/BREADCRUMB";
 import clsx from "clsx";
 import { Fragment } from "react/jsx-runtime";
+import { getActiveBreadcrumb } from "./utils/getActiveBreadcrumb";
+import { BREADCRUMB } from "./constants/BREADCRUMB";
 
 const Breadcrumb = () => {
   const { pathname } = useLocation();
-
-  const activeBreadcrumb = BREADCRUMB.find((b) => b.match === pathname);
+  const activeBreadcrumb = getActiveBreadcrumb(pathname);
 
   if (!activeBreadcrumb) {
     throw new Error("No se encontró una miga de pan para esta ruta");

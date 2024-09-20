@@ -3,10 +3,10 @@ import Icon from "../../icons/Icon";
 import Button from "../Button";
 import { useModal } from "../modal/useModal";
 import { CANVAS_PADDING } from "./constants/CANVAS";
-import MAPITest from "@/modules/features/tests/modules/MAPI/data/test.json";
 import { AnimatePresence, motion } from "framer-motion";
 import clsx from "clsx";
 import { FRASES } from "@/modules/core/data";
+import { MAPITest } from "@/modules/features/tests/modules/MAPI/data";
 
 interface TestForm {
   idPregunta: number;
