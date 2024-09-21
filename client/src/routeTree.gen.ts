@@ -19,7 +19,7 @@ import { Route as PrivateChatImport } from './routes/_private/chat'
 import { Route as PrivateCalendarImport } from './routes/_private/calendar'
 import { Route as PrivateTestsIndexImport } from './routes/_private/tests/index'
 import { Route as PrivateAnswersIndexImport } from './routes/_private/answers/index'
-import { Route as PrivateTestsMapiImport } from './routes/_private/tests/mapi'
+import { Route as PrivateTestsIdImport } from './routes/_private/tests/$id'
 import { Route as PrivateAnswersIdImport } from './routes/_private/answers/$id'
 
 // Create/Update Routes
@@ -64,8 +64,8 @@ const PrivateAnswersIndexRoute = PrivateAnswersIndexImport.update({
   getParentRoute: () => PrivateRoute,
 } as any)
 
-const PrivateTestsMapiRoute = PrivateTestsMapiImport.update({
-  path: '/tests/mapi',
+const PrivateTestsIdRoute = PrivateTestsIdImport.update({
+  path: '/tests/$id',
   getParentRoute: () => PrivateRoute,
 } as any)
 
@@ -127,11 +127,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivateAnswersIdImport
       parentRoute: typeof PrivateImport
     }
-    '/_private/tests/mapi': {
-      id: '/_private/tests/mapi'
-      path: '/tests/mapi'
-      fullPath: '/tests/mapi'
-      preLoaderRoute: typeof PrivateTestsMapiImport
+    '/_private/tests/$id': {
+      id: '/_private/tests/$id'
+      path: '/tests/$id'
+      fullPath: '/tests/$id'
+      preLoaderRoute: typeof PrivateTestsIdImport
       parentRoute: typeof PrivateImport
     }
     '/_private/answers/': {
@@ -159,7 +159,7 @@ export const routeTree = rootRoute.addChildren({
     PrivateChatRoute,
     PrivateUsersRoute,
     PrivateAnswersIdRoute,
-    PrivateTestsMapiRoute,
+    PrivateTestsIdRoute,
     PrivateAnswersIndexRoute,
     PrivateTestsIndexRoute,
   }),
@@ -185,7 +185,7 @@ export const routeTree = rootRoute.addChildren({
         "/_private/chat",
         "/_private/users",
         "/_private/answers/$id",
-        "/_private/tests/mapi",
+        "/_private/tests/$id",
         "/_private/answers/",
         "/_private/tests/"
       ]
@@ -216,8 +216,8 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_private/answers/$id.tsx",
       "parent": "/_private"
     },
-    "/_private/tests/mapi": {
-      "filePath": "_private/tests/mapi.tsx",
+    "/_private/tests/$id": {
+      "filePath": "_private/tests/$id.tsx",
       "parent": "/_private"
     },
     "/_private/answers/": {

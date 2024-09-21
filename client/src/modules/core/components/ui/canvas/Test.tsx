@@ -6,7 +6,7 @@ import { CANVAS_PADDING } from "./constants/CANVAS";
 import { AnimatePresence, motion } from "framer-motion";
 import clsx from "clsx";
 import { FRASES } from "@/modules/core/data";
-import { MAPITest } from "@/modules/features/tests/modules/MAPI/data";
+import { Item, TestType } from "@/modules/features/tests/types/TestType";
 
 interface TestForm {
   idPregunta: number;
@@ -18,13 +18,35 @@ function obtenerFraseAleatoria() {
   return FRASES[indiceAleatorio];
 }
 
-const Test = () => {
+interface Props {
+  test: TestType;
+}
+
+const Test = ({ test }: Props) => {
   const { modal, setOpen } = useModal();
   const [[preguntaIndex, direction], setCurrentPage] = useState([0, 1]);
   const [form, setForm] = useState<TestForm[]>([]);
   const frase = useMemo(() => obtenerFraseAleatoria(), []);
   const timerRef = useRef<any>();
-  const pregunta = MAPITest.items[preguntaIndex];
+
+  console.log(form);
+
+  const preguntas = useMemo(
+    () =>
+      test.secciones.reduce((total, seccion) => {
+        seccion.items.forEach((i) => {
+          total.push(i);
+        });
+        return total;
+      }, [] as Item[]),
+    [test]
+  );
+  const pregunta = preguntas[preguntaIndex];
+  const opciones =
+    test.secciones.find((seccion) =>
+      seccion.items.some((item) => item.id === pregunta.id)
+    )?.opciones || [];
+
   const exist = form.find((v) => v.idPregunta === pregunta.id);
 
   const [finalizedAnimation, setFinalizedAnimation] = useState(!!exist);
@@ -65,13 +87,19 @@ const Test = () => {
     }
   };
 
+  const maxOpciones = test.secciones.reduce(
+    (maximo, seccion) =>
+      seccion.opciones.length > maximo ? seccion.opciones.length : maximo,
+    0
+  );
+
   let height = 80; //p-10
   height += 24; //h4
   height += 24; //gap-3 x2
   height += 128; //p
   height += 16; //opciones mt-4
   height += 16; //opciones gap-4
-  height += 80; //2 opciones h-10
+  height += maxOpciones * 40; //2 opciones h-10
   height -= -1; //!BORDE DE MRD
 
   const variants = {
@@ -116,13 +144,13 @@ const Test = () => {
           <div className="w-full flex items-center gap-4">
             <div className="w-20 flex justify-center">
               <small>
-                P: {preguntaIndex + 1} / {MAPITest.items.length}
+                P: {preguntaIndex + 1} / {preguntas.length}
               </small>
             </div>
             <div className="flex-1 h-2 bg-alto-100 rounded-md overflow-hidden">
               <motion.span
                 animate={{
-                  width: `${((preguntaIndex + 1) / MAPITest.items.length) * 100}%`,
+                  width: `${((preguntaIndex + 1) / preguntas.length) * 100}%`,
                 }}
                 className="block h-full bg-primary-600"
               />
@@ -170,7 +198,7 @@ const Test = () => {
                     </motion.p>
                   </div>
                   <div className="flex flex-col pt-2 px-4 gap-4">
-                    {MAPITest.opciones.map((opcion) => (
+                    {opciones.map((opcion) => (
                       <button
                         key={opcion.id}
                         onClick={() => handleOption(opcion.id)}

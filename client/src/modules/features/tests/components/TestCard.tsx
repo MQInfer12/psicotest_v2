@@ -36,7 +36,10 @@ const TestCard = ({
           {title}
         </strong>
         {starred && (
-          <div className="h-6 aspect-square text-primary-700">
+          <div
+            title="Seleccionado por los creadores"
+            className="h-6 aspect-square text-primary-700"
+          >
             <Icon type={Icon.Types.STARRED} />
           </div>
         )}

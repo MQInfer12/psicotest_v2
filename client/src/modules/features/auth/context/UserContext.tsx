@@ -1,5 +1,5 @@
 import { TOKEN_NAME } from "@/modules/core/constants/CONSTANTS";
-import useFetch from "@/modules/core/hooks/useFetch";
+import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import { User } from "@/modules/features/users/api/responses";
 import {
   createContext,

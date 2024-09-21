@@ -1,4 +1,3 @@
-import useFetch, { SetData } from "@/modules/core/hooks/useFetch";
 import { useUserContext } from "../../auth/context/UserContext";
 import { User } from "../api/responses";
 import { toastConfirm, toastSuccess } from "@/modules/core/utils/toasts";
@@ -6,6 +5,8 @@ import Icon from "@/modules/core/components/icons/Icon";
 import DefaultPhoto from "@/assets/images/defaultPhoto.jpg";
 import clsx from "clsx";
 import Button from "@/modules/core/components/ui/Button";
+import useFetch from "@/modules/core/hooks/useFetch/useFetch";
+import { SetData } from "@/modules/core/hooks/useFetch/getSetData";
 
 interface Props {
   user: User;

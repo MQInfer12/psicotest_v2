@@ -18,6 +18,7 @@ import IconPencil from "./tabler/iconPencil";
 import IconPersonActive from "./tabler/iconPersonActive";
 import IconQR from "./tabler/iconQR";
 import IconQuestion from "./tabler/iconQuestion";
+import IconSad from "./tabler/iconSad";
 import IconSchool from "./tabler/iconSchool";
 import IconStarred from "./tabler/iconStarred";
 import IconTrash from "./tabler/iconTrash";
@@ -59,6 +60,7 @@ export enum ICON {
   EXCEL = "excel",
   CARET_UP = "caret_up",
   CARET_DOWN = "caret_down",
+  SAD = "sad",
 }
 
 interface Props {
@@ -100,6 +102,7 @@ const Icon = ({ type }: Props) => {
     [ICON.EXCEL]: <IconExcel />,
     [ICON.CARET_UP]: <IconCaret type="up" />,
     [ICON.CARET_DOWN]: <IconCaret type="down" />,
+    [ICON.SAD]: <IconSad />,
   };
   return icons[type];
 };

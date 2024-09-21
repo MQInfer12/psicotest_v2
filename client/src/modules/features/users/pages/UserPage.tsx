@@ -1,4 +1,3 @@
-import useFetch from "@/modules/core/hooks/useFetch";
 import { useModal } from "@/modules/core/components/ui/modal/useModal";
 import { User } from "../api/responses";
 import UserForm from "../components/UserForm";
@@ -6,6 +5,7 @@ import UserCard from "../components/UserCard";
 import Button from "@/modules/core/components/ui/Button";
 import Loader from "@/modules/core/components/ui/loader/Loader";
 import { PRIVATE_PADDING_INLINE } from "../../_layout/constants/LAYOUT_SIZES";
+import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 
 const UserPage = () => {
   const { fetchData } = useFetch();

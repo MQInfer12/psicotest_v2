@@ -1,5 +1,10 @@
 import { UserContextProvider } from "@/modules/features/auth/context/UserContext";
-import { createRootRoute, Navigate, Outlet } from "@tanstack/react-router";
+import { QueryClient } from "@tanstack/react-query";
+import {
+  createRootRouteWithContext,
+  Navigate,
+  Outlet,
+} from "@tanstack/react-router";
 
 const Root = () => {
   return (
@@ -9,7 +14,9 @@ const Root = () => {
   );
 };
 
-export const Route = createRootRoute({
-  component: Root,
-  notFoundComponent: () => <Navigate to="/" />,
-});
+export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
+  {
+    component: Root,
+    notFoundComponent: () => <Navigate to="/" />,
+  }
+);

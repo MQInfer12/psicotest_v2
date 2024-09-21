@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\T_TestController;
 use App\Http\Controllers\U_userController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,7 +26,9 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'me']);
-    
+
     Route::apiResource('/user', U_userController::class);
-    Route::patch('/user/change-state/{id}', [U_userController::class,'changeState']);
+    Route::patch('/user/change-state/{id}', [U_userController::class, 'changeState']);
+
+    Route::apiResource('/test', T_TestController::class);
 });

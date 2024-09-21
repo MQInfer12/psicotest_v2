@@ -1,4 +1,3 @@
-import useFetch from "@/modules/core/hooks/useFetch";
 import { PRIVATE_PADDING_INLINE } from "../../_layout/constants/LAYOUT_SIZES";
 import Table from "@/modules/core/components/ui/table/Table";
 import { useMemo } from "react";
@@ -6,6 +5,7 @@ import { User } from "../../users/api/responses";
 import { createColumnHelper } from "@tanstack/react-table";
 import Icon from "@/modules/core/components/icons/Icon";
 import { useNavigate } from "@tanstack/react-router";
+import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 
 const columnHelper = createColumnHelper<User>();
 

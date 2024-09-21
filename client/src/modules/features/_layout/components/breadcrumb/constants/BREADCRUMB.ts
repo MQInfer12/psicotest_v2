@@ -14,9 +14,9 @@ export const BREADCRUMB: Breadcrumb[] = [
     breadcrumb: ["/tests"],
   },
   {
-    name: "Test MAPI",
-    match: "/tests/mapi",
-    breadcrumb: ["/tests", "/tests/mapi"],
+    name: "Resolver test",
+    match: "/tests/$id",
+    breadcrumb: ["/tests", "/tests/$id"],
   },
   //? RESULTADOS
   {

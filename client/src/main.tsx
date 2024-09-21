@@ -9,22 +9,38 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { toastError } from "./modules/core/utils/toasts";
-import RouterSetup from "./RouterSetup";
+import { createRouter, RouterProvider } from "@tanstack/react-router";
+import { routeTree } from "./routeTree.gen";
+import { BuildedError } from "./modules/core/hooks/useFetch/utils/handleResponse";
 
 const queryClient = new QueryClient({
   queryCache: new QueryCache({
     onError: (error) => {
-      console.error(error.message);
-      toastError(error.message);
+      const buildedError: BuildedError = JSON.parse(error.message);
+      console.error(buildedError.message);
+      toastError(buildedError.message);
     },
   }),
 });
+
+const router = createRouter({
+  routeTree,
+  context: {
+    queryClient,
+  },
+});
+
+declare module "@tanstack/react-router" {
+  interface Register {
+    router: typeof router;
+  }
+}
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Toaster position="top-right" />
     <QueryClientProvider client={queryClient}>
-      <RouterSetup />
+      <RouterProvider router={router} />
     </QueryClientProvider>
   </StrictMode>
 );

@@ -1,4 +1,4 @@
-import useFetch from "@/modules/core/hooks/useFetch";
+
 import { useUserContext } from "../../auth/context/UserContext";
 import { toastConfirm, toastSuccess } from "@/modules/core/utils/toasts";
 import {
@@ -23,6 +23,7 @@ import Logo from "../components/Logo";
 import Breadcrumb from "../components/breadcrumb/Breadcrumb";
 import Loader from "@/modules/core/components/ui/loader/Loader";
 import { getActiveBreadcrumb } from "../components/breadcrumb/utils/getActiveBreadcrumb";
+import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 
 const Dashboard = () => {
   const { user, state, logout } = useUserContext();

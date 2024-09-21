@@ -1,5 +1,4 @@
 import { UserDTO } from "../api/dtos";
-import useFetch from "@/modules/core/hooks/useFetch";
 import { User } from "../api/responses";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -8,6 +7,7 @@ import { toastSuccess } from "@/modules/core/utils/toasts";
 import { Genero } from "../types/Genero";
 import Input from "@/modules/core/components/ui/Input";
 import Button from "@/modules/core/components/ui/Button";
+import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 
 interface Props {
   user: User | null;
