@@ -40,8 +40,9 @@ const LandingPage = () => {
         </div>
         <div className="flex flex-col gap-4 items-center">
           <div className="w-[440px] h-[560px] rounded-xl overflow-hidden bg-alto-100 border-8 shadow-lg border-alto-100 flex">
-            {CAROUSEL_ITEMS.map((image) => (
+            {CAROUSEL_ITEMS.map((image, i) => (
               <motion.img
+                key={i}
                 src={image}
                 alt="Estudiantes resolviendo tests psicológicos"
                 animate={{
@@ -58,6 +59,7 @@ const LandingPage = () => {
           <div className="px-4 py-2 bg-alto-50 rounded-md shadow-md max-w-fit flex gap-2">
             {CAROUSEL_ITEMS.map((_, i) => (
               <motion.button
+                key={i}
                 animate={{
                   width: carouselIndex === i ? 40 : 20,
                   backgroundColor:

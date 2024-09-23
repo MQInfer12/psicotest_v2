@@ -19,4 +19,9 @@ class T_TestVersion extends Model
         'test',
         'fecha',
     ];
+
+    public function test_entity()
+    {
+        return $this->belongsTo(T_Test::class, 'id_test');
+    }
 }

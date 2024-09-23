@@ -18,8 +18,11 @@ import { Route as PrivateUsersImport } from './routes/_private/users'
 import { Route as PrivateChatImport } from './routes/_private/chat'
 import { Route as PrivateCalendarImport } from './routes/_private/calendar'
 import { Route as PrivateTestsIndexImport } from './routes/_private/tests/index'
+import { Route as PrivateResolveIndexImport } from './routes/_private/resolve/index'
 import { Route as PrivateAnswersIndexImport } from './routes/_private/answers/index'
-import { Route as PrivateTestsIdImport } from './routes/_private/tests/$id'
+import { Route as PrivateTestsShareImport } from './routes/_private/tests/share'
+import { Route as PrivateTestsIdTestImport } from './routes/_private/tests/$idTest'
+import { Route as PrivateResolveIdRespuestaImport } from './routes/_private/resolve/$idRespuesta'
 import { Route as PrivateAnswersIdImport } from './routes/_private/answers/$id'
 
 // Create/Update Routes
@@ -59,13 +62,28 @@ const PrivateTestsIndexRoute = PrivateTestsIndexImport.update({
   getParentRoute: () => PrivateRoute,
 } as any)
 
+const PrivateResolveIndexRoute = PrivateResolveIndexImport.update({
+  path: '/resolve/',
+  getParentRoute: () => PrivateRoute,
+} as any)
+
 const PrivateAnswersIndexRoute = PrivateAnswersIndexImport.update({
   path: '/answers/',
   getParentRoute: () => PrivateRoute,
 } as any)
 
-const PrivateTestsIdRoute = PrivateTestsIdImport.update({
-  path: '/tests/$id',
+const PrivateTestsShareRoute = PrivateTestsShareImport.update({
+  path: '/tests/share',
+  getParentRoute: () => PrivateRoute,
+} as any)
+
+const PrivateTestsIdTestRoute = PrivateTestsIdTestImport.update({
+  path: '/tests/$idTest',
+  getParentRoute: () => PrivateRoute,
+} as any)
+
+const PrivateResolveIdRespuestaRoute = PrivateResolveIdRespuestaImport.update({
+  path: '/resolve/$idRespuesta',
   getParentRoute: () => PrivateRoute,
 } as any)
 
@@ -127,11 +145,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivateAnswersIdImport
       parentRoute: typeof PrivateImport
     }
-    '/_private/tests/$id': {
-      id: '/_private/tests/$id'
-      path: '/tests/$id'
-      fullPath: '/tests/$id'
-      preLoaderRoute: typeof PrivateTestsIdImport
+    '/_private/resolve/$idRespuesta': {
+      id: '/_private/resolve/$idRespuesta'
+      path: '/resolve/$idRespuesta'
+      fullPath: '/resolve/$idRespuesta'
+      preLoaderRoute: typeof PrivateResolveIdRespuestaImport
+      parentRoute: typeof PrivateImport
+    }
+    '/_private/tests/$idTest': {
+      id: '/_private/tests/$idTest'
+      path: '/tests/$idTest'
+      fullPath: '/tests/$idTest'
+      preLoaderRoute: typeof PrivateTestsIdTestImport
+      parentRoute: typeof PrivateImport
+    }
+    '/_private/tests/share': {
+      id: '/_private/tests/share'
+      path: '/tests/share'
+      fullPath: '/tests/share'
+      preLoaderRoute: typeof PrivateTestsShareImport
       parentRoute: typeof PrivateImport
     }
     '/_private/answers/': {
@@ -139,6 +171,13 @@ declare module '@tanstack/react-router' {
       path: '/answers'
       fullPath: '/answers'
       preLoaderRoute: typeof PrivateAnswersIndexImport
+      parentRoute: typeof PrivateImport
+    }
+    '/_private/resolve/': {
+      id: '/_private/resolve/'
+      path: '/resolve'
+      fullPath: '/resolve'
+      preLoaderRoute: typeof PrivateResolveIndexImport
       parentRoute: typeof PrivateImport
     }
     '/_private/tests/': {
@@ -159,8 +198,11 @@ export const routeTree = rootRoute.addChildren({
     PrivateChatRoute,
     PrivateUsersRoute,
     PrivateAnswersIdRoute,
-    PrivateTestsIdRoute,
+    PrivateResolveIdRespuestaRoute,
+    PrivateTestsIdTestRoute,
+    PrivateTestsShareRoute,
     PrivateAnswersIndexRoute,
+    PrivateResolveIndexRoute,
     PrivateTestsIndexRoute,
   }),
   PublicRoute: PublicRoute.addChildren({ PublicIndexRoute }),
@@ -185,8 +227,11 @@ export const routeTree = rootRoute.addChildren({
         "/_private/chat",
         "/_private/users",
         "/_private/answers/$id",
-        "/_private/tests/$id",
+        "/_private/resolve/$idRespuesta",
+        "/_private/tests/$idTest",
+        "/_private/tests/share",
         "/_private/answers/",
+        "/_private/resolve/",
         "/_private/tests/"
       ]
     },
@@ -216,12 +261,24 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_private/answers/$id.tsx",
       "parent": "/_private"
     },
-    "/_private/tests/$id": {
-      "filePath": "_private/tests/$id.tsx",
+    "/_private/resolve/$idRespuesta": {
+      "filePath": "_private/resolve/$idRespuesta.tsx",
+      "parent": "/_private"
+    },
+    "/_private/tests/$idTest": {
+      "filePath": "_private/tests/$idTest.tsx",
+      "parent": "/_private"
+    },
+    "/_private/tests/share": {
+      "filePath": "_private/tests/share.tsx",
       "parent": "/_private"
     },
     "/_private/answers/": {
       "filePath": "_private/answers/index.tsx",
+      "parent": "/_private"
+    },
+    "/_private/resolve/": {
+      "filePath": "_private/resolve/index.tsx",
       "parent": "/_private"
     },
     "/_private/tests/": {

@@ -17,7 +17,7 @@ class U_user extends Authenticatable
     protected $table = "u_users";
 
     protected $guarded = [];
-    
+
     protected $fillable = [
         'email',
         'nombre',
@@ -25,4 +25,9 @@ class U_user extends Authenticatable
         'genero',
         'fecha_nacimiento',
     ];
+
+    public function respuestas()
+    {
+        return $this->hasMany(T_Respuesta::class, 'email_user');
+    }
 }

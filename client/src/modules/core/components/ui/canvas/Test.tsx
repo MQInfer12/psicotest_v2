@@ -29,8 +29,6 @@ const Test = ({ test }: Props) => {
   const frase = useMemo(() => obtenerFraseAleatoria(), []);
   const timerRef = useRef<any>();
 
-  console.log(form);
-
   const preguntas = useMemo(
     () =>
       test.secciones.reduce((total, seccion) => {
@@ -59,6 +57,7 @@ const Test = ({ test }: Props) => {
     setCurrentPage([newPage, newDirection]);
   }
 
+  const nextCondition = !exist || !finalizedAnimation;
   const handleOption = (idOpcion: number) => {
     clearTimeout(timerRef.current);
     setForm((prev) => {
@@ -79,7 +78,7 @@ const Test = ({ test }: Props) => {
         ];
       }
     });
-    if (!exist || !finalizedAnimation) {
+    if (nextCondition) {
       timerRef.current = setTimeout(() => {
         setPreguntaIndex(preguntaIndex + 1, 1);
         setFinalizedAnimation(true);
@@ -203,12 +202,13 @@ const Test = ({ test }: Props) => {
                         key={opcion.id}
                         onClick={() => handleOption(opcion.id)}
                         className={clsx(
-                          "w-full flex items-center justify-between border border-alto-300 px-10 h-10 text-sm rounded-md transition-all duration-300 hover:-translate-y-1 hover:shadow-sm",
+                          "w-full flex items-center justify-between border border-alto-300 px-10 h-10 text-sm rounded-md transition-all duration-300 hover:-translate-y-1 hover:shadow-sm disabled:cursor-pointer",
                           {
                             "border-l-8 border-l-primary-500 bg-white -translate-y-1 shadow-sm":
                               exist?.idOpcion === opcion.id,
                           }
                         )}
+                        disabled={exist?.idOpcion === opcion.id}
                       >
                         <p>{opcion.descripcion}</p>
                         <div className="h-6 aspect-square text-alto-300 flex items-center justify-center">
@@ -240,7 +240,7 @@ const Test = ({ test }: Props) => {
               Anterior
             </Button>
             <Button
-              disabled={!exist || !finalizedAnimation}
+              disabled={nextCondition}
               onClick={() => {
                 setPreguntaIndex(preguntaIndex + 1, 1);
               }}

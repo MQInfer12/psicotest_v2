@@ -2,8 +2,10 @@ import Icon from "@/modules/core/components/icons/Icon";
 import Button from "@/modules/core/components/ui/Button";
 import clsx from "clsx";
 import { motion } from "framer-motion";
+import ShareButton from "./ShareButton";
 
 interface Props {
+  idTest: number;
   title: string;
   description: string;
   author: string;
@@ -12,10 +14,12 @@ interface Props {
   users?: string[];
   resolve?: () => void;
   edit?: () => void;
-  share?: () => void;
+  share?: boolean;
+  layoutId?: string;
 }
 
 const TestCard = ({
+  idTest,
   title,
   description,
   author,
@@ -25,10 +29,11 @@ const TestCard = ({
   resolve,
   edit,
   share,
+  layoutId,
 }: Props) => {
   return (
     <motion.div
-      layoutId="card"
+      layoutId={layoutId}
       className="w-full h-full rounded-lg border-t-8 border-primary-700 bg-alto-50 shadow-lg pt-4 p-8 flex flex-col gap-4"
     >
       <div className="flex items-center gap-2 justify-between">
@@ -52,14 +57,24 @@ const TestCard = ({
           <div className="w-5 aspect-square text-primary-400">
             <Icon type={Icon.Types.USER} />
           </div>
-          <p>{author}</p>
+          <p
+            title={author}
+            className="whitespace-nowrap overflow-hidden text-ellipsis"
+          >
+            {author}
+          </p>
         </div>
         {psychologist && (
           <div className="flex gap-4 text-sm items-center">
             <div className="w-5 aspect-square text-primary-400">
               <Icon type={Icon.Types.SCHOOL} />
             </div>
-            <p>{psychologist}</p>
+            <p
+              title={psychologist}
+              className="whitespace-nowrap overflow-hidden text-ellipsis"
+            >
+              {psychologist}
+            </p>
           </div>
         )}
       </div>
@@ -111,14 +126,7 @@ const TestCard = ({
             title="Editar test"
           />
         )}
-        {share && (
-          <Button
-            btnType="secondary"
-            onClick={edit}
-            icon={Icon.Types.QR}
-            title="Compartir test"
-          />
-        )}
+        {share && <ShareButton idTest={idTest} />}
       </div>
     </motion.div>
   );

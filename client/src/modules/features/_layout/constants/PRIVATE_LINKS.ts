@@ -14,6 +14,11 @@ export const PRIVATE_LINKS: PrivateLink[] = [
     title: "Tests",
   },
   {
+    to: "/resolve",
+    icon: ICON.BRAIN,
+    title: "Tests",
+  },
+  {
     to: "/answers",
     icon: ICON.NOTES,
     title: "Respuestas",

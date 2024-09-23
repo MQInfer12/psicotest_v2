@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\T_RespuestaController;
 use App\Http\Controllers\T_TestController;
 use App\Http\Controllers\U_userController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,4 +31,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('/user/change-state/{id}', [U_userController::class, 'changeState']);
 
     Route::apiResource('/test', T_TestController::class);
+    Route::get('/test/by/respuesta/{id}', [T_TestController::class, 'showByRespuesta']);
+    Route::apiResource('/respuesta', T_RespuestaController::class);
+    Route::get('/respuesta/for/resolve', [T_RespuestaController::class, 'indexForResolve']);
 });

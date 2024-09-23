@@ -13,6 +13,15 @@ trait ApiResponse
     ], 200);
   }
 
+  protected function wrongResponse($message)
+  {
+    return response()->json([
+      'status' => 400,
+      'data' => null,
+      'message' => $message
+    ], 400);
+  }
+
   protected function notFoundResponse($message)
   {
     return response()->json([
