@@ -32,6 +32,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::apiResource('/test', T_TestController::class);
     Route::get('/test/by/respuesta/{id}', [T_TestController::class, 'showByRespuesta']);
+    Route::get('/test/mapi/answers', [T_TestController::class, 'getMapiAnswers']);
+
+
     Route::apiResource('/respuesta', T_RespuestaController::class);
     Route::get('/respuesta/for/resolve', [T_RespuestaController::class, 'indexForResolve']);
 });

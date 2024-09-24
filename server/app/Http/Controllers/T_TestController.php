@@ -39,4 +39,18 @@ class T_TestController extends Controller
             new T_TestResource($test)
         );
     }
+
+    public function getMapiAnswers()
+    {
+        $answers = [];
+
+        for ($i = 1; $i <= 150; $i++) {
+            $answers[] = [
+                "idPregunta" => $i,
+                "idOpcion" => rand(1, 5)
+            ];
+        }
+
+        return $this->successResponse("Respuestas MAPI generadas correctamente", $answers);
+    }
 }
