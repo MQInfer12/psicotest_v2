@@ -47,7 +47,7 @@ class T_TestController extends Controller
         for ($i = 1; $i <= 150; $i++) {
             $answers[] = [
                 "idPregunta" => $i,
-                "idOpcion" => rand(1, 5)
+                "idOpcion" => rand(1, 2)
             ];
         }
 

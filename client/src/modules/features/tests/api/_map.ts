@@ -22,6 +22,14 @@ declare global {
       request: never;
       response: T_Test;
     };
+    "GET /test/mapi/answers": {
+      params: never;
+      request: never;
+      response: {
+        idPregunta: number;
+        idOpcion: number;
+      }[];
+    };
     "POST /respuesta": {
       params: never;
       request: RespuestaDTO;

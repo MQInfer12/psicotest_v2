@@ -31,8 +31,9 @@ const Test = ({ data, test, idRespuesta }: Props) => {
   const { modal, setOpen } = useModal();
   const [[preguntaIndex, direction], setCurrentPage] = useState([0, 1]);
   const [form, setForm] = useState<TestForm[]>([]);
-  const { postData } = useFetch();
+  const { postData, fetchData } = useFetch();
   const mutation = postData("PUT /respuesta/:id");
+  const { data: answersMapi } = fetchData("GET /test/mapi/answers");
 
   const prev = !idRespuesta;
 
@@ -101,9 +102,10 @@ const Test = ({ data, test, idRespuesta }: Props) => {
 
   const handleSend = () => {
     if (!idRespuesta) return;
+    const newForm = data.nombre_autor == "Millon" ? answersMapi : form;
     mutation(
       {
-        resultados: JSON.stringify(form),
+        resultados: JSON.stringify(newForm),
       },
       {
         params: {
@@ -288,6 +290,16 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                 icon={Icon.Types.ARROW_RIGHT}
               >
                 Siguiente
+              </Button>
+            )}
+            {data.nombre_autor == "Millon" && (
+              <Button
+                onClick={handleSend}
+                reverse
+                btnType="secondary"
+                icon={Icon.Types.CHECK}
+              >
+                Llenado automático
               </Button>
             )}
           </div>
