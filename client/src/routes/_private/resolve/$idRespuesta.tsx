@@ -3,17 +3,17 @@ import { fetchOptions } from "@/modules/core/hooks/useFetch/utils/fetchFn";
 import ResolvePage from "@/modules/features/tests/pages/ResolvePage";
 import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/_private/tests/$id")({
+export const Route = createFileRoute("/_private/resolve/$idRespuesta")({
   component: ResolvePage,
-  beforeLoad: ({ context: { queryClient } }) => {
+  beforeLoad: async ({ context: { queryClient }, params: { idRespuesta } }) => {
     return queryClient.ensureQueryData(
       fetchOptions([
-        "GET /test/:id",
+        "GET /test/by/respuesta/:id",
         {
-          id: 1,
+          id: Number(idRespuesta),
         },
       ])
     );
   },
-  errorComponent: ErrorComponent,
+  errorComponent: (props) => <ErrorComponent {...props} to="/tests" />,
 });

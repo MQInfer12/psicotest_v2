@@ -6,7 +6,7 @@ import { API_URL } from "../../constants/ENVIRONMENT";
 import { useUserContext } from "@/modules/features/auth/context/UserContext";
 import { toastError } from "../../utils/toasts";
 import { buildUrl } from "./utils/buildUrl";
-import { handleResponse } from "./utils/handleResponse";
+import { BuildedError, handleResponse } from "./utils/handleResponse";
 
 //* FETCHING IN CODE
 export const postData = <K extends keyof EndpointMap>(
@@ -51,8 +51,9 @@ export const postData = <K extends keyof EndpointMap>(
       });
     },
     onError: (error: Error) => {
-      console.error(error.message);
-      toastError(error.message);
+      const buildedError: BuildedError = JSON.parse(error.message);
+      console.log(buildedError.message);
+      toastError(buildedError.message);
     },
   });
 

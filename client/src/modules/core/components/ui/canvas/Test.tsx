@@ -7,29 +7,37 @@ import { AnimatePresence, motion } from "framer-motion";
 import clsx from "clsx";
 import { FRASES } from "@/modules/core/data";
 import { Item, TestType } from "@/modules/features/tests/types/TestType";
-
-interface TestForm {
-  idPregunta: number;
-  idOpcion: number;
-}
+import { T_Test } from "@/modules/features/tests/api/responses";
+import useFetch from "@/modules/core/hooks/useFetch/useFetch";
+import { toastSuccess } from "@/modules/core/utils/toasts";
 
 function obtenerFraseAleatoria() {
   const indiceAleatorio = Math.floor(Math.random() * FRASES.length);
   return FRASES[indiceAleatorio];
 }
 
+interface TestForm {
+  idPregunta: number;
+  idOpcion: number;
+}
+
 interface Props {
+  idRespuesta?: number;
+  data: T_Test;
   test: TestType;
 }
 
-const Test = ({ test }: Props) => {
+const Test = ({ data, test, idRespuesta }: Props) => {
   const { modal, setOpen } = useModal();
   const [[preguntaIndex, direction], setCurrentPage] = useState([0, 1]);
   const [form, setForm] = useState<TestForm[]>([]);
+  const { postData } = useFetch();
+  const mutation = postData("PUT /respuesta/:id");
+
+  const prev = !idRespuesta;
+
   const frase = useMemo(() => obtenerFraseAleatoria(), []);
   const timerRef = useRef<any>();
-
-  console.log(form);
 
   const preguntas = useMemo(
     () =>
@@ -59,6 +67,10 @@ const Test = ({ test }: Props) => {
     setCurrentPage([newPage, newDirection]);
   }
 
+  const nextCondition = !exist || !finalizedAnimation;
+  const inLastPregunta = preguntaIndex === preguntas.length - 1;
+  const allPreguntasChecked = form.length === preguntas.length;
+
   const handleOption = (idOpcion: number) => {
     clearTimeout(timerRef.current);
     setForm((prev) => {
@@ -79,12 +91,29 @@ const Test = ({ test }: Props) => {
         ];
       }
     });
-    if (!exist || !finalizedAnimation) {
+    if (nextCondition && !prev && !inLastPregunta) {
       timerRef.current = setTimeout(() => {
         setPreguntaIndex(preguntaIndex + 1, 1);
         setFinalizedAnimation(true);
       }, 1500);
     }
+  };
+
+  const handleSend = () => {
+    if (!idRespuesta) return;
+    mutation(
+      {
+        resultados: JSON.stringify(form),
+      },
+      {
+        params: {
+          id: idRespuesta,
+        },
+        onSuccess: (res) => {
+          toastSuccess(res.message);
+        },
+      }
+    );
   };
 
   const maxOpciones = test.secciones.reduce(
@@ -124,7 +153,7 @@ const Test = ({ test }: Props) => {
           className="flex flex-col gap-2"
         >
           <h3 className="text-[40px] leading-[40px] font-bold text-primary-900 after:content-['.'] after:text-primary-500">
-            MAPI
+            {data.nombre_test}
           </h3>
           <strong className="text-alto-800">¡Inicia tu test ahora!</strong>
         </div>
@@ -133,7 +162,7 @@ const Test = ({ test }: Props) => {
         </Button>
       </div>
       {modal(
-        "Test MAPI",
+        data.nombre_test,
         <div className="flex flex-col gap-2">
           <small className="text-alto-700 flex gap-2">
             <span className="italic text-xs">"{frase.frase}"</span>
@@ -203,12 +232,13 @@ const Test = ({ test }: Props) => {
                         key={opcion.id}
                         onClick={() => handleOption(opcion.id)}
                         className={clsx(
-                          "w-full flex items-center justify-between border border-alto-300 px-10 h-10 text-sm rounded-md transition-all duration-300 hover:-translate-y-1 hover:shadow-sm",
+                          "w-full flex items-center justify-between border border-alto-300 px-10 h-10 text-sm rounded-md transition-all duration-300 hover:-translate-y-1 hover:shadow-sm disabled:cursor-pointer",
                           {
                             "border-l-8 border-l-primary-500 bg-white -translate-y-1 shadow-sm":
                               exist?.idOpcion === opcion.id,
                           }
                         )}
+                        disabled={exist?.idOpcion === opcion.id}
                       >
                         <p>{opcion.descripcion}</p>
                         <div className="h-6 aspect-square text-alto-300 flex items-center justify-center">
@@ -239,16 +269,27 @@ const Test = ({ test }: Props) => {
             >
               Anterior
             </Button>
-            <Button
-              disabled={!exist || !finalizedAnimation}
-              onClick={() => {
-                setPreguntaIndex(preguntaIndex + 1, 1);
-              }}
-              btnType="secondary"
-              icon={Icon.Types.ARROW_RIGHT}
-            >
-              Siguiente
-            </Button>
+            {inLastPregunta ? (
+              <Button
+                disabled={!allPreguntasChecked || prev}
+                btnType="primary"
+                icon={Icon.Types.ARROW_RIGHT}
+                onClick={handleSend}
+              >
+                Enviar respuesta
+              </Button>
+            ) : (
+              <Button
+                disabled={nextCondition && !prev}
+                onClick={() => {
+                  setPreguntaIndex(preguntaIndex + 1, 1);
+                }}
+                btnType="secondary"
+                icon={Icon.Types.ARROW_RIGHT}
+              >
+                Siguiente
+              </Button>
+            )}
           </div>
         </div>,
         {

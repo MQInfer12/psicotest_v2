@@ -17,7 +17,7 @@ const queryClient = new QueryClient({
   queryCache: new QueryCache({
     onError: (error) => {
       const buildedError: BuildedError = JSON.parse(error.message);
-      console.error(buildedError.message);
+      console.log(buildedError.message);
       toastError(buildedError.message);
     },
   }),

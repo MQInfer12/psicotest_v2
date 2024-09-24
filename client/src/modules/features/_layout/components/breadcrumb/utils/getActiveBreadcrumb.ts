@@ -1,7 +1,7 @@
 import { BREADCRUMB } from "../constants/BREADCRUMB";
 
-export const getActiveBreadcrumb = (pathname: string) =>
-  BREADCRUMB.find((b) => {
+export const getActiveBreadcrumb = (pathname: string) => {
+  return BREADCRUMB.find((b) => {
     if (b.match?.includes("$")) {
       const dynamicMatch = b.match.replace(/\$[^/]+/g, "[^/]+");
       const regex = new RegExp(`^${dynamicMatch}$`);
@@ -9,3 +9,4 @@ export const getActiveBreadcrumb = (pathname: string) =>
     }
     return b.match === pathname;
   });
+};

@@ -40,8 +40,9 @@ const LandingPage = () => {
         </div>
         <div className="flex flex-col gap-4 items-center">
           <div className="w-[440px] h-[560px] rounded-xl overflow-hidden bg-alto-100 border-8 shadow-lg border-alto-100 flex">
-            {CAROUSEL_ITEMS.map((image) => (
+            {CAROUSEL_ITEMS.map((image, i) => (
               <motion.img
+                key={i}
                 src={image}
                 alt="Estudiantes resolviendo tests psicológicos"
                 animate={{
@@ -58,6 +59,7 @@ const LandingPage = () => {
           <div className="px-4 py-2 bg-alto-50 rounded-md shadow-md max-w-fit flex gap-2">
             {CAROUSEL_ITEMS.map((_, i) => (
               <motion.button
+                key={i}
                 animate={{
                   width: carouselIndex === i ? 40 : 20,
                   backgroundColor:
@@ -89,10 +91,6 @@ const LandingPage = () => {
         className="flex-1 flex items-center justify-center bg-alto-50  rounded-bl-[100px]"
       >
         <motion.div
-          initial={{
-            opacity: 0,
-            translateX: "100%",
-          }}
           animate={{
             opacity: 1,
             translateX: 0,
@@ -120,9 +118,6 @@ const LandingPage = () => {
               ¡Inicia sesión para comenzar!
             </button>
           </div>
-          {/* <div className="absolute -z-10">
-            <Hexagon size={640} />
-          </div> */}
         </motion.div>
       </div>
     </section>

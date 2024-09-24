@@ -49,3 +49,14 @@ img {
 ::-webkit-scrollbar-thumb:hover {
   @apply bg-primary-600;
 }
+
+.nsm7Bb-HzV7m-LgbsSe-BPrWId {
+  font-family: "Poppins", sans-serif !important;
+  font-weight: 500 !important;
+  font-size: 13px !important;
+}
+
+.nsm7Bb-HzV7m-LgbsSe {
+  min-width: 220px !important;
+  max-width: 220px !important;
+}

@@ -14,9 +14,25 @@ export const BREADCRUMB: Breadcrumb[] = [
     breadcrumb: ["/tests"],
   },
   {
+    name: "Enlace al test",
+    match: "/tests/share",
+    breadcrumb: ["/tests", "/tests/share"],
+  },
+  {
+    name: "Previsualizar test",
+    match: "/tests/$idTest",
+    breadcrumb: ["/tests", "/tests/$idTest"],
+  },
+  //? RESOLVER
+  {
+    name: "Tests",
+    match: "/resolve",
+    breadcrumb: ["/resolve"],
+  },
+  {
     name: "Resolver test",
-    match: "/tests/$id",
-    breadcrumb: ["/tests", "/tests/$id"],
+    match: "/resolve/$idRespuesta",
+    breadcrumb: ["/resolve", "/resolve/$idRespuesta"],
   },
   //? RESULTADOS
   {

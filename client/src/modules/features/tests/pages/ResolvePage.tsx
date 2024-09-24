@@ -6,16 +6,17 @@ import { TestType } from "../types/TestType";
 import { useParams } from "@tanstack/react-router";
 
 const ResolvePage = () => {
-  const { id } = useParams({
-    from: "/_private/tests/$id",
+  const { idTest, idRespuesta } = useParams({
+    strict: false,
   });
+
   const {
     data: { data },
   } = useSuspenseQuery(
     fetchOptions([
-      "GET /test/:id",
+      idRespuesta ? "GET /test/by/respuesta/:id" : "GET /test/:id",
       {
-        id: Number(id),
+        id: Number(idRespuesta || idTest),
       },
     ])
   );
@@ -24,7 +25,7 @@ const ResolvePage = () => {
   const test: TestType = JSON.parse(data.test);
 
   return (
-    <Canvas>
+    <Canvas layoutId={idTest ? `test-${idTest}` : `respuesta-${idRespuesta}`}>
       <Canvas.Title subtitle={data.nombre_autor || data.nombre_autor_creador!}>
         {data.nombre_test}
       </Canvas.Title>
@@ -36,7 +37,11 @@ const ResolvePage = () => {
             return <Canvas.Paragraph key={i}>{c.content}</Canvas.Paragraph>;
         }
       })}
-      <Canvas.Test test={test} />
+      <Canvas.Test
+        data={data}
+        test={test}
+        idRespuesta={idRespuesta ? Number(idRespuesta) : undefined}
+      />
     </Canvas>
   );
 };

@@ -1,4 +1,3 @@
-
 import { useUserContext } from "../../auth/context/UserContext";
 import { toastConfirm, toastSuccess } from "@/modules/core/utils/toasts";
 import {
@@ -83,7 +82,7 @@ const Dashboard = () => {
         </div>
         <div className="px-4 flex flex-col gap-2 overflow-hidden">
           {PRIVATE_LINKS.map((link) => (
-            <AsideLink key={link.title} showText={open} type="link" {...link} />
+            <AsideLink key={link.to} showText={open} type="link" {...link} />
           ))}
           <AsideLink
             type="button"
@@ -105,7 +104,7 @@ const Dashboard = () => {
             minHeight: PRIVATE_HEADER_HEIGHT,
             paddingInline: PRIVATE_PADDING_INLINE,
           }}
-          className="flex items-center justify-between bg-alto-100 z-20"
+          className="flex items-center justify-between bg-alto-100 z-20 gap-2"
         >
           <div className="flex flex-col gap-2">
             <Breadcrumb />
@@ -122,7 +121,10 @@ const Dashboard = () => {
                   <Icon type={Icon.Types.CHEVRON_LEFT} />
                 </button>
               )}
-              <h2 className="text-2xl font-bold text-alto-950">
+              <h2
+                title={activeBreadcrumb?.name}
+                className="text-2xl font-bold text-alto-950 whitespace-nowrap overflow-hidden text-ellipsis"
+              >
                 {activeBreadcrumb?.name}
               </h2>
             </div>
