@@ -1,3 +1,4 @@
+import { TestForm } from "@/modules/core/components/ui/canvas/Test";
 import { RespuestaDTO, SendTestDTO } from "./dtos";
 import { T_Test, T_Tests } from "./responses";
 
@@ -21,6 +22,11 @@ declare global {
       };
       request: never;
       response: T_Test;
+    };
+    "GET /test/mapi/answers": {
+      params: never;
+      request: null;
+      response: TestForm[];
     };
     "POST /respuesta": {
       params: never;

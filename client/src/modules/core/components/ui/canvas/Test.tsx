@@ -9,16 +9,17 @@ import { FRASES } from "@/modules/core/data";
 import { Item, TestType } from "@/modules/features/tests/types/TestType";
 import { T_Test } from "@/modules/features/tests/api/responses";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
-import { toastSuccess } from "@/modules/core/utils/toasts";
+import { toastConfirm, toastSuccess } from "@/modules/core/utils/toasts";
 import IconMessage from "../../icons/IconMessage";
 import { COLORS } from "@/modules/core/constants/COLORS";
+import { useNavigate } from "@tanstack/react-router";
 
 function obtenerFraseAleatoria() {
   const indiceAleatorio = Math.floor(Math.random() * FRASES.length);
   return FRASES[indiceAleatorio];
 }
 
-interface TestForm {
+export interface TestForm {
   idPregunta: number;
   idOpcion: number;
 }
@@ -36,6 +37,8 @@ const Test = ({ data, test, idRespuesta }: Props) => {
   const [finished, setFinished] = useState(false);
   const { postData } = useFetch();
   const mutation = postData("PUT /respuesta/:id");
+  const getAnswersMutation = postData("GET /test/mapi/answers");
+  const navigate = useNavigate();
 
   const prev = !idRespuesta;
 
@@ -98,15 +101,28 @@ const Test = ({ data, test, idRespuesta }: Props) => {
       timerRef.current = setTimeout(() => {
         setPreguntaIndex(preguntaIndex + 1, 1);
         setFinalizedAnimation(true);
-      }, 1500);
+      }, 1300);
     }
   };
 
-  const handleSend = () => {
+  const handleAutofill = () => {
+    toastConfirm("Se llenará el test automáticamente", async () => {
+      let body = await new Promise<TestForm[]>((resolve) => {
+        getAnswersMutation(null, {
+          onSuccess(res) {
+            resolve(res.data);
+          },
+        });
+      });
+      handleSend(body);
+    });
+  };
+
+  const handleSend = async (body: TestForm[]) => {
     if (!idRespuesta) return;
     mutation(
       {
-        resultados: JSON.stringify(form),
+        resultados: JSON.stringify(body),
       },
       {
         params: {
@@ -114,6 +130,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
         },
         onSuccess: (res) => {
           toastSuccess(res.message);
+          setFinished(true);
         },
       }
     );
@@ -145,6 +162,8 @@ const Test = ({ data, test, idRespuesta }: Props) => {
       x: direction > 0 ? "-100%" : "100%",
     }),
   };
+
+  console.log(data);
 
   return (
     <div className="w-full py-4 flex flex-col gap-2">
@@ -281,22 +300,39 @@ const Test = ({ data, test, idRespuesta }: Props) => {
               )}
             </AnimatePresence>
           </div>
-          <div className="w-full flex justify-between gap-4">
-            <div className="flex gap-4">
-              <Button
-                onClick={() => setFinished(!finished)}
-                btnType="secondary"
-                icon={Icon.Types.CHECK}
-              >
-                Finalizar
-              </Button>
-            </div>
+          <div
+            className={clsx("w-full flex gap-4", {
+              "justify-between": !prev,
+              "justify-center": prev,
+            })}
+          >
+            {!prev && (
+              <div className="flex gap-4">
+                {data.nombre_autor == "Millon" && (
+                  <Button
+                    onClick={handleAutofill}
+                    btnType="secondary"
+                    icon={Icon.Types.BRAIN}
+                  >
+                    Llenado automático
+                  </Button>
+                )}
+                {/* <Button
+                  onClick={() => setFinished(!finished)}
+                  btnType="secondary"
+                  icon={Icon.Types.CHECK}
+                >
+                  Finalizar
+                </Button> */}
+              </div>
+            )}
             <div className="flex gap-4">
               {finished ? (
                 <Button
                   key="regresar"
                   btnType="primary"
                   icon={Icon.Types.BRAIN}
+                  onClick={() => navigate({ to: "/resolve" })}
                 >
                   Regresar
                 </Button>
@@ -320,7 +356,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                       disabled={!allPreguntasChecked || prev}
                       btnType="primary"
                       icon={Icon.Types.ARROW_RIGHT}
-                      onClick={handleSend}
+                      onClick={() => handleSend(form)}
                     >
                       Enviar respuesta
                     </Button>
