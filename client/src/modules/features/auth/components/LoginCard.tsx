@@ -1,45 +1,20 @@
 import { PUBLIC_NAVBAR_HEIGHT } from "../../_layout/constants/LAYOUT_SIZES";
 import LoginImg from "@/assets/images/imglogin.png";
 import LoginButton from "./LoginButton";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Loader from "@/modules/core/components/ui/loader/Loader";
 import clsx from "clsx";
-import { CredentialResponse } from "@react-oauth/google";
-import useFetch from "@/modules/core/hooks/useFetch/useFetch";
-import { useUserContext } from "../context/UserContext";
-import { toastSuccess } from "@/modules/core/utils/toasts";
-import { useModal } from "@/modules/core/components/ui/modal/useModal";
 import { useNavigate } from "@tanstack/react-router";
 import { getActiveBreadcrumb } from "../../_layout/components/breadcrumb/utils/getActiveBreadcrumb";
+import { useLoginContext } from "../context/LoginContext";
 
 interface Props {
   redirect?: string;
 }
 
 const LoginCard = ({ redirect }: Props) => {
-  const { login } = useUserContext();
-  const { postData } = useFetch();
-  const loginMutation = postData("POST /login");
-  const [loading, setLoading] = useState(false);
-  const { modal, open, setOpen } = useModal();
+  const { modal, setOpen, loading } = useLoginContext();
   const navigate = useNavigate({ from: "/" });
-
-  const handleLogin = (data: CredentialResponse) => {
-    if (!data.credential) return;
-    setLoading(true);
-    loginMutation(
-      {
-        token: data.credential,
-      },
-      {
-        onSuccess: (res) => {
-          login(res.data.user, res.data.token);
-          toastSuccess(res.message);
-        },
-        onError: () => setLoading(false),
-      }
-    );
-  };
 
   useEffect(() => {
     if (redirect) {
@@ -88,7 +63,7 @@ const LoginCard = ({ redirect }: Props) => {
                     </div>
                   )}
                   <div className="w-fit h-10 flex items-center justify-center">
-                    <LoginButton size="large" handleLogin={handleLogin} />
+                    <LoginButton size="large" />
                   </div>
                 </>
               )}
@@ -100,13 +75,12 @@ const LoginCard = ({ redirect }: Props) => {
           width: 640,
           onlyContent: true,
           onClose() {
-            console.log("closing");
             navigate({ to: "/" });
           },
         }
       )}
       {/* ON CLOSE */}
-      {!open && (
+      {/* {!open && (
         <div
           style={{
             top: PUBLIC_NAVBAR_HEIGHT + 24,
@@ -136,10 +110,7 @@ const LoginCard = ({ redirect }: Props) => {
                 </div>
               ) : (
                 <>
-                  <p
-                    onClick={() => setOpen(true)}
-                    className="text-primary-50 font-bold"
-                  >
+                  <p className="text-primary-50 font-bold">
                     ¡Inicia sesión ahora!
                   </p>
                   <div className="w-fit h-10 flex items-center justify-center">
@@ -150,7 +121,7 @@ const LoginCard = ({ redirect }: Props) => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </>
   );
 };

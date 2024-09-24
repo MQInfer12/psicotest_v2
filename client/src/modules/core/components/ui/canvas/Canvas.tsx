@@ -29,7 +29,7 @@ const Canvas = ({ children, layoutId }: CanvasProps) => {
 
 const Title = ({ subtitle, children }: TitleProps) => {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col items-center">
       <h2 className="text-3xl font-bold text-primary-900">{children}</h2>
       {subtitle && (
         <h3 className="text-center font-semibold text-alto-600">{subtitle}</h3>

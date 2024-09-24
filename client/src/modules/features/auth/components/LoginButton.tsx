@@ -1,22 +1,21 @@
-import {
-  CredentialResponse,
-  GoogleLogin,
-  GoogleOAuthProvider,
-} from "@react-oauth/google";
+import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import { GOOGLE_CLIENT_ID } from "@/modules/core/constants/ENVIRONMENT";
+import { useLoginContext } from "../context/LoginContext";
 
 interface Props {
   size: "medium" | "large";
-  handleLogin: (data: CredentialResponse) => void;
+  type?: "standard" | "icon";
 }
 
-const LoginButton = ({ size, handleLogin }: Props) => {
+const LoginButton = ({ size, type }: Props) => {
+  const { handleLogin } = useLoginContext();
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       <GoogleLogin
         width={220}
         onSuccess={handleLogin}
-        shape="circle"
+        shape="square"
+        type={type}
         size={size}
       />
     </GoogleOAuthProvider>

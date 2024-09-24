@@ -5,7 +5,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_private/tests/$idTest")({
   component: ResolvePage,
-  beforeLoad: async ({ context: { queryClient }, params: { idTest } }) => {
+  beforeLoad: ({ context: { queryClient }, params: { idTest } }) => {
     return queryClient.ensureQueryData(
       fetchOptions([
         "GET /test/:id",
