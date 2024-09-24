@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\T_RespuestaStoreRequest;
+use App\Http\Requests\T_RespuestaUpdateRequest;
 use App\Http\Resources\T_Tests_RepuestaResource;
 use App\Models\T_Respuesta;
 use App\Models\T_Test;
@@ -73,8 +74,22 @@ class T_RespuestaController extends Controller
         //? PARA CARGAR EL TEST
     }
 
-    public function update(Request $request, T_Respuesta $t_Respuesta)
+    public function update(T_RespuestaUpdateRequest $request, int $id)
     {
         //? AL MOMENTO DE ENVIAR EL TEST
+        $validatedData = $request->validated();
+
+        $respuesta = T_Respuesta::findOrFail($id);
+
+        $respuesta->update([
+            "resultados" => $validatedData['resultados'],
+            "estado" => "Enviado",
+            "fecha_enviado" => now()
+        ]);
+
+        return $this->successResponse(
+            "Test enviado correctamente.",
+            $respuesta->id
+        );
     }
 }

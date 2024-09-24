@@ -7,25 +7,35 @@ import { AnimatePresence, motion } from "framer-motion";
 import clsx from "clsx";
 import { FRASES } from "@/modules/core/data";
 import { Item, TestType } from "@/modules/features/tests/types/TestType";
-
-interface TestForm {
-  idPregunta: number;
-  idOpcion: number;
-}
+import { T_Test } from "@/modules/features/tests/api/responses";
+import useFetch from "@/modules/core/hooks/useFetch/useFetch";
+import { toastSuccess } from "@/modules/core/utils/toasts";
 
 function obtenerFraseAleatoria() {
   const indiceAleatorio = Math.floor(Math.random() * FRASES.length);
   return FRASES[indiceAleatorio];
 }
 
+interface TestForm {
+  idPregunta: number;
+  idOpcion: number;
+}
+
 interface Props {
+  idRespuesta?: number;
+  data: T_Test;
   test: TestType;
 }
 
-const Test = ({ test }: Props) => {
+const Test = ({ data, test, idRespuesta }: Props) => {
   const { modal, setOpen } = useModal();
   const [[preguntaIndex, direction], setCurrentPage] = useState([0, 1]);
   const [form, setForm] = useState<TestForm[]>([]);
+  const { postData } = useFetch();
+  const mutation = postData("PUT /respuesta/:id");
+
+  const prev = !idRespuesta;
+
   const frase = useMemo(() => obtenerFraseAleatoria(), []);
   const timerRef = useRef<any>();
 
@@ -58,6 +68,9 @@ const Test = ({ test }: Props) => {
   }
 
   const nextCondition = !exist || !finalizedAnimation;
+  const inLastPregunta = preguntaIndex === preguntas.length - 1;
+  const allPreguntasChecked = form.length === preguntas.length;
+
   const handleOption = (idOpcion: number) => {
     clearTimeout(timerRef.current);
     setForm((prev) => {
@@ -78,12 +91,29 @@ const Test = ({ test }: Props) => {
         ];
       }
     });
-    if (nextCondition) {
+    if (nextCondition && !prev && !inLastPregunta) {
       timerRef.current = setTimeout(() => {
         setPreguntaIndex(preguntaIndex + 1, 1);
         setFinalizedAnimation(true);
       }, 1500);
     }
+  };
+
+  const handleSend = () => {
+    if (!idRespuesta) return;
+    mutation(
+      {
+        resultados: JSON.stringify(form),
+      },
+      {
+        params: {
+          id: idRespuesta,
+        },
+        onSuccess: (res) => {
+          toastSuccess(res.message);
+        },
+      }
+    );
   };
 
   const maxOpciones = test.secciones.reduce(
@@ -113,6 +143,8 @@ const Test = ({ test }: Props) => {
     }),
   };
 
+  console.log(form);
+
   return (
     <div className="w-full py-4 flex flex-col gap-2">
       <div className="w-full flex justify-between items-end pb-2 border-b-2 border-primary-200">
@@ -123,7 +155,7 @@ const Test = ({ test }: Props) => {
           className="flex flex-col gap-2"
         >
           <h3 className="text-[40px] leading-[40px] font-bold text-primary-900 after:content-['.'] after:text-primary-500">
-            MAPI
+            {data.nombre_test}
           </h3>
           <strong className="text-alto-800">¡Inicia tu test ahora!</strong>
         </div>
@@ -132,7 +164,7 @@ const Test = ({ test }: Props) => {
         </Button>
       </div>
       {modal(
-        "Test MAPI",
+        data.nombre_test,
         <div className="flex flex-col gap-2">
           <small className="text-alto-700 flex gap-2">
             <span className="italic text-xs">"{frase.frase}"</span>
@@ -239,16 +271,27 @@ const Test = ({ test }: Props) => {
             >
               Anterior
             </Button>
-            <Button
-              disabled={nextCondition}
-              onClick={() => {
-                setPreguntaIndex(preguntaIndex + 1, 1);
-              }}
-              btnType="secondary"
-              icon={Icon.Types.ARROW_RIGHT}
-            >
-              Siguiente
-            </Button>
+            {inLastPregunta ? (
+              <Button
+                disabled={!allPreguntasChecked || prev}
+                btnType="primary"
+                icon={Icon.Types.ARROW_RIGHT}
+                onClick={handleSend}
+              >
+                Enviar respuesta
+              </Button>
+            ) : (
+              <Button
+                disabled={nextCondition && !prev}
+                onClick={() => {
+                  setPreguntaIndex(preguntaIndex + 1, 1);
+                }}
+                btnType="secondary"
+                icon={Icon.Types.ARROW_RIGHT}
+              >
+                Siguiente
+              </Button>
+            )}
           </div>
         </div>,
         {

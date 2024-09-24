@@ -1,4 +1,4 @@
-import { RespuestaDTO } from "./dtos";
+import { RespuestaDTO, SendTestDTO } from "./dtos";
 import { T_Test, T_Tests } from "./responses";
 
 declare global {
@@ -31,6 +31,13 @@ declare global {
       params: never;
       request: never;
       response: T_Tests[];
+    };
+    "PUT /respuesta/:id": {
+      params: {
+        id: number;
+      };
+      request: SendTestDTO;
+      response: number;
     };
   }
 }

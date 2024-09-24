@@ -6,6 +6,7 @@ import { CanvasType } from "@/modules/core/components/ui/canvas/types/Canvas";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import Loader from "@/modules/core/components/ui/loader/Loader";
 import { T_Tests } from "../api/responses";
+import { useState } from "react";
 
 interface Props {
   respuestas?: boolean;
@@ -16,9 +17,11 @@ const TestPage = ({ respuestas = false }: Props) => {
   const { data } = fetchData(
     respuestas ? "GET /respuesta/for/resolve" : "GET /test"
   );
+  const [loading, setLoading] = useState<number | null>(null);
 
   const navigate = useNavigate();
   const navigateToTest = (test: T_Tests) => {
+    setLoading(respuestas ? test.id_respuesta : test.id);
     if (!respuestas) {
       navigate({
         to: "/tests/$idTest",
@@ -89,6 +92,9 @@ const TestPage = ({ respuestas = false }: Props) => {
                 resolve={() => navigateToTest(v)}
                 edit={!respuestas ? () => {} : undefined}
                 share={!respuestas}
+                loading={
+                  respuestas ? loading === v.id_respuesta : loading === v.id
+                }
               />
             );
           })}

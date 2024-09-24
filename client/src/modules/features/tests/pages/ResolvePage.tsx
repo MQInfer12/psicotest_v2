@@ -37,7 +37,11 @@ const ResolvePage = () => {
             return <Canvas.Paragraph key={i}>{c.content}</Canvas.Paragraph>;
         }
       })}
-      <Canvas.Test test={test} />
+      <Canvas.Test
+        data={data}
+        test={test}
+        idRespuesta={idRespuesta ? Number(idRespuesta) : undefined}
+      />
     </Canvas>
   );
 };

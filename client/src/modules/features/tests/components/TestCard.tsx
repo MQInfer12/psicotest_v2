@@ -3,6 +3,7 @@ import Button from "@/modules/core/components/ui/Button";
 import clsx from "clsx";
 import { motion } from "framer-motion";
 import ShareButton from "./ShareButton";
+import Loader from "@/modules/core/components/ui/loader/Loader";
 
 interface Props {
   idTest: number;
@@ -16,6 +17,7 @@ interface Props {
   edit?: () => void;
   share?: boolean;
   layoutId?: string;
+  loading?: boolean;
 }
 
 const TestCard = ({
@@ -30,6 +32,7 @@ const TestCard = ({
   edit,
   share,
   layoutId,
+  loading,
 }: Props) => {
   return (
     <motion.div
@@ -79,17 +82,14 @@ const TestCard = ({
         )}
       </div>
       {users && (
-        <div className="flex isolate">
+        <div className="flex">
           {users
             .filter((_, i) => i < 8)
             .map((u, i) => (
               <button
                 key={i}
-                style={{
-                  zIndex: i,
-                }}
                 className={clsx(
-                  "w-10 aspect-square rounded-full overflow-hidden border-2 border-white hover:opacity-80 transition-all duration-300",
+                  "w-10 aspect-square rounded-full overflow-hidden border-2 border-white",
                   {
                     "-ml-4": i > 0,
                   }
@@ -98,35 +98,38 @@ const TestCard = ({
                 <img className="w-full h-full" src={u} />
               </button>
             ))}
-          <button
-            style={{
-              zIndex: 20,
-            }}
-            className="w-10 -ml-4 aspect-square rounded-full overflow-hidden border-2 border-white bg-alto-200 text-alto-800 p-2 hover:bg-alto-300 transition-all duration-300"
-          >
+          <button className="w-10 -ml-4 aspect-square rounded-full overflow-hidden border-2 border-white bg-alto-200 text-alto-800 p-2 hover:bg-alto-300 transition-all duration-300">
             <Icon type={Icon.Types.DOTS} />
           </button>
         </div>
       )}
-      <div className="flex gap-4 justify-center pt-1">
-        {resolve && (
-          <Button
-            onClick={resolve}
-            icon={Icon.Types.BRAIN}
-            title="Resolver test"
-          >
-            Resolver
-          </Button>
+      <div className="flex gap-4 justify-center pt-1 h-[42px]">
+        {loading ? (
+          <div className="-mt-5">
+            <Loader text="" scale=".5" />
+          </div>
+        ) : (
+          <>
+            {resolve && (
+              <Button
+                onClick={resolve}
+                icon={Icon.Types.BRAIN}
+                title="Resolver test"
+              >
+                Resolver
+              </Button>
+            )}
+            {edit && (
+              <Button
+                btnType="secondary"
+                onClick={edit}
+                icon={Icon.Types.PENCIL}
+                title="Editar test"
+              />
+            )}
+            {share && <ShareButton idTest={idTest} />}
+          </>
         )}
-        {edit && (
-          <Button
-            btnType="secondary"
-            onClick={edit}
-            icon={Icon.Types.PENCIL}
-            title="Editar test"
-          />
-        )}
-        {share && <ShareButton idTest={idTest} />}
       </div>
     </motion.div>
   );

@@ -1,0 +1,271 @@
+{
+  "requerimientos": [],
+  "secciones": [
+    {
+      "items": [
+        {
+          "id": 1,
+          "descripcion": "Coleccionar diferentes muestras de minerales."
+        },
+        {
+          "id": 2,
+          "descripcion": "Trabajar en una fábrica como mecánico."
+        },
+        {
+          "id": 3,
+          "descripcion": "Determinar el \"Cálculo\" de precios de nuevos productos."
+        },
+        {
+          "id": 4,
+          "descripcion": "Seguir un curso de Biología."
+        },
+        {
+          "id": 5,
+          "descripcion": "Ser un experto en propaganda comercial o Publicidad."
+        },
+        {
+          "id": 6,
+          "descripcion": "Trabajar como Técnico Agrícola en una cooperativa."
+        },
+        {
+          "id": 7,
+          "descripcion": "Desarmar un juguete electrónico malogrado e intentar arreglarlo."
+        },
+        {
+          "id": 8,
+          "descripcion": "Organizar los cálculos y resultados de una encuesta."
+        },
+        {
+          "id": 9,
+          "descripcion": "Investigar las causas de las enfermedades o plagas de las plantas."
+        },
+        {
+          "id": 10,
+          "descripcion": "Ser un Agente de Ventas o Promotor."
+        },
+        {
+          "id": 11,
+          "descripcion": "Criar ganado vacuno."
+        },
+        {
+          "id": 12,
+          "descripcion": "Reparar aparatos domésticos."
+        },
+        {
+          "id": 13,
+          "descripcion": "Hacer operaciones con una máquina calculadora."
+        },
+        {
+          "id": 14,
+          "descripcion": "Investigar una nueva información de un hecho histórico famoso."
+        },
+        {
+          "id": 15,
+          "descripcion": "Dirigir campañas por la defensa de los Derechos Humanos."
+        },
+        {
+          "id": 16,
+          "descripcion": "Estudiar las costumbres de la población de otros países."
+        },
+        {
+          "id": 17,
+          "descripcion": "Ser Ingeniero Mecánico o Electrónico."
+        },
+        {
+          "id": 18,
+          "descripcion": "Llevar libros de Contabilidad de un negocio."
+        },
+        {
+          "id": 19,
+          "descripcion": "Hacer el análisis clínico de un producto farmacéutico."
+        },
+        {
+          "id": 20,
+          "descripcion": "Encargarme de resolver problemas de personal de una empresa."
+        },
+        {
+          "id": 21,
+          "descripcion": "Trabajar en la pesca en alta mar."
+        },
+        {
+          "id": 22,
+          "descripcion": "Visitar un taller de reparaciones de aviones."
+        },
+        {
+          "id": 23,
+          "descripcion": "Ser un profesor de Matemáticas."
+        },
+        {
+          "id": 24,
+          "descripcion": "Trabajar en el perfeccionamiento de un nuevo metal."
+        },
+        {
+          "id": 25,
+          "descripcion": "Supervisar las ventas en un Centro Comercial."
+        },
+        {
+          "id": 26,
+          "descripcion": "Supervisar el trabajo de los obreros en una plantación de caña."
+        },
+        {
+          "id": 27,
+          "descripcion": "Reparar o retocar los muebles gastados."
+        },
+        {
+          "id": 28,
+          "descripcion": "Realizar trabajos que requieran operaciones aritméticas mentales."
+        },
+        {
+          "id": 29,
+          "descripcion": "Investigar las causas de las enfermedades mentales."
+        },
+        {
+          "id": 30,
+          "descripcion": "Exponer en un auditorio sobre \"El Arte de Convencer a la Gente\"."
+        },
+        {
+          "id": 31,
+          "descripcion": "Seguir un curso de Dibujo Lineal."
+        },
+        {
+          "id": 32,
+          "descripcion": "Enseñar castellano."
+        },
+        {
+          "id": 33,
+          "descripcion": "Ser Pianista."
+        },
+        {
+          "id": 34,
+          "descripcion": "Trabajar con enfermeros o personas necesitadas."
+        },
+        {
+          "id": 35,
+          "descripcion": "Pagar los cheques al público en un Banco."
+        },
+        {
+          "id": 36,
+          "descripcion": "Ser un experto en fotografía."
+        },
+        {
+          "id": 37,
+          "descripcion": "Escribir novelas."
+        },
+        {
+          "id": 38,
+          "descripcion": "Escribir una comedia musical."
+        },
+        {
+          "id": 39,
+          "descripcion": "Colaborar en un centro de recreación."
+        },
+        {
+          "id": 40,
+          "descripcion": "Recibir las llamadas telefónicas en una oficina."
+        },
+        {
+          "id": 41,
+          "descripcion": "Dibujar o pintar una escena importante."
+        },
+        {
+          "id": 42,
+          "descripcion": "Escribir artículos o editoriales para un periódico."
+        },
+        {
+          "id": 43,
+          "descripcion": "Ser comentarista de Música en la radio o TV."
+        },
+        {
+          "id": 44,
+          "descripcion": "Orientar a la gente joven en la elección de una ocupación."
+        },
+        {
+          "id": 45,
+          "descripcion": "Clasificar los documentos en una oficina."
+        },
+        {
+          "id": 46,
+          "descripcion": "Ser profesor de Arquitectura."
+        },
+        {
+          "id": 47,
+          "descripcion": "Estudiar Composición Literaria."
+        },
+        {
+          "id": 48,
+          "descripcion": "Trabajar en un establecimiento de discos o instrumentos musicales."
+        },
+        {
+          "id": 49,
+          "descripcion": "Trabajar en un albergue para niños huérfanos."
+        },
+        {
+          "id": 50,
+          "descripcion": "Corregir los errores mecanográficos de un informe."
+        },
+        {
+          "id": 51,
+          "descripcion": "Hacer una escultura de una persona famosa."
+        },
+        {
+          "id": 52,
+          "descripcion": "Ser periodista."
+        },
+        {
+          "id": 53,
+          "descripcion": "Ser profesor de música."
+        },
+        {
+          "id": 54,
+          "descripcion": "Ayudar en una Enfermería."
+        },
+        {
+          "id": 55,
+          "descripcion": "Seguir un curso de Redacción Comercial."
+        },
+        {
+          "id": 56,
+          "descripcion": "Diseñar y decorar nuevos ambientes."
+        },
+        {
+          "id": 57,
+          "descripcion": "Ser escritor."
+        },
+        {
+          "id": 58,
+          "descripcion": "Ser director de una orquesta."
+        },
+        {
+          "id": 59,
+          "descripcion": "Ser Trabajador Social o Asistente Social."
+        },
+        {
+          "id": 60,
+          "descripcion": "Ser secretario(a) de una institución."
+        }
+      ],
+      "opciones": [
+        {
+          "id": 1,
+          "descripcion": "Me desagrada mucho"
+        },
+        {
+          "id": 2,
+          "descripcion": "No me gusta"
+        },
+        {
+          "id": 3,
+          "descripcion": "Me es indiferente"
+        },
+        {
+          "id": 4,
+          "descripcion": "Me gusta"
+        },
+        {
+          "id": 5,
+          "descripcion": "Me gusta mucho"
+        }
+      ]
+    }
+  ]
+}

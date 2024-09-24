@@ -21,7 +21,7 @@ const SharePage = () => {
       {
         onSuccess(res) {
           navigate({
-            to: "/tests/resolve/$idRespuesta",
+            to: "/resolve/$idRespuesta",
             params: {
               idRespuesta: String(res.data),
             },
