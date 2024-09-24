@@ -10,6 +10,8 @@ import { Item, TestType } from "@/modules/features/tests/types/TestType";
 import { T_Test } from "@/modules/features/tests/api/responses";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import { toastSuccess } from "@/modules/core/utils/toasts";
+import IconMessage from "../../icons/IconMessage";
+import { COLORS } from "@/modules/core/constants/COLORS";
 
 function obtenerFraseAleatoria() {
   const indiceAleatorio = Math.floor(Math.random() * FRASES.length);
@@ -31,6 +33,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
   const { modal, setOpen } = useModal();
   const [[preguntaIndex, direction], setCurrentPage] = useState([0, 1]);
   const [form, setForm] = useState<TestForm[]>([]);
+  const [finished, setFinished] = useState(false);
   const { postData } = useFetch();
   const mutation = postData("PUT /respuesta/:id");
 
@@ -180,8 +183,11 @@ const Test = ({ data, test, idRespuesta }: Props) => {
               <motion.span
                 animate={{
                   width: `${((preguntaIndex + 1) / preguntas.length) * 100}%`,
+                  backgroundColor: !finished
+                    ? COLORS.primary[700]
+                    : COLORS.success,
                 }}
-                className="block h-full bg-primary-600"
+                className="block h-full"
               />
             </div>
           </div>
@@ -192,104 +198,148 @@ const Test = ({ data, test, idRespuesta }: Props) => {
             className="w-full bg-alto-100 border border-alto-200 rounded-lg flex relative overflow-hidden"
           >
             <AnimatePresence initial={false} custom={direction}>
-              <motion.div
-                key={pregunta.id}
-                variants={variants}
-                custom={direction}
-                initial="enter"
-                animate="active"
-                exit="exit"
-                className="flex justify-center py-10 inset-0 absolute"
-              >
-                <div className="flex flex-col gap-3 w-[600px] max-w-full">
-                  <h4 className="text-base text-alto-600 px-4">
-                    Pregunta {preguntaIndex + 1}.
-                  </h4>
-                  <div className="border-b border-alto-200 px-4 h-32 flex items-center">
-                    <motion.p
-                      initial={{
-                        opacity: !exist ? 0 : 1,
-                        y: !exist ? "-100%" : 0,
-                      }}
-                      animate={{
-                        opacity: 1,
-                        y: 0,
-                      }}
-                      transition={{
-                        delay: 0.4,
-                        ease: "easeOut",
-                        duration: 0.5,
-                      }}
-                      title={pregunta.descripcion}
-                      className="rounded-md text-lg line-clamp-4"
-                    >
-                      {pregunta.descripcion}
-                    </motion.p>
-                  </div>
-                  <div className="flex flex-col pt-2 px-4 gap-4">
-                    {opciones.map((opcion) => (
-                      <button
-                        key={opcion.id}
-                        onClick={() => handleOption(opcion.id)}
-                        className={clsx(
-                          "w-full flex items-center justify-between border border-alto-300 px-10 h-10 text-sm rounded-md transition-all duration-300 hover:-translate-y-1 hover:shadow-sm disabled:cursor-pointer",
-                          {
-                            "border-l-8 border-l-primary-500 bg-white -translate-y-1 shadow-sm":
-                              exist?.idOpcion === opcion.id,
-                          }
-                        )}
-                        disabled={exist?.idOpcion === opcion.id}
+              {finished ? (
+                <motion.div
+                  variants={variants}
+                  custom={direction}
+                  initial="enter"
+                  animate="active"
+                  exit="exit"
+                  className="absolute inset-0 flex items-center justify-center"
+                >
+                  <IconMessage
+                    icon={Icon.Types.CHECK}
+                    message="¡Muchas gracias por completar el test!"
+                    textColor="success"
+                    delay={0.5}
+                  />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key={pregunta.id}
+                  variants={variants}
+                  custom={direction}
+                  initial="enter"
+                  animate="active"
+                  exit="exit"
+                  className="flex justify-center py-10 inset-0 absolute"
+                >
+                  <div className="flex flex-col gap-3 w-[600px] max-w-full">
+                    <h4 className="text-base text-alto-600 px-4">
+                      Pregunta {preguntaIndex + 1}.
+                    </h4>
+                    <div className="border-b border-alto-200 px-4 h-32 flex items-center">
+                      <motion.p
+                        initial={{
+                          opacity: !exist ? 0 : 1,
+                          y: !exist ? "-100%" : 0,
+                        }}
+                        animate={{
+                          opacity: 1,
+                          y: 0,
+                        }}
+                        transition={{
+                          delay: 0.4,
+                          ease: "easeOut",
+                          duration: 0.5,
+                        }}
+                        title={pregunta.descripcion}
+                        className="rounded-md text-lg line-clamp-4"
                       >
-                        <p>{opcion.descripcion}</p>
-                        <div className="h-6 aspect-square text-alto-300 flex items-center justify-center">
-                          <Icon
-                            type={
-                              exist?.idOpcion === opcion.id
-                                ? Icon.Types.CHECK_ANIMATED
-                                : Icon.Types.CHECK
+                        {pregunta.descripcion}
+                      </motion.p>
+                    </div>
+                    <div className="flex flex-col pt-2 px-4 gap-4">
+                      {opciones.map((opcion) => (
+                        <button
+                          key={opcion.id}
+                          onClick={() => handleOption(opcion.id)}
+                          className={clsx(
+                            "w-full flex items-center justify-between border border-alto-300 px-10 h-10 text-sm rounded-md transition-all duration-300 hover:-translate-y-1 hover:shadow-sm disabled:cursor-pointer",
+                            {
+                              "border-l-8 border-l-primary-500 bg-white -translate-y-1 shadow-sm":
+                                exist?.idOpcion === opcion.id,
                             }
-                          />
-                        </div>
-                      </button>
-                    ))}
+                          )}
+                          disabled={exist?.idOpcion === opcion.id}
+                        >
+                          <p>{opcion.descripcion}</p>
+                          <div className="h-6 aspect-square text-alto-300 flex items-center justify-center">
+                            <Icon
+                              type={
+                                exist?.idOpcion === opcion.id
+                                  ? Icon.Types.CHECK_ANIMATED
+                                  : Icon.Types.CHECK
+                              }
+                            />
+                          </div>
+                        </button>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              </motion.div>
+                </motion.div>
+              )}
             </AnimatePresence>
           </div>
-          <div className="self-center flex gap-4">
-            <Button
-              disabled={preguntaIndex === 0}
-              onClick={() => {
-                setPreguntaIndex(preguntaIndex - 1, -1);
-              }}
-              reverse
-              btnType="secondary"
-              icon={Icon.Types.ARROW_LEFT}
-            >
-              Anterior
-            </Button>
-            {inLastPregunta ? (
+          <div className="w-full flex justify-between gap-4">
+            <div className="flex gap-4">
               <Button
-                disabled={!allPreguntasChecked || prev}
-                btnType="primary"
-                icon={Icon.Types.ARROW_RIGHT}
-                onClick={handleSend}
-              >
-                Enviar respuesta
-              </Button>
-            ) : (
-              <Button
-                disabled={nextCondition && !prev}
-                onClick={() => {
-                  setPreguntaIndex(preguntaIndex + 1, 1);
-                }}
+                onClick={() => setFinished(!finished)}
                 btnType="secondary"
-                icon={Icon.Types.ARROW_RIGHT}
+                icon={Icon.Types.CHECK}
               >
-                Siguiente
+                Finalizar
               </Button>
-            )}
+            </div>
+            <div className="flex gap-4">
+              {finished ? (
+                <Button
+                  key="regresar"
+                  btnType="primary"
+                  icon={Icon.Types.BRAIN}
+                >
+                  Regresar
+                </Button>
+              ) : (
+                <>
+                  <Button
+                    key="anterior"
+                    disabled={finished || preguntaIndex === 0}
+                    onClick={() => {
+                      setPreguntaIndex(preguntaIndex - 1, -1);
+                    }}
+                    reverse
+                    btnType="secondary"
+                    icon={Icon.Types.ARROW_LEFT}
+                  >
+                    Anterior
+                  </Button>
+                  {inLastPregunta ? (
+                    <Button
+                      key="enviar"
+                      disabled={!allPreguntasChecked || prev}
+                      btnType="primary"
+                      icon={Icon.Types.ARROW_RIGHT}
+                      onClick={handleSend}
+                    >
+                      Enviar respuesta
+                    </Button>
+                  ) : (
+                    <Button
+                      key="siguiente"
+                      disabled={nextCondition && !prev}
+                      onClick={() => {
+                        setPreguntaIndex(preguntaIndex + 1, 1);
+                      }}
+                      btnType="secondary"
+                      icon={Icon.Types.ARROW_RIGHT}
+                    >
+                      Siguiente
+                    </Button>
+                  )}
+                </>
+              )}
+            </div>
           </div>
         </div>,
         {
