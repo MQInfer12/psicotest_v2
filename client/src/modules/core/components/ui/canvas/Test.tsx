@@ -35,6 +35,8 @@ const Test = ({ data, test, idRespuesta }: Props) => {
   const [[preguntaIndex, direction], setCurrentPage] = useState([0, 1]);
   const [form, setForm] = useState<TestForm[]>([]);
   const [finished, setFinished] = useState(false);
+  const [showAutoFill, setShowAutoFill] = useState(false);
+
   const { postData } = useFetch();
   const mutation = postData("PUT /respuesta/:id");
   const navigate = useNavigate();
@@ -170,6 +172,19 @@ const Test = ({ data, test, idRespuesta }: Props) => {
       x: direction > 0 ? "-100%" : "100%",
     }),
   };
+
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (e.ctrlKey && e.shiftKey && e.key == "Q") {
+        setShowAutoFill((old) => !old);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyPress);
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+    };
+  }, []);
 
   return (
     <div className="w-full py-4 flex flex-col gap-2">
@@ -314,7 +329,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
           >
             {!prev && (
               <div className="flex gap-4">
-                {!prev && !finished && (
+                {!prev && !finished && showAutoFill && (
                   <Button
                     onClick={handleAutofill}
                     btnType="secondary"
