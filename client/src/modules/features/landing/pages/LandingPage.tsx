@@ -91,10 +91,6 @@ const LandingPage = () => {
         className="flex-1 flex items-center justify-center bg-alto-50  rounded-bl-[100px]"
       >
         <motion.div
-          initial={{
-            opacity: 0,
-            translateX: "100%",
-          }}
           animate={{
             opacity: 1,
             translateX: 0,
@@ -122,9 +118,6 @@ const LandingPage = () => {
               ¡Inicia sesión para comenzar!
             </button>
           </div>
-          {/* <div className="absolute -z-10">
-            <Hexagon size={640} />
-          </div> */}
         </motion.div>
       </div>
     </section>

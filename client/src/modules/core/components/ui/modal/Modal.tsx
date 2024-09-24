@@ -14,6 +14,7 @@ interface Props {
   blur?: boolean;
   width?: number;
   titleBar?: boolean;
+  onlyContent?: boolean;
 }
 
 const getFocusableElements = (
@@ -60,6 +61,7 @@ const Modal = ({
   blur,
   width,
   titleBar,
+  onlyContent,
 }: Props) => {
   const lastFocusedElement = useRef<HTMLElement | null>(null);
   const modalRef = useRef<HTMLDivElement | null>(null);
@@ -108,7 +110,7 @@ const Modal = ({
     <Appear
       open={open}
       className={clsx(
-        "bg-black/40 fixed inset-0 flex items-center justify-center z-40",
+        "bg-alto-950/60 fixed inset-0 flex items-center justify-center z-40 px-5",
         { "backdrop-blur-sm": blur }
       )}
       onClick={close}
@@ -126,11 +128,17 @@ const Modal = ({
         }}
         exit={{ scale: 0 }}
         onClick={(e) => e.stopPropagation()}
-        className="max-w-full bg-alto-50 rounded-lg flex flex-col"
+        className={clsx(
+          "max-w-full bg-alto-50 rounded-lg flex flex-col relative isolate",
+          {
+            "border-8 border-alto-100": onlyContent,
+          }
+        )}
       >
         <header
           className={clsx("flex justify-between items-center px-4 py-2 gap-4", {
-            "border-b border-alto-300/70": titleBar,
+            "border-b border-alto-300/70": !onlyContent && titleBar,
+            "absolute top-0 z-10 w-full": onlyContent,
           })}
         >
           <strong className="whitespace-nowrap overflow-hidden text-ellipsis">
@@ -144,8 +152,10 @@ const Modal = ({
           />
         </header>
         <main
-          className={clsx("p-4", {
+          className={clsx({
             "pt-0": !titleBar,
+            "p-4": !onlyContent,
+            "rounded-md overflow-hidden": onlyContent
           })}
         >
           {children}

@@ -5,6 +5,7 @@ interface Options {
   width?: number;
   blur?: boolean;
   titleBar?: boolean;
+  onlyContent?: boolean;
 }
 
 export const useModal = <T,>() => {
@@ -33,6 +34,7 @@ export const useModal = <T,>() => {
       blur={options?.blur}
       width={options?.width}
       titleBar={options?.titleBar ?? true}
+      onlyContent={options?.onlyContent}
     >
       {typeof children === "function" ? children(item) : children}
     </Modal>

@@ -143,8 +143,6 @@ const Test = ({ data, test, idRespuesta }: Props) => {
     }),
   };
 
-  console.log(form);
-
   return (
     <div className="w-full py-4 flex flex-col gap-2">
       <div className="w-full flex justify-between items-end pb-2 border-b-2 border-primary-200">
