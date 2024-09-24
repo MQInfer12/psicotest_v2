@@ -112,6 +112,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
           id: idRespuesta,
         },
         onSuccess: (res) => {
+          setOpen(false);
           toastSuccess(res.message);
         },
       }
