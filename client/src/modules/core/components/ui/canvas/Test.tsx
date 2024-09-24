@@ -35,7 +35,6 @@ const Test = ({ data, test, idRespuesta }: Props) => {
   const [[preguntaIndex, direction], setCurrentPage] = useState([0, 1]);
   const [form, setForm] = useState<TestForm[]>([]);
   const [finished, setFinished] = useState(false);
-  const [showAutoFill, setShowAutoFill] = useState(false);
 
   const { postData } = useFetch();
   const mutation = postData("PUT /respuesta/:id");
@@ -106,28 +105,6 @@ const Test = ({ data, test, idRespuesta }: Props) => {
     }
   };
 
-  const handleAutofill = () => {
-    toastConfirm("Se llenará el test automáticamente", async () => {
-      const body: TestForm[] = [];
-
-      test.secciones.map((section) => {
-        const sectionOptions = section.opciones.length;
-        section.items.map((item) => {
-          const existsBody = form.find((v) => v.idPregunta == item.id);
-          if (!existsBody) {
-            const randomIndex = Math.floor(Math.random() * sectionOptions);
-            return body.push({
-              idPregunta: item.id,
-              idOpcion: section.opciones[randomIndex].id,
-            });
-          }
-          return body.push(existsBody);
-        });
-      });
-      handleSend(body);
-    });
-  };
-
   const handleSend = async (body: TestForm[]) => {
     if (!idRespuesta) return;
     mutation(
@@ -176,7 +153,26 @@ const Test = ({ data, test, idRespuesta }: Props) => {
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
       if (e.ctrlKey && e.shiftKey && e.key == "Q") {
-        setShowAutoFill((old) => !old);
+        toastConfirm("Se llenará el test automáticamente", async () => {
+          const body: TestForm[] = [];
+
+          test.secciones.map((section) => {
+            const sectionOptions = section.opciones.length;
+            section.items.map((item) => {
+              const existsBody = form.find((v) => v.idPregunta == item.id);
+              if (!existsBody) {
+                const randomIndex = Math.floor(Math.random() * sectionOptions);
+                return body.push({
+                  idPregunta: item.id,
+                  idOpcion: section.opciones[randomIndex].id,
+                });
+              }
+              return body.push(existsBody);
+            });
+          });
+          setForm(body);
+          setPreguntaIndex(body.length - 1, 1);
+        });
       }
     };
 
@@ -329,15 +325,6 @@ const Test = ({ data, test, idRespuesta }: Props) => {
           >
             {!prev && (
               <div className="flex gap-4">
-                {!prev && !finished && showAutoFill && (
-                  <Button
-                    onClick={handleAutofill}
-                    btnType="secondary"
-                    icon={Icon.Types.BRAIN}
-                  >
-                    Llenado automático
-                  </Button>
-                )}
                 {/* <Button
                   onClick={() => setFinished(!finished)}
                   btnType="secondary"
