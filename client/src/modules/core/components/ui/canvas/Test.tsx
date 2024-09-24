@@ -37,7 +37,6 @@ const Test = ({ data, test, idRespuesta }: Props) => {
   const [finished, setFinished] = useState(false);
   const { postData } = useFetch();
   const mutation = postData("PUT /respuesta/:id");
-  const getAnswersMutation = postData("GET /test/mapi/answers");
   const navigate = useNavigate();
 
   const prev = !idRespuesta;
@@ -107,11 +106,20 @@ const Test = ({ data, test, idRespuesta }: Props) => {
 
   const handleAutofill = () => {
     toastConfirm("Se llenará el test automáticamente", async () => {
-      let body = await new Promise<TestForm[]>((resolve) => {
-        getAnswersMutation(null, {
-          onSuccess(res) {
-            resolve(res.data);
-          },
+      const body: TestForm[] = [];
+
+      test.secciones.map((section) => {
+        const sectionOptions = section.opciones.length;
+        section.items.map((item) => {
+          const existsBody = form.find((v) => v.idPregunta == item.id);
+          if (!existsBody) {
+            const randomIndex = Math.floor(Math.random() * sectionOptions);
+            return body.push({
+              idPregunta: item.id,
+              idOpcion: section.opciones[randomIndex].id,
+            });
+          }
+          return body.push(existsBody);
         });
       });
       handleSend(body);
@@ -162,8 +170,6 @@ const Test = ({ data, test, idRespuesta }: Props) => {
       x: direction > 0 ? "-100%" : "100%",
     }),
   };
-
-  console.log(data);
 
   return (
     <div className="w-full py-4 flex flex-col gap-2">
@@ -308,7 +314,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
           >
             {!prev && (
               <div className="flex gap-4">
-                {data.nombre_autor == "Millon" && (
+                {!prev && !finished && (
                   <Button
                     onClick={handleAutofill}
                     btnType="secondary"
