@@ -1,5 +1,5 @@
 import { useUserContext } from "../../auth/context/UserContext";
-import { Link, Navigate, Outlet } from "@tanstack/react-router";
+import { Link, Navigate, Outlet, useSearch } from "@tanstack/react-router";
 import Logo from "../components/Logo";
 import UnifranzLogo from "@assets/images/unifranz-logo.png";
 import { PUBLIC_NAVBAR_HEIGHT } from "../constants/LAYOUT_SIZES";
@@ -7,7 +7,10 @@ import LoginCard from "../../auth/components/LoginCard";
 
 const Public = () => {
   const { state } = useUserContext();
-  if (state !== "unlogged") return <Navigate to="/tests" />;
+  const { redirect } = useSearch({
+    from: "/_public",
+  });
+  if (state !== "unlogged") return <Navigate to={redirect || "/tests"} />;
 
   return (
     <>
@@ -32,7 +35,7 @@ const Public = () => {
           <img src={UnifranzLogo} className="h-12 w-auto" alt="logo-unifranz" />
         </div>
       </nav>
-      <LoginCard />
+      <LoginCard redirect={redirect} />
       <div className="min-h-screen bg-alto-100 overflow-x-hidden">
         <Outlet />
       </div>

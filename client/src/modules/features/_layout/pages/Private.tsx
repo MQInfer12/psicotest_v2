@@ -16,20 +16,22 @@ import {
 import Icon, { ICON } from "@/modules/core/components/icons/Icon";
 import AsideLink from "../components/AsideLink";
 import { PRIVATE_LINKS } from "../constants/PRIVATE_LINKS";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Logo from "../components/Logo";
 import Breadcrumb from "../components/breadcrumb/Breadcrumb";
 import Loader from "@/modules/core/components/ui/loader/Loader";
 import { getActiveBreadcrumb } from "../components/breadcrumb/utils/getActiveBreadcrumb";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
+import { buildUrlParams } from "@/modules/core/utils/buildUrlParams";
 
 const Dashboard = () => {
+  const { pathname, search } = useLocation();
   const { user, state, logout } = useUserContext();
-  if (state === "unlogged") return <Navigate to="/" />;
+  const url = pathname + buildUrlParams(search);
+  const fromLogoutRef = useRef(false);
 
   const navigate = useNavigate();
-  const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
 
   const { postData } = useFetch();
@@ -41,11 +43,19 @@ const Dashboard = () => {
         onSuccess: (res) => {
           logout();
           toastSuccess(res.message);
+          fromLogoutRef.current = true;
         },
       })
     );
   };
 
+  if (state === "unlogged")
+    return (
+      <Navigate
+        to="/"
+        search={!fromLogoutRef.current ? { redirect: url } : undefined}
+      />
+    );
   if (state === "loading")
     return (
       <div className="w-screen h-screen bg-alto-100">

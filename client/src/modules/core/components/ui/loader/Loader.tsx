@@ -5,9 +5,15 @@ interface Props {
   text?: string;
   scale?: string;
   white?: boolean;
+  whiteOnResponsive?: boolean;
 }
 
-const Loader = ({ text = "Cargando...", scale, white }: Props) => {
+const Loader = ({
+  text = "Cargando...",
+  scale,
+  white,
+  whiteOnResponsive,
+}: Props) => {
   return (
     <div
       style={{
@@ -18,11 +24,20 @@ const Loader = ({ text = "Cargando...", scale, white }: Props) => {
         {
           "text-primary-800": !white,
           "text-primary-300": white,
+          "max-sm:text-primary-300": whiteOnResponsive,
         }
       )}
     >
       <span className="loader" />
-      {text && <p className="text-sm font-medium text-alto-800">{text}</p>}
+      {text && (
+        <p
+          className={clsx("text-sm font-medium text-alto-800", {
+            "max-sm:text-alto-50": whiteOnResponsive,
+          })}
+        >
+          {text}
+        </p>
+      )}
     </div>
   );
 };

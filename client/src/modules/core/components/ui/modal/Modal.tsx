@@ -155,7 +155,7 @@ const Modal = ({
           className={clsx({
             "pt-0": !titleBar,
             "p-4": !onlyContent,
-            "rounded-md overflow-hidden": onlyContent
+            "rounded-md overflow-hidden": onlyContent,
           })}
         >
           {children}

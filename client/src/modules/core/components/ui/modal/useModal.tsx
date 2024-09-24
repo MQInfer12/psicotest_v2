@@ -6,6 +6,7 @@ interface Options {
   blur?: boolean;
   titleBar?: boolean;
   onlyContent?: boolean;
+  onClose?: () => void;
 }
 
 export const useModal = <T,>() => {
@@ -30,7 +31,10 @@ export const useModal = <T,>() => {
     <Modal
       title={title}
       open={open}
-      close={() => setOpen(false)}
+      close={() => {
+        options?.onClose?.();
+        setOpen(false);
+      }}
       blur={options?.blur}
       width={options?.width}
       titleBar={options?.titleBar ?? true}

@@ -14,7 +14,7 @@ export const BREADCRUMB: Breadcrumb[] = [
     breadcrumb: ["/tests"],
   },
   {
-    name: "Enlace al test",
+    name: "Asignación de test",
     match: "/tests/share",
     breadcrumb: ["/tests", "/tests/share"],
   },
