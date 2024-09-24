@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\T_Test_RespuestaResource;
 use App\Http\Resources\T_TestResource;
 use App\Http\Resources\T_TestsResource;
 use App\Models\T_Respuesta;
@@ -33,10 +34,9 @@ class T_TestController extends Controller
     public function showByRespuesta($id)
     {
         $respuesta = T_Respuesta::findOrFail($id);
-        $test = T_Test::findOrFail($respuesta->test_version->id_test);
         return $this->successResponse(
             "Test obtenido correctamente.",
-            new T_TestResource($test)
+            new T_Test_RespuestaResource($respuesta)
         );
     }
 }

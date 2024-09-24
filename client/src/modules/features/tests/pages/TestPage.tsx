@@ -95,6 +95,7 @@ const TestPage = ({ respuestas = false }: Props) => {
                 loading={
                   respuestas ? loading === v.id_respuesta : loading === v.id
                 }
+                finished={v.estado === "Enviado"}
               />
             );
           })}

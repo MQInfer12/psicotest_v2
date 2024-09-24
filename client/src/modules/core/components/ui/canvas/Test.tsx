@@ -25,25 +25,13 @@ export interface TestForm {
 }
 
 interface Props {
-  idRespuesta?: number;
   data: T_Test;
   test: TestType;
+  idRespuesta?: number;
 }
 
 const Test = ({ data, test, idRespuesta }: Props) => {
   const { modal, setOpen } = useModal();
-  const [[preguntaIndex, direction], setCurrentPage] = useState([0, 1]);
-  const [form, setForm] = useState<TestForm[]>([]);
-  const [finished, setFinished] = useState(false);
-
-  const { postData } = useFetch();
-  const mutation = postData("PUT /respuesta/:id");
-  const navigate = useNavigate();
-
-  const prev = !idRespuesta;
-
-  const frase = useMemo(() => obtenerFraseAleatoria(), []);
-  const timerRef = useRef<any>();
 
   const preguntas = useMemo(
     () =>
@@ -55,6 +43,29 @@ const Test = ({ data, test, idRespuesta }: Props) => {
       }, [] as Item[]),
     [test]
   );
+
+  const resultados: TestForm[] | null = data.resultados
+    ? JSON.parse(data.resultados)
+    : null;
+  const [finished, setFinished] = useState(!!resultados);
+  const [finishedPage, setFinishedPage] = useState(false);
+
+  const [[preguntaIndex, direction], setCurrentPage] = useState([
+    finished ? preguntas.length - 1 : 0,
+    1,
+  ]);
+  const [form, setForm] = useState<TestForm[]>(resultados || []);
+
+  const { getDataSetter, postData } = useFetch();
+  const mutation = postData("PUT /respuesta/:id");
+  const setter = getDataSetter("GET /respuesta/for/resolve");
+  const navigate = useNavigate();
+
+  const prev = !idRespuesta;
+
+  const frase = useMemo(() => obtenerFraseAleatoria(), []);
+  const timerRef = useRef<any>();
+
   const pregunta = preguntas[preguntaIndex];
   const opciones =
     test.secciones.find((seccion) =>
@@ -106,7 +117,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
   };
 
   const handleSend = async (body: TestForm[]) => {
-    if (!idRespuesta) return;
+    if (prev) return;
     mutation(
       {
         resultados: JSON.stringify(body),
@@ -117,7 +128,14 @@ const Test = ({ data, test, idRespuesta }: Props) => {
         },
         onSuccess: (res) => {
           toastSuccess(res.message);
+          setFinishedPage(true);
           setFinished(true);
+          setter((old) => {
+            return old.map((v) => {
+              if (v.id === res.data.id) return res.data;
+              return v;
+            });
+          });
         },
       }
     );
@@ -152,6 +170,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
+      if (finished) return;
       if (e.ctrlKey && e.shiftKey && e.key == "Q") {
         toastConfirm("Se llenará el test automáticamente", async () => {
           const body: TestForm[] = [];
@@ -194,7 +213,14 @@ const Test = ({ data, test, idRespuesta }: Props) => {
           <h3 className="text-[40px] leading-[40px] font-bold text-primary-900 after:content-['.'] after:text-primary-500">
             {data.nombre_test}
           </h3>
-          <strong className="text-alto-800">¡Inicia tu test ahora!</strong>
+          <strong
+            className={clsx({
+              "text-success": finished,
+              "text-alto-800": !finished,
+            })}
+          >
+            {finished ? "¡Ya resolviste este test!" : "¡Inicia tu test ahora!"}
+          </strong>
         </div>
         <Button onClick={() => setOpen(true)} icon={Icon.Types.ARROW_RIGHT}>
           {form.length > 0 ? "Continuar el test" : "¡Comienza tu test!"}
@@ -203,9 +229,9 @@ const Test = ({ data, test, idRespuesta }: Props) => {
       {modal(
         data.nombre_test,
         <div className="flex flex-col gap-2">
-          <small className="text-alto-700 flex gap-2">
-            <span className="italic text-xs">"{frase.frase}"</span>
-            <span className="text-[10px] text-primary-400">
+          <small className="text-alto-700 gap-2">
+            <span className="italic text-xs">"{frase.frase}"</span>&nbsp;&nbsp;
+            <span className="text-[10px] text-primary-400 whitespace-nowrap">
               ({frase.autor})
             </span>
           </small>
@@ -234,7 +260,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
             className="w-full bg-alto-100 border border-alto-200 rounded-lg flex relative overflow-hidden"
           >
             <AnimatePresence initial={false} custom={direction}>
-              {finished ? (
+              {finishedPage ? (
                 <motion.div
                   variants={variants}
                   custom={direction}
@@ -291,13 +317,14 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                           key={opcion.id}
                           onClick={() => handleOption(opcion.id)}
                           className={clsx(
-                            "w-full flex items-center justify-between border border-alto-300 px-10 h-10 text-sm rounded-md transition-all duration-300 hover:-translate-y-1 hover:shadow-sm disabled:cursor-pointer",
+                            "w-full flex items-center justify-between border border-alto-300 px-10 h-10 text-sm rounded-md transition-all duration-300 disabled:cursor-pointer",
                             {
                               "border-l-8 border-l-primary-500 bg-white -translate-y-1 shadow-sm":
                                 exist?.idOpcion === opcion.id,
+                              "hover:-translate-y-1 hover:shadow-sm": !finished,
                             }
                           )}
-                          disabled={exist?.idOpcion === opcion.id}
+                          disabled={finished || exist?.idOpcion === opcion.id}
                         >
                           <p>{opcion.descripcion}</p>
                           <div className="h-6 aspect-square text-alto-300 flex items-center justify-center">
@@ -317,73 +344,70 @@ const Test = ({ data, test, idRespuesta }: Props) => {
               )}
             </AnimatePresence>
           </div>
-          <div
-            className={clsx("w-full flex gap-4", {
-              "justify-between": !prev,
-              "justify-center": prev,
-            })}
-          >
-            {!prev && (
-              <div className="flex gap-4">
-                {/* <Button
-                  onClick={() => setFinished(!finished)}
-                  btnType="secondary"
-                  icon={Icon.Types.CHECK}
-                >
-                  Finalizar
-                </Button> */}
-              </div>
-            )}
-            <div className="flex gap-4">
-              {finished ? (
+          <div className={clsx("w-full flex gap-4", "justify-between")}>
+            <Button
+              key="anterior"
+              disabled={preguntaIndex === 0}
+              onClick={() => {
+                if (finishedPage) {
+                  setPreguntaIndex(preguntaIndex, -1);
+                  setFinishedPage(false);
+                  return;
+                }
+                setPreguntaIndex(preguntaIndex - 1, -1);
+              }}
+              reverse
+              btnType="secondary"
+              icon={Icon.Types.ARROW_LEFT}
+            >
+              Anterior
+            </Button>
+            {finishedPage ? (
+              <Button
+                key="regresar"
+                btnType="primary"
+                icon={Icon.Types.BRAIN}
+                onClick={() => navigate({ to: "/resolve" })}
+              >
+                Regresar a tests
+              </Button>
+            ) : inLastPregunta ? (
+              finished ? (
                 <Button
-                  key="regresar"
-                  btnType="primary"
-                  icon={Icon.Types.BRAIN}
-                  onClick={() => navigate({ to: "/resolve" })}
+                  key="siguiente"
+                  disabled={finished || (nextCondition && !prev)}
+                  onClick={() => {
+                    setPreguntaIndex(preguntaIndex + 1, 1);
+                  }}
+                  btnType="secondary"
+                  icon={Icon.Types.ARROW_RIGHT}
                 >
-                  Regresar
+                  Siguiente
                 </Button>
               ) : (
-                <>
-                  <Button
-                    key="anterior"
-                    disabled={finished || preguntaIndex === 0}
-                    onClick={() => {
-                      setPreguntaIndex(preguntaIndex - 1, -1);
-                    }}
-                    reverse
-                    btnType="secondary"
-                    icon={Icon.Types.ARROW_LEFT}
-                  >
-                    Anterior
-                  </Button>
-                  {inLastPregunta ? (
-                    <Button
-                      key="enviar"
-                      disabled={!allPreguntasChecked || prev}
-                      btnType="primary"
-                      icon={Icon.Types.ARROW_RIGHT}
-                      onClick={() => handleSend(form)}
-                    >
-                      Enviar respuesta
-                    </Button>
-                  ) : (
-                    <Button
-                      key="siguiente"
-                      disabled={nextCondition && !prev}
-                      onClick={() => {
-                        setPreguntaIndex(preguntaIndex + 1, 1);
-                      }}
-                      btnType="secondary"
-                      icon={Icon.Types.ARROW_RIGHT}
-                    >
-                      Siguiente
-                    </Button>
-                  )}
-                </>
-              )}
-            </div>
+                <Button
+                  key="enviar"
+                  disabled={!allPreguntasChecked || prev}
+                  btnType="primary"
+                  icon={Icon.Types.ARROW_RIGHT}
+                  onClick={() => handleSend(form)}
+                >
+                  Terminar
+                </Button>
+              )
+            ) : (
+              <Button
+                key="siguiente"
+                disabled={nextCondition && !prev}
+                onClick={() => {
+                  setPreguntaIndex(preguntaIndex + 1, 1);
+                }}
+                btnType="secondary"
+                icon={Icon.Types.ARROW_RIGHT}
+              >
+                Siguiente
+              </Button>
+            )}
           </div>
         </div>,
         {

@@ -89,7 +89,7 @@ class T_RespuestaController extends Controller
 
         return $this->successResponse(
             "Test enviado correctamente.",
-            $respuesta->id
+            new T_Tests_RepuestaResource($respuesta)
         );
     }
 }

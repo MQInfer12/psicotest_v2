@@ -28,6 +28,7 @@ import IconX from "./tabler/iconX";
 
 export enum ICON {
   CHECK = "check",
+  CHECK_FILLED = "check_filled",
   CHECK_ANIMATED = "check_animated",
   X = "x",
   QUESTION = "question",
@@ -70,6 +71,7 @@ interface Props {
 const Icon = ({ type }: Props) => {
   const icons: Record<ICON, JSX.Element> = {
     [ICON.CHECK]: <IconCheck />,
+    [ICON.CHECK_FILLED]: <IconCheck filled />,
     [ICON.CHECK_ANIMATED]: <IconCheckAnimated />,
     [ICON.X]: <IconX />,
     [ICON.QUESTION]: <IconQuestion />,

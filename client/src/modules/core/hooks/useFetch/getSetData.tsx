@@ -12,6 +12,7 @@ export const getSetData = <K extends keyof EndpointMap>(
   const queryClient = useQueryClient();
   const { queryKey } = getUrlData(endpointConfig);
   const setData: SetData<TResponse> = (setter) => {
+    console.log("pasa");
     if (!existData) return;
     queryClient.setQueryData(
       queryKey,

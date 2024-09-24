@@ -18,6 +18,7 @@ interface Props {
   share?: boolean;
   layoutId?: string;
   loading?: boolean;
+  finished?: boolean;
 }
 
 const TestCard = ({
@@ -33,6 +34,7 @@ const TestCard = ({
   share,
   layoutId,
   loading,
+  finished,
 }: Props) => {
   return (
     <motion.div
@@ -43,14 +45,24 @@ const TestCard = ({
         <strong className="text-xl w-full overflow-hidden text-ellipsis whitespace-nowrap">
           {title}
         </strong>
-        {starred && (
-          <div
-            title="Seleccionado por los creadores"
-            className="h-6 aspect-square text-primary-700"
-          >
-            <Icon type={Icon.Types.STARRED} />
-          </div>
-        )}
+        <div className="flex gap-1">
+          {finished && (
+            <div
+              title="Test finalizado"
+              className="h-6 aspect-square text-success"
+            >
+              <Icon type={Icon.Types.CHECK_FILLED} />
+            </div>
+          )}
+          {starred && (
+            <div
+              title="Seleccionado por los creadores"
+              className="h-6 aspect-square text-primary-700"
+            >
+              <Icon type={Icon.Types.STARRED} />
+            </div>
+          )}
+        </div>
       </div>
       <p className="text-sm text-alto-800 leading-6 line-clamp-3 h-[72px]">
         {description}

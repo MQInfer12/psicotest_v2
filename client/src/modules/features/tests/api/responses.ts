@@ -17,4 +17,5 @@ export interface T_Test {
   canvas: string;
   version: number;
   test: string;
+  resultados: string | null;
 }

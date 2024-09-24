@@ -37,7 +37,7 @@ declare global {
         id: number;
       };
       request: SendTestDTO;
-      response: number;
+      response: T_Tests;
     };
   }
 }

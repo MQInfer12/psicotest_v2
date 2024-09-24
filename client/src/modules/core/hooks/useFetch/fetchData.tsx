@@ -5,7 +5,7 @@ import { fetchOptions } from "./utils/fetchFn";
 import { getSetData } from "./getSetData";
 
 //* FETCHING IN COMPONENT RENDERING
-const fetchData = <K extends keyof EndpointMap>(
+export const fetchData = <K extends keyof EndpointMap>(
   endpointConfig: K | [K, EndpointMap[K]["params"]],
   config: RequestInit = {}
 ) => {
@@ -30,5 +30,3 @@ const fetchData = <K extends keyof EndpointMap>(
     setData,
   };
 };
-
-export default fetchData;
