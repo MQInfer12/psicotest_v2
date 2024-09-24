@@ -271,6 +271,16 @@ const Test = ({ data, test, idRespuesta }: Props) => {
             >
               Anterior
             </Button>
+            {data.nombre_autor == "Millon" && (
+              <Button
+                onClick={handleSend}
+                reverse
+                btnType="secondary"
+                icon={Icon.Types.BRAIN}
+              >
+                Llenado automático
+              </Button>
+            )}
             {inLastPregunta ? (
               <Button
                 disabled={!allPreguntasChecked || prev}
@@ -290,16 +300,6 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                 icon={Icon.Types.ARROW_RIGHT}
               >
                 Siguiente
-              </Button>
-            )}
-            {data.nombre_autor == "Millon" && (
-              <Button
-                onClick={handleSend}
-                reverse
-                btnType="secondary"
-                icon={Icon.Types.CHECK}
-              >
-                Llenado automático
               </Button>
             )}
           </div>
