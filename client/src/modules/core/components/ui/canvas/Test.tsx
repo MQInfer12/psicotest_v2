@@ -161,7 +161,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
   let height = 80; //p-10
   height += 24; //h4
   height += 24; //gap-3 x2
-  height += 128; //p
+  height += 160; //p
   height += 16; //opciones mt-4
   height += 16; //opciones gap-4
   height += maxOpciones * 40; //2 opciones h-10
@@ -278,8 +278,11 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                       <h4 className="text-base text-alto-600 px-4">
                         Pregunta {preguntaIndex + 1}.
                       </h4>
-                      <div className="border-b border-alto-200 px-4 h-32 flex items-center">
-                        <motion.p
+                      <div className="border-b border-alto-200 px-4 h-40 flex items-center">
+                        <motion.div
+                          className={clsx("w-full", {
+                            "flex justify-center": pregunta.type === "image",
+                          })}
                           initial={{
                             opacity: !exist ? 0 : 1,
                             y: !exist ? "-100%" : 0,
@@ -293,11 +296,26 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                             ease: "easeOut",
                             duration: 0.5,
                           }}
-                          title={pregunta.descripcion}
-                          className="rounded-md text-lg line-clamp-4"
                         >
-                          {pregunta.descripcion}
-                        </motion.p>
+                          {
+                            {
+                              text: (
+                                <p
+                                  title={pregunta.descripcion}
+                                  className="text-lg line-clamp-5 whitespace-pre-line"
+                                >
+                                  {pregunta.descripcion}
+                                </p>
+                              ),
+                              image: (
+                                <img
+                                  className="object-cover max-h-36 rounded-md max-w-full border-2 border-alto-50 shadow-lg"
+                                  src={pregunta.descripcion}
+                                />
+                              ),
+                            }[pregunta.type ?? "text"]
+                          }
+                        </motion.div>
                       </div>
                       <div className="flex flex-col pt-2 px-4 gap-4">
                         {opciones.map((opcion) => (

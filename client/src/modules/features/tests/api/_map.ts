@@ -32,6 +32,11 @@ declare global {
       request: never;
       response: T_Tests[];
     };
+    "GET /respuesta/for/table": {
+      params: never;
+      request: never;
+      response: T_Tests[];
+    };
     "PUT /respuesta/:id": {
       params: {
         id: number;

@@ -27,6 +27,15 @@ class T_RespuestaController extends Controller
             T_Tests_RepuestaResource::collection($user->respuestas)
         );
     }
+    
+    public function indexForTable(Request $request)
+    {
+        $user = $request->user();
+        return $this->successResponse(
+            "Tests obtenidos correctamente.",
+            T_Tests_RepuestaResource::collection($user->asignados)
+        );
+    }
 
     public function store(T_RespuestaStoreRequest $request)
     {

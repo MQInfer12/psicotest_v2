@@ -24,6 +24,11 @@ class T_Respuesta extends Model
         'fecha_enviado'
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(U_user::class, 'email_user');
+    }
+
     public function test_version()
     {
         return $this->belongsTo(T_TestVersion::class, 'id_test_version');

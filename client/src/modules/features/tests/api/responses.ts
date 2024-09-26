@@ -1,12 +1,16 @@
 export interface T_Tests {
   id: number;
-  id_respuesta: number | null;
-  nombre_asignador: string | null;
+  id_respuesta?: number;
+  nombre_asignador?: string;
   nombre_test: string;
   nombre_autor: string | null;
   nombre_autor_creador: string | null;
+  nombre_user?: string;
+  foto_user?: string;
+  email_user?: string;
   canvas: string;
-  estado: "Pendiente" | "Enviado" | null;
+  estado?: "Pendiente" | "Enviado";
+  fotos?: string[];
 }
 
 export interface T_Test {

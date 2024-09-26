@@ -3,7 +3,6 @@ export interface TestType {
   secciones: Seccion[];
 }
 
-
 interface Seccion {
   items: Item[];
   opciones: Opcion[];
@@ -13,6 +12,7 @@ type Requirement = "fecha_nacimiento" | "genero";
 
 export interface Item {
   id: number;
+  type?: "image" | "text";
   descripcion: string;
 }
 

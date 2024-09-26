@@ -25,6 +25,7 @@ interface Props<T> {
   }[];
   shadow?: boolean;
   rowHeight?: number;
+  rounded?: boolean;
 }
 
 const Table = <T,>({
@@ -34,6 +35,7 @@ const Table = <T,>({
   actions,
   shadow = false,
   rowHeight = 64,
+  rounded = true,
 }: Props<T>) => {
   const [sorting, setSorting] = useState<ColumnSort[]>([]);
 
@@ -51,8 +53,9 @@ const Table = <T,>({
   return (
     <div
       className={clsx(
-        "flex-1 flex flex-col bg-alto-50 border overflow-hidden rounded-lg",
+        "flex-1 flex flex-col bg-alto-50 border overflow-hidden",
         {
+          "rounded-lg": rounded,
           "shadow-xl": shadow,
         }
       )}
@@ -215,6 +218,7 @@ const Table = <T,>({
                   >
                     {actions.map((a) => (
                       <Button
+                        key={a.title}
                         onClick={() => a.fn(row.original)}
                         btnSize="small"
                         title={a.title}

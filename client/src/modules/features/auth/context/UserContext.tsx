@@ -1,6 +1,7 @@
 import { TOKEN_NAME } from "@/modules/core/constants/CONSTANTS";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import { User } from "@/modules/features/users/api/responses";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   createContext,
   useCallback,
@@ -43,6 +44,7 @@ const GetUser = () => {
 };
 
 export const UserContextProvider = ({ children }: Props) => {
+  const queryClient = useQueryClient();
   const [user, setUser] = useState<User | null>(null);
   const [state, setState] = useState<UserContextState>(
     localStorage.getItem(TOKEN_NAME) ? "loading" : "unlogged"
@@ -58,7 +60,8 @@ export const UserContextProvider = ({ children }: Props) => {
     localStorage.removeItem(TOKEN_NAME);
     setUser(null);
     setState("unlogged");
-  }, []);
+    queryClient.clear();
+  }, [queryClient]);
 
   return (
     <UserContext.Provider value={{ user, state, login, logout }}>

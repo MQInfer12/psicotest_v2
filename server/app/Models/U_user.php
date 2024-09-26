@@ -30,4 +30,9 @@ class U_user extends Authenticatable
     {
         return $this->hasMany(T_Respuesta::class, 'email_user');
     }
+
+    public function asignados()
+    {
+        return $this->hasMany(T_Respuesta::class, 'email_asignador');
+    }
 }

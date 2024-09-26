@@ -35,4 +35,5 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::apiResource('/respuesta', T_RespuestaController::class);
     Route::get('/respuesta/for/resolve', [T_RespuestaController::class, 'indexForResolve']);
+    Route::get('/respuesta/for/table', [T_RespuestaController::class, 'indexForTable']);
 });

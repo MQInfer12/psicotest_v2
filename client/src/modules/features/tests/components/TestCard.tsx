@@ -98,7 +98,7 @@ const TestCard = ({
           {users
             .filter((_, i) => i < 8)
             .map((u, i) => (
-              <button
+              <div
                 key={i}
                 className={clsx(
                   "w-10 aspect-square rounded-full overflow-hidden border-2 border-white",
@@ -108,9 +108,16 @@ const TestCard = ({
                 )}
               >
                 <img className="w-full h-full" src={u} />
-              </button>
+              </div>
             ))}
-          <button className="w-10 -ml-4 aspect-square rounded-full overflow-hidden border-2 border-white bg-alto-200 text-alto-800 p-2 hover:bg-alto-300 transition-all duration-300">
+          <button
+            className={clsx(
+              "w-10 aspect-square rounded-full overflow-hidden border-2 border-white bg-alto-100 text-alto-800 p-2 hover:bg-alto-300 transition-all duration-300",
+              {
+                "-ml-4": users.length > 0,
+              }
+            )}
+          >
             <Icon type={Icon.Types.DOTS} />
           </button>
         </div>

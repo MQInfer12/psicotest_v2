@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Resources;
+
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class T_Tests_RepuestaResource extends JsonResource
@@ -13,6 +14,9 @@ class T_Tests_RepuestaResource extends JsonResource
             'id' => $test->id,
             'id_respuesta' => $this->id,
             'nombre_asignador' => $this->asignador->nombre,
+            'nombre_user' => $this->user->nombre,
+            'email_user' => $this->email_user,
+            'foto_user' => $this->user->foto,
             'nombre_test' => $test->nombre,
             'nombre_autor' => $test->autor,
             'nombre_autor_creador' => $test->autor_creador ? $test->autor_creador->nombre : null,
