@@ -4,7 +4,7 @@ export interface MapiTestType extends TestType {
   dimensiones: {
     id: number;
     descripcion: string;
-    abreviacion: string;
+    abreviacion: string | null;
     items: {
       puntuacion: number;
       condiciones: {

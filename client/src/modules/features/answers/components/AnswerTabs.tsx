@@ -17,9 +17,7 @@ const AnswerTabs = () => {
   const [seccionIndex, setSeccionIndex] = useState(0);
 
   const seccion =
-    test && test?.secciones.length > 0
-      ? test?.secciones[seccionIndex]
-      : undefined;
+    test.secciones.length > 0 ? test.secciones[seccionIndex] : undefined;
 
   const columns = useMemo(
     () => [
@@ -55,7 +53,7 @@ const AnswerTabs = () => {
   );
 
   const data: TableResultados[] | undefined = seccion?.items.map((pregunta) => {
-    const respuesta = resultados?.find(
+    const respuesta = resultados.find(
       (resultado) => resultado.idPregunta === pregunta.id
     );
     const opcion = seccion?.opciones.find((o) => o.id === respuesta?.idOpcion);
@@ -84,7 +82,7 @@ const AnswerTabs = () => {
           </p>
           <button
             onClick={() => setSeccionIndex(seccionIndex + 1)}
-            disabled={test && seccionIndex === test?.secciones.length - 1}
+            disabled={seccionIndex === test.secciones.length - 1}
             className="w-5 aspect-square text-alto-500 disabled:text-alto-200"
           >
             <Icon type={Icon.Types.CHEVRON_RIGHT} />

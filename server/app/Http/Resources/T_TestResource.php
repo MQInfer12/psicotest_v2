@@ -16,8 +16,7 @@ class T_TestResource extends JsonResource
             'nombre_autor_creador' => $this->autor_creador ? $this->autor_creador->nombre : null,
             'canvas' => $this->canvas,
             'version' => $this->latest_version->version,
-            'test' => $this->latest_version->test,
-            'resultados' => null
+            'test' => $this->latest_version->test
         ];
     }
 }

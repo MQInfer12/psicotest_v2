@@ -21,7 +21,7 @@
         {
             "version": 1,
             "test": {
-                "requerimientos": ["fecha_nacimiento", "genero"],
+                "requerimientos": ["edad", "genero"],
                 "secciones": [
                     {
                         "items": [
@@ -6775,8 +6775,8 @@
                     },
                     {
                         "id": 21,
-                        "descripcion": "INDICE DE FIABILIDAD",
-                        "abreviacion": "21",
+                        "descripcion": "FIABILIDAD",
+                        "abreviacion": null,
                         "items": [
                             {
                                 "puntuacion": 1,
@@ -6809,8 +6809,8 @@
                     },
                     {
                         "id": 22,
-                        "descripcion": "INDICE DE VALIDEZ",
-                        "abreviacion": "22",
+                        "descripcion": "VALIDEZ",
+                        "abreviacion": null,
                         "items": [
                             {
                                 "puntuacion": 1,
@@ -6843,8 +6843,8 @@
                     },
                     {
                         "id": 23,
-                        "descripcion": "INDICE DE INCOHERENCIA",
-                        "abreviacion": "",
+                        "descripcion": "INCOHERENCIA",
+                        "abreviacion": null,
                         "items": [
                             {
                                 "puntuacion": 1,

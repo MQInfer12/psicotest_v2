@@ -7,6 +7,7 @@ import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import Loader from "@/modules/core/components/ui/loader/Loader";
 import { T_Tests } from "../api/responses";
 import { useState } from "react";
+import { RespuestaEstado } from "../../answers/types/RespuestaEstado";
 
 interface Props {
   respuestas?: boolean;
@@ -81,7 +82,7 @@ const TestPage = ({ respuestas = false }: Props) => {
                 loading={
                   respuestas ? loading === v.id_respuesta : loading === v.id
                 }
-                finished={v.estado === "Enviado"}
+                finished={v.estado === RespuestaEstado.ENVIADO}
               />
             );
           })}

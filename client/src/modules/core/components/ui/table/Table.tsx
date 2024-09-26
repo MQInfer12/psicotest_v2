@@ -23,6 +23,7 @@ interface Props<T> {
     icon: ICON;
     title: string;
     fn: (row: T) => void;
+    disabled?: (row: T) => boolean;
   }[];
   shadow?: boolean;
   rowHeight?: number;
@@ -247,6 +248,7 @@ const Table = <T,>({
                           btnSize="small"
                           title={a.title}
                           icon={a.icon}
+                          disabled={a.disabled?.(row.original)}
                         />
                       ))}
                     </td>

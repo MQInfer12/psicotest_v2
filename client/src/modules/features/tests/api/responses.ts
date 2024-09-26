@@ -1,3 +1,6 @@
+import { RespuestaEstado } from "../../answers/types/RespuestaEstado";
+import { User } from "../../users/api/responses";
+
 export interface T_Tests {
   id: number;
   id_respuesta?: number;
@@ -9,7 +12,7 @@ export interface T_Tests {
   foto_user?: string;
   email_user?: string;
   canvas: string;
-  estado?: "Pendiente" | "Enviado";
+  estado?: RespuestaEstado;
   fotos?: string[];
 }
 
@@ -21,5 +24,7 @@ export interface T_Test {
   canvas: string;
   version: number;
   test: string;
-  resultados: string | null;
+  resultados?: string;
+  user?: User;
+  fecha_enviado?: string;
 }

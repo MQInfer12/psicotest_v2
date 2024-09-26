@@ -6,6 +6,8 @@ import Icon from "@/modules/core/components/icons/Icon";
 import { useNavigate } from "@tanstack/react-router";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import { T_Tests } from "../../tests/api/responses";
+import clsx from "clsx";
+import { RespuestaEstado } from "../types/RespuestaEstado";
 
 const columnHelper = createColumnHelper<T_Tests>();
 
@@ -61,9 +63,16 @@ const AnswersPage = () => {
       }),
       columnHelper.accessor("estado", {
         header: "Estado",
-        cell: () => (
-          <small className="px-2 py-[2px] text-xs font-semibold bg-success/10 text-success rounded-md">
-            Enviado
+        cell: (info) => (
+          <small
+            className={clsx("px-2 py-[2px] text-xs font-semibold rounded-md", {
+              "bg-success/10 text-success":
+                info.getValue() === RespuestaEstado.ENVIADO,
+              "bg-alto-600/10 text-alto-600":
+                info.getValue() === RespuestaEstado.PENDIENTE,
+            })}
+          >
+            {info.getValue()}
           </small>
         ),
         meta: {
@@ -95,6 +104,7 @@ const AnswersPage = () => {
               }),
             icon: Icon.Types.BRAIN,
             title: "Ver respuesta",
+            disabled: (row) => row.estado === RespuestaEstado.PENDIENTE,
           },
         ]}
         shadow

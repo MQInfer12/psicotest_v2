@@ -1,5 +1,5 @@
 export interface TestType {
-  requerimientos: Requirement[];
+  requerimientos: Requirements[];
   secciones: Seccion[];
 }
 
@@ -8,7 +8,10 @@ interface Seccion {
   opciones: Opcion[];
 }
 
-type Requirement = "fecha_nacimiento" | "genero";
+enum Requirements {
+  EDAD = "edad",
+  GENERO = "genero",
+}
 
 export interface Item {
   id: number;

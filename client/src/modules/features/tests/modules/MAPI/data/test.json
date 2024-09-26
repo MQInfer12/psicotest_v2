@@ -1,615 +1,619 @@
 {
-  "requerimientos": ["fecha_nacimiento", "genero"],
-  "items": [
-    {
-      "id": 1,
-      "descripcion": "Me siento bien mostrando mi cuerpo en traje de baño."
-    },
-    {
-      "id": 2,
-      "descripcion": "Casi siempre pienso antes de actuar."
-    },
-    {
-      "id": 3,
-      "descripcion": "Mis padres han hecho posible un ambiente muy bueno para nuestra familia."
-    },
-    {
-      "id": 4,
-      "descripcion": "Suelo controlarme aunque esté realmente enfadado/a con alguien."
-    },
-    {
-      "id": 5,
-      "descripcion": "Tengo una gran necesidad de sentirme una persona importante."
-    },
-    {
-      "id": 6,
-      "descripcion": "Obtengo muchas satisfacciones en mi trabajo escolar."
-    },
-    {
-      "id": 7,
-      "descripcion": "Disfruto pensando en el sexo."
-    },
-    {
-      "id": 8,
-      "descripcion": "Siento una especie de tristeza cuando veo que alguien está solo."
-    },
-    {
-      "id": 9,
-      "descripcion": "Estoy seguro/a de mis sentimientos sobre casi todo."
-    },
-    {
-      "id": 10,
-      "descripcion": "Intento siempre hacer lo que es apropiado."
-    },
-    {
-      "id": 11,
-      "descripcion": "Soy una persona tranquila y dispuesta a ayudar."
-    },
-    {
-      "id": 12,
-      "descripcion": "Estoy muy seguro/a de saber quién soy y lo que quiero hacer en la vida."
-    },
-    {
-      "id": 13,
-      "descripcion": "Me siento culpable cuando tengo que mentirle a un amigo/a."
-    },
-    {
-      "id": 14,
-      "descripcion": "Me pongo tan nervioso/a que no puedo hablar de ciertas cosas."
-    },
-    {
-      "id": 15,
-      "descripcion": "Me esfuerzo mucho por hacer bien casi todo lo que hago."
-    },
-    {
-      "id": 16,
-      "descripcion": "Me siento nervioso/a o alterado/a una vez por semana o más."
-    },
-    {
-      "id": 17,
-      "descripcion": "Cuando me enfado suelo tranquilizarme y dejo que mis sentimientos pasen."
-    },
-    {
-      "id": 18,
-      "descripcion": "Estoy bastante seguro/a de que soy sexualmente atractivo/a."
-    },
-    {
-      "id": 19,
-      "descripcion": "Me llevo bastante bien con los demás niños/as de mi casa (hermanos, primos)."
-    },
-    {
-      "id": 20,
-      "descripcion": "Me gusta seguir los consejos de los demás y hacer lo que otros esperan de mi."
-    },
-    {
-      "id": 21,
-      "descripcion": "Tengo más amigos/as de los que puedo atender."
-    },
-    {
-      "id": 22,
-      "descripcion": "Me siento muy molesto/a cuando tengo que decir a otros lo que tienen que hacer."
-    },
-    {
-      "id": 23,
-      "descripcion": "Me gusta como soy físicamente."
-    },
-    {
-      "id": 24,
-      "descripcion": "Me esfuerzo al máximo por no herir los sentimientos de los demás."
-    },
-    {
-      "id": 25,
-      "descripcion": "Tengo ilusión por hacerme mayor y llegar a ser algo en la vida."
-    },
-    {
-      "id": 26,
-      "descripcion": "Me preocupo más que la mayoría de la gente por terminar lo que empiezo."
-    },
-    {
-      "id": 27,
-      "descripcion": "Creo que mis padres me comprenden."
-    },
-    {
-      "id": 28,
-      "descripcion": "Nunca utilizaría drogas, pase lo que pase."
-    },
-    {
-      "id": 29,
-      "descripcion": "El sexo es agradable."
-    },
-    {
-      "id": 30,
-      "descripcion": "En lugar de \"exigir\", la gente podría conseguir lo que quiere siendo amable y considerada."
-    },
-    {
-      "id": 31,
-      "descripcion": "Es muy importante que los niños/as aprendan a obedecer a los mayores."
-    },
-    {
-      "id": 32,
-      "descripcion": "Tengo una idea muy clara de lo que quiero hacer."
-    },
-    {
-      "id": 33,
-      "descripcion": "Es fácil para mí aprovecharme de los demás."
-    },
-    {
-      "id": 34,
-      "descripcion": "Me gustaría cambiar mi cuerpo con el de otra persona."
-    },
-    {
-      "id": 35,
-      "descripcion": "Me gusta planificar las cosas hasta en los últimos detalles."
-    },
-    {
-      "id": 36,
-      "descripcion": "En este mundo o te aprovechas de los demás o los demás se aprovechan de ti."
-    },
-    {
-      "id": 37,
-      "descripcion": "Mis relaciones sociales resultan muy satisfactorias."
-    },
-    {
-      "id": 38,
-      "descripcion": "No creo que yo tenga tanto interés por el sexo como el que tienen los chicos/as de mi edad."
-    },
-    {
-      "id": 39,
-      "descripcion": "Cuando alguien me hiere procuro olvidarlo."
-    },
-    {
-      "id": 40,
-      "descripcion": "Me gusta obtener una de las mejores calificaciones en un examen."
-    },
-    {
-      "id": 41,
-      "descripcion": "Mis padres son muy buenos conmigo."
-    },
-    {
-      "id": 42,
-      "descripcion": "Deseo intensamente ganar en cualquier juego que participo."
-    },
-    {
-      "id": 43,
-      "descripcion": "Creo que tengo un buen tipo."
-    },
-    {
-      "id": 44,
-      "descripcion": "Tengo muy pocos amigos de mi edad."
-    },
-    {
-      "id": 45,
-      "descripcion": "Creo que la naturaleza humana es buena."
-    },
-    {
-      "id": 46,
-      "descripcion": "Si veo a una cierta distancia a alguien que conozco, en general, trato de evitarlo/a."
-    },
-    {
-      "id": 47,
-      "descripcion": "Suelo perder la paciencia cuando no me salgo con la mía."
-    },
-    {
-      "id": 48,
-      "descripcion": "Yo sé, mejor que otros adolescentes, el tipo de persona que soy."
-    },
-    {
-      "id": 49,
-      "descripcion": "Parece que mis amigos acuden más a mí que a otros, cuando tienen problemas."
-    },
-    {
-      "id": 50,
-      "descripcion": "Lo que de verdad necesita este país son ciudadanos más serios y cumplidores."
-    },
-    {
-      "id": 51,
-      "descripcion": "Hago amigos con facilidad."
-    },
-    {
-      "id": 52,
-      "descripcion": "No me gusta verme en el espejo."
-    },
-    {
-      "id": 53,
-      "descripcion": "Suelo dejar que los demás salgan con la suya."
-    },
-    {
-      "id": 54,
-      "descripcion": "Estoy siempre metido/a y ocupado/a en muchas actividades sociales."
-    },
-    {
-      "id": 55,
-      "descripcion": "Me parece que no sé lo que quiero de la vida."
-    },
-    {
-      "id": 56,
-      "descripcion": "Otros chicos/as de mi edad parecen estar más seguros que yo de quienes son y lo que quieren."
-    },
-    {
-      "id": 57,
-      "descripcion": "Cuando era pequeño mis padres estaban orgullosos de mí."
-    },
-    {
-      "id": 58,
-      "descripcion": "No he visto un automóvil en los últimos diez años."
-    },
-    {
-      "id": 59,
-      "descripcion": "Con frecuencia dudo de que la gente esté interesada de verdad en lo que yo les digo."
-    },
-    {
-      "id": 60,
-      "descripcion": "Probablemente alguien tendrá que mantenerme cuando sea adulto/a."
-    },
-    {
-      "id": 61,
-      "descripcion": "Me resulta difícil compadecer a la gente que está siempre quejándose por todo."
-    },
-    {
-      "id": 62,
-      "descripcion": "Parece que tengo dificultades para llevarme bien con los chicos/as de mi edad."
-    },
-    {
-      "id": 63,
-      "descripcion": "Muchas veces me produce confusión pensar en el sexo."
-    },
-    {
-      "id": 64,
-      "descripcion": "Preferiría más seguir a alguien que ser un líder."
-    },
-    {
-      "id": 65,
-      "descripcion": "Para salir adelante en este mundo estoy dispuesto/a a apartar a quien se cruce en mi camino."
-    },
-    {
-      "id": 66,
-      "descripcion": "Me gusta cómo se ha desarrollado mi cuerpo."
-    },
-    {
-      "id": 67,
-      "descripcion": "Puedo ver mejor que los demás los distintos aspectos de un problema."
-    },
-    {
-      "id": 68,
-      "descripcion": "Preferiría estar en cualquier lugar antes que en casa."
-    },
-    {
-      "id": 69,
-      "descripcion": "Mezclarse en los problemas de los demás es una pérdida de tiempo."
-    },
-    {
-      "id": 70,
-      "descripcion": "Creo que siempre me estoy quejando y esperando que suceda lo peor."
-    },
-    {
-      "id": 71,
-      "descripcion": "Muchas veces hago las cosas simplemente porque son divertidas."
-    },
-    {
-      "id": 72,
-      "descripcion": "No es raro sentirse sólo/a y rechazado/a."
-    },
-    {
-      "id": 73,
-      "descripcion": "Me siento bastante desorientado/a y no sé hacia donde voy."
-    },
-    {
-      "id": 74,
-      "descripcion": "Hago todo lo posible para impedir que alguien intente mandarme."
-    },
-    {
-      "id": 75,
-      "descripcion": "Si veo que alguien bosteza suelo bostezar también."
-    },
-    {
-      "id": 76,
-      "descripcion": "Mis padres me dicen con frecuencia que no sirvo para nada."
-    },
-    {
-      "id": 77,
-      "descripcion": "Soy el tipo de persona teatral a la que le gusta llamar la atención."
-    },
-    {
-      "id": 78,
-      "descripcion": "A veces siento que estoy completamente sólo/a en el mundo."
-    },
-    {
-      "id": 79,
-      "descripcion": "Realmente me molesta que se me acumule el trabajo."
-    },
-    {
-      "id": 80,
-      "descripcion": "Preferiría se claro con la gente, en vez de callarme lo que sé que no les gusta."
-    },
-    {
-      "id": 81,
-      "descripcion": "Soy bastante inmaduro/a en cuestiones sexuales."
-    },
-    {
-      "id": 82,
-      "descripcion": "Prefiero pasar el tiempo por ahí sin hacer nada, en vez de trabajar o ir al colegio."
-    },
-    {
-      "id": 83,
-      "descripcion": "Muchos chicos/as de mi edad parece que me tienen manía."
-    },
-    {
-      "id": 84,
-      "descripcion": "Entre los valores más importantes que puede tener una persona están el tener fuerza de voluntad y desear seguir adelante."
-    },
-    {
-      "id": 85,
-      "descripcion": "Nunca en mi vida he tenido pelo alguno, ni en la cabeza ni en ninguna parte de mi cuerpo."
-    },
-    {
-      "id": 86,
-      "descripcion": "A menudo estoy tan \"colgado/a\" (con alcohol o drogas) que no sé lo que hago."
-    },
-    {
-      "id": 87,
-      "descripcion": "El castigo nunca me ha detenido para hacer lo que yo quería."
-    },
-    {
-      "id": 88,
-      "descripcion": "Con frecuencia pienso que no soy bien recibido/a en un grupo."
-    },
-    {
-      "id": 89,
-      "descripcion": "Otros chicos/as de mi edad parecen que tienen sus vidas más en orden que yo."
-    },
-    {
-      "id": 90,
-      "descripcion": "Me dejo influir fácilmente por los demás."
-    },
-    {
-      "id": 91,
-      "descripcion": "Muchas veces me enfado tanto que deseo tirar las cosas y romperlas."
-    },
-    {
-      "id": 92,
-      "descripcion": "Me resulta difícil comprender por qué la gente llora al ver una película triste."
-    },
-    {
-      "id": 93,
-      "descripcion": "Muchas veces digo cosas de las que me arrepiento después."
-    },
-    {
-      "id": 94,
-      "descripcion": "Creo que dependo demasiado de la ayuda de los demás."
-    },
-    {
-      "id": 95,
-      "descripcion": "No estoy contestando a estas preguntas con sinceridad."
-    },
-    {
-      "id": 96,
-      "descripcion": "Tengo muy mal genio."
-    },
-    {
-      "id": 97,
-      "descripcion": "Me siento excluido/a de las actividades sociales."
-    },
-    {
-      "id": 98,
-      "descripcion": "Me gusta ser la única persona con autoridad cuando me hago cargo de las cosas."
-    },
-    {
-      "id": 99,
-      "descripcion": "Creo que no voy a lograr alcanzar lo que el colegio espera de mí."
-    },
-    {
-      "id": 100,
-      "descripcion": "Me gusta estar en casa."
-    },
-    {
-      "id": 101,
-      "descripcion": "Me importa muy poco que a otros chicos/as no les interese mi amistad."
-    },
-    {
-      "id": 102,
-      "descripcion": "Pienso que se espera de los adolescentes que sepan demasiadas cosas sobre el sexo."
-    },
-    {
-      "id": 103,
-      "descripcion": "Estoy muy satisfecho/a de todas las cosas que he hecho hasta ahora."
-    },
-    {
-      "id": 104,
-      "descripcion": "Parece que otros chicos/as de mi edad nunca me llaman para reunirme con ellos."
-    },
-    {
-      "id": 105,
-      "descripcion": "Me gusta contarle a otros las cosas que he hecho bien."
-    },
-    {
-      "id": 106,
-      "descripcion": "Me agrada que los sentimientos sobre el sexo formen ahora parte de mi vida."
-    },
-    {
-      "id": 107,
-      "descripcion": "Me asusta pensar que pudiera quedarme completamente sólo/a en el mundo."
-    },
-    {
-      "id": 108,
-      "descripcion": "Si me pidiesen que hiciera una descripción de cómo soy yo, no sabría qué decir."
-    },
-    {
-      "id": 109,
-      "descripcion": "Estoy muy poco pendiente de los demás para lograr su amistad."
-    },
-    {
-      "id": 110,
-      "descripcion": "Dudo que pueda llegar a ser algo en la vida."
-    },
-    {
-      "id": 111,
-      "descripcion": "Si leyera estas preguntas dentro de un mes, seguro que cambiaría la mayoría de mis respuestas."
-    },
-    {
-      "id": 112,
-      "descripcion": "No me molesta ver sufrir a alguien."
-    },
-    {
-      "id": 113,
-      "descripcion": "Estoy celoso/a de la atención especial que reciben los otros chicos/as en mi familia (hermanos, primos)."
-    },
-    {
-      "id": 114,
-      "descripcion": "La mayoría de la gente es más atractiva que yo."
-    },
-    {
-      "id": 115,
-      "descripcion": "Siempre he necesitado \"explotar\" de vez en cuando."
-    },
-    {
-      "id": 116,
-      "descripcion": "Una afición o pasatiempo tranquilo me divierte más que una fiesta."
-    },
-    {
-      "id": 117,
-      "descripcion": "Me afecta mucho ver a una persona muy enferma."
-    },
-    {
-      "id": 118,
-      "descripcion": "Me pongo nervioso/a cuando me suceden cosas que no esperaba."
-    },
-    {
-      "id": 119,
-      "descripcion": "Me preocupo por mi aspecto físico."
-    },
-    {
-      "id": 120,
-      "descripcion": "Soy uno de los chicos/as más populares del colegio."
-    },
-    {
-      "id": 121,
-      "descripcion": "Siempre hay una serie de razones para pensar que la mayoría de los problemas no pueden solucionarse."
-    },
-    {
-      "id": 122,
-      "descripcion": "Hago todo lo posible por llevarme bien con los demás tratando de ser amable y complaciente."
-    },
-    {
-      "id": 123,
-      "descripcion": "El sexo es desagradable."
-    },
-    {
-      "id": 124,
-      "descripcion": "En el último año he cruzado el Atlántico más de treinta veces."
-    },
-    {
-      "id": 125,
-      "descripcion": "Para evitar errores, es bueno hacer las cosas siempre de la misma manera."
-    },
-    {
-      "id": 126,
-      "descripcion": "Mi familia siempre está gritando y peleándose."
-    },
-    {
-      "id": 127,
-      "descripcion": "Me gustaría continuar en el colegio y después seguir en la Universidad el mayor tiempo posible."
-    },
-    {
-      "id": 128,
-      "descripcion": "Me parece que encajo enseguida en cualquier grupo nuevo de chicos/as."
-    },
-    {
-      "id": 129,
-      "descripcion": "Nada me gusta tanto como montarme en un automóvil y salir a toda velocidad."
-    },
-    {
-      "id": 130,
-      "descripcion": "La mayoría de las cosas en mi vida las he hecho muy bien."
-    },
-    {
-      "id": 131,
-      "descripcion": "Los jóvenes que son solitarios, generalmente merecen estar solos."
-    },
-    {
-      "id": 132,
-      "descripcion": "Si quiero hacer algo, lo hago sin pensar en lo que pueda suceder."
-    },
-    {
-      "id": 133,
-      "descripcion": "Muy poco de lo que he hecho ha sido apreciado por los demás."
-    },
-    {
-      "id": 134,
-      "descripcion": "No he estado poniendo mucha atención a las preguntas de este cuestionario."
-    },
-    {
-      "id": 135,
-      "descripcion": "Hago comentarios desagradables de la gente si se lo merecen."
-    },
-    {
-      "id": 136,
-      "descripcion": "Muchas veces me siento como si flotara a la deriva, como perdido/a en la vida."
-    },
-    {
-      "id": 137,
-      "descripcion": "Me avergüenzo de mi cuerpo."
-    },
-    {
-      "id": 138,
-      "descripcion": "En mi casa, parece que a nadie le importo."
-    },
-    {
-      "id": 139,
-      "descripcion": "Creo que soy más atractivo/a que la mayoría de los chicos/as que conozco."
-    },
-    {
-      "id": 140,
-      "descripcion": "Soy muy maduro/a para mi edad y sé lo que quiero hacer en la vida."
-    },
-    {
-      "id": 141,
-      "descripcion": "Me gusta estar entre la multitud, simplemente por estar con mucha gente."
-    },
-    {
-      "id": 142,
-      "descripcion": "En muchas cosas me siento muy superior a la mayoría de la gente."
-    },
-    {
-      "id": 143,
-      "descripcion": "Parece que no les caigo bien a la mayoría de los chicos/as de mi edad."
-    },
-    {
-      "id": 144,
-      "descripcion": "Creo que la mayoría de la gente es amable y considerada."
-    },
-    {
-      "id": 145,
-      "descripcion": "Me gusta mucho coquetear."
-    },
-    {
-      "id": 146,
-      "descripcion": "Realmente me importa muy poco lo que voy a hacer en la vida."
-    },
-    {
-      "id": 147,
-      "descripcion": "Muchas veces siento que los demás no quieren ser amigos míos."
-    },
-    {
-      "id": 148,
-      "descripcion": "Me resulta difícil ocultar mis sentimientos."
-    },
-    {
-      "id": 149,
-      "descripcion": "Me preocupan mucho las cuestiones sexuales."
-    },
-    {
-      "id": 150,
-      "descripcion": "Puedo controlar fácilmente mis sentimientos."
-    }
-  ],
-  "opciones": [
-    {
-      "id": 1,
-      "descripcion": "Verdadero"
-    },
-    {
-      "id": 2,
-      "descripcion": "Falso"
+  "requerimientos": ["edad", "genero"],
+  "secciones": [
+    {
+      "items": [
+        {
+          "id": 1,
+          "descripcion": "Me siento bien mostrando mi cuerpo en traje de baño."
+        },
+        {
+          "id": 2,
+          "descripcion": "Casi siempre pienso antes de actuar."
+        },
+        {
+          "id": 3,
+          "descripcion": "Mis padres han hecho posible un ambiente muy bueno para nuestra familia."
+        },
+        {
+          "id": 4,
+          "descripcion": "Suelo controlarme aunque esté realmente enfadado/a con alguien."
+        },
+        {
+          "id": 5,
+          "descripcion": "Tengo una gran necesidad de sentirme una persona importante."
+        },
+        {
+          "id": 6,
+          "descripcion": "Obtengo muchas satisfacciones en mi trabajo escolar."
+        },
+        {
+          "id": 7,
+          "descripcion": "Disfruto pensando en el sexo."
+        },
+        {
+          "id": 8,
+          "descripcion": "Siento una especie de tristeza cuando veo que alguien está solo."
+        },
+        {
+          "id": 9,
+          "descripcion": "Estoy seguro/a de mis sentimientos sobre casi todo."
+        },
+        {
+          "id": 10,
+          "descripcion": "Intento siempre hacer lo que es apropiado."
+        },
+        {
+          "id": 11,
+          "descripcion": "Soy una persona tranquila y dispuesta a ayudar."
+        },
+        {
+          "id": 12,
+          "descripcion": "Estoy muy seguro/a de saber quién soy y lo que quiero hacer en la vida."
+        },
+        {
+          "id": 13,
+          "descripcion": "Me siento culpable cuando tengo que mentirle a un amigo/a."
+        },
+        {
+          "id": 14,
+          "descripcion": "Me pongo tan nervioso/a que no puedo hablar de ciertas cosas."
+        },
+        {
+          "id": 15,
+          "descripcion": "Me esfuerzo mucho por hacer bien casi todo lo que hago."
+        },
+        {
+          "id": 16,
+          "descripcion": "Me siento nervioso/a o alterado/a una vez por semana o más."
+        },
+        {
+          "id": 17,
+          "descripcion": "Cuando me enfado suelo tranquilizarme y dejo que mis sentimientos pasen."
+        },
+        {
+          "id": 18,
+          "descripcion": "Estoy bastante seguro/a de que soy sexualmente atractivo/a."
+        },
+        {
+          "id": 19,
+          "descripcion": "Me llevo bastante bien con los demás niños/as de mi casa (hermanos, primos)."
+        },
+        {
+          "id": 20,
+          "descripcion": "Me gusta seguir los consejos de los demás y hacer lo que otros esperan de mi."
+        },
+        {
+          "id": 21,
+          "descripcion": "Tengo más amigos/as de los que puedo atender."
+        },
+        {
+          "id": 22,
+          "descripcion": "Me siento muy molesto/a cuando tengo que decir a otros lo que tienen que hacer."
+        },
+        {
+          "id": 23,
+          "descripcion": "Me gusta como soy físicamente."
+        },
+        {
+          "id": 24,
+          "descripcion": "Me esfuerzo al máximo por no herir los sentimientos de los demás."
+        },
+        {
+          "id": 25,
+          "descripcion": "Tengo ilusión por hacerme mayor y llegar a ser algo en la vida."
+        },
+        {
+          "id": 26,
+          "descripcion": "Me preocupo más que la mayoría de la gente por terminar lo que empiezo."
+        },
+        {
+          "id": 27,
+          "descripcion": "Creo que mis padres me comprenden."
+        },
+        {
+          "id": 28,
+          "descripcion": "Nunca utilizaría drogas, pase lo que pase."
+        },
+        {
+          "id": 29,
+          "descripcion": "El sexo es agradable."
+        },
+        {
+          "id": 30,
+          "descripcion": "En lugar de \"exigir\", la gente podría conseguir lo que quiere siendo amable y considerada."
+        },
+        {
+          "id": 31,
+          "descripcion": "Es muy importante que los niños/as aprendan a obedecer a los mayores."
+        },
+        {
+          "id": 32,
+          "descripcion": "Tengo una idea muy clara de lo que quiero hacer."
+        },
+        {
+          "id": 33,
+          "descripcion": "Es fácil para mí aprovecharme de los demás."
+        },
+        {
+          "id": 34,
+          "descripcion": "Me gustaría cambiar mi cuerpo con el de otra persona."
+        },
+        {
+          "id": 35,
+          "descripcion": "Me gusta planificar las cosas hasta en los últimos detalles."
+        },
+        {
+          "id": 36,
+          "descripcion": "En este mundo o te aprovechas de los demás o los demás se aprovechan de ti."
+        },
+        {
+          "id": 37,
+          "descripcion": "Mis relaciones sociales resultan muy satisfactorias."
+        },
+        {
+          "id": 38,
+          "descripcion": "No creo que yo tenga tanto interés por el sexo como el que tienen los chicos/as de mi edad."
+        },
+        {
+          "id": 39,
+          "descripcion": "Cuando alguien me hiere procuro olvidarlo."
+        },
+        {
+          "id": 40,
+          "descripcion": "Me gusta obtener una de las mejores calificaciones en un examen."
+        },
+        {
+          "id": 41,
+          "descripcion": "Mis padres son muy buenos conmigo."
+        },
+        {
+          "id": 42,
+          "descripcion": "Deseo intensamente ganar en cualquier juego que participo."
+        },
+        {
+          "id": 43,
+          "descripcion": "Creo que tengo un buen tipo."
+        },
+        {
+          "id": 44,
+          "descripcion": "Tengo muy pocos amigos de mi edad."
+        },
+        {
+          "id": 45,
+          "descripcion": "Creo que la naturaleza humana es buena."
+        },
+        {
+          "id": 46,
+          "descripcion": "Si veo a una cierta distancia a alguien que conozco, en general, trato de evitarlo/a."
+        },
+        {
+          "id": 47,
+          "descripcion": "Suelo perder la paciencia cuando no me salgo con la mía."
+        },
+        {
+          "id": 48,
+          "descripcion": "Yo sé, mejor que otros adolescentes, el tipo de persona que soy."
+        },
+        {
+          "id": 49,
+          "descripcion": "Parece que mis amigos acuden más a mí que a otros, cuando tienen problemas."
+        },
+        {
+          "id": 50,
+          "descripcion": "Lo que de verdad necesita este país son ciudadanos más serios y cumplidores."
+        },
+        {
+          "id": 51,
+          "descripcion": "Hago amigos con facilidad."
+        },
+        {
+          "id": 52,
+          "descripcion": "No me gusta verme en el espejo."
+        },
+        {
+          "id": 53,
+          "descripcion": "Suelo dejar que los demás salgan con la suya."
+        },
+        {
+          "id": 54,
+          "descripcion": "Estoy siempre metido/a y ocupado/a en muchas actividades sociales."
+        },
+        {
+          "id": 55,
+          "descripcion": "Me parece que no sé lo que quiero de la vida."
+        },
+        {
+          "id": 56,
+          "descripcion": "Otros chicos/as de mi edad parecen estar más seguros que yo de quienes son y lo que quieren."
+        },
+        {
+          "id": 57,
+          "descripcion": "Cuando era pequeño mis padres estaban orgullosos de mí."
+        },
+        {
+          "id": 58,
+          "descripcion": "No he visto un automóvil en los últimos diez años."
+        },
+        {
+          "id": 59,
+          "descripcion": "Con frecuencia dudo de que la gente esté interesada de verdad en lo que yo les digo."
+        },
+        {
+          "id": 60,
+          "descripcion": "Probablemente alguien tendrá que mantenerme cuando sea adulto/a."
+        },
+        {
+          "id": 61,
+          "descripcion": "Me resulta difícil compadecer a la gente que está siempre quejándose por todo."
+        },
+        {
+          "id": 62,
+          "descripcion": "Parece que tengo dificultades para llevarme bien con los chicos/as de mi edad."
+        },
+        {
+          "id": 63,
+          "descripcion": "Muchas veces me produce confusión pensar en el sexo."
+        },
+        {
+          "id": 64,
+          "descripcion": "Preferiría más seguir a alguien que ser un líder."
+        },
+        {
+          "id": 65,
+          "descripcion": "Para salir adelante en este mundo estoy dispuesto/a a apartar a quien se cruce en mi camino."
+        },
+        {
+          "id": 66,
+          "descripcion": "Me gusta cómo se ha desarrollado mi cuerpo."
+        },
+        {
+          "id": 67,
+          "descripcion": "Puedo ver mejor que los demás los distintos aspectos de un problema."
+        },
+        {
+          "id": 68,
+          "descripcion": "Preferiría estar en cualquier lugar antes que en casa."
+        },
+        {
+          "id": 69,
+          "descripcion": "Mezclarse en los problemas de los demás es una pérdida de tiempo."
+        },
+        {
+          "id": 70,
+          "descripcion": "Creo que siempre me estoy quejando y esperando que suceda lo peor."
+        },
+        {
+          "id": 71,
+          "descripcion": "Muchas veces hago las cosas simplemente porque son divertidas."
+        },
+        {
+          "id": 72,
+          "descripcion": "No es raro sentirse sólo/a y rechazado/a."
+        },
+        {
+          "id": 73,
+          "descripcion": "Me siento bastante desorientado/a y no sé hacia donde voy."
+        },
+        {
+          "id": 74,
+          "descripcion": "Hago todo lo posible para impedir que alguien intente mandarme."
+        },
+        {
+          "id": 75,
+          "descripcion": "Si veo que alguien bosteza suelo bostezar también."
+        },
+        {
+          "id": 76,
+          "descripcion": "Mis padres me dicen con frecuencia que no sirvo para nada."
+        },
+        {
+          "id": 77,
+          "descripcion": "Soy el tipo de persona teatral a la que le gusta llamar la atención."
+        },
+        {
+          "id": 78,
+          "descripcion": "A veces siento que estoy completamente sólo/a en el mundo."
+        },
+        {
+          "id": 79,
+          "descripcion": "Realmente me molesta que se me acumule el trabajo."
+        },
+        {
+          "id": 80,
+          "descripcion": "Preferiría se claro con la gente, en vez de callarme lo que sé que no les gusta."
+        },
+        {
+          "id": 81,
+          "descripcion": "Soy bastante inmaduro/a en cuestiones sexuales."
+        },
+        {
+          "id": 82,
+          "descripcion": "Prefiero pasar el tiempo por ahí sin hacer nada, en vez de trabajar o ir al colegio."
+        },
+        {
+          "id": 83,
+          "descripcion": "Muchos chicos/as de mi edad parece que me tienen manía."
+        },
+        {
+          "id": 84,
+          "descripcion": "Entre los valores más importantes que puede tener una persona están el tener fuerza de voluntad y desear seguir adelante."
+        },
+        {
+          "id": 85,
+          "descripcion": "Nunca en mi vida he tenido pelo alguno, ni en la cabeza ni en ninguna parte de mi cuerpo."
+        },
+        {
+          "id": 86,
+          "descripcion": "A menudo estoy tan \"colgado/a\" (con alcohol o drogas) que no sé lo que hago."
+        },
+        {
+          "id": 87,
+          "descripcion": "El castigo nunca me ha detenido para hacer lo que yo quería."
+        },
+        {
+          "id": 88,
+          "descripcion": "Con frecuencia pienso que no soy bien recibido/a en un grupo."
+        },
+        {
+          "id": 89,
+          "descripcion": "Otros chicos/as de mi edad parecen que tienen sus vidas más en orden que yo."
+        },
+        {
+          "id": 90,
+          "descripcion": "Me dejo influir fácilmente por los demás."
+        },
+        {
+          "id": 91,
+          "descripcion": "Muchas veces me enfado tanto que deseo tirar las cosas y romperlas."
+        },
+        {
+          "id": 92,
+          "descripcion": "Me resulta difícil comprender por qué la gente llora al ver una película triste."
+        },
+        {
+          "id": 93,
+          "descripcion": "Muchas veces digo cosas de las que me arrepiento después."
+        },
+        {
+          "id": 94,
+          "descripcion": "Creo que dependo demasiado de la ayuda de los demás."
+        },
+        {
+          "id": 95,
+          "descripcion": "No estoy contestando a estas preguntas con sinceridad."
+        },
+        {
+          "id": 96,
+          "descripcion": "Tengo muy mal genio."
+        },
+        {
+          "id": 97,
+          "descripcion": "Me siento excluido/a de las actividades sociales."
+        },
+        {
+          "id": 98,
+          "descripcion": "Me gusta ser la única persona con autoridad cuando me hago cargo de las cosas."
+        },
+        {
+          "id": 99,
+          "descripcion": "Creo que no voy a lograr alcanzar lo que el colegio espera de mí."
+        },
+        {
+          "id": 100,
+          "descripcion": "Me gusta estar en casa."
+        },
+        {
+          "id": 101,
+          "descripcion": "Me importa muy poco que a otros chicos/as no les interese mi amistad."
+        },
+        {
+          "id": 102,
+          "descripcion": "Pienso que se espera de los adolescentes que sepan demasiadas cosas sobre el sexo."
+        },
+        {
+          "id": 103,
+          "descripcion": "Estoy muy satisfecho/a de todas las cosas que he hecho hasta ahora."
+        },
+        {
+          "id": 104,
+          "descripcion": "Parece que otros chicos/as de mi edad nunca me llaman para reunirme con ellos."
+        },
+        {
+          "id": 105,
+          "descripcion": "Me gusta contarle a otros las cosas que he hecho bien."
+        },
+        {
+          "id": 106,
+          "descripcion": "Me agrada que los sentimientos sobre el sexo formen ahora parte de mi vida."
+        },
+        {
+          "id": 107,
+          "descripcion": "Me asusta pensar que pudiera quedarme completamente sólo/a en el mundo."
+        },
+        {
+          "id": 108,
+          "descripcion": "Si me pidiesen que hiciera una descripción de cómo soy yo, no sabría qué decir."
+        },
+        {
+          "id": 109,
+          "descripcion": "Estoy muy poco pendiente de los demás para lograr su amistad."
+        },
+        {
+          "id": 110,
+          "descripcion": "Dudo que pueda llegar a ser algo en la vida."
+        },
+        {
+          "id": 111,
+          "descripcion": "Si leyera estas preguntas dentro de un mes, seguro que cambiaría la mayoría de mis respuestas."
+        },
+        {
+          "id": 112,
+          "descripcion": "No me molesta ver sufrir a alguien."
+        },
+        {
+          "id": 113,
+          "descripcion": "Estoy celoso/a de la atención especial que reciben los otros chicos/as en mi familia (hermanos, primos)."
+        },
+        {
+          "id": 114,
+          "descripcion": "La mayoría de la gente es más atractiva que yo."
+        },
+        {
+          "id": 115,
+          "descripcion": "Siempre he necesitado \"explotar\" de vez en cuando."
+        },
+        {
+          "id": 116,
+          "descripcion": "Una afición o pasatiempo tranquilo me divierte más que una fiesta."
+        },
+        {
+          "id": 117,
+          "descripcion": "Me afecta mucho ver a una persona muy enferma."
+        },
+        {
+          "id": 118,
+          "descripcion": "Me pongo nervioso/a cuando me suceden cosas que no esperaba."
+        },
+        {
+          "id": 119,
+          "descripcion": "Me preocupo por mi aspecto físico."
+        },
+        {
+          "id": 120,
+          "descripcion": "Soy uno de los chicos/as más populares del colegio."
+        },
+        {
+          "id": 121,
+          "descripcion": "Siempre hay una serie de razones para pensar que la mayoría de los problemas no pueden solucionarse."
+        },
+        {
+          "id": 122,
+          "descripcion": "Hago todo lo posible por llevarme bien con los demás tratando de ser amable y complaciente."
+        },
+        {
+          "id": 123,
+          "descripcion": "El sexo es desagradable."
+        },
+        {
+          "id": 124,
+          "descripcion": "En el último año he cruzado el Atlántico más de treinta veces."
+        },
+        {
+          "id": 125,
+          "descripcion": "Para evitar errores, es bueno hacer las cosas siempre de la misma manera."
+        },
+        {
+          "id": 126,
+          "descripcion": "Mi familia siempre está gritando y peleándose."
+        },
+        {
+          "id": 127,
+          "descripcion": "Me gustaría continuar en el colegio y después seguir en la Universidad el mayor tiempo posible."
+        },
+        {
+          "id": 128,
+          "descripcion": "Me parece que encajo enseguida en cualquier grupo nuevo de chicos/as."
+        },
+        {
+          "id": 129,
+          "descripcion": "Nada me gusta tanto como montarme en un automóvil y salir a toda velocidad."
+        },
+        {
+          "id": 130,
+          "descripcion": "La mayoría de las cosas en mi vida las he hecho muy bien."
+        },
+        {
+          "id": 131,
+          "descripcion": "Los jóvenes que son solitarios, generalmente merecen estar solos."
+        },
+        {
+          "id": 132,
+          "descripcion": "Si quiero hacer algo, lo hago sin pensar en lo que pueda suceder."
+        },
+        {
+          "id": 133,
+          "descripcion": "Muy poco de lo que he hecho ha sido apreciado por los demás."
+        },
+        {
+          "id": 134,
+          "descripcion": "No he estado poniendo mucha atención a las preguntas de este cuestionario."
+        },
+        {
+          "id": 135,
+          "descripcion": "Hago comentarios desagradables de la gente si se lo merecen."
+        },
+        {
+          "id": 136,
+          "descripcion": "Muchas veces me siento como si flotara a la deriva, como perdido/a en la vida."
+        },
+        {
+          "id": 137,
+          "descripcion": "Me avergüenzo de mi cuerpo."
+        },
+        {
+          "id": 138,
+          "descripcion": "En mi casa, parece que a nadie le importo."
+        },
+        {
+          "id": 139,
+          "descripcion": "Creo que soy más atractivo/a que la mayoría de los chicos/as que conozco."
+        },
+        {
+          "id": 140,
+          "descripcion": "Soy muy maduro/a para mi edad y sé lo que quiero hacer en la vida."
+        },
+        {
+          "id": 141,
+          "descripcion": "Me gusta estar entre la multitud, simplemente por estar con mucha gente."
+        },
+        {
+          "id": 142,
+          "descripcion": "En muchas cosas me siento muy superior a la mayoría de la gente."
+        },
+        {
+          "id": 143,
+          "descripcion": "Parece que no les caigo bien a la mayoría de los chicos/as de mi edad."
+        },
+        {
+          "id": 144,
+          "descripcion": "Creo que la mayoría de la gente es amable y considerada."
+        },
+        {
+          "id": 145,
+          "descripcion": "Me gusta mucho coquetear."
+        },
+        {
+          "id": 146,
+          "descripcion": "Realmente me importa muy poco lo que voy a hacer en la vida."
+        },
+        {
+          "id": 147,
+          "descripcion": "Muchas veces siento que los demás no quieren ser amigos míos."
+        },
+        {
+          "id": 148,
+          "descripcion": "Me resulta difícil ocultar mis sentimientos."
+        },
+        {
+          "id": 149,
+          "descripcion": "Me preocupan mucho las cuestiones sexuales."
+        },
+        {
+          "id": 150,
+          "descripcion": "Puedo controlar fácilmente mis sentimientos."
+        }
+      ],
+      "opciones": [
+        {
+          "id": 1,
+          "descripcion": "Verdadero"
+        },
+        {
+          "id": 2,
+          "descripcion": "Falso"
+        }
+      ]
     }
   ],
   "dimensiones": [
@@ -6749,8 +6753,8 @@
     },
     {
       "id": 21,
-      "descripcion": "INDICE DE FIABILIDAD",
-      "abreviacion": "21",
+      "descripcion": "FIABILIDAD",
+      "abreviacion": null,
       "items": [
         {
           "puntuacion": 1,
@@ -6783,8 +6787,8 @@
     },
     {
       "id": 22,
-      "descripcion": "INDICE DE VALIDEZ",
-      "abreviacion": "22",
+      "descripcion": "VALIDEZ",
+      "abreviacion": null,
       "items": [
         {
           "puntuacion": 1,
@@ -6817,8 +6821,8 @@
     },
     {
       "id": 23,
-      "descripcion": "INDICE DE INCOHERENCIA",
-      "abreviacion": "",
+      "descripcion": "INCOHERENCIA",
+      "abreviacion": null,
       "items": [
         {
           "puntuacion": 1,
@@ -9800,7 +9804,7 @@
                 "21": 100
               }
             },
-            {
+          {
               "id_dimension": 15,
               "mapeo": {
                 "0": 33,

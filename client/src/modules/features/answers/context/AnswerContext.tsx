@@ -4,11 +4,12 @@ import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import { useParams } from "@tanstack/react-router";
 import { TestType } from "../../tests/types/TestType";
 import { TestForm } from "../../tests/api/dtos";
+import Loader from "@/modules/core/components/ui/loader/Loader";
 
 interface Ctx {
-  data: T_Test | undefined;
-  test: TestType | undefined;
-  resultados: TestForm[] | undefined;
+  data: T_Test;
+  test: TestType;
+  resultados: TestForm[];
 }
 
 const AnswerContext = createContext<Ctx | null>(null);
@@ -30,10 +31,18 @@ export const AnswerContextProvider = ({ children }: Props) => {
     },
   ]);
 
-  const test: TestType | undefined = data && JSON.parse(data.test);
-  const resultados: TestForm[] | undefined = data?.resultados
+  if (!data) {
+    return (
+      <div className="w-full h-full">
+        <Loader text="Cargando respuesta..." />
+      </div>
+    );
+  }
+
+  const test: TestType = data && JSON.parse(data.test);
+  const resultados: TestForm[] = data.resultados
     ? JSON.parse(data.resultados)
-    : undefined;
+    : [];
 
   return (
     <AnswerContext.Provider value={{ data, test, resultados }}>
