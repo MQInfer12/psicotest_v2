@@ -14,15 +14,11 @@ import IconMessage from "../../icons/IconMessage";
 import { COLORS } from "@/modules/core/constants/COLORS";
 import { useNavigate } from "@tanstack/react-router";
 import Autofill from "./components/Autofill";
+import { TestForm } from "@/modules/features/tests/api/dtos";
 
 function obtenerFraseAleatoria() {
   const indiceAleatorio = Math.floor(Math.random() * FRASES.length);
   return FRASES[indiceAleatorio];
-}
-
-export interface TestForm {
-  idPregunta: number;
-  idOpcion: number;
 }
 
 interface Props {
@@ -78,6 +74,8 @@ const Test = ({ data, test, idRespuesta }: Props) => {
     test.secciones.find((seccion) =>
       seccion.items.some((item) => item.id === pregunta.id)
     )?.opciones || [];
+
+  console.log(opciones);
 
   const exist = form.find((v) => v.idPregunta === pregunta.id);
 

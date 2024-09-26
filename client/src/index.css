@@ -40,7 +40,7 @@ img {
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-alto-200;
+  @apply bg-alto-100;
 }
 ::-webkit-scrollbar-thumb {
   @apply bg-primary-400;

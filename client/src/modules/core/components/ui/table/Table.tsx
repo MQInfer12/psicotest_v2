@@ -82,7 +82,7 @@ const Table = <T,>({
       {showControls && <TableControls />}
       <div
         ref={tableContainerRef}
-        className="flex-1 flex flex-col overflow-auto relative"
+        className="flex-1 flex flex-col overflow-y-scroll relative"
       >
         <AnimatePresence>
           {!data && (

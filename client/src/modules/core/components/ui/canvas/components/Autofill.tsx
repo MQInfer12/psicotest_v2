@@ -1,5 +1,5 @@
 import { useKonamiCode } from "@/modules/core/hooks/useKonamiCode";
-import { TestForm } from "../Test";
+import { TestForm } from "@/modules/features/tests/api/dtos";
 import { TestType } from "@/modules/features/tests/types/TestType";
 
 interface Props {

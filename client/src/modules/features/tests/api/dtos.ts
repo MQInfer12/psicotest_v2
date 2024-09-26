@@ -6,3 +6,8 @@ export interface RespuestaDTO {
 export interface SendTestDTO {
   resultados: string;
 }
+
+export interface TestForm {
+  idPregunta: number;
+  idOpcion: number;
+}

@@ -10,6 +10,7 @@ class T_Test_RespuestaResource extends JsonResource
     public function toArray($request)
     {
         //? AL MODIFICAR ESTA RESPUESTA AÑADIR LOS MISMOS CAMPOS A T_TestResource.php
+        $version = $this->test_version;
         $test = $this->test_version->test_entity;
         return [
             'id' => $test->id,
@@ -17,8 +18,8 @@ class T_Test_RespuestaResource extends JsonResource
             'nombre_autor' => $test->autor,
             'nombre_autor_creador' => $test->autor_creador ? $test->autor_creador->nombre : null,
             'canvas' => $test->canvas,
-            'version' => $test->latest_version->version,
-            'test' => $test->latest_version->test,
+            'version' => $version->version,
+            'test' => $version->test,
             'resultados' => $this->resultados
         ];
     }

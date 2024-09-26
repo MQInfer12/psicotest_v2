@@ -90,7 +90,7 @@ const AnswersPage = () => {
               navigate({
                 to: "/answers/$id",
                 params: {
-                  id: String(row.id),
+                  id: String(row.id_respuesta),
                 },
               }),
             icon: Icon.Types.BRAIN,
