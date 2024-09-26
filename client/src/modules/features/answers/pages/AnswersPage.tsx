@@ -79,7 +79,7 @@ const AnswersPage = () => {
       style={{
         paddingInline: PRIVATE_PADDING_INLINE,
       }}
-      className="flex flex-col pb-10 flex-1"
+      className="flex flex-col pb-10 flex-1 overflow-hidden"
     >
       <Table
         data={data}

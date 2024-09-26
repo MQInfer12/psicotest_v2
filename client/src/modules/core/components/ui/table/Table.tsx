@@ -12,7 +12,8 @@ import Button from "../Button";
 import Loader from "../loader/Loader";
 import { AnimatePresence, motion } from "framer-motion";
 import clsx from "clsx";
-import { useState } from "react";
+import { ElementRef, useRef, useState } from "react";
+import { useVirtualizer } from "@tanstack/react-virtual";
 
 interface Props<T> {
   data: T[] | undefined;
@@ -49,6 +50,24 @@ const Table = <T,>({
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
   });
+  const tableContainerRef = useRef<ElementRef<"div">>(null);
+
+  const gridTemplateColumns = [
+    "40px",
+    ...columns.map((c) =>
+      c.meta?.width
+        ? `${c.meta.width}px`
+        : `minmax(${c.meta?.minWidth ? `${c.meta.minWidth}px` : "320px"}, 1fr)`
+    ),
+    actions ? "120px" : "",
+  ].join(" ");
+
+  const rowVirtualizer = useVirtualizer({
+    count: data?.length ?? 0,
+    estimateSize: () => rowHeight,
+    getScrollElement: () => tableContainerRef.current,
+    overscan: 2,
+  });
 
   return (
     <div
@@ -61,7 +80,10 @@ const Table = <T,>({
       )}
     >
       {showControls && <TableControls />}
-      <div className="flex-1 overflow-auto relative">
+      <div
+        ref={tableContainerRef}
+        className="flex-1 flex flex-col overflow-auto relative"
+      >
         <AnimatePresence>
           {!data && (
             <motion.div
@@ -76,27 +98,17 @@ const Table = <T,>({
             </motion.div>
           )}
         </AnimatePresence>
-        <table
-          className="grid border-collapse"
-          style={{
-            gridTemplateColumns: [
-              "40px",
-              ...columns.map((c) =>
-                c.meta?.width
-                  ? `${c.meta.width}px`
-                  : `minmax(${c.meta?.minWidth ? `${c.meta.minWidth}px` : "320px"}, 1fr)`
-              ),
-              actions ? "120px" : "",
-            ].join(" "),
-          }}
-        >
-          <thead className="contents">
+        <table className="flex-1 border-collapse overflow-auto relative isolate">
+          <thead className="sticky top-0 z-10">
             {table.getHeaderGroups().map((group) => (
               <tr
-                className="contents [&_th]:sticky [&_th]:top-0"
+                className="grid bg-primary-100"
+                style={{
+                  gridTemplateColumns,
+                }}
                 key={group.id}
               >
-                <th className="h-10 flex items-center gap-2 font-bold bg-primary-100">
+                <th className="h-10 flex items-center gap-2 font-bold">
                   <p className="whitespace-nowrap overflow-hidden text-ellipsis text-[10px] uppercase w-full text-primary-950">
                     #
                   </p>
@@ -109,7 +121,7 @@ const Table = <T,>({
                       key={header.id}
                       title={header.column.columnDef.header?.toString()}
                       className={clsx(
-                        "h-10 flex items-center gap-2 font-bold bg-primary-100 hover:bg-primary-200 cursor-pointer transition-colors duration-300 select-none",
+                        "h-10 flex items-center gap-2 font-bold hover:bg-primary-200 cursor-pointer transition-colors duration-300 select-none",
                         {
                           "justify-center":
                             header.column.columnDef.meta?.textAlign ===
@@ -163,7 +175,7 @@ const Table = <T,>({
                   );
                 })}
                 {actions && (
-                  <th className="h-10 flex justify-center items-center gap-2 px-3 font-bold bg-primary-100">
+                  <th className="h-10 flex justify-center items-center gap-2 px-3 font-bold">
                     <p className="whitespace-nowrap overflow-hidden text-ellipsis text-[10px] uppercase text-primary-950">
                       Acciones
                     </p>
@@ -172,63 +184,76 @@ const Table = <T,>({
               </tr>
             ))}
           </thead>
-          <tbody className="contents">
-            {table.getRowModel().rows.map((row, i) => (
-              <tr
-                className="contents [&_td]:odd:bg-white [&_td]:even:bg-primary-50 [&_td]:border-b [&_td]:border-b-alto-100"
-                key={row.id}
-              >
-                <td
+          <tbody
+            className="relative"
+            style={{
+              height: `${rowVirtualizer.getTotalSize()}px`,
+            }}
+          >
+            {rowVirtualizer.getVirtualItems().map((virtualRow) => {
+              const row = table.getRowModel().rows[virtualRow.index];
+              return (
+                <tr
+                  className="absolute w-full grid odd:bg-white even:bg-primary-50 border-b border-b-alto-100"
                   style={{
-                    height: rowHeight,
+                    gridTemplateColumns,
+                    transform: `translateY(${virtualRow.start}px)`,
                   }}
-                  className="flex items-center justify-center text-[10px] overflow-hidden text-ellipsis"
+                  key={row.id}
                 >
-                  {i + 1}
-                </td>
-                {row.getVisibleCells().map((cell) => {
-                  const content = flexRender(
-                    cell.column.columnDef.cell,
-                    cell.getContext()
-                  );
-                  return (
-                    <td
-                      key={cell.id}
-                      style={{
-                        height: rowHeight,
-                      }}
-                      className={clsx(
-                        "flex items-center text-xs px-3 [&_p]:overflow-hidden [&_p]:text-ellipsis w-full",
-                        {
-                          "justify-center":
-                            cell.column.columnDef.meta?.textAlign === "center",
-                        }
-                      )}
-                    >
-                      {content}
-                    </td>
-                  );
-                })}
-                {actions && (
                   <td
                     style={{
                       height: rowHeight,
                     }}
-                    className="flex items-center justify-center px-3 w-full"
+                    className="flex items-center justify-center text-[10px] overflow-hidden text-ellipsis"
                   >
-                    {actions.map((a) => (
-                      <Button
-                        key={a.title}
-                        onClick={() => a.fn(row.original)}
-                        btnSize="small"
-                        title={a.title}
-                        icon={a.icon}
-                      />
-                    ))}
+                    {virtualRow.index + 1}
                   </td>
-                )}
-              </tr>
-            ))}
+                  {row.getVisibleCells().map((cell) => {
+                    const content = flexRender(
+                      cell.column.columnDef.cell,
+                      cell.getContext()
+                    );
+                    return (
+                      <td
+                        key={cell.id}
+                        style={{
+                          height: rowHeight,
+                        }}
+                        className={clsx(
+                          "flex items-center text-xs px-3 [&_p]:overflow-hidden [&_p]:text-ellipsis w-full",
+                          {
+                            "justify-center":
+                              cell.column.columnDef.meta?.textAlign ===
+                              "center",
+                          }
+                        )}
+                      >
+                        {content}
+                      </td>
+                    );
+                  })}
+                  {actions && (
+                    <td
+                      style={{
+                        height: rowHeight,
+                      }}
+                      className="flex items-center justify-center px-3 w-full"
+                    >
+                      {actions.map((a) => (
+                        <Button
+                          key={a.title}
+                          onClick={() => a.fn(row.original)}
+                          btnSize="small"
+                          title={a.title}
+                          icon={a.icon}
+                        />
+                      ))}
+                    </td>
+                  )}
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
