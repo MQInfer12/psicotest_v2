@@ -28,20 +28,20 @@ const AnswersPage = () => {
           <div className="flex gap-3 items-center w-full overflow-hidden">
             <div className="min-w-10 w-10 aspect-square rounded-md bg-alto-100 overflow-hidden">
               <motion.img
-                layoutId={`foto-${info.row.original.id_respuesta}`}
+                layoutId={`answer-foto-${info.row.original.id_respuesta}`}
                 className="w-full h-full"
                 src={info.row.original.foto_user || DefaultPhoto}
               />
             </div>
             <div className="flex-1 flex flex-col gap-1 overflow-hidden">
               <motion.strong
-                layoutId={`nombre-${info.row.original.id_respuesta}`}
+                layoutId={`answer-nombre-${info.row.original.id_respuesta}`}
                 className="font-semibold text-sm whitespace-nowrap overflow-hidden text-ellipsis"
               >
                 {info.getValue()}
               </motion.strong>
               <motion.p
-                layoutId={`email-${info.row.original.id_respuesta}`}
+                layoutId={`answer-email-${info.row.original.id_respuesta}`}
                 className="text-[10px] font-medium text-alto-700"
               >
                 {info.row.original.email_user}
@@ -55,7 +55,7 @@ const AnswersPage = () => {
         cell: (info) => (
           <div className="flex-1 flex flex-col gap-1 overflow-hidden">
             <motion.strong
-              layoutId={`test-${info.row.original.id_respuesta}`}
+              layoutId={`answer-test-${info.row.original.id_respuesta}`}
               className="font-semibold text-sm text-primary-600 whitespace-nowrap overflow-hidden text-ellipsis"
             >
               {info.getValue()}

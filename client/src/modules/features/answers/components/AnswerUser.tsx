@@ -16,7 +16,7 @@ const AnswerUser = () => {
         <div className="flex gap-4">
           <div className="min-h-full aspect-square z-10 rounded-lg overflow-hidden shadow-lg border-4 border-white">
             <motion.img
-              layoutId={`foto-${data.id_respuesta}`}
+              layoutId={`answer-foto-${data.id_respuesta}`}
               className="w-full h-full bg-alto-100"
               src={user.foto || DefaultPhoto}
               alt={user.email}
@@ -24,14 +24,14 @@ const AnswerUser = () => {
           </div>
           <div className="flex-1 py-1 flex flex-col overflow-hidden">
             <motion.strong
-              layoutId={`nombre-${data.id_respuesta}`}
+              layoutId={`answer-nombre-${data.id_respuesta}`}
               className="text-lg overflow-hidden text-ellipsis whitespace-nowrap"
               title={user.nombre}
             >
               {user.nombre}
             </motion.strong>
             <motion.p
-              layoutId={`email-${data.id_respuesta}`}
+              layoutId={`answer-email-${data.id_respuesta}`}
               className="text-sm text-alto-500 text-ellipsis whitespace-nowrap overflow-hidden"
               title={user.email}
             >
@@ -81,7 +81,7 @@ const AnswerUser = () => {
                     <Icon type={Icon.Types.BRAIN} />
                   </div>
                   <motion.p
-                    layoutId={`test-${data.id_respuesta}`}
+                    layoutId={`answer-test-${data.id_respuesta}`}
                     className="overflow-hidden whitespace-nowrap text-ellipsis text-xs text-alto-900"
                     title={data.nombre_test}
                   >

@@ -14,6 +14,7 @@ export type UserContextState = "logged" | "unlogged" | "loading";
 
 interface Ctx {
   user: User | null;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
   state: UserContextState;
   login: (user: User, token: string) => void;
   logout: () => void;
@@ -64,7 +65,7 @@ export const UserContextProvider = ({ children }: Props) => {
   }, [queryClient]);
 
   return (
-    <UserContext.Provider value={{ user, state, login, logout }}>
+    <UserContext.Provider value={{ user, setUser, state, login, logout }}>
       {children}
       <GetUser />
     </UserContext.Provider>

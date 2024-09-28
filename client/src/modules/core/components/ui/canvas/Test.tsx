@@ -5,7 +5,11 @@ import { useModal } from "../modal/useModal";
 import { AnimatePresence, motion } from "framer-motion";
 import clsx from "clsx";
 import { FRASES } from "@/modules/core/data";
-import { Item, TestType } from "@/modules/features/tests/types/TestType";
+import {
+  Item,
+  Requirements,
+  TestType,
+} from "@/modules/features/tests/types/TestType";
 import {
   T_Test,
   T_Test_Respuesta,
@@ -19,6 +23,13 @@ import Autofill from "./components/Autofill";
 import { TestForm } from "@/modules/features/tests/api/dtos";
 import { isForResolveTest } from "@/modules/features/tests/utils/isForResolve";
 import { useMeasureContext } from "@/modules/features/_layout/context/MeasureContext";
+import { useUserContext } from "@/modules/features/auth/context/UserContext";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { UserRequiredDTOSchema } from "@/modules/features/users/validations/UserDTOSchema";
+import { UserRequiredDTO } from "@/modules/features/users/api/dtos";
+import Input from "../Input";
+import { Genero } from "@/modules/features/users/types/Genero";
 
 function obtenerFraseAleatoria() {
   const indiceAleatorio = Math.floor(Math.random() * FRASES.length);
@@ -69,6 +80,43 @@ const Test = ({ data, test, idRespuesta }: Props) => {
     },
   ]);
   const navigate = useNavigate();
+
+  const { user, setUser } = useUserContext();
+  const requirements = test.requerimientos.filter((r) => {
+    switch (r) {
+      case Requirements.EDAD:
+        return !user?.fecha_nacimiento;
+      case Requirements.GENERO:
+        return !user?.genero;
+      default:
+        return true;
+    }
+  });
+  const userMutation = postData("PUT /user/:id");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UserRequiredDTO>({
+    defaultValues: {
+      fecha_nacimiento: user?.fecha_nacimiento ?? undefined,
+      genero: user?.genero ?? undefined,
+    },
+    resolver: yupResolver(UserRequiredDTOSchema),
+  });
+
+  const handleSaveUserData = (form: UserRequiredDTO) => {
+    console.log(form);
+    userMutation(form, {
+      params: {
+        id: String(user?.email),
+      },
+      onSuccess: (res) => {
+        toastSuccess(res.message);
+        setUser(res.data);
+      },
+    });
+  };
 
   const prev = !idRespuesta;
 
@@ -169,8 +217,6 @@ const Test = ({ data, test, idRespuesta }: Props) => {
   height += maxOpciones * 40; //2 opciones h-10
   height -= -1; //!BORDE DE MRD
 
-  console.log(height);
-
   const variants = {
     enter: (direction: number) => ({
       x: direction > 0 ? "100%" : "-100%",
@@ -182,6 +228,8 @@ const Test = ({ data, test, idRespuesta }: Props) => {
       x: direction > 0 ? "-100%" : "100%",
     }),
   };
+
+  console.log(errors);
 
   return (
     <div className="w-full py-4 flex flex-col gap-2">
@@ -257,7 +305,55 @@ const Test = ({ data, test, idRespuesta }: Props) => {
               className="w-full bg-alto-100 border border-alto-200 rounded-lg flex relative overflow-hidden"
             >
               <AnimatePresence initial={false} custom={direction}>
-                {finishedPage ? (
+                {requirements.length > 0 ? (
+                  <motion.div
+                    variants={variants}
+                    custom={direction}
+                    initial="enter"
+                    animate="active"
+                    exit="exit"
+                    className="absolute inset-0 flex flex-col items-center justify-center"
+                  >
+                    <form
+                      id="userForm"
+                      className="flex flex-col gap-4 px-2 w-72"
+                      onSubmit={handleSubmit(handleSaveUserData)}
+                    >
+                      <h2 className="text-sm font-bold pb-4 text-center">
+                        Por favor llena tus datos antes de comenzar
+                      </h2>
+                      {requirements.map((r) => {
+                        switch (r) {
+                          case Requirements.EDAD:
+                            return (
+                              <Input
+                                label="Fecha de nacimiento"
+                                type="date"
+                                error={errors.fecha_nacimiento?.message}
+                                {...register("fecha_nacimiento")}
+                              />
+                            );
+                          case Requirements.GENERO:
+                            return (
+                              <Input
+                                label="Género"
+                                error={errors.genero?.message}
+                                type="select"
+                                {...register("genero")}
+                              >
+                                <option value="">Sin especificar</option>
+                                {Object.values(Genero).map((genero) => (
+                                  <option key={genero} value={genero}>
+                                    {genero}
+                                  </option>
+                                ))}
+                              </Input>
+                            );
+                        }
+                      })}
+                    </form>
+                  </motion.div>
+                ) : finishedPage ? (
                   <motion.div
                     variants={variants}
                     custom={direction}
@@ -380,7 +476,17 @@ const Test = ({ data, test, idRespuesta }: Props) => {
               >
                 Anterior
               </Button>
-              {finishedPage ? (
+              {requirements.length > 0 ? (
+                <Button
+                  key="regresar"
+                  btnType="primary"
+                  icon={Icon.Types.CHEVRON_RIGHT}
+                  form="userForm"
+                  type="submit"
+                >
+                  Continuar
+                </Button>
+              ) : finishedPage ? (
                 <Button
                   key="regresar"
                   btnType="primary"

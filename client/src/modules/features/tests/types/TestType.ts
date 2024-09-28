@@ -8,7 +8,7 @@ interface Seccion {
   opciones: Opcion[];
 }
 
-enum Requirements {
+export enum Requirements {
   EDAD = "edad",
   GENERO = "genero",
 }

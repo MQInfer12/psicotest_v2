@@ -10,3 +10,10 @@ export const UserDTOSchema = yup.object({
   genero: yup.string().nullable(),
   fecha_nacimiento: yup.string().nullable(),
 });
+
+export const UserRequiredDTOSchema = yup.object({
+  genero: yup.string().required("Requerido"),
+  fecha_nacimiento: yup
+    .string()
+    .required("Requerido"),
+});
