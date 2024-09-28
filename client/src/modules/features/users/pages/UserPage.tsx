@@ -4,13 +4,14 @@ import UserForm from "../components/UserForm";
 import UserCard from "../components/UserCard";
 import Button from "@/modules/core/components/ui/Button";
 import Loader from "@/modules/core/components/ui/loader/Loader";
-import { PRIVATE_PADDING_INLINE } from "../../_layout/constants/LAYOUT_SIZES";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
+import { useMeasureContext } from "../../_layout/context/MeasureContext";
 
 const UserPage = () => {
   const { fetchData } = useFetch();
   const { data, setData } = fetchData("GET /user");
   const { modal, setOpen } = useModal<User>();
+  const { PRIVATE_PADDING_INLINE } = useMeasureContext();
 
   return (
     <div

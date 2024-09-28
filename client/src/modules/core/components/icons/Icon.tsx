@@ -2,6 +2,7 @@ import IconCheckAnimated from "./css/iconCheckAnimated";
 import IconArrow from "./tabler/iconArrow";
 import IconBell from "./tabler/iconBell";
 import IconBrain from "./tabler/iconBrain";
+import IconCake from "./tabler/iconCake";
 import IconCalendar from "./tabler/iconCalendar";
 import IconCaret from "./tabler/iconCaret";
 import IconChat from "./tabler/iconChat";
@@ -12,6 +13,7 @@ import IconDots from "./tabler/iconDots";
 import IconExcel from "./tabler/iconExcel";
 import IconGender from "./tabler/iconGender";
 import IconLogout from "./tabler/iconLogout";
+import IconMenu from "./tabler/iconMenu";
 import IconNotes from "./tabler/iconNotes";
 import IconPDF from "./tabler/iconPDF";
 import IconPencil from "./tabler/iconPencil";
@@ -62,6 +64,8 @@ export enum ICON {
   CARET_UP = "caret_up",
   CARET_DOWN = "caret_down",
   SAD = "sad",
+  CAKE = "cake",
+  MENU = "menu",
 }
 
 interface Props {
@@ -105,6 +109,8 @@ const Icon = ({ type }: Props) => {
     [ICON.CARET_UP]: <IconCaret type="up" />,
     [ICON.CARET_DOWN]: <IconCaret type="down" />,
     [ICON.SAD]: <IconSad />,
+    [ICON.CAKE]: <IconCake />,
+    [ICON.MENU]: <IconMenu />,
   };
   return icons[type];
 };

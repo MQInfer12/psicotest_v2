@@ -56,7 +56,7 @@ const UserCard = ({ user, setOpen, setData }: Props) => {
       className="w-full bg-alto-50 flex flex-col p-6 px-8 gap-4 rounded-lg relative isolate shadow-lg"
       key={user.email}
     >
-      <div className="w-24 aspect-square absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 rounded-lg overflow-hidden shadow-md">
+      <div className="w-24 aspect-square absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 rounded-lg overflow-hidden shadow-lg border-4 border-white">
         <img
           className="w-full h-full bg-alto-100"
           src={user.foto || DefaultPhoto}

@@ -87,7 +87,7 @@ const Button = ({
       animate={getColors(false)}
       whileHover={getColors(true)}
       className={clsx(
-        "h-fit rounded-lg border flex items-center cursor-pointer disabled:cursor-auto justify-center outline-none ring-0 ring-inset focus:ring-1 transition-[box-shadow]",
+        "h-fit whitespace-nowrap rounded-lg border flex items-center cursor-pointer disabled:cursor-auto justify-center outline-none ring-0 ring-inset focus:ring-1 transition-[box-shadow]",
         {
           "ring-primary-400": btnType === "secondary",
           "ring-white": btnType === "primary",

@@ -2,28 +2,28 @@ import clsx from "clsx";
 import { ForwardedRef, forwardRef, useId } from "react";
 import Appear from "../utils/Appear";
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface GeneralProps {
   label?: string;
   error?: string;
   inputSize?: "base" | "small";
 }
+
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
 
 interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
-  label?: string;
   type?: "select";
-  error?: string;
-  inputSize?: "base" | "small";
 }
 
-type Props = InputProps | SelectProps;
+type Props = (InputProps | SelectProps) & GeneralProps;
 
-const isSelect = (props: Props): props is SelectProps => {
+const isSelect = (props: InputProps | SelectProps): props is SelectProps => {
   return props.type === "select";
 };
 
 const Input = forwardRef((props: Props, ref: ForwardedRef<any>) => {
   const id = useId();
-  const { label, className, error, inputSize = "base" } = props;
+  const { label, className, error, inputSize = "base", ...rest } = props;
+  const forwardProps = rest as InputProps | SelectProps;
 
   return (
     <div className="flex flex-col w-full">
@@ -45,7 +45,7 @@ const Input = forwardRef((props: Props, ref: ForwardedRef<any>) => {
           </Appear>
         </div>
       )}
-      {isSelect(props) ? (
+      {isSelect(forwardProps) ? (
         <select
           id={id}
           ref={ref}
@@ -59,7 +59,7 @@ const Input = forwardRef((props: Props, ref: ForwardedRef<any>) => {
             className
           )}
           autoComplete="off"
-          {...props}
+          {...forwardProps}
         >
           {props.children}
         </select>
@@ -78,7 +78,7 @@ const Input = forwardRef((props: Props, ref: ForwardedRef<any>) => {
             },
             className
           )}
-          {...props}
+          {...forwardProps}
         />
       )}
     </div>

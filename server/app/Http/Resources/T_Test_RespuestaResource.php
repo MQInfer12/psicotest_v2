@@ -14,6 +14,7 @@ class T_Test_RespuestaResource extends JsonResource
         $test = $this->test_version->test_entity;
         return [
             'id' => $test->id,
+            'id_respuesta' => $this->id,
             'nombre_test' => $test->nombre,
             'nombre_autor' => $test->autor,
             'nombre_autor_creador' => $test->autor_creador ? $test->autor_creador->nombre : null,

@@ -1,5 +1,10 @@
 import { RespuestaDTO, SendTestDTO } from "./dtos";
-import { T_Test, T_Tests } from "./responses";
+import {
+  T_Test,
+  T_Test_Respuesta,
+  T_Tests,
+  T_Tests_Respuestas,
+} from "./responses";
 
 declare global {
   interface EndpointMap {
@@ -20,7 +25,7 @@ declare global {
         id: number;
       };
       request: never;
-      response: T_Test;
+      response: T_Test_Respuesta;
     };
     "POST /respuesta": {
       params: never;
@@ -30,19 +35,19 @@ declare global {
     "GET /respuesta/for/resolve": {
       params: never;
       request: never;
-      response: T_Tests[];
+      response: T_Tests_Respuestas[];
     };
     "GET /respuesta/for/table": {
       params: never;
       request: never;
-      response: T_Tests[];
+      response: T_Tests_Respuestas[];
     };
     "PUT /respuesta/:id": {
       params: {
         id: number;
       };
       request: SendTestDTO;
-      response: T_Tests;
+      response: T_Tests_Respuestas;
     };
   }
 }

@@ -1,13 +1,14 @@
 import Button from "@/modules/core/components/ui/Button";
-import { PRIVATE_PADDING_INLINE } from "../../_layout/constants/LAYOUT_SIZES";
 import TestCard from "../components/TestCard";
 import { useNavigate } from "@tanstack/react-router";
 import { CanvasType } from "@/modules/core/components/ui/canvas/types/Canvas";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import Loader from "@/modules/core/components/ui/loader/Loader";
-import { T_Tests } from "../api/responses";
+import { T_Tests, T_Tests_Respuestas } from "../api/responses";
 import { useState } from "react";
 import { RespuestaEstado } from "../../answers/types/RespuestaEstado";
+import { isForResolveTests } from "../utils/isForResolve";
+import { useMeasureContext } from "../../_layout/context/MeasureContext";
 
 interface Props {
   respuestas?: boolean;
@@ -20,21 +21,24 @@ const TestPage = ({ respuestas = false }: Props) => {
   );
   const [loading, setLoading] = useState<number | null>(null);
 
+  const { PRIVATE_PADDING_INLINE } = useMeasureContext();
+
   const navigate = useNavigate();
-  const navigateToTest = (test: T_Tests) => {
-    setLoading(test.id_respuesta ? test.id_respuesta : test.id);
-    if (!test.id_respuesta) {
-      navigate({
-        to: "/tests/$idTest",
-        params: {
-          idTest: String(test.id),
-        },
-      });
-    } else {
+  const navigateToTest = (test: T_Tests | T_Tests_Respuestas) => {
+    if (isForResolveTests(test)) {
+      setLoading(test.id_respuesta);
       navigate({
         to: "/resolve/$idRespuesta",
         params: {
           idRespuesta: String(test.id_respuesta),
+        },
+      });
+    } else {
+      setLoading(test.id);
+      navigate({
+        to: "/tests/$idTest",
+        params: {
+          idTest: String(test.id),
         },
       });
     }
@@ -63,10 +67,12 @@ const TestPage = ({ respuestas = false }: Props) => {
             const canvas: CanvasType = JSON.parse(v.canvas);
             return (
               <TestCard
-                key={v.id}
+                key={isForResolveTests(v) ? v.id_respuesta : v.id}
                 idTest={v.id}
                 layoutId={
-                  !respuestas ? `test-${v.id}` : `respuesta-${v.id_respuesta}`
+                  isForResolveTests(v)
+                    ? `respuesta-${v.id_respuesta}`
+                    : `test-${v.id}`
                 }
                 starred={v.nombre_autor_creador === null}
                 title={v.nombre_test}
@@ -74,15 +80,23 @@ const TestPage = ({ respuestas = false }: Props) => {
                   canvas.find((c) => c.type === "paragraph")?.content || ""
                 }
                 author={v.nombre_autor || v.nombre_autor_creador!}
-                psychologist={v.nombre_asignador || undefined}
-                users={v.fotos}
+                psychologist={
+                  isForResolveTests(v) ? v.nombre_asignador : undefined
+                }
+                users={isForResolveTests(v) ? undefined : v.fotos}
                 resolve={() => navigateToTest(v)}
                 edit={!respuestas ? () => {} : undefined}
                 share={!respuestas}
                 loading={
-                  respuestas ? loading === v.id_respuesta : loading === v.id
+                  isForResolveTests(v)
+                    ? loading === v.id_respuesta
+                    : loading === v.id
                 }
-                finished={v.estado === RespuestaEstado.ENVIADO}
+                finished={
+                  isForResolveTests(v)
+                    ? v.estado === RespuestaEstado.ENVIADO
+                    : undefined
+                }
               />
             );
           })}

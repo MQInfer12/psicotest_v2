@@ -1,3 +1,4 @@
+import { useMeasureContext } from "@/modules/features/_layout/context/MeasureContext";
 import { CANVAS_PADDING } from "./constants/CANVAS";
 import Test from "./Test";
 import { motion } from "framer-motion";
@@ -15,11 +16,20 @@ interface CanvasProps extends Props {
 }
 
 const Canvas = ({ children, layoutId }: CanvasProps) => {
+  const { PRIVATE_PADDING_INLINE } = useMeasureContext();
   return (
-    <div className="flex flex-col items-center px-10 pb-10">
+    <div
+      style={{
+        paddingInline: PRIVATE_PADDING_INLINE,
+      }}
+      className="flex flex-col items-center pb-10"
+    >
       <motion.div
         layoutId={layoutId}
-        className="flex h-full flex-col items-center w-[1140px] max-w-full gap-8 bg-alto-50 border-t-8 border-primary-700 rounded-lg p-10 shadow-xl"
+        style={{
+          padding: PRIVATE_PADDING_INLINE,
+        }}
+        className="flex h-full flex-col items-center w-[1140px] max-w-full max-sm:gap-4 gap-8 bg-alto-50 border-t-8 border-primary-700 rounded-lg shadow-xl"
       >
         {children}
       </motion.div>

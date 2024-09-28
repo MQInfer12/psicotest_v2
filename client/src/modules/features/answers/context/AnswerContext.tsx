@@ -1,13 +1,14 @@
 import { createContext, useContext } from "react";
-import { T_Test } from "../../tests/api/responses";
-import useFetch from "@/modules/core/hooks/useFetch/useFetch";
+import { T_Test_Respuesta } from "../../tests/api/responses";
 import { useParams } from "@tanstack/react-router";
 import { TestType } from "../../tests/types/TestType";
 import { TestForm } from "../../tests/api/dtos";
 import Loader from "@/modules/core/components/ui/loader/Loader";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { fetchOptions } from "@/modules/core/hooks/useFetch/utils/fetchFn";
 
 interface Ctx {
-  data: T_Test;
+  data: T_Test_Respuesta;
   test: TestType;
   resultados: TestForm[];
 }
@@ -23,13 +24,16 @@ export const AnswerContextProvider = ({ children }: Props) => {
     from: "/_private/answers/$id",
   });
 
-  const { fetchData } = useFetch();
-  const { data } = fetchData([
-    "GET /test/by/respuesta/:id",
-    {
-      id: Number(id),
-    },
-  ]);
+  const {
+    data: { data },
+  } = useSuspenseQuery(
+    fetchOptions([
+      "GET /test/by/respuesta/:id",
+      {
+        id: Number(id),
+      },
+    ])
+  );
 
   if (!data) {
     return (

@@ -28,6 +28,7 @@ interface Props<T> {
   shadow?: boolean;
   rowHeight?: number;
   rounded?: boolean;
+  loadingRow?: (row: T) => boolean;
 }
 
 const Table = <T,>({
@@ -38,6 +39,7 @@ const Table = <T,>({
   shadow = false,
   rowHeight = 64,
   rounded = true,
+  loadingRow,
 }: Props<T>) => {
   const [sorting, setSorting] = useState<ColumnSort[]>([]);
 
@@ -241,16 +243,22 @@ const Table = <T,>({
                       }}
                       className="flex items-center justify-center px-3 w-full"
                     >
-                      {actions.map((a) => (
-                        <Button
-                          key={a.title}
-                          onClick={() => a.fn(row.original)}
-                          btnSize="small"
-                          title={a.title}
-                          icon={a.icon}
-                          disabled={a.disabled?.(row.original)}
-                        />
-                      ))}
+                      {loadingRow?.(row.original) ? (
+                        <div className="-mt-6">
+                          <Loader text="" scale=".4" />
+                        </div>
+                      ) : (
+                        actions.map((a) => (
+                          <Button
+                            key={a.title}
+                            onClick={() => a.fn(row.original)}
+                            btnSize="small"
+                            title={a.title}
+                            icon={a.icon}
+                            disabled={a.disabled?.(row.original)}
+                          />
+                        ))
+                      )}
                     </td>
                   )}
                 </tr>

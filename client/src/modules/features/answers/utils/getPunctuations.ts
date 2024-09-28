@@ -1,6 +1,6 @@
 import { measureAge } from "@/modules/core/utils/measureAge";
 import { TestForm } from "../../tests/api/dtos";
-import { T_Test } from "../../tests/api/responses";
+import { T_Test_Respuesta } from "../../tests/api/responses";
 import { MapiTestType } from "../../tests/modules/MAPI/types/MapiTestType";
 import { TestIds } from "../../tests/types/TestIds";
 import { TestType } from "../../tests/types/TestType";
@@ -12,7 +12,7 @@ export interface PunctuationData {
 }
 
 export const getPunctuations = (
-  testData: T_Test,
+  testData: T_Test_Respuesta,
   testGeneral: TestType,
   resultados: TestForm[]
 ): PunctuationData[] => {

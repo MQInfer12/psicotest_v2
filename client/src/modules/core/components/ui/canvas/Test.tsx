@@ -2,12 +2,14 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Icon from "../../icons/Icon";
 import Button from "../Button";
 import { useModal } from "../modal/useModal";
-import { CANVAS_PADDING } from "./constants/CANVAS";
 import { AnimatePresence, motion } from "framer-motion";
 import clsx from "clsx";
 import { FRASES } from "@/modules/core/data";
 import { Item, TestType } from "@/modules/features/tests/types/TestType";
-import { T_Test } from "@/modules/features/tests/api/responses";
+import {
+  T_Test,
+  T_Test_Respuesta,
+} from "@/modules/features/tests/api/responses";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import { toastSuccess } from "@/modules/core/utils/toasts";
 import IconMessage from "../../icons/IconMessage";
@@ -15,6 +17,8 @@ import { COLORS } from "@/modules/core/constants/COLORS";
 import { useNavigate } from "@tanstack/react-router";
 import Autofill from "./components/Autofill";
 import { TestForm } from "@/modules/features/tests/api/dtos";
+import { isForResolveTest } from "@/modules/features/tests/utils/isForResolve";
+import { useMeasureContext } from "@/modules/features/_layout/context/MeasureContext";
 
 function obtenerFraseAleatoria() {
   const indiceAleatorio = Math.floor(Math.random() * FRASES.length);
@@ -22,13 +26,15 @@ function obtenerFraseAleatoria() {
 }
 
 interface Props {
-  data: T_Test;
+  data: T_Test | T_Test_Respuesta;
   test: TestType;
   idRespuesta?: number;
 }
 
 const Test = ({ data, test, idRespuesta }: Props) => {
   const { modal, setOpen } = useModal();
+
+  const { size } = useMeasureContext();
 
   const preguntas = useMemo(
     () =>
@@ -41,7 +47,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
     [test]
   );
 
-  const resultados: TestForm[] | null = data.resultados
+  const resultados: TestForm[] | null = isForResolveTest(data)
     ? JSON.parse(data.resultados)
     : null;
   const [finished, setFinished] = useState(!!resultados);
@@ -74,8 +80,6 @@ const Test = ({ data, test, idRespuesta }: Props) => {
     test.secciones.find((seccion) =>
       seccion.items.some((item) => item.id === pregunta.id)
     )?.opciones || [];
-
-  console.log(opciones);
 
   const exist = form.find((v) => v.idPregunta === pregunta.id);
 
@@ -137,7 +141,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
           setFinished(true);
           testsSetter((old) => {
             return old.map((v) => {
-              if (v.id === res.data.id) return res.data;
+              if (v.id_respuesta === res.data.id_respuesta) return res.data;
               return v;
             });
           });
@@ -156,14 +160,16 @@ const Test = ({ data, test, idRespuesta }: Props) => {
     0
   );
 
-  let height = 80; //p-10
-  height += 24; //h4
+  let height = size !== "normal" ? 32 : 80; //py-10
+  height += size !== "normal" ? 20 : 24; //h4
   height += 24; //gap-3 x2
-  height += 160; //p
-  height += 16; //opciones mt-4
-  height += 16; //opciones gap-4
+  height += (size !== "normal" ? 20 : 28) * 5 + 20; //p
+  height += 8; //opciones pt-2
+  height += (maxOpciones - 1) * 16; //opciones gap-4
   height += maxOpciones * 40; //2 opciones h-10
   height -= -1; //!BORDE DE MRD
+
+  console.log(height);
 
   const variants = {
     enter: (direction: number) => ({
@@ -179,28 +185,32 @@ const Test = ({ data, test, idRespuesta }: Props) => {
 
   return (
     <div className="w-full py-4 flex flex-col gap-2">
-      <div className="w-full flex justify-between items-end pb-2 border-b-2 border-primary-200">
-        <div
-          style={{
-            paddingInline: CANVAS_PADDING,
-          }}
-          className="flex flex-col gap-2"
-        >
-          <h3 className="text-[40px] leading-[40px] font-bold text-primary-900 after:content-['.'] after:text-primary-500">
-            {data.nombre_test}
-          </h3>
+      <div className="px-4 w-full flex flex-col gap-2 pb-2 border-b-2 border-primary-200">
+        <h3 className="text-[40px] leading-[40px] font-bold text-primary-900 after:content-['.'] after:text-primary-500">
+          {data.nombre_test}
+        </h3>
+        <div className="w-full flex flex-wrap gap-4 items-center justify-between">
           <strong
-            className={clsx({
+            className={clsx("min-w-52 flex-[9999_1_0]", {
               "text-success": finished,
               "text-alto-800": !finished,
             })}
           >
             {finished ? "¡Ya resolviste este test!" : "¡Inicia tu test ahora!"}
           </strong>
+          <div className="flex-1 flex justify-center">
+            <Button
+              onClick={() => setOpen(true)}
+              icon={Icon.Types.CHEVRON_RIGHT}
+            >
+              {finished
+                ? "Ver mis respuestas"
+                : form.length > 0
+                  ? "Continuar el test"
+                  : "¡Comienza tu test!"}
+            </Button>
+          </div>
         </div>
-        <Button onClick={() => setOpen(true)} icon={Icon.Types.ARROW_RIGHT}>
-          {form.length > 0 ? "Continuar el test" : "¡Comienza tu test!"}
-        </Button>
       </div>
       {modal(
         data.nombre_test,
@@ -214,9 +224,10 @@ const Test = ({ data, test, idRespuesta }: Props) => {
             test={test}
           />
           <div className="flex flex-col gap-2">
-            <small className="text-alto-700 gap-2">
-              <span className="italic text-xs">"{frase.frase}"</span>
-              &nbsp;&nbsp;
+            <small className="text-alto-700 max-md:text-center max-md:flex max-md:flex-col max-md:gap-1">
+              <span className="italic text-xs">
+                "{frase.frase}"&nbsp;&nbsp;
+              </span>
               <span className="text-[10px] text-primary-400 whitespace-nowrap">
                 ({frase.autor})
               </span>
@@ -270,10 +281,10 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                     initial="enter"
                     animate="active"
                     exit="exit"
-                    className="flex justify-center py-10 inset-0 absolute"
+                    className="flex justify-center py-10 max-md:py-4 inset-0 absolute"
                   >
                     <div className="flex flex-col gap-3 w-[600px] max-w-full">
-                      <h4 className="text-base text-alto-600 px-4">
+                      <h4 className="text-base text-alto-600 px-4 max-md:text-sm">
                         Pregunta {preguntaIndex + 1}.
                       </h4>
                       <div className="border-b border-alto-200 px-4 h-40 flex items-center">
@@ -300,7 +311,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                               text: (
                                 <p
                                   title={pregunta.descripcion}
-                                  className="text-lg line-clamp-5 whitespace-pre-line"
+                                  className="text-lg line-clamp-5 whitespace-pre-line max-md:text-sm max-md:text-center max-md:text-balance"
                                 >
                                   {pregunta.descripcion}
                                 </p>
@@ -321,7 +332,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                             key={opcion.id}
                             onClick={() => handleOption(opcion.id)}
                             className={clsx(
-                              "w-full flex items-center justify-between border border-alto-300 px-10 h-10 text-sm rounded-md transition-all duration-300 disabled:cursor-pointer",
+                              "w-full max-md:px-4 gap-2 flex items-center justify-between border border-alto-300 px-10 h-10 rounded-md transition-all duration-300 disabled:cursor-pointer",
                               {
                                 "border-l-8 border-l-primary-500 bg-white -translate-y-1 shadow-sm":
                                   exist?.idOpcion === opcion.id,
@@ -331,7 +342,9 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                             )}
                             disabled={finished || exist?.idOpcion === opcion.id}
                           >
-                            <p>{opcion.descripcion}</p>
+                            <p className="text-sm max-md:text-xs text-start">
+                              {opcion.descripcion}
+                            </p>
                             <div className="h-6 aspect-square text-alto-300 flex items-center justify-center">
                               <Icon
                                 type={

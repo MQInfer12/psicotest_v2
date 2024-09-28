@@ -38,6 +38,7 @@ const AnswerTabs = () => {
         cell: (info: CellContext<TableResultados, any>) => (
           <input
             className="accent-primary-500 pointer-events-none"
+            tabIndex={-1}
             type="radio"
             defaultChecked={info.getValue()}
           />
