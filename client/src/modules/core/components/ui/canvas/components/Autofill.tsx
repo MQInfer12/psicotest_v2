@@ -23,20 +23,41 @@ const Autofill = ({
     !prev && !finished,
     () => {
       const body: TestForm[] = [];
-
-      test.secciones.map((section) => {
+      test.secciones.forEach((section) => {
         const sectionOptions = section.opciones.length;
-        section.items.map((item) => {
-          const existsBody = form.find((v) => v.idPregunta === item.id);
-          if (!existsBody) {
-            const randomIndex = Math.floor(Math.random() * sectionOptions);
-            return body.push({
-              idPregunta: item.id,
-              idOpcion: section.opciones[randomIndex].id,
-            });
-          }
-          return body.push(existsBody);
-        });
+        if (section.type === "multi") {
+          section.items.forEach((item) => {
+            const existsBody = form.find((v) => v.idPregunta === item.id);
+            if (!existsBody) {
+              const options: number[] = [];
+              section.opciones.forEach((option) => {
+                const checked = Math.random() >= 0.5;
+                if (checked) {
+                  options.push(option.id);
+                }
+              });
+              body.push({
+                idPregunta: item.id,
+                idOpcion: options,
+              });
+            } else {
+              body.push(existsBody);
+            }
+          });
+        } else {
+          section.items.forEach((item) => {
+            const existsBody = form.find((v) => v.idPregunta === item.id);
+            if (!existsBody) {
+              const randomIndex = Math.floor(Math.random() * sectionOptions);
+              body.push({
+                idPregunta: item.id,
+                idOpcion: section.opciones[randomIndex].id,
+              });
+            } else {
+              body.push(existsBody);
+            }
+          });
+        }
       });
 
       setForm(body);

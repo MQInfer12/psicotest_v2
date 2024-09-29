@@ -4,6 +4,7 @@ export interface TestType {
 }
 
 interface Seccion {
+  type?: "multi" | "single"; //DEFAULT "single"
   items: Item[];
   opciones: Opcion[];
 }
@@ -15,8 +16,8 @@ export enum Requirements {
 
 export interface Item {
   id: number;
-  type?: "image" | "text";
-  align?: "center" | "start";
+  type?: "image" | "text"; //DEFAULT "text"
+  align?: "center" | "start"; //DEFAULT "start"
   descripcion: string;
 }
 

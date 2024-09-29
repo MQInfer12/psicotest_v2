@@ -67,7 +67,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
   const [finishedPage, setFinishedPage] = useState(false);
 
   const [[preguntaIndex, direction], setCurrentPage] = useState([
-    finished ? preguntas.length - 1 : 0,
+    finished ? preguntas.length - 1 : 50,
     1,
   ]);
   const [form, setForm] = useState<TestForm[]>(resultados || []);
@@ -108,7 +108,6 @@ const Test = ({ data, test, idRespuesta }: Props) => {
   });
 
   const handleSaveUserData = (form: UserRequiredDTO) => {
-    console.log(form);
     userMutation(form, {
       params: {
         id: String(user?.email),
@@ -126,10 +125,10 @@ const Test = ({ data, test, idRespuesta }: Props) => {
   const timerRef = useRef<any>();
 
   const pregunta = preguntas[preguntaIndex];
-  const opciones =
-    test.secciones.find((seccion) =>
-      seccion.items.some((item) => item.id === pregunta.id)
-    )?.opciones || [];
+  const seccion = test.secciones.find((seccion) =>
+    seccion.items.some((item) => item.id === pregunta.id)
+  );
+  const opciones = seccion?.opciones || [];
 
   const exist = form.find((v) => v.idPregunta === pregunta.id);
 
@@ -149,29 +148,74 @@ const Test = ({ data, test, idRespuesta }: Props) => {
 
   const handleOption = (idOpcion: number) => {
     clearTimeout(timerRef.current);
-    setForm((prev) => {
-      if (exist) {
-        return prev.map((v) => {
-          if (v.idPregunta === pregunta.id) {
-            return { ...v, idOpcion };
-          }
-          return v;
-        });
-      } else {
-        return [
-          ...prev,
-          {
-            idPregunta: pregunta.id,
-            idOpcion,
-          },
-        ];
-      }
-    });
-    if (nextCondition && !prev && !inLastPregunta) {
-      timerRef.current = setTimeout(() => {
-        setPreguntaIndex(preguntaIndex + 1, 1);
+    if (seccion?.type === "multi") {
+      //* SELECCION MULTIPLE
+      setForm((prev) => {
         setFinalizedAnimation(true);
-      }, 1300);
+        //? PREGUNTA TODAVÍA NO EXISTE EN EL ARRAY DEL FORMULARIO
+        const ids = exist?.idOpcion;
+        const checkedsAreArray = Array.isArray(ids);
+        if (!checkedsAreArray)
+          return [
+            ...prev,
+            {
+              idPregunta: pregunta.id,
+              idOpcion: [idOpcion],
+            },
+          ];
+        //? ESTA OPCION TODAVÍA NO SE CHECKEO, AÑADIR AL ARRAY
+        const alreadyChecked = ids.some((v) => v === idOpcion);
+        if (!alreadyChecked)
+          return prev.map((p) => {
+            if (p.idPregunta === pregunta.id) {
+              return {
+                ...p,
+                idOpcion: [...ids, idOpcion],
+              };
+            }
+            return p;
+          });
+        //? LA OPCION YA ESTABA CHECKEADA, QUITARLA DEL ARRAY
+        const newIds = ids.filter((v) => v !== idOpcion);
+        if (newIds.length > 0)
+          return prev.map((p) => {
+            if (p.idPregunta === pregunta.id) {
+              return {
+                ...p,
+                idOpcion: newIds,
+              };
+            }
+            return p;
+          });
+        //? EL ARRAY ESTA VACÍO, QUITAR LA PREGUNTA DEL FORMULARIO
+        return prev.filter((p) => p.idPregunta !== pregunta.id);
+      });
+    } else {
+      //* SELECCION ÚNICA
+      setForm((prev) => {
+        if (exist) {
+          return prev.map((v) => {
+            if (v.idPregunta === pregunta.id) {
+              return { ...v, idOpcion };
+            }
+            return v;
+          });
+        } else {
+          return [
+            ...prev,
+            {
+              idPregunta: pregunta.id,
+              idOpcion,
+            },
+          ];
+        }
+      });
+      if (nextCondition && !prev && !inLastPregunta) {
+        timerRef.current = setTimeout(() => {
+          setPreguntaIndex(preguntaIndex + 1, 1);
+          setFinalizedAnimation(true);
+        }, 1300);
+      }
     }
   };
 
@@ -211,7 +255,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
   );
 
   let height = size !== "normal" ? 32 : 80; //py-10
-  height += size !== "normal" ? 20 : 24; //h4
+  height += size !== "normal" ? 40 : 44; //h4
   height += 24; //gap-3 x2
   height += (size !== "normal" ? 20 : 28) * 5 + 20; //p
   height += 8; //opciones pt-2
@@ -381,9 +425,16 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                     className="flex justify-center py-10 max-md:py-4 inset-0 absolute"
                   >
                     <div className="flex flex-col gap-3 w-[600px] max-w-full">
-                      <h4 className="text-base text-alto-600 px-4 max-md:text-sm">
-                        Pregunta {preguntaIndex + 1}.
-                      </h4>
+                      <div className="flex flex-col px-4 gap-1">
+                        <h4 className="text-base text-alto-600 max-md:text-sm">
+                          Pregunta {preguntaIndex + 1}.
+                        </h4>
+                        <h3 className="text-xs text-alto-500">
+                          {seccion?.type === "multi"
+                            ? "Selecciona varias opciones"
+                            : "Selecciona una opción"}
+                        </h3>
+                      </div>
                       <div className="border-b border-alto-200 px-4 h-40 flex items-center">
                         <motion.div
                           className={clsx("w-full", {
@@ -430,36 +481,43 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                         </motion.div>
                       </div>
                       <div className="flex flex-col pt-2 px-4 gap-4">
-                        {opciones.map((opcion) => (
-                          <button
-                            key={opcion.id}
-                            onClick={() => handleOption(opcion.id)}
-                            className={clsx(
-                              "w-full max-md:px-4 gap-2 flex items-center justify-between border border-alto-300 px-10 h-10 rounded-md transition-all duration-300 disabled:cursor-pointer",
-                              {
-                                "border-l-8 border-l-primary-500 bg-white -translate-y-1 shadow-sm":
-                                  exist?.idOpcion === opcion.id,
-                                "hover:-translate-y-1 hover:shadow-sm":
-                                  !finished,
-                              }
-                            )}
-                            disabled={finished || exist?.idOpcion === opcion.id}
-                          >
-                            <p className="text-sm max-md:text-xs text-start">
-                              {opcion.descripcion}{" "}
-                              {getOptionText(pregunta.descripcion, opcion.id)}
-                            </p>
-                            <div className="h-6 aspect-square text-alto-300 flex items-center justify-center">
-                              <Icon
-                                type={
-                                  exist?.idOpcion === opcion.id
-                                    ? Icon.Types.CHECK_ANIMATED
-                                    : Icon.Types.CHECK
+                        {opciones.map((opcion) => {
+                          const ids = exist?.idOpcion;
+                          const isMulti =
+                            seccion?.type === "multi" && Array.isArray(ids);
+                          const checked = isMulti
+                            ? ids.includes(opcion.id)
+                            : ids === opcion.id;
+                          return (
+                            <button
+                              key={opcion.id}
+                              onClick={() => handleOption(opcion.id)}
+                              className={clsx(
+                                "w-full max-md:px-4 gap-2 flex items-center justify-between border border-alto-300 px-10 h-10 rounded-md transition-all duration-300 disabled:cursor-pointer",
+                                {
+                                  "border-l-8 border-l-primary-500 bg-white shadow-sm":
+                                    checked,
+                                  "hover:shadow-md": !finished,
                                 }
-                              />
-                            </div>
-                          </button>
-                        ))}
+                              )}
+                              disabled={finished || (isMulti ? false : checked)}
+                            >
+                              <p className="text-sm max-md:text-xs text-start">
+                                {opcion.descripcion}{" "}
+                                {getOptionText(pregunta.descripcion, opcion.id)}
+                              </p>
+                              <div className="h-6 aspect-square text-alto-300 flex items-center justify-center">
+                                <Icon
+                                  type={
+                                    checked
+                                      ? Icon.Types.CHECK_ANIMATED
+                                      : Icon.Types.CHECK
+                                  }
+                                />
+                              </div>
+                            </button>
+                          );
+                        })}
                       </div>
                     </div>
                   </motion.div>

@@ -9,5 +9,5 @@ export interface SendTestDTO {
 
 export interface TestForm {
   idPregunta: number;
-  idOpcion: number;
+  idOpcion: number | number[];
 }
