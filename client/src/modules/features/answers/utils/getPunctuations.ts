@@ -4,6 +4,7 @@ import { T_Test_Respuesta } from "../../tests/api/responses";
 import { MapiTestType } from "../../tests/modules/MAPI/types/MapiTestType";
 import { TestIds } from "../../tests/types/TestIds";
 import { TestType } from "../../tests/types/TestType";
+import { KuderTestType } from "../../tests/modules/KUDER/types/KuderTestType";
 
 export interface PunctuationData {
   dimension: string;
@@ -18,8 +19,8 @@ export const getPunctuations = (
 ): PunctuationData[] => {
   switch (testData.id) {
     case TestIds.MAPI:
-      const test = testGeneral as MapiTestType;
-      return test.dimensiones.map((dimension) => {
+      const MAPITest = testGeneral as MapiTestType;
+      return MAPITest.dimensiones.map((dimension) => {
         const res: PunctuationData = {
           dimension:
             dimension.descripcion +
@@ -39,7 +40,7 @@ export const getPunctuations = (
           }, 0),
         };
 
-        test.escalas.forEach((escala) => {
+        MAPITest.escalas.forEach((escala) => {
           let value: string | number = "N/A";
           const { user } = testData;
           if (user?.fecha_nacimiento && user.genero && testData.fecha_enviado) {
@@ -65,7 +66,28 @@ export const getPunctuations = (
         return res;
       });
     case TestIds.KUDER:
-      return [];
+      const KUDERTest = testGeneral as KuderTestType;
+      return KUDERTest.dimensiones.map((dimension) => {
+        const res: PunctuationData = {
+          dimension:
+            dimension.descripcion +
+            (dimension.abreviacion ? ` (${dimension.abreviacion})` : ""),
+          natural: dimension.items.reduce((sum, item) => {
+            const meetsConditions = item.condiciones.every((condicion) =>
+              resultados.some(
+                (resultado) =>
+                  resultado.idPregunta === condicion.id_pregunta &&
+                  resultado.idOpcion === condicion.id_opcion
+              )
+            );
+            if (meetsConditions) {
+              sum += item.puntuacion;
+            }
+            return sum;
+          }, 0),
+        };
+        return res;
+      });
     default:
       return [];
   }
