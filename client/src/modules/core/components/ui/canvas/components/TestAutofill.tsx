@@ -11,7 +11,7 @@ interface Props {
   setPreguntaIndex: (newPage: number, newDirection: number) => void;
 }
 
-const Autofill = ({
+const TestAutofill = ({
   finished,
   form,
   prev,
@@ -69,4 +69,4 @@ const Autofill = ({
   return null;
 };
 
-export default Autofill;
+export default TestAutofill;

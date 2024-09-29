@@ -1,7 +1,7 @@
 import { useMeasureContext } from "@/modules/features/_layout/context/MeasureContext";
 import { CANVAS_PADDING } from "./constants/CANVAS";
-import Test from "./Test";
 import { motion } from "framer-motion";
+import Test from "./components/Test";
 
 interface Props {
   children?: React.ReactNode;
