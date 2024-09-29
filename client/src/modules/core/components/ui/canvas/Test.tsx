@@ -30,6 +30,8 @@ import { UserRequiredDTOSchema } from "@/modules/features/users/validations/User
 import { UserRequiredDTO } from "@/modules/features/users/api/dtos";
 import Input from "../Input";
 import { Genero } from "@/modules/features/users/types/Genero";
+import { cleanOptionTags, getOptionText } from "./utils/dynamicOptions";
+import { STORAGE_URL } from "@/modules/core/constants/ENVIRONMENT";
 
 function obtenerFraseAleatoria() {
   const indiceAleatorio = Math.floor(Math.random() * FRASES.length);
@@ -215,7 +217,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
   height += 8; //opciones pt-2
   height += (maxOpciones - 1) * 16; //opciones gap-4
   height += maxOpciones * 40; //2 opciones h-10
-  height -= -1; //!BORDE DE MRD
+  height -= -2; //!DIOSITO SABE POR QUE TUVE QUE AUMENTARLE UNO MÁS
 
   const variants = {
     enter: (direction: number) => ({
@@ -229,8 +231,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
     }),
   };
 
-  console.log(errors);
-
+  const descripcion = cleanOptionTags(pregunta.descripcion);
   return (
     <div className="w-full py-4 flex flex-col gap-2">
       <div className="px-4 w-full flex flex-col gap-2 pb-2 border-b-2 border-primary-200">
@@ -406,16 +407,22 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                             {
                               text: (
                                 <p
-                                  title={pregunta.descripcion}
-                                  className="text-lg line-clamp-5 whitespace-pre-line max-md:text-sm max-md:text-center max-md:text-balance"
+                                  title={descripcion}
+                                  className={clsx(
+                                    "text-lg line-clamp-5 whitespace-pre-line max-md:text-sm max-md:text-center max-md:text-balance",
+                                    {
+                                      "text-center":
+                                        pregunta.align === "center",
+                                    }
+                                  )}
                                 >
-                                  {pregunta.descripcion}
+                                  {descripcion}
                                 </p>
                               ),
                               image: (
                                 <img
                                   className="object-cover max-h-36 rounded-md max-w-full border-2 border-alto-50 shadow-lg"
-                                  src={pregunta.descripcion}
+                                  src={STORAGE_URL + pregunta.descripcion}
                                 />
                               ),
                             }[pregunta.type ?? "text"]
@@ -439,7 +446,8 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                             disabled={finished || exist?.idOpcion === opcion.id}
                           >
                             <p className="text-sm max-md:text-xs text-start">
-                              {opcion.descripcion}
+                              {opcion.descripcion}{" "}
+                              {getOptionText(pregunta.descripcion, opcion.id)}
                             </p>
                             <div className="h-6 aspect-square text-alto-300 flex items-center justify-center">
                               <Icon

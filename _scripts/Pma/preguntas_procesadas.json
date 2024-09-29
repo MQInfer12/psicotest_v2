@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "descripcion": "a a b c c d e e f g g<op1>a</op1><op2>b</op2><op3>c</op3><op4>f</op4><op5>g</op5><op6>h</op6>"
+  },
+  {
+    "id": 2,
+    "descripcion": "a x a y b x b y x c x<op1>y</op1><op2>d</op2><op3>x</op3><op4>d</op4><op5>e</op5><op6>f</op6>"
+  },
+  {
+    "id": 3,
+    "descripcion": "a b c a b c d e f d e<op1>f</op1><op2>g</op2><op3>h</op3><op4>i</op4><op5>g</op5><op6>h</op6>"
+  },
+  {
+    "id": 4,
+    "descripcion": "a b c x y z d e f x y<op1>z</op1><op2>g</op2><op3>h</op3><op4>i</op4><op5>j</op5><op6>k</op6>"
+  },
+  {
+    "id": 5,
+    "descripcion": "a b c d a b e a b f a<op1>b</op1><op2>c</op2><op3>f</op3><op4>g</op4><op5>h</op5>"
+  },
+  {
+    "id": 6,
+    "descripcion": "x y z a x y z b x y z<op1>x</op1><op2>b</op2><op3>c</op3><op4>d</op4><op5>e</op5><op6>f</op6>"
+  },
+  {
+    "id": 7,
+    "descripcion": "e f g h c i j j c k l<op1>c</op1><op2>m</op2><op3>n</op3><op4>c</op4><op5>c</op5><op6>d</op6>"
+  },
+  {
+    "id": 8,
+    "descripcion": "c b a c b a c b a c b<op1>a</op1><op2>c</op2><op3>b</op3><op4>a</op4><op5>b</op5><op6>c</op6>"
+  },
+  {
+    "id": 9,
+    "descripcion": "a m b c m d e f m g h<op1>j</op1><op2>l</op2><op3>j</op3><op4>h</op4><op5>i</op5><op6>j</op6>"
+  },
+  {
+    "id": 10,
+    "descripcion": "a a c c e e g g i i h<op1>i</op1><op2>j</op2><op3>k</op3><op4>l</op4><op5>ñ</op5>"
+  },
+  {
+    "id": 11,
+    "descripcion": "e f e f c d g h g h c<op1>d</op1><op2>i</op2><op3>j</op3><op4>c</op4><op5>d</op5><op6>i</op6>"
+  },
+  {
+    "id": 12,
+    "descripcion": "a b b c c d d d e e e<op1>d</op1><op2>e</op2><op3>f</op3><op4>g</op4><op5>h</op5><op6>i</op6>"
+  },
+  {
+    "id": 13,
+    "descripcion": "a a b c a b c d e f a<op1>b</op1><op2>c</op2><op3>d</op3><op4>e</op4><op5>f</op5>"
+  },
+  {
+    "id": 14,
+    "descripcion": "a b c a d e f f g h i<op1>j</op1><op2>k</op2><op3>l</op3><op4>j</op4><op5>k</op5><op6>l</op6>"
+  },
+  {
+    "id": 15,
+    "descripcion": "a b a c d c e f f g h<op1>i</op1><op2>j</op2><op3>g</op3><op4>h</op4><op5>i</op5><op6>j</op6>"
+  },
+  {
+    "id": 16,
+    "descripcion": "a b c ñ o d e f ñ o g<op1>h</op1><op2>i</op2><op3>ñ</op3><op4>o</op4><op5>j</op5><op6>k</op6>"
+  },
+  {
+    "id": 17,
+    "descripcion": "a b b b c d d d e f f<op1>g</op1><op2>h</op2><op3>h</op3><op4>g</op4><op5>h</op5><op6>i</op6>"
+  },
+  {
+    "id": 18,
+    "descripcion": "h g f e d c b a b g c<op1>d</op1><op2>f</op2>"
+  },
+  {
+    "id": 19,
+    "descripcion": "a c e g i k m j k l m<op1>n</op1><op2>ñ</op2>"
+  },
+  {
+    "id": 20,
+    "descripcion": "a x b y c z a x b y c<op1>z</op1><op2>a</op2><op3>x</op3><op4>b</op4><op5>a</op5><op6>b</op6>"
+  },
+  {
+    "id": 21,
+    "descripcion": "a b b c d e f f g h e<op1>f</op1><op2>g</op2><op3>h</op3><op4>i</op4><op5>j</op5>"
+  },
+  {
+    "id": 22,
+    "descripcion": "f g i j l m ñ o q r t<op1>u</op1><op2>s</op2><op3>t</op3><op4>u</op4><op5>v</op5><op6>w</op6>"
+  },
+  {
+    "id": 23,
+    "descripcion": "a b c a d e f d g h i<op1>g</op1><op2>j</op2><op3>k</op3><op4>l</op4><op5>i</op5><op6>j</op6>"
+  },
+  {
+    "id": 24,
+    "descripcion": "a s b t c u d v e w f<op1>x</op1><op2>g</op2><op3>f</op3><op4>g</op4><op5>h</op5><op6>x</op6>"
+  },
+  {
+    "id": 25,
+    "descripcion": "a a b b c d d e e f g<op1>g</op1><op2>h</op2><op3>h</op3><op4>i</op4><op5>j</op5><op6>k</op6>"
+  },
+  {
+    "id": 26,
+    "descripcion": "a a b a c d e d a o e<op1>f</op1><op2>e</op2><op3>f</op3><op4>g</op4><op5>h</op5><op6>i</op6>"
+  },
+  {
+    "id": 27,
+    "descripcion": "a c f h k m o q p q r<op1>s</op1><op2>t</op2><op3>u</op3>"
+  },
+  {
+    "id": 28,
+    "descripcion": "v v v v v w w w w x x<op1>y</op1><op2>q</op2><op3>v</op3><op4>w</op4><op5>x</op5><op6>y</op6>"
+  },
+  {
+    "id": 29,
+    "descripcion": "a b c b a d e f f e g<op1>d</op1><op2>g</op2><op3>h</op3><op4>i</op4><op5>h</op5><op6>i</op6>"
+  },
+  {
+    "id": 30,
+    "descripcion": "a a b b c d e f e f g<op1>h</op1><op2>i</op2><op3>i</op3><op4>h</op4><op5>i</op5><op6>j</op6>"
+  }
+]

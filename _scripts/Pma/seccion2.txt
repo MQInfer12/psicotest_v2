@@ -1,0 +1,30 @@
+a a b c c d e e f g g|a b c f g h
+a x a y b x b y x c x y d x|d e f x y z
+a b c a b c d e f d e f g h i|g h i j k l
+a b c x y z d e f x y z g h i|j k l x y z
+a b c d a b e a b f|a b c f g h
+x y z a x y z b x y z|x b c d e f
+e f g h c i j j c k l c m n c|c d m n ñ o
+c b a c b a c b a c b a c b|a b c d e f
+a m b c m d e f m g h j l j|h i j k l m
+a a c c e e g g i i|h i j k l ñ
+e f e f c d g h g h c d i j|c d i j k l
+a b b c c d d d e e e|d e f g h i
+a a b c a b c d e f|a b c d e f
+a b c a d e f f g h i j k l|j k l m n ñ
+a b a c d c e f f g h i j|g h i j k l
+a b c ñ o d e f ñ o g h i ñ o|j k ñ o p q
+a b b b c d d d e f f g h h|g h i j k l
+h g f e d c b|a b g c d f
+a c e g i k m|j k l m n ñ
+a x b y c z a x b y c z a x b|a b c x y z
+a b b c d e f f g h|e f g h i j
+f g i j l m ñ o q r t u|s t u v w x
+a b c a d e f d g h i g j k l|i j k l m ñ
+a s b t c u d v e w f x g|f g h x y z
+a a b b c d d e e f g g h|h i j k l m
+a a b a c d e d a o e f|e f g h i j
+a c f h k m o q|p q r s t u
+v v v v v w w w w x x y|q v w x y z
+a b c b a d e f f e g d g h i|h i j k l m
+a a b b c d e f e f g h i i|h i j k l p

@@ -16,6 +16,7 @@ export enum Requirements {
 export interface Item {
   id: number;
   type?: "image" | "text";
+  align?: "center" | "start";
   descripcion: string;
 }
 
