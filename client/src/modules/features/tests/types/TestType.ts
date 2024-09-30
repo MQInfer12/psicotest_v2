@@ -3,12 +3,6 @@ export interface TestType {
   secciones: Seccion[];
 }
 
-interface Seccion {
-  type?: "multi" | "single"; //DEFAULT "single"
-  items: Item[];
-  opciones: Opcion[];
-}
-
 export enum Requirements {
   EDAD = "edad",
   GENERO = "genero",
@@ -21,7 +15,28 @@ export interface Item {
   descripcion: string;
 }
 
-interface Opcion {
+export interface Opcion {
   id: number;
   descripcion: string;
+}
+
+export interface Seccion {
+  id: number;
+  required?: boolean; //default true
+  type?: "multi" | "single"; //DEFAULT "single"
+  timer?: number;
+  description?: (SeccionTitle | SeccionParagraph)[];
+  items: Item[];
+  opciones: Opcion[];
+}
+
+interface SeccionTitle {
+  type: "title";
+  content: string;
+}
+
+interface SeccionParagraph {
+  type: "paragraph";
+  align?: "start" | "center"; //DEFAULT "start"
+  content: string;
 }

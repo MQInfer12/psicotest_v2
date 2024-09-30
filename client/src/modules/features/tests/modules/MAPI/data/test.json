@@ -2,6 +2,7 @@
   "requerimientos": ["edad", "genero"],
   "secciones": [
     {
+      "id": 1,
       "items": [
         {
           "id": 1,
@@ -9804,7 +9805,7 @@
                 "21": 100
               }
             },
-          {
+            {
               "id_dimension": 15,
               "mapeo": {
                 "0": 33,

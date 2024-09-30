@@ -9,6 +9,7 @@ import { useState } from "react";
 import { RespuestaEstado } from "../../answers/types/RespuestaEstado";
 import { isForResolveTests } from "../utils/isForResolve";
 import { useMeasureContext } from "../../_layout/context/MeasureContext";
+import { useUpdateTests } from "../hooks/useUpdateTests";
 
 interface Props {
   respuestas?: boolean;
@@ -43,6 +44,8 @@ const TestPage = ({ respuestas = false }: Props) => {
       });
     }
   };
+
+  useUpdateTests();
 
   return (
     <div

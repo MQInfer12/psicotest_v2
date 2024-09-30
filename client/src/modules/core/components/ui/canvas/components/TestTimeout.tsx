@@ -5,9 +5,10 @@ import { TEST_CAROUSEL_VARIANT } from "../constants/TEST_CAROUSEL_VARIANT";
 
 interface Props {
   direction: number;
+  text: string;
 }
 
-const TestFinishPage = ({ direction }: Props) => {
+const TestTimeout = ({ direction, text }: Props) => {
   return (
     <motion.div
       variants={TEST_CAROUSEL_VARIANT}
@@ -18,13 +19,13 @@ const TestFinishPage = ({ direction }: Props) => {
       className="absolute inset-0 flex items-center justify-center"
     >
       <IconMessage
-        icon={Icon.Types.CHECK}
-        message="¡Muchas gracias por completar el test!"
-        textColor="success"
+        icon={Icon.Types.CLOCK}
+        message={text}
+        textColor="primary"
         delay={0.5}
       />
     </motion.div>
   );
 };
 
-export default TestFinishPage;
+export default TestTimeout;

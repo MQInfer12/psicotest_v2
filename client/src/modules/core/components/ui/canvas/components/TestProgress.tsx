@@ -1,28 +1,60 @@
 import { COLORS } from "@/modules/core/constants/COLORS";
+import { Item, Seccion } from "@/modules/features/tests/types/TestType";
 import { motion } from "framer-motion";
 
 interface Props {
-  totalPreguntas: number;
-  preguntaIndex: number;
   finished: boolean;
+  secciones: Seccion[];
+  seccion: Seccion;
+  pregunta: Item;
 }
 
-const TestProgress = ({ preguntaIndex, totalPreguntas, finished }: Props) => {
+const TestProgress = ({
+  finished,
+  secciones,
+  seccion,
+  pregunta,
+}: Props) => {
+  const sectionProgress = secciones.findIndex((s) => s.id === seccion.id) + 1;
+  const preguntaProgress =
+    seccion.items.findIndex((p) => p.id === pregunta.id) + 1;
   return (
-    <div className="w-full flex items-center gap-4">
-      <div className="w-20 flex justify-center">
-        <small>
-          P: {preguntaIndex + 1} / {totalPreguntas}
-        </small>
-      </div>
-      <div className="flex-1 h-2 bg-alto-100 rounded-md overflow-hidden">
-        <motion.span
-          animate={{
-            width: `${((preguntaIndex + 1) / totalPreguntas) * 100}%`,
-            backgroundColor: !finished ? COLORS.primary[700] : COLORS.success,
-          }}
-          className="block h-full"
-        />
+    <div className="flex flex-col gap-1">
+      {secciones.length > 1 && (
+        <div className="w-full flex items-center gap-4">
+          <div className="w-20 flex justify-center">
+            <small>
+              S: {sectionProgress} / {secciones.length}
+            </small>
+          </div>
+          <div className="flex-1 h-2 bg-alto-100 rounded-md overflow-hidden">
+            <motion.span
+              animate={{
+                width: `${(sectionProgress / secciones.length) * 100}%`,
+                backgroundColor: !finished
+                  ? COLORS.primary[400]
+                  : COLORS.success,
+              }}
+              className="block h-full"
+            />
+          </div>
+        </div>
+      )}
+      <div className="w-full flex items-center gap-4">
+        <div className="w-20 flex justify-center">
+          <small>
+            P: {preguntaProgress} / {seccion.items.length}
+          </small>
+        </div>
+        <div className="flex-1 h-2 bg-alto-100 rounded-md overflow-hidden">
+          <motion.span
+            animate={{
+              width: `${(preguntaProgress / seccion.items.length) * 100}%`,
+              backgroundColor: !finished ? COLORS.primary[400] : COLORS.success,
+            }}
+            className="block h-full"
+          />
+        </div>
       </div>
     </div>
   );

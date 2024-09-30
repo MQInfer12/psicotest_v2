@@ -23,6 +23,12 @@ import TestCarousel from "./TestCarousel";
 import TestFinishPage from "./TestFinishPage";
 import { useTestSender } from "../hooks/useTestSender";
 import { useTestActual } from "../hooks/useTestActual";
+import { TEST_CAROUSEL_VARIANT } from "../constants/TEST_CAROUSEL_VARIANT";
+import TestSection from "./TestSection";
+import { formatTime } from "@/modules/core/utils/formatTime";
+import { useTestTimer } from "../hooks/useTestTimer";
+import TestTimeout from "./TestTimeout";
+import { COLORS } from "@/modules/core/constants/COLORS";
 
 interface Props {
   data: T_Test | T_Test_Respuesta;
@@ -31,7 +37,7 @@ interface Props {
 }
 
 const Test = ({ data, test, idRespuesta }: Props) => {
-  const { modal, setOpen } = useModal();
+  const { modal, open, setOpen } = useModal();
   const navigate = useNavigate();
 
   const prev = !idRespuesta;
@@ -48,8 +54,27 @@ const Test = ({ data, test, idRespuesta }: Props) => {
 
   const [[preguntaIndex, direction], setCurrentPage] = useState([0, 1]);
 
-  const { preguntas, pregunta, opciones, seccion, requirements } =
+  const { preguntas, secciones, pregunta, opciones, seccion, requirements } =
     useTestActual(test, preguntaIndex);
+
+  const [sectionViews, setSectionViews] = useState<
+    {
+      id: number;
+      view: boolean;
+    }[]
+  >(
+    secciones
+      .map((s) =>
+        s.description
+          ? {
+              id: s.id,
+              view: true,
+            }
+          : undefined
+      )
+      .filter((s) => !!s)
+  );
+  const [canViewSection, setCanViewSection] = useState(!prev && !finished);
 
   const exist = form.find((v) => v.idPregunta === pregunta.id);
 
@@ -65,7 +90,12 @@ const Test = ({ data, test, idRespuesta }: Props) => {
 
   const nextCondition = !exist || !finalizedAnimation;
   const inLastPregunta = preguntaIndex === preguntas.length - 1;
-  const allPreguntasChecked = form.length === preguntas.length;
+
+  const allPreguntasChecked = secciones.every((s) =>
+    (s.required ?? true)
+      ? s.items.every((i) => form.map((f) => f.idPregunta).includes(i.id))
+      : true
+  );
 
   const timerRef = useRef<any>();
   const handleOption = (idOpcion: number) => {
@@ -136,24 +166,30 @@ const Test = ({ data, test, idRespuesta }: Props) => {
         timerRef.current = setTimeout(() => {
           setPreguntaIndex(preguntaIndex + 1, 1);
           setFinalizedAnimation(true);
-        }, 1300);
+        }, 1200);
       }
     }
   };
 
-  const variants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? "100%" : "-100%",
-    }),
-    active: {
-      x: 0,
-    },
-    exit: (direction: number) => ({
-      x: direction > 0 ? "-100%" : "100%",
-    }),
-  };
-
   const descripcion = cleanOptionTags(pregunta.descripcion);
+  const viewSection =
+    canViewSection && sectionViews.some((s) => s.id === seccion?.id && s.view);
+  const firstOfSection =
+    !finished &&
+    !prev &&
+    seccion?.items.findIndex((p) => p.id === pregunta.id) === 0;
+
+  const { timer, isLastSection, goToNextSection } = useTestTimer(
+    preguntaIndex,
+    setPreguntaIndex,
+    preguntas,
+    secciones,
+    seccion,
+    open,
+    viewSection,
+    prev
+  );
+
   return (
     <>
       <TestOutside
@@ -175,31 +211,110 @@ const Test = ({ data, test, idRespuesta }: Props) => {
           />
           <div className="flex flex-col gap-2">
             <TestPhrase />
-            <TestProgress
-              finished={finished}
-              preguntaIndex={preguntaIndex}
-              totalPreguntas={preguntas.length}
-            />
+            {seccion && pregunta && (
+              <TestProgress
+                secciones={secciones}
+                seccion={seccion}
+                pregunta={pregunta}
+                finished={finished}
+              />
+            )}
             <TestCarousel test={test}>
               {finishedPage ? (
-                <TestFinishPage direction={direction} variants={variants} />
+                <TestFinishPage direction={direction} />
               ) : requirements.length > 0 ? (
                 <TestRequirements
                   direction={direction}
                   requirements={requirements}
-                  variants={variants}
                 />
+              ) : timer === 0 ? (
+                <TestTimeout
+                  direction={direction}
+                  text={
+                    isLastSection
+                      ? "Se acabó tu tiempo para esta sección, envía tus resultados haciendo click en el botón de terminar."
+                      : "Se acabó tu tiempo para esta sección, haz click en el botón de continuar."
+                  }
+                />
+              ) : viewSection ? (
+                <TestSection direction={direction} seccion={seccion} />
               ) : (
                 <motion.div
                   key={pregunta.id}
-                  variants={variants}
+                  variants={TEST_CAROUSEL_VARIANT}
                   custom={direction}
                   initial="enter"
                   animate="active"
                   exit="exit"
                   className="flex justify-center py-10 max-md:py-4 inset-0 absolute"
                 >
-                  <div className="flex flex-col gap-3 w-[600px] max-w-full">
+                  <div className="flex flex-col gap-3 w-[600px] max-w-full relative">
+                    <div className="absolute top-0 right-4 flex gap-2">
+                      {timer !== null && (
+                        <div
+                          className={clsx(
+                            "text-center select-none group h-8 hover:w-20 ring-0 hover:ring-1 ring-inset ring-primary-400 overflow-hidden transition-all duration-300 w-8 gap-1 rounded-md flex items-center justify-between border border-alto-300 text-alto-500 p-1",
+                            {
+                              "!w-20": timer <= 20,
+                            }
+                          )}
+                        >
+                          <motion.div
+                            animate={
+                              timer <= 20
+                                ? {
+                                    color: [
+                                      COLORS.alto[500],
+                                      COLORS.primary[500],
+                                      COLORS.alto[500],
+                                    ],
+                                  }
+                                : undefined
+                            }
+                            transition={{
+                              color: {
+                                duration: 2,
+                                repeat: Infinity,
+                                repeatType: "mirror",
+                                ease: "easeInOut",
+                              },
+                            }}
+                            className="h-full aspect-square"
+                          >
+                            <Icon type={Icon.Types.CLOCK} />
+                          </motion.div>
+                          <p
+                            className={clsx(
+                              "group-hover:opacity-100 opacity-0 flex-1 transition-all duration-300 text-sm",
+                              {
+                                "opacity-100": timer <= 20,
+                              }
+                            )}
+                          >
+                            {formatTime(timer)}
+                          </p>
+                        </div>
+                      )}
+                      {seccion?.description && (
+                        <button
+                          onClick={() => {
+                            setSectionViews((prev) =>
+                              prev.map((prev) => {
+                                if (prev.id === seccion?.id) {
+                                  return { ...prev, view: true };
+                                }
+                                return prev;
+                              })
+                            );
+                            setCanViewSection(true);
+                            setCurrentPage((prev) => [prev[0], 1]);
+                          }}
+                          className="w-8 rounded-md aspect-square flex items-center justify-between border border-alto-300 text-alto-500 p-1"
+                        >
+                          <Icon type={Icon.Types.QUESTION} />
+                        </button>
+                      )}
+                    </div>
                     <div className="flex flex-col px-4 gap-1">
                       <h4 className="text-base text-alto-600 max-md:text-sm">
                         Pregunta {preguntaIndex + 1}.
@@ -267,18 +382,22 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                             key={opcion.id}
                             onClick={() => handleOption(opcion.id)}
                             className={clsx(
-                              "w-full max-md:px-4 gap-2 flex items-center justify-between border border-alto-300 px-10 h-10 rounded-md transition-all duration-300 disabled:cursor-pointer",
+                              "w-full max-md:px-4 gap-2 flex items-center disabled:hover:shadow-none justify-between border border-alto-300 px-10 h-10 rounded-md transition-all duration-300 disabled:cursor-default",
                               {
                                 "border-l-8 border-l-primary-500 bg-white shadow-sm":
                                   checked,
                                 "hover:shadow-md": !finished,
                               }
                             )}
-                            disabled={finished || (isMulti ? false : checked)}
+                            disabled={
+                              finished ||
+                              timer === 0 ||
+                              (isMulti ? false : checked)
+                            }
                           >
                             <p className="text-sm max-md:text-xs text-start">
-                              {opcion.descripcion}{" "}
-                              {getOptionText(pregunta.descripcion, opcion.id)}
+                              {getOptionText(pregunta.descripcion, opcion.id) ||
+                                opcion.descripcion}
                             </p>
                             <div className="h-6 aspect-square text-alto-300 flex items-center justify-center">
                               <Icon
@@ -300,7 +419,12 @@ const Test = ({ data, test, idRespuesta }: Props) => {
             <div className={clsx("w-full flex gap-4", "justify-between")}>
               <Button
                 key="anterior"
-                disabled={preguntaIndex === 0}
+                disabled={
+                  firstOfSection ||
+                  viewSection ||
+                  preguntaIndex === 0 ||
+                  timer === 0
+                }
                 onClick={() => {
                   if (finishedPage) {
                     setPreguntaIndex(preguntaIndex, -1);
@@ -331,6 +455,47 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                   icon={Icon.Types.CHEVRON_RIGHT}
                   form="userForm"
                   type="submit"
+                >
+                  Continuar
+                </Button>
+              ) : timer === 0 ? (
+                isLastSection ? (
+                  <Button
+                    key="regresar"
+                    btnType="primary"
+                    icon={Icon.Types.CHEVRON_RIGHT}
+                    onClick={() => handleSend(form)}
+                    disabled={!allPreguntasChecked || prev}
+                  >
+                    Terminar
+                  </Button>
+                ) : (
+                  <Button
+                    key="regresar"
+                    btnType="primary"
+                    icon={Icon.Types.CHEVRON_RIGHT}
+                    onClick={goToNextSection}
+                  >
+                    Continuar
+                  </Button>
+                )
+              ) : viewSection ? (
+                <Button
+                  key="regresar"
+                  btnType="primary"
+                  icon={Icon.Types.CHEVRON_RIGHT}
+                  onClick={() => {
+                    setSectionViews((prev) =>
+                      prev.map((prev) => {
+                        if (prev.id === seccion?.id) {
+                          return { ...prev, view: false };
+                        }
+                        return prev;
+                      })
+                    );
+                    setCanViewSection(!prev && !finished);
+                    setCurrentPage((prev) => [prev[0], 1]);
+                  }}
                 >
                   Continuar
                 </Button>

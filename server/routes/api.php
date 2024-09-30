@@ -32,6 +32,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::apiResource('/test', T_TestController::class);
     Route::get('/test/by/respuesta/{id}', [T_TestController::class, 'showByRespuesta']);
+    Route::put('/test/update/db', [T_TestController::class, 'updateDb']);
 
     Route::apiResource('/respuesta', T_RespuestaController::class);
     Route::get('/respuesta/for/resolve', [T_RespuestaController::class, 'indexForResolve']);

@@ -1,4 +1,4 @@
-import { RespuestaDTO, SendTestDTO } from "./dtos";
+import { RespuestaDTO, SendTestDTO, UpdateTestDbDTO } from "./dtos";
 import {
   T_Test,
   T_Test_Respuesta,
@@ -48,6 +48,11 @@ declare global {
       };
       request: SendTestDTO;
       response: T_Tests_Respuestas;
+    };
+    "PUT /test/update/db": {
+      params: never;
+      request: UpdateTestDbDTO;
+      response: T_Tests[];
     };
   }
 }

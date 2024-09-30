@@ -9,6 +9,7 @@ import IconChat from "./tabler/iconChat";
 import IconCheck from "./tabler/iconCheck";
 import IconChevron from "./tabler/iconChevron";
 import IconCircle from "./tabler/iconCircle";
+import IconClock from "./tabler/iconClock";
 import IconDots from "./tabler/iconDots";
 import IconExcel from "./tabler/iconExcel";
 import IconGender from "./tabler/iconGender";
@@ -66,6 +67,7 @@ export enum ICON {
   SAD = "sad",
   CAKE = "cake",
   MENU = "menu",
+  CLOCK = "clock",
 }
 
 interface Props {
@@ -111,6 +113,7 @@ const Icon = ({ type }: Props) => {
     [ICON.SAD]: <IconSad />,
     [ICON.CAKE]: <IconCake />,
     [ICON.MENU]: <IconMenu />,
+    [ICON.CLOCK]: <IconClock />,
   };
   return icons[type];
 };

@@ -6,17 +6,17 @@ import { UserRequiredDTO } from "@/modules/features/users/api/dtos";
 import { Genero } from "@/modules/features/users/types/Genero";
 import { UserRequiredDTOSchema } from "@/modules/features/users/validations/UserDTOSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { motion, Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import Input from "../../Input";
+import { TEST_CAROUSEL_VARIANT } from "../constants/TEST_CAROUSEL_VARIANT";
 
 interface Props {
-  variants: Variants;
   direction: number;
   requirements: Requirements[];
 }
 
-const TestRequirements = ({ variants, direction, requirements }: Props) => {
+const TestRequirements = ({ direction, requirements }: Props) => {
   const { user, setUser } = useUserContext();
 
   const { postData } = useFetch();
@@ -48,7 +48,7 @@ const TestRequirements = ({ variants, direction, requirements }: Props) => {
 
   return (
     <motion.div
-      variants={variants}
+      variants={TEST_CAROUSEL_VARIANT}
       custom={direction}
       initial="enter"
       animate="active"

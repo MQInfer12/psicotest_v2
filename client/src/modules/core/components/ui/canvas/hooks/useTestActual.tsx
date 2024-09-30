@@ -31,11 +31,13 @@ export const useTestActual = (test: TestType, preguntaIndex: number) => {
     [test]
   );
 
+  const secciones = useMemo(() => test.secciones, [test]);
+
   const pregunta = preguntas[preguntaIndex];
   const seccion = test.secciones.find((seccion) =>
     seccion.items.some((item) => item.id === pregunta.id)
   );
   const opciones = seccion?.opciones || [];
 
-  return { preguntas, pregunta, seccion, opciones, requirements };
+return { preguntas, secciones, pregunta, seccion, opciones, requirements };
 };

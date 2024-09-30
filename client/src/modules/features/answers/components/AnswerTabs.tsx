@@ -4,6 +4,8 @@ import Icon from "@/modules/core/components/icons/Icon";
 import { useAnswerContext } from "../context/AnswerContext";
 import { CellContext, createColumnHelper } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
+import { cleanOptionTags } from "@/modules/core/components/ui/canvas/utils/dynamicOptions";
+import { Opcion } from "../../tests/types/TestType";
 
 interface TableResultados {
   pregunta: string;
@@ -19,13 +21,15 @@ const AnswerTabs = () => {
   const seccion =
     test.secciones.length > 0 ? test.secciones[seccionIndex] : undefined;
 
+  console.log(seccion);
+
   const columns = useMemo(
     () => [
       columnHelper.accessor("pregunta", {
         header: "Pregunta",
         cell: (info) => (
           <p className="line-clamp-3 whitespace-pre-line leading-normal">
-            {info.getValue()}
+            {cleanOptionTags(info.getValue())}
           </p>
         ),
         meta: {
@@ -57,13 +61,29 @@ const AnswerTabs = () => {
     const respuesta = resultados.find(
       (resultado) => resultado.idPregunta === pregunta.id
     );
-    const opcion = seccion?.opciones.find((o) => o.id === respuesta?.idOpcion);
+    const opciones: Opcion[] = [];
+    if (seccion.type === "multi") {
+      const ids = respuesta?.idOpcion;
+      if (Array.isArray(ids)) {
+        const opcionesSeleccionadas = seccion.opciones.filter((o) =>
+          ids.includes(o.id)
+        );
+        opciones.push(...opcionesSeleccionadas);
+      }
+    } else {
+      const opcion = seccion?.opciones.find(
+        (o) => o.id === respuesta?.idOpcion
+      );
+      if (opcion) {
+        opciones.push(opcion);
+      }
+    }
     let res: TableResultados = {
       pregunta: pregunta.descripcion,
     };
-    if (opcion) {
+    opciones.forEach((opcion) => {
       res[opcion.descripcion] = true;
-    }
+    });
     return res;
   });
 

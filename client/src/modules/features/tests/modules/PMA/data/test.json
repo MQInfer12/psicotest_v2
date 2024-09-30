@@ -2,6 +2,40 @@
   "requerimientos": [],
   "secciones": [
     {
+      "id": 1,
+      "timer": 30,
+      "required": false,
+      "description": [
+        {
+          "type": "title",
+          "content": "Introducción"
+        },
+        {
+          "type": "paragraph",
+          "content": "A continuación vas a responder a una serie de cinco pruebas. El objeto de estas pruebas es ver cómo resuelves diferentes problemas. Cada una de las cinco clases de problemas es importante, procura hacerlo lo mejor posible."
+        },
+        {
+          "type": "title",
+          "content": "Factor V"
+        },
+        {
+          "type": "paragraph",
+          "content": "La palabra de la pregunta es GRUESO, para esta se presentarán 4 opciones."
+        },
+        {
+          "type": "paragraph",
+          "align": "center",
+          "content": "Enfermo, Gordo, Bajo, Agrio."
+        },
+        {
+          "type": "paragraph",
+          "content": "Una de estas palabras significa lo mismo que GRUESO la cual esa sería la respuesta correcta, en este caso 'Gordo', asegúrate de entender bien antes de continuar con la prueba."
+        },
+        {
+          "type": "paragraph",
+          "content": "Trabaja con prisa pero procura no equivocarte, tendrás CUATRO MINUTOS para esta prueba, si no terminas no te preocupes, es lo corriente."
+        }
+      ],
       "items": [
         {
           "id": 1,
@@ -257,24 +291,49 @@
       "opciones": [
         {
           "id": 1,
-          "descripcion": ""
+          "descripcion": "A"
         },
         {
           "id": 2,
-          "descripcion": ""
+          "descripcion": "B"
         },
         {
           "id": 3,
-          "descripcion": ""
+          "descripcion": "C"
         },
         {
           "id": 4,
-          "descripcion": ""
+          "descripcion": "D"
         }
       ]
     },
     {
+      "id": 2,
       "type": "multi",
+      "timer": 30,
+      "required": false,
+      "description": [
+        {
+          "type": "title",
+          "content": "Factor E"
+        },
+        {
+          "type": "paragraph",
+          "content": "A continuación se te presentará una figura de referencia, todas las figuras restantes (A - F) son EXACTAMENTE IGUALES a la primera, pero han sido colocadas en diferentes posiciones aunque algunas están al revés."
+        },
+        {
+          "type": "paragraph",
+          "content": "Tu objetivo será seleccionar las figuras que sean semejantes a la de referencia (puedes marcar varias opciones) y no las que estén volteadas."
+        },
+        {
+          "type": "paragraph",
+          "content": "En esta parte de la prueba se desactivó el avance automático para que puedas seleccionar varias figuras con calma, cuando quieras continuar a la siguiente figura haz click en 'Siguiente'."
+        },
+        {
+          "type": "paragraph",
+          "content": "Cuando lo tengas claro haz click en 'Continuar', trabaja con prisa pero procurando no equivocarte, tendrás CINCO MINUTOS para esta prueba, si no terminas no te preocupes, es lo corriente."
+        }
+      ],
       "items": [
         {
           "id": 51,
@@ -405,6 +464,35 @@
       ]
     },
     {
+      "id": 3,
+      "timer": 30,
+      "required": false,
+      "description": [
+        {
+          "type": "title",
+          "content": "Factor R"
+        },
+        {
+          "type": "paragraph",
+          "content": "Ahora resolverás problemas de series formadas por letras del alfabeto, ten en cuenta que no encontrarás letras compuestas como ch, ll, rr."
+        },
+        {
+          "type": "paragraph",
+          "content": "Tu objetivo será seleccionar la letra siguiente de la sucesión."
+        },
+        {
+          "type": "paragraph",
+          "content": "Toma como ejemplo la siguiente serie: a b a b a b a b, la siguiente letra sería 'a'."
+        },
+        {
+          "type": "paragraph",
+          "content": "Fíjate bien cuales son los grupos de letras que se van repitiendo y piensa cuál es la letra que lo continuaría."
+        },
+        {
+          "type": "paragraph",
+          "content": "Una vez que lo tengas claro haz click en 'Continuar', hazlo de prisa pero procura no equivocarte, tendrás SEIS MINUTOS para resolver esta prueba pero no te preocupes si no la terminas, es lo corriente."
+        }
+      ],
       "items": [
         {
           "id": 71,
@@ -560,31 +648,56 @@
       "opciones": [
         {
           "id": 11,
-          "descripcion": ""
+          "descripcion": "A"
         },
         {
           "id": 12,
-          "descripcion": ""
+          "descripcion": "B"
         },
         {
           "id": 13,
-          "descripcion": ""
+          "descripcion": "C"
         },
         {
           "id": 14,
-          "descripcion": ""
+          "descripcion": "D"
         },
         {
           "id": 15,
-          "descripcion": ""
+          "descripcion": "E"
         },
         {
           "id": 16,
-          "descripcion": ""
+          "descripcion": "F"
         }
       ]
     },
     {
+      "id": 4,
+      "timer": 30,
+      "required": false,
+      "description": [
+        {
+          "type": "title",
+          "content": "Factor N"
+        },
+        {
+          "type": "paragraph",
+          "content": "A continuación se te presentará una serie de sumas, tu misión será comprobar que la suma esté correcta."
+        },
+        {
+          "type": "paragraph",
+          "content": "Toma por ejemplo la suma: 16 + 38 + 45 = 99, en este caso la suma estaría correcta por lo que la opción que tendrías que seleccionar es 'Bien'."
+        },
+        {
+          "type": "paragraph",
+          "content": "En esta otra suma: 42 + 61 + 83 = 176, el resultado está incorrecto por lo que se deberá seleccionar la opción 'Mal'."
+        },
+        {
+          "type": "paragraph",
+          "content": "Si se entendió correctamente haz click en 'Continuar' para comenzar la prueba, trabaja con prisa pero cuidado de no equivocarte, tendrás SEIS MINUTOS para toda esta prueba, si no terminas no te preocupes, es lo normal."
+        }
+      ],
       "items": [
         {
           "id": 101,
