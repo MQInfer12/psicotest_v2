@@ -9,7 +9,7 @@ export interface SendTestDTO {
 
 export interface TestForm {
   idPregunta: number;
-  idOpcion: number | number[];
+  idOpcion: number | (number | string)[];
 }
 
 export interface UpdateTestDbDTO {

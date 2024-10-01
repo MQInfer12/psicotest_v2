@@ -24,6 +24,7 @@ import IconQuestion from "./tabler/iconQuestion";
 import IconSad from "./tabler/iconSad";
 import IconSchool from "./tabler/iconSchool";
 import IconStarred from "./tabler/iconStarred";
+import IconSwipe from "./tabler/iconSwipe";
 import IconTrash from "./tabler/iconTrash";
 import IconUser from "./tabler/iconUser";
 import IconUsers from "./tabler/iconUsers";
@@ -68,6 +69,7 @@ export enum ICON {
   CAKE = "cake",
   MENU = "menu",
   CLOCK = "clock",
+  SWIPE = "swipe",
 }
 
 interface Props {
@@ -114,6 +116,7 @@ const Icon = ({ type }: Props) => {
     [ICON.CAKE]: <IconCake />,
     [ICON.MENU]: <IconMenu />,
     [ICON.CLOCK]: <IconClock />,
+    [ICON.SWIPE]: <IconSwipe />,
   };
   return icons[type];
 };

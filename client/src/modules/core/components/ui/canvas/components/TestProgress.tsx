@@ -7,6 +7,7 @@ interface Props {
   secciones: Seccion[];
   seccion: Seccion;
   pregunta: Item;
+  paused: boolean;
 }
 
 const TestProgress = ({
@@ -14,6 +15,7 @@ const TestProgress = ({
   secciones,
   seccion,
   pregunta,
+  paused,
 }: Props) => {
   const sectionProgress = secciones.findIndex((s) => s.id === seccion.id) + 1;
   const preguntaProgress =
@@ -32,7 +34,9 @@ const TestProgress = ({
               animate={{
                 width: `${(sectionProgress / secciones.length) * 100}%`,
                 backgroundColor: !finished
-                  ? COLORS.primary[400]
+                  ? paused
+                    ? COLORS.alto[200]
+                    : COLORS.primary[400]
                   : COLORS.success,
               }}
               className="block h-full"
@@ -50,7 +54,11 @@ const TestProgress = ({
           <motion.span
             animate={{
               width: `${(preguntaProgress / seccion.items.length) * 100}%`,
-              backgroundColor: !finished ? COLORS.primary[400] : COLORS.success,
+              backgroundColor: !finished
+                ? paused
+                  ? COLORS.alto[200]
+                  : COLORS.primary[400]
+                : COLORS.success,
             }}
             className="block h-full"
           />

@@ -23,7 +23,8 @@ export interface Opcion {
 export interface Seccion {
   id: number;
   required?: boolean; //default true
-  type?: "multi" | "single"; //DEFAULT "single"
+  type?: "multi" | "single" | "text"; //DEFAULT "single"
+  //! type "text" is only developed for PMA test
   timer?: number;
   description?: (SeccionTitle | SeccionParagraph)[];
   items: Item[];

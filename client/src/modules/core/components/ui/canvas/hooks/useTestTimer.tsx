@@ -9,7 +9,8 @@ export const useTestTimer = (
   seccion: Seccion | undefined,
   open: boolean,
   viewSection: boolean,
-  prev: boolean
+  prev: boolean,
+  finished: boolean
 ) => {
   const [timer, setTimer] = useState<number | null>(null);
   const intervalRef = useRef<NodeJS.Timeout>();
@@ -22,7 +23,7 @@ export const useTestTimer = (
   }, [viewSection, open, timer]);
 
   useLayoutEffect(() => {
-    if (!prev) {
+    if (!prev && !finished) {
       setTimer(seccion?.timer || null);
     }
   }, [seccion]);

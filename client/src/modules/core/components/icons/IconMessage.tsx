@@ -16,7 +16,7 @@ const IconMessage = ({
   delay,
 }: Props) => {
   return (
-    <div className="flex flex-col items-center gap-5">
+    <div className="flex flex-col items-center gap-5 px-6">
       <motion.div
         initial={{ opacity: 0, y: "-50%" }}
         animate={{ opacity: 1, y: 0 }}
@@ -29,7 +29,7 @@ const IconMessage = ({
       >
         <Icon type={icon} />
       </motion.div>
-      <p className="text-sm font-medium text-alto-800">{message}</p>
+      <p className="text-sm leading-normal text-center font-medium text-alto-800">{message}</p>
     </div>
   );
 };

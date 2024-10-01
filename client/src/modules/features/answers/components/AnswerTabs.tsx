@@ -21,8 +21,6 @@ const AnswerTabs = () => {
   const seccion =
     test.secciones.length > 0 ? test.secciones[seccionIndex] : undefined;
 
-  console.log(seccion);
-
   const columns = useMemo(
     () => [
       columnHelper.accessor("pregunta", {

@@ -29,6 +29,8 @@ import { formatTime } from "@/modules/core/utils/formatTime";
 import { useTestTimer } from "../hooks/useTestTimer";
 import TestTimeout from "./TestTimeout";
 import { COLORS } from "@/modules/core/constants/COLORS";
+import TestTextSection from "./TestTextSection";
+import TestTextSectionForm from "./TestTextSectionForm";
 
 interface Props {
   data: T_Test | T_Test_Respuesta;
@@ -88,7 +90,10 @@ const Test = ({ data, test, idRespuesta }: Props) => {
     setCurrentPage([newPage, newDirection]);
   }
 
-  const nextCondition = !exist || !finalizedAnimation;
+  const [autoNext, setAutoNext] = useState(true);
+  const nextCondition =
+    (seccion?.required ?? true) ? !exist || !finalizedAnimation : false;
+
   const inLastPregunta = preguntaIndex === preguntas.length - 1;
 
   const allPreguntasChecked = secciones.every((s) =>
@@ -100,74 +105,85 @@ const Test = ({ data, test, idRespuesta }: Props) => {
   const timerRef = useRef<any>();
   const handleOption = (idOpcion: number) => {
     clearTimeout(timerRef.current);
-    if (seccion?.type === "multi") {
-      //* SELECCION MULTIPLE
-      setForm((prev) => {
+    switch (seccion?.type ?? "single") {
+      case "multi":
         setFinalizedAnimation(true);
-        //? PREGUNTA TODAVÍA NO EXISTE EN EL ARRAY DEL FORMULARIO
-        const ids = exist?.idOpcion;
-        const checkedsAreArray = Array.isArray(ids);
-        if (!checkedsAreArray)
-          return [
-            ...prev,
-            {
-              idPregunta: pregunta.id,
-              idOpcion: [idOpcion],
-            },
-          ];
-        //? ESTA OPCION TODAVÍA NO SE CHECKEO, AÑADIR AL ARRAY
-        const alreadyChecked = ids.some((v) => v === idOpcion);
-        if (!alreadyChecked)
-          return prev.map((p) => {
-            if (p.idPregunta === pregunta.id) {
-              return {
-                ...p,
-                idOpcion: [...ids, idOpcion],
-              };
+        setForm((prev) => {
+          //? PREGUNTA TODAVÍA NO EXISTE EN EL ARRAY DEL FORMULARIO
+          if (!exist)
+            return [
+              ...prev,
+              {
+                idPregunta: pregunta.id,
+                idOpcion: [idOpcion],
+              },
+            ];
+          //? ESTA OPCION TODAVÍA NO SE CHECKEO, AÑADIR AL ARRAY
+          const ids = exist.idOpcion as number[];
+          const alreadyChecked = ids.some((v) => v === idOpcion);
+          if (!alreadyChecked)
+            return prev.map((p) => {
+              if (p.idPregunta === pregunta.id) {
+                return {
+                  ...p,
+                  idOpcion: [...ids, idOpcion],
+                };
+              }
+              return p;
+            });
+          //? LA OPCION YA ESTABA CHECKEADA, QUITARLA DEL ARRAY
+          const newIds = ids.filter((v) => v !== idOpcion);
+          if (newIds.length > 0)
+            return prev.map((p) => {
+              if (p.idPregunta === pregunta.id) {
+                return {
+                  ...p,
+                  idOpcion: newIds,
+                };
+              }
+              return p;
+            });
+          //? EL ARRAY ESTA VACÍO, QUITAR LA PREGUNTA DEL FORMULARIO
+          return prev.filter((p) => p.idPregunta !== pregunta.id);
+        });
+        break;
+      case "single":
+        setForm((prev) => {
+          if (exist) {
+            return prev.map((v) => {
+              if (v.idPregunta === pregunta.id) {
+                return { ...v, idOpcion };
+              }
+              return v;
+            });
+          } else {
+            return [
+              ...prev,
+              {
+                idPregunta: pregunta.id,
+                idOpcion,
+              },
+            ];
+          }
+        });
+        if (autoNext) {
+          if ((seccion?.required ?? true) ? nextCondition : !exist) {
+            if (!prev && !inLastPregunta) {
+              timerRef.current = setTimeout(() => {
+                setCurrentPage((prev) => {
+                  if (prev[0] === preguntaIndex) {
+                    return [prev[0] + 1, 1];
+                  }
+                  return prev;
+                });
+                setFinalizedAnimation(true);
+              }, 1200);
             }
-            return p;
-          });
-        //? LA OPCION YA ESTABA CHECKEADA, QUITARLA DEL ARRAY
-        const newIds = ids.filter((v) => v !== idOpcion);
-        if (newIds.length > 0)
-          return prev.map((p) => {
-            if (p.idPregunta === pregunta.id) {
-              return {
-                ...p,
-                idOpcion: newIds,
-              };
-            }
-            return p;
-          });
-        //? EL ARRAY ESTA VACÍO, QUITAR LA PREGUNTA DEL FORMULARIO
-        return prev.filter((p) => p.idPregunta !== pregunta.id);
-      });
-    } else {
-      //* SELECCION ÚNICA
-      setForm((prev) => {
-        if (exist) {
-          return prev.map((v) => {
-            if (v.idPregunta === pregunta.id) {
-              return { ...v, idOpcion };
-            }
-            return v;
-          });
+          }
         } else {
-          return [
-            ...prev,
-            {
-              idPregunta: pregunta.id,
-              idOpcion,
-            },
-          ];
-        }
-      });
-      if (nextCondition && !prev && !inLastPregunta) {
-        timerRef.current = setTimeout(() => {
-          setPreguntaIndex(preguntaIndex + 1, 1);
           setFinalizedAnimation(true);
-        }, 1200);
-      }
+        }
+        break;
     }
   };
 
@@ -187,9 +203,11 @@ const Test = ({ data, test, idRespuesta }: Props) => {
     seccion,
     open,
     viewSection,
-    prev
+    prev,
+    finished
   );
 
+  const showTextSection = seccion?.type === "text";
   return (
     <>
       <TestOutside
@@ -217,6 +235,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                 seccion={seccion}
                 pregunta={pregunta}
                 finished={finished}
+                paused={requirements.length > 0 || timer === 0 || viewSection}
               />
             )}
             <TestCarousel test={test}>
@@ -297,6 +316,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                       )}
                       {seccion?.description && (
                         <button
+                          title="Ver instrucciones de la sección"
                           onClick={() => {
                             setSectionViews((prev) =>
                               prev.map((prev) => {
@@ -314,22 +334,46 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                           <Icon type={Icon.Types.QUESTION} />
                         </button>
                       )}
+                      {!finished &&
+                        !prev &&
+                        (seccion?.type ?? "single") === "single" && (
+                          <button
+                            onClick={() => setAutoNext(!autoNext)}
+                            title="Pasar automáticamente"
+                            className={clsx(
+                              "w-8 rounded-md aspect-square flex items-center justify-between border border-alto-300 text-alto-500 p-1 transition-all duration-300 disabled:bg-alto-100 disabled:text-primary-200 disabled:border-primary-200",
+                              {
+                                "text-primary-500": autoNext,
+                              }
+                            )}
+                            disabled={!!exist}
+                          >
+                            <Icon type={Icon.Types.SWIPE} />
+                          </button>
+                        )}
                     </div>
                     <div className="flex flex-col px-4 gap-1">
                       <h4 className="text-base text-alto-600 max-md:text-sm">
                         Pregunta {preguntaIndex + 1}.
                       </h4>
                       <h3 className="text-xs text-alto-500">
-                        {seccion?.type === "multi"
-                          ? "Selecciona varias opciones"
-                          : "Selecciona una opción"}
+                        {
+                          {
+                            single: "Selecciona una opción",
+                            multi: "Selecciona varias opciones",
+                            text: "Escribe tu respuesta",
+                          }[seccion?.type ?? "single"]
+                        }
                       </h3>
                     </div>
                     <div className="border-b border-alto-200 px-4 h-40 flex items-center">
                       <motion.div
-                        className={clsx("w-full", {
-                          "flex justify-center": pregunta.type === "image",
-                        })}
+                        className={clsx(
+                          "w-full h-full flex flex-col justify-center",
+                          {
+                            "items-center": pregunta.type === "image",
+                          }
+                        )}
                         initial={{
                           opacity: !exist ? 0 : 1,
                           y: !exist ? "-100%" : 0,
@@ -344,7 +388,9 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                           duration: 0.5,
                         }}
                       >
-                        {
+                        {showTextSection ? (
+                          <TestTextSection form={form} pregunta={pregunta} />
+                        ) : (
                           {
                             text: (
                               <p
@@ -366,82 +412,92 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                               />
                             ),
                           }[pregunta.type ?? "text"]
-                        }
+                        )}
                       </motion.div>
                     </div>
                     <div className="flex flex-col pt-2 px-4 gap-4">
-                      {opciones.map((opcion) => {
-                        const ids = exist?.idOpcion;
-                        const isMulti =
-                          seccion?.type === "multi" && Array.isArray(ids);
-                        const checked = isMulti
-                          ? ids.includes(opcion.id)
-                          : ids === opcion.id;
-                        return (
-                          <button
-                            key={opcion.id}
-                            onClick={() => handleOption(opcion.id)}
-                            className={clsx(
-                              "w-full max-md:px-4 gap-2 flex items-center disabled:hover:shadow-none justify-between border border-alto-300 px-10 h-10 rounded-md transition-all duration-300 disabled:cursor-default",
-                              {
-                                "border-l-8 border-l-primary-500 bg-white shadow-sm":
-                                  checked,
-                                "hover:shadow-md": !finished,
-                              }
-                            )}
-                            disabled={
-                              finished ||
-                              timer === 0 ||
-                              (isMulti ? false : checked)
-                            }
-                          >
-                            <p className="text-sm max-md:text-xs text-start">
-                              {getOptionText(pregunta.descripcion, opcion.id) ||
-                                opcion.descripcion}
-                            </p>
-                            <div className="h-6 aspect-square text-alto-300 flex items-center justify-center">
-                              <Icon
-                                type={
-                                  checked
-                                    ? Icon.Types.CHECK_ANIMATED
-                                    : Icon.Types.CHECK
+                      {showTextSection ? (
+                        <TestTextSectionForm
+                          finished={finished}
+                          form={form}
+                          pregunta={pregunta}
+                          setForm={setForm}
+                        />
+                      ) : (
+                        opciones.map((opcion) => {
+                          const checked =
+                            seccion?.type === "multi"
+                              ? (
+                                  exist?.idOpcion as number[] | undefined
+                                )?.includes(opcion.id)
+                              : exist?.idOpcion === opcion.id;
+                          return (
+                            <button
+                              key={opcion.id}
+                              onClick={() => handleOption(opcion.id)}
+                              className={clsx(
+                                "w-full max-md:px-4 gap-2 flex items-center disabled:hover:shadow-none justify-between border border-alto-300 px-10 h-10 rounded-md transition-all duration-300 disabled:cursor-default",
+                                {
+                                  "border-l-8 border-l-primary-500 bg-white shadow-sm":
+                                    checked,
+                                  "hover:shadow-md": !finished,
                                 }
-                              />
-                            </div>
-                          </button>
-                        );
-                      })}
+                              )}
+                              disabled={
+                                finished ||
+                                timer === 0 ||
+                                (seccion?.type === "multi" ? false : checked)
+                              }
+                            >
+                              <p className="text-sm max-md:text-xs text-start">
+                                {getOptionText(
+                                  pregunta.descripcion,
+                                  opcion.id
+                                ) || opcion.descripcion}
+                              </p>
+                              <div className="h-6 aspect-square text-alto-300 flex items-center justify-center">
+                                <Icon
+                                  type={
+                                    checked
+                                      ? Icon.Types.CHECK_ANIMATED
+                                      : Icon.Types.CHECK
+                                  }
+                                />
+                              </div>
+                            </button>
+                          );
+                        })
+                      )}
                     </div>
                   </div>
                 </motion.div>
               )}
             </TestCarousel>
             <div className={clsx("w-full flex gap-4", "justify-between")}>
-              <Button
-                key="anterior"
-                disabled={
-                  firstOfSection ||
-                  viewSection ||
-                  preguntaIndex === 0 ||
-                  timer === 0
-                }
-                onClick={() => {
-                  if (finishedPage) {
-                    setPreguntaIndex(preguntaIndex, -1);
-                    setFinishedPage(false);
-                    return;
-                  }
-                  setPreguntaIndex(preguntaIndex - 1, -1);
-                }}
-                reverse
-                btnType="secondary"
-                icon={Icon.Types.ARROW_LEFT}
-              >
-                Anterior
-              </Button>
+              {preguntaIndex !== 0 ? (
+                <Button
+                  key="anterior"
+                  disabled={firstOfSection || viewSection || timer === 0}
+                  onClick={() => {
+                    if (finishedPage) {
+                      setPreguntaIndex(preguntaIndex, -1);
+                      setFinishedPage(false);
+                      return;
+                    }
+                    setPreguntaIndex(preguntaIndex - 1, -1);
+                  }}
+                  reverse
+                  btnType="secondary"
+                  icon={Icon.Types.ARROW_LEFT}
+                >
+                  Anterior
+                </Button>
+              ) : (
+                <span />
+              )}
               {finishedPage ? (
                 <Button
-                  key="regresar"
+                  key="regresar_a_tests"
                   btnType="primary"
                   icon={Icon.Types.BRAIN}
                   onClick={() => navigate({ to: "/resolve" })}
@@ -450,7 +506,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                 </Button>
               ) : requirements.length > 0 ? (
                 <Button
-                  key="regresar"
+                  key="continuar_al_test"
                   btnType="primary"
                   icon={Icon.Types.CHEVRON_RIGHT}
                   form="userForm"
@@ -461,17 +517,16 @@ const Test = ({ data, test, idRespuesta }: Props) => {
               ) : timer === 0 ? (
                 isLastSection ? (
                   <Button
-                    key="regresar"
+                    key="terminar_test_por_tiempo"
                     btnType="primary"
                     icon={Icon.Types.CHEVRON_RIGHT}
                     onClick={() => handleSend(form)}
-                    disabled={!allPreguntasChecked || prev}
                   >
                     Terminar
                   </Button>
                 ) : (
                   <Button
-                    key="regresar"
+                    key="continuar_siguiente_seccion"
                     btnType="primary"
                     icon={Icon.Types.CHEVRON_RIGHT}
                     onClick={goToNextSection}
@@ -481,7 +536,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                 )
               ) : viewSection ? (
                 <Button
-                  key="regresar"
+                  key="continuar_a_preguntas"
                   btnType="primary"
                   icon={Icon.Types.CHEVRON_RIGHT}
                   onClick={() => {
@@ -502,19 +557,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
               ) : !inLastPregunta ? (
                 <Button
                   key="siguiente"
-                  disabled={nextCondition && !prev}
-                  onClick={() => {
-                    setPreguntaIndex(preguntaIndex + 1, 1);
-                  }}
-                  btnType="secondary"
-                  icon={Icon.Types.ARROW_RIGHT}
-                >
-                  Siguiente
-                </Button>
-              ) : finished ? (
-                <Button
-                  key="siguiente"
-                  disabled={finished || (nextCondition && !prev)}
+                  disabled={finished || prev ? false : nextCondition}
                   onClick={() => {
                     setPreguntaIndex(preguntaIndex + 1, 1);
                   }}
@@ -524,15 +567,17 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                   Siguiente
                 </Button>
               ) : (
-                <Button
-                  key="enviar"
-                  disabled={!allPreguntasChecked || prev}
-                  btnType="primary"
-                  icon={Icon.Types.ARROW_RIGHT}
-                  onClick={() => handleSend(form)}
-                >
-                  Terminar
-                </Button>
+                !finished && (
+                  <Button
+                    key="terminar_test"
+                    disabled={!allPreguntasChecked || prev}
+                    btnType="primary"
+                    icon={Icon.Types.ARROW_RIGHT}
+                    onClick={() => handleSend(form)}
+                  >
+                    Terminar
+                  </Button>
+                )
               )}
             </div>
           </div>

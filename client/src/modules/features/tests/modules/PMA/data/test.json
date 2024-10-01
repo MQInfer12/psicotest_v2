@@ -1060,6 +1060,18 @@
           "descripcion": "Mal"
         }
       ]
+    },
+    {
+      "id": 5,
+      "type": "text",
+      "timer": 30,
+      "items": [
+        {
+          "id": 171,
+          "descripcion": ""
+        }
+      ],
+      "opciones": []
     }
   ]
 }
