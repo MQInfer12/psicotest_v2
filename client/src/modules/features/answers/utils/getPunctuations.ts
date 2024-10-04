@@ -5,6 +5,7 @@ import { MapiTestType } from "../../tests/modules/MAPI/types/MapiTestType";
 import { TestIds } from "../../tests/types/TestIds";
 import { TestType } from "../../tests/types/TestType";
 import { KuderTestType } from "../../tests/modules/KUDER/types/KuderTestType";
+import { PmaTestType } from "../../tests/modules/PMA/types/PmaTestType";
 
 export interface PunctuationData {
   dimension: string;
@@ -80,6 +81,43 @@ export const getPunctuations = (
                   resultado.idOpcion === condicion.id_opcion
               )
             );
+            if (meetsConditions) {
+              sum += item.puntuacion;
+            }
+            return sum;
+          }, 0),
+        };
+        return res;
+      });
+    case TestIds.PMA:
+      const PMATest = testGeneral as PmaTestType;
+      return PMATest.dimensiones.map((dimension) => {
+        const res: PunctuationData = {
+          dimension: dimension.descripcion,
+          natural: dimension.items.reduce((sum, item) => {
+            const meetsConditions = item.condiciones.every((condicion) => {
+              const seccion = PMATest.secciones.find((s) =>
+                s.items.some((i) => i.id === condicion.id_pregunta)
+              );
+              switch (seccion?.type ?? "single") {
+                case "single":
+                  return resultados.some(
+                    (resultado) =>
+                      resultado.idPregunta === condicion.id_pregunta &&
+                      resultado.idOpcion === condicion.id_opcion
+                  );
+                case "multi":
+                  return resultados.some((resultado) => {
+                    const respuestas = resultado.idOpcion as number[];
+                    return (
+                      resultado.idPregunta === condicion.id_pregunta &&
+                      respuestas.includes(condicion.id_opcion)
+                    );
+                  });
+                default:
+                  return false;
+              }
+            });
             if (meetsConditions) {
               sum += item.puntuacion;
             }

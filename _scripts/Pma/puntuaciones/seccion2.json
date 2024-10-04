@@ -1,0 +1,1082 @@
+[
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 51,
+        "id_opcion": 5
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 51,
+        "id_opcion": 6
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 51,
+        "id_opcion": 7
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 51,
+        "id_opcion": 8
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 51,
+        "id_opcion": 9
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 51,
+        "id_opcion": 10
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 52,
+        "id_opcion": 5
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 52,
+        "id_opcion": 6
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 52,
+        "id_opcion": 7
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 52,
+        "id_opcion": 8
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 52,
+        "id_opcion": 9
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 52,
+        "id_opcion": 10
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 53,
+        "id_opcion": 5
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 53,
+        "id_opcion": 6
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 53,
+        "id_opcion": 7
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 53,
+        "id_opcion": 8
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 53,
+        "id_opcion": 9
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 53,
+        "id_opcion": 10
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 54,
+        "id_opcion": 5
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 54,
+        "id_opcion": 6
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 54,
+        "id_opcion": 7
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 54,
+        "id_opcion": 8
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 54,
+        "id_opcion": 9
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 54,
+        "id_opcion": 10
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 55,
+        "id_opcion": 5
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 55,
+        "id_opcion": 6
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 55,
+        "id_opcion": 7
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 55,
+        "id_opcion": 8
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 55,
+        "id_opcion": 9
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 55,
+        "id_opcion": 10
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 56,
+        "id_opcion": 5
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 56,
+        "id_opcion": 6
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 56,
+        "id_opcion": 7
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 56,
+        "id_opcion": 8
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 56,
+        "id_opcion": 9
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 56,
+        "id_opcion": 10
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 57,
+        "id_opcion": 5
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 57,
+        "id_opcion": 6
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 57,
+        "id_opcion": 7
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 57,
+        "id_opcion": 8
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 57,
+        "id_opcion": 9
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 57,
+        "id_opcion": 10
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 58,
+        "id_opcion": 5
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 58,
+        "id_opcion": 6
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 58,
+        "id_opcion": 7
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 58,
+        "id_opcion": 8
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 58,
+        "id_opcion": 9
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 58,
+        "id_opcion": 10
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 59,
+        "id_opcion": 5
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 59,
+        "id_opcion": 6
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 59,
+        "id_opcion": 7
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 59,
+        "id_opcion": 8
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 59,
+        "id_opcion": 9
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 59,
+        "id_opcion": 10
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 60,
+        "id_opcion": 5
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 60,
+        "id_opcion": 6
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 60,
+        "id_opcion": 7
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 60,
+        "id_opcion": 8
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 60,
+        "id_opcion": 9
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 60,
+        "id_opcion": 10
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 61,
+        "id_opcion": 5
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 61,
+        "id_opcion": 6
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 61,
+        "id_opcion": 7
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 61,
+        "id_opcion": 8
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 61,
+        "id_opcion": 9
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 61,
+        "id_opcion": 10
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 62,
+        "id_opcion": 5
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 62,
+        "id_opcion": 6
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 62,
+        "id_opcion": 7
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 62,
+        "id_opcion": 8
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 62,
+        "id_opcion": 9
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 62,
+        "id_opcion": 10
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 63,
+        "id_opcion": 5
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 63,
+        "id_opcion": 6
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 63,
+        "id_opcion": 7
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 63,
+        "id_opcion": 8
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 63,
+        "id_opcion": 9
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 63,
+        "id_opcion": 10
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 64,
+        "id_opcion": 5
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 64,
+        "id_opcion": 6
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 64,
+        "id_opcion": 7
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 64,
+        "id_opcion": 8
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 64,
+        "id_opcion": 9
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 64,
+        "id_opcion": 10
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 65,
+        "id_opcion": 5
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 65,
+        "id_opcion": 6
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 65,
+        "id_opcion": 7
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 65,
+        "id_opcion": 8
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 65,
+        "id_opcion": 9
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 65,
+        "id_opcion": 10
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 66,
+        "id_opcion": 5
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 66,
+        "id_opcion": 6
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 66,
+        "id_opcion": 7
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 66,
+        "id_opcion": 8
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 66,
+        "id_opcion": 9
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 66,
+        "id_opcion": 10
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 67,
+        "id_opcion": 5
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 67,
+        "id_opcion": 6
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 67,
+        "id_opcion": 7
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 67,
+        "id_opcion": 8
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 67,
+        "id_opcion": 9
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 67,
+        "id_opcion": 10
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 68,
+        "id_opcion": 5
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 68,
+        "id_opcion": 6
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 68,
+        "id_opcion": 7
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 68,
+        "id_opcion": 8
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 68,
+        "id_opcion": 9
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 68,
+        "id_opcion": 10
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 69,
+        "id_opcion": 5
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 69,
+        "id_opcion": 6
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 69,
+        "id_opcion": 7
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 69,
+        "id_opcion": 8
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 69,
+        "id_opcion": 9
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 69,
+        "id_opcion": 10
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 70,
+        "id_opcion": 5
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 70,
+        "id_opcion": 6
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
+        "id_pregunta": 70,
+        "id_opcion": 7
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 70,
+        "id_opcion": 8
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 70,
+        "id_opcion": 9
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
+        "id_pregunta": 70,
+        "id_opcion": 10
+      }
+    ]
+  }
+]

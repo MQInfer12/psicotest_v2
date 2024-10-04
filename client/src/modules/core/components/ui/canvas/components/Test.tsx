@@ -226,6 +226,8 @@ const Test = ({ data, test, idRespuesta }: Props) => {
             setForm={setForm}
             setPreguntaIndex={setPreguntaIndex}
             test={test}
+            preguntas={preguntas}
+            setSectionViews={setSectionViews}
           />
           <div className="flex flex-col gap-2">
             <TestPhrase />
@@ -422,6 +424,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                           form={form}
                           pregunta={pregunta}
                           setForm={setForm}
+                          seccion={seccion}
                         />
                       ) : (
                         opciones.map((opcion) => {

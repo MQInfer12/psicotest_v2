@@ -25,6 +25,8 @@ export const getEscalaColumns = (
       );
     case TestIds.KUDER:
       return [];
+    case TestIds.PMA:
+      return [];
     default:
       return [];
   }

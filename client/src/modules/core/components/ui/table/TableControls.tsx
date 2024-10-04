@@ -12,12 +12,17 @@ const TableControls = () => {
             type="select"
             inputSize="small"
             placeholder="Buscar por..."
+            onChange={() => {}}
           >
             <option value="nombre">Nombre</option>
           </Input>
         </div>
         <div className="flex-1 max-w-80 min-w-32">
-          <Input inputSize="small" placeholder="Buscar por..." />
+          <Input
+            inputSize="small"
+            placeholder="Buscar por..."
+            onChange={() => {}}
+          />
         </div>
       </div>
       <div className="flex-1 flex gap-2 justify-end">

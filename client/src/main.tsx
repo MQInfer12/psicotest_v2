@@ -21,6 +21,11 @@ const queryClient = new QueryClient({
       toastError(buildedError.message);
     },
   }),
+  defaultOptions: {
+    queries: {
+      gcTime: 1000 * 60 * 60 * 24,
+    },
+  },
 });
 
 const router = createRouter({

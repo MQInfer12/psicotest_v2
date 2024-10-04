@@ -7,18 +7,26 @@ import {
   TextSectionDTOSchema,
 } from "../validations/textSection.schema";
 import { TestForm } from "@/modules/features/tests/api/dtos";
-import { Item } from "@/modules/features/tests/types/TestType";
+import { Item, Seccion } from "@/modules/features/tests/types/TestType";
 import Button from "../../Button";
 import Icon from "../../../icons/Icon";
+import { toastError } from "@/modules/core/utils/toasts";
 
 interface Props {
   form: TestForm[];
   setForm: React.Dispatch<React.SetStateAction<TestForm[]>>;
   pregunta: Item;
   finished: boolean;
+  seccion: Seccion;
 }
 
-const TestTextSectionForm = ({ form, pregunta, setForm, finished }: Props) => {
+const TestTextSectionForm = ({
+  form,
+  pregunta,
+  setForm,
+  finished,
+  seccion,
+}: Props) => {
   const {
     register,
     handleSubmit,
@@ -41,6 +49,11 @@ const TestTextSectionForm = ({ form, pregunta, setForm, finished }: Props) => {
         },
       ]);
     } else {
+      const existIdOpcion = exist.idOpcion as string[];
+      if (existIdOpcion.length === seccion.maxWords)
+        return toastError(
+          `El límite máximo de palabras es ${seccion.maxWords}`
+        );
       setForm((prev) =>
         prev.map((p) => {
           if (p.idPregunta === pregunta.id) {
@@ -68,19 +81,24 @@ const TestTextSectionForm = ({ form, pregunta, setForm, finished }: Props) => {
     return () => clearTimeout(timer);
   }, [pregunta]);
 
+  const wordCount = (
+    (form.find((f) => f.idPregunta === pregunta.id)?.idOpcion as
+      | string[]
+      | undefined) || []
+  ).length;
   return (
     <form onSubmit={handleSubmit(handleWords)} className="flex items-end gap-4">
       <Input
         className="test-text-section-input"
         {...register("word")}
         error={errors.word?.message}
-        label="Escribe una palabra"
-        disabled={finished}
+        label={`Escribe aquí ${seccion.maxWords ? `(${wordCount} de ${seccion.maxWords})` : ""}`}
+        disabled={finished || wordCount === seccion.maxWords}
       />
       <Button
         type="submit"
         icon={Icon.Types.CHEVRON_RIGHT}
-        disabled={finished}
+        disabled={finished || wordCount === seccion.maxWords}
       />
     </form>
   );

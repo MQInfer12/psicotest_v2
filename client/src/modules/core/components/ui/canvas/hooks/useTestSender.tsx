@@ -40,10 +40,12 @@ export const useTestSender = (
               return v;
             });
           });
-          testSetter((prev) => ({
-            ...prev,
-            resultados: JSON.stringify(form),
-          }));
+          testSetter((prev) => {
+            return {
+              ...prev,
+              resultados: JSON.stringify(form),
+            };
+          });
         },
       }
     );

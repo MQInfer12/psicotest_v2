@@ -39,9 +39,17 @@ const AnswerPunctuation = () => {
   );
 
   return (
-    <AnswerCardTemplate title="Puntuaciones" gridArea="punt">
-      <Table data={tableData} columns={columns} showControls={false} />
-    </AnswerCardTemplate>
+    <AnswerCardTemplate
+      tabs={[
+        {
+          title: "Puntuaciones",
+          component: (
+            <Table data={tableData} columns={columns} showControls={false} />
+          ),
+        },
+      ]}
+      gridArea="punt"
+    />
   );
 };
 

@@ -25,6 +25,8 @@ export interface Seccion {
   required?: boolean; //default true
   type?: "multi" | "single" | "text"; //DEFAULT "single"
   //! type "text" is only developed for PMA test
+  maxWords?: number;
+  //! maxWords should only work in "text" sections
   timer?: number;
   description?: (SeccionTitle | SeccionParagraph)[];
   items: Item[];
