@@ -3,10 +3,18 @@ import clsx from "clsx";
 import { Fragment } from "react/jsx-runtime";
 import { getActiveBreadcrumb } from "./utils/getActiveBreadcrumb";
 import { BREADCRUMB } from "./constants/BREADCRUMB";
+import { useEffect } from "react";
 
 const Breadcrumb = () => {
   const { pathname } = useLocation();
   const activeBreadcrumb = getActiveBreadcrumb(pathname);
+
+  useEffect(() => {
+    document.title = `Psicotest | ${activeBreadcrumb?.name}`;
+    return () => {
+      document.title = "Psicotest";
+    };
+  }, [activeBreadcrumb]);
 
   if (!activeBreadcrumb) {
     throw new Error("No se encontró una miga de pan para esta ruta");

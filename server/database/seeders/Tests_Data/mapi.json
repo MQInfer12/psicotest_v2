@@ -24,6 +24,7 @@
                 "requerimientos": ["edad", "genero"],
                 "secciones": [
                     {
+                        "id": 1,
                         "items": [
                             {
                                 "id": 1,

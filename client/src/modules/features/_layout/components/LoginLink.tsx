@@ -14,7 +14,7 @@ const variant: Variants = {
 };
 
 const LoginLink = () => {
-  const { setOpen, loading } = useLoginContext();
+  const { loading } = useLoginContext();
   const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -28,8 +28,7 @@ const LoginLink = () => {
       initial="rest"
       animate="rest"
       whileHover="hover"
-      className="w-56 relative flex flex-col items-center pb-1"
-      onClick={() => setOpen(true)}
+      className="relative flex flex-col items-center pb-1"
     >
       {loading ? (
         <div className="-mt-[18px]">
