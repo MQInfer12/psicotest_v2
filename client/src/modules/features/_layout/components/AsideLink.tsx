@@ -52,7 +52,12 @@ const AsideLink = ({
     );
   if (type === "link")
     return (
-      <Link {...props} className={ASIDE_LINK_CLASSES()} onClick={onClick}>
+      <Link
+        {...props}
+        className={ASIDE_LINK_CLASSES()}
+        //@ts-ignore
+        onClick={onClick as React.MouseEventHandler<HTMLAnchorElement>}
+      >
         {child}
       </Link>
     );

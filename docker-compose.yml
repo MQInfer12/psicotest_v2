@@ -1,0 +1,45 @@
+name: psicotest
+services:
+  frontend:
+    container_name: psicotest-front
+    build:
+      context: ./client
+    restart: always
+    networks:
+      - psicotest-net
+    ports:
+      - 5012:80
+
+  backend:
+    container_name: psicotest-back
+    build:
+      context: ./server
+    ports:
+      - 5013:80
+    restart: always
+    networks:
+      - psicotest-net
+    depends_on:
+      - database
+
+  database:
+    container_name: psicotest-db
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: psicotest_db
+      POSTGRES_USER: psicotest_user
+      POSTGRES_PASSWORD: psicotest_password
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - psicotest-net
+
+networks:
+  psicotest-net:
+    driver: bridge
+
+volumes:
+  postgres_data:
