@@ -1,4 +1,9 @@
-import { RespuestaDTO, SendTestDTO, UpdateTestDbDTO } from "./dtos";
+import {
+  RespuestaDTO,
+  RespuestaPatchInterpretationDTO,
+  SendTestDTO,
+  UpdateTestDbDTO,
+} from "./dtos";
 import {
   T_Test,
   T_Test_Respuesta,
@@ -53,6 +58,13 @@ declare global {
       params: never;
       request: UpdateTestDbDTO;
       response: T_Tests[];
+    };
+    "PATCH /respuesta/patch/interpretation/:id": {
+      params: {
+        id: number;
+      };
+      request: RespuestaPatchInterpretationDTO;
+      response: T_Test_Respuesta;
     };
   }
 }

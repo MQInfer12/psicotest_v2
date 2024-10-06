@@ -23,7 +23,8 @@ class T_Test_RespuestaResource extends JsonResource
             'test' => $version->test,
             'resultados' => $this->resultados,
             'user' => new U_userResource($this->user),
-            'fecha_enviado' => $this->fecha_enviado
+            'fecha_enviado' => $this->fecha_enviado,
+            'interpretacion' => $this->interpretacion
         ];
     }
 }

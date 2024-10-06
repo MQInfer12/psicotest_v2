@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\T_RespuestaPatchInterpretationRequest;
 use App\Http\Requests\T_RespuestaStoreRequest;
 use App\Http\Requests\T_RespuestaUpdateRequest;
+use App\Http\Resources\T_Test_RespuestaResource;
 use App\Http\Resources\T_Tests_RepuestaResource;
 use App\Models\T_Respuesta;
 use App\Models\T_Test;
@@ -27,7 +29,7 @@ class T_RespuestaController extends Controller
             T_Tests_RepuestaResource::collection($user->respuestas)
         );
     }
-    
+
     public function indexForTable(Request $request)
     {
         $user = $request->user();
@@ -99,6 +101,19 @@ class T_RespuestaController extends Controller
         return $this->successResponse(
             "Test enviado correctamente.",
             new T_Tests_RepuestaResource($respuesta)
+        );
+    }
+
+    public function patchInterpretation(T_RespuestaPatchInterpretationRequest $request, int $id)
+    {
+        $validatedData = $request->validated();
+        $respuesta = T_Respuesta::findOrFail($id);
+        $respuesta->update([
+            "interpretacion" => $validatedData['interpretacion'],
+        ]);
+        return $this->successResponse(
+            "Interpretación guardada correctamente.",
+            new T_Test_RespuestaResource($respuesta)
         );
     }
 }

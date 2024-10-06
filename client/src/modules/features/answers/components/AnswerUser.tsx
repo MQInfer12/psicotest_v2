@@ -17,8 +17,8 @@ const AnswerUser = () => {
           title: "Usuario",
           component: (
             <div className="w-full h-full p-4 flex flex-col justify-between">
-              <div className="flex gap-4">
-                <div className="min-h-full aspect-square z-10 rounded-lg overflow-hidden shadow-lg border-4 border-white">
+              <div className="flex gap-4 items-center">
+                <div className="max-sm:h-[60%] max-sm:min-h-0 min-h-full aspect-square z-10 rounded-lg overflow-hidden shadow-md border-4 border-white">
                   <motion.img
                     layoutId={`answer-foto-${data.id_respuesta}`}
                     className="w-full h-full bg-alto-100"

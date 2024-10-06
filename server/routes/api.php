@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\T_RespuestaController;
 use App\Http\Controllers\T_TestController;
 use App\Http\Controllers\U_userController;
+use App\Models\T_Respuesta;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,4 +38,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/respuesta', T_RespuestaController::class);
     Route::get('/respuesta/for/resolve', [T_RespuestaController::class, 'indexForResolve']);
     Route::get('/respuesta/for/table', [T_RespuestaController::class, 'indexForTable']);
+    Route::patch('/respuesta/patch/interpretation/{id}', [T_RespuestaController::class, 'patchInterpretation']);
 });

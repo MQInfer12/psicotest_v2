@@ -84,10 +84,14 @@ const Dashboard = () => {
       />
       <motion.aside
         className={clsx(
-          "fixed left-0 top-0 h-[100dvh] bg-alto-50 flex flex-col shadow-lg z-40 overflow-hidden"
+          "fixed left-0 top-0 h-[100svh] bg-alto-50 flex flex-col shadow-lg z-40 overflow-hidden"
         )}
-        onMouseEnter={size === "normal" ? () => setOpen(true) : undefined}
-        onMouseLeave={size === "normal" ? () => setOpen(false) : undefined}
+        onMouseEnter={
+          size === "normal" || size === "xl" ? () => setOpen(true) : undefined
+        }
+        onMouseLeave={
+          size === "normal" || size === "xl" ? () => setOpen(false) : undefined
+        }
         animate={{
           width: open ? PRIVATE_ASIDE_WIDTH : PRIVATE_ASIDE_WIDTH_THIN,
         }}

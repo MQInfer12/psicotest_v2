@@ -5,18 +5,25 @@ import AnswerUser from "../components/AnswerUser";
 import { AnswerContextProvider } from "../context/AnswerContext";
 
 const AnswerPage = () => {
-  const { PRIVATE_PADDING_INLINE } = useMeasureContext();
+  const { size, PRIVATE_PADDING_INLINE } = useMeasureContext();
+  const isSmall = size !== "normal";
   return (
     <AnswerContextProvider>
       <div
-        className="flex-1 grid pb-10 gap-x-8 gap-y-4 overflow-hidden"
+        className="flex-1 grid pb-10 gap-x-8 gap-y-4 overflow-auto max-xl:gap-y-8"
         style={{
           paddingInline: PRIVATE_PADDING_INLINE,
-          gridTemplateColumns: "420px 1fr",
-          gridTemplateRows: "auto 1fr",
-          gridTemplateAreas: `
-           'user tabs'
-           'punt tabs'
+          gridTemplateColumns: isSmall ? "1fr" : "420px 1fr",
+          gridTemplateRows: isSmall ? "186px 420px 640px" : "auto 1fr",
+          gridTemplateAreas: isSmall
+            ? `
+            'user'
+            'punt'
+            'tabs'
+          `
+            : `
+            'user tabs'
+            'punt tabs'
          `,
         }}
       >

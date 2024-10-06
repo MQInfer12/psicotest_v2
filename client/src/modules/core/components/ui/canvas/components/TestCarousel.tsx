@@ -17,10 +17,10 @@ const TestCarousel = ({ test, children }: Props) => {
     0
   );
 
-  let height = size !== "normal" ? 32 : 80; //py-10
-  height += size !== "normal" ? 40 : 44; //h4
+  let height = size !== "normal" && size !== "xl" ? 32 : 80; //py-10
+  height += size !== "normal" && size !== "xl" ? 40 : 44; //h4
   height += 24; //gap-3 x2
-  height += (size !== "normal" ? 20 : 28) * 5 + 20; //p
+  height += (size !== "normal" && size !== "xl" ? 20 : 28) * 5 + 20; //p
   height += 8; //opciones pt-2
   height += (maxOpciones - 1) * 16; //gap-4 entre opciones
   height += maxOpciones * 40; //cada opcion 40

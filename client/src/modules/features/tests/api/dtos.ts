@@ -18,3 +18,7 @@ export interface UpdateTestDbDTO {
     test: string;
   }[];
 }
+
+export interface RespuestaPatchInterpretationDTO {
+  interpretacion: string;
+}

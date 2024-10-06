@@ -20,7 +20,7 @@ const Breadcrumb = () => {
     throw new Error("No se encontró una miga de pan para esta ruta");
   }
   return (
-    <p className="text-sm text-alto-700 flex gap-2 max-sm:text-xs">
+    <p className="text-sm text-alto-700 flex gap-2 max-sm:text-xs whitespace-nowrap overflow-auto no-scrollbar">
       {activeBreadcrumb?.breadcrumb.map((a, i) => (
         <Fragment key={a}>
           {i > 0 && <span className="text-alto-400"> / </span>}

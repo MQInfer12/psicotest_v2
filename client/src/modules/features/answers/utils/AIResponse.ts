@@ -1,8 +1,18 @@
 import { OPENAI } from "@/modules/core/constants/ENVIRONMENT";
+import { toastError } from "@/modules/core/utils/toasts";
+
+export enum OpenAIModel {
+  GPT_3_5 = "gpt-3.5-turbo",
+  GPT_4_o = "gpt-4o",
+}
 
 export const getAIResponse = async (
   prompt: string,
-  callback: (res: string) => void
+  callback: (res: string) => void,
+  options?: {
+    model?: OpenAIModel;
+    onFinally?: () => void;
+  }
 ) => {
   try {
     const apiUrl = "https://api.openai.com/v1/chat/completions";
@@ -13,14 +23,14 @@ export const getAIResponse = async (
         Authorization: `Bearer ${OPENAI}`,
       },
       body: JSON.stringify({
-        model: "gpt-3.5-turbo",
+        model: options?.model ?? "gpt-3.5-turbo",
         messages: [
           {
             role: "system",
             content: prompt,
           },
         ],
-        temperature: 0.5,
+        temperature: 0.7,
         max_tokens: 1200,
         stream: true,
       }),
@@ -52,7 +62,9 @@ export const getAIResponse = async (
       }
     }
   } catch (error) {
-    console.log("Error en la petición");
-    console.log(error);
+    toastError("Error al comunicarse con el servidor");
+    console.error(error);
+  } finally {
+    options?.onFinally?.();
   }
 };

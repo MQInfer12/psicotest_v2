@@ -1,11 +1,23 @@
 import Button from "@/modules/core/components/ui/Button";
 import { useState } from "react";
-import { getAIResponse } from "../../utils/AIResponse";
+import { getAIResponse, OpenAIModel } from "../../utils/AIResponse";
 import { useAnswerContext } from "../../context/AnswerContext";
+import GPT from "@/assets/images/gpt.png";
+import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 
 const Interpretation = () => {
-  const { test, data, resultados } = useAnswerContext();
-  const [interpretation, setInterpretation] = useState("");
+  const { test, data, resultados, interpretation, setInterpretation } =
+    useAnswerContext();
+  const [model, setModel] = useState<OpenAIModel>(OpenAIModel.GPT_3_5);
+  const [loading, setLoading] = useState(false);
+  const { postData, getDataSetter } = useFetch();
+  const mutation = postData("PATCH /respuesta/patch/interpretation/:id");
+  const setter = getDataSetter([
+    "GET /test/by/respuesta/:id",
+    {
+      id: data.id_respuesta,
+    },
+  ]);
 
   const handleInterpretation = () => {
     const rawName = data.user.nombre.split(" ")[0].toLocaleLowerCase();
@@ -25,28 +37,72 @@ const Interpretation = () => {
         (opcion) => opcion.id === resultado?.idOpcion
       );
       prompt += `Pregunta ${index + 1}: ${item.descripcion}\n`;
-      prompt += `Respuesta de ${name}: ${opcion?.descripcion ?? "NO TERMINÓ DE RESPONDER"}\n`;
+      prompt += `Respuesta de ${name}: ${opcion?.descripcion ?? "NO RESPONDIÓ"}\n`;
     });
 
     prompt += `Necesito que me proporciones un análisis detallado pero de manera general del test que me proporcionó ${name}, para poder indicarle de manera correcta su situación y aconsejarle al respecto, no necesito que me parafrasees la descripción de las preguntas solamente necesito una inferencia de estas.`;
-    /* const prompt =
-      "Eres el asistente virtual de la Unifranz, te encargas de responder consultas de los usuarios que vengan dudosos de algún tema en específico acerca de la universidad." +
-      "Las carreras disponibles actualmente en la universidad son las de: Ingeniería de sistemas, Arquitectura, Diseño gráfico y producción crossmedia, Publicidad y marketing, " +
-      "Derecho, Periodismo, Psicología, Enfermería, Bioquímica y farmacia, Odontología, Medicina, Administración de empresas, Administración de hotelería y turismo, Contaduría pública, " +
-      "Ingeniería comercial, Ingeniería económica y financiera, si el usuario te pregunta acerca de dónde encontrar más información le ofreces esta url 'https://unifranz.edu.bo/facultades/'. " +
-      "Abstente de ayudar en otro tipo de temas que no sean de tu área de conocimiento."; */
 
-    setInterpretation("");
-    getAIResponse(prompt, (content) =>
-      setInterpretation((prev) => prev + content)
+    let newInterpretation = "";
+    setInterpretation(null);
+    setLoading(true);
+    getAIResponse(
+      prompt,
+      (content) => {
+        newInterpretation += content;
+        setInterpretation(newInterpretation);
+      },
+      {
+        model,
+        onFinally: () => {
+          if (interpretation !== null) {
+            mutation(
+              {
+                interpretacion: newInterpretation,
+              },
+              {
+                params: {
+                  id: data.id_respuesta,
+                },
+                onSuccess: (res) => {
+                  setter(res.data);
+                },
+              }
+            );
+          }
+          setLoading(false);
+        },
+      }
     );
   };
 
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
-      <Button onClick={handleInterpretation}>Generar interpretación</Button>
-      <div className="flex-1 overflow-auto">
-        <p className="w-full whitespace-pre-line text-sm">{interpretation}</p>
+      <div className="p-4 flex justify-between items-center gap-4 flex-wrap-reverse">
+        <div className="flex-1 flex justify-center">
+          <Button disabled={loading} onClick={handleInterpretation}>
+            Generar interpretación
+          </Button>
+        </div>
+        <div className="flex-[9999_1_0] flex justify-end gap-2">
+          {Object.values(OpenAIModel).map((m) => (
+            <Button
+              key={m}
+              btnSize="small"
+              btnType={model === m ? "primary" : "secondary"}
+              onClick={() => setModel(m)}
+            >
+              {m}
+            </Button>
+          ))}
+        </div>
+      </div>
+      <div className="flex-1 overflow-x-hidden overflow-y-scroll border-t border-alto-200/80 relative isolate">
+        <div className="sticky h-0 w-full top-1/2 flex items-center justify-center -z-10 pointer-events-none overflow-visible">
+          <img src={GPT} className="min-w-[540px] h-auto opacity-5" />
+        </div>
+        <p className="w-full whitespace-pre-line text-sm leading-loose p-4">
+          {interpretation}
+        </p>
       </div>
     </div>
   );

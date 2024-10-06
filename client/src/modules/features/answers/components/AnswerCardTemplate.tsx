@@ -47,14 +47,12 @@ const AnswerCardTemplate = ({ tabs, gridArea }: Props) => {
     setConfig([newTab, newDirection]);
   };
 
-  console.log(direction);
-
   return (
     <div
       style={{
         gridArea,
       }}
-      className="w-full h-full flex flex-col overflow-hidden"
+      className="w-full h-full flex flex-col gap-1 overflow-hidden"
     >
       <div className="flex">
         {tabs.map((tab, index) => (
@@ -80,7 +78,7 @@ const AnswerCardTemplate = ({ tabs, gridArea }: Props) => {
             {isTabs && index === activeTab && (
               <motion.span
                 layoutId={id}
-                className="absolute bottom-0 left-0 w-full h-1 bg-primary-300 rounded-full"
+                className="absolute bottom-[2px] left-0 w-full h-[2px] bg-primary-300 rounded-full"
               />
             )}
           </motion.button>

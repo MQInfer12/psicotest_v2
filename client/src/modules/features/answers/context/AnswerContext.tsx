@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { T_Test_Respuesta } from "../../tests/api/responses";
 import { useParams } from "@tanstack/react-router";
 import { TestType } from "../../tests/types/TestType";
@@ -11,6 +11,8 @@ interface Ctx {
   data: T_Test_Respuesta;
   test: TestType;
   resultados: TestForm[];
+  interpretation: string | null;
+  setInterpretation: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 const AnswerContext = createContext<Ctx | null>(null);
@@ -35,6 +37,8 @@ export const AnswerContextProvider = ({ children }: Props) => {
     ])
   );
 
+  const [interpretation, setInterpretation] = useState(data.interpretacion);
+
   if (!data) {
     return (
       <div className="w-full h-full">
@@ -49,7 +53,9 @@ export const AnswerContextProvider = ({ children }: Props) => {
     : [];
 
   return (
-    <AnswerContext.Provider value={{ data, test, resultados }}>
+    <AnswerContext.Provider
+      value={{ data, test, resultados, interpretation, setInterpretation }}
+    >
       {children}
     </AnswerContext.Provider>
   );

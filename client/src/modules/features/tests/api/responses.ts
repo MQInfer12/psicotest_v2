@@ -46,4 +46,5 @@ export interface T_Test_Respuesta {
   resultados: string;
   user: User;
   fecha_enviado: string | null;
+  interpretacion: string | null;
 }

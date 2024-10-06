@@ -22,7 +22,7 @@ return new class extends Migration
 
             $table->string('estado');
             $table->json('resultados')->nullable();
-            $table->string('interpretacion')->nullable();
+            $table->text('interpretacion')->nullable();
             $table->date('fecha_asignado');
             $table->date('fecha_enviado')->nullable();
 

@@ -43,11 +43,11 @@ img {
   @apply bg-alto-100;
 }
 ::-webkit-scrollbar-thumb {
-  @apply bg-primary-400;
+  @apply bg-alto-200;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-primary-600;
+  @apply bg-primary-400;
 }
 
 .nsm7Bb-HzV7m-LgbsSe-BPrWId {

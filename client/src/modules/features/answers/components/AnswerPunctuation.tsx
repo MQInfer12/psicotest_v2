@@ -17,7 +17,7 @@ const AnswerPunctuation = () => {
         header: "Dimensión",
         cell: (info) => <p className="line-clamp-3">{info.getValue()}</p>,
         meta: {
-          minWidth: 160,
+          minWidth: 140,
         },
       }),
       columnHelper.accessor("natural", {

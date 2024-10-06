@@ -7,7 +7,7 @@ import {
   PRIVATE_PADDING_INLINE_MD,
 } from "../constants/LAYOUT_SIZES";
 
-type Size = "normal" | "sm" | "md";
+type Size = "normal" | "xl" | "sm" | "md";
 
 interface Ctx {
   size: Size;
@@ -24,6 +24,7 @@ interface Props {
 
 const SM_BREAKPOINT = 640;
 const MD_BREAKPOINT = 768;
+const XL_BREAKPOINT = 1024;
 
 export const MeasureContextProvider = ({ children }: Props) => {
   const [size, setSize] = useState<Size>(
@@ -50,10 +51,12 @@ export const MeasureContextProvider = ({ children }: Props) => {
   useEffect(() => {
     const resizeHandler = () => {
       setSize(
-        window.innerWidth <= MD_BREAKPOINT
-          ? window.innerWidth <= SM_BREAKPOINT
-            ? "sm"
-            : "md"
+        window.innerWidth <= XL_BREAKPOINT
+          ? window.innerWidth <= MD_BREAKPOINT
+            ? window.innerWidth <= SM_BREAKPOINT
+              ? "sm"
+              : "md"
+            : "xl"
           : "normal"
       );
       setPrivatePaddingInline(
