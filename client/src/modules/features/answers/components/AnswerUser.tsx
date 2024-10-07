@@ -17,8 +17,8 @@ const AnswerUser = () => {
           title: "Usuario",
           component: (
             <div className="w-full h-full p-4 flex flex-col justify-between">
-              <div className="flex gap-4 items-center">
-                <div className="max-sm:h-[60%] max-sm:min-h-0 min-h-full aspect-square z-10 rounded-lg overflow-hidden shadow-md border-4 border-white">
+              <div className="flex gap-4 max-lg:flex-col max-lg:items-center">
+                <div className="max-lg:w-36 max-lg:min-h-0 min-h-full aspect-square z-10 rounded-lg overflow-hidden shadow-md border-4 border-white">
                   <motion.img
                     layoutId={`answer-foto-${data.id_respuesta}`}
                     className="w-full h-full bg-alto-100"
@@ -26,17 +26,17 @@ const AnswerUser = () => {
                     alt={user.email}
                   />
                 </div>
-                <div className="flex-1 py-1 flex flex-col overflow-hidden">
+                <div className="max-lg:w-full flex-1 py-1 flex flex-col overflow-hidden">
                   <motion.strong
                     layoutId={`answer-nombre-${data.id_respuesta}`}
-                    className="text-lg overflow-hidden text-ellipsis whitespace-nowrap"
+                    className="text-lg overflow-hidden text-ellipsis whitespace-nowrap max-lg:text-center"
                     title={user.nombre}
                   >
                     {user.nombre}
                   </motion.strong>
                   <motion.p
                     layoutId={`answer-email-${data.id_respuesta}`}
-                    className="text-sm text-alto-500 text-ellipsis whitespace-nowrap overflow-hidden"
+                    className="text-sm text-alto-500 text-ellipsis whitespace-nowrap overflow-hidden max-lg:text-center"
                     title={user.email}
                   >
                     {user.email}

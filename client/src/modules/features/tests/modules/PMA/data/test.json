@@ -1096,7 +1096,7 @@
       "items": [
         {
           "id": 171,
-          "descripcion": ""
+          "descripcion": "Palabras:"
         }
       ],
       "opciones": []
@@ -1106,6 +1106,7 @@
     {
       "id": 1,
       "descripcion": "FACTOR V",
+      "tipo": "classic",
       "items": [
         {
           "puntuacion": 1,
@@ -1562,6 +1563,7 @@
     {
       "id": 2,
       "descripcion": "FACTOR E",
+      "tipo": "classic",
       "items": [
         {
           "puntuacion": -1,
@@ -2648,6 +2650,7 @@
     {
       "id": 3,
       "descripcion": "FACTOR R",
+      "tipo": "classic",
       "items": [
         {
           "puntuacion": 1,
@@ -2924,6 +2927,7 @@
     {
       "id": 4,
       "descripcion": "FACTOR N",
+      "tipo": "classic",
       "items": [
         {
           "puntuacion": 1,
@@ -4186,6 +4190,12 @@
           ]
         }
       ]
+    },
+    {
+      "id": 5,
+      "descripcion": "FACTOR F",
+      "tipo": "words",
+      "secciones": [5]
     }
   ]
 }

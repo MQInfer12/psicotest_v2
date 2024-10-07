@@ -28,11 +28,11 @@ class U_user extends Authenticatable
 
     public function respuestas()
     {
-        return $this->hasMany(T_Respuesta::class, 'email_user');
+        return $this->hasMany(T_Respuesta::class, 'email_user')->orderBy('id', 'asc');
     }
 
     public function asignados()
     {
-        return $this->hasMany(T_Respuesta::class, 'email_asignador');
+        return $this->hasMany(T_Respuesta::class, 'email_asignador')->orderBy('id', 'asc');
     }
 }

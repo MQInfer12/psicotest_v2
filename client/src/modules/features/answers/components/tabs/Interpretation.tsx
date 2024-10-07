@@ -54,7 +54,7 @@ const Interpretation = () => {
       {
         model,
         onFinally: () => {
-          if (interpretation !== null) {
+          if (interpretation !== "") {
             mutation(
               {
                 interpretacion: newInterpretation,

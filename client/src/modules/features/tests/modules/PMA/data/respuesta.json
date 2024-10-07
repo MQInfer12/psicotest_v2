@@ -1,0 +1,378 @@
+[
+  { "idPregunta": 1, "idOpcion": 3 },
+  { "idPregunta": 2, "idOpcion": 2 },
+  { "idPregunta": 3, "idOpcion": 2 },
+  { "idPregunta": 4, "idOpcion": 1 },
+  { "idPregunta": 5, "idOpcion": 3 },
+  { "idPregunta": 6, "idOpcion": 3 },
+  { "idPregunta": 7, "idOpcion": 1 },
+  { "idPregunta": 8, "idOpcion": 4 },
+  { "idPregunta": 9, "idOpcion": 4 },
+  { "idPregunta": 10, "idOpcion": 1 },
+  { "idPregunta": 11, "idOpcion": 3 },
+  { "idPregunta": 12, "idOpcion": 3 },
+  { "idPregunta": 13, "idOpcion": 4 },
+  { "idPregunta": 14, "idOpcion": 3 },
+  { "idPregunta": 15, "idOpcion": 4 },
+  { "idPregunta": 16, "idOpcion": 4 },
+  { "idPregunta": 17, "idOpcion": 2 },
+  { "idPregunta": 18, "idOpcion": 1 },
+  { "idPregunta": 19, "idOpcion": 1 },
+  { "idPregunta": 20, "idOpcion": 2 },
+  { "idPregunta": 21, "idOpcion": 2 },
+  { "idPregunta": 22, "idOpcion": 1 },
+  { "idPregunta": 23, "idOpcion": 2 },
+  { "idPregunta": 24, "idOpcion": 2 },
+  { "idPregunta": 25, "idOpcion": 4 },
+  { "idPregunta": 26, "idOpcion": 2 },
+  { "idPregunta": 27, "idOpcion": 3 },
+  { "idPregunta": 28, "idOpcion": 3 },
+  { "idPregunta": 29, "idOpcion": 1 },
+  { "idPregunta": 30, "idOpcion": 1 },
+  { "idPregunta": 31, "idOpcion": 2 },
+  { "idPregunta": 32, "idOpcion": 1 },
+  { "idPregunta": 33, "idOpcion": 2 },
+  { "idPregunta": 34, "idOpcion": 1 },
+  { "idPregunta": 35, "idOpcion": 3 },
+  { "idPregunta": 36, "idOpcion": 2 },
+  { "idPregunta": 37, "idOpcion": 4 },
+  { "idPregunta": 51, "idOpcion": [8, 7] },
+  { "idPregunta": 52, "idOpcion": [6, 7, 9, 10] },
+  { "idPregunta": 53, "idOpcion": [5, 8] },
+  { "idPregunta": 54, "idOpcion": [6, 8, 10] },
+  { "idPregunta": 55, "idOpcion": [9, 10, 8] },
+  { "idPregunta": 56, "idOpcion": [10, 8] },
+  { "idPregunta": 57, "idOpcion": [5, 10, 7] },
+  { "idPregunta": 58, "idOpcion": [7, 10] },
+  { "idPregunta": 59, "idOpcion": [5, 6, 8] },
+  { "idPregunta": 60, "idOpcion": [5, 6] },
+  { "idPregunta": 61, "idOpcion": [6, 7, 10] },
+  { "idPregunta": 62, "idOpcion": [5, 7] },
+  { "idPregunta": 63, "idOpcion": [5, 6] },
+  { "idPregunta": 65, "idOpcion": [5, 9, 10] },
+  { "idPregunta": 66, "idOpcion": [7, 8, 10] },
+  { "idPregunta": 67, "idOpcion": [6, 8, 9] },
+  { "idPregunta": 68, "idOpcion": [5, 8, 6] },
+  { "idPregunta": 69, "idOpcion": [5, 8, 9] },
+  { "idPregunta": 71, "idOpcion": 16 },
+  { "idPregunta": 72, "idOpcion": 11 },
+  { "idPregunta": 73, "idOpcion": 11 },
+  { "idPregunta": 74, "idOpcion": 14 },
+  { "idPregunta": 76, "idOpcion": 13 },
+  { "idPregunta": 78, "idOpcion": 11 },
+  { "idPregunta": 79, "idOpcion": 14 },
+  { "idPregunta": 80, "idOpcion": 14 },
+  { "idPregunta": 81, "idOpcion": 13 },
+  { "idPregunta": 82, "idOpcion": 13 },
+  { "idPregunta": 86, "idOpcion": 11 },
+  { "idPregunta": 87, "idOpcion": 12 },
+  { "idPregunta": 88, "idOpcion": 11 },
+  { "idPregunta": 89, "idOpcion": 16 },
+  { "idPregunta": 90, "idOpcion": 15 },
+  { "idPregunta": 91, "idOpcion": 15 },
+  { "idPregunta": 94, "idOpcion": 15 },
+  { "idPregunta": 95, "idOpcion": 11 },
+  { "idPregunta": 98, "idOpcion": 14 },
+  { "idPregunta": 101, "idOpcion": 16 },
+  { "idPregunta": 102, "idOpcion": 17 },
+  { "idPregunta": 103, "idOpcion": 17 },
+  { "idPregunta": 104, "idOpcion": 17 },
+  { "idPregunta": 105, "idOpcion": 16 },
+  { "idPregunta": 106, "idOpcion": 16 },
+  { "idPregunta": 107, "idOpcion": 17 },
+  { "idPregunta": 108, "idOpcion": 17 },
+  { "idPregunta": 109, "idOpcion": 16 },
+  { "idPregunta": 110, "idOpcion": 17 },
+  { "idPregunta": 111, "idOpcion": 16 },
+  { "idPregunta": 113, "idOpcion": 16 },
+  { "idPregunta": 114, "idOpcion": 17 },
+  { "idPregunta": 115, "idOpcion": 16 },
+  { "idPregunta": 116, "idOpcion": 16 },
+  { "idPregunta": 117, "idOpcion": 17 },
+  { "idPregunta": 118, "idOpcion": 17 },
+  { "idPregunta": 119, "idOpcion": 17 },
+  { "idPregunta": 120, "idOpcion": 17 },
+  { "idPregunta": 121, "idOpcion": 16 },
+  { "idPregunta": 122, "idOpcion": 17 },
+  { "idPregunta": 123, "idOpcion": 16 },
+  {
+    "idPregunta": 171,
+    "idOpcion": [
+      {
+        "id": "a", 
+        "word": "serpiente",
+        "correct": false
+      },
+      {
+        "id": "b", 
+        "word": "serpiente",
+        "correct": false
+      },
+      {
+        "id": "c", 
+        "word": "septiembre",
+        "correct": false
+      },
+      {
+        "id": "d", 
+        "word": "subir",
+        "correct": false
+      },
+      {
+        "id": "e", 
+        "word": "sello",
+        "correct": false
+      },
+      {
+        "id": "f", 
+        "word": "sapayo",
+        "correct": false
+      },
+      {
+        "id": "g", 
+        "word": "sala",
+        "correct": false
+      },
+      {
+        "id": "h", 
+        "word": "sillón",
+        "correct": false
+      },
+      {
+        "id": "i", 
+        "word": "sílaba",
+        "correct": false
+      },
+      {
+        "id": "j", 
+        "word": "sonda",
+        "correct": false
+      },
+      {
+        "id": "k", 
+        "word": "surubi",
+        "correct": false
+      },
+      {
+        "id": "l", 
+        "word": "suspiro",
+        "correct": false
+      },
+      {
+        "id": "m", 
+        "word": "serpiente",
+        "correct": false
+      },
+      {
+        "id": "n", 
+        "word": "subir",
+        "correct": false
+      },
+      {
+        "id": "o", 
+        "word": "subida",
+        "correct": false
+      },
+      {
+        "id": "p", 
+        "word": "solo",
+        "correct": false
+      },
+      {
+        "id": "q", 
+        "word": "sola",
+        "correct": false
+      },
+      {
+        "id": "r", 
+        "word": "sollozo",
+        "correct": false
+      },
+      {
+        "id": "s", 
+        "word": "sollozar",
+        "correct": false
+      },
+      {
+        "id": "t", 
+        "word": "sondear",
+        "correct": false
+      },
+      {
+        "id": "u", 
+        "word": "sondeo",
+        "correct": false
+      },
+      {
+        "id": "v", 
+        "word": "sisuvioso",
+        "correct": false
+      },
+      {
+        "id": "w", 
+        "word": "salida",
+        "correct": false
+      },
+      {
+        "id": "x", 
+        "word": "salir",
+        "correct": false
+      },
+      {
+        "id": "y", 
+        "word": "saliva",
+        "correct": false
+      },
+      {
+        "id": "z", 
+        "word": "si",
+        "correct": false
+      },
+      {
+        "id": "aa", 
+        "word": "seh",
+        "correct": false
+      },
+      {
+        "id": "ab", 
+        "word": "sonso",
+        "correct": false
+      },
+      {
+        "id": "ac", 
+        "word": "sopenco",
+        "correct": false
+      },
+      {
+        "id": "ad", 
+        "word": "supremo",
+        "correct": false
+      },
+      {
+        "id": "ae", 
+        "word": "suprema",
+        "correct": false
+      },
+      {
+        "id": "af", 
+        "word": "super",
+        "correct": false
+      },
+      {
+        "id": "ag", 
+        "word": "superación",
+        "correct": false
+      },
+      {
+        "id": "ah", 
+        "word": "superar",
+        "correct": false
+      },
+      {
+        "id": "ai", 
+        "word": "sevilla",
+        "correct": false
+      },
+      {
+        "id": "aj", 
+        "word": "severo",
+        "correct": false
+      },
+      {
+        "id": "ak", 
+        "word": "sermón",
+        "correct": false
+      },
+      {
+        "id": "al", 
+        "word": "servir",
+        "correct": false
+      },
+      {
+        "id": "am", 
+        "word": "servicio",
+        "correct": false
+      },
+      {
+        "id": "an", 
+        "word": "sapo",
+        "correct": false
+      },
+      {
+        "id": "ao", 
+        "word": "sostener",
+        "correct": false
+      },
+      {
+        "id": "ap", 
+        "word": "sexy",
+        "correct": false
+      },
+      {
+        "id": "aq", 
+        "word": "sospechar",
+        "correct": false
+      },
+      {
+        "id": "ar", 
+        "word": "sospecha",
+        "correct": false
+      },
+      {
+        "id": "as", 
+        "word": "sacar",
+        "correct": false
+      },
+      {
+        "id": "at", 
+        "word": "sacaba",
+        "correct": false
+      },
+      {
+        "id": "au", 
+        "word": "singular",
+        "correct": false
+      },
+      {
+        "id": "av", 
+        "word": "samanta",
+        "correct": false
+      },
+      {
+        "id": "aw", 
+        "word": "samuel",
+        "correct": false
+      },
+      {
+        "id": "ax", 
+        "word": "swift",
+        "correct": false
+      },
+      {
+        "id": "ay", 
+        "word": "sigiloso",
+        "correct": false
+      },
+      {
+        "id": "az", 
+        "word": "sigilosa",
+        "correct": false
+      },
+      {
+        "id": "ba", 
+        "word": "sigilo",
+        "correct": false
+      },
+      {
+        "id": "bb", 
+        "word": "supuesto",
+        "correct": false
+      },
+      {
+        "id": "bc", 
+        "word": "saber",
+        "correct": false
+      }
+    ]
+  }
+]

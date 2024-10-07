@@ -26,5 +26,6 @@
     "950": "#363636"
   },
   "danger": "#f43f5e",
-  "success": "#10b981"
+  "success": "#10b981",
+  "warning": "#eab308"
 }

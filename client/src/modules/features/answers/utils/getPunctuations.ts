@@ -1,5 +1,5 @@
 import { measureAge } from "@/modules/core/utils/measureAge";
-import { TestForm } from "../../tests/api/dtos";
+import { TestForm, TextSectionOption } from "../../tests/api/dtos";
 import { T_Test_Respuesta } from "../../tests/api/responses";
 import { MapiTestType } from "../../tests/modules/MAPI/types/MapiTestType";
 import { TestIds } from "../../tests/types/TestIds";
@@ -92,39 +92,67 @@ export const getPunctuations = (
     case TestIds.PMA:
       const PMATest = testGeneral as PmaTestType;
       return PMATest.dimensiones.map((dimension) => {
-        const res: PunctuationData = {
-          dimension: dimension.descripcion,
-          natural: dimension.items.reduce((sum, item) => {
-            const meetsConditions = item.condiciones.every((condicion) => {
-              const seccion = PMATest.secciones.find((s) =>
-                s.items.some((i) => i.id === condicion.id_pregunta)
-              );
-              switch (seccion?.type ?? "single") {
-                case "single":
-                  return resultados.some(
-                    (resultado) =>
-                      resultado.idPregunta === condicion.id_pregunta &&
-                      resultado.idOpcion === condicion.id_opcion
+        switch (dimension.tipo) {
+          case "classic":
+            const classicRes: PunctuationData = {
+              dimension: dimension.descripcion,
+              natural: dimension.items.reduce((sum, item) => {
+                const meetsConditions = item.condiciones.every((condicion) => {
+                  const seccion = PMATest.secciones.find((s) =>
+                    s.items.some((i) => i.id === condicion.id_pregunta)
                   );
-                case "multi":
-                  return resultados.some((resultado) => {
-                    const respuestas = resultado.idOpcion as number[];
-                    return (
-                      resultado.idPregunta === condicion.id_pregunta &&
-                      respuestas.includes(condicion.id_opcion)
+                  switch (seccion?.type ?? "single") {
+                    case "single":
+                      return resultados.some(
+                        (resultado) =>
+                          resultado.idPregunta === condicion.id_pregunta &&
+                          resultado.idOpcion === condicion.id_opcion
+                      );
+                    case "multi":
+                      return resultados.some((resultado) => {
+                        const respuestas = resultado.idOpcion as number[];
+                        return (
+                          resultado.idPregunta === condicion.id_pregunta &&
+                          respuestas.includes(condicion.id_opcion)
+                        );
+                      });
+                    default:
+                      return false;
+                  }
+                });
+                if (meetsConditions) {
+                  sum += item.puntuacion;
+                }
+                return sum;
+              }, 0),
+            };
+            return classicRes;
+          case "words":
+            const wordsRes: PunctuationData = {
+              dimension: dimension.descripcion,
+              natural: dimension.secciones
+                .map((seccionId) =>
+                  PMATest.secciones.find((seccion) => seccion.id === seccionId)
+                )
+                .reduce((sum, seccion) => {
+                  if (!seccion) return sum;
+                  for (const item of seccion.items) {
+                    const respuestas = resultados.find(
+                      (r) => r.idPregunta === item.id
                     );
-                  });
-                default:
-                  return false;
-              }
-            });
-            if (meetsConditions) {
-              sum += item.puntuacion;
-            }
-            return sum;
-          }, 0),
-        };
-        return res;
+                    if (!respuestas) continue;
+                    const opciones = respuestas.idOpcion as TextSectionOption[];
+                    opciones.forEach((opcion) => {
+                      if (opcion.correct) {
+                        sum++;
+                      }
+                    });
+                  }
+                  return sum;
+                }, 0),
+            };
+            return wordsRes;
+        }
       });
     default:
       return [];

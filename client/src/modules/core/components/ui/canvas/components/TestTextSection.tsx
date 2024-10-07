@@ -1,4 +1,4 @@
-import { TestForm } from "@/modules/features/tests/api/dtos";
+import { TestForm, TextSectionOption } from "@/modules/features/tests/api/dtos";
 import { Item } from "@/modules/features/tests/types/TestType";
 import { useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -26,16 +26,16 @@ const TestTextSection = ({ form, pregunta }: Props) => {
         <div className="flex flex-wrap gap-2 p-2">
           {(
             form.find((f) => f.idPregunta === pregunta.id)?.idOpcion as
-              | string[]
+              | TextSectionOption[]
               | undefined
-          )?.map((word, i) => (
+          )?.map((opcion) => (
             <motion.p
-              key={i}
+              key={opcion.id}
               initial={{ opacity: 0, y: -40 }}
               animate={{ opacity: 1, y: 0 }}
               className="px-2 py-1 bg-primary-200 w-fit h-fit rounded-md text-primary-950"
             >
-              {word}
+              {opcion.word}
             </motion.p>
           ))}
         </div>

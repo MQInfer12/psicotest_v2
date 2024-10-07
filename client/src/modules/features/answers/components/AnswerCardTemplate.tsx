@@ -35,10 +35,10 @@ const AnswerCardTemplate = ({ tabs, gridArea }: Props) => {
     isTabs ? [0, 1] : null
   );
   let activeTab: number | null = null;
-  let direction = 1;
+  /* let direction = 1; */
   if (config) {
     activeTab = config[0];
-    direction = config[1];
+    /* direction = config[1]; */
   }
 
   const setActiveTab = (newTab: number) => {

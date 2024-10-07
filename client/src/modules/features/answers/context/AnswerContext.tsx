@@ -11,8 +11,11 @@ interface Ctx {
   data: T_Test_Respuesta;
   test: TestType;
   resultados: TestForm[];
+  setResultados: React.Dispatch<React.SetStateAction<TestForm[]>>;
   interpretation: string | null;
   setInterpretation: React.Dispatch<React.SetStateAction<string | null>>;
+  seccionIndex: number;
+  setSeccionIndex: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const AnswerContext = createContext<Ctx | null>(null);
@@ -38,6 +41,7 @@ export const AnswerContextProvider = ({ children }: Props) => {
   );
 
   const [interpretation, setInterpretation] = useState(data.interpretacion);
+  const [seccionIndex, setSeccionIndex] = useState(0);
 
   if (!data) {
     return (
@@ -48,13 +52,23 @@ export const AnswerContextProvider = ({ children }: Props) => {
   }
 
   const test: TestType = data && JSON.parse(data.test);
-  const resultados: TestForm[] = data.resultados
-    ? JSON.parse(data.resultados)
-    : [];
+
+  const [resultados, setResultados] = useState(
+    data.resultados ? JSON.parse(data.resultados) : []
+  );
 
   return (
     <AnswerContext.Provider
-      value={{ data, test, resultados, interpretation, setInterpretation }}
+      value={{
+        data,
+        test,
+        resultados,
+        setResultados,
+        interpretation,
+        setInterpretation,
+        seccionIndex,
+        setSeccionIndex,
+      }}
     >
       {children}
     </AnswerContext.Provider>

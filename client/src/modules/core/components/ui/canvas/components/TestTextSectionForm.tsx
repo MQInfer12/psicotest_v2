@@ -6,11 +6,12 @@ import {
   TextSectionDTO,
   TextSectionDTOSchema,
 } from "../validations/textSection.schema";
-import { TestForm } from "@/modules/features/tests/api/dtos";
+import { TestForm, TextSectionOption } from "@/modules/features/tests/api/dtos";
 import { Item, Seccion } from "@/modules/features/tests/types/TestType";
 import Button from "../../Button";
 import Icon from "../../../icons/Icon";
 import { toastError } from "@/modules/core/utils/toasts";
+import { v4 } from "uuid";
 
 interface Props {
   form: TestForm[];
@@ -45,11 +46,17 @@ const TestTextSectionForm = ({
         ...prev,
         {
           idPregunta: pregunta.id,
-          idOpcion: [value],
+          idOpcion: [
+            {
+              id: v4(),
+              correct: false,
+              word: value,
+            },
+          ],
         },
       ]);
     } else {
-      const existIdOpcion = exist.idOpcion as string[];
+      const existIdOpcion = exist.idOpcion as TextSectionOption[];
       if (existIdOpcion.length === seccion.maxWords)
         return toastError(
           `El límite máximo de palabras es ${seccion.maxWords}`
@@ -57,10 +64,17 @@ const TestTextSectionForm = ({
       setForm((prev) =>
         prev.map((p) => {
           if (p.idPregunta === pregunta.id) {
-            const idOpcion = p.idOpcion as string[];
+            const idOpcion = p.idOpcion as TextSectionOption[];
             return {
               ...p,
-              idOpcion: [...idOpcion, value],
+              idOpcion: [
+                ...idOpcion,
+                {
+                  word: value,
+                  correct: false,
+                  id: v4(),
+                },
+              ],
             };
           }
           return p;
@@ -83,7 +97,7 @@ const TestTextSectionForm = ({
 
   const wordCount = (
     (form.find((f) => f.idPregunta === pregunta.id)?.idOpcion as
-      | string[]
+      | TextSectionOption[]
       | undefined) || []
   ).length;
   return (
