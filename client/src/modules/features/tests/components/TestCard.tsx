@@ -146,7 +146,7 @@ const TestCard = ({
                 title="Editar test"
               />
             )}
-            {share && <ShareButton idTest={idTest} />}
+            {share && <ShareButton idTest={idTest} nombreTest={title} />}
           </>
         )}
       </div>
