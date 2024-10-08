@@ -35,13 +35,14 @@ class Test_Answers_Seeder extends Seeder
         'genero' => $item['datos_generales']['sexo'],
         'fecha_nacimiento' => $fechaNacimiento,
         'estado' => true,
+        'id_rol' => 2
       ]);
 
       T_Respuesta::create([
         'id_test_version' => 3,
         'email_user' => $user->email,
         'email_asignador' => "psicologiaunifranz@gmail.com",
-        'estado' => true,
+        'estado' => "Enviado",
         'resultados' =>  json_encode($item['respuestas']),
         'fecha_asignado' => '2024-09-24',
         'fecha_enviado' => '2024-09-24',
