@@ -73,8 +73,8 @@ const Input = forwardRef((props: Props, ref: ForwardedRef<any>) => {
             "w-full border border-alto-300/70 rounded-lg outline-none bg-white",
             "ring-0 ring-inset ring-primary-400 focus:ring-1 transition-all duration-300",
             {
-              "text-sm h-[38px] px-3": inputSize === "base",
-              "text-xs h-[34px] px-3": inputSize === "small",
+              "text-sm py-2 px-3": inputSize === "base",
+              "text-xs py-2 px-3": inputSize === "small",
             },
             "disabled:bg-alto-100 disabled:border-primary-200",
             className

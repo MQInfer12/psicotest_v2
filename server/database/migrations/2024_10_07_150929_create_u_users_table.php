@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('genero')->nullable();
             $table->date('fecha_nacimiento')->nullable();
             $table->boolean('estado')->default(true);
+            $table->foreignId('id_rol')->constrained('u_rols')->cascadeOnUpdate()->nullOnDelete();
             $table->timestamps();
         });
     }

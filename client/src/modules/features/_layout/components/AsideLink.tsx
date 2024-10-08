@@ -2,6 +2,8 @@ import Icon, { ICON } from "@/modules/core/components/icons/Icon";
 import Appear from "@/modules/core/components/utils/Appear";
 import { Link, LinkOptions } from "@tanstack/react-router";
 import clsx from "clsx";
+import { Permisos } from "../../auth/types/Permisos";
+import { usePermiso } from "../../auth/hooks/usePermiso";
 
 interface Props extends LinkOptions {
   icon: ICON;
@@ -13,6 +15,7 @@ interface Props extends LinkOptions {
       | React.MouseEvent<HTMLButtonElement, MouseEvent>
       | React.MouseEvent<"a", MouseEvent>
   ) => void;
+  permisos: Permisos[];
 }
 
 const ASIDE_LINK_CLASSES = () => {
@@ -31,8 +34,12 @@ const AsideLink = ({
   onClick,
   type,
   showText = true,
+  permisos,
   ...props
 }: Props) => {
+  const render = usePermiso(permisos);
+  if (!render) return;
+
   const child = (
     <>
       <div className="h-full aspect-square">

@@ -15,14 +15,13 @@ class T_Tests_RepuestaResource extends JsonResource
             'id_respuesta' => $this->id,
             'nombre_asignador' => $this->asignador->nombre,
             'nombre_user' => $this->user->nombre,
-            'email_user' => $this->email_user,
+            'email_user' => $this->user->email,
             'foto_user' => $this->user->foto,
             'nombre_test' => $test->nombre,
             'nombre_autor' => $test->autor,
-            'nombre_autor_creador' => $test->autor_creador ? $test->autor_creador->nombre : null,
+            'nombre_autor_creador' => $test->autor_creador?->nombre,
             'canvas' => $test->canvas,
-            'estado' => $this->estado,
-            'interpretacion' => $this->interpretacion
+            'estado' => $this->estado
         ];
     }
 }

@@ -128,6 +128,7 @@ const Dashboard = () => {
               icon={ICON.LOGOUT}
               title="Cerrar sesión"
               showText={open}
+              permisos={[]}
             />
           </div>
         </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\U_userResource;
+use App\Models\U_Rol;
 use App\Models\U_user;
 use App\Traits\ApiResponse;
 use Firebase\JWT\JWK;
@@ -33,6 +34,7 @@ class AuthController extends Controller
         }
 
         $user = U_user::where('email', $tokenData['email'])->first();
+        $defaultRol = U_Rol::where('por_defecto', true)->firstOrFail();
 
         if ($user == null) {
             $user = U_user::create([
@@ -42,10 +44,10 @@ class AuthController extends Controller
                 'genero' => null,
                 'fecha_nacimiento' => null,
                 'estado' => true,
+                'id_rol' => $defaultRol->id
             ]);
         }
-        if($user->estado === false)
-        {
+        if ($user->estado === false) {
             return $this->unauthorizedResponse('El usuario se encuentra deshabilitado.');
         }
         Auth::login($user);

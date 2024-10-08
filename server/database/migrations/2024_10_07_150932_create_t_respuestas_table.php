@@ -16,9 +16,9 @@ return new class extends Migration
             $table->foreignId('id_test_version')->constrained('t_test_versions')->cascadeOnUpdate()->cascadeOnDelete();
 
             $table->string('email_user')->nullable();
-            $table->foreign('email_user')->references('email')->on('u_users')->onUpdate('cascade')->onDelete('set null');
+            $table->foreign('email_user')->references('email')->on('u_users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('email_asignador')->nullable();
-            $table->foreign('email_asignador')->references('email')->on('u_users')->onUpdate('cascade')->onDelete('set null');
+            $table->foreign('email_asignador')->references('email')->on('u_users')->onUpdate('cascade')->onDelete('cascade');
 
             $table->string('estado');
             $table->json('resultados')->nullable();
