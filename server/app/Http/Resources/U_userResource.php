@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Resources;
+
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class U_userResource extends JsonResource
@@ -14,6 +15,7 @@ class U_userResource extends JsonResource
             'genero' => $this->genero,
             'fecha_nacimiento' => $this->fecha_nacimiento,
             'estado' => $this->estado,
+            'permisos' => $this->rol->permisos->pluck('descripcion'),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

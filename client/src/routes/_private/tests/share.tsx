@@ -1,3 +1,5 @@
+import ProtectedRoute from "@/modules/features/auth/components/wrapper/ProtectedRoute";
+import { Permisos } from "@/modules/features/auth/types/Permisos";
 import SharePage from "@/modules/features/tests/pages/SharePage";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -11,5 +13,9 @@ export const Route = createFileRoute("/_private/tests/share")({
     test: Number(params.test),
     allocator: String(params.allocator),
   }),
-  component: SharePage,
+  component: () => (
+    <ProtectedRoute permisos={[Permisos.PUEDE_SER_ASIGNADO]}>
+      <SharePage />
+    </ProtectedRoute>
+  ),
 });

@@ -24,6 +24,8 @@ class U_user extends Authenticatable
         'foto',
         'genero',
         'fecha_nacimiento',
+        'estado',
+        'id_rol'
     ];
 
     public function respuestas()
@@ -34,5 +36,10 @@ class U_user extends Authenticatable
     public function asignados()
     {
         return $this->hasMany(T_Respuesta::class, 'email_asignador')->orderBy('id', 'asc');
+    }
+
+    public function rol()
+    {
+        return $this->belongsTo(U_Rol::class, 'id_rol');
     }
 }
