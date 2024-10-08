@@ -12,5 +12,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             Tests_Seeder::class
         ]);
+
+        $this->call([
+            Test_Answers_Seeder::class
+        ]);
     }
 }
