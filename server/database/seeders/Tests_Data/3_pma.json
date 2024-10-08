@@ -1074,11 +1074,11 @@
                         ],
                         "opciones": [
                             {
-                                "id": 16,
+                                "id": 17,
                                 "descripcion": "Bien"
                             },
                             {
-                                "id": 17,
+                                "id": 18,
                                 "descripcion": "Mal"
                             }
                         ]
