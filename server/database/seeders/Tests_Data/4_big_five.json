@@ -1,0 +1,585 @@
+{
+    "autor": "Caprava, Barbaranelli y Borgogni",
+    "nombre": "BIG FIVE",
+    "canvas": [
+        { "type": "subtitle", "content": "Descripción" },
+        {
+            "type": "paragraph",
+            "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat, delectus? Totam quibusdam vel quo incidunt. Aut, quisquam? Architecto rerum quidem incidunt magnam sunt, iste tempore eaque possimus modi? Porro ipsum quam nisi eum quae fuga doloribus eligendi laboriosam ab quaerat ullam autem ut magnam perferendis recusandae, impedit eaque placeat earum."
+        },
+        {
+            "type": "paragraph",
+            "content": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non ratione voluptatibus dolore sapiente quasi repellendus molestias at doloremque consequatur rem consequuntur, assumenda dolorem suscipit perferendis voluptas neque quo? Ut totam unde commodi magnam veli."
+        },
+        { "type": "subtitle", "content": "¿Cómo resolver?" },
+        {
+            "type": "paragraph",
+            "content": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non ratione voluptatibus dolore sapiente quasi repellendus molestias at doloremque consequatur rem consequuntur, assumenda dolorem suscipit perferendis voluptas neque quo? Ut totam unde commodi magnam velit dignissimos iusto hic molestiae, laboriosam et! Quidem, quia vero quasi, corporis vitae odio quos ea corrupti iste magnam quae nisi minima aperiam quisquam. Placeat, architecto maiores!"
+        }
+    ],
+    "versions": [
+        {
+            "version": 1,
+            "test": {
+                "requerimientos": [],
+                "secciones": [
+                    {
+                        "id": 1,
+                        "items": [
+                            {
+                                "id": 1,
+                                "descripcion": "Creo que soy una persona activa y vigorosa."
+                            },
+                            {
+                                "id": 2,
+                                "descripcion": "No me gusta hacer las cosas razonando demasiado sobre ellas"
+                            },
+                            {
+                                "id": 3,
+                                "descripcion": "Tiendo a involucrarme demasiado cuando alguien me cuenta sus problemas"
+                            },
+                            {
+                                "id": 4,
+                                "descripcion": "No me preocupan especialmente las consecuencias que mis actos puedan tener sobre los demás."
+                            },
+                            {
+                                "id": 5,
+                                "descripcion": "Estoy siempre informado sobre lo que sucede en el mundo."
+                            },
+                            {
+                                "id": 6,
+                                "descripcion": "Nunca he dicho una mentira."
+                            },
+                            {
+                                "id": 7,
+                                "descripcion": "No me gustan las actividades que exigen empeñarse y esforzarse hasta el agotamiento."
+                            },
+                            {
+                                "id": 8,
+                                "descripcion": "Tiendo a ser muy reflexivo."
+                            },
+                            {
+                                "id": 9,
+                                "descripcion": "No suelo sentirme tenso."
+                            },
+                            {
+                                "id": 10,
+                                "descripcion": "Noto fácilmente cuando las personas necesitan mi ayuda."
+                            },
+                            {
+                                "id": 11,
+                                "descripcion": "No recuerdo fácilmente los números de teléfono."
+                            },
+                            {
+                                "id": 12,
+                                "descripcion": "Siempre he estado completamente de acuerdo con los demás."
+                            },
+                            {
+                                "id": 13,
+                                "descripcion": "Generalmente tiendo a imponerme a las otras personas, más que ser complacientes con ellas."
+                            },
+                            {
+                                "id": 14,
+                                "descripcion": "Ante los obstáculos grandes, no conviene empeñarse en conseguir los objetivos propios."
+                            },
+                            {
+                                "id": 15,
+                                "descripcion": "Soy más bien susceptible."
+                            },
+                            {
+                                "id": 16,
+                                "descripcion": "No es necesario comportarse cordialmente con todas las personas."
+                            },
+                            {
+                                "id": 17,
+                                "descripcion": "No me siento muy atraído por las situaciones nuevas e inesperadas."
+                            },
+                            {
+                                "id": 18,
+                                "descripcion": "Siempre he resuelto de inmediato todos los problemas que he encontrado."
+                            },
+                            {
+                                "id": 19,
+                                "descripcion": "No me gustan los ambientes de trabajo en los que hay mucha competitividad."
+                            },
+                            {
+                                "id": 20,
+                                "descripcion": "Llevo a cabo las decisiones que he tomado."
+                            },
+                            {
+                                "id": 21,
+                                "descripcion": "No me es fácil que algo o alguien me haga perder la paciencia."
+                            },
+                            {
+                                "id": 22,
+                                "descripcion": "Me gusta mezclarme con la gente."
+                            },
+                            {
+                                "id": 23,
+                                "descripcion": "Toda novedad me entusiasma."
+                            },
+                            {
+                                "id": 24,
+                                "descripcion": "Nunca me he asustado ante un peligro, aunque fuera grave."
+                            },
+                            {
+                                "id": 25,
+                                "descripcion": "Tiendo a decidir rápidamente."
+                            },
+                            {
+                                "id": 26,
+                                "descripcion": "Antes de tomar cualquier iniciativa, me tomo tiempo para valorar las posibles consecuencias."
+                            },
+                            {
+                                "id": 27,
+                                "descripcion": "No creo ser una persona ansiosa."
+                            },
+                            {
+                                "id": 28,
+                                "descripcion": "No suelo saber cómo actuar ante las desgracias de mis amigos."
+                            },
+                            {
+                                "id": 29,
+                                "descripcion": "Tengo muy buena memoria."
+                            },
+                            {
+                                "id": 30,
+                                "descripcion": "Siempre he estado absolutamente seguro de todas mis acciones."
+                            },
+                            {
+                                "id": 31,
+                                "descripcion": "En mi trabajo no le doy especial importancia a rendir mejor que los demás."
+                            },
+                            {
+                                "id": 32,
+                                "descripcion": "No me gusta vivir de manera demasiado metódica y ordenada."
+                            },
+                            {
+                                "id": 33,
+                                "descripcion": "Me siento vulnerable a las críticas de los demás."
+                            },
+                            {
+                                "id": 34,
+                                "descripcion": "Si es preciso, no tengo inconveniente en ayudar a un desconocido."
+                            },
+                            {
+                                "id": 35,
+                                "descripcion": "No me atraen las situaciones en constante cambio."
+                            },
+                            {
+                                "id": 36,
+                                "descripcion": "Nunca he desobedecido las órdenes recibidas, ni siquiera siendo niño."
+                            },
+                            {
+                                "id": 37,
+                                "descripcion": "No me gustan aquellas actividades en las que es preciso ir de un sitio para otro y moverse continuamente."
+                            },
+                            {
+                                "id": 38,
+                                "descripcion": "No creo que sea preciso esforzarse más allá del límite de las propias fuerzas, incluso aunque haya que cumplir algún plazo."
+                            },
+                            {
+                                "id": 39,
+                                "descripcion": "Estoy dispuesto a esforzarme al máximo con tal de destacar."
+                            },
+                            {
+                                "id": 40,
+                                "descripcion": "Si tengo que criticar a los demás, lo hago, sobre todo cuando se lo merecen."
+                            },
+                            {
+                                "id": 41,
+                                "descripcion": "Creo que no hay valores y costumbres totalmente válidos y eternos."
+                            },
+                            {
+                                "id": 42,
+                                "descripcion": "Para enfrentarse a un problema no es efectivo tener presentes muchos puntos de vista diferentes."
+                            },
+                            {
+                                "id": 43,
+                                "descripcion": "En general no me irrito, ni siquiera en situaciones en las que tendría motivos suficientes para ello."
+                            },
+                            {
+                                "id": 44,
+                                "descripcion": "Si me equivoco, siempre me resulta fácil admitirlo."
+                            },
+                            {
+                                "id": 45,
+                                "descripcion": "Cuando me enfado manifiesto mi mal humor."
+                            },
+                            {
+                                "id": 46,
+                                "descripcion": "Llevo a cabo lo que he decidido, aunque me suponga un esfuerzo no previsto."
+                            },
+                            {
+                                "id": 47,
+                                "descripcion": "No pierdo tiempo en aprender cosas que no estén estrictamente relacionadas con mi campo de intereses"
+                            },
+                            {
+                                "id": 48,
+                                "descripcion": "Casi siempre sé cómo ajustarme a las exigencias de los demás."
+                            },
+                            {
+                                "id": 49,
+                                "descripcion": "Llevo adelante las tareas emprendidas, aunque los resultados iniciales parezcan negativos."
+                            },
+                            {
+                                "id": 50,
+                                "descripcion": "No suelo sentirme sólo y triste."
+                            },
+                            {
+                                "id": 51,
+                                "descripcion": "No me gusta hacer varias cosas al mismo tiempo."
+                            },
+                            {
+                                "id": 52,
+                                "descripcion": "Habitualmente muestro una actitud cordial, incluso con las personas que me provocan una cierta antipatía."
+                            },
+                            {
+                                "id": 53,
+                                "descripcion": "A menudo estoy completamente absorbido por mis compromisos y actividades."
+                            },
+                            {
+                                "id": 54,
+                                "descripcion": "Cuando algo entorpece mis proyectos, no insisto en conseguirlos e intento otros."
+                            },
+                            {
+                                "id": 55,
+                                "descripcion": "No me interesan los programas de televisión que me exigen esfuerzo o compromiso."
+                            },
+                            {
+                                "id": 56,
+                                "descripcion": "Soy una persona que siempre busca nuevas experiencias."
+                            },
+                            {
+                                "id": 57,
+                                "descripcion": "Me molesta mucho el desorden."
+                            },
+                            {
+                                "id": 58,
+                                "descripcion": "No suelo reaccionar de un modo impulsivo."
+                            },
+                            {
+                                "id": 59,
+                                "descripcion": "Siempre encuentro buenos argumentos para sostener mis propuestas y convencer a los demás de su validez."
+                            },
+                            {
+                                "id": 60,
+                                "descripcion": "Me gusta estar bien informado, incluso sobre temas alejados de mi ámbito de competencia."
+                            },
+                            {
+                                "id": 61,
+                                "descripcion": "No doy mucha importancia a demostrar mis capacidades."
+                            },
+                            {
+                                "id": 62,
+                                "descripcion": "Mi humor pasa por altibajos frecuentes."
+                            },
+                            {
+                                "id": 63,
+                                "descripcion": "A veces me enfado por cosas de poca importancia."
+                            },
+                            {
+                                "id": 64,
+                                "descripcion": "No hago fácilmente un préstamo, ni siquiera a personas que conozco bien."
+                            },
+                            {
+                                "id": 65,
+                                "descripcion": "No me gusta estar en grupos numerosos."
+                            },
+                            {
+                                "id": 66,
+                                "descripcion": "No suelo planificar mi vida hasta en los más pequeños detalles."
+                            },
+                            {
+                                "id": 67,
+                                "descripcion": "Nunca me han interesado la vida y costumbres de otros pueblos."
+                            },
+                            {
+                                "id": 68,
+                                "descripcion": "No dudo en decir lo que pienso."
+                            },
+                            {
+                                "id": 69,
+                                "descripcion": "A menudo me noto inquieto."
+                            },
+                            {
+                                "id": 70,
+                                "descripcion": "En general no es conveniente mostrarse sensible a los problemas de los demás."
+                            },
+                            {
+                                "id": 71,
+                                "descripcion": "En las reuniones no me preocupo especialmente por llamar la atención."
+                            },
+                            {
+                                "id": 72,
+                                "descripcion": "Creo que todo problema puede ser resuelto de varias maneras."
+                            },
+                            {
+                                "id": 73,
+                                "descripcion": "Si creo que tengo razón, intento convencer a los demás aunque me cueste tiempo y energía."
+                            },
+                            {
+                                "id": 74,
+                                "descripcion": "Normalmente tiendo a no fiarme mucho de mi prójimo."
+                            },
+                            {
+                                "id": 75,
+                                "descripcion": "Difícilmente desisto de una actividad que he comenzado."
+                            },
+                            {
+                                "id": 76,
+                                "descripcion": "No suelo perder la calma."
+                            },
+                            {
+                                "id": 77,
+                                "descripcion": "No dedico mucho tiempo a la lectura."
+                            },
+                            {
+                                "id": 78,
+                                "descripcion": "Normalmente no entablo conversación con los compañeros ocasionales de viaje."
+                            },
+                            {
+                                "id": 79,
+                                "descripcion": "A veces soy tan escrupuloso que puedo resultar pesado."
+                            },
+                            {
+                                "id": 80,
+                                "descripcion": "Siempre me he comportado de modo totalmente desinteresado."
+                            },
+                            {
+                                "id": 81,
+                                "descripcion": "No tengo dificultad para controlar mis sentimientos."
+                            },
+                            {
+                                "id": 82,
+                                "descripcion": "Nunca he sido un perfeccionista."
+                            },
+                            {
+                                "id": 83,
+                                "descripcion": "En diversas circunstancias me he comportado impulsivamente."
+                            },
+                            {
+                                "id": 84,
+                                "descripcion": "Nunca he discutido o peleado con otra persona."
+                            },
+                            {
+                                "id": 85,
+                                "descripcion": "Es inútil empeñarse totalmente en algo, porque la perfección no se alcanza nunca."
+                            },
+                            {
+                                "id": 86,
+                                "descripcion": "Tengo en gran consideración el punto de vista de mis compañeros."
+                            },
+                            {
+                                "id": 87,
+                                "descripcion": "Siempre me han apasionado las ciencias."
+                            },
+                            {
+                                "id": 88,
+                                "descripcion": "Me resulta fácil hacer confidencias a los demás."
+                            },
+                            {
+                                "id": 89,
+                                "descripcion": "Normalmente no reacciono de modo exagerado, ni siquiera ante las emociones fuertes."
+                            },
+                            {
+                                "id": 90,
+                                "descripcion": "No creo que conocer la historia sirva de mucho."
+                            },
+                            {
+                                "id": 91,
+                                "descripcion": "No suelo reaccionar a las provocaciones."
+                            },
+                            {
+                                "id": 92,
+                                "descripcion": "Nada de lo que he hecho podría haberlo hecho mejor."
+                            },
+                            {
+                                "id": 93,
+                                "descripcion": "Creo que todas las personas tienen algo de bueno."
+                            },
+                            {
+                                "id": 94,
+                                "descripcion": "Me resulta fácil hablar con personas que no conozco."
+                            },
+                            {
+                                "id": 95,
+                                "descripcion": "No creo que haya posibilidad de convencer a otro cuando no piensa como nosotros."
+                            },
+                            {
+                                "id": 96,
+                                "descripcion": "Si fracaso en algo, lo intento de nuevo hasta conseguirlo."
+                            },
+                            {
+                                "id": 97,
+                                "descripcion": "Siempre me han fascinado las culturas muy diferentes a la mía."
+                            },
+                            {
+                                "id": 98,
+                                "descripcion": "A menudo me siento nervioso."
+                            },
+                            {
+                                "id": 99,
+                                "descripcion": "No soy una persona habladora."
+                            },
+                            {
+                                "id": 100,
+                                "descripcion": "No merece mucho la pena ajustarse a las exigencias de los compañeros, cuando ello supone una disminución del propio ritmo de trabajo."
+                            },
+                            {
+                                "id": 101,
+                                "descripcion": "Siempre he comprendido de inmediato todo lo que he leído."
+                            },
+                            {
+                                "id": 102,
+                                "descripcion": "Siempre estoy seguro de mí mismo,"
+                            },
+                            {
+                                "id": 103,
+                                "descripcion": "No comprendo qué empuja a las personas a comportarse de modo diferente a la norma."
+                            },
+                            {
+                                "id": 104,
+                                "descripcion": "Me molesta mucho que me interrumpan mientras estoy haciendo algo que me interesa."
+                            },
+                            {
+                                "id": 105,
+                                "descripcion": "Me gusta mucho ver programas de información cultural o científica."
+                            },
+                            {
+                                "id": 106,
+                                "descripcion": "Antes de entregar un trabajo, dedico mucho tiempo a revisarlo."
+                            },
+                            {
+                                "id": 107,
+                                "descripcion": "Si algo no se desarrolla tan pronto como deseaba, no insisto demasiado."
+                            },
+                            {
+                                "id": 108,
+                                "descripcion": "Si es preciso, no dudo en decir a los demás que se metan en sus asuntos."
+                            },
+                            {
+                                "id": 109,
+                                "descripcion": "Si alguna acción mía puede llegar a desagradar a alguien, seguramente dejo de hacerla."
+                            },
+                            {
+                                "id": 110,
+                                "descripcion": "Cuando un trabajo está terminado, no me pongo a repasarlo en sus mínimos detalles."
+                            },
+                            {
+                                "id": 111,
+                                "descripcion": "Estoy convencido de que se obtienen mejores resultados cooperando con los demás, que compitiendo."
+                            },
+                            {
+                                "id": 112,
+                                "descripcion": "Prefiero leer a practicar alguna actividad deportiva."
+                            },
+                            {
+                                "id": 113,
+                                "descripcion": "Nunca he criticado a otra persona."
+                            },
+                            {
+                                "id": 114,
+                                "descripcion": "Afronto todas mis actividades y experiencias con gran entusiasmo,"
+                            },
+                            {
+                                "id": 115,
+                                "descripcion": "Sólo quedo satisfecho cuando veo los resultados de lo que había programado."
+                            },
+                            {
+                                "id": 116,
+                                "descripcion": "Cuando me critican, no puedo evitar exigir explicaciones."
+                            },
+                            {
+                                "id": 117,
+                                "descripcion": "No se obtiene nada en la vida sin ser competitivo."
+                            },
+                            {
+                                "id": 118,
+                                "descripcion": "Siempre intento ver las cosas desde distintos enfoques."
+                            },
+                            {
+                                "id": 119,
+                                "descripcion": "Incluso en situaciones muy difíciles, no pierdo el control."
+                            },
+                            {
+                                "id": 120,
+                                "descripcion": "A veces incluso pequeñas dificultades pueden llegar a preocuparme."
+                            },
+                            {
+                                "id": 121,
+                                "descripcion": "Generalmente no me comporto de manera abierta con los extraños."
+                            },
+                            {
+                                "id": 122,
+                                "descripcion": "No suelo cambiar de humor bruscamente."
+                            },
+                            {
+                                "id": 123,
+                                "descripcion": "No me gustan las actividades que implican riesgo."
+                            },
+                            {
+                                "id": 124,
+                                "descripcion": "Nunca he tenido mucho interés por los temas científicos o filosóficos."
+                            },
+                            {
+                                "id": 125,
+                                "descripcion": "Cuando empiezo a hacer algo, nunca sé si lo terminaré."
+                            },
+                            {
+                                "id": 126,
+                                "descripcion": "Generalmente confío en los demás y en sus intenciones."
+                            },
+                            {
+                                "id": 127,
+                                "descripcion": "Siempre he mostrado simpatía por todas las personas que he conocido."
+                            },
+                            {
+                                "id": 128,
+                                "descripcion": "Con ciertas personas no es necesario ser demasiado tolerante."
+                            },
+                            {
+                                "id": 129,
+                                "descripcion": "Suelo cuidar todas las cosas hasta en sus mínimos detalles."
+                            },
+                            {
+                                "id": 130,
+                                "descripcion": "No es trabajando en grupo como se pueden desarrollar mejor las propias capacidades."
+                            },
+                            {
+                                "id": 131,
+                                "descripcion": "No suelo buscar soluciones nuevas a problemas para los que ya existe una solución eficaz."
+                            },
+                            {
+                                "id": 132,
+                                "descripcion": "No creo que sea útil perder tiempo repasando varias veces el trabajo hecho."
+                            }
+                        ],
+                        "opciones": [
+                            {
+                                "id": 1,
+                                "descripcion": "Completamente VERDADERO para mí"
+                            },
+                            {
+                                "id": 2,
+                                "descripcion": "Bastante VERDADERO para mí"
+                            },
+                            {
+                                "id": 3,
+                                "descripcion": "Ni VERDADERO ni FALSO para mí"
+                            },
+                            {
+                                "id": 4,
+                                "descripcion": "Bastante FALSO para mí"
+                            },
+                            {
+                                "id": 5,
+                                "descripcion": "Completamente FALSO para mí"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
+}

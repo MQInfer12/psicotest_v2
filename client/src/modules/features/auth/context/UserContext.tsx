@@ -64,8 +64,6 @@ export const UserContextProvider = ({ children }: Props) => {
     queryClient.clear();
   }, [queryClient]);
 
-  console.log(user);
-
   return (
     <UserContext.Provider value={{ user, setUser, state, login, logout }}>
       {children}

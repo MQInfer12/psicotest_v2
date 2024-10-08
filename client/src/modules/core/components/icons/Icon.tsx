@@ -14,6 +14,7 @@ import IconClock from "./tabler/iconClock";
 import IconDots from "./tabler/iconDots";
 import IconDownload from "./tabler/iconDownload";
 import IconExcel from "./tabler/iconExcel";
+import IconFolder from "./tabler/iconFolder";
 import IconGender from "./tabler/iconGender";
 import IconLoader from "./tabler/iconLoader";
 import IconLogout from "./tabler/iconLogout";
@@ -75,7 +76,10 @@ export enum ICON {
   SWIPE = "swipe",
   LOADER = "loader",
   CLIPBOARD = "clipboard",
-  DOWNLOAD= "download"
+  DOWNLOAD = "download",
+  FOLDER = "folder",
+  FOLDER_OPEN = "folder_open",
+  FOLDER_ADD = "folder_add",
 }
 
 interface Props {
@@ -125,7 +129,10 @@ const Icon = ({ type }: Props) => {
     [ICON.SWIPE]: <IconSwipe />,
     [ICON.LOADER]: <IconLoader />,
     [ICON.CLIPBOARD]: <IconClipboard />,
-    [ICON.DOWNLOAD]: <IconDownload />
+    [ICON.DOWNLOAD]: <IconDownload />,
+    [ICON.FOLDER]: <IconFolder />,
+    [ICON.FOLDER_OPEN]: <IconFolder type="open" />,
+    [ICON.FOLDER_ADD]: <IconFolder type="add" />,
   };
   return icons[type];
 };

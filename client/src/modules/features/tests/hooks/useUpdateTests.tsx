@@ -5,6 +5,7 @@ import { MAPITest } from "../modules/MAPI/data";
 import { KUDERTest } from "../modules/KUDER/data";
 import { PMATest } from "../modules/PMA/data";
 import { toastSuccess } from "@/modules/core/utils/toasts";
+import { BIGFIVETest } from "../modules/BIG_FIVE/data";
 
 export const useUpdateTests = () => {
   const { postData, getDataSetter } = useFetch();
@@ -27,6 +28,10 @@ export const useUpdateTests = () => {
             {
               id: TestIds.PMA,
               test: JSON.stringify(PMATest),
+            },
+            {
+              id: TestIds.BIG_FIVE,
+              test: JSON.stringify(BIGFIVETest),
             },
           ],
         },

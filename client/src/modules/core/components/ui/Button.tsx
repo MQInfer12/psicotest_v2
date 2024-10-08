@@ -4,15 +4,20 @@ import { COLORS } from "../../constants/COLORS";
 import Icon, { ICON } from "../icons/Icon";
 
 interface Props extends HTMLMotionProps<"button"> {
-  btnType?: "primary" | "secondary";
+  width?: string;
+  textAlign?: "start" | "center";
+  btnType?: "primary" | "secondary" | "tertiary";
   btnSize?: "base" | "small";
   danger?: boolean;
   icon?: ICON;
   reverse?: boolean;
+  ring?: boolean;
   children?: React.ReactNode;
 }
 
 const Button = ({
+  width,
+  textAlign,
   btnType = "primary",
   btnSize = "base",
   danger,
@@ -21,6 +26,7 @@ const Button = ({
   className,
   disabled,
   reverse,
+  ring,
   ...props
 }: Props) => {
   const getColors = (hover: boolean) => {
@@ -74,6 +80,28 @@ const Button = ({
       }
     }
 
+    if (btnType === "tertiary") {
+      if (disabled) {
+        colors = {
+          backgroundColor: "transparent",
+          borderColor: "transparent",
+          color: COLORS.primary[300],
+        };
+      } else if (hover) {
+        colors = {
+          backgroundColor: "transparent",
+          borderColor: "transparent",
+          color: COLORS.primary[800],
+        };
+      } else {
+        colors = {
+          backgroundColor: "transparent",
+          borderColor: "transparent",
+          color: COLORS.alto[600],
+        };
+      }
+    }
+
     if (danger && !disabled && !hover) {
       colors.color = COLORS.danger;
     }
@@ -87,10 +115,14 @@ const Button = ({
       animate={getColors(false)}
       whileHover={getColors(true)}
       className={clsx(
-        "h-fit whitespace-nowrap rounded-lg border flex items-center cursor-pointer disabled:cursor-auto justify-center outline-none ring-0 ring-inset focus:ring-1 transition-[box-shadow]",
+        "h-fit rounded-lg border flex items-center cursor-pointer disabled:cursor-auto justify-center outline-none ring-0 ring-inset focus:ring-1 transition-[box-shadow]",
+        {
+          "ring-1": ring,
+        },
         {
           "ring-primary-400": btnType === "secondary",
           "ring-white": btnType === "primary",
+          "ring-transparent": btnType === "tertiary",
         },
         {
           "py-2 px-4 text-sm gap-3": btnSize === "base",
@@ -101,10 +133,24 @@ const Button = ({
         },
         className
       )}
+      style={{
+        width,
+      }}
       disabled={disabled}
       {...props}
     >
-      {children}
+      {children && (
+        <p
+          className={clsx(
+            "flex-1 overflow-hidden whitespace-nowrap text-ellipsis",
+            {
+              "text-start": textAlign === "start",
+            }
+          )}
+        >
+          {children}
+        </p>
+      )}
       {icon && (
         <div
           className={clsx("aspect-square", {

@@ -38,11 +38,16 @@ const ShareButton = ({ idTest, nombreTest }: Props) => {
       {modal(
         "Compartir test",
         <div className="flex flex-col">
+          <div className="flex w-full">
+            <Input label="Carpeta" type="select" value={""} onChange={() => {}}>
+              <option value="">Selecciona una carpeta</option>
+              <option value="">5to Secundaria - San Agustín</option>
+            </Input>
+          </div>
           <div className="w-full aspect-square flex justify-center items-center">
             <QRCode contents={link} />
           </div>
           <div className="flex flex-col gap-2 items-center">
-            <Input value={link} readOnly disabled />
             <div className="flex gap-2">
               <Button
                 btnType="secondary"
@@ -56,7 +61,7 @@ const ShareButton = ({ idTest, nombreTest }: Props) => {
                   });
                 }}
               >
-                Copiar
+                Copiar enlace
               </Button>
               <Button
                 btnType="secondary"
