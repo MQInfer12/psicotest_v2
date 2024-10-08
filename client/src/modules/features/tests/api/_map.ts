@@ -32,6 +32,13 @@ declare global {
       request: never;
       response: T_Test_Respuesta;
     };
+    "GET /test/for/respuesta/:id": {
+      params: {
+        id: number;
+      };
+      request: never;
+      response: T_Test_Respuesta;
+    };
     "POST /respuesta": {
       params: never;
       request: RespuestaDTO;

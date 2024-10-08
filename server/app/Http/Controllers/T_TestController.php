@@ -10,6 +10,7 @@ use App\Models\T_Respuesta;
 use App\Models\T_Test;
 use App\Models\T_TestVersion;
 use App\Traits\ApiResponse;
+use Illuminate\Http\Request;
 
 class T_TestController extends Controller
 {
@@ -33,9 +34,26 @@ class T_TestController extends Controller
         );
     }
 
-    public function showByRespuesta($id)
+    public function showByRespuesta(Request  $request, $id)
     {
+        $user = $request->user();
         $respuesta = T_Respuesta::findOrFail($id);
+        if ($user->email != $respuesta->email_user) {
+            return $this->wrongResponse('No tienes permisos para acceder a este recurso');
+        }
+        return $this->successResponse(
+            "Test obtenido correctamente.",
+            new T_Test_RespuestaResource($respuesta)
+        );
+    }
+
+    public function showForRespuesta(Request  $request, $id)
+    {
+        $user = $request->user();
+        $respuesta = T_Respuesta::findOrFail($id);
+        if ($user->email != $respuesta->email_asignador) {
+            return $this->wrongResponse('No tienes permisos para acceder a este recurso');
+        }
         return $this->successResponse(
             "Test obtenido correctamente.",
             new T_Test_RespuestaResource($respuesta)

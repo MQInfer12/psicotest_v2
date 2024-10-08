@@ -197,7 +197,13 @@ const Table = <T,>({
               const row = table.getRowModel().rows[virtualRow.index];
               return (
                 <tr
-                  className="absolute w-full grid odd:bg-white even:bg-primary-50 border-b border-b-alto-100"
+                  className={clsx(
+                    "absolute w-full grid border-b border-b-alto-100",
+                    {
+                      "bg-white": virtualRow.index % 2 === 0,
+                      "bg-primary-50": virtualRow.index % 2 === 1,
+                    }
+                  )}
                   style={{
                     gridTemplateColumns,
                     transform: `translateY(${virtualRow.start}px)`,

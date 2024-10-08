@@ -13,6 +13,7 @@ class Permisos_Seeder extends Seeder
     {
         $permisos = [
             "Ver tests (asignación)",
+            "Compartir test",
             "Crear test",
             "Editar test",
             "Ver tests (resolución)",
@@ -32,7 +33,7 @@ class Permisos_Seeder extends Seeder
             [
                 "descripcion" => "Administrador",
                 "por_defecto" => false,
-                "permisos" => ["Ver tests (asignación)", "Ver resultados", "Ver usuarios"]
+                "permisos" => ["Ver tests (asignación)", "Ver resultados", "Ver usuarios", "Compartir test"]
             ],
             [
                 "descripcion" => "Paciente",

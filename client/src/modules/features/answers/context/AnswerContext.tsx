@@ -33,7 +33,7 @@ export const AnswerContextProvider = ({ children }: Props) => {
     data: { data },
   } = useSuspenseQuery(
     fetchOptions([
-      "GET /test/by/respuesta/:id",
+      "GET /test/for/respuesta/:id",
       {
         id: Number(id),
       },

@@ -13,7 +13,7 @@ const Interpretation = () => {
   const { postData, getDataSetter } = useFetch();
   const mutation = postData("PATCH /respuesta/patch/interpretation/:id");
   const setter = getDataSetter([
-    "GET /test/by/respuesta/:id",
+    "GET /test/for/respuesta/:id",
     {
       id: data.id_respuesta,
     },

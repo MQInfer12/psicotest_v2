@@ -9,6 +9,7 @@ use App\Http\Resources\T_Test_RespuestaResource;
 use App\Http\Resources\T_Tests_RepuestaResource;
 use App\Models\T_Respuesta;
 use App\Models\T_Test;
+use App\Models\U_user;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 
@@ -53,6 +54,11 @@ class T_RespuestaController extends Controller
 
         if ($email_user == $email_asignador) {
             return $this->wrongResponse('No te puedes asignar un test a ti mismo.');
+        }
+
+        $asignador = U_user::findOrFail($email_asignador);
+        if (!in_array('Compartir test', $asignador->rol->permisos->pluck('descripcion')->toArray())) {
+            return $this->wrongResponse('Esta persona no tiene permisos para compartir tests.');
         }
 
         $exist = T_Respuesta::where('id_test_version', $id_test_version)

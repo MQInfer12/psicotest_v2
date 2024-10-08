@@ -14,7 +14,7 @@ export const Route = createFileRoute("/_private/answers/$id")({
   beforeLoad: ({ context: { queryClient }, params: { id } }) => {
     return queryClient.ensureQueryData(
       fetchOptions([
-        "GET /test/by/respuesta/:id",
+        "GET /test/for/respuesta/:id",
         {
           id: Number(id),
         },

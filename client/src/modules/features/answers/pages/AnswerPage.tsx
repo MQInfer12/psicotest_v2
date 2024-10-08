@@ -14,7 +14,7 @@ const AnswerPage = () => {
         style={{
           paddingInline: PRIVATE_PADDING_INLINE,
           gridTemplateColumns: isSmall ? "1fr" : "420px 1fr",
-          gridTemplateRows: isSmall ? "346px 420px 640px" : "auto 1fr",
+          gridTemplateRows: isSmall ? "322px 420px 640px" : "auto 1fr",
           gridTemplateAreas: isSmall
             ? `
             'user'

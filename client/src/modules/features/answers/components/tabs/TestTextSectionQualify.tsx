@@ -26,7 +26,7 @@ const TestTextSectionQualify = ({ seccion }: Props) => {
   const { getDataSetter, postData } = useFetch();
   const mutation = postData("PUT /respuesta/:id");
   const testSetter = getDataSetter([
-    "GET /test/by/respuesta/:id",
+    "GET /test/for/respuesta/:id",
     {
       id: data.id_respuesta,
     },

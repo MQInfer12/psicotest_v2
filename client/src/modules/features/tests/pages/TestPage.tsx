@@ -53,6 +53,7 @@ const TestPage = ({ respuestas = false }: Props) => {
 
   const canAdd = usePermiso([Permisos.CREAR_TEST]);
   const canEdit = usePermiso([Permisos.EDITAR_TEST]);
+  const canShare = usePermiso([Permisos.COMPARTIR_TEST]);
   return (
     <div
       style={{
@@ -112,7 +113,7 @@ const TestPage = ({ respuestas = false }: Props) => {
                   users={isForResolveTests(v) ? undefined : v.fotos}
                   resolve={() => navigateToTest(v)}
                   edit={!respuestas && canEdit ? () => {} : undefined}
-                  share={!respuestas}
+                  share={!respuestas && canShare}
                   loading={
                     isForResolveTests(v)
                       ? loading === v.id_respuesta
