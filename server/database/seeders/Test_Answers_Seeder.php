@@ -43,10 +43,23 @@ class Test_Answers_Seeder extends Seeder
         'email_user' => $user->email,
         'email_asignador' => "psicologiaunifranz@gmail.com",
         'estado' => "Enviado",
-        'resultados' =>  json_encode($item['respuestas']),
+        'resultados' =>  json_encode($item['respuestas']["pma"]),
         'fecha_asignado' => '2024-09-24',
         'fecha_enviado' => '2024-09-24',
       ]);
+
+      if(count($item['respuestas']['kuder']) > 0)
+      {
+        T_Respuesta::create([
+          'id_test_version' => 2,
+          'email_user' => $user->email,
+          'email_asignador' => "psicologiaunifranz@gmail.com",
+          'estado' => "Enviado",
+          'resultados' =>  json_encode($item['respuestas']["kuder"]),
+          'fecha_asignado' => '2024-09-24',
+          'fecha_enviado' => '2024-09-24',
+        ]);
+      }
     }
   }
 }
