@@ -8611,7 +8611,7 @@
     {
         "datos_generales": {
             "nombre": "Roberto Andrés Ardaya Poveda",
-            "edad": 67496647,
+            "edad": 15,
             "sexo": "Hombre",
             "colegio": "Instituto americano ",
             "cel": 67496647,
@@ -16994,7 +16994,7 @@
         "datos_generales": {
             "nombre": "DANA JADE MONTECINOS CENTELLAS",
             "edad": 15,
-            "sexo": null,
+            "sexo": "Mujer",
             "colegio": "INSTITUTO AMERICANO",
             "cel": 63922980,
             "correo": "dana_jade_montecinos_centellas@psicotest.com"
@@ -34373,7 +34373,7 @@
         "datos_generales": {
             "nombre": "DANNY MANUEL CAMACHO RODRIGUEZ",
             "edad": 15,
-            "sexo": null,
+            "sexo": "Mujer",
             "colegio": "INSTITUTO AMERICANO ",
             "cel": 75982468,
             "correo": "danny_manuel_camacho_rodriguez@psicotest.com"
@@ -35124,7 +35124,7 @@
         "datos_generales": {
             "nombre": "GABRIEL ANDRE OMONTE SANDOVAL",
             "edad": 15,
-            "sexo": null,
+            "sexo": "Hombre",
             "colegio": "INSTITUTO AMERICANO ",
             "cel": 77906366,
             "correo": "gabriel_andre_omonte_sandoval@psicotest.com"
@@ -35610,7 +35610,7 @@
         "datos_generales": {
             "nombre": "GABRIEL FERNANDO BLACUTT SALAZAR",
             "edad": 15,
-            "sexo": null,
+            "sexo": "Hombre",
             "colegio": "INSTITUTO AMERICANO ",
             "cel": 70730943,
             "correo": "gabriel_fernando_blacutt_salazar@psicotest.com"
@@ -36647,7 +36647,7 @@
         "datos_generales": {
             "nombre": "JUAN PABLO SOUX VARGAS",
             "edad": 15,
-            "sexo": null,
+            "sexo": "Hombre",
             "colegio": "INSTITUTO AMERICANO ",
             "cel": 71445388,
             "correo": "juan_pablo_soux_vargas@psicotest.com"
@@ -37132,7 +37132,7 @@
         "datos_generales": {
             "nombre": "LUCAS TAMES ULLOA",
             "edad": 16,
-            "sexo": null,
+            "sexo": "Hombre",
             "colegio": "INSTITUTO AMERICANO ",
             "cel": 77916912,
             "correo": "lucas_tames_ulloa@psicotest.com"
@@ -37670,7 +37670,7 @@
         "datos_generales": {
             "nombre": "SABRINA BUSTAMANTE BUSTOS",
             "edad": 15,
-            "sexo": null,
+            "sexo": "Mujer",
             "colegio": "INSTITUTO AMERICANO ",
             "cel": 60737070,
             "correo": "sabrina_bustamante_bustos@psicotest.com"
@@ -38107,7 +38107,7 @@
         "datos_generales": {
             "nombre": "GONZALES HERBAS CAMILA FERNANDA ",
             "edad": 16,
-            "sexo": null,
+            "sexo": "Mujer",
             "colegio": "INSTITUTO AMERICANO ",
             "cel": 79371620,
             "correo": "gonzales_herbas_camila_fernanda_@psicotest.com"
@@ -38528,7 +38528,7 @@
         "datos_generales": {
             "nombre": "RIVERO GUARDIA CAMILA VALENTINA ",
             "edad": 15,
-            "sexo": null,
+            "sexo": "Mujer",
             "colegio": "INSTITUTO AMERICANO ",
             "cel": 65517279,
             "correo": "rivero_guardia_camila_valentina_@psicotest.com"
@@ -39001,7 +39001,7 @@
         "datos_generales": {
             "nombre": "FABIANA COSSIO GUTIERREZ ",
             "edad": 17,
-            "sexo": null,
+            "sexo": "Mujer",
             "colegio": "INSTITUTO AMERICANO ",
             "cel": 69497550,
             "correo": "fabiana_cossio_gutierrez_@psicotest.com"
@@ -39545,7 +39545,7 @@
         "datos_generales": {
             "nombre": "GUAMAN MERCADO LUCAS NICOLAS ",
             "edad": 16,
-            "sexo": null,
+            "sexo": "Hombre",
             "colegio": "INSTITUTO AMERICANO ",
             "cel": 67591453,
             "correo": "guaman_mercado_lucas_nicolas_@psicotest.com"
@@ -40059,7 +40059,7 @@
         "datos_generales": {
             "nombre": "PATON SILES LAURA ANDREA ",
             "edad": 15,
-            "sexo": null,
+            "sexo": "Mujer",
             "colegio": "INSTITUTO AMERICANO ",
             "cel": 64503053,
             "correo": "paton_siles_laura_andrea_@psicotest.com"
@@ -40846,7 +40846,7 @@
         "datos_generales": {
             "nombre": "MATHIAS RODRIGUEZ ",
             "edad": 16,
-            "sexo": null,
+            "sexo": "Hombre",
             "colegio": "INSTITUTO AMERICANO ",
             "cel": 65364104,
             "correo": "mathias_rodriguez_@psicotest.com"
@@ -41395,9 +41395,9 @@
     },
     {
         "datos_generales": {
-            "nombre": "PERALTA AMURRIO VALENTI9NA JUANNA ",
+            "nombre": "PERALTA AMURRIO VALENTINA JUANNA ",
             "edad": 15,
-            "sexo": null,
+            "sexo": "Mujer",
             "colegio": "INSTITUTO AMERICANO ",
             "cel": 71474757,
             "correo": "peralta_amurrio_valenti9na_juanna_@psicotest.com"
@@ -41981,7 +41981,7 @@
         "datos_generales": {
             "nombre": "TICONA BOZ0 FARID ALEJANDRO ",
             "edad": 16,
-            "sexo": null,
+            "sexo": "Hombre",
             "colegio": "INSTITUTO AMERICANO ",
             "cel": 60743866,
             "correo": "ticona_boz0_farid_alejandro_@psicotest.com"
@@ -42391,7 +42391,7 @@
         "datos_generales": {
             "nombre": "TARIFA HERBAS WALTER NICOLAS ",
             "edad": 15,
-            "sexo": null,
+            "sexo": "Hombre",
             "colegio": "INSTITUTO AMERICANO ",
             "cel": 7830230,
             "correo": "tarifa_herbas_walter_nicolas_@psicotest.com"
@@ -42990,7 +42990,7 @@
         "datos_generales": {
             "nombre": "YARIXELL GUMAN ARCE ",
             "edad": 15,
-            "sexo": null,
+            "sexo": "Hombre",
             "colegio": "INSTITUTO AMERICANO ",
             "cel": 77454674,
             "correo": "yarixell_guman_arce_@psicotest.com"
@@ -70513,7 +70513,7 @@
         "datos_generales": {
             "nombre": "Cedric Uriel Albornoz Mangariños",
             "edad": 15,
-            "sexo": null,
+            "sexo": "Hombre",
             "colegio": "Amerinst",
             "cel": 71438296,
             "correo": "cedric_uriel_albornoz_mangariños@psicotest.com"
@@ -72599,7 +72599,7 @@
     {
         "datos_generales": {
             "nombre": "Luiza Rangel Argandoña Guimarcies",
-            "edad": "16 años",
+            "edad": 16,
             "sexo": "Mujer",
             "colegio": "Instituto Americano",
             "cel": 64833533,
@@ -72964,7 +72964,7 @@
     {
         "datos_generales": {
             "nombre": "Luna Thiara Landaeta Zelaya",
-            "edad": "15 años",
+            "edad": 15,
             "sexo": "Mujer",
             "colegio": "Instituto Americano",
             "cel": 76475963,
@@ -74026,7 +74026,7 @@
     {
         "datos_generales": {
             "nombre": "Poviette Sharina Cornejo",
-            "edad": "16 años",
+            "edad": 16,
             "sexo": "Mujer",
             "colegio": "Amerinst",
             "cel": "1 (571) 4703786",
