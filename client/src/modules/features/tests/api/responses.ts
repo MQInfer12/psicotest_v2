@@ -7,7 +7,7 @@ export interface T_Tests {
   nombre_autor: string | null;
   nombre_autor_creador: string | null;
   canvas: string;
-  fotos: string[];
+  fotos: (string | null)[];
 }
 
 export interface T_Tests_Respuestas {

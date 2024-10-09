@@ -1,5 +1,5 @@
 import { ApiSuccessResponse } from "@/modules/core/types/ApiResponse";
-import { buildUrl } from "./buildUrl";
+import { buildUrl, RequestInitWithParams } from "./buildUrl";
 import { API_URL } from "@/modules/core/constants/ENVIRONMENT";
 import { TOKEN_NAME } from "@/modules/core/constants/CONSTANTS";
 import { handleResponse } from "./handleResponse";
@@ -10,12 +10,12 @@ import { getUrlData } from "./getUrlData";
 const fetchFn = async <K extends keyof EndpointMap>(
   endpointConfig: K | [K, EndpointMap[K]["params"]],
   onUnauthorized: () => void = () => {},
-  config: RequestInit = {}
+  config: RequestInitWithParams = {}
 ) => {
   type TResponse = EndpointMap[K]["response"];
 
-  const { endpoint, params } = getUrlData(endpointConfig);
-  const urlBuild = buildUrl(endpoint, params);
+  const { endpoint, params } = getUrlData(endpointConfig, config);
+  const urlBuild = buildUrl(endpoint, params, config.params);
 
   //? FETCHING
   const token = localStorage.getItem(TOKEN_NAME);
@@ -38,10 +38,10 @@ export const fetchOptions = <K extends keyof EndpointMap>(
   endpointConfig: K | [K, EndpointMap[K]["params"]],
   options: {
     onUnauthorized?: () => void;
-    config?: RequestInit;
+    config?: RequestInitWithParams;
   } = {}
 ) => {
-  const { queryKey } = getUrlData(endpointConfig);
+  const { queryKey } = getUrlData(endpointConfig, options.config);
   return queryOptions({
     queryKey,
     queryFn: async () =>

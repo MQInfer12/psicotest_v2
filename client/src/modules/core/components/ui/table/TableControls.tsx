@@ -11,7 +11,6 @@ const TableControls = () => {
             value="nombre"
             type="select"
             inputSize="small"
-            placeholder="Buscar por..."
             onChange={() => {}}
           >
             <option value="nombre">Nombre</option>

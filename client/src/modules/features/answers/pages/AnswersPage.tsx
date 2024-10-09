@@ -11,12 +11,25 @@ import { motion } from "framer-motion";
 import DefaultPhoto from "@/assets/images/defaultPhoto.jpg";
 import { useMeasureContext } from "../../_layout/context/MeasureContext";
 import FolderList from "../../folders/components/FolderList";
+import { useDebounce } from "@/modules/core/hooks/useDebounce";
 
 const columnHelper = createColumnHelper<T_Tests_Respuestas>();
 
 const AnswersPage = () => {
+  const [selectedFolders, setSelectedFolders] = useState<number[]>([]);
+  const { debouncedValue, isDebouncing } = useDebounce(
+    JSON.stringify(selectedFolders),
+    {
+      delay: 1200,
+    }
+  );
+
   const { fetchData } = useFetch();
-  const { data } = fetchData("GET /respuesta/for/table");
+  const { data, isLoading } = fetchData("GET /respuesta/for/table", {
+    params: {
+      folders: debouncedValue ?? "[]",
+    },
+  });
   const navigate = useNavigate();
   const [loading, setLoading] = useState<number | null>(null);
   const { PRIVATE_PADDING_INLINE } = useMeasureContext();
@@ -103,7 +116,11 @@ const AnswersPage = () => {
       }}
       className="flex pb-10 flex-1 overflow-hidden gap-8"
     >
-      <FolderList />
+      <FolderList
+        selectedFolders={selectedFolders}
+        setSelectedFolders={setSelectedFolders}
+        loading={isDebouncing || isLoading}
+      />
       <Table
         data={data}
         columns={columns}
@@ -125,6 +142,7 @@ const AnswersPage = () => {
         ]}
         loadingRow={(row) => row.id_respuesta === loading}
         shadow
+        smallEmptyMessage="Selecciona una carpeta para mostrar las respuestas"
       />
     </div>
   );

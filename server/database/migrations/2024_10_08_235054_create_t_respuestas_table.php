@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('t_respuestas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_test_version')->constrained('t_test_versions')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('id_carpeta')->nullable()->constrained('t_carpetas')->cascadeOnUpdate()->nullOnDelete();
 
             $table->string('email_user')->nullable();
             $table->foreign('email_user')->references('email')->on('u_users')->onUpdate('cascade')->onDelete('cascade');

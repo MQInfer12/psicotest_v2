@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\T_Carpeta;
 use App\Models\T_Respuesta;
 use App\Models\U_user;
 use Carbon\Carbon;
@@ -17,6 +18,11 @@ class Test_Answers_Seeder extends Seeder
     // =========== START: PMA_KUDER ===========
     $pma_answers = File::get(database_path('seeders/Tests_Answers/pma_kuder.json'));
     $data = json_decode($pma_answers, true);
+
+    $carpetaAmerinst = T_Carpeta::create([
+      'descripcion' => 'Amerinst 2024',
+      'email_user' => "psicologiaunifranz@gmail.com"
+    ]);
 
     foreach ($data as $item) {
       $yearsToSubtract = $item['datos_generales']['edad'] ?? null;
@@ -37,6 +43,18 @@ class Test_Answers_Seeder extends Seeder
         'id_rol' => 2
       ]);
 
+      $hasKuder = count($item['respuestas']['kuder']) > 0;
+      T_Respuesta::create([
+        'id_test_version' => 2,
+        'email_user' => $user->email,
+        'email_asignador' => "psicologiaunifranz@gmail.com",
+        'estado' => $hasKuder ? "Enviado" : "Pendiente",
+        'resultados' =>  $hasKuder ? json_encode($item['respuestas']["kuder"]) : null,
+        'fecha_asignado' => '2024-09-24',
+        'fecha_enviado' => $hasKuder ? '2024-09-24' : null,
+        'id_carpeta' => $carpetaAmerinst->id
+      ]);
+
       T_Respuesta::create([
         'id_test_version' => 3,
         'email_user' => $user->email,
@@ -45,25 +63,19 @@ class Test_Answers_Seeder extends Seeder
         'resultados' =>  json_encode($item['respuestas']["pma"]),
         'fecha_asignado' => '2024-09-24',
         'fecha_enviado' => '2024-09-24',
+        'id_carpeta' => $carpetaAmerinst->id
       ]);
-
-      if (count($item['respuestas']['kuder']) > 0) {
-        T_Respuesta::create([
-          'id_test_version' => 2,
-          'email_user' => $user->email,
-          'email_asignador' => "psicologiaunifranz@gmail.com",
-          'estado' => "Enviado",
-          'resultados' =>  json_encode($item['respuestas']["kuder"]),
-          'fecha_asignado' => '2024-09-24',
-          'fecha_enviado' => '2024-09-24',
-        ]);
-      }
     }
     // =========== END: PMA_KUDER ===========
 
     // =========== START: BIG_FIVE ===========
     $big_five_answers = File::get(database_path('seeders/Tests_Answers/big_five.json'));
     $data_big = json_decode($big_five_answers, true);
+
+    $carpetaMedicina = T_Carpeta::create([
+      'descripcion' => 'Medicina 2023',
+      'email_user' => "psicologiaunifranz@gmail.com"
+    ]);
 
     foreach ($data_big as $item) {
       $yearsToSubtract = $item['edad'] ?? null;
@@ -93,6 +105,7 @@ class Test_Answers_Seeder extends Seeder
         'resultados' =>  json_encode($item['respuestas']),
         'fecha_asignado' => $item['fecha'],
         'fecha_enviado' => $item['fecha'],
+        'id_carpeta' => $carpetaMedicina->id
       ]);
     }
     // =========== END: BIG_FIVE ===========

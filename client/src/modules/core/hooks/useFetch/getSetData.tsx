@@ -6,11 +6,14 @@ export type SetData<T> = (setter: T | ((prev: T) => T)) => void;
 
 export const getSetData = <K extends keyof EndpointMap>(
   endpointConfig: K | [K, EndpointMap[K]["params"]],
-  existData: boolean
+  existData: boolean,
+  params?: Record<string, string>
 ) => {
   type TResponse = EndpointMap[K]["response"];
   const queryClient = useQueryClient();
-  const { queryKey } = getUrlData(endpointConfig);
+  const { queryKey } = getUrlData(endpointConfig, {
+    params,
+  });
   const setData: SetData<TResponse> = (setter) => {
     if (!existData) return;
     queryClient.setQueryData(

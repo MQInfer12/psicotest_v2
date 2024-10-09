@@ -28,6 +28,6 @@ class T_TestsResource extends JsonResource
                 ->map(function ($respuesta) {
                     return $respuesta->user->foto ?? null;
                 });
-        })->flatten()->filter()->all();
+        })->flatten()->all();
     }
 }

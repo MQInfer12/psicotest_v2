@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\T_RespuestaIndexForTableRequest;
 use App\Http\Requests\T_RespuestaPatchInterpretationRequest;
 use App\Http\Requests\T_RespuestaStoreRequest;
 use App\Http\Requests\T_RespuestaUpdateRequest;
@@ -31,12 +32,28 @@ class T_RespuestaController extends Controller
         );
     }
 
-    public function indexForTable(Request $request)
+    public function indexForTable(T_RespuestaIndexForTableRequest $request)
     {
         $user = $request->user();
+        $folders = $request->input('folders', []);
+        if (empty($folders)) {
+            return $this->successResponse("Tests obtenidos correctamente.", []);
+        }
+
+        $respuestas = T_Respuesta::where('email_asignador', $user->email)
+            ->when(in_array(0, $folders), function ($query) use ($folders) {
+                return $query->where(function ($query) use ($folders) {
+                    $query->whereIn('id_carpeta', array_diff($folders, [0]))
+                        ->orWhereNull('id_carpeta');
+                });
+            }, function ($query) use ($folders) {
+                return $query->whereIn('id_carpeta', $folders);
+            })
+            ->get();
+
         return $this->successResponse(
             "Tests obtenidos correctamente.",
-            T_Tests_RepuestaResource::collection($user->asignados)
+            T_Tests_RepuestaResource::collection($respuestas)
         );
     }
 

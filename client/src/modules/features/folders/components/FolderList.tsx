@@ -5,11 +5,32 @@ import { Folder } from "../api/responses";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import FolderForm from "./FolderForm";
 import Loader from "@/modules/core/components/ui/loader/Loader";
+import { motion } from "framer-motion";
 
-const FolderList = () => {
+interface Props {
+  selectedFolders: number[];
+  setSelectedFolders: React.Dispatch<React.SetStateAction<number[]>>;
+  loading: boolean;
+}
+
+const FolderList = ({
+  selectedFolders,
+  setSelectedFolders,
+  loading,
+}: Props) => {
   const { fetchData } = useFetch();
   const { data, setData } = fetchData("GET /carpeta");
   const { modal, setOpen } = useModal<Folder>();
+
+  const handleSelectFolder = (id: number) => {
+    setSelectedFolders((prev) => {
+      const exists = prev.some((folderId) => folderId === id);
+      if (exists) {
+        return prev.filter((folderId) => folderId !== id);
+      }
+      return [...prev, id];
+    });
+  };
 
   return (
     <>
@@ -35,7 +56,7 @@ const FolderList = () => {
       <div className="w-80 flex flex-col gap-2">
         {data ? (
           <>
-            <div className="h-9 flex items-center justify-between">
+            <div className="h-9 flex items-center justify-between relative">
               <strong>Carpetas propias</strong>
               <Button
                 btnType="tertiary"
@@ -44,28 +65,65 @@ const FolderList = () => {
                 icon={Icon.Types.FOLDER_ADD}
                 onClick={() => setOpen(true)}
               />
+              {loading && (
+                <motion.span
+                  animate={{
+                    opacity: [0.2, 1],
+                    width: ["10%", "100%"],
+                  }}
+                  transition={{
+                    opacity: {
+                      duration: 1,
+                      repeat: Infinity,
+                      repeatType: "mirror",
+                      ease: "easeInOut",
+                    },
+                    width: {
+                      duration: 1,
+                      repeat: Infinity,
+                      repeatType: "mirror",
+                      ease: "easeInOut",
+                    },
+                  }}
+                  className="block absolute bottom-0 left-1/2 -translate-x-1/2 h-[1px] bg-primary-700"
+                />
+              )}
             </div>
             <div className="flex flex-col gap-2">
               <Button
                 width="100%"
-                btnType="secondary"
+                btnType={selectedFolders.includes(0) ? "primary" : "secondary"}
                 btnSize="small"
-                icon={Icon.Types.FOLDER}
+                icon={
+                  selectedFolders.includes(0)
+                    ? Icon.Types.FOLDER_OPEN
+                    : Icon.Types.FOLDER
+                }
                 textAlign="start"
                 reverse
+                onClick={() => handleSelectFolder(0)}
               >
-                General
+                Sin clasificación
               </Button>
               {data?.map((folder) => (
                 <div key={folder.id} className="flex gap-2">
                   <div className="flex-1 overflow-hidden">
                     <Button
                       width="100%"
-                      btnType="secondary"
+                      btnType={
+                        selectedFolders.includes(folder.id)
+                          ? "primary"
+                          : "secondary"
+                      }
                       btnSize="small"
-                      icon={Icon.Types.FOLDER}
+                      icon={
+                        selectedFolders.includes(folder.id)
+                          ? Icon.Types.FOLDER_OPEN
+                          : Icon.Types.FOLDER
+                      }
                       textAlign="start"
                       reverse
+                      onClick={() => handleSelectFolder(folder.id)}
                     >
                       {folder.descripcion}
                     </Button>

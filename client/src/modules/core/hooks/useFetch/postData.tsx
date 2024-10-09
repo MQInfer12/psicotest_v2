@@ -5,13 +5,13 @@ import { TOKEN_NAME } from "../../constants/CONSTANTS";
 import { API_URL } from "../../constants/ENVIRONMENT";
 import { useUserContext } from "@/modules/features/auth/context/UserContext";
 import { toastError } from "../../utils/toasts";
-import { buildUrl } from "./utils/buildUrl";
+import { buildUrl, RequestInitWithParams } from "./utils/buildUrl";
 import { BuildedError, handleResponse } from "./utils/handleResponse";
 
 //* FETCHING IN CODE
 export const postData = <K extends keyof EndpointMap>(
   endpointConfig: K,
-  config: RequestInit = {}
+  config: RequestInitWithParams = {}
 ) => {
   type TResponse = EndpointMap[K]["response"];
   type TBody = EndpointMap[K]["request"];
@@ -24,12 +24,13 @@ export const postData = <K extends keyof EndpointMap>(
   const [method] = endpoint.split(" ") as [HttpMethod, string];
 
   const { logout } = useUserContext();
+
   const mutation = useMutation<ApiSuccessResponse<TResponse>, Error, TBody>({
     mutationFn: async (payload: TBody) => {
       const parameters = JSON.parse(
         sessionStorage.getItem(paramsLocalStorageKey) || "{}"
       );
-      const urlBuild = buildUrl(endpoint, parameters);
+      const urlBuild = buildUrl(endpoint, parameters, config.params);
       sessionStorage.removeItem(paramsLocalStorageKey);
 
       const token = localStorage.getItem(TOKEN_NAME);

@@ -4,6 +4,7 @@ import clsx from "clsx";
 import { motion } from "framer-motion";
 import ShareButton from "./ShareButton";
 import Loader from "@/modules/core/components/ui/loader/Loader";
+import DefaultPhoto from "@/assets/images/defaultPhoto.jpg";
 
 interface Props {
   idTest: number;
@@ -12,7 +13,7 @@ interface Props {
   author: string;
   starred?: boolean;
   psychologist?: string;
-  users?: string[];
+  users?: (string | null)[];
   resolve?: () => void;
   edit?: () => void;
   share?: boolean;
@@ -107,7 +108,7 @@ const TestCard = ({
                   }
                 )}
               >
-                <img className="w-full h-full" src={u} />
+                <img className="w-full h-full" src={u ?? DefaultPhoto} />
               </div>
             ))}
           <button

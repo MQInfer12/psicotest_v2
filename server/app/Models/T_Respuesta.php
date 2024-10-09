@@ -15,6 +15,7 @@ class T_Respuesta extends Model
 
     protected $fillable = [
         'id_test_version',
+        'id_carpeta',
         'email_user',
         'email_asignador',
         'estado',
