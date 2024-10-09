@@ -10,7 +10,7 @@ import { RespuestaEstado } from "../types/RespuestaEstado";
 import { motion } from "framer-motion";
 import DefaultPhoto from "@/assets/images/defaultPhoto.jpg";
 import { useMeasureContext } from "../../_layout/context/MeasureContext";
-import Button from "@/modules/core/components/ui/Button";
+import FolderList from "../../folders/components/FolderList";
 
 const columnHelper = createColumnHelper<T_Tests_Respuestas>();
 
@@ -103,101 +103,7 @@ const AnswersPage = () => {
       }}
       className="flex pb-10 flex-1 overflow-hidden gap-8"
     >
-      <div className="w-80 flex flex-col gap-2">
-        <div className="h-9 flex items-center justify-between">
-          <strong>Carpetas propias</strong>
-          <Button
-            btnType="tertiary"
-            btnSize="small"
-            icon={Icon.Types.FOLDER_ADD}
-          />
-        </div>
-        <div className="flex flex-col gap-2">
-          <Button
-            width="100%"
-            btnType="secondary"
-            btnSize="small"
-            icon={Icon.Types.FOLDER}
-            textAlign="start"
-            reverse
-          >
-            General
-          </Button>
-          <div className="flex gap-2">
-            <div className="flex-1 overflow-hidden">
-              <Button
-                width="100%"
-                btnType="secondary"
-                btnSize="small"
-                icon={Icon.Types.FOLDER}
-                textAlign="start"
-                reverse
-              >
-                San Agustín - 5to Secundaria - 2024
-              </Button>
-            </div>
-            <Button
-              btnType="secondary"
-              btnSize="small"
-              icon={Icon.Types.PENCIL}
-            />
-          </div>
-          <div className="flex gap-2">
-            <div className="flex-1 overflow-hidden">
-              <Button
-                width="100%"
-                btnType="secondary"
-                btnSize="small"
-                icon={Icon.Types.FOLDER_OPEN}
-                textAlign="start"
-                reverse
-              >
-                San Agustín - 6to Secundaria - 2024
-              </Button>
-            </div>
-            <Button
-              btnType="secondary"
-              btnSize="small"
-              icon={Icon.Types.PENCIL}
-            />
-          </div>
-        </div>
-        <div className="h-9 flex items-center justify-between">
-          <strong>Carpetas compartidas</strong>
-        </div>
-        <div className="flex flex-col gap-2">
-          <Button
-            width="100%"
-            btnType="secondary"
-            btnSize="small"
-            icon={Icon.Types.FOLDER_OPEN}
-            textAlign="start"
-            reverse
-          >
-            MEDICINA 2022
-          </Button>
-          <Button
-            width="100%"
-            btnType="secondary"
-            btnSize="small"
-            icon={Icon.Types.FOLDER}
-            textAlign="start"
-            reverse
-          >
-            MEDICINA 2023
-          </Button>
-          <Button
-            width="100%"
-            btnType="secondary"
-            btnSize="small"
-            icon={Icon.Types.FOLDER}
-            textAlign="start"
-            reverse
-          >
-            MEDICINA 2024
-          </Button>
-        </div>
-      </div>
+      <FolderList />
       <Table
         data={data}
         columns={columns}

@@ -4,7 +4,7 @@ import { useUserContext } from "@/modules/features/auth/context/UserContext";
 import { Requirements } from "@/modules/features/tests/types/TestType";
 import { UserRequiredDTO } from "@/modules/features/users/api/dtos";
 import { Genero } from "@/modules/features/users/types/Genero";
-import { UserRequiredDTOSchema } from "@/modules/features/users/validations/UserDTOSchema";
+import { UserRequiredDTOSchema } from "@/modules/features/users/validations/UserDTO.schema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";

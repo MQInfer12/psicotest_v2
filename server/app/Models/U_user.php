@@ -28,6 +28,11 @@ class U_user extends Authenticatable
         'id_rol'
     ];
 
+    public function carpetas()
+    {
+        return $this->hasMany(T_Carpeta::class, 'email_user')->orderBy('id', 'asc');
+    }
+
     public function respuestas()
     {
         return $this->hasMany(T_Respuesta::class, 'email_user')->orderBy('id', 'asc');

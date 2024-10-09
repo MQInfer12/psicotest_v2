@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\U_userStoreRequest;
 use App\Http\Requests\U_userUpdateRequest;
 use App\Http\Resources\U_userResource;
+use App\Models\U_Rol;
 use App\Models\U_user;
 use App\Traits\ApiResponse;
 
@@ -24,8 +25,12 @@ class U_userController extends Controller
     public function store(U_userStoreRequest $request)
     {
         $validatedData = $request->validated();
+        $defaultRol = U_Rol::where('por_defecto', true)->firstOrFail();
+        $validatedData['id_rol'] = $defaultRol->id;
+
         $user = U_user::create($validatedData);
         $user['estado'] = true;
+
         return $this->successResponse(
             "Usuario creado correctamente.",
             new U_userResource($user)

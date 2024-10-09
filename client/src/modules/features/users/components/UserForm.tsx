@@ -2,12 +2,13 @@ import { UserDTO } from "../api/dtos";
 import { User } from "../api/responses";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { UserDTOSchema } from "../validations/UserDTOSchema";
+import { UserDTOSchema } from "../validations/UserDTO.schema";
 import { toastSuccess } from "@/modules/core/utils/toasts";
 import { Genero } from "../types/Genero";
 import Input from "@/modules/core/components/ui/Input";
 import Button from "@/modules/core/components/ui/Button";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
+import { useState } from "react";
 
 interface Props {
   user: User | null;
@@ -15,6 +16,8 @@ interface Props {
 }
 
 const UserForm = ({ user, onSuccess }: Props) => {
+  const [loading, setLoading] = useState(false);
+
   const { postData } = useFetch();
   const postMutation = postData("POST /user");
   const putMutation = postData("PUT /user/:id");
@@ -35,11 +38,15 @@ const UserForm = ({ user, onSuccess }: Props) => {
   });
 
   const onSubmit = (form: UserDTO) => {
+    setLoading(true);
     if (!user) {
       postMutation(form, {
         onSuccess: (res) => {
           toastSuccess(res.message);
           onSuccess(res.data);
+        },
+        onSettled: () => {
+          setLoading(false);
         },
       });
     } else {
@@ -50,6 +57,9 @@ const UserForm = ({ user, onSuccess }: Props) => {
         onSuccess: (res) => {
           toastSuccess(res.message);
           onSuccess(res.data);
+        },
+        onSettled: () => {
+          setLoading(false);
         },
       });
     }
@@ -87,7 +97,9 @@ const UserForm = ({ user, onSuccess }: Props) => {
           </option>
         ))}
       </Input>
-      <Button type="submit">Enviar</Button>
+      <Button disabled={loading} type="submit">
+        Enviar
+      </Button>
     </form>
   );
 };

@@ -8,7 +8,9 @@ interface GeneralProps {
   inputSize?: "base" | "small";
 }
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  type?: "text" | "date" | "number" | "email";
+}
 
 interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   type?: "select";

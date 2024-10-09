@@ -6,6 +6,8 @@ import Input from "@/modules/core/components/ui/Input";
 import { toastSuccess } from "@/modules/core/utils/toasts";
 import QRCode from "./QRCode";
 import { toJpeg } from "html-to-image";
+import useFetch from "@/modules/core/hooks/useFetch/useFetch";
+import { useState } from "react";
 
 interface Props {
   idTest: number;
@@ -15,23 +17,16 @@ interface Props {
 const ShareButton = ({ idTest, nombreTest }: Props) => {
   const { modal, setOpen } = useModal();
   const { user } = useUserContext();
+  const { fetchData } = useFetch();
+  const { data } = fetchData("GET /carpeta");
+  const [carpetaId, setCarpetaId] = useState("");
 
   const link =
     window.location.href +
     "/share" +
     `?test=${idTest}` +
-    `&allocator=${user?.email}`;
-
-  /* useEffect(() => {
-    let timeout: NodeJS.Timeout;
-    if (open) {
-      setShowQR(false);
-      timeout = setTimeout(() => {
-        setShowQR(true);
-      }, 200);
-    }
-    return () => clearTimeout(timeout);
-  }, [open]); */
+    `&allocator=${user?.email}` +
+    (carpetaId ? `&folder=${carpetaId}` : "");
 
   return (
     <>
@@ -39,9 +34,18 @@ const ShareButton = ({ idTest, nombreTest }: Props) => {
         "Compartir test",
         <div className="flex flex-col">
           <div className="flex w-full">
-            <Input label="Carpeta" type="select" value={""} onChange={() => {}}>
+            <Input
+              label="Carpeta"
+              type="select"
+              value={carpetaId}
+              onChange={(e) => setCarpetaId(e.target.value)}
+            >
               <option value="">Selecciona una carpeta</option>
-              <option value="">5to Secundaria - San Agustín</option>
+              {data?.map((carpeta) => (
+                <option key={carpeta.id} value={carpeta.id}>
+                  {carpeta.descripcion}
+                </option>
+              ))}
             </Input>
           </div>
           <div className="w-full aspect-square flex justify-center items-center">
