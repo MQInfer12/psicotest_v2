@@ -43,7 +43,10 @@ const AnswersPage = () => {
     } else {
       newValue = param;
     }
-    navigate({ search: (prev) => ({ ...prev, folders: newValue }) });
+    navigate({
+      to: "/answers",
+      search: (prev) => ({ ...prev, folders: newValue }),
+    });
   };
 
   const [startedSelection, setStartedSelection] = useState<IA_Plantilla | null>(

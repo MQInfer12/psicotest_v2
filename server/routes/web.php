@@ -18,17 +18,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/a', function () {
-    Artisan::call("migrate");
+Route::get('/reset', function () {
+    Artisan::call("migrate:refresh --seed");
     return 1;
 });
 
-Route::get('/b', function () {
-    Artisan::call("db:seed");
-    return 1;
-});
-
-Route::get('/c', function () {
+Route::get('/link', function () {
     Artisan::call("storage:link");
     return 1;
 });

@@ -27,9 +27,9 @@ services:
     image: postgres:15
     restart: always
     environment:
-      POSTGRES_DB: psicotest_db
-      POSTGRES_USER: psicotest_user
-      POSTGRES_PASSWORD: psicotest_password
+      POSTGRES_DB: PSICOBD
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
     ports:
       - 5432:5432
     volumes:
