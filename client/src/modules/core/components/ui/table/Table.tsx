@@ -11,7 +11,7 @@ import Button from "../Button";
 import Loader from "../loader/Loader";
 import { AnimatePresence, motion } from "framer-motion";
 import clsx from "clsx";
-import { ElementRef, useRef, useState } from "react";
+import { CSSProperties, ElementRef, useRef, useState } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import IconMessage from "../../icons/IconMessage";
 
@@ -31,6 +31,14 @@ interface Props<T> {
   loadingRow?: (row: T) => boolean;
   emptyMessage?: string;
   smallEmptyMessage?: string;
+  children?: React.ReactNode;
+
+  //* PROPS FOR HANDLE ROW STATES
+  onClickRow?: {
+    fn: (row: T) => void;
+    disabled?: (row: T) => boolean;
+  };
+  rowStyle?: (row: T) => CSSProperties;
 }
 
 const Table = <T,>({
@@ -43,6 +51,9 @@ const Table = <T,>({
   loadingRow,
   emptyMessage,
   smallEmptyMessage,
+  onClickRow,
+  rowStyle,
+  children,
 }: Props<T>) => {
   const [sorting, setSorting] = useState<ColumnSort[]>([]);
 
@@ -78,31 +89,32 @@ const Table = <T,>({
   return (
     <div
       className={clsx(
-        "flex-1 flex flex-col bg-alto-50 border overflow-hidden",
+        "flex-1 flex flex-col bg-alto-50 border overflow-hidden relative",
         {
           "rounded-lg": rounded,
           "shadow-xl": shadow,
         }
       )}
     >
+      <AnimatePresence>
+        {!data && (
+          <motion.div
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{
+              duration: 0.5,
+            }}
+            className="absolute inset-0 z-10 bg-alto-50"
+          >
+            <Loader />
+          </motion.div>
+        )}
+      </AnimatePresence>
+      {children && <div className="bg-primary-100 p-2">{children}</div>}
       <div
         ref={tableContainerRef}
-        className="flex-1 flex flex-col overflow-y-scroll relative"
+        className="flex-1 flex flex-col overflow-y-scroll"
       >
-        <AnimatePresence>
-          {!data && (
-            <motion.div
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{
-                duration: 0.5,
-              }}
-              className="absolute inset-0 z-10 bg-alto-50"
-            >
-              <Loader />
-            </motion.div>
-          )}
-        </AnimatePresence>
         {data?.length === 0 ? (
           <div className="flex-1 flex items-center justify-center">
             <IconMessage
@@ -206,19 +218,28 @@ const Table = <T,>({
             >
               {rowVirtualizer.getVirtualItems().map((virtualRow) => {
                 const row = table.getRowModel().rows[virtualRow.index];
+                const handleClickRow = onClickRow?.disabled
+                  ? onClickRow?.disabled(row.original)
+                    ? undefined
+                    : onClickRow.fn
+                  : onClickRow?.fn;
+                const styles = rowStyle?.(row.original) || {};
                 return (
                   <tr
                     className={clsx(
-                      "absolute w-full grid border-b border-b-alto-100",
+                      "absolute w-full grid border-b border-b-alto-100 transition-[background-color,opacity,filter] duration-300",
                       {
                         "bg-white": virtualRow.index % 2 === 0,
                         "bg-primary-50": virtualRow.index % 2 === 1,
+                        "hover:!invert-[4%] cursor-pointer": !!handleClickRow,
                       }
                     )}
                     style={{
                       gridTemplateColumns,
                       transform: `translateY(${virtualRow.start}px)`,
+                      ...styles,
                     }}
+                    onClick={() => handleClickRow?.(row.original)}
                     key={row.id}
                   >
                     <td

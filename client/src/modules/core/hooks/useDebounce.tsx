@@ -5,9 +5,12 @@ export const useDebounce = (
   options?: {
     delay?: number;
     returnFirstRender?: boolean;
+    valueIsDefault?: boolean;
   }
 ) => {
-  const [debouncedValue, setDebouncedValue] = useState<string | null>(null);
+  const [debouncedValue, setDebouncedValue] = useState<string | null>(
+    options?.valueIsDefault ? value : null
+  );
   const [isDebouncing, setIsDebouncing] = useState(false);
   const timerRef = useRef<any>();
   const isFirstRender = useRef(true);

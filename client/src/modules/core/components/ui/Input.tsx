@@ -58,6 +58,7 @@ const Input = forwardRef((props: Props, ref: ForwardedRef<any>) => {
               "text-sm h-[38px] px-3": inputSize === "base",
               "text-xs h-[34px] px-2": inputSize === "small",
             },
+            "disabled:bg-alto-100 disabled:border-primary-200",
             className
           )}
           autoComplete="off"

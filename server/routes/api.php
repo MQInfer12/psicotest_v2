@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\IA_PlantillaController;
 use App\Http\Controllers\T_CarpetaController;
 use App\Http\Controllers\T_RespuestaController;
 use App\Http\Controllers\T_TestController;
@@ -42,4 +43,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('/respuesta/patch/interpretation/{id}', [T_RespuestaController::class, 'patchInterpretation']);
 
     Route::apiResource('/carpeta', T_CarpetaController::class);
+
+    Route::apiResource('/plantilla', IA_PlantillaController::class);
 });

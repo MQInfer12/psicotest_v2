@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             Usuarios_Seeder::class,
             Respuestas_Seeder::class,
             Test_Answers_Seeder::class,
+            Plantillas_Seeder::class
         ]);
     }
 }

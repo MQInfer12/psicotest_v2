@@ -21,6 +21,6 @@ export const buildUrl = (
     });
     url += `?${arr.join("&")}`;
   }
-  console.log(url);
+  /* console.log(url); */
   return url;
 };

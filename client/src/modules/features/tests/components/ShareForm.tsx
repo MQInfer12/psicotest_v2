@@ -35,7 +35,7 @@ const ShareForm = ({ idTest, nombreTest }: Props) => {
           value={carpetaId}
           onChange={(e) => setCarpetaId(e.target.value)}
         >
-          <option value="">Selecciona una carpeta</option>
+          <option value="">Sin clasificación</option>
           {data?.map((carpeta) => (
             <option key={carpeta.id} value={carpeta.id}>
               {carpeta.descripcion}

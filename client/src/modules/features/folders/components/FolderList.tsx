@@ -49,6 +49,7 @@ const FolderList = ({
           }}
           onSuccessDelete={(folder) => {
             setData((prev) => prev.filter((v) => v.id !== folder.id));
+            setSelectedFolders((prev) => prev.filter((v) => v !== folder.id));
             setOpen(false);
           }}
         />

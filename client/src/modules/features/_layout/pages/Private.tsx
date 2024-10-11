@@ -5,7 +5,7 @@ import {
   Navigate,
   Outlet,
   useLocation,
-  useNavigate,
+  useRouter,
 } from "@tanstack/react-router";
 import { PRIVATE_ASIDE_WIDTH } from "../constants/LAYOUT_SIZES";
 import Icon, { ICON } from "@/modules/core/components/icons/Icon";
@@ -16,14 +16,17 @@ import { motion } from "framer-motion";
 import Logo from "../components/Logo";
 import Breadcrumb from "../components/breadcrumb/Breadcrumb";
 import Loader from "@/modules/core/components/ui/loader/Loader";
-import { getActiveBreadcrumb } from "../components/breadcrumb/utils/getActiveBreadcrumb";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import { buildUrlParams } from "@/modules/core/utils/buildUrlParams";
 import clsx from "clsx";
 import { useMeasureContext } from "../context/MeasureContext";
+import { useBreadcrumb } from "../components/breadcrumb/hooks/useBreadcrumb";
 
 const Dashboard = () => {
   const { pathname, search } = useLocation();
+  const { history } = useRouter();
+  const activeBreadcrumb = useBreadcrumb();
+
   const { user, state, logout } = useUserContext();
   const url = pathname + buildUrlParams(search);
   const fromLogoutRef = useRef(false);
@@ -35,7 +38,6 @@ const Dashboard = () => {
     PRIVATE_ASIDE_WIDTH_THIN,
   } = useMeasureContext();
 
-  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
   const { postData } = useFetch();
@@ -66,13 +68,6 @@ const Dashboard = () => {
         <Loader text="Cargando datos de usuario..." />
       </div>
     );
-
-  const activeBreadcrumb = getActiveBreadcrumb(pathname);
-  const lastPage = activeBreadcrumb
-    ? activeBreadcrumb.breadcrumb.length > 1
-      ? activeBreadcrumb.breadcrumb[activeBreadcrumb.breadcrumb.length - 2]
-      : undefined
-    : undefined;
 
   return (
     <>
@@ -156,23 +151,21 @@ const Dashboard = () => {
             <div className="flex flex-col gap-2 overflow-hidden max-sm:gap-1">
               <Breadcrumb />
               <div className="flex items-center overflow-hidden">
-                {lastPage && (
+                {activeBreadcrumb.length > 1 && (
                   <button
                     className="flex items-center justify-center text-alto-500 hover:text-primary-900/70 transition-all duration-300 pr-2"
-                    onClick={() =>
-                      navigate({
-                        to: lastPage,
-                      })
-                    }
+                    onClick={() => {
+                      history.back();
+                    }}
                   >
                     <Icon type={Icon.Types.CHEVRON_LEFT} />
                   </button>
                 )}
                 <h2
-                  title={activeBreadcrumb?.name}
+                  title={activeBreadcrumb[activeBreadcrumb.length - 1].name}
                   className="text-2xl font-bold text-alto-950 whitespace-nowrap overflow-hidden text-ellipsis max-sm:text-xl"
                 >
-                  {activeBreadcrumb?.name}
+                  {activeBreadcrumb[activeBreadcrumb.length - 1].name}
                 </h2>
               </div>
             </div>

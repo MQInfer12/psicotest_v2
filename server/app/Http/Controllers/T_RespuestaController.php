@@ -49,6 +49,7 @@ class T_RespuestaController extends Controller
             }, function ($query) use ($folders) {
                 return $query->whereIn('id_carpeta', $folders);
             })
+            ->orderBy('id', 'asc')
             ->get();
 
         return $this->successResponse(
@@ -94,7 +95,8 @@ class T_RespuestaController extends Controller
             "email_user" => $email_user,
             "email_asignador" => $email_asignador,
             "estado" => "Pendiente",
-            "fecha_asignado" => now()
+            "fecha_asignado" => now(),
+            "id_carpeta" => $validatedData['id_carpeta'] ?? null
         ]);
 
         return $this->successResponse(

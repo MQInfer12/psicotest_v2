@@ -4,7 +4,7 @@ import { useNavigate, useSearch } from "@tanstack/react-router";
 import { useEffect } from "react";
 
 const SharePage = () => {
-  const { test, allocator } = useSearch({
+  const { test, allocator, folder } = useSearch({
     from: "/_private/tests/share",
   });
 
@@ -17,6 +17,7 @@ const SharePage = () => {
       {
         id_test: test,
         email_asignador: allocator,
+        id_carpeta: folder,
       },
       {
         onSuccess(res) {

@@ -30,6 +30,11 @@ class T_Respuesta extends Model
         return $this->belongsTo(U_user::class, 'email_user');
     }
 
+    public function carpeta()
+    {
+        return $this->belongsTo(T_Carpeta::class, 'id_carpeta');
+    }
+
     public function test_version()
     {
         return $this->belongsTo(T_TestVersion::class, 'id_test_version');

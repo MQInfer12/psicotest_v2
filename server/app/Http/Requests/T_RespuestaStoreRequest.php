@@ -16,6 +16,7 @@ class T_RespuestaStoreRequest extends FormRequest
         return [
             'id_test' => 'required|integer|exists:t_tests,id',
             'email_asignador' => 'required|email|string|exists:u_users,email',
+            'id_carpeta' => 'nullable|integer|exists:t_carpetas,id'
         ];
     }
 
@@ -26,7 +27,8 @@ class T_RespuestaStoreRequest extends FormRequest
             'email_asignador.email' => 'El formato del correo es inválido.',
             'email_asignador.exists' => 'No se encontró el asignador',
             'id_test.required' => 'El id del test es requerido.',
-            'id_test.exists' => 'No se encontró el test'
+            'id_test.exists' => 'No se encontró el test',
+            'id_carpeta.exists' => 'No se encontró la carpeta'
         ];
     }
 }

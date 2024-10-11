@@ -4,6 +4,7 @@ import IconBell from "./tabler/iconBell";
 import IconBrain from "./tabler/iconBrain";
 import IconCake from "./tabler/iconCake";
 import IconCalendar from "./tabler/iconCalendar";
+import IconCancel from "./tabler/iconCancel";
 import IconCaret from "./tabler/iconCaret";
 import IconChat from "./tabler/iconChat";
 import IconCheck from "./tabler/iconCheck";
@@ -29,6 +30,7 @@ import IconSad from "./tabler/iconSad";
 import IconSchool from "./tabler/iconSchool";
 import IconStarred from "./tabler/iconStarred";
 import IconSwipe from "./tabler/iconSwipe";
+import IconTemplate from "./tabler/iconTemplate";
 import IconTrash from "./tabler/iconTrash";
 import IconUser from "./tabler/iconUser";
 import IconUsers from "./tabler/iconUsers";
@@ -80,6 +82,8 @@ export enum ICON {
   FOLDER = "folder",
   FOLDER_OPEN = "folder_open",
   FOLDER_ADD = "folder_add",
+  TEMPLATE = "template",
+  CANCEL = "cancel",
 }
 
 interface Props {
@@ -133,6 +137,8 @@ const Icon = ({ type }: Props) => {
     [ICON.FOLDER]: <IconFolder />,
     [ICON.FOLDER_OPEN]: <IconFolder type="open" />,
     [ICON.FOLDER_ADD]: <IconFolder type="add" />,
+    [ICON.TEMPLATE]: <IconTemplate />,
+    [ICON.CANCEL]: <IconCancel />,
   };
   return icons[type];
 };

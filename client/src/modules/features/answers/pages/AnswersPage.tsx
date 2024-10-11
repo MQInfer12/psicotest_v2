@@ -1,8 +1,8 @@
 import Table from "@/modules/core/components/ui/table/Table";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { createColumnHelper } from "@tanstack/react-table";
 import Icon from "@/modules/core/components/icons/Icon";
-import { useNavigate } from "@tanstack/react-router";
+import { useNavigate, useSearch } from "@tanstack/react-router";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import { T_Tests_Respuestas } from "../../tests/api/responses";
 import clsx from "clsx";
@@ -12,15 +12,60 @@ import DefaultPhoto from "@/assets/images/defaultPhoto.jpg";
 import { useMeasureContext } from "../../_layout/context/MeasureContext";
 import FolderList from "../../folders/components/FolderList";
 import { useDebounce } from "@/modules/core/hooks/useDebounce";
+import { LOCAL_ANSWERS_SEARCH } from "@/modules/core/constants/LOCALS";
+import AnswersHeader from "../components/AnswersHeader";
+import {
+  AnswersHeaderContextProvider,
+  AnswersTableFilters,
+  SelectedTests,
+} from "../context/AnswersHeaderContext";
+import { COLORS } from "@/modules/core/constants/COLORS";
+import AnswersInterpretation from "../components/AnswersInterpretation";
+import { IA_Plantilla } from "../../templates/api/responses";
 
 const columnHelper = createColumnHelper<T_Tests_Respuestas>();
 
 const AnswersPage = () => {
-  const [selectedFolders, setSelectedFolders] = useState<number[]>([]);
+  const navigate = useNavigate();
+  const [filters, setFilters] = useState<AnswersTableFilters>({
+    type: "nombre",
+    value: "",
+  });
+
+  const search = useSearch({
+    from: "/_private/answers/",
+  });
+  const { folders } = search;
+  const setFolders = (param: number[] | ((prev: number[]) => number[])) => {
+    let newValue: number[] = [];
+    if (typeof param === "function") {
+      newValue = param(folders);
+    } else {
+      newValue = param;
+    }
+    navigate({ search: (prev) => ({ ...prev, folders: newValue }) });
+  };
+
+  const [startedSelection, setStartedSelection] = useState<IA_Plantilla | null>(
+    null
+  );
+  const [selectedTests, setSelectedTests] = useState<SelectedTests | null>(
+    null
+  );
+  const showInterpretation = !!startedSelection?.id_tests.every((id_test) =>
+    selectedTests?.selecteds.map((s) => s.id_test).includes(id_test)
+  );
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_ANSWERS_SEARCH, JSON.stringify(search));
+    setSelectedTests(null);
+  }, [search]);
+
   const { debouncedValue, isDebouncing } = useDebounce(
-    JSON.stringify(selectedFolders),
+    JSON.stringify(folders),
     {
-      delay: 1200,
+      delay: 1000,
+      valueIsDefault: true,
     }
   );
 
@@ -30,7 +75,6 @@ const AnswersPage = () => {
       folders: debouncedValue ?? "[]",
     },
   });
-  const navigate = useNavigate();
   const [loading, setLoading] = useState<number | null>(null);
   const { PRIVATE_PADDING_INLINE } = useMeasureContext();
 
@@ -74,13 +118,12 @@ const AnswersPage = () => {
             >
               {info.getValue()}
             </motion.strong>
-            <p className="text-[10px] font-medium text-alto-700 overflow-hidden whitespace-nowrap">
-              por:{" "}
-              <span className="font-semibold">
-                {info.row.original.nombre_autor ||
-                  info.row.original.nombre_autor_creador}
-              </span>
-            </p>
+            <div className="text-[10px] font-medium text-alto-700 overflow-hidden whitespace-nowrap flex gap-1">
+              <div className="w-3 aspect-square">
+                <Icon type={Icon.Types.FOLDER} />
+              </div>
+              <p>{info.row.original.nombre_carpeta ?? "Sin clasificación"}</p>
+            </div>
           </div>
         ),
         meta: {
@@ -90,24 +133,42 @@ const AnswersPage = () => {
       columnHelper.accessor("estado", {
         header: "Estado",
         cell: (info) => (
-          <small
-            className={clsx("px-2 py-[2px] text-xs font-semibold rounded-md", {
-              "bg-success/10 text-success":
-                info.getValue() === RespuestaEstado.ENVIADO,
-              "bg-alto-600/10 text-alto-600":
-                info.getValue() === RespuestaEstado.PENDIENTE,
-            })}
-          >
-            {info.getValue()}
-          </small>
+          <div className="flex w-full justify-center">
+            <small
+              className={clsx(
+                "px-2 py-[2px] text-xs font-semibold rounded-md",
+                {
+                  "bg-success/10 text-success":
+                    info.getValue() === RespuestaEstado.ENVIADO,
+                  "bg-alto-600/10 text-alto-600":
+                    info.getValue() === RespuestaEstado.PENDIENTE,
+                }
+              )}
+            >
+              {info.getValue()}
+            </small>
+          </div>
         ),
         meta: {
-          width: 200,
+          width: 120,
         },
       }),
     ],
     []
   );
+
+  const getFilteredData = () => {
+    return data?.filter((v) => {
+      const value = filters.value.trim().toLocaleLowerCase();
+      if (value === "") return true;
+      if (filters.type === "nombre")
+        return v.nombre_user?.toLocaleLowerCase().includes(value);
+      if (filters.type === "test")
+        return v.nombre_test?.toLocaleLowerCase().includes(value);
+    });
+  };
+
+  const filteredData = getFilteredData();
 
   return (
     <div
@@ -117,33 +178,132 @@ const AnswersPage = () => {
       className="flex pb-10 flex-1 overflow-hidden gap-8"
     >
       <FolderList
-        selectedFolders={selectedFolders}
-        setSelectedFolders={setSelectedFolders}
+        selectedFolders={folders}
+        setSelectedFolders={setFolders}
         loading={isDebouncing || isLoading}
       />
-      <Table
-        data={data}
-        columns={columns}
-        actions={[
-          {
-            fn: (row) => {
-              setLoading(row.id_respuesta);
-              navigate({
-                to: "/answers/$id",
-                params: {
-                  id: String(row.id_respuesta),
+      <div className="flex-1 rounded-lg overflow-hidden shadow-lg flex flex-col">
+        <AnswersHeaderContextProvider
+          totalRows={filteredData?.length ?? 0}
+          filters={filters}
+          setFilters={setFilters}
+          selectedTests={selectedTests}
+          setSelectedTests={setSelectedTests}
+          startedSelection={startedSelection}
+          setStartedSelection={setStartedSelection}
+          disableFilters={showInterpretation}
+        >
+          <AnswersHeader />
+          {showInterpretation ? (
+            <AnswersInterpretation />
+          ) : (
+            <Table
+              data={filteredData}
+              columns={columns}
+              actions={[
+                {
+                  fn: (row) => {
+                    setLoading(row.id_respuesta);
+                    navigate({
+                      to: "/answers/$id",
+                      params: {
+                        id: String(row.id_respuesta),
+                      },
+                    });
+                  },
+                  icon: Icon.Types.BRAIN,
+                  title: "Ver respuesta",
+                  disabled: (row) =>
+                    !!startedSelection ||
+                    row.estado === RespuestaEstado.PENDIENTE,
                 },
-              });
-            },
-            icon: Icon.Types.BRAIN,
-            title: "Ver respuesta",
-            disabled: (row) => row.estado === RespuestaEstado.PENDIENTE,
-          },
-        ]}
-        loadingRow={(row) => row.id_respuesta === loading}
-        shadow
-        smallEmptyMessage="Selecciona una carpeta para mostrar las respuestas"
-      />
+              ]}
+              loadingRow={(row) => row.id_respuesta === loading}
+              rounded={false}
+              smallEmptyMessage={
+                folders.length === 0
+                  ? "Selecciona una carpeta para mostrar las respuestas"
+                  : undefined
+              }
+              rowStyle={
+                startedSelection
+                  ? (row) => ({
+                      opacity:
+                        selectedTests &&
+                        row.email_user !== selectedTests?.user.email
+                          ? 0.1
+                          : undefined,
+                      backgroundColor: selectedTests?.selecteds
+                        .map((s) => s.id_respuesta)
+                        .includes(row.id_respuesta)
+                        ? COLORS.primary[200]
+                        : COLORS.alto[50],
+                      pointerEvents:
+                        selectedTests &&
+                        row.email_user !== selectedTests?.user.email
+                          ? "none"
+                          : undefined,
+                    })
+                  : undefined
+              }
+              onClickRow={
+                startedSelection
+                  ? {
+                      fn: (row) => {
+                        setSelectedTests((prev) => {
+                          if (!prev) {
+                            return {
+                              user: {
+                                email: row.email_user,
+                                nombre: row.nombre_user,
+                              },
+                              selecteds: [
+                                {
+                                  id_respuesta: row.id_respuesta,
+                                  id_test: row.id,
+                                  nombre_test: row.nombre_test,
+                                },
+                              ],
+                            };
+                          }
+                          const exists = prev.selecteds
+                            .map((s) => s.id_respuesta)
+                            .includes(row.id_respuesta);
+                          if (!exists) {
+                            return {
+                              ...prev,
+                              selecteds: [
+                                ...prev.selecteds,
+                                {
+                                  id_respuesta: row.id_respuesta,
+                                  id_test: row.id,
+                                  nombre_test: row.nombre_test,
+                                },
+                              ],
+                            };
+                          }
+                          if (prev.selecteds.length - 1 === 0) {
+                            return null;
+                          }
+                          return {
+                            ...prev,
+                            selecteds: prev.selecteds.filter(
+                              (selected) =>
+                                selected.id_respuesta !== row.id_respuesta
+                            ),
+                          };
+                        });
+                      },
+                      disabled: (row) =>
+                        !!selectedTests &&
+                        row.email_user !== selectedTests?.user.email,
+                    }
+                  : undefined
+              }
+            />
+          )}
+        </AnswersHeaderContextProvider>
+      </div>
     </div>
   );
 };

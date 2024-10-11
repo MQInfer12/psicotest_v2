@@ -14,10 +14,11 @@ export interface T_Tests_Respuestas {
   id: number;
   id_respuesta: number;
   nombre_asignador: string;
-  nombre_user: string | null;
-  email_user: string | null;
-  foto_user: string | null;
+  nombre_user: string;
+  email_user: string;
+  foto_user: string;
   nombre_test: string;
+  nombre_carpeta: string | null;
   nombre_autor: string | null;
   nombre_autor_creador: string | null;
   canvas: string;

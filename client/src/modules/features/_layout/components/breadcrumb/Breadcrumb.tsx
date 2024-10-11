@@ -1,16 +1,14 @@
-import { Link, useLocation } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import clsx from "clsx";
 import { Fragment } from "react/jsx-runtime";
-import { getActiveBreadcrumb } from "./utils/getActiveBreadcrumb";
-import { BREADCRUMB } from "./constants/BREADCRUMB";
 import { useEffect } from "react";
+import { useBreadcrumb } from "./hooks/useBreadcrumb";
 
 const Breadcrumb = () => {
-  const { pathname } = useLocation();
-  const activeBreadcrumb = getActiveBreadcrumb(pathname);
+  const activeBreadcrumb = useBreadcrumb();
 
   useEffect(() => {
-    document.title = `Psicotest | ${activeBreadcrumb?.name}`;
+    document.title = `Psicotest | ${activeBreadcrumb[activeBreadcrumb.length - 1].name}`;
     return () => {
       document.title = "Psicotest";
     };
@@ -21,8 +19,8 @@ const Breadcrumb = () => {
   }
   return (
     <p className="text-sm text-alto-700 flex gap-2 max-sm:text-xs whitespace-nowrap overflow-auto no-scrollbar">
-      {activeBreadcrumb?.breadcrumb.map((a, i) => (
-        <Fragment key={a}>
+      {activeBreadcrumb.map((a, i) => (
+        <Fragment key={a.path}>
           {i > 0 && <span className="text-alto-400"> / </span>}
           <Link
             className={clsx(
@@ -30,13 +28,12 @@ const Breadcrumb = () => {
               "after:scale-x-0 after:origin-left after:transition-all after:duration-300",
               "hover:after:scale-x-100",
               {
-                "text-primary-900/70":
-                  i === activeBreadcrumb.breadcrumb.length - 1,
+                "text-primary-900/70": i === activeBreadcrumb.length - 1,
               }
             )}
-            to={a}
+            to={a.path}
           >
-            {BREADCRUMB.find((b) => b.match === a)?.name || ""}
+            {a.name}
           </Link>
         </Fragment>
       ))}
