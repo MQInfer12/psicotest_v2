@@ -15,7 +15,7 @@ class U_userResource extends JsonResource
             'genero' => $this->genero,
             'fecha_nacimiento' => $this->fecha_nacimiento,
             'estado' => $this->estado,
-            'permisos' => $this->rol->permisos->pluck('descripcion'),
+            'permisos' => $this->rol->permisos,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
