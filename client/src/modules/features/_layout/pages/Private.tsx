@@ -1,4 +1,8 @@
-import { useUserContext } from "../../auth/context/UserContext";
+import Icon, { ICON } from "@/modules/core/components/icons/Icon";
+import Loader from "@/modules/core/components/ui/loader/Loader";
+import { useModal } from "@/modules/core/components/ui/modal/useModal";
+import useFetch from "@/modules/core/hooks/useFetch/useFetch";
+import { buildUrlParams } from "@/modules/core/utils/buildUrlParams";
 import { toastConfirm, toastSuccess } from "@/modules/core/utils/toasts";
 import {
   Link,
@@ -7,20 +11,19 @@ import {
   useLocation,
   useRouter,
 } from "@tanstack/react-router";
-import { PRIVATE_ASIDE_WIDTH } from "../constants/LAYOUT_SIZES";
-import Icon, { ICON } from "@/modules/core/components/icons/Icon";
-import AsideLink from "../components/AsideLink";
-import { PRIVATE_LINKS } from "../constants/PRIVATE_LINKS";
-import { useRef, useState } from "react";
+import clsx from "clsx";
 import { motion } from "framer-motion";
+import { useRef, useState } from "react";
+import { useUserContext } from "../../auth/context/UserContext";
+import { Permisos } from "../../auth/types/Permisos";
+import AsideLink from "../components/AsideLink";
 import Logo from "../components/Logo";
 import Breadcrumb from "../components/breadcrumb/Breadcrumb";
-import Loader from "@/modules/core/components/ui/loader/Loader";
-import useFetch from "@/modules/core/hooks/useFetch/useFetch";
-import { buildUrlParams } from "@/modules/core/utils/buildUrlParams";
-import clsx from "clsx";
-import { useMeasureContext } from "../context/MeasureContext";
 import { useBreadcrumb } from "../components/breadcrumb/hooks/useBreadcrumb";
+import { PRIVATE_ASIDE_WIDTH } from "../constants/LAYOUT_SIZES";
+import { PRIVATE_LINKS } from "../constants/PRIVATE_LINKS";
+import { useMeasureContext } from "../context/MeasureContext";
+import SettingsForm from "../../settings/components/SettingsForm";
 
 const Dashboard = () => {
   const { pathname, search } = useLocation();
@@ -55,6 +58,8 @@ const Dashboard = () => {
     );
   };
 
+  const { modal: modalSettings, setOpen: setOpenSettings } = useModal();
+
   if (state === "unlogged")
     return (
       <Navigate
@@ -71,6 +76,14 @@ const Dashboard = () => {
 
   return (
     <>
+      {modalSettings(
+        "Configuraciones",
+        <SettingsForm
+          onSuccess={() => {
+            setOpenSettings(false);
+          }}
+        />
+      )}
       <div
         onClick={() => setOpen(false)}
         className={clsx("absolute inset-0 bg-black/20 z-30 md:hidden", {
@@ -117,6 +130,14 @@ const Dashboard = () => {
                 {...link}
               />
             ))}
+            <AsideLink
+              type="button"
+              onClick={() => setOpenSettings(true)}
+              icon={ICON.CONFIG}
+              title="Configuración"
+              showText={open}
+              permisos={[Permisos.CONFIGURAR]}
+            />
             <AsideLink
               type="button"
               onClick={handleLogout}

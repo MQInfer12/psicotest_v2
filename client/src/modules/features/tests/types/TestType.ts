@@ -29,6 +29,7 @@ export interface Seccion {
   //! maxWords should only work in "text" sections
   timer?: number;
   description?: (SeccionTitle | SeccionParagraph)[];
+  customPrompt?: string;
   items: Item[];
   opciones: Opcion[];
 }

@@ -16,10 +16,6 @@
     "content": "Se emplearon las siguientes herramientas y técnicas:"
   },
   {
-    "type": "paragraph",
-    "content": "Se describiría las pruebas tomadas:"
-  },
-  {
     "type": "vignette",
     "title": "Test de Kuder:",
     "content": "Se aplicó el test de Kuder para evaluar los intereses vocacionales del estudiante."
@@ -90,7 +86,7 @@
   },
   {
     "type": "paragraph",
-    "content": "Basado en los intereses y habilidades del estudiante, se recomienda las siguientes carreras o áreas de especialización:"
+    "content": "Basado en los intereses y habilidades del estudiante, se recomienda las siguientes carreras o áreas de especialización: {elige aquellas carreras que se puedan estudiar en la Universidad Franz Tamayo (Unifranz) como ser Ingeniería de sistemas, Diseño gráfico y producción cross-media, Publicidad y marketing, Derecho, Psicología, Bioquímica y farmacia, Odontología, Medicina, Administración de empresas, Ingeniería económica y financiera e Ingeniería comercial}"
   },
   {
     "type": "vignette",

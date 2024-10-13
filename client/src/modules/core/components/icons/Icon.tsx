@@ -12,6 +12,7 @@ import IconChevron from "./tabler/iconChevron";
 import IconCircle from "./tabler/iconCircle";
 import IconClipboard from "./tabler/iconClipboard";
 import IconClock from "./tabler/iconClock";
+import IconConfig from "./tabler/iconConfig";
 import IconDots from "./tabler/iconDots";
 import IconDownload from "./tabler/iconDownload";
 import IconExcel from "./tabler/iconExcel";
@@ -84,6 +85,7 @@ export enum ICON {
   FOLDER_ADD = "folder_add",
   TEMPLATE = "template",
   CANCEL = "cancel",
+  CONFIG = "config",
 }
 
 interface Props {
@@ -139,6 +141,7 @@ const Icon = ({ type }: Props) => {
     [ICON.FOLDER_ADD]: <IconFolder type="add" />,
     [ICON.TEMPLATE]: <IconTemplate />,
     [ICON.CANCEL]: <IconCancel />,
+    [ICON.CONFIG]: <IconConfig />,
   };
   return icons[type];
 };

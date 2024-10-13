@@ -9,4 +9,5 @@ export enum Permisos {
   CREAR_TEST = "Crear test",
   EDITAR_TEST = "Editar test",
   PUEDE_SER_ASIGNADO = "Puede ser asignado",
+  CONFIGURAR = "Configurar"
 }

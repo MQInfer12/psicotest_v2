@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\T_TestIndexForRespuestaRequest;
 use App\Http\Requests\T_TestUpdateDbRequest;
 use App\Http\Resources\T_Test_RespuestaResource;
 use App\Http\Resources\T_TestResource;
@@ -22,6 +23,23 @@ class T_TestController extends Controller
         return $this->successResponse(
             "Tests obtenidos correctamente.",
             T_TestsResource::collection($tests)
+        );
+    }
+
+    public function indexForRespuesta(T_TestIndexForRespuestaRequest $request)
+    {
+        $user = $request->user();
+        $ids = $request->input('ids', []);
+
+        $respuestas = T_Respuesta::whereIn('id', $ids)->get();
+
+        if ($respuestas->contains(fn($respuesta) => $respuesta->email_asignador !== $user->email)) {
+            return $this->wrongResponse('No tienes permisos para acceder a algún recurso');
+        }
+
+        return $this->successResponse(
+            "Respuestas obtenidas correctamente.",
+            T_Test_RespuestaResource::collection($respuestas)
         );
     }
 

@@ -22,7 +22,8 @@ class T_Tests_RepuestaResource extends JsonResource
             'nombre_autor' => $test->autor,
             'nombre_autor_creador' => $test->autor_creador?->nombre,
             'canvas' => $test->canvas,
-            'estado' => $this->estado
+            'estado' => $this->estado,
+            'tiene_interpretacion' => !!$this->interpretacion
         ];
     }
 }

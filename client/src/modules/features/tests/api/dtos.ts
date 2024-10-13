@@ -29,3 +29,10 @@ export interface UpdateTestDbDTO {
 export interface RespuestaPatchInterpretationDTO {
   interpretacion: string;
 }
+
+export interface RespuestaPatchInterpretationsDTO {
+  interpretaciones: {
+    id: number;
+    interpretacion: string;
+  }[];
+}

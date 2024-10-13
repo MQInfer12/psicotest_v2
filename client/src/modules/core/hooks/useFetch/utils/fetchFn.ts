@@ -3,7 +3,7 @@ import { buildUrl, RequestInitWithParams } from "./buildUrl";
 import { API_URL } from "@/modules/core/constants/ENVIRONMENT";
 import { TOKEN_NAME } from "@/modules/core/constants/CONSTANTS";
 import { handleResponse } from "./handleResponse";
-import { queryOptions } from "@tanstack/react-query";
+import { QueryOptions, queryOptions } from "@tanstack/react-query";
 import { getUrlData } from "./getUrlData";
 
 //* FETCH DATA FN
@@ -39,7 +39,8 @@ export const fetchOptions = <K extends keyof EndpointMap>(
   options: {
     onUnauthorized?: () => void;
     config?: RequestInitWithParams;
-  } = {}
+  } = {},
+  qOptions?: QueryOptions<any>
 ) => {
   const { queryKey } = getUrlData(endpointConfig, options.config);
   return queryOptions({
@@ -47,5 +48,6 @@ export const fetchOptions = <K extends keyof EndpointMap>(
     queryFn: async () =>
       await fetchFn(endpointConfig, options.onUnauthorized, options.config),
     retry: false,
+    ...qOptions,
   });
 };

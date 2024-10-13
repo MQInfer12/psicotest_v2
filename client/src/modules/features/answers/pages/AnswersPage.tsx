@@ -73,7 +73,7 @@ const AnswersPage = () => {
   );
 
   const { fetchData } = useFetch();
-  const { data, isLoading } = fetchData("GET /respuesta/for/table", {
+  const { data, setData, isLoading } = fetchData("GET /respuesta/for/table", {
     params: {
       folders: debouncedValue ?? "[]",
     },
@@ -156,6 +156,27 @@ const AnswersPage = () => {
           width: 120,
         },
       }),
+      columnHelper.accessor("tiene_interpretacion", {
+        header: "Interpretado",
+        cell: (info) => (
+          <div className="flex w-full justify-center">
+            <small
+              className={clsx(
+                "px-2 py-[2px] text-xs font-semibold rounded-md",
+                {
+                  "bg-success/10 text-success": info.getValue(),
+                  "bg-alto-600/10 text-alto-600": !info.getValue(),
+                }
+              )}
+            >
+              {info.getValue() ? "SI" : "NO"}
+            </small>
+          </div>
+        ),
+        meta: {
+          width: 120,
+        },
+      }),
     ],
     []
   );
@@ -195,6 +216,7 @@ const AnswersPage = () => {
           startedSelection={startedSelection}
           setStartedSelection={setStartedSelection}
           disableFilters={showInterpretation}
+          setData={setData}
         >
           <AnswersHeader />
           {showInterpretation ? (
@@ -232,8 +254,9 @@ const AnswersPage = () => {
                 startedSelection
                   ? (row) => ({
                       opacity:
-                        selectedTests &&
-                        row.email_user !== selectedTests?.user.email
+                        (selectedTests &&
+                          row.email_user !== selectedTests?.user.email) ||
+                        !startedSelection.id_tests.includes(row.id)
                           ? 0.1
                           : undefined,
                       backgroundColor: selectedTests?.selecteds
@@ -242,8 +265,9 @@ const AnswersPage = () => {
                         ? COLORS.primary[200]
                         : COLORS.alto[50],
                       pointerEvents:
-                        selectedTests &&
-                        row.email_user !== selectedTests?.user.email
+                        (selectedTests &&
+                          row.email_user !== selectedTests?.user.email) ||
+                        !startedSelection.id_tests.includes(row.id)
                           ? "none"
                           : undefined,
                     })
@@ -298,8 +322,9 @@ const AnswersPage = () => {
                         });
                       },
                       disabled: (row) =>
-                        !!selectedTests &&
-                        row.email_user !== selectedTests?.user.email,
+                        (!!selectedTests &&
+                          row.email_user !== selectedTests?.user.email) ||
+                        !startedSelection.id_tests.includes(row.id),
                     }
                   : undefined
               }

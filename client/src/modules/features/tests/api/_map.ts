@@ -1,6 +1,7 @@
 import {
   RespuestaDTO,
   RespuestaPatchInterpretationDTO,
+  RespuestaPatchInterpretationsDTO,
   SendTestDTO,
   UpdateTestDbDTO,
 } from "./dtos";
@@ -39,6 +40,11 @@ declare global {
       request: never;
       response: T_Test_Respuesta;
     };
+    "GET /test/for/respuesta": {
+      params: never;
+      request: null;
+      response: T_Test_Respuesta[];
+    };
     "POST /respuesta": {
       params: never;
       request: RespuestaDTO;
@@ -72,6 +78,11 @@ declare global {
       };
       request: RespuestaPatchInterpretationDTO;
       response: T_Test_Respuesta;
+    };
+    "PATCH /respuesta/patch/interpretations": {
+      params: never;
+      request: RespuestaPatchInterpretationsDTO;
+      response: T_Tests_Respuestas[];
     };
   }
 }

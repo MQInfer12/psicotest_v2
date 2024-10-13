@@ -23,6 +23,7 @@ export interface T_Tests_Respuestas {
   nombre_autor_creador: string | null;
   canvas: string;
   estado: RespuestaEstado;
+  tiene_interpretacion: boolean;
 }
 
 export interface T_Test {

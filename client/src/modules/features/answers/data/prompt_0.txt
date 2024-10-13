@@ -1,0 +1,532 @@
+Soy un psicólogo profesional que trabaja con pacientes en una clínica privada. Mi objetivo es evaluar y comprender la salud mental de mis pacientes mediante la aplicación de diversos tests psicológicos.
+Hoy necesito analizar los datos de mi paciente Aitor en distintos tests psicológicos y cruzar información de estos
+Proporciono las preguntas del test #1 llamado KUDER junto con las respuestas de Aitor para que realices el análisis correspondiente:
+
+Sección 1 del test, se le puso las preguntas a Aitor sin ningún tipo de instrucción:
+
+Pregunta 1: Coleccionar diferentes muestras de minerales.
+Respuesta de Aitor: No me gusta
+Pregunta 2: Trabajar en una fábrica como mecánico.
+Respuesta de Aitor: Me desagrada mucho
+Pregunta 3: Determinar el "Cálculo" de precios de nuevos productos.
+Respuesta de Aitor: Me gusta
+Pregunta 4: Seguir un curso de Biología.
+Respuesta de Aitor: Me es indiferente
+Pregunta 5: Ser un experto en propaganda comercial o Publicidad.
+Respuesta de Aitor: Me gusta
+Pregunta 6: Trabajar como Técnico Agrícola en una cooperativa.
+Respuesta de Aitor: Me desagrada mucho
+Pregunta 7: Desarmar un juguete electrónico malogrado e intentar arreglarlo.
+Respuesta de Aitor: Me desagrada mucho
+Pregunta 8: Organizar los cálculos y resultados de una encuesta.
+Respuesta de Aitor: Me desagrada mucho
+Pregunta 9: Investigar las causas de las enfermedades o plagas de las plantas.
+Respuesta de Aitor: Me es indiferente
+Pregunta 10: Ser un Agente de Ventas o Promotor.
+Respuesta de Aitor: Me gusta
+Pregunta 11: Criar ganado vacuno.
+Respuesta de Aitor: Me es indiferente
+Pregunta 12: Reparar aparatos domésticos.
+Respuesta de Aitor: Me desagrada mucho
+Pregunta 13: Hacer operaciones con una máquina calculadora.
+Respuesta de Aitor: Me desagrada mucho
+Pregunta 14: Investigar una nueva información de un hecho histórico famoso.
+Respuesta de Aitor: No me gusta
+Pregunta 15: Dirigir campañas por la defensa de los Derechos Humanos.
+Respuesta de Aitor: Me es indiferente
+Pregunta 16: Estudiar las costumbres de la población de otros países.
+Respuesta de Aitor: Me es indiferente
+Pregunta 17: Ser Ingeniero Mecánico o Electrónico.
+Respuesta de Aitor: No me gusta
+Pregunta 18: Llevar libros de Contabilidad de un negocio.
+Respuesta de Aitor: No me gusta
+Pregunta 19: Hacer el análisis clínico de un producto farmacéutico.
+Respuesta de Aitor: No me gusta
+Pregunta 20: Encargarme de resolver problemas de personal de una empresa.
+Respuesta de Aitor: Me es indiferente
+Pregunta 21: Trabajar en la pesca en alta mar.
+Respuesta de Aitor: Me es indiferente
+Pregunta 22: Visitar un taller de reparaciones de aviones.
+Respuesta de Aitor: Me gusta
+Pregunta 23: Ser un profesor de Matemáticas.
+Respuesta de Aitor: [no respondió]
+Pregunta 24: Trabajar en el perfeccionamiento de un nuevo metal.
+Respuesta de Aitor: No me gusta
+Pregunta 25: Supervisar las ventas en un Centro Comercial.
+Respuesta de Aitor: No me gusta
+Pregunta 26: Supervisar el trabajo de los obreros en una plantación de caña.
+Respuesta de Aitor: Me desagrada mucho
+Pregunta 27: Reparar o retocar los muebles gastados.
+Respuesta de Aitor: Me desagrada mucho
+Pregunta 28: Realizar trabajos que requieran operaciones aritméticas mentales.
+Respuesta de Aitor: Me gusta
+Pregunta 29: Investigar las causas de las enfermedades mentales.
+Respuesta de Aitor: Me gusta
+Pregunta 30: Exponer en un auditorio sobre "El Arte de Convencer a la Gente".
+Respuesta de Aitor: No me gusta
+Pregunta 31: Seguir un curso de Dibujo Lineal.
+Respuesta de Aitor: Me gusta
+Pregunta 32: Enseñar castellano.
+Respuesta de Aitor: Me desagrada mucho
+Pregunta 33: Ser Pianista.
+Respuesta de Aitor: Me gusta mucho
+Pregunta 34: Trabajar con enfermeros o personas necesitadas.
+Respuesta de Aitor: Me es indiferente
+Pregunta 35: Pagar los cheques al público en un Banco.
+Respuesta de Aitor: No me gusta
+Pregunta 36: Ser un experto en fotografía.
+Respuesta de Aitor: Me gusta
+Pregunta 37: Escribir novelas.
+Respuesta de Aitor: Me es indiferente
+Pregunta 38: Escribir una comedia musical.
+Respuesta de Aitor: Me es indiferente
+Pregunta 39: Colaborar en un centro de recreación.
+Respuesta de Aitor: Me desagrada mucho
+Pregunta 40: Recibir las llamadas telefónicas en una oficina.
+Respuesta de Aitor: [no respondió]
+Pregunta 41: Dibujar o pintar una escena importante.
+Respuesta de Aitor: No me gusta
+Pregunta 42: Escribir artículos o editoriales para un periódico.
+Respuesta de Aitor: Me es indiferente
+Pregunta 43: Ser comentarista de Música en la radio o TV.
+Respuesta de Aitor: Me gusta
+Pregunta 44: Orientar a la gente joven en la elección de una ocupación.
+Respuesta de Aitor: Me gusta
+Pregunta 45: Clasificar los documentos en una oficina.
+Respuesta de Aitor: Me desagrada mucho
+Pregunta 46: Ser profesor de Arquitectura.
+Respuesta de Aitor: Me desagrada mucho
+Pregunta 47: Estudiar Composición Literaria.
+Respuesta de Aitor: Me desagrada mucho
+Pregunta 48: Trabajar en un establecimiento de discos o instrumentos musicales.
+Respuesta de Aitor: Me es indiferente
+Pregunta 49: Trabajar en un albergue para niños huérfanos.
+Respuesta de Aitor: Me desagrada mucho
+Pregunta 50: Corregir los errores mecanográficos de un informe.
+Respuesta de Aitor: No me gusta
+Pregunta 51: Hacer una escultura de una persona famosa.
+Respuesta de Aitor: Me desagrada mucho
+Pregunta 52: Ser periodista.
+Respuesta de Aitor: Me desagrada mucho
+Pregunta 53: Ser profesor de música.
+Respuesta de Aitor: Me es indiferente
+Pregunta 54: Ayudar en una Enfermería.
+Respuesta de Aitor: No me gusta
+Pregunta 55: Seguir un curso de Redacción Comercial.
+Respuesta de Aitor: Me es indiferente
+Pregunta 56: Diseñar y decorar nuevos ambientes.
+Respuesta de Aitor: Me gusta
+Pregunta 57: Ser escritor.
+Respuesta de Aitor: Me es indiferente
+Pregunta 58: Ser director de una orquesta.
+Respuesta de Aitor: Me gusta
+Pregunta 59: Ser Trabajador Social o Asistente Social.
+Respuesta de Aitor: Me es indiferente
+Pregunta 60: Ser secretario(a) de una institución.
+Respuesta de Aitor: [no respondió]
+
+Proporciono las preguntas del test #2 llamado PMA junto con las respuestas de Aitor para que realices el análisis correspondiente:
+
+Instrucciones que se le dieron a Aitor para la sección 1 del test:
+Introducción
+A continuación vas a responder a una serie de cinco pruebas. El objeto de estas pruebas es ver cómo resuelves diferentes problemas. Cada una de las cinco clases de problemas es importante, procura hacerlo lo mejor posible.
+Factor V
+La palabra de la pregunta es GRUESO, para esta se presentarán 4 opciones.
+Enfermo, Gordo, Bajo, Agrio.
+Una de estas palabras significa lo mismo que GRUESO la cual esa sería la respuesta correcta, en este caso 'Gordo', asegúrate de entender bien antes de continuar con la prueba.
+Trabaja con prisa pero procura no equivocarte, tendrás CUATRO MINUTOS para esta prueba, si no terminas no te preocupes, es lo corriente.
+
+Pregunta 1: HÚMEDO<op1>Corto</op1><op2>Huraño</op2><op3>Mojado</op3><op4>Moderado</op4>
+Respuesta de Aitor: A
+Pregunta 2: RÁPIDO<op1>Mayor</op1><op2>Ligero</op2><op3>Estrecho</op3><op4>Pronto</op4>
+Respuesta de Aitor: B
+Pregunta 3: DIARIO<op1>Variable</op1><op2>Cotidiano</op2><op3>Indiferente</op3><op4>Insoportable</op4>
+Respuesta de Aitor: C
+Pregunta 4: ESPLÉNDIDO<op1>Expansivo</op1><op2>Alegre</op2><op3>Rígido</op3><op4>Astuto</op4>
+Respuesta de Aitor: [no respondió]
+Pregunta 5: HABITUAL<op1>Nocturno</op1><op2>Circular</op2><op3>Repetido</op3><op4>Fijo</op4>
+Respuesta de Aitor: C
+Pregunta 6: FLUIDO<op1>Lúcido</op1><op2>Muerto</op2><op3>Ligero</op3><op4>Firme</op4>
+Respuesta de Aitor: [no respondió]
+Pregunta 7: HOLGAZÁN<op1>Gandul</op1><op2>Travieso</op2><op3>Inclinado</op3><op4>Laborioso</op4>
+Respuesta de Aitor: B
+Pregunta 8: DESAMPARADO<op1>Grave</op1><op2>Absurdo</op2><op3>Jubiloso</op3><op4>Infeliz</op4>
+Respuesta de Aitor: B
+Pregunta 9: RARO<op1>Santo</op1><op2>Tosco</op2><op3>Escaso</op3><op4>Deforme</op4>
+Respuesta de Aitor: [no respondió]
+Pregunta 10: CONTENTO<op1>Festivo</op1><op2>Continuo</op2><op3>Doloroso</op3><op4>Apático</op4>
+Respuesta de Aitor: C
+Pregunta 11: ENOJADO<op1>Risueño</op1><op2>Pobre</op2><op3>Enfático</op3><op4>Desventurado</op4>
+Respuesta de Aitor: [no respondió]
+Pregunta 12: BENEFICIOSO<op1>Artificial</op1><op2>Domesticale</op2><op3>Curativo</op3><op4>Defamatorio</op4>
+Respuesta de Aitor: B
+Pregunta 13: MOHOSO<op1>Tónico</op1><op2>Hermumbroso</op2><op3>Uniforme</op3><op4>Infecto</op4>
+Respuesta de Aitor: C
+Pregunta 14: TERAPÉUTICO<op1>Diagramático</op1><op2>Amorfo</op2><op3>Cinestésico</op3><op4>Aseado</op4>
+Respuesta de Aitor: [no respondió]
+Pregunta 15: TOSCO<op1>Sucio</op1><op2>Deshonroso</op2><op3>Prolífico</op3><op4>Ordinario</op4>
+Respuesta de Aitor: C
+Pregunta 16: SOBRIO<op1>Diminuto</op1><op2>Moral</op2><op3>Contemporáneo</op3><op4>Impávido</op4>
+Respuesta de Aitor: D
+Pregunta 17: FESTIVO<op1>Atrevido</op1><op2>Alegre</op2><op3>Delicado</op3><op4>Humillado</op4>
+Respuesta de Aitor: A
+Pregunta 18: AUGUSTO<op1>Majestuoso</op1><op2>Forense</op2><op3>Hortícola</op3><op4>Inspirado</op4>
+Respuesta de Aitor: [no respondió]
+Pregunta 19: DIFAMANTE<op1>Deshonroso</op1><op2>Rígido</op2><op3>Digestivo</op3><op4>Cortés</op4>
+Respuesta de Aitor: [no respondió]
+Pregunta 20: EDUCADO<op1>Rico</op1><op2>Abundado</op2><op3>Honorable</op3><op4>Asilado</op4>
+Respuesta de Aitor: [no respondió]
+Pregunta 21: NOVEL<op1>Costoso</op1><op2>Nuevo</op2><op3>Resignado</op3><op4>Total</op4>
+Respuesta de Aitor: [no respondió]
+Pregunta 22: FAMOSO<op1>Célebre</op1><op2>Leal</op2><op3>Renovado</op3><op4>Real</op4>
+Respuesta de Aitor: [no respondió]
+Pregunta 23: SISTEMÁTICO<op1>Laudatorio</op1><op2>Ordenado</op2><op3>Jubiloso</op3><op4>Anillado</op4>
+Respuesta de Aitor: [no respondió]
+Pregunta 24: FATIGADO<op1>Dócil</op1><op2>Grave</op2><op3>Casual</op3><op4>Emotivo</op4>
+Respuesta de Aitor: [no respondió]
+Pregunta 25: RESPLANDECIENTE<op1>Fonético</op1><op2>Acerbo</op2><op3>Bilateral</op3><op4>Tangible</op4>
+Respuesta de Aitor: [no respondió]
+Pregunta 26: GENEROSO<op1>Olvidadizo</op1><op2>Ardiente</op2><op3>Liberal</op3><op4>Soflamable</op4>
+Respuesta de Aitor: A
+Pregunta 27: REGIO<op1>Blando</op1><op2>Facial</op2><op3>Recto</op3><op4>Infranqueable</op4>
+Respuesta de Aitor: C
+Pregunta 28: FLEXIBLE<op1>Lastimoso</op1><op2>Formal</op2><op3>Plegable</op3><op4>Pacífico</op4>
+Respuesta de Aitor: B
+Pregunta 29: SAGAZ<op1>Exótico</op1><op2>Aparte</op2><op3>Difamante</op3><op4>Astuto</op4>
+Respuesta de Aitor: [no respondió]
+Pregunta 30: IRREFLEXIVO<op1>Paciente</op1><op2>Preferible</op2><op3>Paralelo</op3><op4>Valioso</op4>
+Respuesta de Aitor: [no respondió]
+Pregunta 31: DEFICIENTE<op1>Constante</op1><op2>Triste</op2><op3>Valoroso</op3><op4>Naciente</op4>
+Respuesta de Aitor: [no respondió]
+Pregunta 32: VIGILANTE<op1>Alerta</op1><op2>Indulgente</op2><op3>Tranquilo</op3><op4>Naciente</op4>
+Respuesta de Aitor: [no respondió]
+Pregunta 33: MÍNIMO<op1>Húmedo</op1><op2>Restringido</op2><op3>Amplio</op3><op4>Foráneo</op4>
+Respuesta de Aitor: [no respondió]
+Pregunta 34: GALANTE<op1>Caballeroso</op1><op2>Artificial</op2><op3>Ferviente</op3><op4>Robusto</op4>
+Respuesta de Aitor: [no respondió]
+Pregunta 35: ALOCADO<op1>Femenino</op1><op2>Casual</op2><op3>Colérico</op3><op4>Inspirado</op4>
+Respuesta de Aitor: [no respondió]
+Pregunta 36: DISCRETO<op1>Cauteloso</op1><op2>Fragante</op2><op3>Honorable</op3><op4>Aromático</op4>
+Respuesta de Aitor: [no respondió]
+Pregunta 37: PREDESTINADO<op1>Simplificado</op1><op2>Selectivo</op2><op3>Directivo</op3><op4>Certero</op4>
+Respuesta de Aitor: [no respondió]
+Pregunta 38: PATERNO<op1>Importante</op1><op2>Benigno</op2><op3>Impresivo</op3><op4>Directivo</op4>
+Respuesta de Aitor: B
+Pregunta 39: PRÓDIGIO<op1>Compuesto</op1><op2>Famoso</op2><op3>Imperfecto</op3><op4>Externo</op4>
+Respuesta de Aitor: [no respondió]
+Pregunta 40: DEFECTUOSO<op1>Nato</op1><op2>Mítico</op2><op3>Imperfecto</op3><op4>Extremo</op4>
+Respuesta de Aitor: C
+Pregunta 41: VAGO<op1>Oscuro</op1><op2>Medicinal</op2><op3>Dependiente</op3><op4>Leve</op4>
+Respuesta de Aitor: [no respondió]
+Pregunta 42: ESENCIAL<op1>Clásico</op1><op2>Indispensable</op2><op3>Completo</op3><op4>Limitado</op4>
+Respuesta de Aitor: B
+Pregunta 43: SIMPLE<op1>Retórico</op1><op2>Insuficiente</op2><op3>Claro</op3><op4>Estático</op4>
+Respuesta de Aitor: A
+Pregunta 44: IMPULSIVO<op1>Fletado</op1><op2>Nervioso</op2><op3>Valoroso</op3><op4>Meditado</op4>
+Respuesta de Aitor: C
+Pregunta 45: APOCADO<op1>Inflectido</op1><op2>Trémulo</op2><op3>Triste</op3><op4>Alborozado</op4>
+Respuesta de Aitor: [no respondió]
+Pregunta 46: ENÉRGICO<op1>Solemne</op1><op2>Falso</op2><op3>Adundante</op3><op4>Acobardado</op4>
+Respuesta de Aitor: [no respondió]
+Pregunta 47: LIBRE<op1>Abierto</op1><op2>Móvil</op2><op3>Adecuado</op3><op4>Obligatorio</op4>
+Respuesta de Aitor: C
+Pregunta 48: LEAL<op1>Famoso</op1><op2>Mortal</op2><op3>Franco</op3><op4>Abigarrado</op4>
+Respuesta de Aitor: B
+Pregunta 49: LACERADO<op1>Ajustado</op1><op2>Envidioso</op2><op3>Claro</op3><op4>Descosido</op4>
+Respuesta de Aitor: B
+Pregunta 50: ABSURDO<op1>Estupendo</op1><op2>Envidioso</op2><op3>Claro</op3><op4>Acelerado</op4>
+Respuesta de Aitor: D
+
+Instrucciones que se le dieron a Aitor para la sección 2 del test:
+Factor E
+A continuación se te presentará una figura de referencia, todas las figuras restantes (A - F) son EXACTAMENTE IGUALES a la primera, pero han sido colocadas en diferentes posiciones aunque algunas están al revés.
+Tu objetivo será seleccionar las figuras que sean semejantes a la de referencia (puedes marcar varias opciones) y no las que estén volteadas.
+En esta parte de la prueba se desactivó el avance automático para que puedas seleccionar varias figuras con calma, cuando quieras continuar a la siguiente figura haz click en 'Siguiente'.
+Cuando lo tengas claro haz click en 'Continuar', trabaja con prisa pero procurando no equivocarte, tendrás CINCO MINUTOS para esta prueba, si no terminas no te preocupes, es lo corriente.
+
+Pregunta 1: /pma/seccion2/51.png
+Respuesta de Aitor: [no respondió]
+Pregunta 2: /pma/seccion2/52.png
+Respuesta de Aitor: [no respondió]
+Pregunta 3: /pma/seccion2/53.png
+Respuesta de Aitor: [no respondió]
+Pregunta 4: /pma/seccion2/54.png
+Respuesta de Aitor: [no respondió]
+Pregunta 5: /pma/seccion2/55.png
+Respuesta de Aitor: [no respondió]
+Pregunta 6: /pma/seccion2/56.png
+Respuesta de Aitor: [no respondió]
+Pregunta 7: /pma/seccion2/57.png
+Respuesta de Aitor: [no respondió]
+Pregunta 8: /pma/seccion2/58.png
+Respuesta de Aitor: [no respondió]
+Pregunta 9: /pma/seccion2/59.png
+Respuesta de Aitor: [no respondió]
+Pregunta 10: /pma/seccion2/60.png
+Respuesta de Aitor: [no respondió]
+Pregunta 11: /pma/seccion2/61.png
+Respuesta de Aitor: [no respondió]
+Pregunta 12: /pma/seccion2/62.png
+Respuesta de Aitor: [no respondió]
+Pregunta 13: /pma/seccion2/63.png
+Respuesta de Aitor: [no respondió]
+Pregunta 14: /pma/seccion2/64.png
+Respuesta de Aitor: [no respondió]
+Pregunta 15: /pma/seccion2/65.png
+Respuesta de Aitor: [no respondió]
+Pregunta 16: /pma/seccion2/66.png
+Respuesta de Aitor: [no respondió]
+Pregunta 17: /pma/seccion2/67.png
+Respuesta de Aitor: [no respondió]
+Pregunta 18: /pma/seccion2/68.png
+Respuesta de Aitor: [no respondió]
+Pregunta 19: /pma/seccion2/69.png
+Respuesta de Aitor: [no respondió]
+Pregunta 20: /pma/seccion2/70.png
+Respuesta de Aitor: [no respondió]
+
+Instrucciones que se le dieron a Aitor para la sección 3 del test:
+Factor R
+Ahora resolverás problemas de series formadas por letras del alfabeto, ten en cuenta que no encontrarás letras compuestas como ch, ll, rr.
+Tu objetivo será seleccionar la letra siguiente de la sucesión.
+Toma como ejemplo la siguiente serie: a b a b a b a b, la siguiente letra sería 'a'.
+Fíjate bien cuales son los grupos de letras que se van repitiendo y piensa cuál es la letra que lo continuaría.
+Una vez que lo tengas claro haz click en 'Continuar', hazlo de prisa pero procura no equivocarte, tendrás SEIS MINUTOS para resolver esta prueba pero no te preocupes si no la terminas, es lo corriente.
+
+Pregunta 1: a a b c c d e e f g g<op11>a</op11><op12>b</op12><op13>c</op13><op14>f</op14><op15>g</op15><op16>h</op16>
+Respuesta de Aitor: [no respondió]
+Pregunta 2: a x a y b x b y x c x y d x<op11>d</op11><op12>e</op12><op13>f</op13><op14>x</op14><op15>y</op15><op16>z</op16>
+Respuesta de Aitor: [no respondió]
+Pregunta 3: a b c a b c d e f d e f g h i<op11>g</op11><op12>h</op12><op13>i</op13><op14>j</op14><op15>k</op15><op16>l</op16>
+Respuesta de Aitor: [no respondió]
+Pregunta 4: a b c x y z d e f x y z g h i<op11>j</op11><op12>k</op12><op13>l</op13><op14>x</op14><op15>y</op15><op16>z</op16>
+Respuesta de Aitor: [no respondió]
+Pregunta 5: a b c d a b e a b f<op11>a</op11><op12>b</op12><op13>c</op13><op14>f</op14><op15>g</op15><op16>h</op16>
+Respuesta de Aitor: [no respondió]
+Pregunta 6: x y z a x y z b x y z<op11>x</op11><op12>b</op12><op13>c</op13><op14>d</op14><op15>e</op15><op16>f</op16>
+Respuesta de Aitor: [no respondió]
+Pregunta 7: e f g h c i j j c k l c m n c<op11>c</op11><op12>d</op12><op13>m</op13><op14>n</op14><op15>ñ</op15><op16>o</op16>
+Respuesta de Aitor: [no respondió]
+Pregunta 8: c b a c b a c b a c b a c b<op11>a</op11><op12>b</op12><op13>c</op13><op14>d</op14><op15>e</op15><op16>f</op16>
+Respuesta de Aitor: [no respondió]
+Pregunta 9: a m b c m d e f m g h j l j<op11>h</op11><op12>i</op12><op13>j</op13><op14>k</op14><op15>l</op15><op16>m</op16>
+Respuesta de Aitor: [no respondió]
+Pregunta 10: a a c c e e g g i i<op11>h</op11><op12>i</op12><op13>j</op13><op14>k</op14><op15>l</op15><op16>ñ</op16>
+Respuesta de Aitor: [no respondió]
+Pregunta 11: e f e f c d g h g h c d i j<op11>c</op11><op12>d</op12><op13>i</op13><op14>j</op14><op15>k</op15><op16>l</op16>
+Respuesta de Aitor: [no respondió]
+Pregunta 12: a b b c c d d d e e e<op11>d</op11><op12>e</op12><op13>f</op13><op14>g</op14><op15>h</op15><op16>i</op16>
+Respuesta de Aitor: [no respondió]
+Pregunta 13: a a b c a b c d e f<op11>a</op11><op12>b</op12><op13>c</op13><op14>d</op14><op15>e</op15><op16>f</op16>
+Respuesta de Aitor: [no respondió]
+Pregunta 14: a b c a d e f f g h i j k l<op11>j</op11><op12>k</op12><op13>l</op13><op14>m</op14><op15>n</op15><op16>ñ</op16>
+Respuesta de Aitor: [no respondió]
+Pregunta 15: a b a c d c e f f g h i j<op11>g</op11><op12>h</op12><op13>i</op13><op14>j</op14><op15>k</op15><op16>l</op16>
+Respuesta de Aitor: [no respondió]
+Pregunta 16: a b c ñ o d e f ñ o g h i ñ o<op11>j</op11><op12>k</op12><op13>ñ</op13><op14>o</op14><op15>p</op15><op16>q</op16>
+Respuesta de Aitor: [no respondió]
+Pregunta 17: a b b b c d d d e f f g h h<op11>g</op11><op12>h</op12><op13>i</op13><op14>j</op14><op15>k</op15><op16>l</op16>
+Respuesta de Aitor: [no respondió]
+Pregunta 18: h g f e d c b<op11>a</op11><op12>b</op12><op13>g</op13><op14>c</op14><op15>d</op15><op16>f</op16>
+Respuesta de Aitor: [no respondió]
+Pregunta 19: a c e g i k m<op11>j</op11><op12>k</op12><op13>l</op13><op14>m</op14><op15>n</op15><op16>ñ</op16>
+Respuesta de Aitor: [no respondió]
+Pregunta 20: a x b y c z a x b y c z a x b<op11>a</op11><op12>b</op12><op13>c</op13><op14>x</op14><op15>y</op15><op16>z</op16>
+Respuesta de Aitor: [no respondió]
+Pregunta 21: a b b c d e f f g h<op11>e</op11><op12>f</op12><op13>g</op13><op14>h</op14><op15>i</op15><op16>j</op16>
+Respuesta de Aitor: [no respondió]
+Pregunta 22: f g i j l m ñ o q r t u<op11>s</op11><op12>t</op12><op13>u</op13><op14>v</op14><op15>w</op15><op16>x</op16>
+Respuesta de Aitor: [no respondió]
+Pregunta 23: a b c a d e f d g h i g j k l<op11>i</op11><op12>j</op12><op13>k</op13><op14>l</op14><op15>m</op15><op16>ñ</op16>
+Respuesta de Aitor: [no respondió]
+Pregunta 24: a s b t c u d v e w f x g<op11>f</op11><op12>g</op12><op13>h</op13><op14>x</op14><op15>y</op15><op16>z</op16>
+Respuesta de Aitor: [no respondió]
+Pregunta 25: a a b b c d d e e f g g h<op11>h</op11><op12>i</op12><op13>j</op13><op14>k</op14><op15>l</op15><op16>m</op16>
+Respuesta de Aitor: [no respondió]
+Pregunta 26: a a b a c d e d a o e f<op11>e</op11><op12>f</op12><op13>g</op13><op14>h</op14><op15>i</op15><op16>j</op16>
+Respuesta de Aitor: [no respondió]
+Pregunta 27: a c f h k m o q<op11>p</op11><op12>q</op12><op13>r</op13><op14>s</op14><op15>t</op15><op16>u</op16>
+Respuesta de Aitor: [no respondió]
+Pregunta 28: v v v v v w w w w x x y<op11>q</op11><op12>v</op12><op13>w</op13><op14>x</op14><op15>y</op15><op16>z</op16>
+Respuesta de Aitor: [no respondió]
+Pregunta 29: a b c b a d e f f e g d g h i<op11>h</op11><op12>i</op12><op13>j</op13><op14>k</op14><op15>l</op15><op16>m</op16>
+Respuesta de Aitor: [no respondió]
+Pregunta 30: a a b b c d e f e f g h i i<op11>h</op11><op12>i</op12><op13>j</op13><op14>k</op14><op15>l</op15><op16>p</op16>
+Respuesta de Aitor: [no respondió]
+
+Instrucciones que se le dieron a Aitor para la sección 4 del test:
+Factor N
+A continuación se te presentará una serie de sumas, tu misión será comprobar que la suma esté correcta.
+Toma por ejemplo la suma: 16 + 38 + 45 = 99, en este caso la suma estaría correcta por lo que la opción que tendrías que seleccionar es 'Bien'.
+En esta otra suma: 42 + 61 + 83 = 176, el resultado está incorrecto por lo que se deberá seleccionar la opción 'Mal'.
+Si se entendió correctamente haz click en 'Continuar' para comenzar la prueba, trabaja con prisa pero cuidado de no equivocarte, tendrás SEIS MINUTOS para toda esta prueba, si no terminas no te preocupes, es lo normal.
+
+Pregunta 1: /pma/seccion4/101.png
+Respuesta de Aitor: [no respondió]
+Pregunta 2: /pma/seccion4/102.png
+Respuesta de Aitor: [no respondió]
+Pregunta 3: /pma/seccion4/103.png
+Respuesta de Aitor: [no respondió]
+Pregunta 4: /pma/seccion4/104.png
+Respuesta de Aitor: [no respondió]
+Pregunta 5: /pma/seccion4/105.png
+Respuesta de Aitor: [no respondió]
+Pregunta 6: /pma/seccion4/106.png
+Respuesta de Aitor: [no respondió]
+Pregunta 7: /pma/seccion4/107.png
+Respuesta de Aitor: [no respondió]
+Pregunta 8: /pma/seccion4/108.png
+Respuesta de Aitor: [no respondió]
+Pregunta 9: /pma/seccion4/109.png
+Respuesta de Aitor: [no respondió]
+Pregunta 10: /pma/seccion4/110.png
+Respuesta de Aitor: [no respondió]
+Pregunta 11: /pma/seccion4/111.png
+Respuesta de Aitor: [no respondió]
+Pregunta 12: /pma/seccion4/112.png
+Respuesta de Aitor: [no respondió]
+Pregunta 13: /pma/seccion4/113.png
+Respuesta de Aitor: [no respondió]
+Pregunta 14: /pma/seccion4/114.png
+Respuesta de Aitor: [no respondió]
+Pregunta 15: /pma/seccion4/115.png
+Respuesta de Aitor: [no respondió]
+Pregunta 16: /pma/seccion4/116.png
+Respuesta de Aitor: [no respondió]
+Pregunta 17: /pma/seccion4/117.png
+Respuesta de Aitor: [no respondió]
+Pregunta 18: /pma/seccion4/118.png
+Respuesta de Aitor: [no respondió]
+Pregunta 19: /pma/seccion4/119.png
+Respuesta de Aitor: [no respondió]
+Pregunta 20: /pma/seccion4/120.png
+Respuesta de Aitor: [no respondió]
+Pregunta 21: /pma/seccion4/121.png
+Respuesta de Aitor: [no respondió]
+Pregunta 22: /pma/seccion4/122.png
+Respuesta de Aitor: [no respondió]
+Pregunta 23: /pma/seccion4/123.png
+Respuesta de Aitor: [no respondió]
+Pregunta 24: /pma/seccion4/124.png
+Respuesta de Aitor: [no respondió]
+Pregunta 25: /pma/seccion4/125.png
+Respuesta de Aitor: [no respondió]
+Pregunta 26: /pma/seccion4/126.png
+Respuesta de Aitor: [no respondió]
+Pregunta 27: /pma/seccion4/127.png
+Respuesta de Aitor: [no respondió]
+Pregunta 28: /pma/seccion4/128.png
+Respuesta de Aitor: [no respondió]
+Pregunta 29: /pma/seccion4/129.png
+Respuesta de Aitor: [no respondió]
+Pregunta 30: /pma/seccion4/130.png
+Respuesta de Aitor: [no respondió]
+Pregunta 31: /pma/seccion4/131.png
+Respuesta de Aitor: [no respondió]
+Pregunta 32: /pma/seccion4/132.png
+Respuesta de Aitor: [no respondió]
+Pregunta 33: /pma/seccion4/133.png
+Respuesta de Aitor: [no respondió]
+Pregunta 34: /pma/seccion4/134.png
+Respuesta de Aitor: [no respondió]
+Pregunta 35: /pma/seccion4/135.png
+Respuesta de Aitor: [no respondió]
+Pregunta 36: /pma/seccion4/136.png
+Respuesta de Aitor: [no respondió]
+Pregunta 37: /pma/seccion4/137.png
+Respuesta de Aitor: [no respondió]
+Pregunta 38: /pma/seccion4/138.png
+Respuesta de Aitor: [no respondió]
+Pregunta 39: /pma/seccion4/139.png
+Respuesta de Aitor: [no respondió]
+Pregunta 40: /pma/seccion4/140.png
+Respuesta de Aitor: [no respondió]
+Pregunta 41: /pma/seccion4/141.png
+Respuesta de Aitor: [no respondió]
+Pregunta 42: /pma/seccion4/142.png
+Respuesta de Aitor: [no respondió]
+Pregunta 43: /pma/seccion4/143.png
+Respuesta de Aitor: [no respondió]
+Pregunta 44: /pma/seccion4/144.png
+Respuesta de Aitor: [no respondió]
+Pregunta 45: /pma/seccion4/145.png
+Respuesta de Aitor: [no respondió]
+Pregunta 46: /pma/seccion4/146.png
+Respuesta de Aitor: [no respondió]
+Pregunta 47: /pma/seccion4/147.png
+Respuesta de Aitor: [no respondió]
+Pregunta 48: /pma/seccion4/148.png
+Respuesta de Aitor: [no respondió]
+Pregunta 49: /pma/seccion4/149.png
+Respuesta de Aitor: [no respondió]
+Pregunta 50: /pma/seccion4/150.png
+Respuesta de Aitor: [no respondió]
+Pregunta 51: /pma/seccion4/151.png
+Respuesta de Aitor: [no respondió]
+Pregunta 52: /pma/seccion4/152.png
+Respuesta de Aitor: [no respondió]
+Pregunta 53: /pma/seccion4/153.png
+Respuesta de Aitor: [no respondió]
+Pregunta 54: /pma/seccion4/154.png
+Respuesta de Aitor: [no respondió]
+Pregunta 55: /pma/seccion4/155.png
+Respuesta de Aitor: [no respondió]
+Pregunta 56: /pma/seccion4/156.png
+Respuesta de Aitor: [no respondió]
+Pregunta 57: /pma/seccion4/157.png
+Respuesta de Aitor: [no respondió]
+Pregunta 58: /pma/seccion4/158.png
+Respuesta de Aitor: [no respondió]
+Pregunta 59: /pma/seccion4/159.png
+Respuesta de Aitor: [no respondió]
+Pregunta 60: /pma/seccion4/160.png
+Respuesta de Aitor: [no respondió]
+Pregunta 61: /pma/seccion4/161.png
+Respuesta de Aitor: [no respondió]
+Pregunta 62: /pma/seccion4/162.png
+Respuesta de Aitor: [no respondió]
+Pregunta 63: /pma/seccion4/163.png
+Respuesta de Aitor: [no respondió]
+Pregunta 64: /pma/seccion4/164.png
+Respuesta de Aitor: [no respondió]
+Pregunta 65: /pma/seccion4/165.png
+Respuesta de Aitor: [no respondió]
+Pregunta 66: /pma/seccion4/166.png
+Respuesta de Aitor: [no respondió]
+Pregunta 67: /pma/seccion4/167.png
+Respuesta de Aitor: [no respondió]
+Pregunta 68: /pma/seccion4/168.png
+Respuesta de Aitor: [no respondió]
+Pregunta 69: /pma/seccion4/169.png
+Respuesta de Aitor: [no respondió]
+Pregunta 70: /pma/seccion4/170.png
+Respuesta de Aitor: [no respondió]
+
+Instrucciones que se le dieron a Aitor para la sección 5 del test:
+Factor D
+Para esta última sección del test se te asignará una letra y tu objetivo será escribir palabras que comiencen con la letra dada.
+Tomemos el ejemplo la letra 'D', para este caso tendríamos que escribir 'diente', 'dado', 'decir', 'Danubio', 'dinamita', etc.
+La asignada para que tomes el test ahora mismo es la letra:
+S
+Si se entendió correctamente haz click en 'Continuar' para comenzar la prueba, trabaja con prisa, si no sabes como se escribe una palabra intenta escribirla lo mejor posible, tendrás CINCO MINUTOS para esta prueba, no pares de escribir.
+
+Pregunta 1: Palabras:
+Respuesta de Aitor: [no respondió]
+
+Necesito que generes una respuesta basada en el siguiente formato que te voy a proporcionar, solo escribe tus respuestas donde el texto esté encerrado entre corchetes [], le quitas los corchetes para escribir tu respuesta, lo que no está entre corchetes no lo modifiques:
+<strong>RESULTADOS</strong>
+Intereses vocacionales (Resultados del test de kuder)
+Áreas de intereses predominantes: [Descripción de las áreas más destacadas según los resultados del test de Kuder.]
+Ranking de intereses: [Resumen del ranking de intereses, indicando las tres principales áreas.]
+Motivación Académica (Resultados del PMA)
+Niveles de motivación: [Descripción de los niveles de motivación identificados, destacando las áreas de alta motivación y aquellas que requieren atención.]
+Áreas de interés y compromiso: [Resumen de las áreas en las que el estudiante se muestra más comprometido y motivado.]
+Habilidades y Fortalezas
+Habilidades identificadas: [Lista de habilidades destacadas en relación con los intereses del test de Kuder, la PMA y el MAPI.]
+Fortalezas personales: [Breve descripción de las cualidades que destacan en el estudiante.]
+Áreas de mejora
+[Descripción de áreas donde el estudiante podría beneficiarse de desarrollo adicional.]
+<strong>Recomendaciones Vocacionales</strong>
+[Descripción breve de la opción, incluyendo posibles carreras y ámbitos laborales, intenta enfocar tu respuesta en carreras que tiene la Unifranz: Ingeniería en sistemas, psicólogia, derecho, ingenieria económica y financiera, ingenieria comercial, administración de empresas, medicina, bioquimica y farmacia, diseño gráfico, publicidad y marketing.]
+<strong>Conclusiones</strong>
+[Una conclusión acerca de los datos extraídos de los tests resueltos de Aitor]

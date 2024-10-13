@@ -1,4 +1,5 @@
 import GPT from "@/assets/images/gpt.png";
+import clsx from "clsx";
 
 interface Props {
   content: string;
@@ -10,8 +11,15 @@ const GptCanvas = ({ content }: Props) => {
       <div className="sticky h-0 w-full top-1/2 flex items-center justify-center -z-10 pointer-events-none overflow-visible">
         <img src={GPT} className="min-w-[540px] h-auto opacity-5" />
       </div>
-      <p className="w-full whitespace-pre-line text-sm leading-loose p-4">
-        {content}
+      <p
+        dangerouslySetInnerHTML={{ __html: content }}
+        className={clsx(
+          "w-full whitespace-pre-line text-sm leading-8 p-4",
+          "[&>.title]:text-lg",
+          "[&>.vignette]:box-decoration-clone [&>.vignette]:pl-8"
+        )}
+      >
+        {/* AQUI SE COLOCARA EL HTML GENERADO POR GPT */}
       </p>
     </div>
   );

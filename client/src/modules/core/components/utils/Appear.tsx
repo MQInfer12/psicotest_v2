@@ -5,6 +5,7 @@ interface Props {
   className?: string;
   children: React.ReactNode;
   onClick?: (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => void;
+  onMouseEnter?: () => void;
 }
 
 const Appear = ({ open, className, children, onClick }: Props) => {

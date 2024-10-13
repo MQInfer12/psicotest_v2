@@ -21,7 +21,8 @@ class Permisos_Seeder extends Seeder
             "Ver resultados",
             "Ver calendario",
             "Ver chat",
-            "Ver usuarios"
+            "Ver usuarios",
+            "Configurar"
         ];
         foreach ($permisos as $permiso) {
             U_Permiso::create([
@@ -33,12 +34,21 @@ class Permisos_Seeder extends Seeder
             [
                 "descripcion" => "Administrador",
                 "por_defecto" => false,
-                "permisos" => ["Ver tests (asignación)", "Ver resultados", "Ver usuarios", "Compartir test"]
+                "permisos" => [
+                    "Ver tests (asignación)",
+                    "Ver resultados",
+                    /* "Ver usuarios",  */
+                    "Compartir test",
+                    "Configurar"
+                ]
             ],
             [
                 "descripcion" => "Paciente",
                 "por_defecto" => true,
-                "permisos" => ["Ver tests (resolución)", "Puede ser asignado"]
+                "permisos" => [
+                    "Ver tests (resolución)",
+                    "Puede ser asignado"
+                ]
             ]
         ];
         foreach ($rols as $rol) {

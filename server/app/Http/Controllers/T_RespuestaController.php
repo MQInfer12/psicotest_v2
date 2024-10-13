@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\T_RespuestaIndexForTableRequest;
 use App\Http\Requests\T_RespuestaPatchInterpretationRequest;
+use App\Http\Requests\T_RespuestaPatchInterpretationsRequest;
 use App\Http\Requests\T_RespuestaStoreRequest;
 use App\Http\Requests\T_RespuestaUpdateRequest;
 use App\Http\Resources\T_Test_RespuestaResource;
@@ -139,6 +140,23 @@ class T_RespuestaController extends Controller
         return $this->successResponse(
             "Interpretación guardada correctamente.",
             new T_Test_RespuestaResource($respuesta)
+        );
+    }
+
+    public function patchInterpretations(T_RespuestaPatchInterpretationsRequest $request)
+    {
+        $validatedData = $request->validated();
+        $respuestas = [];
+        foreach ($validatedData['interpretaciones'] as $interpretacion) {
+            $respuesta = T_Respuesta::findOrFail($interpretacion['id']);
+            $respuesta->update([
+                "interpretacion" => $interpretacion['interpretacion'],
+            ]);
+            $respuestas[] = $respuesta;
+        }
+        return $this->successResponse(
+            "Interpretaciones guardadas correctamente.",
+            T_Tests_RepuestaResource::collection($respuestas)
         );
     }
 }
