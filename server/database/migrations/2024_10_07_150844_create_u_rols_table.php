@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('descripcion');
             $table->boolean('por_defecto');
+            $table->json('permisos');
             $table->timestamps();
         });
     }

@@ -1,7 +1,7 @@
 [
   {
     "type": "title",
-    "content": "1. Introducción"
+    "content": "Introducción"
   },
   {
     "type": "paragraph",
@@ -9,7 +9,7 @@
   },
   {
     "type": "title",
-    "content": "2. Metodología"
+    "content": "Metodología"
   },
   {
     "type": "paragraph",
@@ -27,11 +27,11 @@
   },
   {
     "type": "title",
-    "content": "3. Resultados"
+    "content": "Resultados"
   },
   {
     "type": "subtitle",
-    "content": "3.1. Intereses Vocacionales (Resultados del Test de Kuder)"
+    "content": "Intereses Vocacionales (Resultados del Test de Kuder)"
   },
   {
     "type": "vignette",
@@ -45,7 +45,7 @@
   },
   {
     "type": "subtitle",
-    "content": "3.2. Motivación Académica (Resultados del PMA)"
+    "content": "Motivación Académica (Resultados del PMA)"
   },
   {
     "type": "vignette",
@@ -59,7 +59,7 @@
   },
   {
     "type": "subtitle",
-    "content": "3.3. Habilidades y Fortalezas"
+    "content": "Habilidades y Fortalezas"
   },
   {
     "type": "vignette",
@@ -73,7 +73,7 @@
   },
   {
     "type": "subtitle",
-    "content": "3.4. Áreas de Mejora"
+    "content": "Áreas de Mejora"
   },
   {
     "type": "vignette",
@@ -82,11 +82,11 @@
   },
   {
     "type": "title",
-    "content": "4. Recomendaciones Vocacionales"
+    "content": "Recomendaciones Vocacionales"
   },
   {
     "type": "paragraph",
-    "content": "Basado en los intereses y habilidades del estudiante, se recomienda las siguientes carreras o áreas de especialización: {elige aquellas carreras que se puedan estudiar en la Universidad Franz Tamayo (Unifranz) como ser Ingeniería de sistemas, Diseño gráfico y producción cross-media, Publicidad y marketing, Derecho, Psicología, Bioquímica y farmacia, Odontología, Medicina, Administración de empresas, Ingeniería económica y financiera e Ingeniería comercial}"
+    "content": "Basado en los intereses y habilidades del estudiante, se recomienda las siguientes carreras o áreas de especialización: {elige aquellas carreras que se puedan estudiar en la Universidad Franz Tamayo (Unifranz) como ser Ingeniería de sistemas, Diseño gráfico y producción cross-media, Publicidad y marketing, Derecho, Psicología, Bioquímica y farmacia, Odontología, Medicina, Administración de empresas, Ingeniería económica y financiera e Ingeniería comercial pero si la persona puede estudiar algo más que no exista en la universidad lo puedes mencionar pero con menos prioridad}"
   },
   {
     "type": "vignette",
@@ -105,7 +105,7 @@
   },
   {
     "type": "title",
-    "content": "5. Conclusiones"
+    "content": "Conclusiones"
   },
   {
     "type": "paragraph",

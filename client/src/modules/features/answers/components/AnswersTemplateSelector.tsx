@@ -40,7 +40,7 @@ const AnswersTemplateSelector = () => {
           });
           setSelectedTests(null);
         }}
-        icon={startedSelection ? Icon.Types.CANCEL : Icon.Types.TEMPLATE}
+        icon={startedSelection ? Icon.Types.X : Icon.Types.TEMPLATE}
         btnSize="small"
         disabled={!plantilla}
         btnType={startedSelection ? "primary" : "secondary"}

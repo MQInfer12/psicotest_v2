@@ -15,11 +15,11 @@ class U_Rol extends Model
 
     protected $fillable = [
         'descripcion',
-        'por_defecto'
+        'por_defecto',
+        'permisos'
     ];
 
-    public function permisos()
-    {
-        return $this->belongsToMany(U_Permiso::class, 'u_rol_permisos', 'id_rol', 'id_permiso');
-    }
+    protected $casts = [
+        'permisos' => 'array'
+    ];
 }

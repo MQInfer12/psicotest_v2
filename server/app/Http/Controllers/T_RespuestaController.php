@@ -76,7 +76,7 @@ class T_RespuestaController extends Controller
         }
 
         $asignador = U_user::findOrFail($email_asignador);
-        if (!in_array('Compartir test', $asignador->rol->permisos->pluck('descripcion')->toArray())) {
+        if (!in_array('Compartir test', $asignador->rol->permisos)) {
             return $this->wrongResponse('Esta persona no tiene permisos para compartir tests.');
         }
 

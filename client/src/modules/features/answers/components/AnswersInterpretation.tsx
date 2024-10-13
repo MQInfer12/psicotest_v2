@@ -29,6 +29,7 @@ const AnswersInterpretation = () => {
   });
   const patchMutation = postData("PATCH /respuesta/patch/interpretations");
   const [interpretation, setInterpretation] = useState<string | null>("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!selectedTests || !startedSelection || !!interpretation) return;
@@ -37,8 +38,16 @@ const AnswersInterpretation = () => {
     const name = firstLetter.toLocaleUpperCase() + letters.join("");
 
     configMutation(null, {
+      onError: () => {
+        setLoading(false);
+      },
       onSuccess: ({ data: config }) => {
         getMutation(null, {
+          onError: () => {
+            setLoading(false);
+            setStartedSelection(null);
+            setSelectedTests(null);
+          },
           onSuccess: ({ data }) => {
             let prompt =
               "Soy un psicólogo profesional que trabaja con pacientes en una clínica privada. Mi objetivo es evaluar y comprender la salud mental de mis pacientes mediante la aplicación de diversos tests psicológicos.\n";
@@ -76,7 +85,18 @@ const AnswersInterpretation = () => {
             });
 
             prompt +=
-              "Necesito que generes una respuesta basada en el siguiente formato que te voy a proporcionar, solo escribe tus respuestas donde el texto esté encerrado entre corchetes [], asegúrate de no dejar ni un corchete ya sean textos o viñetas, le quitas los corchetes para escribir tu respuesta, lo que no está entre corchetes no lo modifiques ni reemplaces las etiquetas html por nada más, además no escribas el texto que se encuentre entre llaves {} ya que solo son aclaraciones para que puedas generar de mejor manera la respuesta:\n";
+              "Necesito que generes una respuesta basada en el siguiente formato que te voy a proporcionar, siguiendo las siguientes instrucciones: \n";
+            prompt +=
+              "- Solo escribe tus respuestas donde el texto esté encerrado entre corchetes [], le quitas los corchetes para escribir tu respuesta.\n";
+            prompt +=
+              "- No escribas el texto cuando esté encerrado entre llaves {} ya que estas son instrucciones para que generes la respuesta de manera más personalizada.\n\n";
+
+            prompt += "No realices las siguientes acciones: \n";
+            prompt +=
+              "- No dejes ningún corchete en tu texto generado ya sean párrafos o viñetas.\n";
+            prompt +=
+              "- Lo que no está entre corchetes no lo modifiques ni lo reemplaces por nada más.\n";
+            prompt += "- No reemplaces las etiquetas HTML por nada más.\n";
 
             const plantilla: TemplateType = JSON.parse(
               startedSelection.plantilla
@@ -109,14 +129,7 @@ const AnswersInterpretation = () => {
               {
                 model: config.gpt_model,
                 onFinally: () => {
-                  console.log(
-                    JSON.stringify(
-                      selectedTests.selecteds.map((s) => ({
-                        id: s.id_respuesta,
-                        interpretacion: newInterpretation,
-                      }))
-                    )
-                  );
+                  setLoading(false);
                   patchMutation(
                     {
                       interpretaciones: selectedTests.selecteds.map((s) => ({
@@ -142,10 +155,6 @@ const AnswersInterpretation = () => {
               }
             );
           },
-          onError: () => {
-            setStartedSelection(null);
-            setSelectedTests(null);
-          },
         });
       },
     });
@@ -166,7 +175,7 @@ const AnswersInterpretation = () => {
           ))}
         </small>
       </div>
-      <GptCanvas content={interpretation || ""} />
+      <GptCanvas content={interpretation || ""} loaded={!loading} />
     </div>
   );
 };

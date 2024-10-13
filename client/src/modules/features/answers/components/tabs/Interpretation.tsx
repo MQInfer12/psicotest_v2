@@ -114,7 +114,7 @@ const Interpretation = () => {
           ))}
         </div> */}
       </div>
-      <GptCanvas content={interpretation ?? ""} />
+      <GptCanvas content={interpretation ?? ""} loaded={!loading} />
     </div>
   );
 };
