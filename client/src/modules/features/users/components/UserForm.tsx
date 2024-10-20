@@ -20,7 +20,7 @@ const UserForm = ({ user, onSuccess }: Props) => {
 
   const { postData } = useFetch();
   const postMutation = postData("POST /user");
-  const putMutation = postData("PUT /user/:id");
+  const putMutation = postData("PUT /user/:id/psicotest");
 
   const {
     register,

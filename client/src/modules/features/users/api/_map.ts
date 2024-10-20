@@ -1,4 +1,3 @@
-
 import { UserDTO } from "./dtos";
 import { User } from "./responses";
 
@@ -14,25 +13,25 @@ declare global {
       request: UserDTO;
       response: User;
     };
-    "PUT /user/:id": {
+    "PUT /user/:id/psicotest": {
       params: { id: string };
       request: Partial<UserDTO>;
       response: User;
     };
-    "DELETE /user/:id": {
+    "DELETE /user/:id/psicotest": {
       params: { id: string };
       request: null;
       response: null;
     };
-    "GET /user/:id": {
+    "GET /user/:id/psicotest": {
       params: { id: string };
       request: never;
       response: User;
     };
-    "PATCH /user/change-state/:id":{
-      params: {id:string};
+    "PATCH /user/change-state/:id/psicotest": {
+      params: { id: string };
       request: null;
       response: User;
-    }
+    };
   }
 }

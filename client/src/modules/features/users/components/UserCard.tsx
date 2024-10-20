@@ -16,8 +16,8 @@ interface Props {
 
 const UserCard = ({ user, setOpen, setData }: Props) => {
   const { postData } = useFetch();
-  const deleteMutation = postData("DELETE /user/:id");
-  const changeStateMutation = postData("PATCH /user/change-state/:id");
+  const deleteMutation = postData("DELETE /user/:id/psicotest");
+  const changeStateMutation = postData("PATCH /user/change-state/:id/psicotest");
 
   const { user: loggedUser } = useUserContext();
 

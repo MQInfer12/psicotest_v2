@@ -37,20 +37,20 @@ class U_userController extends Controller
         );
     }
 
-    public function show($id)
+    public function show(string $email)
     {
-        $user = U_user::findOrFail($id);
+        $user = U_user::findOrFail($email);
         return $this->successResponse(
             "Usuario obtenido correctamente.",
             new U_userResource($user)
         );
     }
 
-    public function update($id, U_userUpdateRequest $request)
+    public function update(string $email, U_userUpdateRequest $request)
     {
         $validatedData = $request->validated();
 
-        $user = U_user::findOrFail($id);
+        $user = U_user::findOrFail($email);
 
         $user->update($validatedData);
 
@@ -60,9 +60,9 @@ class U_userController extends Controller
         );
     }
 
-    public function changeState($id)
+    public function changeState(string $email)
     {
-        $user = U_user::findOrFail($id);
+        $user = U_user::findOrFail($email);
         $user->estado = !$user->estado;
 
         $user->save();
@@ -73,9 +73,9 @@ class U_userController extends Controller
         );
     }
 
-    public function destroy($id)
+    public function destroy(string $email)
     {
-        $user = U_user::findOrFail($id);
+        $user = U_user::findOrFail($email);
 
         $user->delete();
 

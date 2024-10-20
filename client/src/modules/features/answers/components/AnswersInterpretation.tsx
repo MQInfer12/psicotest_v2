@@ -118,6 +118,8 @@ const AnswersInterpretation = () => {
               }
             });
 
+            console.log(prompt);
+
             let newInterpretation = "";
             setInterpretation(null);
             getAIResponse(

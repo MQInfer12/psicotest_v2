@@ -20,7 +20,7 @@ const TestRequirements = ({ direction, requirements }: Props) => {
   const { user, setUser } = useUserContext();
 
   const { postData } = useFetch();
-  const userMutation = postData("PUT /user/:id");
+  const userMutation = postData("PUT /user/:id/psicotest");
 
   const handleSaveUserData = (form: UserRequiredDTO) => {
     userMutation(form, {

@@ -34,7 +34,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('/configuracion', [App_ConfiguracionController::class, 'patchSettings']);
 
     Route::apiResource('/user', U_userController::class);
-    Route::patch('/user/change-state/{id}', [U_userController::class, 'changeState']);
+
+    Route::get('/user', [U_userController::class, 'index']);
+    Route::post('/user', [U_userController::class, 'store']);
+    Route::get('/user/{email}/psicotest', [U_userController::class, 'show']);
+    Route::put('/user/{email}/psicotest', [U_userController::class, 'update']);
+    Route::delete('/user/{email}/psicotest', [U_userController::class, 'destroy']);
+    Route::patch('/user/change-state/{email}/psicotest', [U_userController::class, 'changeState']);
 
     Route::apiResource('/test', T_TestController::class);
     Route::get('/test/by/respuesta/{id}', [T_TestController::class, 'showByRespuesta']);
