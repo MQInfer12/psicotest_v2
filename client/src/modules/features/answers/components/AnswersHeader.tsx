@@ -7,7 +7,7 @@ const AnswersHeader = () => {
 
   return (
     <header className="flex flex-col gap-2 p-2 bg-primary-100">
-      <div className="flex justify-between">
+      <div className="flex justify-between gap-2">
         <AnswersFilters />
         <AnswersTemplateSelector />
       </div>

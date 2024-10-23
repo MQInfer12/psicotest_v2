@@ -5,6 +5,7 @@ import { useAnswerContext } from "../../context/AnswerContext";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import GptCanvas from "../interpretation/GptCanvas";
 import { cleanOptionTags } from "@/modules/core/components/ui/canvas/utils/dynamicOptions";
+import { measureAge } from "@/modules/core/utils/measureAge";
 
 const Interpretation = () => {
   const { test, data, resultados, interpretation, setInterpretation } =
@@ -114,7 +115,20 @@ const Interpretation = () => {
           ))}
         </div> */}
       </div>
-      <GptCanvas content={interpretation ?? ""} loaded={!loading} />
+      <GptCanvas
+        content={interpretation ?? ""}
+        loaded={!loading}
+        data={{
+          name: data.user.nombre,
+          age:
+            data.user.fecha_nacimiento && data.fecha_enviado
+              ? String(
+                  measureAge(data.user.fecha_nacimiento, data.fecha_enviado)
+                )
+              : "No especificado",
+          group: data.nombre_carpeta || "Sin clasificación",
+        }}
+      />
     </div>
   );
 };

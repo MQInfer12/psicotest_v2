@@ -7,7 +7,7 @@ interface Props extends HTMLMotionProps<"button"> {
   width?: string;
   textAlign?: "start" | "center";
   btnType?: "primary" | "secondary" | "tertiary";
-  btnSize?: "base" | "small";
+  btnSize?: "base" | "small" | "square";
   danger?: boolean;
   icon?: ICON;
   reverse?: boolean;
@@ -115,7 +115,7 @@ const Button = ({
       animate={getColors(false)}
       whileHover={getColors(true)}
       className={clsx(
-        "h-fit rounded-lg border flex items-center cursor-pointer disabled:cursor-auto justify-center outline-none ring-0 ring-inset focus:ring-1 transition-[box-shadow]",
+        "rounded-lg border flex items-center cursor-pointer disabled:cursor-auto justify-center outline-none ring-0 ring-inset focus:ring-1 transition-[box-shadow]",
         {
           "ring-1": ring,
         },
@@ -127,6 +127,12 @@ const Button = ({
         {
           "py-2 px-4 text-sm gap-3": btnSize === "base",
           "py-2 px-3 text-xs gap-2": btnSize === "small",
+          "py-1 px-1 text-[10px] gap-1": btnSize === "square",
+        },
+        {
+          "h-fit": btnSize !== "square",
+          "flex-col-reverse aspect-square max-w-20 overflow-hidden":
+            btnSize === "square",
         },
         {
           "flex-row-reverse": reverse,
@@ -142,9 +148,13 @@ const Button = ({
       {children && (
         <p
           className={clsx(
-            "flex-1 overflow-hidden whitespace-nowrap text-ellipsis",
+            "overflow-hidden text-ellipsis",
             {
               "text-start": textAlign === "start",
+            },
+            {
+              "flex-1 whitespace-nowrap": btnSize !== "square",
+              "w-full whitespace-normal line-clamp-2": btnSize === "square",
             }
           )}
         >
@@ -156,6 +166,7 @@ const Button = ({
           className={clsx("aspect-square", {
             "w-5": btnSize === "base",
             "w-4": btnSize === "small",
+            "w-6": btnSize === "square"
           })}
         >
           <Icon type={icon} />

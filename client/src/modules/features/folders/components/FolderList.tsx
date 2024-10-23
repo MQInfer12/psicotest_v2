@@ -6,6 +6,7 @@ import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import FolderForm from "./FolderForm";
 import Loader from "@/modules/core/components/ui/loader/Loader";
 import { motion } from "framer-motion";
+import { useMeasureContext } from "../../_layout/context/MeasureContext";
 
 interface Props {
   selectedFolders: number[];
@@ -21,6 +22,7 @@ const FolderList = ({
   const { fetchData } = useFetch();
   const { data, setData } = fetchData("GET /carpeta");
   const { modal, setOpen } = useModal<Folder>();
+  const { size } = useMeasureContext();
 
   const handleSelectFolder = (id: number) => {
     setSelectedFolders((prev) => {
@@ -54,7 +56,7 @@ const FolderList = ({
           }}
         />
       ))}
-      <div className="w-80 flex flex-col gap-2">
+      <div className="w-80 flex flex-col gap-2 max-lg:w-full">
         {data ? (
           <>
             <div className="h-9 flex items-center justify-between relative">
@@ -90,24 +92,24 @@ const FolderList = ({
                 />
               )}
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 max-lg:flex-row">
               <Button
                 width="100%"
                 btnType={selectedFolders.includes(0) ? "primary" : "secondary"}
-                btnSize="small"
+                btnSize={size === "normal" ? "small" : "square"}
                 icon={
                   selectedFolders.includes(0)
                     ? Icon.Types.FOLDER_OPEN
                     : Icon.Types.FOLDER
                 }
-                textAlign="start"
+                textAlign={size === "normal" ? "start" : "center"}
                 reverse
                 onClick={() => handleSelectFolder(0)}
               >
                 Sin clasificación
               </Button>
               {data?.map((folder) => (
-                <div key={folder.id} className="flex gap-2">
+                <div key={folder.id} className="flex gap-2 max-lg:flex-col">
                   <div className="flex-1 overflow-hidden">
                     <Button
                       width="100%"
@@ -116,13 +118,13 @@ const FolderList = ({
                           ? "primary"
                           : "secondary"
                       }
-                      btnSize="small"
+                      btnSize={size === "normal" ? "small" : "square"}
                       icon={
                         selectedFolders.includes(folder.id)
                           ? Icon.Types.FOLDER_OPEN
                           : Icon.Types.FOLDER
                       }
-                      textAlign="start"
+                      textAlign={size === "normal" ? "start" : "center"}
                       reverse
                       onClick={() => handleSelectFolder(folder.id)}
                     >

@@ -199,7 +199,7 @@ const AnswersPage = () => {
       style={{
         paddingInline: PRIVATE_PADDING_INLINE,
       }}
-      className="flex pb-10 flex-1 overflow-hidden gap-8"
+      className="flex pb-10 flex-1 overflow-hidden gap-8 max-lg:flex-col max-lg:gap-4"
     >
       <FolderList
         selectedFolders={folders}
@@ -283,12 +283,16 @@ const AnswersPage = () => {
                               user: {
                                 email: row.email_user,
                                 nombre: row.nombre_user,
+                                fechaNacimiento: row.fecha_nacimiento_user,
+                                fechaEnviado: row.fecha_enviado,
                               },
                               selecteds: [
                                 {
                                   id_respuesta: row.id_respuesta,
                                   id_test: row.id,
                                   nombre_test: row.nombre_test,
+                                  nombre_carpeta:
+                                    row.nombre_carpeta || "Sin clasificación",
                                 },
                               ],
                             };
@@ -305,6 +309,8 @@ const AnswersPage = () => {
                                   id_respuesta: row.id_respuesta,
                                   id_test: row.id,
                                   nombre_test: row.nombre_test,
+                                  nombre_carpeta:
+                                    row.nombre_carpeta || "Sin clasificación",
                                 },
                               ],
                             };

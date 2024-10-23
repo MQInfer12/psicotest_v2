@@ -35,7 +35,6 @@ export const LoginContextProvider = ({ children }: Props) => {
       },
       {
         onSuccess: (res) => {
-          console.log(res.data)
           login(res.data.user, res.data.token);
           toastSuccess(res.message);
         },

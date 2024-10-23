@@ -14,11 +14,14 @@ export interface SelectedTests {
   user: {
     nombre: string;
     email: string;
+    fechaNacimiento: string | null;
+    fechaEnviado: string;
   };
   selecteds: {
     id_respuesta: number;
     id_test: number;
     nombre_test: string;
+    nombre_carpeta: string;
   }[];
 }
 

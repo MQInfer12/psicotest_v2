@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Resources;
+
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class T_Test_RespuestaResource extends JsonResource
@@ -22,7 +23,8 @@ class T_Test_RespuestaResource extends JsonResource
             'resultados' => $this->resultados,
             'user' => new U_userResource($this->user),
             'fecha_enviado' => $this->fecha_enviado,
-            'interpretacion' => $this->interpretacion
+            'interpretacion' => $this->interpretacion,
+            'nombre_carpeta' => $this->carpeta?->descripcion
         ];
     }
 }

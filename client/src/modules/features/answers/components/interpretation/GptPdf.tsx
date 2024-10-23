@@ -18,6 +18,8 @@ import PoppinsBold from "@/assets/fonts/Poppins/Poppins-Bold.ttf";
 import PoppinsExtraBold from "@/assets/fonts/Poppins/Poppins-ExtraBold.ttf";
 import PoppinsBlack from "@/assets/fonts/Poppins/Poppins-Black.ttf";
 import GptPdfContent from "./GptPdfContent";
+import { formatDate } from "@/modules/core/utils/formatDate";
+import { getTodayUtc } from "@/modules/core/utils/getTodayUtc";
 
 Font.register({
   family: "Poppins",
@@ -78,11 +80,18 @@ export const Text = ({
   );
 };
 
-interface Props {
-  content: string;
+export interface GptPdfData {
+  name: string;
+  age: string;
+  group: string;
 }
 
-const GptPdf = ({ content }: Props) => {
+interface Props {
+  content: string;
+  data: GptPdfData;
+}
+
+const GptPdf = ({ content, data }: Props) => {
   const paddingHorizontal = 48;
 
   return (
@@ -163,7 +172,7 @@ const GptPdf = ({ content }: Props) => {
                   >
                     :
                   </Text>
-                  <Text>Mauricio Molina</Text>
+                  <Text>{data.name}</Text>
                 </View>
                 <View
                   style={{
@@ -186,7 +195,7 @@ const GptPdf = ({ content }: Props) => {
                   >
                     :
                   </Text>
-                  <Text>22</Text>
+                  <Text>{data.age}</Text>
                 </View>
                 <View
                   style={{
@@ -209,7 +218,7 @@ const GptPdf = ({ content }: Props) => {
                   >
                     :
                   </Text>
-                  <Text>Domingo Savio - Promo 2019</Text>
+                  <Text>{data.group}</Text>
                 </View>
                 <View
                   style={{
@@ -232,7 +241,7 @@ const GptPdf = ({ content }: Props) => {
                   >
                     :
                   </Text>
-                  <Text>2024-10-12</Text>
+                  <Text>{formatDate(getTodayUtc())}</Text>
                 </View>
               </View>
             </View>

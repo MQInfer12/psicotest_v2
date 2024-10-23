@@ -8,6 +8,7 @@ import { cleanOptionTags } from "@/modules/core/components/ui/canvas/utils/dynam
 import { getAIResponse } from "../utils/AIResponse";
 import { toastSuccess } from "@/modules/core/utils/toasts";
 import { TemplateType } from "../../templates/types/TemplateType";
+import { measureAge } from "@/modules/core/utils/measureAge";
 
 const AnswersInterpretation = () => {
   const {
@@ -177,7 +178,29 @@ const AnswersInterpretation = () => {
           ))}
         </small>
       </div>
-      <GptCanvas content={interpretation || ""} loaded={!loading} />
+      <GptCanvas
+        content={interpretation || ""}
+        loaded={!loading}
+        data={{
+          name: selectedTests?.user.nombre || "",
+          age: selectedTests?.user.fechaNacimiento
+            ? String(
+                measureAge(
+                  selectedTests.user.fechaNacimiento,
+                  selectedTests.user.fechaEnviado
+                )
+              )
+            : "No especificado",
+          group: selectedTests
+            ? Object.keys(
+                Object.groupBy(
+                  selectedTests.selecteds,
+                  (row) => row.nombre_carpeta
+                )
+              ).join(" | ")
+            : "",
+        }}
+      />
     </div>
   );
 };
