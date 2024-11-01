@@ -1,20 +1,40 @@
 {
     "autor": "L.L. Thurstone",
-    "nombre": "PMA",
+    "nombre": "PMA (Habilidades Mentales Primarias)",
     "canvas": [
-        { "type": "subtitle", "content": "Descripción" },
         {
             "type": "paragraph",
-            "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat, delectus? Totam quibusdam vel quo incidunt. Aut, quisquam? Architecto rerum quidem incidunt magnam sunt, iste tempore eaque possimus modi? Porro ipsum quam nisi eum quae fuga doloribus eligendi laboriosam ab quaerat ullam autem ut magnam perferendis recusandae, impedit eaque placeat earum."
+            "content": "El Test de Habilidades Mentales Primarias (PMA) mide diversas capacidades cognitivas fundamentales que son esenciales para el aprendizaje y el desempeño en diversas áreas. Específicamente, el PMA evalúa:"
         },
+        { "type": "subtitle", "content": "Razonamiento verbal" },
         {
             "type": "paragraph",
-            "content": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non ratione voluptatibus dolore sapiente quasi repellendus molestias at doloremque consequatur rem consequuntur, assumenda dolorem suscipit perferendis voluptas neque quo? Ut totam unde commodi magnam veli."
+            "content": "Habilidad para entender y analizar información verbal, así como la capacidad de razonamiento a través de palabras."
+        },
+        { "type": "subtitle", "content": "Razonamiento numérico" },
+        {
+            "type": "paragraph",
+            "content": "Capacidad para trabajar con números y realizar operaciones matemáticas básicas, así como la comprensión de relaciones numéricas."
+        },
+        { "type": "subtitle", "content": "Razonamiento abstracto" },
+        {
+            "type": "paragraph",
+            "content": "Habilidad para identificar patrones y relaciones entre figuras y formas, esencial para la resolución de problemas."
+        },
+        { "type": "subtitle", "content": "Memoria" },
+        {
+            "type": "paragraph",
+            "content": "Evaluación de la capacidad para recordar información y utilizarla de manera efectiva en tareas cognitivas."
+        },
+        { "type": "subtitle", "content": "Percepción espacial" },
+        {
+            "type": "paragraph",
+            "content": "Habilidad para visualizar y manipular objetos en tres dimensiones, importante para disciplinas como la arquitectura y la ingeniería."
         },
         { "type": "subtitle", "content": "¿Cómo resolver?" },
         {
             "type": "paragraph",
-            "content": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non ratione voluptatibus dolore sapiente quasi repellendus molestias at doloremque consequatur rem consequuntur, assumenda dolorem suscipit perferendis voluptas neque quo? Ut totam unde commodi magnam velit dignissimos iusto hic molestiae, laboriosam et! Quidem, quia vero quasi, corporis vitae odio quos ea corrupti iste magnam quae nisi minima aperiam quisquam. Placeat, architecto maiores!"
+            "content": "Empieza a realizar tu test cuando estés preparado, cada una de las secciones del test tiene su propia instrucción que tendrás que seguir, recuerda dar lo máximo de ti."
         }
     ],
     "versions": [

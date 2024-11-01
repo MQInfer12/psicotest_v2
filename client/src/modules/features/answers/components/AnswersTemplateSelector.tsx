@@ -25,7 +25,7 @@ const AnswersTemplateSelector = () => {
           <option value="">Seleccione una plantilla</option>
           {data?.map((v) => (
             <option key={v.id} value={v.id}>
-              {v.descripcion}
+              {v.nombre}
             </option>
           ))}
         </Input>

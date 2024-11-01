@@ -55,9 +55,11 @@ const AnswersPage = () => {
   const [selectedTests, setSelectedTests] = useState<SelectedTests | null>(
     null
   );
-  const showInterpretation = !!startedSelection?.id_tests.every((id_test) =>
-    selectedTests?.selecteds.map((s) => s.id_test).includes(id_test)
-  );
+  const showInterpretation =
+    !!startedSelection &&
+    !!Object.values(startedSelection.id_tests).every((id_test) =>
+      selectedTests?.selecteds.map((s) => s.id_test).includes(id_test)
+    );
 
   useEffect(() => {
     localStorage.setItem(LOCAL_ANSWERS_SEARCH, JSON.stringify(search));
@@ -256,7 +258,9 @@ const AnswersPage = () => {
                       opacity:
                         (selectedTests &&
                           row.email_user !== selectedTests?.user.email) ||
-                        !startedSelection.id_tests.includes(row.id)
+                        !Object.values(startedSelection.id_tests).includes(
+                          row.id
+                        )
                           ? 0.1
                           : undefined,
                       backgroundColor: selectedTests?.selecteds
@@ -267,7 +271,9 @@ const AnswersPage = () => {
                       pointerEvents:
                         (selectedTests &&
                           row.email_user !== selectedTests?.user.email) ||
-                        !startedSelection.id_tests.includes(row.id)
+                        !Object.values(startedSelection.id_tests).includes(
+                          row.id
+                        )
                           ? "none"
                           : undefined,
                     })
@@ -330,7 +336,9 @@ const AnswersPage = () => {
                       disabled: (row) =>
                         (!!selectedTests &&
                           row.email_user !== selectedTests?.user.email) ||
-                        !startedSelection.id_tests.includes(row.id),
+                        !Object.values(startedSelection.id_tests).includes(
+                          row.id
+                        ),
                     }
                   : undefined
               }

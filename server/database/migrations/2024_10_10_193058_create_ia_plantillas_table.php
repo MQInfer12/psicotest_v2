@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('ia_plantillas', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre');
             $table->string('descripcion');
             $table->json('plantilla');
             $table->timestamps();

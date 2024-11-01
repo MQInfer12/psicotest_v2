@@ -26,7 +26,7 @@ const UserForm = ({ user, onSuccess }: Props) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<UserDTO>({
+  } = useForm({
     defaultValues: {
       email: user?.email,
       nombre: user?.nombre,

@@ -10,9 +10,10 @@ class IA_PlantillaResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'nombre' => $this->nombre,
             'descripcion' => $this->descripcion,
             'plantilla' => $this->plantilla,
-            'id_tests' => $this->tests->pluck('id'),
+            'id_tests' => $this->tests->pluck('id', 'nombre')->toArray(),
         ];
     }
 }

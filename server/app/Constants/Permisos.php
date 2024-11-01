@@ -7,6 +7,7 @@ class Permisos
   const VER_TESTS_ASIGNACION = 'Ver tests (asignación)';
   const VER_TESTS_RESOLUCION = 'Ver tests (resolución)';
   const VER_RESULTADOS = 'Ver resultados';
+  const VER_PLANTILLAS = 'Ver plantillas';
   const VER_CHAT = 'Ver chat';
   const VER_CALENDARIO = 'Ver calendario';
   const VER_USUARIOS = 'Ver usuarios';

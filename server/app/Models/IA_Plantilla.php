@@ -14,6 +14,7 @@ class IA_Plantilla extends Model
     protected $guarded = [];
 
     protected $fillable = [
+        'nombre',
         'descripcion',
         'plantilla',
     ];

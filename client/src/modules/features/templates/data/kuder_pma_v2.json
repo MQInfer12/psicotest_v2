@@ -1,0 +1,150 @@
+[
+  {
+    "type": "title",
+    "content": "Instrumentos utilizados"
+  },
+  {
+    "type": "paragraph",
+    "content": "Este informe presenta los resultados del proceso de orientación vocacional realizado con [Nombre del estudiante], con el objetivo de proporcionar una visión integral de las habilidades cognitivas y los intereses vocacionales del evaluado, utilizando los resultados del Test de Habilidades Mentales Primarias (PMA) y el Test de Kuder."
+  },
+  {
+    "type": "title",
+    "content": "Resultados"
+  },
+  {
+    "type": "subtitle",
+    "content": "Intereses Vocacionales (Resultados del Test de Kuder)"
+  },
+  {
+    "type": "vignette",
+    "title": "Áreas de Interés Alto:",
+    "content": "[Lista de áreas donde el evaluado muestra mayor interés]"
+  },
+  {
+    "type": "vignette",
+    "title": "Áreas de Interés Moderado:",
+    "content": "[Lista de áreas de interés moderado]"
+  },
+  {
+    "type": "vignette",
+    "title": "Áreas de Interés Bajo:",
+    "content": "[Lista de áreas donde el evaluado muestra menos interés]"
+  },
+  {
+    "type": "subtitle",
+    "content": "Análisis:"
+  },
+  {
+    "type": "vignette",
+    "title": "",
+    "content": "El evaluado tiene un alto interés en [mencionar áreas específicas], lo que sugiere que podría disfrutar y sobresalir en carreras relacionadas con [sugerencias de carreras]."
+  },
+  {
+    "type": "vignette",
+    "title": "",
+    "content": "Las áreas de interés bajo indican que sería recomendable evitar carreras en [mencionar áreas de menor interés]."
+  },
+  {
+    "type": "subtitle",
+    "content": "Habilidades cognitivas (Resultados del PMA)"
+  },
+  {
+    "type": "subtitle",
+    "content": "Rendimiento en Áreas Cognitivas"
+  },
+  {
+    "type": "vignette",
+    "title": "Razonamiento Verbal:",
+    "content": "[Puntuación, nivel y conclusiones breves en base a las respuestas del Factor V, haz de cuenta que lo normal es terminar de completar esta sección, toma las respuestas hasta donde pudo terminar]"
+  },
+  {
+    "type": "vignette",
+    "title": "Razonamiento Numérico:",
+    "content": "[Puntuación, nivel y conclusiones breves en base a las respuestas del Factor N, haz de cuenta que lo normal es terminar de completar esta sección, toma las respuestas hasta donde pudo terminar]"
+  },
+  {
+    "type": "vignette",
+    "title": "Razonamiento Abstracto:",
+    "content": "[Puntuación, nivel y conclusiones breves en base a las respuestas del Factor R, haz de cuenta que lo normal es terminar de completar esta sección, toma las respuestas hasta donde pudo terminar]"
+  },
+  {
+    "type": "vignette",
+    "title": "Memoria:",
+    "content": "[Puntuación, nivel y conclusiones breves en base a las respuestas del Factor D, haz de cuenta que lo normal es terminar de completar esta sección, toma las respuestas hasta donde pudo terminar]"
+  },
+  {
+    "type": "vignette",
+    "title": "Percepción Espacial:",
+    "content": "[Puntuación, nivel y conclusiones breves en base a las respuestas del Factor E, haz de cuenta que lo normal es terminar de completar esta sección, toma las respuestas hasta donde pudo terminar]"
+  },
+  {
+    "type": "subtitle",
+    "content": "Análisis:"
+  },
+  {
+    "type": "vignette",
+    "title": "",
+    "content": "El evaluado tiene un alto interés en [mencionar áreas específicas], lo que sugiere que podría disfrutar y sobresalir en carreras relacionadas con [sugerencias de carreras]."
+  },
+  {
+    "type": "vignette",
+    "title": "",
+    "content": "Las áreas donde se requiere mayor desarrollo son [mencionar áreas con puntuaciones más bajas], lo que podría influir en la elección de carrera."
+  },
+  {
+    "type": "title",
+    "content": "Conclusiones:"
+  },
+  {
+    "type": "paragraph",
+    "content": "De acuerdo al proceso de evaluación realizado, podemos concluir lo siguiente:"
+  },
+  {
+    "type": "vignette",
+    "title": "Fortalezas Cognitivas:",
+    "content": "El evaluado tiene capacidades sólidas en [mencionar habilidades específicas], que son valiosas para [carreras o campos específicos]."
+  },
+  {
+    "type": "vignette",
+    "title": "Intereses Vocacionales:",
+    "content": "Sus intereses se alinean con carreras como [sugerir carreras] basadas en sus resultados en el Test de Kuder."
+  },
+  {
+    "type": "vignette",
+    "title": "Fortalezas personales:",
+    "content": "[Breve descripción de las cualidades que destacan en el estudiante.]"
+  },
+  {
+    "type": "vignette",
+    "title": "Áreas de Mejora:",
+    "content": "[Descripción de áreas donde el estudiante podría beneficiarse de desarrollo adicional.]"
+  },
+  {
+    "type": "title",
+    "content": "Recomendaciones:"
+  },
+  {
+    "type": "paragraph",
+    "content": "Basado en los intereses y habilidades del estudiante, se recomienda las siguientes carreras o áreas de especialización:"
+  },
+  {
+    "type": "vignette",
+    "title": "[Opción 1]:",
+    "content": "[Descripción breve de la opción, incluyendo posibles carreras y ámbitos laborales.]"
+  },
+  {
+    "type": "vignette",
+    "title": "[Opción 2]:",
+    "content": "[Descripción breve de la opción, incluyendo posibles carreras y ámbitos laborales.]"
+  },
+  {
+    "type": "vignette",
+    "title": "[Opción 1]:",
+    "content": "[Descripción breve de la opción, incluyendo posibles carreras y ámbitos laborales.]"
+  },
+  {
+    "type": "vignette",
+    "title": "Actividades de Desarrollo:",
+    "content": "[Considerar cursos, talleres o prácticas para potenciar las áreas con menor puntuación.]"
+  }
+]

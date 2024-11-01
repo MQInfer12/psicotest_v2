@@ -195,7 +195,7 @@ const GptPdf = ({ content, data }: Props) => {
                   >
                     :
                   </Text>
-                  <Text>{data.age}</Text>
+                  <Text>{data.age} años</Text>
                 </View>
                 <View
                   style={{

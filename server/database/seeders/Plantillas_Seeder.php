@@ -4,26 +4,42 @@ namespace Database\Seeders;
 
 use App\Models\IA_Plantilla;
 use App\Models\IA_Test_Plantilla;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class Plantillas_Seeder extends Seeder
 {
     public function run(): void
     {
-        $plantilla = IA_Plantilla::create([
-            "descripcion" => "Cruce de KUDER y PMA",
+        $plantilla1 = IA_Plantilla::create([
+            "nombre" => "KUDER, PMA v1",
+            "descripcion" => "Plantilla para la creación de informes psicológicos vocacionales para estudiantes de colegio.",
             "plantilla" => '[{"type":"title","content":"1. Introducción"},{"type":"paragraph","content":"Este informe presenta los resultados del proceso de orientación vocacional realizado con [Nombre del paciente], con el objetivo de identificar intereses, habilidades y posibles trayectorias profesionales que se alineen con sus aspiraciones y características personales."},{"type":"title","content":"2. Metodología"},{"type":"paragraph","content":"Se emplearon las siguientes herramientas y técnicas:"},{"type":"paragraph","content":"Se describiría las pruebas tomadas:"},{"type":"vignette","title":"Test de Kuder:","content":"Se aplicó el test de Kuder para evaluar los intereses vocacionales del estudiante."},{"type":"vignette","title":"PMA (Prueba de Motivación Académica):","content":"Se utilizó esta prueba para identificar la motivación del estudiante hacia diferentes áreas académicas y profesionales."},{"type":"title","content":"3. Resultados"},{"type":"subtitle","content":"3.1. Intereses Vocacionales (Resultados del Test de Kuder)"},{"type":"vignette","title":"Áreas de interés predominantes:","content":"[Descripción de las áreas más destacadas según los resultados del test de Kuder.]"},{"type":"vignette","title":"Ranking de intereses:","content":"[Resumen del ranking de intereses, indicando las tres principales áreas.]"},{"type":"subtitle","content":"3.2. Motivación Académica (Resultados del PMA)"},{"type":"vignette","title":"Niveles de motivación:","content":"[Descripción de los niveles de motivación identificados, destacando las áreas de alta motivación y aquellas que requieren atención.]"},{"type":"vignette","title":"Áreas de interés y compromiso:","content":"[Resumen de las áreas en las que el estudiante se muestra más comprometido y motivado.]"},{"type":"subtitle","content":"3.3. Habilidades y Fortalezas"},{"type":"vignette","title":"Habilidades identificadas:","content":"[Lista de habilidades destacadas en relación con los intereses del test de Kuder, la PMA y el MAPI.]"},{"type":"vignette","title":"Fortalezas personales:","content":"[Breve descripción de las cualidades que destacan en el estudiante.]"},{"type":"subtitle","content":"3.4. Áreas de Mejora"},{"type":"vignette","title":"Fortalezas personales:","content":"[Descripción de áreas donde el estudiante podría beneficiarse de desarrollo adicional.]"},{"type":"title","content":"4. Recomendaciones Vocacionales"},{"type":"paragraph","content":"Basado en los intereses y habilidades del estudiante, se recomienda las siguientes carreras o áreas de especialización:"},{"type":"vignette","title":"[Opción 1]:","content":"[Descripción breve de la opción, incluyendo posibles carreras y ámbitos laborales.]"},{"type":"vignette","title":"[Opción 2]:","content":"[Descripción breve de la opción.]"},{"type":"vignette","title":"[Opción 3]:","content":"[Descripción breve de la opción.]"},{"type":"title","content":"5. Conclusiones"},{"type":"paragraph","content":"[Una breve conclusión acerca de los gustos, recomendaciones y análisis de los tests proporcionados del paciente]"}]'
         ]);
 
         IA_Test_Plantilla::create([
             "id_test" => 2,
-            "id_plantilla" => $plantilla->id
+            "id_plantilla" => $plantilla1->id
         ]);
 
         IA_Test_Plantilla::create([
             "id_test" => 3,
-            "id_plantilla" => $plantilla->id
+            "id_plantilla" => $plantilla1->id
+        ]);
+
+        $plantilla2 = IA_Plantilla::create([
+            "nombre" => "KUDER, PMA v2",
+            "descripcion" => "Plantilla para la creación de informes psicológicos vocacionales para estudiantes de colegio.",
+            "plantilla" => '[{"type":"title","content":"Instrumentos utilizados"},{"type":"paragraph","content":"Este informe presenta los resultados del proceso de orientación vocacional realizado con [Nombre del estudiante], con el objetivo de proporcionar una visión integral de las habilidades cognitivas y los intereses vocacionales del evaluado, utilizando los resultados del Test de Habilidades Mentales Primarias (PMA) y el Test de Kuder."},{"type":"title","content":"Resultados"},{"type":"subtitle","content":"Intereses Vocacionales (Resultados del Test de Kuder)"},{"type":"vignette","title":"Áreas de Interés Alto:","content":"[Lista de áreas donde el evaluado muestra mayor interés]"},{"type":"vignette","title":"Áreas de Interés Moderado:","content":"[Lista de áreas de interés moderado]"},{"type":"vignette","title":"Áreas de Interés Bajo:","content":"[Lista de áreas donde el evaluado muestra menos interés]"},{"type":"subtitle","content":"Análisis:"},{"type":"vignette","title":"","content":"El evaluado tiene un alto interés en [mencionar áreas específicas], lo que sugiere que podría disfrutar y sobresalir en carreras relacionadas con [sugerencias de carreras]."},{"type":"vignette","title":"","content":"Las áreas de interés bajo indican que sería recomendable evitar carreras en [mencionar áreas de menor interés]."},{"type":"subtitle","content":"Habilidades cognitivas (Resultados del PMA)"},{"type":"subtitle","content":"Rendimiento en Áreas Cognitivas"},{"type":"vignette","title":"Razonamiento Verbal:","content":"[Puntuación, nivel y conclusiones breves en base a las respuestas del Factor V, haz de cuenta que lo normal es terminar de completar esta sección, toma las respuestas hasta donde pudo terminar]"},{"type":"vignette","title":"Razonamiento Numérico:","content":"[Puntuación, nivel y conclusiones breves en base a las respuestas del Factor N, haz de cuenta que lo normal es terminar de completar esta sección, toma las respuestas hasta donde pudo terminar]"},{"type":"vignette","title":"Razonamiento Abstracto:","content":"[Puntuación, nivel y conclusiones breves en base a las respuestas del Factor R, haz de cuenta que lo normal es terminar de completar esta sección, toma las respuestas hasta donde pudo terminar]"},{"type":"vignette","title":"Memoria:","content":"[Puntuación, nivel y conclusiones breves en base a las respuestas del Factor D, haz de cuenta que lo normal es terminar de completar esta sección, toma las respuestas hasta donde pudo terminar]"},{"type":"vignette","title":"Percepción Espacial:","content":"[Puntuación, nivel y conclusiones breves en base a las respuestas del Factor E, haz de cuenta que lo normal es terminar de completar esta sección, toma las respuestas hasta donde pudo terminar]"},{"type":"subtitle","content":"Análisis:"},{"type":"vignette","title":"","content":"El evaluado tiene un alto interés en [mencionar áreas específicas], lo que sugiere que podría disfrutar y sobresalir en carreras relacionadas con [sugerencias de carreras]."},{"type":"vignette","title":"","content":"Las áreas donde se requiere mayor desarrollo son [mencionar áreas con puntuaciones más bajas], lo que podría influir en la elección de carrera."},{"type":"title","content":"Conclusiones:"},{"type":"paragraph","content":"De acuerdo al proceso de evaluación realizado, podemos concluir lo siguiente:"},{"type":"vignette","title":"Fortalezas Cognitivas:","content":"El evaluado tiene capacidades sólidas en [mencionar habilidades específicas], que son valiosas para [carreras o campos específicos]."},{"type":"vignette","title":"Intereses Vocacionales:","content":"Sus intereses se alinean con carreras como [sugerir carreras] basadas en sus resultados en el Test de Kuder."},{"type":"vignette","title":"Fortalezas personales:","content":"[Breve descripción de las cualidades que destacan en el estudiante.]"},{"type":"vignette","title":"Áreas de Mejora:","content":"[Descripción de áreas donde el estudiante podría beneficiarse de desarrollo adicional.]"},{"type":"title","content":"Recomendaciones:"},{"type":"paragraph","content":"Basado en los intereses y habilidades del estudiante, se recomienda las siguientes carreras o áreas de especialización:"},{"type":"vignette","title":"[Opción 1]:","content":"[Descripción breve de la opción, incluyendo posibles carreras y ámbitos laborales.]"},{"type":"vignette","title":"[Opción 2]:","content":"[Descripción breve de la opción, incluyendo posibles carreras y ámbitos laborales.]"},{"type":"vignette","title":"[Opción 1]:","content":"[Descripción breve de la opción, incluyendo posibles carreras y ámbitos laborales.]"},{"type":"vignette","title":"Actividades de Desarrollo:","content":"[Considerar cursos, talleres o prácticas para potenciar las áreas con menor puntuación.]"}]'
+        ]);
+
+        IA_Test_Plantilla::create([
+            "id_test" => 2,
+            "id_plantilla" => $plantilla2->id
+        ]);
+
+        IA_Test_Plantilla::create([
+            "id_test" => 3,
+            "id_plantilla" => $plantilla2->id
         ]);
     }
 }

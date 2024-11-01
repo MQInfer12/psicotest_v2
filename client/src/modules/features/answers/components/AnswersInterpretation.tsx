@@ -3,12 +3,17 @@ import { useAnswersHeaderContext } from "../context/AnswersHeaderContext";
 import { Fragment, useEffect, useState } from "react";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import { TestType } from "../../tests/types/TestType";
-import { TestForm } from "../../tests/api/dtos";
-import { cleanOptionTags } from "@/modules/core/components/ui/canvas/utils/dynamicOptions";
+import { TestForm, TextSectionOption } from "../../tests/api/dtos";
+import {
+  cleanOptionTags,
+  getOptionText,
+} from "@/modules/core/components/ui/canvas/utils/dynamicOptions";
 import { getAIResponse } from "../utils/AIResponse";
 import { toastSuccess } from "@/modules/core/utils/toasts";
 import { TemplateType } from "../../templates/types/TemplateType";
 import { measureAge } from "@/modules/core/utils/measureAge";
+import { CanvasType } from "@/modules/core/components/ui/canvas/types/Canvas";
+import { getPunctuations } from "../utils/getPunctuations";
 
 const AnswersInterpretation = () => {
   const {
@@ -58,9 +63,26 @@ const AnswersInterpretation = () => {
               //TODO: ARREGLAR SECCIONES DE IMAGEN Y SECCIONES DE TEXTO
 
               const test: TestType = JSON.parse(respuesta.test);
+              const canvas: CanvasType = JSON.parse(respuesta.canvas);
               const resultados: TestForm[] = JSON.parse(respuesta.resultados);
 
-              prompt += `Proporciono las preguntas del test #${i + 1} llamado ${respuesta.nombre_test} junto con las respuestas de ${name} para que realices el análisis correspondiente:\n\n`;
+              const puntuaciones = getPunctuations(respuesta, test, resultados);
+
+              prompt += `Proporciono la descripción y las preguntas del test #${i + 1} llamado ${respuesta.nombre_test} junto con las respuestas de ${name} para que realices el análisis correspondiente:\n\n`;
+
+              prompt += "El test tiene como descripción la siguiente:\n\n";
+              canvas.forEach((seccion) => {
+                switch (seccion.type) {
+                  case "subtitle":
+                    prompt += seccion.content + ".-\n";
+                    break;
+                  case "paragraph":
+                    prompt += seccion.content + "\n";
+                    break;
+                }
+              });
+              prompt += "\n";
+
               test.secciones.forEach((seccion, j) => {
                 if (seccion.description) {
                   prompt += `Instrucciones que se le dieron a ${name} para la sección ${j + 1} del test:\n`;
@@ -71,18 +93,62 @@ const AnswersInterpretation = () => {
                 } else {
                   prompt += `Sección ${j + 1} del test, se le puso las preguntas a ${name} sin ningún tipo de instrucción:\n\n`;
                 }
+
+                const itemsRespondidos = seccion.items.reduce((sum, item) => {
+                  const resultado = resultados.find(
+                    (resultado) => resultado.idPregunta === item.id
+                  );
+                  return resultado ? sum + 1 : sum;
+                }, 0);
+
+                prompt += `${name} respondió ${itemsRespondidos} de ${seccion.items.length} preguntas en esta sección:\n`;
                 seccion.items.forEach((item, k) => {
                   const resultado = resultados.find(
                     (resultado) => resultado.idPregunta === item.id
                   );
-                  const opcion = test.secciones[0].opciones.find(
-                    (opcion) => opcion.id === resultado?.idOpcion
-                  );
-                  prompt += `Pregunta ${k + 1}: ${cleanOptionTags(item.descripcion)}\n`;
-                  prompt += `Respuesta de ${name}: ${opcion?.descripcion ?? "[no respondió]"}\n`;
+                  const opciones = seccion.opciones.filter((opcion) => {
+                    if (!resultado) return false;
+                    switch (seccion.type ?? "single") {
+                      case "single":
+                        return opcion.id === (resultado.idOpcion as number);
+                      case "multi":
+                        return (resultado.idOpcion as number[]).includes(
+                          opcion.id
+                        );
+                      default:
+                        return false;
+                    }
+                  });
+
+                  prompt += `Pregunta ${k + 1}: ${item.type === "image" ? "{haz de cuenta que aquí hay una imagen relacionada a la sección}" : cleanOptionTags(item.descripcion)}\n`;
+
+                  if (seccion.type !== "text") {
+                    const opcionesMarcadas = opciones
+                      .map((o) => {
+                        const descripcionReal = getOptionText(
+                          item.descripcion,
+                          o.id
+                        );
+                        return descripcionReal ?? o.descripcion;
+                      })
+                      .join(", ");
+                    prompt += `Respuesta de ${name}: ${resultado ? opcionesMarcadas : seccion.timer ? "{no terminó de responder}" : "{no respondió}"}\n`;
+                  } else {
+                    const correctas =
+                      (resultado?.idOpcion as TextSectionOption[]).filter(
+                        (c) => c.correct
+                      ).length ?? 0;
+                    prompt += `Respuestas correctas de ${name}: ${correctas}\n`;
+                  }
                 });
                 prompt += "\n";
               });
+
+              prompt += `Las puntuaciones de ${name} obtenidas en las diferentes dimensiones del test son:\n\n`;
+              puntuaciones.forEach((puntuacion) => {
+                prompt += `En la dimensión ${puntuacion.dimension}, ${name} obtuvo ${puntuacion.natural} puntos en el puntaje natural.\n`;
+              });
+              prompt += "\n";
             });
 
             prompt +=

@@ -1,4 +1,3 @@
-import Button from "@/modules/core/components/ui/Button";
 import TestCard from "../components/TestCard";
 import { useNavigate } from "@tanstack/react-router";
 import { CanvasType } from "@/modules/core/components/ui/canvas/types/Canvas";
@@ -51,7 +50,7 @@ const TestPage = ({ respuestas = false }: Props) => {
 
   useUpdateTests();
 
-  const canAdd = usePermiso([Permisos.CREAR_TEST]);
+  /* const canAdd = usePermiso([Permisos.CREAR_TEST]); */
   const canEdit = usePermiso([Permisos.EDITAR_TEST]);
   const canShare = usePermiso([Permisos.COMPARTIR_TEST]);
   return (
@@ -61,7 +60,7 @@ const TestPage = ({ respuestas = false }: Props) => {
       }}
       className="w-full flex flex-col items-center pb-20 gap-12 flex-1"
     >
-      {!respuestas && (
+      {/* {!respuestas && (
         <div className="w-full flex justify-between">
           <div>
             {canAdd && (
@@ -74,7 +73,7 @@ const TestPage = ({ respuestas = false }: Props) => {
             Compartir
           </Button>
         </div>
-      )}
+      )} */}
       {data ? (
         data.length === 0 ? (
           <div className="w-full h-full flex items-center justify-center">

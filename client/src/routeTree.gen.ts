@@ -18,6 +18,7 @@ import { Route as PrivateUsersImport } from './routes/_private/users'
 import { Route as PrivateChatImport } from './routes/_private/chat'
 import { Route as PrivateCalendarImport } from './routes/_private/calendar'
 import { Route as PrivateTestsIndexImport } from './routes/_private/tests/index'
+import { Route as PrivateTemplatesIndexImport } from './routes/_private/templates/index'
 import { Route as PrivateResolveIndexImport } from './routes/_private/resolve/index'
 import { Route as PrivateAnswersIndexImport } from './routes/_private/answers/index'
 import { Route as PrivateTestsShareImport } from './routes/_private/tests/share'
@@ -59,6 +60,11 @@ const PrivateCalendarRoute = PrivateCalendarImport.update({
 
 const PrivateTestsIndexRoute = PrivateTestsIndexImport.update({
   path: '/tests/',
+  getParentRoute: () => PrivateRoute,
+} as any)
+
+const PrivateTemplatesIndexRoute = PrivateTemplatesIndexImport.update({
+  path: '/templates/',
   getParentRoute: () => PrivateRoute,
 } as any)
 
@@ -180,6 +186,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivateResolveIndexImport
       parentRoute: typeof PrivateImport
     }
+    '/_private/templates/': {
+      id: '/_private/templates/'
+      path: '/templates'
+      fullPath: '/templates'
+      preLoaderRoute: typeof PrivateTemplatesIndexImport
+      parentRoute: typeof PrivateImport
+    }
     '/_private/tests/': {
       id: '/_private/tests/'
       path: '/tests'
@@ -203,6 +216,7 @@ export const routeTree = rootRoute.addChildren({
     PrivateTestsShareRoute,
     PrivateAnswersIndexRoute,
     PrivateResolveIndexRoute,
+    PrivateTemplatesIndexRoute,
     PrivateTestsIndexRoute,
   }),
   PublicRoute: PublicRoute.addChildren({ PublicIndexRoute }),
@@ -232,6 +246,7 @@ export const routeTree = rootRoute.addChildren({
         "/_private/tests/share",
         "/_private/answers/",
         "/_private/resolve/",
+        "/_private/templates/",
         "/_private/tests/"
       ]
     },
@@ -279,6 +294,10 @@ export const routeTree = rootRoute.addChildren({
     },
     "/_private/resolve/": {
       "filePath": "_private/resolve/index.tsx",
+      "parent": "/_private"
+    },
+    "/_private/templates/": {
+      "filePath": "_private/templates/index.tsx",
       "parent": "/_private"
     },
     "/_private/tests/": {

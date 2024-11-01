@@ -27,11 +27,16 @@ export const getAIResponse = async (
         messages: [
           {
             role: "system",
+            content:
+              "Analizas test psicológicos y elaboras informes según la especificación del usuario, reemplazas los datos entre [] por texto generado y tomas los datos entre {} como instrucciones y especificaciones.",
+          },
+          {
+            role: "user",
             content: prompt,
           },
         ],
-        temperature: 0.7,
-        max_tokens: 1200,
+        temperature: 0.6,
+        max_tokens: 1800,
         stream: true,
       }),
     });

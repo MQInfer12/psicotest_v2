@@ -13,7 +13,5 @@ export const UserDTOSchema = yup.object({
 
 export const UserRequiredDTOSchema = yup.object({
   genero: yup.string().required("Requerido"),
-  fecha_nacimiento: yup
-    .string()
-    .required("Requerido"),
+  fecha_nacimiento: yup.string().required("Requerido"),
 });

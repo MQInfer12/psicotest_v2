@@ -37,6 +37,11 @@ export const BREADCRUMB: Breadcrumb[] = [
     name: "Detalles del resultado",
     match: "/answers/$id",
   },
+  //? PLANTILLAS
+  {
+    name: "Plantillas",
+    match: "/templates"
+  },
   //? SIDEBAR
   {
     name: "Chat",
