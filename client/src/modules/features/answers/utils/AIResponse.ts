@@ -3,6 +3,7 @@ import { toastError } from "@/modules/core/utils/toasts";
 
 export enum OpenAIModel {
   GPT_3_5 = "gpt-3.5-turbo",
+  GPT_4_o_mini = "gpt-4o-mini",
   GPT_4_o = "gpt-4o",
 }
 
@@ -27,11 +28,6 @@ export const getAIResponse = async (
         messages: [
           {
             role: "system",
-            content:
-              "Analizas test psicológicos y elaboras informes según la especificación del usuario, reemplazas los datos entre [] por texto generado y tomas los datos entre {} como instrucciones y especificaciones.",
-          },
-          {
-            role: "user",
             content: prompt,
           },
         ],

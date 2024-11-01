@@ -134,10 +134,11 @@ const AnswersInterpretation = () => {
                       .join(", ");
                     prompt += `Respuesta de ${name}: ${resultado ? opcionesMarcadas : seccion.timer ? "{no terminó de responder}" : "{no respondió}"}\n`;
                   } else {
-                    const correctas =
-                      (resultado?.idOpcion as TextSectionOption[]).filter(
-                        (c) => c.correct
-                      ).length ?? 0;
+                    const correctas = resultado
+                      ? (resultado.idOpcion as TextSectionOption[]).filter(
+                          (c) => c.correct
+                        ).length
+                      : 0;
                     prompt += `Respuestas correctas de ${name}: ${correctas}\n`;
                   }
                 });
@@ -185,7 +186,7 @@ const AnswersInterpretation = () => {
               }
             });
 
-            console.log(prompt);
+            /*  console.log(prompt); */
 
             let newInterpretation = "";
             setInterpretation(null);
@@ -199,6 +200,7 @@ const AnswersInterpretation = () => {
                 model: config.gpt_model,
                 onFinally: () => {
                   setLoading(false);
+                  console.log(newInterpretation);
                   patchMutation(
                     {
                       interpretaciones: selectedTests.selecteds.map((s) => ({
