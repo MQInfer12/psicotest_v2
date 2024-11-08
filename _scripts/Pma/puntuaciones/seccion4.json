@@ -4,7 +4,7 @@
     "condiciones": [
       {
         "id_pregunta": 101,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -13,7 +13,7 @@
     "condiciones": [
       {
         "id_pregunta": 101,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -22,7 +22,7 @@
     "condiciones": [
       {
         "id_pregunta": 102,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -31,7 +31,7 @@
     "condiciones": [
       {
         "id_pregunta": 102,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -40,7 +40,7 @@
     "condiciones": [
       {
         "id_pregunta": 103,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -49,7 +49,7 @@
     "condiciones": [
       {
         "id_pregunta": 103,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -58,7 +58,7 @@
     "condiciones": [
       {
         "id_pregunta": 104,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -67,21 +67,12 @@
     "condiciones": [
       {
         "id_pregunta": 104,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
   {
     "puntuacion": -1,
-    "condiciones": [
-      {
-        "id_pregunta": 105,
-        "id_opcion": 16
-      }
-    ]
-  },
-  {
-    "puntuacion": 1,
     "condiciones": [
       {
         "id_pregunta": 105,
@@ -93,8 +84,17 @@
     "puntuacion": 1,
     "condiciones": [
       {
+        "id_pregunta": 105,
+        "id_opcion": 18
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
         "id_pregunta": 106,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -103,7 +103,7 @@
     "condiciones": [
       {
         "id_pregunta": 106,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -112,7 +112,7 @@
     "condiciones": [
       {
         "id_pregunta": 107,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -121,7 +121,7 @@
     "condiciones": [
       {
         "id_pregunta": 107,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -130,7 +130,7 @@
     "condiciones": [
       {
         "id_pregunta": 108,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -139,21 +139,12 @@
     "condiciones": [
       {
         "id_pregunta": 108,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
   {
     "puntuacion": 1,
-    "condiciones": [
-      {
-        "id_pregunta": 109,
-        "id_opcion": 16
-      }
-    ]
-  },
-  {
-    "puntuacion": -1,
     "condiciones": [
       {
         "id_pregunta": 109,
@@ -165,8 +156,17 @@
     "puntuacion": -1,
     "condiciones": [
       {
+        "id_pregunta": 109,
+        "id_opcion": 18
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
         "id_pregunta": 110,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -175,7 +175,7 @@
     "condiciones": [
       {
         "id_pregunta": 110,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -184,7 +184,7 @@
     "condiciones": [
       {
         "id_pregunta": 111,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -193,21 +193,12 @@
     "condiciones": [
       {
         "id_pregunta": 111,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
   {
     "puntuacion": -1,
-    "condiciones": [
-      {
-        "id_pregunta": 112,
-        "id_opcion": 16
-      }
-    ]
-  },
-  {
-    "puntuacion": 1,
     "condiciones": [
       {
         "id_pregunta": 112,
@@ -219,13 +210,13 @@
     "puntuacion": 1,
     "condiciones": [
       {
-        "id_pregunta": 113,
-        "id_opcion": 16
+        "id_pregunta": 112,
+        "id_opcion": 18
       }
     ]
   },
   {
-    "puntuacion": -1,
+    "puntuacion": 1,
     "condiciones": [
       {
         "id_pregunta": 113,
@@ -237,8 +228,17 @@
     "puntuacion": -1,
     "condiciones": [
       {
+        "id_pregunta": 113,
+        "id_opcion": 18
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
         "id_pregunta": 114,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -247,7 +247,7 @@
     "condiciones": [
       {
         "id_pregunta": 114,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -256,7 +256,7 @@
     "condiciones": [
       {
         "id_pregunta": 115,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -265,7 +265,7 @@
     "condiciones": [
       {
         "id_pregunta": 115,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -274,7 +274,7 @@
     "condiciones": [
       {
         "id_pregunta": 116,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -283,7 +283,7 @@
     "condiciones": [
       {
         "id_pregunta": 116,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -292,7 +292,7 @@
     "condiciones": [
       {
         "id_pregunta": 117,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -301,7 +301,7 @@
     "condiciones": [
       {
         "id_pregunta": 117,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -310,7 +310,7 @@
     "condiciones": [
       {
         "id_pregunta": 118,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -319,7 +319,7 @@
     "condiciones": [
       {
         "id_pregunta": 118,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -328,7 +328,7 @@
     "condiciones": [
       {
         "id_pregunta": 119,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -337,21 +337,12 @@
     "condiciones": [
       {
         "id_pregunta": 119,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
   {
     "puntuacion": -1,
-    "condiciones": [
-      {
-        "id_pregunta": 120,
-        "id_opcion": 16
-      }
-    ]
-  },
-  {
-    "puntuacion": 1,
     "condiciones": [
       {
         "id_pregunta": 120,
@@ -363,8 +354,17 @@
     "puntuacion": 1,
     "condiciones": [
       {
+        "id_pregunta": 120,
+        "id_opcion": 18
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
         "id_pregunta": 121,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -373,7 +373,7 @@
     "condiciones": [
       {
         "id_pregunta": 121,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -382,7 +382,7 @@
     "condiciones": [
       {
         "id_pregunta": 122,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -391,21 +391,12 @@
     "condiciones": [
       {
         "id_pregunta": 122,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
   {
     "puntuacion": 1,
-    "condiciones": [
-      {
-        "id_pregunta": 123,
-        "id_opcion": 16
-      }
-    ]
-  },
-  {
-    "puntuacion": -1,
     "condiciones": [
       {
         "id_pregunta": 123,
@@ -417,13 +408,13 @@
     "puntuacion": -1,
     "condiciones": [
       {
-        "id_pregunta": 124,
-        "id_opcion": 16
+        "id_pregunta": 123,
+        "id_opcion": 18
       }
     ]
   },
   {
-    "puntuacion": 1,
+    "puntuacion": -1,
     "condiciones": [
       {
         "id_pregunta": 124,
@@ -435,8 +426,17 @@
     "puntuacion": 1,
     "condiciones": [
       {
+        "id_pregunta": 124,
+        "id_opcion": 18
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
         "id_pregunta": 125,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -445,7 +445,7 @@
     "condiciones": [
       {
         "id_pregunta": 125,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -454,7 +454,7 @@
     "condiciones": [
       {
         "id_pregunta": 126,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -463,7 +463,7 @@
     "condiciones": [
       {
         "id_pregunta": 126,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -472,7 +472,7 @@
     "condiciones": [
       {
         "id_pregunta": 127,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -481,21 +481,12 @@
     "condiciones": [
       {
         "id_pregunta": 127,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
   {
     "puntuacion": 1,
-    "condiciones": [
-      {
-        "id_pregunta": 128,
-        "id_opcion": 16
-      }
-    ]
-  },
-  {
-    "puntuacion": -1,
     "condiciones": [
       {
         "id_pregunta": 128,
@@ -507,8 +498,17 @@
     "puntuacion": -1,
     "condiciones": [
       {
+        "id_pregunta": 128,
+        "id_opcion": 18
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
         "id_pregunta": 129,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -517,7 +517,7 @@
     "condiciones": [
       {
         "id_pregunta": 129,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -526,7 +526,7 @@
     "condiciones": [
       {
         "id_pregunta": 130,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -535,7 +535,7 @@
     "condiciones": [
       {
         "id_pregunta": 130,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -544,7 +544,7 @@
     "condiciones": [
       {
         "id_pregunta": 131,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -553,7 +553,7 @@
     "condiciones": [
       {
         "id_pregunta": 131,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -562,7 +562,7 @@
     "condiciones": [
       {
         "id_pregunta": 132,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -571,7 +571,7 @@
     "condiciones": [
       {
         "id_pregunta": 132,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -580,7 +580,7 @@
     "condiciones": [
       {
         "id_pregunta": 133,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -589,7 +589,7 @@
     "condiciones": [
       {
         "id_pregunta": 133,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -598,7 +598,7 @@
     "condiciones": [
       {
         "id_pregunta": 134,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -607,21 +607,12 @@
     "condiciones": [
       {
         "id_pregunta": 134,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
   {
     "puntuacion": -1,
-    "condiciones": [
-      {
-        "id_pregunta": 135,
-        "id_opcion": 16
-      }
-    ]
-  },
-  {
-    "puntuacion": 1,
     "condiciones": [
       {
         "id_pregunta": 135,
@@ -633,8 +624,17 @@
     "puntuacion": 1,
     "condiciones": [
       {
+        "id_pregunta": 135,
+        "id_opcion": 18
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
         "id_pregunta": 136,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -643,7 +643,7 @@
     "condiciones": [
       {
         "id_pregunta": 136,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -652,7 +652,7 @@
     "condiciones": [
       {
         "id_pregunta": 137,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -661,7 +661,7 @@
     "condiciones": [
       {
         "id_pregunta": 137,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -670,7 +670,7 @@
     "condiciones": [
       {
         "id_pregunta": 138,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -679,7 +679,7 @@
     "condiciones": [
       {
         "id_pregunta": 138,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -688,7 +688,7 @@
     "condiciones": [
       {
         "id_pregunta": 139,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -697,21 +697,12 @@
     "condiciones": [
       {
         "id_pregunta": 139,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
   {
     "puntuacion": -1,
-    "condiciones": [
-      {
-        "id_pregunta": 140,
-        "id_opcion": 16
-      }
-    ]
-  },
-  {
-    "puntuacion": 1,
     "condiciones": [
       {
         "id_pregunta": 140,
@@ -723,8 +714,17 @@
     "puntuacion": 1,
     "condiciones": [
       {
+        "id_pregunta": 140,
+        "id_opcion": 18
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
         "id_pregunta": 141,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -733,7 +733,7 @@
     "condiciones": [
       {
         "id_pregunta": 141,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -742,7 +742,7 @@
     "condiciones": [
       {
         "id_pregunta": 142,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -751,7 +751,7 @@
     "condiciones": [
       {
         "id_pregunta": 142,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -760,7 +760,7 @@
     "condiciones": [
       {
         "id_pregunta": 143,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -769,21 +769,12 @@
     "condiciones": [
       {
         "id_pregunta": 143,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
   {
     "puntuacion": -1,
-    "condiciones": [
-      {
-        "id_pregunta": 144,
-        "id_opcion": 16
-      }
-    ]
-  },
-  {
-    "puntuacion": 1,
     "condiciones": [
       {
         "id_pregunta": 144,
@@ -795,8 +786,17 @@
     "puntuacion": 1,
     "condiciones": [
       {
+        "id_pregunta": 144,
+        "id_opcion": 18
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
         "id_pregunta": 145,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -805,7 +805,7 @@
     "condiciones": [
       {
         "id_pregunta": 145,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -814,7 +814,7 @@
     "condiciones": [
       {
         "id_pregunta": 146,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -823,7 +823,7 @@
     "condiciones": [
       {
         "id_pregunta": 146,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -832,7 +832,7 @@
     "condiciones": [
       {
         "id_pregunta": 147,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -841,21 +841,12 @@
     "condiciones": [
       {
         "id_pregunta": 147,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
   {
     "puntuacion": -1,
-    "condiciones": [
-      {
-        "id_pregunta": 148,
-        "id_opcion": 16
-      }
-    ]
-  },
-  {
-    "puntuacion": 1,
     "condiciones": [
       {
         "id_pregunta": 148,
@@ -867,8 +858,17 @@
     "puntuacion": 1,
     "condiciones": [
       {
+        "id_pregunta": 148,
+        "id_opcion": 18
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
         "id_pregunta": 149,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -877,7 +877,7 @@
     "condiciones": [
       {
         "id_pregunta": 149,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -886,7 +886,7 @@
     "condiciones": [
       {
         "id_pregunta": 150,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -895,7 +895,7 @@
     "condiciones": [
       {
         "id_pregunta": 150,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -904,7 +904,7 @@
     "condiciones": [
       {
         "id_pregunta": 151,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -913,7 +913,7 @@
     "condiciones": [
       {
         "id_pregunta": 151,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -922,7 +922,7 @@
     "condiciones": [
       {
         "id_pregunta": 152,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -931,7 +931,7 @@
     "condiciones": [
       {
         "id_pregunta": 152,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -940,7 +940,7 @@
     "condiciones": [
       {
         "id_pregunta": 153,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -949,21 +949,12 @@
     "condiciones": [
       {
         "id_pregunta": 153,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
   {
     "puntuacion": -1,
-    "condiciones": [
-      {
-        "id_pregunta": 154,
-        "id_opcion": 16
-      }
-    ]
-  },
-  {
-    "puntuacion": 1,
     "condiciones": [
       {
         "id_pregunta": 154,
@@ -975,8 +966,17 @@
     "puntuacion": 1,
     "condiciones": [
       {
+        "id_pregunta": 154,
+        "id_opcion": 18
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
         "id_pregunta": 155,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -985,7 +985,7 @@
     "condiciones": [
       {
         "id_pregunta": 155,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -994,7 +994,7 @@
     "condiciones": [
       {
         "id_pregunta": 156,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -1003,21 +1003,12 @@
     "condiciones": [
       {
         "id_pregunta": 156,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
   {
     "puntuacion": -1,
-    "condiciones": [
-      {
-        "id_pregunta": 157,
-        "id_opcion": 16
-      }
-    ]
-  },
-  {
-    "puntuacion": 1,
     "condiciones": [
       {
         "id_pregunta": 157,
@@ -1029,13 +1020,13 @@
     "puntuacion": 1,
     "condiciones": [
       {
-        "id_pregunta": 158,
-        "id_opcion": 16
+        "id_pregunta": 157,
+        "id_opcion": 18
       }
     ]
   },
   {
-    "puntuacion": -1,
+    "puntuacion": 1,
     "condiciones": [
       {
         "id_pregunta": 158,
@@ -1047,8 +1038,17 @@
     "puntuacion": -1,
     "condiciones": [
       {
+        "id_pregunta": 158,
+        "id_opcion": 18
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
         "id_pregunta": 159,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -1057,7 +1057,7 @@
     "condiciones": [
       {
         "id_pregunta": 159,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -1066,7 +1066,7 @@
     "condiciones": [
       {
         "id_pregunta": 160,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -1075,21 +1075,12 @@
     "condiciones": [
       {
         "id_pregunta": 160,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
   {
     "puntuacion": -1,
-    "condiciones": [
-      {
-        "id_pregunta": 161,
-        "id_opcion": 16
-      }
-    ]
-  },
-  {
-    "puntuacion": 1,
     "condiciones": [
       {
         "id_pregunta": 161,
@@ -1101,13 +1092,13 @@
     "puntuacion": 1,
     "condiciones": [
       {
-        "id_pregunta": 162,
-        "id_opcion": 16
+        "id_pregunta": 161,
+        "id_opcion": 18
       }
     ]
   },
   {
-    "puntuacion": -1,
+    "puntuacion": 1,
     "condiciones": [
       {
         "id_pregunta": 162,
@@ -1119,8 +1110,17 @@
     "puntuacion": -1,
     "condiciones": [
       {
+        "id_pregunta": 162,
+        "id_opcion": 18
+      }
+    ]
+  },
+  {
+    "puntuacion": -1,
+    "condiciones": [
+      {
         "id_pregunta": 163,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -1129,7 +1129,7 @@
     "condiciones": [
       {
         "id_pregunta": 163,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -1138,7 +1138,7 @@
     "condiciones": [
       {
         "id_pregunta": 164,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -1147,7 +1147,7 @@
     "condiciones": [
       {
         "id_pregunta": 164,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -1156,7 +1156,7 @@
     "condiciones": [
       {
         "id_pregunta": 165,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -1165,7 +1165,7 @@
     "condiciones": [
       {
         "id_pregunta": 165,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -1174,7 +1174,7 @@
     "condiciones": [
       {
         "id_pregunta": 166,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -1183,7 +1183,7 @@
     "condiciones": [
       {
         "id_pregunta": 166,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -1192,7 +1192,7 @@
     "condiciones": [
       {
         "id_pregunta": 167,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -1201,7 +1201,7 @@
     "condiciones": [
       {
         "id_pregunta": 167,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
@@ -1210,7 +1210,7 @@
     "condiciones": [
       {
         "id_pregunta": 168,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -1219,21 +1219,12 @@
     "condiciones": [
       {
         "id_pregunta": 168,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   },
   {
     "puntuacion": -1,
-    "condiciones": [
-      {
-        "id_pregunta": 169,
-        "id_opcion": 16
-      }
-    ]
-  },
-  {
-    "puntuacion": 1,
     "condiciones": [
       {
         "id_pregunta": 169,
@@ -1245,8 +1236,17 @@
     "puntuacion": 1,
     "condiciones": [
       {
+        "id_pregunta": 169,
+        "id_opcion": 18
+      }
+    ]
+  },
+  {
+    "puntuacion": 1,
+    "condiciones": [
+      {
         "id_pregunta": 170,
-        "id_opcion": 16
+        "id_opcion": 17
       }
     ]
   },
@@ -1255,7 +1255,7 @@
     "condiciones": [
       {
         "id_pregunta": 170,
-        "id_opcion": 17
+        "id_opcion": 18
       }
     ]
   }

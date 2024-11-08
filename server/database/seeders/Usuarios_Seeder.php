@@ -28,5 +28,25 @@ class Usuarios_Seeder extends Seeder
             "estado" => true,
             "id_rol" => 2
         ]);
+
+        U_user::create([
+            "email" => "veymar15ganci@gmail.com",
+            "nombre" => "Veymar Illanez Ganci",
+            "foto" => "https://lh3.googleusercontent.com/a/ACg8ocJa0hBZJf_SXP_JM_lh4GOez7PDbWr9kGi1Q-2kXq023yLzDg=s96-c",
+            "genero" => "Hombre",
+            "fecha_nacimiento" => "2000-09-15",
+            "estado" => true,
+            "id_rol" => 2
+        ]);
+
+        U_user::create([
+            "email" => "ramirezrodriguezcarolina98@gmail.com",
+            "nombre" => "carolina Ramirez R.",
+            "foto" => "https://lh3.googleusercontent.com/a/ACg8ocJqoR0HMIe1zGT-9jvvHcaD-QE8rgYIKmFNTs0TW5ZUXRFLXMaY=s96-c",
+            "genero" => "Mujer",
+            "fecha_nacimiento" => null,
+            "estado" => true,
+            "id_rol" => 2
+        ]);
     }
 }

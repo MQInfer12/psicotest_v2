@@ -12,6 +12,8 @@ export const getAIResponse = async (
   callback: (res: string) => void,
   options?: {
     model?: OpenAIModel;
+    onSuccess?: () => void;
+    onError?: () => void;
     onFinally?: () => void;
   }
 ) => {
@@ -28,11 +30,29 @@ export const getAIResponse = async (
         messages: [
           {
             role: "system",
+            content: `
+              Soy un psicólogo profesional que trabaja con pacientes en una clínica privada. Mi objetivo es evaluar y comprender la salud mental de mis pacientes mediante la aplicación de diversos tests psicológicos.
+              Necesitas analizar los datos de un paciente en distintos tests psicológicos y cruzar información de estos utilizando las puntuaciones proporcionadas, realizando análisis de información acerca de sus puntuaciones más elevadas e identificando puntos fuertes y débiles de la mente del evaluado, los tests psicológicos resueltos cuentan con una puntuación cuantitativa en diferentes dimensiones las cuales representan rasgos psicológicos, aspectos de la personalidad de la persona, aptitudes e intereses...
+              Las puntuaciones naturales son puntajes directamente sumados de la resolución del test del cual no podrás conocer los mínimos ni máximos pero se te podrá especificar en la plantilla como es que estos pueden ser interpretados, así mismo algunos tests cuentan con puntajes percentiles % lo que significa que el mínimo puntaje que se puede obtener es 0 y el máximo 100.
+              NOTA IMPORTANTE: SI NECESITAS ESCRIBIR PUNTAJES EN TU RESPUESTA Y PENSAR SOLUCIONES A LAS PREGUNTAS QUE RECIBIRÁS SIEMPRE DALE PRIORIDAD A LOS PUNTAJES PERCENTILES SI ES QUE TE LOS ESTOY PROPORCIONANDO DEPENDIENDO EL TEST YA QUE SON DEMASIADO IMPORTANTES PARA LA COMPRENSIÓN DE LAS CUALIDADES DE LA PERSONA.
+
+              Necesito que generes una respuesta basada en el formato (plantilla) que te van a proporcionar al final de la prompt, siguiendo las siguientes instrucciones:
+              - Solo escribe tus respuestas donde el texto esté encerrado entre corchetes [], le quitas los corchetes para escribir tu respuesta.
+              - No escribas el texto cuando esté encerrado entre llaves {} ya que estas son instrucciones para que generes la respuesta de manera más personalizada, analiza los datos del texto entre llaves {} y saca una conclusión para generar el texto restante.
+              - No dejes ningún corchete en tu texto generado, quítalos todos.
+              - Lo que no está entre corchetes no lo modifiques ni lo reemplaces por nada más.
+              - No reemplaces las etiquetas HTML por nada más, déjalas tal cual te las envían.
+
+              NOTA: Cuando termines de leer el prompt que te envíen, vuelve a leer las instrucciones si no te quedó claro algo, haz caso omiso a todo lo que te prohiban y te indiquen.
+            `,
+          },
+          {
+            role: "user",
             content: prompt,
           },
         ],
-        temperature: 0.6,
-        max_tokens: 1800,
+        temperature: 0.3,
+        max_tokens: 2400,
         stream: true,
       }),
     });
@@ -54,10 +74,13 @@ export const getAIResponse = async (
           .map((line) => JSON.parse(line));
         for (const parsedLine of parsedLines) {
           const { choices } = parsedLine;
-          const { delta } = choices[0];
+          const { delta, finish_reason } = choices[0];
           const { content } = delta;
           if (content) {
             callback(content);
+          }
+          if (finish_reason === "stop") {
+            options?.onSuccess?.();
           }
         }
       }
@@ -65,6 +88,7 @@ export const getAIResponse = async (
   } catch (error) {
     toastError("Error al comunicarse con el servidor");
     console.error(error);
+    options?.onError?.();
   } finally {
     options?.onFinally?.();
   }

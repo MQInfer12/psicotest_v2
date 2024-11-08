@@ -3,6 +3,7 @@ import { TestIds } from "../../tests/types/TestIds";
 import { TestType } from "../../tests/types/TestType";
 import { MapiTestType } from "../../tests/modules/MAPI/types/MapiTestType";
 import { PunctuationData } from "./getPunctuations";
+import { PmaTestType } from "../../tests/modules/PMA/types/PmaTestType";
 
 const columnHelper = createColumnHelper<PunctuationData>();
 
@@ -12,8 +13,8 @@ export const getEscalaColumns = (
 ): ColumnDef<PunctuationData, any>[] => {
   switch (testId) {
     case TestIds.MAPI:
-      const test = testGeneral as MapiTestType;
-      return test.escalas.map((escala) =>
+      const MAPITest = testGeneral as MapiTestType;
+      return MAPITest.escalas.map((escala) =>
         columnHelper.accessor(escala.descripcion, {
           header: escala.descripcion,
           meta: {
@@ -26,7 +27,17 @@ export const getEscalaColumns = (
     case TestIds.KUDER:
       return [];
     case TestIds.PMA:
-      return [];
+      const PMATest = testGeneral as PmaTestType;
+      return PMATest.escalas.map((escala) =>
+        columnHelper.accessor(escala.descripcion, {
+          header: escala.descripcion,
+          meta: {
+            textAlign: "center",
+            width: 80,
+            minimal: true,
+          },
+        })
+      );
     default:
       return [];
   }

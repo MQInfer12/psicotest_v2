@@ -3,11 +3,7 @@ import { useAnswersHeaderContext } from "../context/AnswersHeaderContext";
 import { Fragment, useEffect, useState } from "react";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import { TestType } from "../../tests/types/TestType";
-import { TestForm, TextSectionOption } from "../../tests/api/dtos";
-import {
-  cleanOptionTags,
-  getOptionText,
-} from "@/modules/core/components/ui/canvas/utils/dynamicOptions";
+import { TestForm } from "../../tests/api/dtos";
 import { getAIResponse } from "../utils/AIResponse";
 import { toastSuccess } from "@/modules/core/utils/toasts";
 import { TemplateType } from "../../templates/types/TemplateType";
@@ -36,9 +32,11 @@ const AnswersInterpretation = () => {
   const patchMutation = postData("PATCH /respuesta/patch/interpretations");
   const [interpretation, setInterpretation] = useState<string | null>("");
   const [loading, setLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
 
-  useEffect(() => {
-    if (!selectedTests || !startedSelection || !!interpretation) return;
+  const generateInterpretation = () => {
+    if (!selectedTests || !startedSelection) return;
+    setLoading(true);
     const rawName = selectedTests.user.nombre.split(" ")[0].toLocaleLowerCase();
     const [firstLetter, ...letters] = rawName;
     const name = firstLetter.toLocaleUpperCase() + letters.join("");
@@ -55,9 +53,7 @@ const AnswersInterpretation = () => {
             setSelectedTests(null);
           },
           onSuccess: ({ data }) => {
-            let prompt =
-              "Soy un psicólogo profesional que trabaja con pacientes en una clínica privada. Mi objetivo es evaluar y comprender la salud mental de mis pacientes mediante la aplicación de diversos tests psicológicos.\n";
-            prompt += `Hoy necesito analizar los datos de mi paciente ${name} en distintos tests psicológicos y cruzar información de estos\n`;
+            let prompt = "";
 
             data.forEach((respuesta, i) => {
               //TODO: ARREGLAR SECCIONES DE IMAGEN Y SECCIONES DE TEXTO
@@ -68,7 +64,7 @@ const AnswersInterpretation = () => {
 
               const puntuaciones = getPunctuations(respuesta, test, resultados);
 
-              prompt += `Proporciono la descripción y las preguntas del test #${i + 1} llamado ${respuesta.nombre_test} junto con las respuestas de ${name} para que realices el análisis correspondiente:\n\n`;
+              prompt += `Proporciono la descripción y las preguntas del test #${i + 1} llamado ${respuesta.nombre_test} junto con las puntuaciones de ${name} para que realices el análisis correspondiente:\n\n`;
 
               prompt += "El test tiene como descripción la siguiente:\n\n";
               canvas.forEach((seccion) => {
@@ -101,8 +97,8 @@ const AnswersInterpretation = () => {
                   return resultado ? sum + 1 : sum;
                 }, 0);
 
-                prompt += `${name} respondió ${itemsRespondidos} de ${seccion.items.length} preguntas en esta sección:\n`;
-                seccion.items.forEach((item, k) => {
+                prompt += `${name} respondió ${itemsRespondidos} de ${seccion.items.length} preguntas en esta sección.\n`;
+                /*  seccion.items.forEach((item, k) => {
                   const resultado = resultados.find(
                     (resultado) => resultado.idPregunta === item.id
                   );
@@ -141,30 +137,26 @@ const AnswersInterpretation = () => {
                       : 0;
                     prompt += `Respuestas correctas de ${name}: ${correctas}\n`;
                   }
-                });
+                }); */
                 prompt += "\n";
               });
 
               prompt += `Las puntuaciones de ${name} obtenidas en las diferentes dimensiones del test son:\n\n`;
               puntuaciones.forEach((puntuacion) => {
-                prompt += `En la dimensión ${puntuacion.dimension}, ${name} obtuvo ${puntuacion.natural} puntos en el puntaje natural.\n`;
+                prompt += `En la dimensión ${puntuacion.dimension}, `;
+                Object.keys(puntuacion)
+                  .filter((k) => k !== "dimension")
+                  .forEach((k) => {
+                    if (puntuacion[k] !== "N/A") {
+                      prompt += `${name} obtuvo ${puntuacion[k]} puntos en el puntaje de la escala ${k.toLocaleUpperCase()}... `;
+                    }
+                  });
+                prompt += "\n";
               });
               prompt += "\n";
             });
 
-            prompt +=
-              "Necesito que generes una respuesta basada en el siguiente formato que te voy a proporcionar, siguiendo las siguientes instrucciones: \n";
-            prompt +=
-              "- Solo escribe tus respuestas donde el texto esté encerrado entre corchetes [], le quitas los corchetes para escribir tu respuesta.\n";
-            prompt +=
-              "- No escribas el texto cuando esté encerrado entre llaves {} ya que estas son instrucciones para que generes la respuesta de manera más personalizada.\n\n";
-
-            prompt += "No realices las siguientes acciones: \n";
-            prompt +=
-              "- No dejes ningún corchete en tu texto generado ya sean párrafos o viñetas.\n";
-            prompt +=
-              "- Lo que no está entre corchetes no lo modifiques ni lo reemplaces por nada más.\n";
-            prompt += "- No reemplaces las etiquetas HTML por nada más.\n";
+            prompt += "Te proporciono la siguiente plantilla: \n";
 
             const plantilla: TemplateType = JSON.parse(
               startedSelection.plantilla
@@ -178,7 +170,7 @@ const AnswersInterpretation = () => {
                   prompt += `<strong class="subtitle">${section.content}</strong>\n`;
                   break;
                 case "vignette":
-                  prompt += `<span class="vignette">- <strong class="vignette-title">${section.title}</strong> ${section.content}\n</span>`;
+                  prompt += `<span class="vignette">• <strong class="vignette-t">${section.title}</strong> ${section.content}\n</span>`;
                   break;
                 case "paragraph":
                   prompt += `${section.content}\n`;
@@ -186,7 +178,7 @@ const AnswersInterpretation = () => {
               }
             });
 
-            /*  console.log(prompt); */
+            console.log(prompt);
 
             let newInterpretation = "";
             setInterpretation(null);
@@ -198,9 +190,11 @@ const AnswersInterpretation = () => {
               },
               {
                 model: config.gpt_model,
-                onFinally: () => {
-                  setLoading(false);
-                  console.log(newInterpretation);
+                onError: () => {
+                  setHasError(true);
+                },
+                onSuccess: () => {
+                  setHasError(false);
                   patchMutation(
                     {
                       interpretaciones: selectedTests.selecteds.map((s) => ({
@@ -223,12 +217,20 @@ const AnswersInterpretation = () => {
                     }
                   );
                 },
+                onFinally: () => {
+                  setLoading(false);
+                },
               }
             );
           },
         });
       },
     });
+  };
+
+  useEffect(() => {
+    if (!!interpretation) return;
+    generateInterpretation();
   }, []);
 
   return (
@@ -249,6 +251,8 @@ const AnswersInterpretation = () => {
       <GptCanvas
         content={interpretation || ""}
         loaded={!loading}
+        reload={generateInterpretation}
+        success={!hasError}
         data={{
           name: selectedTests?.user.nombre || "",
           age: selectedTests?.user.fechaNacimiento

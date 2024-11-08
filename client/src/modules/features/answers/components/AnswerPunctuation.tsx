@@ -44,7 +44,7 @@ const AnswerPunctuation = () => {
         {
           title: "Puntuaciones",
           component: (
-            <Table data={tableData} columns={columns} showControls={false} />
+            <Table data={tableData} columns={columns} />
           ),
         },
       ]}

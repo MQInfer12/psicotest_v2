@@ -4,14 +4,23 @@ import GptPdf, { GptPdfData } from "./GptPdf";
 import Button from "@/modules/core/components/ui/Button";
 import { useState } from "react";
 import Icon from "@/modules/core/components/icons/Icon";
+import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 
 interface Props {
   content: string;
   loaded: boolean;
   data: GptPdfData;
+  reload?: () => void;
+  success?: boolean;
 }
 
-const GptCanvas = ({ content, loaded, data }: Props) => {
+const GptCanvas = ({
+  content,
+  loaded,
+  data,
+  reload,
+  success = true,
+}: Props) => {
   const [showPDF, setShowPDF] = useState(false);
 
   return (
@@ -21,7 +30,9 @@ const GptCanvas = ({ content, loaded, data }: Props) => {
       </div>
       <div className="absolute inset-0 flex-1 overflow-auto">
         {showPDF ? (
-          <GptPdf data={data} content={content} />
+          <PDFViewer height="100%" width="100%">
+            <GptPdf data={data} content={content} />
+          </PDFViewer>
         ) : (
           <p
             dangerouslySetInnerHTML={{ __html: content }}
@@ -29,7 +40,7 @@ const GptCanvas = ({ content, loaded, data }: Props) => {
               "w-full min-h-full whitespace-pre-line text-sm leading-[30px] px-8 py-6 pb-20 max-md:text-xs max-md:leading-[30px] max-md:px-4 max-md:pt-4",
               "[&>.title]:text-base [&>.title]:font-bold",
               "[&>.subtitle]:font-semibold",
-              "[&>.vignette]:box-decoration-clone [&>.vignette]:pl-8 [&_.vignette-title]:font-semibold"
+              "[&>.vignette]:box-decoration-clone [&>.vignette]:pl-8 [&_.vignette-title]:font-semibold [&_.vignette-t]:font-semibold"
             )}
           />
         )}
@@ -42,10 +53,30 @@ const GptCanvas = ({ content, loaded, data }: Props) => {
           </div>
         </>
       )} */}
-      <div className={clsx("bottom-4 right-4 absolute")}>
+      <div
+        className={clsx(
+          "bottom-4 right-4 absolute flex flex-col gap-4 items-end"
+        )}
+      >
+        {success && showPDF && (
+          <PDFDownloadLink
+            document={<GptPdf data={data} content={content} />}
+            fileName={`${data.name.toLocaleLowerCase().replaceAll(" ", "_")}.pdf`}
+          >
+            <Button btnType="secondary" icon={Icon.Types.DOWNLOAD} />
+          </PDFDownloadLink>
+        )}
+        {reload && !showPDF && (
+          <Button
+            btnType={success ? "secondary" : "primary"}
+            onClick={reload}
+            icon={Icon.Types.RELOAD}
+            disabled={!content || !loaded}
+          />
+        )}
         <Button
           onClick={() => setShowPDF(!showPDF)}
-          disabled={!content || !loaded}
+          disabled={!success || !content || !loaded}
           icon={showPDF ? Icon.Types.X : Icon.Types.PDF}
         >
           PDF

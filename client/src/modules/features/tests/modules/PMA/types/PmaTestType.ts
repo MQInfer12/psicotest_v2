@@ -22,4 +22,19 @@ interface WordsDimention {
 
 export interface PmaTestType extends TestType {
   dimensiones: (ClassicDimention | WordsDimention)[];
+  escalas: {
+    id: number;
+    descripcion: string;
+    conversiones: {
+      edad_minima: number;
+      edad_maxima: number;
+      genero: string;
+      dimensiones: {
+        id_dimension: number;
+        mapeo: {
+          [key: string]: number;
+        };
+      }[];
+    }[];
+  }[];
 }

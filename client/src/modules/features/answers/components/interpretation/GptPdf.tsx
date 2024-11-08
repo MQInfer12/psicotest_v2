@@ -1,6 +1,4 @@
-import { numberToRoman } from "@/modules/core/utils/numberToRoman";
 import {
-  PDFViewer,
   Document,
   Page,
   Text as PDFText,
@@ -9,8 +7,7 @@ import {
   Font,
   StyleSheet,
 } from "@react-pdf/renderer";
-import Psicotest from "@/assets/images/logo.png";
-import Unifranz from "@/assets/images/unifranz-logo.png";
+import PsicotestHeader from "@/assets/images/logo-title.png";
 import PoppinsRegular from "@/assets/fonts/Poppins/Poppins-Regular.ttf";
 import PoppinsMedium from "@/assets/fonts/Poppins/Poppins-Medium.ttf";
 import PoppinsSemiBold from "@/assets/fonts/Poppins/Poppins-SemiBold.ttf";
@@ -18,8 +15,7 @@ import PoppinsBold from "@/assets/fonts/Poppins/Poppins-Bold.ttf";
 import PoppinsExtraBold from "@/assets/fonts/Poppins/Poppins-ExtraBold.ttf";
 import PoppinsBlack from "@/assets/fonts/Poppins/Poppins-Black.ttf";
 import GptPdfContent from "./GptPdfContent";
-import { formatDate } from "@/modules/core/utils/formatDate";
-import { getTodayUtc } from "@/modules/core/utils/getTodayUtc";
+import { memo } from "react";
 
 Font.register({
   family: "Poppins",
@@ -91,166 +87,291 @@ interface Props {
   data: GptPdfData;
 }
 
-const GptPdf = ({ content, data }: Props) => {
+const GptPdf = memo(({ content, data }: Props) => {
   const paddingHorizontal = 48;
 
   return (
-    <PDFViewer height="100%" width="100%">
-      <Document>
-        <Page
-          size="LETTER"
+    <Document title="Informe psicológico">
+      <Page
+        size="LETTER"
+        style={{
+          paddingVertical: 32,
+          paddingBottom: 56,
+          gap: 4,
+        }}
+      >
+        <View
           style={{
-            paddingVertical: 32,
-            gap: 4,
+            backgroundColor: "#181818",
+            borderRadius: 12,
+            paddingHorizontal: 24,
+            paddingVertical: 16,
+            marginHorizontal: paddingHorizontal,
+            gap: 12,
+            marginBottom: 12,
           }}
         >
           <View
             style={{
-              paddingHorizontal,
-              height: 24,
               flexDirection: "row",
               justifyContent: "space-between",
-              gap: 24,
-            }}
-          >
-            <Image source={Unifranz} />
-            <Image source={Psicotest} />
-          </View>
-          <Text
-            style={{
-              textAlign: "center",
-              fontWeight: 700,
-            }}
-          >
-            INFORME PSICOLÓGICO
-          </Text>
-          <View
-            style={{
-              paddingHorizontal,
-              flexDirection: "row",
+              alignItems: "center",
             }}
           >
             <Text
               style={{
-                width: 32,
-                fontWeight: 700,
+                color: "white",
+                fontWeight: 900,
+                fontSize: 20,
+                paddingTop: 6,
               }}
             >
-              {numberToRoman(1)}.
+              Informe Psicológico
             </Text>
             <View
               style={{
-                gap: 4,
+                height: 40,
+                flexDirection: "row",
+                gap: 8,
+                overflow: "hidden",
+                borderRadius: 8,
               }}
             >
+              <Image source={PsicotestHeader} />
+            </View>
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              gap: 12,
+            }}
+          >
+            <Text
+              style={{
+                backgroundColor: "#FFF",
+                paddingHorizontal: 8,
+                paddingTop: 4,
+                paddingBottom: 1,
+                flex: 1,
+                borderRadius: 8,
+              }}
+            >
+              Nombre:{" "}
               <Text
                 style={{
-                  fontWeight: 700,
+                  fontWeight: 600,
                 }}
               >
-                DATOS GENERALES
+                {data.name}
               </Text>
-              <View>
-                <View
+            </Text>
+            <Text
+              style={{
+                backgroundColor: "#FFF",
+                paddingHorizontal: 8,
+                paddingTop: 4,
+                paddingBottom: 1,
+                borderRadius: 8,
+              }}
+            >
+              Edad:{" "}
+              <Text
+                style={{
+                  fontWeight: 600,
+                }}
+              >
+                {data.age} años
+              </Text>
+            </Text>
+          </View>
+        </View>
+        {/* <View
+          style={{
+            paddingHorizontal,
+            height: 24,
+            flexDirection: "row",
+            justifyContent: "space-between",
+            gap: 24,
+          }}
+        >
+          <Image source={Unifranz} />
+          <Image source={Psicotest} />
+        </View>
+        <Text
+          style={{
+            textAlign: "center",
+            fontWeight: 700,
+          }}
+        >
+          INFORME PSICOLÓGICO
+        </Text>
+        <View
+          style={{
+            paddingHorizontal,
+            flexDirection: "row",
+          }}
+        >
+          <Text
+            style={{
+              width: 32,
+              fontWeight: 700,
+            }}
+          >
+            {numberToRoman(1)}.
+          </Text>
+          <View
+            style={{
+              gap: 4,
+            }}
+          >
+            <Text
+              style={{
+                fontWeight: 700,
+              }}
+            >
+              DATOS GENERALES
+            </Text>
+            <View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  gap: 4,
+                }}
+              >
+                <Text
                   style={{
-                    flexDirection: "row",
-                    gap: 4,
+                    fontWeight: 600,
+                    width: 96,
                   }}
                 >
-                  <Text
-                    style={{
-                      fontWeight: 600,
-                      width: 96,
-                    }}
-                  >
-                    Nombre completo
-                  </Text>
-                  <Text
-                    style={{
-                      fontWeight: 600,
-                    }}
-                  >
-                    :
-                  </Text>
-                  <Text>{data.name}</Text>
-                </View>
-                <View
+                  Nombre completo
+                </Text>
+                <Text
                   style={{
-                    flexDirection: "row",
-                    gap: 4,
+                    fontWeight: 600,
                   }}
                 >
-                  <Text
-                    style={{
-                      fontWeight: 600,
-                      width: 96,
-                    }}
-                  >
-                    Edad
-                  </Text>
-                  <Text
-                    style={{
-                      fontWeight: 600,
-                    }}
-                  >
-                    :
-                  </Text>
-                  <Text>{data.age} años</Text>
-                </View>
-                <View
+                  :
+                </Text>
+                <Text>{data.name}</Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  gap: 4,
+                }}
+              >
+                <Text
                   style={{
-                    flexDirection: "row",
-                    gap: 4,
+                    fontWeight: 600,
+                    width: 96,
                   }}
                 >
-                  <Text
-                    style={{
-                      fontWeight: 600,
-                      width: 96,
-                    }}
-                  >
-                    Grupo
-                  </Text>
-                  <Text
-                    style={{
-                      fontWeight: 600,
-                    }}
-                  >
-                    :
-                  </Text>
-                  <Text>{data.group}</Text>
-                </View>
-                <View
+                  Edad
+                </Text>
+                <Text
                   style={{
-                    flexDirection: "row",
-                    gap: 4,
+                    fontWeight: 600,
                   }}
                 >
-                  <Text
-                    style={{
-                      fontWeight: 600,
-                      width: 96,
-                    }}
-                  >
-                    Fecha
-                  </Text>
-                  <Text
-                    style={{
-                      fontWeight: 600,
-                    }}
-                  >
-                    :
-                  </Text>
-                  <Text>{formatDate(getTodayUtc())}</Text>
-                </View>
+                  :
+                </Text>
+                <Text>{data.age} años</Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  gap: 4,
+                }}
+              >
+                <Text
+                  style={{
+                    fontWeight: 600,
+                    width: 96,
+                  }}
+                >
+                  Grupo
+                </Text>
+                <Text
+                  style={{
+                    fontWeight: 600,
+                  }}
+                >
+                  :
+                </Text>
+                <Text>{data.group}</Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  gap: 4,
+                }}
+              >
+                <Text
+                  style={{
+                    fontWeight: 600,
+                    width: 96,
+                  }}
+                >
+                  Fecha
+                </Text>
+                <Text
+                  style={{
+                    fontWeight: 600,
+                  }}
+                >
+                  :
+                </Text>
+                <Text>{formatDate(getTodayUtc())}</Text>
               </View>
             </View>
           </View>
-          <GptPdfContent
-            content={content}
-            paddingHorizontal={paddingHorizontal}
-          />
-          {/* <View
+        </View> */}
+        <GptPdfContent
+          content={content}
+          paddingHorizontal={paddingHorizontal}
+        />
+        <View
+          style={{
+            position: "absolute",
+            bottom: 32,
+            left: paddingHorizontal,
+            right: paddingHorizontal,
+            backgroundColor: "#181818",
+            borderRadius: 12,
+            paddingHorizontal: 24,
+            paddingTop: 4,
+            alignItems: "center",
+            justifyContent: "space-between",
+            flexDirection: "row",
+          }}
+          fixed
+        >
+          <Text
+            style={{
+              color: "white",
+            }}
+          >
+            Universidad{" "}
+            <Text
+              style={{
+                fontWeight: 600,
+              }}
+            >
+              Franz Tamayo
+            </Text>
+          </Text>
+          <Text
+            style={{
+              color: "white",
+              fontWeight: 400,
+            }}
+          >
+            &copy; Todos los derechos reservados
+          </Text>
+        </View>
+        {/* <View
             style={{
               paddingHorizontal,
               width: "100%",
@@ -289,10 +410,9 @@ const GptPdf = ({ content, data }: Props) => {
               </Text>
             </View>
           </View> */}
-        </Page>
-      </Document>
-    </PDFViewer>
+      </Page>
+    </Document>
   );
-};
+});
 
 export default GptPdf;

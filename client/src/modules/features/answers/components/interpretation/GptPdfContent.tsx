@@ -15,7 +15,7 @@ const GptPdfContent = ({ content, paddingHorizontal }: Props) => {
     let result;
     const elements = [];
     let lastIndex = 0;
-    let counter = 1;
+    let counter = 0;
 
     while ((result = regex.exec(str)) !== null) {
       const textBefore = str.substring(lastIndex, result.index).trim();
@@ -63,7 +63,8 @@ const GptPdfContent = ({ content, paddingHorizontal }: Props) => {
 
       if (result[2]) {
         const vignetteContent = result[2];
-        const vignetteRegex = /<strong class="vignette-title">(.*?)<\/strong>/g;
+        const vignetteRegex =
+          /<strong class="vignette-(?:title|t)(?:=|)(?:"|)">(.*?)<\/strong>/g;
         let vignetteResult;
         const vignetteElements = [];
 

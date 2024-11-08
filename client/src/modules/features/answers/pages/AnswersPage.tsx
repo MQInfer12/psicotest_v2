@@ -225,6 +225,7 @@ const AnswersPage = () => {
             <AnswersInterpretation />
           ) : (
             <Table
+              savedOffsetKey="answers_page_table_offset"
               data={filteredData}
               columns={columns}
               actions={[

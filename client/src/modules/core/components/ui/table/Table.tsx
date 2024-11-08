@@ -11,14 +11,13 @@ import Button from "../Button";
 import Loader from "../loader/Loader";
 import { AnimatePresence, motion } from "framer-motion";
 import clsx from "clsx";
-import { CSSProperties, ElementRef, useRef, useState } from "react";
+import { CSSProperties, ElementRef, useEffect, useRef, useState } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import IconMessage from "../../icons/IconMessage";
 
 interface Props<T> {
   data: T[] | undefined;
   columns: ColumnDef<T, any>[];
-  showControls?: boolean;
   actions?: {
     icon: ICON;
     title: string;
@@ -32,6 +31,7 @@ interface Props<T> {
   emptyMessage?: string;
   smallEmptyMessage?: string;
   children?: React.ReactNode;
+  savedOffsetKey?: string;
 
   //* PROPS FOR HANDLE ROW STATES
   onClickRow?: {
@@ -53,6 +53,7 @@ const Table = <T,>({
   smallEmptyMessage,
   onClickRow,
   rowStyle,
+  savedOffsetKey,
   children,
 }: Props<T>) => {
   const [sorting, setSorting] = useState<ColumnSort[]>([]);
@@ -80,11 +81,26 @@ const Table = <T,>({
   ].join(" ");
 
   const rowVirtualizer = useVirtualizer({
+    initialOffset: () => {
+      if (!savedOffsetKey) return 0;
+      const initialOffset = sessionStorage.getItem(savedOffsetKey);
+      return initialOffset ? Number(initialOffset) : 0;
+    },
     count: data?.length ?? 0,
     estimateSize: () => rowHeight,
     getScrollElement: () => tableContainerRef.current,
     overscan: 2,
   });
+
+  useEffect(() => {
+    return () => {
+      if (!savedOffsetKey) return;
+      const offset = rowVirtualizer.scrollOffset;
+      if (offset) {
+        sessionStorage.setItem(savedOffsetKey, String(offset));
+      }
+    };
+  }, [savedOffsetKey]);
 
   return (
     <div

@@ -27,6 +27,7 @@ import IconPencil from "./tabler/iconPencil";
 import IconPersonActive from "./tabler/iconPersonActive";
 import IconQR from "./tabler/iconQR";
 import IconQuestion from "./tabler/iconQuestion";
+import IconReload from "./tabler/iconReload";
 import IconSad from "./tabler/iconSad";
 import IconSchool from "./tabler/iconSchool";
 import IconStarred from "./tabler/iconStarred";
@@ -86,6 +87,7 @@ export enum ICON {
   TEMPLATE = "template",
   CANCEL = "cancel",
   CONFIG = "config",
+  RELOAD = "reload",
 }
 
 interface Props {
@@ -142,6 +144,7 @@ const Icon = ({ type }: Props) => {
     [ICON.TEMPLATE]: <IconTemplate />,
     [ICON.CANCEL]: <IconCancel />,
     [ICON.CONFIG]: <IconConfig />,
+    [ICON.RELOAD]: <IconReload />,
   };
   return icons[type];
 };

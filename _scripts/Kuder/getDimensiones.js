@@ -9,7 +9,10 @@ const lineas = texto
 
 const dimensiones = lineas.map((descripcion, index) => {
   const items = [];
-  for (let i = index + 1; i <= 60; i = i + 5) {
+
+  const realIndex = index < 5 ? 0 : 30;
+
+  for (let i = realIndex + (index % 5) + 1; i <= realIndex + 30; i = i + 5) {
     for (let j = 1; j <= 5; j++) {
       items.push({
         puntuacion: j,

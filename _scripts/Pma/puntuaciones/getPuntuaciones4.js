@@ -8,8 +8,8 @@ const lineas = texto
   .filter((linea) => linea.length > 0);
 
 const indexes = {
-  B: 16,
-  M: 17,
+  B: 17,
+  M: 18,
 };
 
 const puntuaciones = lineas

@@ -1,5 +1,5 @@
 {
-  "requerimientos": [],
+  "requerimientos": ["edad", "genero"],
   "secciones": [
     {
       "id": 1,
@@ -1052,11 +1052,11 @@
       ],
       "opciones": [
         {
-          "id": 16,
+          "id": 17,
           "descripcion": "Bien"
         },
         {
-          "id": 17,
+          "id": 18,
           "descripcion": "Mal"
         }
       ]
@@ -2934,7 +2934,7 @@
           "condiciones": [
             {
               "id_pregunta": 101,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -2943,7 +2943,7 @@
           "condiciones": [
             {
               "id_pregunta": 101,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -2952,7 +2952,7 @@
           "condiciones": [
             {
               "id_pregunta": 102,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -2961,7 +2961,7 @@
           "condiciones": [
             {
               "id_pregunta": 102,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -2970,7 +2970,7 @@
           "condiciones": [
             {
               "id_pregunta": 103,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -2979,7 +2979,7 @@
           "condiciones": [
             {
               "id_pregunta": 103,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -2988,7 +2988,7 @@
           "condiciones": [
             {
               "id_pregunta": 104,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -2997,21 +2997,12 @@
           "condiciones": [
             {
               "id_pregunta": 104,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
         {
           "puntuacion": -1,
-          "condiciones": [
-            {
-              "id_pregunta": 105,
-              "id_opcion": 16
-            }
-          ]
-        },
-        {
-          "puntuacion": 1,
           "condiciones": [
             {
               "id_pregunta": 105,
@@ -3023,8 +3014,17 @@
           "puntuacion": 1,
           "condiciones": [
             {
+              "id_pregunta": 105,
+              "id_opcion": 18
+            }
+          ]
+        },
+        {
+          "puntuacion": 1,
+          "condiciones": [
+            {
               "id_pregunta": 106,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3033,7 +3033,7 @@
           "condiciones": [
             {
               "id_pregunta": 106,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -3042,7 +3042,7 @@
           "condiciones": [
             {
               "id_pregunta": 107,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3051,7 +3051,7 @@
           "condiciones": [
             {
               "id_pregunta": 107,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -3060,7 +3060,7 @@
           "condiciones": [
             {
               "id_pregunta": 108,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3069,21 +3069,12 @@
           "condiciones": [
             {
               "id_pregunta": 108,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
         {
           "puntuacion": 1,
-          "condiciones": [
-            {
-              "id_pregunta": 109,
-              "id_opcion": 16
-            }
-          ]
-        },
-        {
-          "puntuacion": -1,
           "condiciones": [
             {
               "id_pregunta": 109,
@@ -3095,8 +3086,17 @@
           "puntuacion": -1,
           "condiciones": [
             {
+              "id_pregunta": 109,
+              "id_opcion": 18
+            }
+          ]
+        },
+        {
+          "puntuacion": -1,
+          "condiciones": [
+            {
               "id_pregunta": 110,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3105,7 +3105,7 @@
           "condiciones": [
             {
               "id_pregunta": 110,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -3114,7 +3114,7 @@
           "condiciones": [
             {
               "id_pregunta": 111,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3123,21 +3123,12 @@
           "condiciones": [
             {
               "id_pregunta": 111,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
         {
           "puntuacion": -1,
-          "condiciones": [
-            {
-              "id_pregunta": 112,
-              "id_opcion": 16
-            }
-          ]
-        },
-        {
-          "puntuacion": 1,
           "condiciones": [
             {
               "id_pregunta": 112,
@@ -3149,13 +3140,13 @@
           "puntuacion": 1,
           "condiciones": [
             {
-              "id_pregunta": 113,
-              "id_opcion": 16
+              "id_pregunta": 112,
+              "id_opcion": 18
             }
           ]
         },
         {
-          "puntuacion": -1,
+          "puntuacion": 1,
           "condiciones": [
             {
               "id_pregunta": 113,
@@ -3167,8 +3158,17 @@
           "puntuacion": -1,
           "condiciones": [
             {
+              "id_pregunta": 113,
+              "id_opcion": 18
+            }
+          ]
+        },
+        {
+          "puntuacion": -1,
+          "condiciones": [
+            {
               "id_pregunta": 114,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3177,7 +3177,7 @@
           "condiciones": [
             {
               "id_pregunta": 114,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -3186,7 +3186,7 @@
           "condiciones": [
             {
               "id_pregunta": 115,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3195,7 +3195,7 @@
           "condiciones": [
             {
               "id_pregunta": 115,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -3204,7 +3204,7 @@
           "condiciones": [
             {
               "id_pregunta": 116,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3213,7 +3213,7 @@
           "condiciones": [
             {
               "id_pregunta": 116,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -3222,7 +3222,7 @@
           "condiciones": [
             {
               "id_pregunta": 117,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3231,7 +3231,7 @@
           "condiciones": [
             {
               "id_pregunta": 117,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -3240,7 +3240,7 @@
           "condiciones": [
             {
               "id_pregunta": 118,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3249,7 +3249,7 @@
           "condiciones": [
             {
               "id_pregunta": 118,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -3258,7 +3258,7 @@
           "condiciones": [
             {
               "id_pregunta": 119,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3267,21 +3267,12 @@
           "condiciones": [
             {
               "id_pregunta": 119,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
         {
           "puntuacion": -1,
-          "condiciones": [
-            {
-              "id_pregunta": 120,
-              "id_opcion": 16
-            }
-          ]
-        },
-        {
-          "puntuacion": 1,
           "condiciones": [
             {
               "id_pregunta": 120,
@@ -3293,8 +3284,17 @@
           "puntuacion": 1,
           "condiciones": [
             {
+              "id_pregunta": 120,
+              "id_opcion": 18
+            }
+          ]
+        },
+        {
+          "puntuacion": 1,
+          "condiciones": [
+            {
               "id_pregunta": 121,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3303,7 +3303,7 @@
           "condiciones": [
             {
               "id_pregunta": 121,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -3312,7 +3312,7 @@
           "condiciones": [
             {
               "id_pregunta": 122,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3321,21 +3321,12 @@
           "condiciones": [
             {
               "id_pregunta": 122,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
         {
           "puntuacion": 1,
-          "condiciones": [
-            {
-              "id_pregunta": 123,
-              "id_opcion": 16
-            }
-          ]
-        },
-        {
-          "puntuacion": -1,
           "condiciones": [
             {
               "id_pregunta": 123,
@@ -3347,13 +3338,13 @@
           "puntuacion": -1,
           "condiciones": [
             {
-              "id_pregunta": 124,
-              "id_opcion": 16
+              "id_pregunta": 123,
+              "id_opcion": 18
             }
           ]
         },
         {
-          "puntuacion": 1,
+          "puntuacion": -1,
           "condiciones": [
             {
               "id_pregunta": 124,
@@ -3365,8 +3356,17 @@
           "puntuacion": 1,
           "condiciones": [
             {
+              "id_pregunta": 124,
+              "id_opcion": 18
+            }
+          ]
+        },
+        {
+          "puntuacion": 1,
+          "condiciones": [
+            {
               "id_pregunta": 125,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3375,7 +3375,7 @@
           "condiciones": [
             {
               "id_pregunta": 125,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -3384,7 +3384,7 @@
           "condiciones": [
             {
               "id_pregunta": 126,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3393,7 +3393,7 @@
           "condiciones": [
             {
               "id_pregunta": 126,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -3402,7 +3402,7 @@
           "condiciones": [
             {
               "id_pregunta": 127,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3411,21 +3411,12 @@
           "condiciones": [
             {
               "id_pregunta": 127,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
         {
           "puntuacion": 1,
-          "condiciones": [
-            {
-              "id_pregunta": 128,
-              "id_opcion": 16
-            }
-          ]
-        },
-        {
-          "puntuacion": -1,
           "condiciones": [
             {
               "id_pregunta": 128,
@@ -3437,8 +3428,17 @@
           "puntuacion": -1,
           "condiciones": [
             {
+              "id_pregunta": 128,
+              "id_opcion": 18
+            }
+          ]
+        },
+        {
+          "puntuacion": -1,
+          "condiciones": [
+            {
               "id_pregunta": 129,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3447,7 +3447,7 @@
           "condiciones": [
             {
               "id_pregunta": 129,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -3456,7 +3456,7 @@
           "condiciones": [
             {
               "id_pregunta": 130,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3465,7 +3465,7 @@
           "condiciones": [
             {
               "id_pregunta": 130,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -3474,7 +3474,7 @@
           "condiciones": [
             {
               "id_pregunta": 131,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3483,7 +3483,7 @@
           "condiciones": [
             {
               "id_pregunta": 131,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -3492,7 +3492,7 @@
           "condiciones": [
             {
               "id_pregunta": 132,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3501,7 +3501,7 @@
           "condiciones": [
             {
               "id_pregunta": 132,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -3510,7 +3510,7 @@
           "condiciones": [
             {
               "id_pregunta": 133,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3519,7 +3519,7 @@
           "condiciones": [
             {
               "id_pregunta": 133,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -3528,7 +3528,7 @@
           "condiciones": [
             {
               "id_pregunta": 134,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3537,21 +3537,12 @@
           "condiciones": [
             {
               "id_pregunta": 134,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
         {
           "puntuacion": -1,
-          "condiciones": [
-            {
-              "id_pregunta": 135,
-              "id_opcion": 16
-            }
-          ]
-        },
-        {
-          "puntuacion": 1,
           "condiciones": [
             {
               "id_pregunta": 135,
@@ -3563,8 +3554,17 @@
           "puntuacion": 1,
           "condiciones": [
             {
+              "id_pregunta": 135,
+              "id_opcion": 18
+            }
+          ]
+        },
+        {
+          "puntuacion": 1,
+          "condiciones": [
+            {
               "id_pregunta": 136,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3573,7 +3573,7 @@
           "condiciones": [
             {
               "id_pregunta": 136,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -3582,7 +3582,7 @@
           "condiciones": [
             {
               "id_pregunta": 137,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3591,7 +3591,7 @@
           "condiciones": [
             {
               "id_pregunta": 137,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -3600,7 +3600,7 @@
           "condiciones": [
             {
               "id_pregunta": 138,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3609,7 +3609,7 @@
           "condiciones": [
             {
               "id_pregunta": 138,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -3618,7 +3618,7 @@
           "condiciones": [
             {
               "id_pregunta": 139,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3627,21 +3627,12 @@
           "condiciones": [
             {
               "id_pregunta": 139,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
         {
           "puntuacion": -1,
-          "condiciones": [
-            {
-              "id_pregunta": 140,
-              "id_opcion": 16
-            }
-          ]
-        },
-        {
-          "puntuacion": 1,
           "condiciones": [
             {
               "id_pregunta": 140,
@@ -3653,8 +3644,17 @@
           "puntuacion": 1,
           "condiciones": [
             {
+              "id_pregunta": 140,
+              "id_opcion": 18
+            }
+          ]
+        },
+        {
+          "puntuacion": 1,
+          "condiciones": [
+            {
               "id_pregunta": 141,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3663,7 +3663,7 @@
           "condiciones": [
             {
               "id_pregunta": 141,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -3672,7 +3672,7 @@
           "condiciones": [
             {
               "id_pregunta": 142,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3681,7 +3681,7 @@
           "condiciones": [
             {
               "id_pregunta": 142,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -3690,7 +3690,7 @@
           "condiciones": [
             {
               "id_pregunta": 143,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3699,21 +3699,12 @@
           "condiciones": [
             {
               "id_pregunta": 143,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
         {
           "puntuacion": -1,
-          "condiciones": [
-            {
-              "id_pregunta": 144,
-              "id_opcion": 16
-            }
-          ]
-        },
-        {
-          "puntuacion": 1,
           "condiciones": [
             {
               "id_pregunta": 144,
@@ -3725,8 +3716,17 @@
           "puntuacion": 1,
           "condiciones": [
             {
+              "id_pregunta": 144,
+              "id_opcion": 18
+            }
+          ]
+        },
+        {
+          "puntuacion": 1,
+          "condiciones": [
+            {
               "id_pregunta": 145,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3735,7 +3735,7 @@
           "condiciones": [
             {
               "id_pregunta": 145,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -3744,7 +3744,7 @@
           "condiciones": [
             {
               "id_pregunta": 146,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3753,7 +3753,7 @@
           "condiciones": [
             {
               "id_pregunta": 146,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -3762,7 +3762,7 @@
           "condiciones": [
             {
               "id_pregunta": 147,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3771,21 +3771,12 @@
           "condiciones": [
             {
               "id_pregunta": 147,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
         {
           "puntuacion": -1,
-          "condiciones": [
-            {
-              "id_pregunta": 148,
-              "id_opcion": 16
-            }
-          ]
-        },
-        {
-          "puntuacion": 1,
           "condiciones": [
             {
               "id_pregunta": 148,
@@ -3797,8 +3788,17 @@
           "puntuacion": 1,
           "condiciones": [
             {
+              "id_pregunta": 148,
+              "id_opcion": 18
+            }
+          ]
+        },
+        {
+          "puntuacion": 1,
+          "condiciones": [
+            {
               "id_pregunta": 149,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3807,7 +3807,7 @@
           "condiciones": [
             {
               "id_pregunta": 149,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -3816,7 +3816,7 @@
           "condiciones": [
             {
               "id_pregunta": 150,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3825,7 +3825,7 @@
           "condiciones": [
             {
               "id_pregunta": 150,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -3834,7 +3834,7 @@
           "condiciones": [
             {
               "id_pregunta": 151,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3843,7 +3843,7 @@
           "condiciones": [
             {
               "id_pregunta": 151,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -3852,7 +3852,7 @@
           "condiciones": [
             {
               "id_pregunta": 152,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3861,7 +3861,7 @@
           "condiciones": [
             {
               "id_pregunta": 152,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -3870,7 +3870,7 @@
           "condiciones": [
             {
               "id_pregunta": 153,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3879,21 +3879,12 @@
           "condiciones": [
             {
               "id_pregunta": 153,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
         {
           "puntuacion": -1,
-          "condiciones": [
-            {
-              "id_pregunta": 154,
-              "id_opcion": 16
-            }
-          ]
-        },
-        {
-          "puntuacion": 1,
           "condiciones": [
             {
               "id_pregunta": 154,
@@ -3905,8 +3896,17 @@
           "puntuacion": 1,
           "condiciones": [
             {
+              "id_pregunta": 154,
+              "id_opcion": 18
+            }
+          ]
+        },
+        {
+          "puntuacion": 1,
+          "condiciones": [
+            {
               "id_pregunta": 155,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3915,7 +3915,7 @@
           "condiciones": [
             {
               "id_pregunta": 155,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -3924,7 +3924,7 @@
           "condiciones": [
             {
               "id_pregunta": 156,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3933,21 +3933,12 @@
           "condiciones": [
             {
               "id_pregunta": 156,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
         {
           "puntuacion": -1,
-          "condiciones": [
-            {
-              "id_pregunta": 157,
-              "id_opcion": 16
-            }
-          ]
-        },
-        {
-          "puntuacion": 1,
           "condiciones": [
             {
               "id_pregunta": 157,
@@ -3959,13 +3950,13 @@
           "puntuacion": 1,
           "condiciones": [
             {
-              "id_pregunta": 158,
-              "id_opcion": 16
+              "id_pregunta": 157,
+              "id_opcion": 18
             }
           ]
         },
         {
-          "puntuacion": -1,
+          "puntuacion": 1,
           "condiciones": [
             {
               "id_pregunta": 158,
@@ -3977,8 +3968,17 @@
           "puntuacion": -1,
           "condiciones": [
             {
+              "id_pregunta": 158,
+              "id_opcion": 18
+            }
+          ]
+        },
+        {
+          "puntuacion": -1,
+          "condiciones": [
+            {
               "id_pregunta": 159,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -3987,7 +3987,7 @@
           "condiciones": [
             {
               "id_pregunta": 159,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -3996,7 +3996,7 @@
           "condiciones": [
             {
               "id_pregunta": 160,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -4005,21 +4005,12 @@
           "condiciones": [
             {
               "id_pregunta": 160,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
         {
           "puntuacion": -1,
-          "condiciones": [
-            {
-              "id_pregunta": 161,
-              "id_opcion": 16
-            }
-          ]
-        },
-        {
-          "puntuacion": 1,
           "condiciones": [
             {
               "id_pregunta": 161,
@@ -4031,13 +4022,13 @@
           "puntuacion": 1,
           "condiciones": [
             {
-              "id_pregunta": 162,
-              "id_opcion": 16
+              "id_pregunta": 161,
+              "id_opcion": 18
             }
           ]
         },
         {
-          "puntuacion": -1,
+          "puntuacion": 1,
           "condiciones": [
             {
               "id_pregunta": 162,
@@ -4049,8 +4040,17 @@
           "puntuacion": -1,
           "condiciones": [
             {
+              "id_pregunta": 162,
+              "id_opcion": 18
+            }
+          ]
+        },
+        {
+          "puntuacion": -1,
+          "condiciones": [
+            {
               "id_pregunta": 163,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -4059,7 +4059,7 @@
           "condiciones": [
             {
               "id_pregunta": 163,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -4068,7 +4068,7 @@
           "condiciones": [
             {
               "id_pregunta": 164,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -4077,7 +4077,7 @@
           "condiciones": [
             {
               "id_pregunta": 164,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -4086,7 +4086,7 @@
           "condiciones": [
             {
               "id_pregunta": 165,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -4095,7 +4095,7 @@
           "condiciones": [
             {
               "id_pregunta": 165,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -4104,7 +4104,7 @@
           "condiciones": [
             {
               "id_pregunta": 166,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -4113,7 +4113,7 @@
           "condiciones": [
             {
               "id_pregunta": 166,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -4122,7 +4122,7 @@
           "condiciones": [
             {
               "id_pregunta": 167,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -4131,7 +4131,7 @@
           "condiciones": [
             {
               "id_pregunta": 167,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
@@ -4140,7 +4140,7 @@
           "condiciones": [
             {
               "id_pregunta": 168,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -4149,21 +4149,12 @@
           "condiciones": [
             {
               "id_pregunta": 168,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         },
         {
           "puntuacion": -1,
-          "condiciones": [
-            {
-              "id_pregunta": 169,
-              "id_opcion": 16
-            }
-          ]
-        },
-        {
-          "puntuacion": 1,
           "condiciones": [
             {
               "id_pregunta": 169,
@@ -4175,8 +4166,17 @@
           "puntuacion": 1,
           "condiciones": [
             {
+              "id_pregunta": 169,
+              "id_opcion": 18
+            }
+          ]
+        },
+        {
+          "puntuacion": 1,
+          "condiciones": [
+            {
               "id_pregunta": 170,
-              "id_opcion": 16
+              "id_opcion": 17
             }
           ]
         },
@@ -4185,7 +4185,7 @@
           "condiciones": [
             {
               "id_pregunta": 170,
-              "id_opcion": 17
+              "id_opcion": 18
             }
           ]
         }
@@ -4196,6 +4196,462 @@
       "descripcion": "FACTOR F",
       "tipo": "words",
       "secciones": [5]
+    }
+  ],
+  "escalas": [
+    {
+      "id": 1,
+      "descripcion": "Percentil",
+      "conversiones": [
+        {
+          "edad_minima": 0,
+          "edad_maxima": 150,
+          "genero": "Hombre",
+          "dimensiones": [
+            {
+              "id_dimension": 1,
+              "mapeo": {
+                "0": "1",
+                "1": "1",
+                "2": "1",
+                "3": "1",
+                "4": "1",
+                "5": "4",
+                "6": "4",
+                "7": "4",
+                "8": "5",
+                "9": "10",
+                "10": "11",
+                "11": "15",
+                "12": "20",
+                "13": "25",
+                "14": "35",
+                "15": "40",
+                "16": "45",
+                "17": "50",
+                "18": "55",
+                "19": "60",
+                "20": "65",
+                "21": "75",
+                "22": "77",
+                "23": "80",
+                "24": "85",
+                "25": "89",
+                "26": "89",
+                "27": "90",
+                "28": "95",
+                "29": "95",
+                "30": "95",
+                "31": "96",
+                "32": "97",
+                "33": "99",
+                "34": "99",
+                "35": "99",
+                "36": "99"
+              }
+            },
+            {
+              "id_dimension": 2,
+              "mapeo": {
+                "0": "5",
+                "1": "5",
+                "2": "10",
+                "3": "11",
+                "4": "11",
+                "5": "15",
+                "6": "15",
+                "7": "20",
+                "8": "23",
+                "9": "25",
+                "10": "30",
+                "11": "30",
+                "12": "35",
+                "13": "40",
+                "14": "45",
+                "15": "45",
+                "16": "50",
+                "17": "55",
+                "18": "60",
+                "19": "60",
+                "20": "65",
+                "21": "65",
+                "22": "70",
+                "23": "75",
+                "24": "77",
+                "25": "80",
+                "26": "80",
+                "27": "85",
+                "28": "85",
+                "29": "89",
+                "30": "90",
+                "31": "90",
+                "32": "90",
+                "33": "90",
+                "34": "90",
+                "35": "90",
+                "36": "95",
+                "37": "96",
+                "38": "97",
+                "39": "99",
+                "40": "99",
+                "41": "99",
+                "-3": "1",
+                "-2": "1",
+                "-1": "4"
+              }
+            },
+            {
+              "id_dimension": 3,
+              "mapeo": {
+                "0": "1",
+                "1": "1",
+                "2": "4",
+                "3": "10",
+                "4": "15",
+                "5": "20",
+                "6": "25",
+                "7": "30",
+                "8": "40",
+                "9": "45",
+                "10": "50",
+                "11": "55",
+                "12": "65",
+                "13": "70",
+                "14": "75",
+                "15": "80",
+                "16": "85",
+                "17": "89",
+                "18": "90",
+                "19": "95",
+                "20": "96",
+                "21": "97",
+                "22": "99"
+              }
+            },
+            {
+              "id_dimension": 4,
+              "mapeo": {
+                "0": "1",
+                "1": "1",
+                "2": "1",
+                "3": "4",
+                "4": "5",
+                "5": "10",
+                "6": "10",
+                "7": "10",
+                "8": "11",
+                "9": "15",
+                "10": "20",
+                "11": "23",
+                "12": "25",
+                "13": "35",
+                "14": "40",
+                "15": "45",
+                "16": "50",
+                "17": "55",
+                "18": "60",
+                "19": "65",
+                "20": "70",
+                "21": "75",
+                "22": "77",
+                "23": "80",
+                "24": "80",
+                "25": "85",
+                "26": "85",
+                "27": "89",
+                "28": "90",
+                "29": "90",
+                "30": "90",
+                "31": "90",
+                "32": "95",
+                "33": "95",
+                "34": "96",
+                "35": "96",
+                "36": "97",
+                "37": "97",
+                "38": "97",
+                "39": "99"
+              }
+            },
+            {
+              "id_dimension": 5,
+              "mapeo": {
+                "0": "1",
+                "1": "1",
+                "2": "1",
+                "3": "1",
+                "4": "1",
+                "5": "1",
+                "6": "1",
+                "7": "1",
+                "8": "1",
+                "9": "1",
+                "10": "1",
+                "11": "1",
+                "12": "1",
+                "13": "1",
+                "14": "1",
+                "15": "1",
+                "16": "1",
+                "17": "4",
+                "18": "5",
+                "19": "5",
+                "20": "5",
+                "21": "10",
+                "22": "11",
+                "23": "11",
+                "24": "15",
+                "25": "20",
+                "26": "23",
+                "27": "25",
+                "28": "30",
+                "29": "35",
+                "30": "40",
+                "31": "40",
+                "32": "45",
+                "33": "50",
+                "34": "55",
+                "35": "60",
+                "36": "60",
+                "37": "65",
+                "38": "70",
+                "39": "75",
+                "40": "77",
+                "41": "80",
+                "42": "80",
+                "43": "85",
+                "44": "85",
+                "45": "89",
+                "46": "89",
+                "47": "90",
+                "48": "95",
+                "49": "96",
+                "50": "97",
+                "51": "97",
+                "52": "97",
+                "53": "97",
+                "54": "99"
+              }
+            }
+          ]
+        },
+        {
+          "edad_minima": 0,
+          "edad_maxima": 150,
+          "genero": "Mujer",
+          "dimensiones": [
+            {
+              "id_dimension": 1,
+              "mapeo": {
+                "0": "1",
+                "1": "1",
+                "2": "1",
+                "3": "1",
+                "4": "1",
+                "5": "1",
+                "6": "4",
+                "7": "5",
+                "8": "10",
+                "9": "11",
+                "10": "20",
+                "11": "25",
+                "12": "30",
+                "13": "40",
+                "14": "45",
+                "15": "50",
+                "16": "55",
+                "17": "60",
+                "18": "65",
+                "19": "70",
+                "20": "75",
+                "21": "77",
+                "22": "77",
+                "23": "77",
+                "24": "80",
+                "25": "80",
+                "26": "85",
+                "27": "85",
+                "28": "89",
+                "29": "90",
+                "30": "95",
+                "31": "96",
+                "32": "96",
+                "33": "97",
+                "34": "97",
+                "35": "97",
+                "36": "99"
+              }
+            },
+            {
+              "id_dimension": 2,
+              "mapeo": {
+                "0": "10",
+                "1": "11",
+                "2": "11",
+                "3": "15",
+                "4": "20",
+                "5": "23",
+                "6": "25",
+                "7": "30",
+                "8": "35",
+                "9": "40",
+                "10": "40",
+                "11": "45",
+                "12": "50",
+                "13": "55",
+                "14": "60",
+                "15": "65",
+                "16": "65",
+                "17": "70",
+                "18": "70",
+                "19": "75",
+                "20": "77",
+                "21": "80",
+                "22": "80",
+                "23": "85",
+                "24": "85",
+                "25": "89",
+                "26": "90",
+                "27": "90",
+                "28": "90",
+                "29": "90",
+                "30": "90",
+                "31": "90",
+                "32": "95",
+                "33": "96",
+                "34": "96",
+                "35": "97",
+                "36": "97",
+                "37": "99",
+                "38": "99",
+                "39": "99",
+                "-6": "1",
+                "-5": "1",
+                "-4": "1",
+                "-3": "4",
+                "-2": "5",
+                "-1": "5"
+              }
+            },
+            {
+              "id_dimension": 3,
+              "mapeo": {
+                "0": "1",
+                "1": "1",
+                "2": "5",
+                "3": "10",
+                "4": "15",
+                "5": "23",
+                "6": "30",
+                "7": "40",
+                "8": "45",
+                "9": "50",
+                "10": "60",
+                "11": "70",
+                "12": "75",
+                "13": "80",
+                "14": "85",
+                "15": "89",
+                "16": "90",
+                "17": "95",
+                "18": "95",
+                "19": "96",
+                "20": "97",
+                "21": "97",
+                "22": "99"
+              }
+            },
+            {
+              "id_dimension": 4,
+              "mapeo": {
+                "0": "1",
+                "1": "1",
+                "2": "1",
+                "3": "4",
+                "4": "5",
+                "5": "10",
+                "6": "11",
+                "7": "15",
+                "8": "20",
+                "9": "25",
+                "10": "30",
+                "11": "35",
+                "12": "45",
+                "13": "50",
+                "14": "55",
+                "15": "60",
+                "16": "70",
+                "17": "75",
+                "18": "80",
+                "19": "85",
+                "20": "89",
+                "21": "90",
+                "22": "95",
+                "23": "96",
+                "24": "97",
+                "25": "97",
+                "26": "99"
+              }
+            },
+            {
+              "id_dimension": 5,
+              "mapeo": {
+                "0": "1",
+                "1": "1",
+                "2": "1",
+                "3": "1",
+                "4": "1",
+                "5": "1",
+                "6": "1",
+                "7": "1",
+                "8": "1",
+                "9": "1",
+                "10": "1",
+                "11": "1",
+                "12": "1",
+                "13": "1",
+                "14": "1",
+                "15": "4",
+                "16": "5",
+                "17": "5",
+                "18": "5",
+                "19": "10",
+                "20": "11",
+                "21": "15",
+                "22": "20",
+                "23": "23",
+                "24": "25",
+                "25": "30",
+                "26": "35",
+                "27": "35",
+                "28": "40",
+                "29": "45",
+                "30": "50",
+                "31": "55",
+                "32": "60",
+                "33": "65",
+                "34": "70",
+                "35": "75",
+                "36": "77",
+                "37": "80",
+                "38": "80",
+                "39": "85",
+                "40": "85",
+                "41": "89",
+                "42": "90",
+                "43": "90",
+                "44": "90",
+                "45": "90",
+                "46": "95",
+                "47": "96",
+                "48": "96",
+                "49": "97",
+                "50": "99"
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
 }

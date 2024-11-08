@@ -91,10 +91,12 @@ export const getPunctuations = (
       });
     case TestIds.PMA:
       const PMATest = testGeneral as PmaTestType;
-      return PMATest.dimensiones.map((dimension) => {
+      let IQ = 0;
+      const PMAresults = PMATest.dimensiones.map((dimension) => {
+        let res: PunctuationData;
         switch (dimension.tipo) {
           case "classic":
-            const classicRes: PunctuationData = {
+            res = {
               dimension: dimension.descripcion,
               natural: dimension.items.reduce((sum, item) => {
                 const meetsConditions = item.condiciones.every((condicion) => {
@@ -126,9 +128,24 @@ export const getPunctuations = (
                 return sum;
               }, 0),
             };
-            return classicRes;
+
+            switch (res.dimension) {
+              case "FACTOR V":
+                IQ += res.natural * 1.5;
+                break;
+              case "FACTOR E":
+                IQ += res.natural;
+                break;
+              case "FACTOR R":
+                IQ += res.natural * 2;
+                break;
+              case "FACTOR N":
+                IQ += res.natural;
+                break;
+            }
+            break;
           case "words":
-            const wordsRes: PunctuationData = {
+            res = {
               dimension: dimension.descripcion,
               natural: dimension.secciones
                 .map((seccionId) =>
@@ -151,9 +168,55 @@ export const getPunctuations = (
                   return sum;
                 }, 0),
             };
-            return wordsRes;
+            IQ += res.natural;
+            break;
         }
+
+        PMATest.escalas.forEach((escala) => {
+          let value: string | number = "N/A";
+          const { user } = testData;
+          if (user?.fecha_nacimiento && user.genero && testData.fecha_enviado) {
+            const edad = measureAge(
+              user.fecha_nacimiento,
+              testData.fecha_enviado
+            );
+            const mapeo = escala.conversiones
+              .find(
+                (conversion) =>
+                  conversion.genero === user.genero &&
+                  edad >= conversion.edad_minima &&
+                  edad <= conversion.edad_maxima
+              )
+              ?.dimensiones.find((d) => d.id_dimension === dimension.id)?.mapeo;
+            if (mapeo) {
+              const minValue = Math.min(
+                ...Object.keys(mapeo).map((v) => Number(v))
+              );
+              const maxValue = Math.max(
+                ...Object.keys(mapeo).map((v) => Number(v))
+              );
+              value = mapeo[String(res.natural)];
+              if (res.natural < minValue) {
+                value = mapeo[String(minValue)];
+              }
+              if (res.natural > maxValue) {
+                value = mapeo[String(maxValue)];
+              }
+            }
+          }
+          res[escala.descripcion] = value;
+        });
+
+        return res;
       });
+      return [
+        ...PMAresults,
+        {
+          dimension: "CI",
+          natural: IQ,
+          Percentil: "N/A",
+        },
+      ];
     default:
       return [];
   }
