@@ -38,13 +38,18 @@ const TestRequirements = ({ direction, requirements }: Props) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<UserRequiredDTO>({
+  } = useForm({
     defaultValues: {
       fecha_nacimiento: user?.fecha_nacimiento ?? undefined,
       genero: user?.genero ?? undefined,
     },
+    context: {
+      requirements,
+    },
     resolver: yupResolver(UserRequiredDTOSchema),
   });
+
+  console.log(errors);
 
   return (
     <motion.div
@@ -68,6 +73,7 @@ const TestRequirements = ({ direction, requirements }: Props) => {
             case Requirements.EDAD:
               return (
                 <Input
+                  key={r}
                   label="Fecha de nacimiento"
                   type="date"
                   error={errors.fecha_nacimiento?.message}
@@ -77,6 +83,7 @@ const TestRequirements = ({ direction, requirements }: Props) => {
             case Requirements.GENERO:
               return (
                 <Input
+                  key={r}
                   label="Género"
                   error={errors.genero?.message}
                   type="select"

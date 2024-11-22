@@ -1,5 +1,5 @@
 {
-  "requerimientos": ["genero"],
+  "requerimientos": ["edad", "genero"],
   "secciones": [
     {
       "id": 1,

@@ -1,1 +1,1 @@
-export const CANVAS_PADDING = 16;
+export const CANVAS_PADDING = 12;

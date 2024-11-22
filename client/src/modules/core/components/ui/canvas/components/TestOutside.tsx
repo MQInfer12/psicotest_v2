@@ -29,7 +29,10 @@ const TestOutside = ({ data, setOpen, finished, initiated }: Props) => {
           >
             {finished ? "¡Ya resolviste este test!" : "¡Inicia tu test ahora!"}
           </strong>
-          <div className="flex-1 flex justify-center">
+          <div className="flex-1 flex justify-center gap-4">
+            {/* {initiated && (
+              <Button btnType="secondary" icon={Icon.Types.RELOAD} />
+            )} */}
             <Button
               onClick={() => setOpen(true)}
               icon={Icon.Types.CHEVRON_RIGHT}

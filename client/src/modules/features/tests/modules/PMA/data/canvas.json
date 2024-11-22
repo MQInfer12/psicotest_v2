@@ -4,44 +4,29 @@
     "content": "El Test de Habilidades Mentales Primarias (PMA) mide diversas capacidades cognitivas fundamentales que son esenciales para el aprendizaje y el desempeño en diversas áreas. Específicamente, el PMA evalúa:"
   },
   {
-    "type": "subtitle",
-    "content": "Razonamiento verbal"
-  },
-  {
-    "type": "paragraph",
+    "type": "vignette",
+    "title": "Razonamiento verbal",
     "content": "Habilidad para entender y analizar información verbal, así como la capacidad de razonamiento a través de palabras."
   },
   {
-    "type": "subtitle",
-    "content": "Razonamiento numérico"
-  },
-  {
-    "type": "paragraph",
+    "type": "vignette",
+    "title": "Razonamiento numérico",
     "content": "Capacidad para trabajar con números y realizar operaciones matemáticas básicas, así como la comprensión de relaciones numéricas."
   },
   {
-    "type": "subtitle",
-    "content": "Razonamiento abstracto"
-  },
-  {
-    "type": "paragraph",
+    "type": "vignette",
+    "title": "Razonamiento abstracto",
     "content": "Habilidad para identificar patrones y relaciones entre figuras y formas, esencial para la resolución de problemas."
   },
   {
-    "type": "subtitle",
-    "content": "Memoria"
-  },
-  {
-    "type": "paragraph",
+    "type": "vignette",
+    "title": "Memoria",
     "content": "Evaluación de la capacidad para recordar información y utilizarla de manera efectiva en tareas cognitivas."
   },
   {
-    "type": "subtitle",
-    "content": "Percepción espacial"
-  },
-  {
-    "type": "paragraph",
-    "content": "Habilidad para visualizar y manipular objetos en tres dimensiones, importante para disciplinas como la arquitectura y la ingeniería."
+    "type": "vignette",
+    "title": "Percepción espacial",
+    "content": "Habilidad para visualizar y manipular objetos en tres dimensiones, importante para disciplinas como la arquitectura y la ingeniería."
   },
   {
     "type": "subtitle",

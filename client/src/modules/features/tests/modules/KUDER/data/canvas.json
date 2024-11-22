@@ -21,7 +21,7 @@
   },
   {
     "type": "paragraph",
-    "content": "El test se aplica a partir de los 15 años, puede realizarse de forma individual o en grupo y suele durar entre 45 minutos y una hora. No hay límite de tiempo, por lo que puedes tomarte el tiempo necesario para responder."
+    "content": "El test se aplica a partir de los 15 años, puede realizarse de forma individual o en grupo y suele durar entre 15 minutos y media hora. No hay límite de tiempo, por lo que puedes tomarte el tiempo necesario para responder."
   },
   {
     "type": "subtitle",
@@ -30,14 +30,6 @@
   {
     "type": "paragraph",
     "content": "Los resultados del Test de Kuder están organizados en percentiles, que miden el nivel de interés en cada área. Los puntajes altos indican preferencias fuertes, mientras que los más bajos pueden reflejar áreas menos atractivas para ti."
-  },
-  {
-    "type": "subtitle",
-    "content": "Escala de verificación"
-  },
-  {
-    "type": "paragraph",
-    "content": "El test incluye una escala de verificación que asegura la validez de tus respuestas. Si esta escala muestra resultados válidos, los resultados se pueden interpretar con confianza. En caso contrario, se recomienda repetir el test."
   },
   {
     "type": "paragraph",

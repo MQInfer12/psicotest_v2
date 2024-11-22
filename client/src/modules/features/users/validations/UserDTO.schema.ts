@@ -1,4 +1,5 @@
 import * as yup from "yup";
+import { Requirements } from "../../tests/types/TestType";
 
 export const UserDTOSchema = yup.object({
   nombre: yup.string().required("El nombre es requerido"),
@@ -11,7 +12,17 @@ export const UserDTOSchema = yup.object({
   fecha_nacimiento: yup.string().nullable(),
 });
 
-export const UserRequiredDTOSchema = yup.object({
-  genero: yup.string().required("Requerido"),
-  fecha_nacimiento: yup.string().required("Requerido"),
+export const UserRequiredDTOSchema = yup.object().shape({
+  genero: yup.string().when("$requirements", ([requirements], schema) => {
+    if (requirements.includes(Requirements.GENERO))
+      return schema.required("Requerido");
+    return schema;
+  }),
+  fecha_nacimiento: yup
+    .string()
+    .when("$requirements", ([requirements], schema) => {
+      if (requirements.includes(Requirements.EDAD))
+        return schema.required("Requerido");
+      return schema;
+    }),
 });

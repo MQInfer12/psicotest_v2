@@ -31,6 +31,7 @@ import TestTimeout from "./TestTimeout";
 import { COLORS } from "@/modules/core/constants/COLORS";
 import TestTextSection from "./TestTextSection";
 import TestTextSectionForm from "./TestTextSectionForm";
+import usePreventNavigation from "../hooks/usePreventNavigation";
 
 interface Props {
   data: T_Test | T_Test_Respuesta;
@@ -207,6 +208,8 @@ const Test = ({ data, test, idRespuesta }: Props) => {
     finished
   );
 
+  usePreventNavigation(!prev && !finished && form.length > 0);
+
   const showTextSection = seccion?.type === "text";
   return (
     <>
@@ -230,7 +233,9 @@ const Test = ({ data, test, idRespuesta }: Props) => {
             setSectionViews={setSectionViews}
           />
           <div className="flex flex-col gap-2">
-            <TestPhrase />
+            <div className="petizo:hidden">
+              <TestPhrase />
+            </div>
             {seccion && pregunta && (
               <TestProgress
                 secciones={secciones}
@@ -267,7 +272,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                   initial="enter"
                   animate="active"
                   exit="exit"
-                  className="flex justify-center py-10 max-md:py-4 inset-0 absolute"
+                  className="flex justify-center py-6 max-md:py-4 inset-0 absolute"
                 >
                   <div className="flex flex-col gap-3 w-[600px] max-w-full relative">
                     <div className="absolute top-0 right-4 flex gap-2">
@@ -368,7 +373,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                         }
                       </h3>
                     </div>
-                    <div className="border-b border-alto-200 px-4 h-40 flex items-center">
+                    <div className="border-b border-alto-200 px-4 h-32 flex items-center">
                       <motion.div
                         className={clsx(
                           "w-full h-full flex flex-col justify-center",
@@ -378,7 +383,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                         )}
                         initial={{
                           opacity: !exist ? 0 : 1,
-                          y: !exist ? "-100%" : 0,
+                          y: !exist ? "-60%" : 0,
                         }}
                         animate={{
                           opacity: 1,
@@ -398,7 +403,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                               <p
                                 title={descripcion}
                                 className={clsx(
-                                  "text-lg line-clamp-5 whitespace-pre-line max-md:text-sm max-md:text-center max-md:text-balance",
+                                  "text-lg line-clamp-4 whitespace-pre-line max-md:text-sm max-md:text-center max-md:text-balance",
                                   {
                                     "text-center": pregunta.align === "center",
                                   }

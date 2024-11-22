@@ -9,7 +9,7 @@ import {
   Navigate,
   Outlet,
   useLocation,
-  useRouter,
+  useNavigate,
 } from "@tanstack/react-router";
 import clsx from "clsx";
 import { motion } from "framer-motion";
@@ -27,8 +27,8 @@ import SettingsForm from "../../settings/components/SettingsForm";
 
 const Dashboard = () => {
   const { pathname, search } = useLocation();
-  const { history } = useRouter();
   const activeBreadcrumb = useBreadcrumb();
+  const navigate = useNavigate();
 
   const { user, state, logout } = useUserContext();
   const url = pathname + buildUrlParams(search);
@@ -176,7 +176,11 @@ const Dashboard = () => {
                   <button
                     className="flex items-center justify-center text-alto-500 hover:text-primary-900/70 transition-all duration-300 pr-2"
                     onClick={() => {
-                      history.back();
+                      const prevBreadcrumb =
+                        activeBreadcrumb[activeBreadcrumb.length - 2];
+                      navigate({
+                        to: prevBreadcrumb.path,
+                      });
                     }}
                   >
                     <Icon type={Icon.Types.CHEVRON_LEFT} />
