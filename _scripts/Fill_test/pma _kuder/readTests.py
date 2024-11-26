@@ -4,7 +4,7 @@ import json
 import re
 
 #Para DANIELA TRUJILLO columna sexo esta en columna df.iloc[2,28], lo normal es df.iloc[2,26]
-ruta_carpeta = './tests/VALERIA AGUILAR'
+ruta_carpeta = './tests/MAURICIO MOLINA'
 
 # Obtener una lista de todos los archivos Excel en la carpeta, ignorando archivos temporales
 archivos_excel = [archivo for archivo in os.listdir(ruta_carpeta) 
