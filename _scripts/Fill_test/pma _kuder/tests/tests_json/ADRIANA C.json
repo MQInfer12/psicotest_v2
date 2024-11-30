@@ -1,0 +1,2478 @@
+[
+  {
+    "datos_generales": {
+      "nombre": "FABIANA CORDOVA SARABIA",
+      "edad": 15,
+      "sexo": "Mujer",
+      "colegio": "INSTITUTO AMERICANO",
+      "cel": 65733190,
+      "correo": "fabiana_cordova_sarabia@psicotest.com"
+    },
+    "respuestas": {
+      "pma": [
+        {
+          "idPregunta": 1,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 2,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 3,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 4,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 5,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 6,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 7,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 8,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 9,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 10,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 11,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 12,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 13,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 14,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 15,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 16,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 17,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 18,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 19,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 20,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 21,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 22,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 23,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 24,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 25,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 26,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 27,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 28,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 29,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 30,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 31,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 32,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 33,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 34,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 35,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 36,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 37,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 38,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 39,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 40,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 41,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 42,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 51,
+          "idOpcion": [
+            7
+          ]
+        },
+        {
+          "idPregunta": 52,
+          "idOpcion": [
+            6
+          ]
+        },
+        {
+          "idPregunta": 53,
+          "idOpcion": [
+            5,
+            8
+          ]
+        },
+        {
+          "idPregunta": 54,
+          "idOpcion": [
+            6,
+            8,
+            10
+          ]
+        },
+        {
+          "idPregunta": 55,
+          "idOpcion": [
+            8,
+            9,
+            10
+          ]
+        },
+        {
+          "idPregunta": 56,
+          "idOpcion": [
+            8,
+            10
+          ]
+        },
+        {
+          "idPregunta": 57,
+          "idOpcion": [
+            5,
+            7,
+            10
+          ]
+        },
+        {
+          "idPregunta": 58,
+          "idOpcion": [
+            7,
+            10
+          ]
+        },
+        {
+          "idPregunta": 59,
+          "idOpcion": [
+            5,
+            6,
+            9
+          ]
+        },
+        {
+          "idPregunta": 60,
+          "idOpcion": [
+            5,
+            6,
+            9
+          ]
+        },
+        {
+          "idPregunta": 61,
+          "idOpcion": [
+            5,
+            6
+          ]
+        },
+        {
+          "idPregunta": 62,
+          "idOpcion": [
+            5,
+            7
+          ]
+        },
+        {
+          "idPregunta": 63,
+          "idOpcion": [
+            5,
+            6
+          ]
+        },
+        {
+          "idPregunta": 64,
+          "idOpcion": [
+            5
+          ]
+        },
+        {
+          "idPregunta": 65,
+          "idOpcion": [
+            5,
+            6
+          ]
+        },
+        {
+          "idPregunta": 66,
+          "idOpcion": [
+            5,
+            7,
+            8
+          ]
+        },
+        {
+          "idPregunta": 67,
+          "idOpcion": [
+            6,
+            8,
+            9
+          ]
+        },
+        {
+          "idPregunta": 68,
+          "idOpcion": [
+            5,
+            6
+          ]
+        },
+        {
+          "idPregunta": 69,
+          "idOpcion": [
+            5,
+            9
+          ]
+        },
+        {
+          "idPregunta": 70,
+          "idOpcion": [
+            5,
+            6,
+            7
+          ]
+        },
+        {
+          "idPregunta": 71,
+          "idOpcion": 16
+        },
+        {
+          "idPregunta": 72,
+          "idOpcion": 16
+        },
+        {
+          "idPregunta": 73,
+          "idOpcion": 14
+        },
+        {
+          "idPregunta": 74,
+          "idOpcion": 11
+        },
+        {
+          "idPregunta": 75,
+          "idOpcion": 15
+        },
+        {
+          "idPregunta": 77,
+          "idOpcion": 16
+        },
+        {
+          "idPregunta": 78,
+          "idOpcion": 13
+        },
+        {
+          "idPregunta": 79,
+          "idOpcion": 14
+        },
+        {
+          "idPregunta": 80,
+          "idOpcion": 13
+        },
+        {
+          "idPregunta": 81,
+          "idOpcion": 15
+        },
+        {
+          "idPregunta": 82,
+          "idOpcion": 13
+        },
+        {
+          "idPregunta": 83,
+          "idOpcion": 16
+        },
+        {
+          "idPregunta": 84,
+          "idOpcion": 14
+        },
+        {
+          "idPregunta": 85,
+          "idOpcion": 15
+        },
+        {
+          "idPregunta": 87,
+          "idOpcion": 13
+        },
+        {
+          "idPregunta": 89,
+          "idOpcion": 15
+        },
+        {
+          "idPregunta": 90,
+          "idOpcion": 13
+        },
+        {
+          "idPregunta": 91,
+          "idOpcion": 15
+        },
+        {
+          "idPregunta": 93,
+          "idOpcion": 15
+        },
+        {
+          "idPregunta": 94,
+          "idOpcion": 13
+        },
+        {
+          "idPregunta": 95,
+          "idOpcion": 12
+        },
+        {
+          "idPregunta": 96,
+          "idOpcion": 13
+        },
+        {
+          "idPregunta": 97,
+          "idOpcion": 13
+        },
+        {
+          "idPregunta": 98,
+          "idOpcion": 16
+        },
+        {
+          "idPregunta": 99,
+          "idOpcion": 11
+        },
+        {
+          "idPregunta": 100,
+          "idOpcion": 12
+        },
+        {
+          "idPregunta": 101,
+          "idOpcion": 17
+        },
+        {
+          "idPregunta": 102,
+          "idOpcion": 18
+        },
+        {
+          "idPregunta": 103,
+          "idOpcion": 18
+        },
+        {
+          "idPregunta": 104,
+          "idOpcion": 18
+        },
+        {
+          "idPregunta": 105,
+          "idOpcion": 17
+        },
+        {
+          "idPregunta": 106,
+          "idOpcion": 17
+        },
+        {
+          "idPregunta": 107,
+          "idOpcion": 17
+        },
+        {
+          "idPregunta": 108,
+          "idOpcion": 18
+        },
+        {
+          "idPregunta": 109,
+          "idOpcion": 17
+        },
+        {
+          "idPregunta": 110,
+          "idOpcion": 18
+        },
+        {
+          "idPregunta": 111,
+          "idOpcion": 17
+        },
+        {
+          "idPregunta": 112,
+          "idOpcion": 18
+        },
+        {
+          "idPregunta": 171,
+          "idOpcion": [
+            {
+              "id": 1,
+              "correct": true,
+              "word": "Palabra 1"
+            },
+            {
+              "id": 2,
+              "correct": true,
+              "word": "Palabra 2"
+            },
+            {
+              "id": 3,
+              "correct": true,
+              "word": "Palabra 3"
+            },
+            {
+              "id": 4,
+              "correct": true,
+              "word": "Palabra 4"
+            },
+            {
+              "id": 5,
+              "correct": true,
+              "word": "Palabra 5"
+            },
+            {
+              "id": 6,
+              "correct": true,
+              "word": "Palabra 6"
+            },
+            {
+              "id": 7,
+              "correct": true,
+              "word": "Palabra 7"
+            },
+            {
+              "id": 8,
+              "correct": true,
+              "word": "Palabra 8"
+            },
+            {
+              "id": 9,
+              "correct": true,
+              "word": "Palabra 9"
+            },
+            {
+              "id": 10,
+              "correct": true,
+              "word": "Palabra 10"
+            },
+            {
+              "id": 11,
+              "correct": true,
+              "word": "Palabra 11"
+            },
+            {
+              "id": 12,
+              "correct": true,
+              "word": "Palabra 12"
+            },
+            {
+              "id": 13,
+              "correct": true,
+              "word": "Palabra 13"
+            },
+            {
+              "id": 14,
+              "correct": true,
+              "word": "Palabra 14"
+            },
+            {
+              "id": 15,
+              "correct": true,
+              "word": "Palabra 15"
+            },
+            {
+              "id": 16,
+              "correct": true,
+              "word": "Palabra 16"
+            },
+            {
+              "id": 17,
+              "correct": true,
+              "word": "Palabra 17"
+            },
+            {
+              "id": 18,
+              "correct": true,
+              "word": "Palabra 18"
+            },
+            {
+              "id": 19,
+              "correct": true,
+              "word": "Palabra 19"
+            },
+            {
+              "id": 20,
+              "correct": true,
+              "word": "Palabra 20"
+            },
+            {
+              "id": 21,
+              "correct": true,
+              "word": "Palabra 21"
+            },
+            {
+              "id": 22,
+              "correct": true,
+              "word": "Palabra 22"
+            },
+            {
+              "id": 23,
+              "correct": true,
+              "word": "Palabra 23"
+            },
+            {
+              "id": 24,
+              "correct": true,
+              "word": "Palabra 24"
+            },
+            {
+              "id": 25,
+              "correct": true,
+              "word": "Palabra 25"
+            },
+            {
+              "id": 26,
+              "correct": true,
+              "word": "Palabra 26"
+            },
+            {
+              "id": 27,
+              "correct": true,
+              "word": "Palabra 27"
+            },
+            {
+              "id": 28,
+              "correct": true,
+              "word": "Palabra 28"
+            },
+            {
+              "id": 29,
+              "correct": true,
+              "word": "Palabra 29"
+            }
+          ]
+        }
+      ],
+      "kuder": [
+        {
+          "idPregunta": 1,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 2,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 3,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 4,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 5,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 6,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 7,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 8,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 9,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 10,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 11,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 12,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 13,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 14,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 15,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 16,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 17,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 18,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 19,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 20,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 21,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 22,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 23,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 24,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 25,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 26,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 27,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 28,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 29,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 30,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 31,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 32,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 33,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 34,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 35,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 36,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 37,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 38,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 39,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 40,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 41,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 42,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 43,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 44,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 45,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 46,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 47,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 48,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 49,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 50,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 51,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 52,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 53,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 54,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 55,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 56,
+          "idOpcion": 5
+        },
+        {
+          "idPregunta": 57,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 58,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 59,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 60,
+          "idOpcion": 1
+        }
+      ]
+    }
+  },
+  {
+    "datos_generales": {
+      "nombre": "Lewkusa de la fuente Agustin",
+      "edad": 16,
+      "sexo": "Hombre",
+      "colegio": "Amerinst",
+      "cel": 61687187,
+      "correo": "lewkusa_de_la_fuente_agustin@psicotest.com"
+    },
+    "respuestas": {
+      "pma": [
+        {
+          "idPregunta": 1,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 2,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 3,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 4,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 5,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 6,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 7,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 8,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 9,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 10,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 11,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 12,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 13,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 14,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 15,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 16,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 17,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 18,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 19,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 20,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 21,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 51,
+          "idOpcion": [
+            7,
+            8
+          ]
+        },
+        {
+          "idPregunta": 52,
+          "idOpcion": [
+            7,
+            9,
+            10
+          ]
+        },
+        {
+          "idPregunta": 53,
+          "idOpcion": [
+            8,
+            9,
+            10
+          ]
+        },
+        {
+          "idPregunta": 54,
+          "idOpcion": [
+            6,
+            8,
+            10
+          ]
+        },
+        {
+          "idPregunta": 55,
+          "idOpcion": [
+            7,
+            10
+          ]
+        },
+        {
+          "idPregunta": 56,
+          "idOpcion": [
+            6,
+            8
+          ]
+        },
+        {
+          "idPregunta": 57,
+          "idOpcion": [
+            7,
+            8
+          ]
+        },
+        {
+          "idPregunta": 58,
+          "idOpcion": [
+            7,
+            9,
+            10
+          ]
+        },
+        {
+          "idPregunta": 59,
+          "idOpcion": [
+            5,
+            6
+          ]
+        },
+        {
+          "idPregunta": 60,
+          "idOpcion": [
+            6,
+            10
+          ]
+        },
+        {
+          "idPregunta": 61,
+          "idOpcion": [
+            5,
+            7,
+            10
+          ]
+        },
+        {
+          "idPregunta": 62,
+          "idOpcion": [
+            5,
+            7
+          ]
+        },
+        {
+          "idPregunta": 63,
+          "idOpcion": [
+            5,
+            8
+          ]
+        },
+        {
+          "idPregunta": 64,
+          "idOpcion": [
+            5,
+            6,
+            9
+          ]
+        },
+        {
+          "idPregunta": 71,
+          "idOpcion": 16
+        },
+        {
+          "idPregunta": 72,
+          "idOpcion": 15
+        },
+        {
+          "idPregunta": 73,
+          "idOpcion": 16
+        },
+        {
+          "idPregunta": 74,
+          "idOpcion": 14
+        },
+        {
+          "idPregunta": 75,
+          "idOpcion": 12
+        },
+        {
+          "idPregunta": 76,
+          "idOpcion": 14
+        },
+        {
+          "idPregunta": 77,
+          "idOpcion": 15
+        },
+        {
+          "idPregunta": 78,
+          "idOpcion": 11
+        },
+        {
+          "idPregunta": 79,
+          "idOpcion": 16
+        },
+        {
+          "idPregunta": 80,
+          "idOpcion": 13
+        },
+        {
+          "idPregunta": 81,
+          "idOpcion": 13
+        },
+        {
+          "idPregunta": 82,
+          "idOpcion": 12
+        },
+        {
+          "idPregunta": 83,
+          "idOpcion": 12
+        },
+        {
+          "idPregunta": 84,
+          "idOpcion": 13
+        },
+        {
+          "idPregunta": 85,
+          "idOpcion": 13
+        },
+        {
+          "idPregunta": 86,
+          "idOpcion": 11
+        },
+        {
+          "idPregunta": 87,
+          "idOpcion": 12
+        },
+        {
+          "idPregunta": 88,
+          "idOpcion": 14
+        },
+        {
+          "idPregunta": 89,
+          "idOpcion": 15
+        },
+        {
+          "idPregunta": 101,
+          "idOpcion": 18
+        },
+        {
+          "idPregunta": 102,
+          "idOpcion": 18
+        },
+        {
+          "idPregunta": 103,
+          "idOpcion": 17
+        },
+        {
+          "idPregunta": 104,
+          "idOpcion": 17
+        },
+        {
+          "idPregunta": 105,
+          "idOpcion": 17
+        },
+        {
+          "idPregunta": 106,
+          "idOpcion": 17
+        },
+        {
+          "idPregunta": 107,
+          "idOpcion": 18
+        },
+        {
+          "idPregunta": 108,
+          "idOpcion": 18
+        },
+        {
+          "idPregunta": 109,
+          "idOpcion": 18
+        },
+        {
+          "idPregunta": 110,
+          "idOpcion": 17
+        },
+        {
+          "idPregunta": 111,
+          "idOpcion": 17
+        },
+        {
+          "idPregunta": 112,
+          "idOpcion": 18
+        },
+        {
+          "idPregunta": 113,
+          "idOpcion": 17
+        },
+        {
+          "idPregunta": 114,
+          "idOpcion": 18
+        },
+        {
+          "idPregunta": 115,
+          "idOpcion": 17
+        },
+        {
+          "idPregunta": 116,
+          "idOpcion": 18
+        },
+        {
+          "idPregunta": 117,
+          "idOpcion": 18
+        },
+        {
+          "idPregunta": 118,
+          "idOpcion": 18
+        },
+        {
+          "idPregunta": 171,
+          "idOpcion": [
+            {
+              "id": 1,
+              "correct": true,
+              "word": "Palabra 1"
+            },
+            {
+              "id": 2,
+              "correct": true,
+              "word": "Palabra 2"
+            },
+            {
+              "id": 3,
+              "correct": true,
+              "word": "Palabra 3"
+            },
+            {
+              "id": 4,
+              "correct": true,
+              "word": "Palabra 4"
+            },
+            {
+              "id": 5,
+              "correct": true,
+              "word": "Palabra 5"
+            },
+            {
+              "id": 6,
+              "correct": true,
+              "word": "Palabra 6"
+            },
+            {
+              "id": 7,
+              "correct": true,
+              "word": "Palabra 7"
+            },
+            {
+              "id": 8,
+              "correct": true,
+              "word": "Palabra 8"
+            },
+            {
+              "id": 9,
+              "correct": true,
+              "word": "Palabra 9"
+            },
+            {
+              "id": 10,
+              "correct": true,
+              "word": "Palabra 10"
+            },
+            {
+              "id": 11,
+              "correct": true,
+              "word": "Palabra 11"
+            },
+            {
+              "id": 12,
+              "correct": true,
+              "word": "Palabra 12"
+            },
+            {
+              "id": 13,
+              "correct": true,
+              "word": "Palabra 13"
+            },
+            {
+              "id": 14,
+              "correct": true,
+              "word": "Palabra 14"
+            },
+            {
+              "id": 15,
+              "correct": true,
+              "word": "Palabra 15"
+            },
+            {
+              "id": 16,
+              "correct": true,
+              "word": "Palabra 16"
+            },
+            {
+              "id": 17,
+              "correct": true,
+              "word": "Palabra 17"
+            },
+            {
+              "id": 18,
+              "correct": true,
+              "word": "Palabra 18"
+            },
+            {
+              "id": 19,
+              "correct": true,
+              "word": "Palabra 19"
+            },
+            {
+              "id": 20,
+              "correct": true,
+              "word": "Palabra 20"
+            },
+            {
+              "id": 21,
+              "correct": true,
+              "word": "Palabra 21"
+            },
+            {
+              "id": 22,
+              "correct": true,
+              "word": "Palabra 22"
+            },
+            {
+              "id": 23,
+              "correct": true,
+              "word": "Palabra 23"
+            },
+            {
+              "id": 24,
+              "correct": true,
+              "word": "Palabra 24"
+            },
+            {
+              "id": 25,
+              "correct": true,
+              "word": "Palabra 25"
+            },
+            {
+              "id": 26,
+              "correct": true,
+              "word": "Palabra 26"
+            },
+            {
+              "id": 27,
+              "correct": true,
+              "word": "Palabra 27"
+            }
+          ]
+        }
+      ],
+      "kuder": [
+        {
+          "idPregunta": 1,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 2,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 3,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 4,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 5,
+          "idOpcion": 5
+        },
+        {
+          "idPregunta": 6,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 7,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 8,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 9,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 10,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 11,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 12,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 13,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 14,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 15,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 16,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 17,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 18,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 19,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 20,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 21,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 22,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 23,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 24,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 25,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 26,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 27,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 28,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 29,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 30,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 31,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 32,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 33,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 34,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 35,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 36,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 37,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 38,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 39,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 40,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 41,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 42,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 43,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 44,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 45,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 46,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 47,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 48,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 49,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 50,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 51,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 52,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 53,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 54,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 55,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 56,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 57,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 58,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 59,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 60,
+          "idOpcion": 2
+        }
+      ]
+    }
+  },
+  {
+    "datos_generales": {
+      "nombre": "TEJERINA AVILA FABIAN",
+      "edad": 16,
+      "sexo": "Hombre",
+      "colegio": "INSTITUTO AMERICANO",
+      "cel": 76475022,
+      "correo": "tejerina_avila_fabian@psicotest.com"
+    },
+    "respuestas": {
+      "pma": [
+        {
+          "idPregunta": 1,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 2,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 3,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 4,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 5,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 6,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 7,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 8,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 9,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 10,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 11,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 12,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 13,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 14,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 15,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 16,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 17,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 18,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 19,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 20,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 21,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 22,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 23,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 24,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 25,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 26,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 27,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 28,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 29,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 30,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 31,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 32,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 33,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 34,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 51,
+          "idOpcion": [
+            7
+          ]
+        },
+        {
+          "idPregunta": 52,
+          "idOpcion": [
+            5,
+            7
+          ]
+        },
+        {
+          "idPregunta": 53,
+          "idOpcion": [
+            9
+          ]
+        },
+        {
+          "idPregunta": 54,
+          "idOpcion": [
+            8
+          ]
+        },
+        {
+          "idPregunta": 55,
+          "idOpcion": [
+            10
+          ]
+        },
+        {
+          "idPregunta": 56,
+          "idOpcion": [
+            8,
+            9
+          ]
+        },
+        {
+          "idPregunta": 57,
+          "idOpcion": [
+            5,
+            7
+          ]
+        },
+        {
+          "idPregunta": 58,
+          "idOpcion": [
+            10
+          ]
+        },
+        {
+          "idPregunta": 59,
+          "idOpcion": [
+            5
+          ]
+        },
+        {
+          "idPregunta": 60,
+          "idOpcion": [
+            6
+          ]
+        },
+        {
+          "idPregunta": 61,
+          "idOpcion": [
+            5,
+            7
+          ]
+        },
+        {
+          "idPregunta": 62,
+          "idOpcion": [
+            5,
+            7
+          ]
+        },
+        {
+          "idPregunta": 63,
+          "idOpcion": [
+            5
+          ]
+        },
+        {
+          "idPregunta": 64,
+          "idOpcion": [
+            6
+          ]
+        },
+        {
+          "idPregunta": 65,
+          "idOpcion": [
+            5,
+            6
+          ]
+        },
+        {
+          "idPregunta": 66,
+          "idOpcion": [
+            10
+          ]
+        },
+        {
+          "idPregunta": 67,
+          "idOpcion": [
+            8
+          ]
+        },
+        {
+          "idPregunta": 68,
+          "idOpcion": [
+            6,
+            9
+          ]
+        },
+        {
+          "idPregunta": 69,
+          "idOpcion": [
+            8
+          ]
+        },
+        {
+          "idPregunta": 70,
+          "idOpcion": [
+            6
+          ]
+        },
+        {
+          "idPregunta": 71,
+          "idOpcion": 16
+        },
+        {
+          "idPregunta": 72,
+          "idOpcion": 15
+        },
+        {
+          "idPregunta": 73,
+          "idOpcion": 11
+        },
+        {
+          "idPregunta": 74,
+          "idOpcion": 14
+        },
+        {
+          "idPregunta": 75,
+          "idOpcion": 15
+        },
+        {
+          "idPregunta": 76,
+          "idOpcion": 14
+        },
+        {
+          "idPregunta": 77,
+          "idOpcion": 16
+        },
+        {
+          "idPregunta": 78,
+          "idOpcion": 11
+        },
+        {
+          "idPregunta": 79,
+          "idOpcion": 16
+        },
+        {
+          "idPregunta": 80,
+          "idOpcion": 13
+        },
+        {
+          "idPregunta": 81,
+          "idOpcion": 11
+        },
+        {
+          "idPregunta": 82,
+          "idOpcion": 13
+        },
+        {
+          "idPregunta": 83,
+          "idOpcion": 16
+        },
+        {
+          "idPregunta": 84,
+          "idOpcion": 13
+        },
+        {
+          "idPregunta": 85,
+          "idOpcion": 12
+        },
+        {
+          "idPregunta": 86,
+          "idOpcion": 13
+        },
+        {
+          "idPregunta": 87,
+          "idOpcion": 12
+        },
+        {
+          "idPregunta": 88,
+          "idOpcion": 11
+        },
+        {
+          "idPregunta": 89,
+          "idOpcion": 15
+        },
+        {
+          "idPregunta": 90,
+          "idOpcion": 15
+        },
+        {
+          "idPregunta": 91,
+          "idOpcion": 14
+        },
+        {
+          "idPregunta": 92,
+          "idOpcion": 11
+        },
+        {
+          "idPregunta": 93,
+          "idOpcion": 15
+        },
+        {
+          "idPregunta": 94,
+          "idOpcion": 13
+        },
+        {
+          "idPregunta": 95,
+          "idOpcion": 15
+        },
+        {
+          "idPregunta": 101,
+          "idOpcion": 17
+        },
+        {
+          "idPregunta": 102,
+          "idOpcion": 17
+        },
+        {
+          "idPregunta": 103,
+          "idOpcion": 18
+        },
+        {
+          "idPregunta": 104,
+          "idOpcion": 18
+        },
+        {
+          "idPregunta": 105,
+          "idOpcion": 18
+        },
+        {
+          "idPregunta": 106,
+          "idOpcion": 18
+        },
+        {
+          "idPregunta": 107,
+          "idOpcion": 17
+        },
+        {
+          "idPregunta": 108,
+          "idOpcion": 18
+        },
+        {
+          "idPregunta": 109,
+          "idOpcion": 17
+        },
+        {
+          "idPregunta": 110,
+          "idOpcion": 18
+        },
+        {
+          "idPregunta": 111,
+          "idOpcion": 17
+        },
+        {
+          "idPregunta": 112,
+          "idOpcion": 17
+        },
+        {
+          "idPregunta": 113,
+          "idOpcion": 17
+        },
+        {
+          "idPregunta": 114,
+          "idOpcion": 18
+        },
+        {
+          "idPregunta": 115,
+          "idOpcion": 17
+        },
+        {
+          "idPregunta": 116,
+          "idOpcion": 18
+        },
+        {
+          "idPregunta": 171,
+          "idOpcion": [
+            {
+              "id": 1,
+              "correct": true,
+              "word": "Palabra 1"
+            },
+            {
+              "id": 2,
+              "correct": true,
+              "word": "Palabra 2"
+            },
+            {
+              "id": 3,
+              "correct": true,
+              "word": "Palabra 3"
+            },
+            {
+              "id": 4,
+              "correct": true,
+              "word": "Palabra 4"
+            },
+            {
+              "id": 5,
+              "correct": true,
+              "word": "Palabra 5"
+            },
+            {
+              "id": 6,
+              "correct": true,
+              "word": "Palabra 6"
+            },
+            {
+              "id": 7,
+              "correct": true,
+              "word": "Palabra 7"
+            },
+            {
+              "id": 8,
+              "correct": true,
+              "word": "Palabra 8"
+            },
+            {
+              "id": 9,
+              "correct": true,
+              "word": "Palabra 9"
+            },
+            {
+              "id": 10,
+              "correct": true,
+              "word": "Palabra 10"
+            },
+            {
+              "id": 11,
+              "correct": true,
+              "word": "Palabra 11"
+            },
+            {
+              "id": 12,
+              "correct": true,
+              "word": "Palabra 12"
+            },
+            {
+              "id": 13,
+              "correct": true,
+              "word": "Palabra 13"
+            },
+            {
+              "id": 14,
+              "correct": true,
+              "word": "Palabra 14"
+            },
+            {
+              "id": 15,
+              "correct": true,
+              "word": "Palabra 15"
+            },
+            {
+              "id": 16,
+              "correct": true,
+              "word": "Palabra 16"
+            },
+            {
+              "id": 17,
+              "correct": true,
+              "word": "Palabra 17"
+            },
+            {
+              "id": 18,
+              "correct": true,
+              "word": "Palabra 18"
+            },
+            {
+              "id": 19,
+              "correct": true,
+              "word": "Palabra 19"
+            },
+            {
+              "id": 20,
+              "correct": true,
+              "word": "Palabra 20"
+            },
+            {
+              "id": 21,
+              "correct": true,
+              "word": "Palabra 21"
+            },
+            {
+              "id": 22,
+              "correct": true,
+              "word": "Palabra 22"
+            },
+            {
+              "id": 23,
+              "correct": true,
+              "word": "Palabra 23"
+            },
+            {
+              "id": 24,
+              "correct": true,
+              "word": "Palabra 24"
+            },
+            {
+              "id": 25,
+              "correct": true,
+              "word": "Palabra 25"
+            },
+            {
+              "id": 26,
+              "correct": true,
+              "word": "Palabra 26"
+            },
+            {
+              "id": 27,
+              "correct": true,
+              "word": "Palabra 27"
+            },
+            {
+              "id": 28,
+              "correct": true,
+              "word": "Palabra 28"
+            },
+            {
+              "id": 29,
+              "correct": true,
+              "word": "Palabra 29"
+            },
+            {
+              "id": 30,
+              "correct": true,
+              "word": "Palabra 30"
+            },
+            {
+              "id": 31,
+              "correct": true,
+              "word": "Palabra 31"
+            },
+            {
+              "id": 32,
+              "correct": true,
+              "word": "Palabra 32"
+            },
+            {
+              "id": 33,
+              "correct": true,
+              "word": "Palabra 33"
+            },
+            {
+              "id": 34,
+              "correct": true,
+              "word": "Palabra 34"
+            },
+            {
+              "id": 35,
+              "correct": true,
+              "word": "Palabra 35"
+            },
+            {
+              "id": 36,
+              "correct": true,
+              "word": "Palabra 36"
+            },
+            {
+              "id": 37,
+              "correct": true,
+              "word": "Palabra 37"
+            }
+          ]
+        }
+      ],
+      "kuder": [
+        {
+          "idPregunta": 1,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 2,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 3,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 4,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 5,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 6,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 7,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 8,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 9,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 10,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 11,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 12,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 13,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 14,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 15,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 16,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 17,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 18,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 19,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 20,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 21,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 22,
+          "idOpcion": 5
+        },
+        {
+          "idPregunta": 23,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 24,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 25,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 26,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 27,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 28,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 29,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 30,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 31,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 32,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 33,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 34,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 35,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 36,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 37,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 38,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 39,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 40,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 41,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 42,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 43,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 44,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 45,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 46,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 47,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 48,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 49,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 50,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 51,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 52,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 53,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 54,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 55,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 56,
+          "idOpcion": 4
+        },
+        {
+          "idPregunta": 57,
+          "idOpcion": 3
+        },
+        {
+          "idPregunta": 58,
+          "idOpcion": 1
+        },
+        {
+          "idPregunta": 59,
+          "idOpcion": 2
+        },
+        {
+          "idPregunta": 60,
+          "idOpcion": 2
+        }
+      ]
+    }
+  }
+]
