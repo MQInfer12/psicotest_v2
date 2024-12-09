@@ -20,12 +20,16 @@ export const fetchData = <K extends keyof EndpointMap>(
   const fetchOpt = config.fetchOptions ?? {};
 
   const returnValue = useQuery<ApiSuccessResponse<TResponse>>(
-    fetchOptions(endpointConfig, {
-      onUnauthorized: () => {
-        logout();
+    fetchOptions(
+      endpointConfig,
+      {
+        onUnauthorized: () => {
+          logout();
+        },
+        config: { ...fetchOpt, params: config.params },
       },
-      config: { ...fetchOpt, params: config.params },
-    })
+      config.queryOptions
+    )
   );
 
   const setData = getSetData(endpointConfig, !!returnValue.data, config.params);

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\T_RespuestaIdsRequest;
 use App\Http\Requests\T_RespuestaIndexForTableRequest;
+use App\Http\Requests\T_RespuestaMoveManyRequest;
 use App\Http\Requests\T_RespuestaPatchInterpretationRequest;
 use App\Http\Requests\T_RespuestaPatchInterpretationsRequest;
 use App\Http\Requests\T_RespuestaStoreRequest;
@@ -157,6 +159,26 @@ class T_RespuestaController extends Controller
         return $this->successResponse(
             "Interpretaciones guardadas correctamente.",
             T_Tests_RepuestaResource::collection($respuestas)
+        );
+    }
+
+    public function moveMany(T_RespuestaMoveManyRequest $request)
+    {
+        $validatedData = $request->validated();
+        T_Respuesta::whereIn('id', $validatedData['ids'])->update(['id_carpeta' => $validatedData['id_carpeta']]);
+        return $this->successResponse(
+            "Las respuestas se movieron a la carpeta correspondiente.",
+            null
+        );
+    }
+
+    public function destroyMany(T_RespuestaIdsRequest $request)
+    {
+        $validatedData = $request->validated();
+        $deletedCount = T_Respuesta::whereIn('id', $validatedData['ids'])->delete();
+        return $this->successResponse(
+            "Respuestas eliminadas correctamente.",
+            $deletedCount
         );
     }
 }

@@ -55,7 +55,7 @@ const GptCanvas = ({
       )} */}
       <div
         className={clsx(
-          "bottom-4 right-4 absolute flex flex-col gap-4 items-end"
+          "bottom-5 right-5 absolute flex flex-col gap-4 items-end"
         )}
       >
         {success && showPDF && (

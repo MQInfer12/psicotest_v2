@@ -84,5 +84,20 @@ declare global {
       request: RespuestaPatchInterpretationsDTO;
       response: T_Tests_Respuestas[];
     };
+    "PUT /respuesta/delete/many": {
+      params: never;
+      request: {
+        ids: number[];
+      };
+      response: number;
+    };
+    "PUT /respuesta/move/many": {
+      params: never;
+      request: {
+        ids: number[];
+        id_carpeta: number;
+      };
+      response: null;
+    };
   }
 }

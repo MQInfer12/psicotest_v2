@@ -2,15 +2,18 @@ import Icon from "@/modules/core/components/icons/Icon";
 import Button from "@/modules/core/components/ui/Button";
 import Input from "@/modules/core/components/ui/Input";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
-import { useState } from "react";
 import { useAnswersHeaderContext } from "../context/AnswersHeaderContext";
 
 const AnswersTemplateSelector = () => {
-  const [plantilla, setPlantilla] = useState("");
   const { fetchData } = useFetch();
   const { data } = fetchData("GET /plantilla");
-  const { startedSelection, setStartedSelection, setSelectedTests } =
-    useAnswersHeaderContext();
+  const {
+    startedSelection,
+    setStartedSelection,
+    setSelectedTests,
+    plantilla,
+    setPlantilla,
+  } = useAnswersHeaderContext();
 
   return (
     <div className="flex gap-2 w-64">
@@ -31,6 +34,7 @@ const AnswersTemplateSelector = () => {
         </Input>
       </div>
       <Button
+        title={startedSelection ? "Cancelar" : "Comenzar selección"}
         onClick={() => {
           setStartedSelection((prev) => {
             if (!prev) {
@@ -40,7 +44,7 @@ const AnswersTemplateSelector = () => {
           });
           setSelectedTests(null);
         }}
-        icon={startedSelection ? Icon.Types.X : Icon.Types.TEMPLATE}
+        icon={startedSelection ? Icon.Types.X : Icon.Types.HAND_POINTER}
         btnSize="small"
         disabled={!plantilla}
         btnType={startedSelection ? "primary" : "secondary"}

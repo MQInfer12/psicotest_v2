@@ -4,16 +4,18 @@ import {
   flexRender,
   getCoreRowModel,
   getSortedRowModel,
+  RowSelectionState,
   useReactTable,
 } from "@tanstack/react-table";
-import Icon, { ICON } from "../../icons/Icon";
-import Button from "../Button";
-import Loader from "../loader/Loader";
-import { AnimatePresence, motion } from "framer-motion";
 import clsx from "clsx";
-import { CSSProperties, ElementRef, useEffect, useRef, useState } from "react";
-import { useVirtualizer } from "@tanstack/react-virtual";
+import { AnimatePresence, motion } from "framer-motion";
+import { CSSProperties, ElementRef, useRef, useState } from "react";
+import { v4 } from "uuid";
+import Icon, { ICON } from "../../icons/Icon";
 import IconMessage from "../../icons/IconMessage";
+import Loader from "../loader/Loader";
+import { TableContextProvider } from "./context/TableContext";
+import TableRows from "./TableRows";
 
 interface Props<T> {
   data: T[] | undefined;
@@ -39,6 +41,11 @@ interface Props<T> {
     disabled?: (row: T) => boolean;
   };
   rowStyle?: (row: T) => CSSProperties;
+
+  //* PROPS FOR CHECKING
+  checkable?: boolean;
+  disableCheck?: boolean;
+  idKey?: keyof T;
 }
 
 const Table = <T,>({
@@ -55,22 +62,31 @@ const Table = <T,>({
   rowStyle,
   savedOffsetKey,
   children,
+  checkable,
+  disableCheck,
+  idKey,
 }: Props<T>) => {
   const [sorting, setSorting] = useState<ColumnSort[]>([]);
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
   const table = useReactTable({
     data: data || [],
     columns,
     state: {
       sorting,
+      rowSelection,
     },
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    onRowSelectionChange: setRowSelection,
+    enableRowSelection: () => !!checkable && !disableCheck,
+    getRowId: (row) => (idKey ? String(row[idKey]) : v4()),
   });
   const tableContainerRef = useRef<ElementRef<"div">>(null);
 
   const gridTemplateColumns = [
+    checkable ? "40px" : "",
     "40px",
     ...columns.map((c) =>
       c.meta?.width
@@ -79,28 +95,6 @@ const Table = <T,>({
     ),
     actions ? "120px" : "",
   ].join(" ");
-
-  const rowVirtualizer = useVirtualizer({
-    initialOffset: () => {
-      if (!savedOffsetKey) return 0;
-      const initialOffset = sessionStorage.getItem(savedOffsetKey);
-      return initialOffset ? Number(initialOffset) : 0;
-    },
-    count: data?.length ?? 0,
-    estimateSize: () => rowHeight,
-    getScrollElement: () => tableContainerRef.current,
-    overscan: 2,
-  });
-
-  useEffect(() => {
-    return () => {
-      if (!savedOffsetKey) return;
-      const offset = rowVirtualizer.scrollOffset;
-      if (offset) {
-        sessionStorage.setItem(savedOffsetKey, String(offset));
-      }
-    };
-  }, [savedOffsetKey]);
 
   return (
     <div
@@ -126,7 +120,14 @@ const Table = <T,>({
           </motion.div>
         )}
       </AnimatePresence>
-      {children && <div className="bg-primary-100 p-2">{children}</div>}
+      <TableContextProvider
+        value={{
+          selectedRows: Object.keys(rowSelection),
+          resetSelectedRows: () => setRowSelection({}),
+        }}
+      >
+        {children}
+      </TableContextProvider>
       <div
         ref={tableContainerRef}
         className="flex-1 flex flex-col overflow-y-scroll"
@@ -150,6 +151,20 @@ const Table = <T,>({
                   }}
                   key={group.id}
                 >
+                  {checkable && (
+                    <th
+                      className="h-10 flex items-center justify-center"
+                      onClick={table.getToggleAllRowsSelectedHandler()}
+                    >
+                      <input
+                        className="accent-primary-500"
+                        type="checkbox"
+                        checked={table.getIsAllRowsSelected()}
+                        onChange={() => {}}
+                        disabled={disableCheck}
+                      />
+                    </th>
+                  )}
                   <th className="h-10 flex items-center gap-2 font-bold">
                     <p className="whitespace-nowrap overflow-hidden text-ellipsis text-[10px] uppercase w-full text-primary-950">
                       #
@@ -226,99 +241,21 @@ const Table = <T,>({
                 </tr>
               ))}
             </thead>
-            <tbody
-              className="relative"
-              style={{
-                height: `${rowVirtualizer.getTotalSize()}px`,
-              }}
-            >
-              {rowVirtualizer.getVirtualItems().map((virtualRow) => {
-                const row = table.getRowModel().rows[virtualRow.index];
-                const handleClickRow = onClickRow?.disabled
-                  ? onClickRow?.disabled(row.original)
-                    ? undefined
-                    : onClickRow.fn
-                  : onClickRow?.fn;
-                const styles = rowStyle?.(row.original) || {};
-                return (
-                  <tr
-                    className={clsx(
-                      "absolute w-full grid border-b border-b-alto-100 transition-[background-color,opacity,filter] duration-300",
-                      {
-                        "bg-white": virtualRow.index % 2 === 0,
-                        "bg-primary-50": virtualRow.index % 2 === 1,
-                        "hover:!invert-[4%] cursor-pointer": !!handleClickRow,
-                      }
-                    )}
-                    style={{
-                      gridTemplateColumns,
-                      transform: `translateY(${virtualRow.start}px)`,
-                      ...styles,
-                    }}
-                    onClick={() => handleClickRow?.(row.original)}
-                    key={row.id}
-                  >
-                    <td
-                      style={{
-                        height: rowHeight,
-                      }}
-                      className="flex items-center justify-center text-[10px] overflow-hidden text-ellipsis"
-                    >
-                      {virtualRow.index + 1}
-                    </td>
-                    {row.getVisibleCells().map((cell) => {
-                      const content = flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      );
-                      return (
-                        <td
-                          key={cell.id}
-                          style={{
-                            height: rowHeight,
-                          }}
-                          className={clsx(
-                            "flex items-center text-xs px-3 [&_p]:overflow-hidden [&_p]:text-ellipsis w-full",
-                            {
-                              "justify-center":
-                                cell.column.columnDef.meta?.textAlign ===
-                                "center",
-                            }
-                          )}
-                        >
-                          {content}
-                        </td>
-                      );
-                    })}
-                    {actions && (
-                      <td
-                        style={{
-                          height: rowHeight,
-                        }}
-                        className="flex items-center justify-center px-3 w-full"
-                      >
-                        {loadingRow?.(row.original) ? (
-                          <div className="-mt-6">
-                            <Loader text="" scale=".4" />
-                          </div>
-                        ) : (
-                          actions.map((a) => (
-                            <Button
-                              key={a.title}
-                              onClick={() => a.fn(row.original)}
-                              btnSize="small"
-                              title={a.title}
-                              icon={a.icon}
-                              disabled={a.disabled?.(row.original)}
-                            />
-                          ))
-                        )}
-                      </td>
-                    )}
-                  </tr>
-                );
-              })}
-            </tbody>
+            {data && (
+              <TableRows
+                data={data}
+                gridTemplateColumns={gridTemplateColumns}
+                rowHeight={rowHeight}
+                table={table}
+                tableContainerRef={tableContainerRef}
+                actions={actions}
+                checkable={checkable}
+                loadingRow={loadingRow}
+                onClickRow={onClickRow}
+                rowStyle={rowStyle}
+                savedOffsetKey={savedOffsetKey}
+              />
+            )}
           </table>
         )}
       </div>

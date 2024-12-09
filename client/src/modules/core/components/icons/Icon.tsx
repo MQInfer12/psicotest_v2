@@ -18,6 +18,7 @@ import IconDownload from "./tabler/iconDownload";
 import IconExcel from "./tabler/iconExcel";
 import IconFolder from "./tabler/iconFolder";
 import IconGender from "./tabler/iconGender";
+import IconHandPointer from "./tabler/iconHandPointer";
 import IconLoader from "./tabler/iconLoader";
 import IconLogout from "./tabler/iconLogout";
 import IconMenu from "./tabler/iconMenu";
@@ -84,10 +85,12 @@ export enum ICON {
   FOLDER = "folder",
   FOLDER_OPEN = "folder_open",
   FOLDER_ADD = "folder_add",
+  FOLDER_MOVE = "folder_mpve",
   TEMPLATE = "template",
   CANCEL = "cancel",
   CONFIG = "config",
   RELOAD = "reload",
+  HAND_POINTER = "hand_pointer",
 }
 
 interface Props {
@@ -141,10 +144,12 @@ const Icon = ({ type }: Props) => {
     [ICON.FOLDER]: <IconFolder />,
     [ICON.FOLDER_OPEN]: <IconFolder type="open" />,
     [ICON.FOLDER_ADD]: <IconFolder type="add" />,
+    [ICON.FOLDER_MOVE]: <IconFolder type="move" />,
     [ICON.TEMPLATE]: <IconTemplate />,
     [ICON.CANCEL]: <IconCancel />,
     [ICON.CONFIG]: <IconConfig />,
     [ICON.RELOAD]: <IconReload />,
+    [ICON.HAND_POINTER]: <IconHandPointer />,
   };
   return icons[type];
 };

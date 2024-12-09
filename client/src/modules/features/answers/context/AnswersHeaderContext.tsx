@@ -2,6 +2,7 @@ import { createContext, useContext } from "react";
 import { IA_Plantilla } from "../../templates/api/responses";
 import { T_Tests_Respuestas } from "../../tests/api/responses";
 import { SetData } from "@/modules/core/hooks/useFetch/getSetData";
+import { Refetch } from "@/modules/core/types/ReactQuery";
 
 export type AnswersTableFiltersType = "nombre" | "test";
 
@@ -37,6 +38,9 @@ interface Ctx {
   >;
   disableFilters: boolean;
   setData: SetData<T_Tests_Respuestas[]>;
+  plantilla: string;
+  setPlantilla: React.Dispatch<React.SetStateAction<string>>;
+  refetch: Refetch<T_Tests_Respuestas[]>;
 }
 
 const AnswersHeaderContext = createContext<Ctx | null>(null);

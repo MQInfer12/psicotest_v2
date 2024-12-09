@@ -1,55 +1,20 @@
 import { useMeasureContext } from "../../_layout/context/MeasureContext";
-import { MONTHS } from "../data/months";
+import AgendaColumn from "../components/AgendaColumn";
+import CalendarColumn from "../components/CalendarColumn";
 
 const CalendarPage = () => {
   const { PRIVATE_PADDING_INLINE } = useMeasureContext();
 
   return (
     <div
-      className="grid flex-1"
+      className="flex gap-16 flex-1 overflow-hidden"
       style={{
-        gridTemplateColumns: "auto 1fr",
-        gridTemplateRows: "auto auto 1fr",
-        gridTemplateAreas: `
-          'year months'
-          'days days'
-          'schedules schedules'
-        `,
         paddingInline: PRIVATE_PADDING_INLINE,
+        paddingBottom: PRIVATE_PADDING_INLINE,
       }}
     >
-      <div
-        style={{
-          gridArea: "year",
-        }}
-        className=""
-      >
-        <select>
-          <option>2024</option>
-        </select>
-      </div>
-      <div
-        style={{
-          gridArea: "months",
-        }}
-        className="flex"
-      >
-        {MONTHS.map((mes) => (
-          <button className="flex-1">{mes}</button>
-        ))}
-      </div>
-      <div
-        style={{
-          gridArea: "days",
-        }}
-        className="bg-amber-500 h-10"
-      ></div>
-      <main
-        style={{
-          gridArea: "schedules",
-        }}
-        className="bg-sky-500"
-      ></main>
+      <CalendarColumn />
+      <AgendaColumn />
     </div>
   );
 };

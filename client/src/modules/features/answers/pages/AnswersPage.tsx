@@ -49,6 +49,7 @@ const AnswersPage = () => {
     });
   };
 
+  const [plantilla, setPlantilla] = useState("");
   const [startedSelection, setStartedSelection] = useState<IA_Plantilla | null>(
     null
   );
@@ -69,17 +70,23 @@ const AnswersPage = () => {
   const { debouncedValue, isDebouncing } = useDebounce(
     JSON.stringify(folders),
     {
-      delay: 1000,
+      delay: 500,
       valueIsDefault: true,
     }
   );
 
   const { fetchData } = useFetch();
-  const { data, setData, isLoading } = fetchData("GET /respuesta/for/table", {
-    params: {
-      folders: debouncedValue ?? "[]",
-    },
-  });
+  const { data, setData, isLoading, refetch } = fetchData(
+    "GET /respuesta/for/table",
+    {
+      params: {
+        folders: debouncedValue ?? "[]",
+      },
+      queryOptions: {
+        gcTime: 0,
+      },
+    }
+  );
   const [loading, setLoading] = useState<number | null>(null);
   const { PRIVATE_PADDING_INLINE } = useMeasureContext();
 
@@ -219,8 +226,10 @@ const AnswersPage = () => {
           setStartedSelection={setStartedSelection}
           disableFilters={showInterpretation}
           setData={setData}
+          refetch={refetch}
+          plantilla={plantilla}
+          setPlantilla={setPlantilla}
         >
-          <AnswersHeader />
           {showInterpretation ? (
             <AnswersInterpretation />
           ) : (
@@ -228,6 +237,9 @@ const AnswersPage = () => {
               savedOffsetKey="answers_page_table_offset"
               data={filteredData}
               columns={columns}
+              checkable
+              disableCheck={!!startedSelection}
+              idKey="id_respuesta"
               actions={[
                 {
                   fn: (row) => {
@@ -343,7 +355,9 @@ const AnswersPage = () => {
                     }
                   : undefined
               }
-            />
+            >
+              <AnswersHeader />
+            </Table>
           )}
         </AnswersHeaderContextProvider>
       </div>

@@ -10,6 +10,8 @@ import { TemplateType } from "../../templates/types/TemplateType";
 import { measureAge } from "@/modules/core/utils/measureAge";
 import { CanvasType } from "@/modules/core/components/ui/canvas/types/Canvas";
 import { getPunctuations } from "../utils/getPunctuations";
+import Button from "@/modules/core/components/ui/Button";
+import Icon from "@/modules/core/components/icons/Icon";
 
 const AnswersInterpretation = () => {
   const {
@@ -235,8 +237,8 @@ const AnswersInterpretation = () => {
 
   return (
     <div className="flex flex-col flex-1 overflow-hidden">
-      <div className="flex items-center h-10 bg-primary-100 border-b border-alto-200/80">
-        <small className="text-[10px] font-semibold px-5 [&>span]:text-primary-700">
+      <div className="flex items-center py-2 justify-between px-2 bg-primary-100 border-b border-alto-200/80">
+        <small className="text-[10px] font-semibold [&>span]:text-primary-700 px-3">
           Generando respuesta para <span>{selectedTests?.user.nombre}</span>{" "}
           según {selectedTests?.selecteds.length === 1 ? "el " : "los "}
           test{selectedTests?.selecteds.length === 1 ? ": " : "s: "}
@@ -247,6 +249,15 @@ const AnswersInterpretation = () => {
             </Fragment>
           ))}
         </small>
+        <Button
+          onClick={() => {
+            setStartedSelection(null);
+            setSelectedTests(null);
+          }}
+          icon={Icon.Types.X}
+          btnSize="small"
+          btnType="secondary"
+        />
       </div>
       <GptCanvas
         content={interpretation || ""}
