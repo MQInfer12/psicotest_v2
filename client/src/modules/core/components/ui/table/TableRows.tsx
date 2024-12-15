@@ -5,6 +5,7 @@ import React, { CSSProperties, useEffect } from "react";
 import Button from "../Button";
 import Loader from "../loader/Loader";
 import { ICON } from "../../icons/Icon";
+import { TableAction } from "./Table";
 
 interface Props<T> {
   data: T[] | undefined;
@@ -18,12 +19,7 @@ interface Props<T> {
   };
   rowStyle?: (row: T) => CSSProperties;
   gridTemplateColumns: string;
-  actions?: {
-    icon: ICON;
-    title: string;
-    fn: (row: T) => void;
-    disabled?: (row: T) => boolean;
-  }[];
+  actions?: TableAction<T>[];
   loadingRow?: (row: T) => boolean;
   checkable?: boolean;
 }
@@ -149,7 +145,7 @@ const TableRows = <T,>({
                 style={{
                   height: rowHeight,
                 }}
-                className="flex items-center justify-center px-3 w-full"
+                className="flex items-center justify-center px-3 w-full gap-1"
               >
                 {loadingRow?.(row.original) ? (
                   <div className="-mt-6">
@@ -164,6 +160,8 @@ const TableRows = <T,>({
                       title={a.title}
                       icon={a.icon}
                       disabled={a.disabled?.(row.original)}
+                      btnType={a.type}
+                      danger={a.danger}
                     />
                   ))
                 )}

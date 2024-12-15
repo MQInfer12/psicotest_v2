@@ -9,5 +9,6 @@ export interface User extends Timestamps {
   foto: string | null;
   fecha_nacimiento: string | null;
   estado: boolean;
+  id_rol: number;
   permisos: Permisos[];
 }

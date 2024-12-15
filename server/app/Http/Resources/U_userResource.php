@@ -16,6 +16,7 @@ class U_userResource extends JsonResource
             'fecha_nacimiento' => $this->fecha_nacimiento,
             'estado' => $this->estado,
             'permisos' => $this->rol->permisos,
+            'id_rol' => $this->id_rol,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

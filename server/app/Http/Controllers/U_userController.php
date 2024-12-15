@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\U_userChangeRolRequest;
 use App\Http\Requests\U_userStoreRequest;
 use App\Http\Requests\U_userUpdateRequest;
 use App\Http\Resources\U_userResource;
@@ -56,6 +57,21 @@ class U_userController extends Controller
 
         return $this->successResponse(
             "Usuario actualizado correctamente.",
+            new U_userResource($user)
+        );
+    }
+
+    public function changeRol(string $email, U_userChangeRolRequest $request)
+    {
+        $validatedData = $request->validated();
+
+        $user = U_user::findOrFail($email);
+        $user->id_rol = $validatedData['id_rol'];
+
+        $user->save();
+
+        return $this->successResponse(
+            "Rol del usuario actualizado correctamente.",
             new U_userResource($user)
         );
     }

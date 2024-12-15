@@ -33,5 +33,12 @@ declare global {
       request: null;
       response: User;
     };
+    "PATCH /user/change-rol/:id/psicotest": {
+      params: { id: string };
+      request: {
+        id_rol: number;
+      };
+      response: User;
+    };
   }
 }

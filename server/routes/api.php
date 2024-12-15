@@ -6,6 +6,7 @@ use App\Http\Controllers\IA_PlantillaController;
 use App\Http\Controllers\T_CarpetaController;
 use App\Http\Controllers\T_RespuestaController;
 use App\Http\Controllers\T_TestController;
+use App\Http\Controllers\U_RolController;
 use App\Http\Controllers\U_userController;
 use Illuminate\Support\Facades\Route;
 
@@ -41,6 +42,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/user/{email}/psicotest', [U_userController::class, 'update']);
     Route::delete('/user/{email}/psicotest', [U_userController::class, 'destroy']);
     Route::patch('/user/change-state/{email}/psicotest', [U_userController::class, 'changeState']);
+    Route::patch('/user/change-rol/{email}/psicotest', [U_userController::class, 'changeRol']);
 
     Route::apiResource('/test', T_TestController::class);
     Route::get('/test/by/respuesta/{id}', [T_TestController::class, 'showByRespuesta']);
@@ -55,6 +57,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('/respuesta/patch/interpretations', [T_RespuestaController::class, 'patchInterpretations']);
     Route::put('/respuesta/delete/many', [T_RespuestaController::class, 'destroyMany']);
     Route::put('/respuesta/move/many', [T_RespuestaController::class, 'moveMany']);
+
+    Route::apiResource('/rol', U_RolController::class);
 
     Route::apiResource('/carpeta', T_CarpetaController::class);
 

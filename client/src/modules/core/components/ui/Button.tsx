@@ -3,6 +3,8 @@ import { HTMLMotionProps, motion } from "framer-motion";
 import { COLORS } from "../../constants/COLORS";
 import Icon, { ICON } from "../icons/Icon";
 
+export type ButtonType = "primary" | "secondary" | "tertiary";
+
 interface Props extends HTMLMotionProps<"button"> {
   width?: string;
   textAlign?: "start" | "center";

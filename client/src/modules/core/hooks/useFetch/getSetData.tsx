@@ -15,7 +15,10 @@ export const getSetData = <K extends keyof EndpointMap>(
     params,
   });
   const setData: SetData<TResponse> = (setter) => {
-    if (!existData) return;
+    if (!existData) {
+      console.error(`The corresponding data doesn't exist`, queryKey);
+      return;
+    }
     queryClient.setQueryData(
       queryKey,
       (old: ApiSuccessResponse<TResponse>) => ({

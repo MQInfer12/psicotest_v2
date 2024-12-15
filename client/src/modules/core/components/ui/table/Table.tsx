@@ -16,16 +16,21 @@ import IconMessage from "../../icons/IconMessage";
 import Loader from "../loader/Loader";
 import { TableContextProvider } from "./context/TableContext";
 import TableRows from "./TableRows";
+import { ButtonType } from "../Button";
+
+export interface TableAction<T> {
+  icon: ICON;
+  title: string;
+  fn: (row: T) => void;
+  disabled?: (row: T) => boolean;
+  type?: ButtonType;
+  danger?: boolean;
+}
 
 interface Props<T> {
   data: T[] | undefined;
   columns: ColumnDef<T, any>[];
-  actions?: {
-    icon: ICON;
-    title: string;
-    fn: (row: T) => void;
-    disabled?: (row: T) => boolean;
-  }[];
+  actions?: TableAction<T>[];
   shadow?: boolean;
   rowHeight?: number;
   rounded?: boolean;
@@ -122,6 +127,7 @@ const Table = <T,>({
       </AnimatePresence>
       <TableContextProvider
         value={{
+          totalRows: data?.length,
           selectedRows: Object.keys(rowSelection),
           resetSelectedRows: () => setRowSelection({}),
         }}

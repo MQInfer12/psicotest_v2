@@ -14,7 +14,7 @@ class Permisos_Seeder extends Seeder
             [
                 "descripcion" => "Administrador",
                 "por_defecto" => false,
-                "permisos" => [Permisos::VER_TESTS_ASIGNACION, Permisos::VER_RESULTADOS, Permisos::VER_PLANTILLAS, Permisos::VER_CALENDARIO, Permisos::COMPARTIR_TEST, Permisos::CONFIGURAR]
+                "permisos" => [Permisos::VER_TESTS_ASIGNACION, Permisos::VER_RESULTADOS, Permisos::VER_PLANTILLAS, Permisos::VER_CALENDARIO, Permisos::COMPARTIR_TEST, Permisos::CONFIGURAR, Permisos::VER_USUARIOS]
             ],
             [
                 "descripcion" => "Paciente",

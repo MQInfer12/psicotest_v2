@@ -1,6 +1,7 @@
 import { createContext, useContext } from "react";
 
 interface Ctx {
+  totalRows: number | undefined;
   selectedRows: string[];
   resetSelectedRows: () => void;
 }

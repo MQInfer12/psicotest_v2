@@ -22,6 +22,7 @@ import {
 import { COLORS } from "@/modules/core/constants/COLORS";
 import AnswersInterpretation from "../components/AnswersInterpretation";
 import { IA_Plantilla } from "../../templates/api/responses";
+import TableHeader from "@/modules/core/components/ui/table/header/TableHeader";
 
 const columnHelper = createColumnHelper<T_Tests_Respuestas>();
 
@@ -217,7 +218,6 @@ const AnswersPage = () => {
       />
       <div className="flex-1 rounded-lg overflow-hidden shadow-lg flex flex-col">
         <AnswersHeaderContextProvider
-          totalRows={filteredData?.length ?? 0}
           filters={filters}
           setFilters={setFilters}
           selectedTests={selectedTests}
@@ -356,7 +356,9 @@ const AnswersPage = () => {
                   : undefined
               }
             >
-              <AnswersHeader />
+              <TableHeader>
+                <AnswersHeader />
+              </TableHeader>
             </Table>
           )}
         </AnswersHeaderContextProvider>

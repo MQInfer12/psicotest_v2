@@ -27,7 +27,6 @@ export interface SelectedTests {
 }
 
 interface Ctx {
-  totalRows: number;
   filters: AnswersTableFilters;
   setFilters: React.Dispatch<React.SetStateAction<AnswersTableFilters>>;
   selectedTests: SelectedTests | null;
