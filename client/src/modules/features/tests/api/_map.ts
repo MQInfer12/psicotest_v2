@@ -95,7 +95,9 @@ declare global {
       params: never;
       request: {
         ids: number[];
-        id_carpeta: number;
+        //? tomar en cuenta que este parametro deberia ser un number pero se manda string debido al select,
+        //? se esta convirtiendo en el backend a number antes de validar
+        id_carpeta: string | undefined;
       };
       response: null;
     };

@@ -16,19 +16,18 @@ class T_RespuestaMoveManyRequest extends FormRequest
         return [
             'ids' => 'required|array|min:1',
             'ids.*' => 'integer|exists:t_respuestas,id',
-            'id_carpeta' => 'required|integer|exists:t_carpetas,id'
+            'id_carpeta' => 'nullable|integer|exists:t_carpetas,id'
         ];
     }
 
     public function messages()
     {
         return [
-            'ids.required' => 'El parámetro ids es obligatorio.',    
+            'ids.required' => 'El parámetro ids es obligatorio.',
             'ids.array' => 'El parámetro ids debe ser un array.',
             'ids.min' => 'El array ids debe contener al menos un elemento.',
             'ids.exists' => 'Algún valor en el array de ids no existe.',
             'ids.*.integer' => 'Cada valor en el array ids debe ser un número entero.',
-            'id_carpeta.required' => 'La carpeta es obligatoria.',
             'id_carpeta.integer' => 'El parámetro id_carpeta tiene que ser un número entero.',
             'id_carpeta.exists' => 'La carpeta tiene que existir.'
         ];
@@ -45,6 +44,12 @@ class T_RespuestaMoveManyRequest extends FormRequest
                     }, $ids),
                 ]);
             }
+        }
+        if (isset($this->id_carpeta)) {
+            $idCarpeta = $this->id_carpeta;
+            $this->merge([
+                'id_carpeta' => is_numeric($idCarpeta) ? (int) $idCarpeta : null,
+            ]);
         }
     }
 }
