@@ -3,6 +3,7 @@ import { ApiSuccessResponse } from "../../types/ApiResponse";
 import { useUserContext } from "@/modules/features/auth/context/UserContext";
 import { getSetData } from "./getSetData";
 import { fetchOptions } from "./utils/fetchFn";
+import { HttpMethod } from "../../types/HttpMethod";
 
 interface FetchDataOptions {
   params?: Record<string, string>;
@@ -19,6 +20,11 @@ export const fetchData = <K extends keyof EndpointMap>(
   const { logout } = useUserContext();
   const fetchOpt = config.fetchOptions ?? {};
 
+  const endpoint: string = Array.isArray(endpointConfig)
+    ? endpointConfig[0]
+    : endpointConfig;
+  const [method] = endpoint.split(" ") as [HttpMethod, string];
+
   const returnValue = useQuery<ApiSuccessResponse<TResponse>>(
     fetchOptions(
       endpointConfig,
@@ -26,7 +32,7 @@ export const fetchData = <K extends keyof EndpointMap>(
         onUnauthorized: () => {
           logout();
         },
-        config: { ...fetchOpt, params: config.params },
+        config: { ...fetchOpt, method, params: config.params },
       },
       config.queryOptions
     )

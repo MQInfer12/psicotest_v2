@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\Permisos;
 use App\Http\Requests\T_RespuestaIdsRequest;
 use App\Http\Requests\T_RespuestaIndexForTableRequest;
 use App\Http\Requests\T_RespuestaMoveManyRequest;
@@ -37,21 +38,19 @@ class T_RespuestaController extends Controller
 
     public function indexForTable(T_RespuestaIndexForTableRequest $request)
     {
-        $user = $request->user();
         $folders = $request->input('folders', []);
         if (empty($folders)) {
             return $this->successResponse("Tests obtenidos correctamente.", []);
         }
 
-        $respuestas = T_Respuesta::where('email_asignador', $user->email)
-            ->when(in_array(0, $folders), function ($query) use ($folders) {
-                return $query->where(function ($query) use ($folders) {
-                    $query->whereIn('id_carpeta', array_diff($folders, [0]))
-                        ->orWhereNull('id_carpeta');
-                });
-            }, function ($query) use ($folders) {
-                return $query->whereIn('id_carpeta', $folders);
-            })
+        $respuestas = T_Respuesta::when(in_array(0, $folders), function ($query) use ($folders) {
+            return $query->where(function ($query) use ($folders) {
+                $query->whereIn('id_carpeta', array_diff($folders, [0]))
+                    ->orWhereNull('id_carpeta');
+            });
+        }, function ($query) use ($folders) {
+            return $query->whereIn('id_carpeta', $folders);
+        })
             ->orderBy('id', 'asc')
             ->get();
 
@@ -78,7 +77,7 @@ class T_RespuestaController extends Controller
         }
 
         $asignador = U_user::findOrFail($email_asignador);
-        if (!in_array('Compartir test', $asignador->rol->permisos)) {
+        if (!in_array(Permisos::COMPARTIR_TEST, $asignador->rol->permisos)) {
             return $this->wrongResponse('Esta persona no tiene permisos para compartir tests.');
         }
 

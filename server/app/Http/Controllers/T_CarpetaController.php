@@ -16,10 +16,14 @@ class T_CarpetaController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
-        $carpetas = $user->carpetas;
+
+        $carpetasPropias = $user->carpetas;
+        $carpetasCompartidas = $user->carpetasCompartidas;
+        $carpetasTotales = $carpetasPropias->merge($carpetasCompartidas)->sortBy('id');
+
         return $this->successResponse(
             "Carpetas obtenidas correctamente.",
-            T_CarpetaResource::collection($carpetas)
+            T_CarpetaResource::collection($carpetasTotales)
         );
     }
 

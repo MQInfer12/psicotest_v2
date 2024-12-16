@@ -24,6 +24,7 @@ import { Route as PrivateAnswersIndexImport } from './routes/_private/answers/in
 import { Route as PrivateTestsShareImport } from './routes/_private/tests/share'
 import { Route as PrivateTestsIdTestImport } from './routes/_private/tests/$idTest'
 import { Route as PrivateResolveIdRespuestaImport } from './routes/_private/resolve/$idRespuesta'
+import { Route as PrivateFolderIdImport } from './routes/_private/folder/$id'
 import { Route as PrivateAnswersIdImport } from './routes/_private/answers/$id'
 
 // Create/Update Routes
@@ -104,6 +105,12 @@ const PrivateResolveIdRespuestaRoute = PrivateResolveIdRespuestaImport.update({
   getParentRoute: () => PrivateRoute,
 } as any)
 
+const PrivateFolderIdRoute = PrivateFolderIdImport.update({
+  id: '/folder/$id',
+  path: '/folder/$id',
+  getParentRoute: () => PrivateRoute,
+} as any)
+
 const PrivateAnswersIdRoute = PrivateAnswersIdImport.update({
   id: '/answers/$id',
   path: '/answers/$id',
@@ -161,6 +168,13 @@ declare module '@tanstack/react-router' {
       path: '/answers/$id'
       fullPath: '/answers/$id'
       preLoaderRoute: typeof PrivateAnswersIdImport
+      parentRoute: typeof PrivateImport
+    }
+    '/_private/folder/$id': {
+      id: '/_private/folder/$id'
+      path: '/folder/$id'
+      fullPath: '/folder/$id'
+      preLoaderRoute: typeof PrivateFolderIdImport
       parentRoute: typeof PrivateImport
     }
     '/_private/resolve/$idRespuesta': {
@@ -222,6 +236,7 @@ interface PrivateRouteChildren {
   PrivateChatRoute: typeof PrivateChatRoute
   PrivateUsersRoute: typeof PrivateUsersRoute
   PrivateAnswersIdRoute: typeof PrivateAnswersIdRoute
+  PrivateFolderIdRoute: typeof PrivateFolderIdRoute
   PrivateResolveIdRespuestaRoute: typeof PrivateResolveIdRespuestaRoute
   PrivateTestsIdTestRoute: typeof PrivateTestsIdTestRoute
   PrivateTestsShareRoute: typeof PrivateTestsShareRoute
@@ -236,6 +251,7 @@ const PrivateRouteChildren: PrivateRouteChildren = {
   PrivateChatRoute: PrivateChatRoute,
   PrivateUsersRoute: PrivateUsersRoute,
   PrivateAnswersIdRoute: PrivateAnswersIdRoute,
+  PrivateFolderIdRoute: PrivateFolderIdRoute,
   PrivateResolveIdRespuestaRoute: PrivateResolveIdRespuestaRoute,
   PrivateTestsIdTestRoute: PrivateTestsIdTestRoute,
   PrivateTestsShareRoute: PrivateTestsShareRoute,
@@ -266,6 +282,7 @@ export interface FileRoutesByFullPath {
   '/users': typeof PrivateUsersRoute
   '/': typeof PublicIndexRoute
   '/answers/$id': typeof PrivateAnswersIdRoute
+  '/folder/$id': typeof PrivateFolderIdRoute
   '/resolve/$idRespuesta': typeof PrivateResolveIdRespuestaRoute
   '/tests/$idTest': typeof PrivateTestsIdTestRoute
   '/tests/share': typeof PrivateTestsShareRoute
@@ -282,6 +299,7 @@ export interface FileRoutesByTo {
   '/users': typeof PrivateUsersRoute
   '/': typeof PublicIndexRoute
   '/answers/$id': typeof PrivateAnswersIdRoute
+  '/folder/$id': typeof PrivateFolderIdRoute
   '/resolve/$idRespuesta': typeof PrivateResolveIdRespuestaRoute
   '/tests/$idTest': typeof PrivateTestsIdTestRoute
   '/tests/share': typeof PrivateTestsShareRoute
@@ -300,6 +318,7 @@ export interface FileRoutesById {
   '/_private/users': typeof PrivateUsersRoute
   '/_public/': typeof PublicIndexRoute
   '/_private/answers/$id': typeof PrivateAnswersIdRoute
+  '/_private/folder/$id': typeof PrivateFolderIdRoute
   '/_private/resolve/$idRespuesta': typeof PrivateResolveIdRespuestaRoute
   '/_private/tests/$idTest': typeof PrivateTestsIdTestRoute
   '/_private/tests/share': typeof PrivateTestsShareRoute
@@ -318,6 +337,7 @@ export interface FileRouteTypes {
     | '/users'
     | '/'
     | '/answers/$id'
+    | '/folder/$id'
     | '/resolve/$idRespuesta'
     | '/tests/$idTest'
     | '/tests/share'
@@ -333,6 +353,7 @@ export interface FileRouteTypes {
     | '/users'
     | '/'
     | '/answers/$id'
+    | '/folder/$id'
     | '/resolve/$idRespuesta'
     | '/tests/$idTest'
     | '/tests/share'
@@ -349,6 +370,7 @@ export interface FileRouteTypes {
     | '/_private/users'
     | '/_public/'
     | '/_private/answers/$id'
+    | '/_private/folder/$id'
     | '/_private/resolve/$idRespuesta'
     | '/_private/tests/$idTest'
     | '/_private/tests/share'
@@ -390,6 +412,7 @@ export const routeTree = rootRoute
         "/_private/chat",
         "/_private/users",
         "/_private/answers/$id",
+        "/_private/folder/$id",
         "/_private/resolve/$idRespuesta",
         "/_private/tests/$idTest",
         "/_private/tests/share",
@@ -423,6 +446,10 @@ export const routeTree = rootRoute
     },
     "/_private/answers/$id": {
       "filePath": "_private/answers/$id.tsx",
+      "parent": "/_private"
+    },
+    "/_private/folder/$id": {
+      "filePath": "_private/folder/$id.tsx",
       "parent": "/_private"
     },
     "/_private/resolve/$idRespuesta": {

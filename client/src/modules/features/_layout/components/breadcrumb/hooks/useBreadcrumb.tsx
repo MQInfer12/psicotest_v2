@@ -21,5 +21,5 @@ export const useBreadcrumb = () => {
     return acc;
   }, []);
 
-  return breadcrumb_routes;
+  return breadcrumb_routes.filter((v) => !!v.name);
 };

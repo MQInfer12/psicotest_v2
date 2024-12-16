@@ -37,10 +37,14 @@ export const BREADCRUMB: Breadcrumb[] = [
     name: "Detalles del resultado",
     match: "/answers/$id",
   },
+  {
+    name: "Compartir carpeta",
+    match: "/folder/$id",
+  },
   //? PLANTILLAS
   {
     name: "Plantillas",
-    match: "/templates"
+    match: "/templates",
   },
   //? SIDEBAR
   {

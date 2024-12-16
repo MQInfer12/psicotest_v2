@@ -33,6 +33,11 @@ class U_user extends Authenticatable
         return $this->hasMany(T_Carpeta::class, 'email_user')->orderBy('id', 'asc');
     }
 
+    public function carpetasCompartidas()
+    {
+        return $this->belongsToMany(T_Carpeta::class, 't_carpeta_compartirs', 'email_user', 'id_carpeta');
+    }
+
     public function respuestas()
     {
         return $this->hasMany(T_Respuesta::class, 'email_user')->orderBy('id', 'asc');

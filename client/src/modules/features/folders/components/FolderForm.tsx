@@ -8,6 +8,7 @@ import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import { toastConfirm, toastSuccess } from "@/modules/core/utils/toasts";
 import Button from "@/modules/core/components/ui/Button";
 import { useState } from "react";
+import Icon from "@/modules/core/components/icons/Icon";
 
 interface Props {
   folder: Folder | null;
@@ -81,8 +82,27 @@ const FolderForm = ({ onSuccess, onSuccessDelete, folder }: Props) => {
     });
   };
 
+  const link = folder
+    ? `${window.location.origin}/folder/${folder.id}`
+    : undefined;
+
   return (
     <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
+      {link && (
+        <div className="flex items-end gap-2">
+          <Input label="Compartir carpeta" disabled value={link} readOnly />
+          <Button
+            type="button"
+            btnType="secondary"
+            icon={Icon.Types.CLIPBOARD}
+            onClick={() => {
+              navigator.clipboard.writeText(link).then(() => {
+                toastSuccess("Enlace copiado al portapapeles correctamente");
+              });
+            }}
+          />
+        </div>
+      )}
       <Input
         label="Descripción"
         error={errors.descripcion?.message}

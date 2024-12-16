@@ -5,3 +5,9 @@ export interface Folder extends Timestamps {
   email_user: string;
   descripcion: string;
 }
+
+export interface SharedFolder {
+  id: number;
+  email_user: string;
+  id_carpeta: number;
+}
