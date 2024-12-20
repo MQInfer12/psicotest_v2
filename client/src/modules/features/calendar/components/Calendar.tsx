@@ -39,7 +39,7 @@ const Calendar = ({ fechaActual }: Props) => {
     >
       {DAYS.map((dia, i) => (
         <div key={i} className="flex items-center justify-center pb-8">
-          <p className="text-nowrap text-alto-400 text-xs">{dia}</p>
+          <p className="text-nowrap text-alto-400 text-xs">{dia.abrev}</p>
         </div>
       ))}
       {dias.flat().map((dia, i) => {

@@ -9,7 +9,7 @@ interface GeneralProps {
 }
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  type?: "text" | "date" | "number" | "email";
+  type?: "text" | "date" | "number" | "email" | "time";
 }
 
 interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {

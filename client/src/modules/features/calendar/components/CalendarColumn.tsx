@@ -30,7 +30,7 @@ const CalendarColumn = () => {
         </strong>
         <div className="bg-primary-200 h-10 aspect-square flex flex-col items-center justify-center rounded-md">
           <small className="text-[10px] font-medium opacity-60">
-            {diaActual.toUpperCase()}
+            {diaActual.abrev.toUpperCase()}
           </small>
           <p className="font-bold text-primary-900 -mt-1">
             {fechaActual.format("D")}
