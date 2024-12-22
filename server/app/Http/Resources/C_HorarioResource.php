@@ -11,6 +11,7 @@ class C_HorarioResource extends JsonResource
         return [
             'id' => $this->id,
             'email_user' => $this->email_user,
+            'nombre_user' => $this->user->nombre,
             'dia' => $this->dia,
             'hora_inicio' => $this->hora_inicio,
             'hora_final' => $this->hora_final,

@@ -19,4 +19,9 @@ class C_Horario extends Model
         'hora_inicio',
         'hora_final'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(U_user::class, 'email_user');
+    }
 }

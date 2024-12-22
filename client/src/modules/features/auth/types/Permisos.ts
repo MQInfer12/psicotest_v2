@@ -11,4 +11,7 @@ export enum Permisos {
   EDITAR_TEST = "Editar test",
   PUEDE_SER_ASIGNADO = "Puede ser asignado",
   CONFIGURAR = "Configurar",
+  ANADIR_HORARIOS = "Añadir horarios",
+  VER_CITAS = "Ver citas",
+  VER_HORARIOS = "Ver horarios",
 }

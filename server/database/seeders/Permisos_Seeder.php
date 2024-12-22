@@ -14,12 +14,12 @@ class Permisos_Seeder extends Seeder
             [
                 "descripcion" => "Administrador",
                 "por_defecto" => false,
-                "permisos" => [Permisos::VER_TESTS_ASIGNACION, Permisos::VER_RESULTADOS, Permisos::VER_PLANTILLAS, Permisos::VER_CALENDARIO, Permisos::COMPARTIR_TEST, Permisos::CONFIGURAR, Permisos::VER_USUARIOS]
+                "permisos" => [Permisos::VER_TESTS_ASIGNACION, Permisos::VER_RESULTADOS, Permisos::VER_PLANTILLAS, Permisos::VER_CALENDARIO, Permisos::COMPARTIR_TEST, Permisos::CONFIGURAR, Permisos::VER_USUARIOS, Permisos::VER_CITAS, Permisos::ANADIR_HORARIOS]
             ],
             [
                 "descripcion" => "Paciente",
                 "por_defecto" => true,
-                "permisos" => [Permisos::VER_TESTS_RESOLUCION, Permisos::PUEDE_SER_ASIGNADO]
+                "permisos" => [Permisos::VER_TESTS_RESOLUCION, Permisos::PUEDE_SER_ASIGNADO, Permisos::VER_CALENDARIO, Permisos::VER_HORARIOS]
             ]
         ];
         foreach ($rols as $rol) {

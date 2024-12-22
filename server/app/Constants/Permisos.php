@@ -16,4 +16,7 @@ class Permisos
   const EDITAR_TEST = 'Editar test';
   const PUEDE_SER_ASIGNADO = 'Puede ser asignado';
   const CONFIGURAR = "Configurar";
+  const ANADIR_HORARIOS = "Añadir horarios";
+  const VER_CITAS = "Ver citas";
+  const VER_HORARIOS = "Ver horarios";
 }
