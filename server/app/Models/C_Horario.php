@@ -22,6 +22,6 @@ class C_Horario extends Model
 
     public function user()
     {
-        return $this->belongsTo(U_user::class, 'email_user');
+        return $this->belongsTo(U_user::class, 'email_user', 'email');
     }
 }

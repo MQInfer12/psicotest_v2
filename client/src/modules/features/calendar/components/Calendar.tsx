@@ -9,14 +9,13 @@ interface Props {
 }
 
 const Calendar = ({ fechaActual }: Props) => {
-  const today = dayjs();
   const { dateSelected, setDateSelected } = useCalendarContext();
 
   const getMes = useCallback((fecha: Dayjs) => {
     const year = fecha.year();
     const mes = fecha.month();
     const primerDiaDelMes = dayjs(new Date(year, mes, 1)).day();
-    let diaActual = primerDiaDelMes === 0 ? -6 : 1 - primerDiaDelMes; // Ajuste para que la semana comience en lunes
+    let diaActual = primerDiaDelMes === 0 ? -6 : 1 - primerDiaDelMes;
 
     const dias = new Array(6).fill(null).map(() => {
       return new Array(7).fill(null).map(() => {
@@ -28,6 +27,7 @@ const Calendar = ({ fechaActual }: Props) => {
     return dias;
   }, []);
 
+  const today = dayjs();
   const dias = getMes(fechaActual);
   return (
     <div
@@ -55,7 +55,7 @@ const Calendar = ({ fechaActual }: Props) => {
             className={clsx(
               "flex group relative items-center justify-center isolate hover:opacity-60 aspect-square select-none",
               !isCurrentMonth && "opacity-40",
-              isPast && "pointer-events-none opacity-10"
+              isPast && "pointer-events-none !opacity-10"
             )}
             onClick={() => setDateSelected(dia)}
             disabled={isPast}

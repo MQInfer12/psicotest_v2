@@ -82,7 +82,6 @@ class C_HorarioController extends Controller
     public function destroy(int $id)
     {
         $horario = C_Horario::findOrFail($id);
-
         $horario->delete();
 
         return $this->successResponse(

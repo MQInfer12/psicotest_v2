@@ -1,3 +1,4 @@
+import { User } from "../../users/api/responses";
 import { ScheduleDTO } from "./dtos";
 import { Schedule } from "./responses";
 
@@ -22,6 +23,19 @@ declare global {
       params: { id: number };
       request: null;
       response: null;
+    };
+    "POST /cita": {
+      params: never;
+      request: {
+        id_horario: number;
+        fecha: string;
+      };
+      response: User;
+    };
+    "DELETE /cita/:id": {
+      params: { id: number };
+      request: null;
+      response: User;
     };
   }
 }

@@ -1,21 +1,10 @@
-import Button from "@/modules/core/components/ui/Button";
-import { useCalendarContext } from "../context/CalendarContext";
-import { MONTHS } from "../data/months";
-import { DAYS } from "../data/days";
 import Loader from "@/modules/core/components/ui/loader/Loader";
 import dayjs from "dayjs";
+import { useCalendarContext } from "../context/CalendarContext";
+import { stringFromDate } from "../utils/stringFromDate";
+import ScheduleCard from "./ScheduleCard";
 
 const DAYS_FROM_NOW = 7;
-
-const calcularTiempo = (horaInicio: string, horaFinal: string) => {
-  const inicio = horaInicio.split(":");
-  const final = horaFinal.split(":");
-
-  const hora = parseInt(final[0]) - parseInt(inicio[0]);
-  const minuto = parseInt(final[1]) - parseInt(inicio[1]);
-
-  return `${hora} hora${hora > 1 ? "s" : ""}${minuto > 0 ? `${minuto} minuto${minuto > 1 ? "s" : ""}` : ""}`;
-};
 
 const AgendaColumn = () => {
   const { dateSelected, horariosDisponibles } = useCalendarContext();
@@ -51,45 +40,23 @@ const AgendaColumn = () => {
               ?.sort((a, b) => a.hora_inicio.localeCompare(b.hora_inicio));
             if (disponibles?.length === 0) return;
 
+            const { date, day, month } = stringFromDate(currentDay);
             return (
               <div key={i} className="flex flex-col gap-6">
                 <header className="text-alto-400 text-sm px-4">
-                  {DAYS[currentDay.day() === 0 ? 6 : currentDay.day() - 1]?.dia}
-                  , {currentDay.format("D")} de {MONTHS[currentDay.month()]}
+                  <span className="text-primary-400">{day}</span>, {date} de{" "}
+                  {month}
                 </header>
-                <ul className="flex flex-col gap-4 px-4">
+                <div className="flex flex-col gap-4 px-4">
                   {disponibles?.map((h, index) => (
-                    <li
+                    <ScheduleCard
                       key={index}
-                      className="flex items-center justify-between gap-10 bg-alto-50 px-4 py-2 border border-alto-300 rounded-md shadow-md"
-                    >
-                      <div className="flex items-center h-full gap-10">
-                        <div className="flex flex-col w-12">
-                          <strong className="text-xl text-primary-900">
-                            {h.hora_inicio.slice(0, 5)}
-                          </strong>
-                          <small className="text-alto-500">
-                            ~ {h.hora_final.slice(0, 5)}
-                          </small>
-                        </div>
-                        <span className="h-[80%] w-1 rounded-full bg-primary-400" />
-                        <div>
-                          <small className="text-alto-500 text-xs">
-                            {calcularTiempo(
-                              h.hora_inicio.slice(0, 5),
-                              h.hora_final.slice(0, 5)
-                            )}{" "}
-                            apróx. con:
-                          </small>
-                          <p className="font-medium">{h.nombre_user}</p>
-                        </div>
-                      </div>
-                      <Button btnType="secondary" btnSize="small">
-                        Reservar
-                      </Button>
-                    </li>
+                      horario={h}
+                      fecha={currentDay.format("YYYY-MM-DD")}
+                      dia={day}
+                    />
                   ))}
-                </ul>
+                </div>
               </div>
             );
           })}

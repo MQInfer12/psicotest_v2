@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\App_ConfiguracionController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\C_CitaController;
 use App\Http\Controllers\C_HorarioController;
 use App\Http\Controllers\IA_PlantillaController;
 use App\Http\Controllers\T_Carpeta_CompartirController;
@@ -70,4 +71,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::apiResource('/horario', C_HorarioController::class);
     Route::get('/horario/for/me', [C_HorarioController::class, 'indexForMe']);
+
+    Route::apiResource('/cita', C_CitaController::class);
 });

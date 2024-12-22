@@ -8,6 +8,7 @@ interface Props {
   small?: string;
   textColor?: "primary" | "danger" | "success";
   delay?: number;
+  children?: React.ReactNode;
 }
 
 const IconMessage = ({
@@ -16,6 +17,7 @@ const IconMessage = ({
   textColor = "primary",
   delay,
   small,
+  children,
 }: Props) => {
   return (
     <div className="flex flex-col items-center gap-5 px-6">
@@ -32,10 +34,11 @@ const IconMessage = ({
         <Icon type={icon} />
       </motion.div>
       <div className="flex flex-col items-center gap-2">
-        <p className="text-md leading-normal text-center font-medium text-alto-900">
+        <p className="text-md leading-normal text-center font-medium text-alto-800">
           {message}
         </p>
         {small && <small className="text-xs text-alto-700">{small}</small>}
+        {children}
       </div>
     </div>
   );

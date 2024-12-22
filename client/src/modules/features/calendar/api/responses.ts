@@ -6,3 +6,13 @@ export interface Schedule {
   hora_inicio: string;
   hora_final: string;
 }
+
+export interface Appointment {
+  id: number;
+  email_psicologo: string;
+  nombre_psicologo: string;
+  email_paciente: string;
+  fecha: string;
+  hora_inicio: string;
+  hora_final: string;
+}

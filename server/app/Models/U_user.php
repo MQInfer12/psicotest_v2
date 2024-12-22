@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -51,5 +52,13 @@ class U_user extends Authenticatable
     public function rol()
     {
         return $this->belongsTo(U_Rol::class, 'id_rol');
+    }
+
+    public function cita_proxima()
+    {
+        return $this->hasOne(C_Cita::class, 'email_paciente', 'email')
+            ->whereRaw("CONCAT(fecha, ' ', hora_final) > ?", [Carbon::now()->subHours(4)->format('Y-m-d H:i:s')])
+            ->orderBy('fecha', 'asc')
+            ->orderBy('hora_inicio', 'asc');
     }
 }

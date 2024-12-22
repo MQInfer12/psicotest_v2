@@ -23,7 +23,6 @@ export const CalendarContextProvider = ({ children }: Props) => {
       date: dateSelected.format("YYYY-MM-DD"),
     },
   });
-
   return (
     <CalendarContext.Provider
       value={{ dateSelected, setDateSelected, horariosDisponibles }}
