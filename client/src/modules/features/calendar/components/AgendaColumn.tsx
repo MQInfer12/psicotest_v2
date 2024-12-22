@@ -22,6 +22,7 @@ const AgendaColumn = () => {
 
   const today = dayjs();
   const now = new Date();
+
   return (
     <section className="flex flex-col gap-6 flex-1 overflow-hidden">
       <header className="h-10 flex items-center px-4">
