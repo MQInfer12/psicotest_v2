@@ -3,6 +3,7 @@ import { useUserContext } from "../../auth/context/UserContext";
 import { usePermiso } from "../../auth/hooks/usePermiso";
 import { Permisos } from "../../auth/types/Permisos";
 import AgendaColumn from "../components/AgendaColumn";
+import AppointmentColumn from "../components/AppointmentColumn";
 import CalendarColumn from "../components/CalendarColumn";
 import NextAppointmentBanner from "../components/NextAppointmentBanner";
 import ScheduleHeader from "../components/ScheduleHeader";
@@ -14,10 +15,11 @@ const CalendarPage = () => {
 
   const anadirPermisos = usePermiso([Permisos.ANADIR_HORARIOS]);
   const agendarPermisos = usePermiso([Permisos.VER_HORARIOS]);
+  const verCitas = usePermiso([Permisos.VER_CITAS]);
   return (
     <CalendarContextProvider>
       <div
-        className="flex gap-16 flex-1 overflow-hidden"
+        className="relative flex gap-16 flex-1 overflow-auto max-lg:flex-col max-lg:gap-8 max-lg:items-center"
         style={{
           paddingInline: PRIVATE_PADDING_INLINE,
           paddingBottom: PRIVATE_PADDING_INLINE,
@@ -27,10 +29,11 @@ const CalendarPage = () => {
           <NextAppointmentBanner />
         ) : (
           <>
-            <CalendarColumn />
-            <div className="flex-1 flex flex-col gap-6 overflow-hidden">
+            {agendarPermisos && <CalendarColumn />}
+            <div className="flex-1 flex flex-col gap-6 overflow-hidden max-lg:overflow-visible max-lg:w-full sticky top-0">
               {anadirPermisos && <ScheduleHeader />}
               {agendarPermisos && <AgendaColumn />}
+              {verCitas && <AppointmentColumn />}
             </div>
           </>
         )}

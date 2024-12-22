@@ -43,17 +43,19 @@ const ScheduleCard = ({ horario, fecha, dia }: Props) => {
       onClick={handleRequestAppointment}
       className="flex items-center justify-between gap-10 bg-alto-50 px-4 py-2 border border-alto-300 rounded-md shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-primary-200"
     >
-      <div className="flex items-center h-full gap-10">
+      <div className="flex items-center h-full gap-10 overflow-hidden max-lg:gap-4">
         <div className="flex flex-col w-12">
           <strong className="text-xl text-primary-900">{hora_inicio}</strong>
           <small className="text-alto-500">~ {hora_final}</small>
         </div>
         <span className="h-[80%] w-1 rounded-full bg-primary-400" />
-        <div className="flex flex-col items-start gap-1">
+        <div className="flex-1 flex flex-col items-start gap-1 overflow-hidden">
           <small className="text-alto-500 text-xs">
             {calcularTiempo(hora_inicio, hora_final)} apróx. con:
           </small>
-          <p className="font-medium">{horario.nombre_user}</p>
+          <p className="font-medium text-start whitespace-nowrap overflow-hidden text-ellipsis w-full max-lg:text-sm">
+            {horario.nombre_user}
+          </p>
         </div>
       </div>
     </button>

@@ -25,4 +25,9 @@ class C_Cita extends Model
     {
         return $this->belongsTo(U_user::class, 'email_psicologo', 'email');
     }
+
+    public function paciente()
+    {
+        return $this->belongsTo(U_user::class, 'email_paciente', 'email');
+    }
 }

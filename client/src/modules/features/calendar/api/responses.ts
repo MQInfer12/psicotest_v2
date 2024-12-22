@@ -12,6 +12,7 @@ export interface Appointment {
   email_psicologo: string;
   nombre_psicologo: string;
   email_paciente: string;
+  nombre_paciente: string;
   fecha: string;
   hora_inicio: string;
   hora_final: string;

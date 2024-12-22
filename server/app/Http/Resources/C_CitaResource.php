@@ -14,6 +14,7 @@ class C_CitaResource extends JsonResource
             'email_psicologo' => $this->email_psicologo,
             'nombre_psicologo' => $this->psicologo->nombre,
             'email_paciente' => $this->email_paciente,
+            'nombre_paciente' => $this->paciente->nombre,
             'fecha' => $this->fecha,
             'hora_inicio' => $this->hora_inicio,
             'hora_final' => $this->hora_final,

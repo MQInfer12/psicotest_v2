@@ -5,6 +5,7 @@ import Button from "@/modules/core/components/ui/Button";
 import { DAYS } from "../data/days";
 import { MONTHS } from "../data/months";
 import { useCalendarContext } from "../context/CalendarContext";
+import { getDayIndex } from "../utils/getDayIndex";
 
 const CalendarColumn = () => {
   const actual = dayjs();
@@ -23,7 +24,7 @@ const CalendarColumn = () => {
     setFechaActual(nextMonth);
   };
 
-  const diaActual = DAYS[actual.day() === 0 ? 6 : actual.day() - 1];
+  const diaActual = DAYS[getDayIndex(actual)];
   const mesActual = MONTHS[actual.month()];
   const mesSiguiente = MONTHS[nextMonth.month()];
 
@@ -67,12 +68,9 @@ const CalendarColumn = () => {
         <p className="text-alto-400 text-sm text-center px-8 leading-relaxed flex flex-col">
           Mostrando resultados desde el:{" "}
           <span className="font-bold text-primary-400">
-            {DAYS[dateSelected.day() === 0 ? 6 : dateSelected.day() - 1]?.dia},{" "}
-            {dateSelected.format("D")} de {MONTHS[dateSelected.month()]}
+            {DAYS[getDayIndex(dateSelected)]?.dia}, {dateSelected.format("D")}{" "}
+            de {MONTHS[dateSelected.month()]}
           </span>
-        </p>
-        <p className="text-alto-400 text-xs text-center px-8 leading-relaxed">
-          Selecciona una fecha y un horario para una cita
         </p>
       </div>
     </div>

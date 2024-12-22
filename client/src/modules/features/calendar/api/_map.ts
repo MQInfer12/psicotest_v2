@@ -1,6 +1,6 @@
 import { User } from "../../users/api/responses";
 import { ScheduleDTO } from "./dtos";
-import { Schedule } from "./responses";
+import { Appointment, Schedule } from "./responses";
 
 declare global {
   interface EndpointMap {
@@ -23,6 +23,11 @@ declare global {
       params: { id: number };
       request: null;
       response: null;
+    };
+    "GET /cita": {
+      params: never;
+      request: never;
+      response: Appointment[];
     };
     "POST /cita": {
       params: never;

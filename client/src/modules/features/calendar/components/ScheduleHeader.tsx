@@ -21,7 +21,7 @@ const ScheduleHeader = () => {
           }}
         />
       )}
-      <div className="flex flex-col gap-4 px-4">
+      <div className="flex flex-col gap-4 px-4 max-lg:px-0">
         <header className="h-10 flex items-center justify-between">
           <strong className="text-primary-900">Mi horario</strong>
           <Button
@@ -32,7 +32,7 @@ const ScheduleHeader = () => {
             Añadir horario
           </Button>
         </header>
-        <main className="grid gap-2 gap-x-6 grid-cols-2">
+        <main className="grid gap-2 gap-x-6 grid-cols-3 max-lg:grid-cols-2 max-sm:!grid-cols-1">
           {DAYS.filter((_, i) => data?.some((h) => h.dia === 6) || i < 6).map(
             (d, i) => {
               const horarios = data?.filter((horario) => horario.dia === i);

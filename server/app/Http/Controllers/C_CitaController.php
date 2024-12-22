@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\C_CitaStoreRequest;
+use App\Http\Resources\C_CitaResource;
 use App\Http\Resources\U_userResource;
 use App\Models\C_Cita;
 use App\Models\C_Horario;
@@ -12,6 +13,15 @@ use Illuminate\Http\Request;
 class C_CitaController extends Controller
 {
     use ApiResponse;
+
+    public function index(Request $request)
+    {
+        $citas = C_Cita::where('email_psicologo', $request->user()->email)->get();
+        return $this->successResponse(
+            "Citas encontradas correctamente.",
+            C_CitaResource::collection($citas)
+        );
+    }
 
     public function store(C_CitaStoreRequest $request)
     {
