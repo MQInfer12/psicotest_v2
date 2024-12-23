@@ -38,6 +38,26 @@ class C_CitaController extends Controller
             return $this->wrongResponse("No puedes pedir una cita en un horario tuyo.");
         }
 
+        $citasProximas = C_Cita::where('fecha', $validatedData['fecha'])
+            ->where('email_psicologo', $horario->email_user)
+            ->get();
+
+        foreach ($citasProximas as $cita) {
+            $horaInicioCita = strtotime($cita->hora_inicio);
+            $horaFinCita = strtotime($cita->hora_final);
+            $horaInicioNuevaCita = strtotime($horario->hora_inicio);
+            $horaFinNuevaCita = strtotime($horario->hora_final);
+
+            $inicioOverlaping = $horaInicioCita >= $horaInicioNuevaCita && $horaInicioCita < $horaFinNuevaCita;
+            $finalOverlaping = $horaFinCita > $horaInicioNuevaCita && $horaFinCita <= $horaFinNuevaCita;
+            $insideOverlaping = $inicioOverlaping || $finalOverlaping;
+            $outsideOverLaping = $horaInicioCita < $horaInicioNuevaCita && $horaFinCita > $horaFinNuevaCita;
+
+            if ($insideOverlaping || $outsideOverLaping) {
+                return $this->wrongResponse("El horario de la cita se solapa con otra cita existente.");
+            }
+        }
+
         C_Cita::create([
             'email_psicologo' => $horario->email_user,
             'email_paciente' => $user->email,
