@@ -7,7 +7,10 @@ declare global {
     "GET /horario": {
       params: never;
       request: never;
-      response: Schedule[];
+      response: {
+        horarios: Schedule[];
+        citas: Appointment[];
+      };
     };
     "GET /horario/for/me": {
       params: never;

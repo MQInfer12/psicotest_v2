@@ -31,8 +31,8 @@ const NextAppointmentBanner = () => {
   };
 
   return (
-    <section className="flex flex-col gap-6 flex-1 overflow-hidden">
-      <header className="h-10 flex items-center px-4">
+    <section className="flex flex-col gap-6 flex-1 overflow-hidden w-full">
+      <header className="h-10 flex items-center px-4 max-lg:px-0">
         <strong className="text-primary-900">Cita programada</strong>
       </header>
       <div className="flex-1 flex flex-col gap-8 items-center justify-center">

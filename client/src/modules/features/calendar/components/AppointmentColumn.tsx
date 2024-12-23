@@ -17,7 +17,9 @@ const AppointmentColumn = () => {
       {!data ? (
         <Loader text="Cargando horarios..." />
       ) : data.length === 0 ? (
-        <p className="text-center text-sm text-alto-500">No tienes citas próximamente</p>
+        <p className="text-center text-sm text-alto-500">
+          No tienes citas próximamente
+        </p>
       ) : (
         <main className="flex flex-col flex-1 overflow-x-hidden overflow-y-scroll gap-8 max-lg:overflow-y-hidden">
           {Object.keys(groupedData).map((appointmentsDate) => {
@@ -34,15 +36,15 @@ const AppointmentColumn = () => {
                     <ScheduleCard
                       key={index}
                       horario={{
-                        id: h.id,
+                        id: 0,
                         hora_inicio: h.hora_inicio,
                         hora_final: h.hora_final,
                         nombre_user: h.nombre_paciente,
                         email_user: h.email_paciente,
+                        foto_user: h.foto_paciente,
                         dia: getDayIndex(currentDay),
                       }}
                       fecha={currentDay.format("YYYY-MM-DD")}
-                      dia={day}
                     />
                   ))}
                 </div>

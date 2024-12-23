@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\C_HorarioIndexRequest;
 use App\Http\Requests\C_HorarioStoreRequest;
+use App\Http\Resources\C_CitaResource;
 use App\Http\Resources\C_HorarioResource;
+use App\Models\C_Cita;
 use App\Models\C_Horario;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
@@ -23,10 +25,18 @@ class C_HorarioController extends Controller
                 $query->orWhere('dia', date('w', strtotime($date . " $i days")));
             }
         })->get();
+        $citas = C_Cita::where(function ($query) use ($date, $DAYS_FROM_NOW) {
+            for ($i = -1; $i < $DAYS_FROM_NOW - 1; $i++) {
+                $query->orWhere('fecha', date('Y-m-d', strtotime($date . " $i days")));
+            }
+        })->get();
 
         return $this->successResponse(
             "Horarios obtenidos correctamente.",
-            C_HorarioResource::collection($horarios)
+            [
+                'horarios' => C_HorarioResource::collection($horarios),
+                'citas' => C_CitaResource::collection($citas)
+            ]
         );
     }
 

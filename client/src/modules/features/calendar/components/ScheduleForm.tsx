@@ -65,6 +65,7 @@ const ScheduleForm = ({ onSuccess }: Props) => {
         error={errors.hora_inicio?.message}
         {...register("hora_inicio")}
       />
+      <Input disabled readOnly value={60} label="Minutos" />
       <Button disabled={loading} type="submit">
         Enviar
       </Button>

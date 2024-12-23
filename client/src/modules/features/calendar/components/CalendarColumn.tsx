@@ -72,6 +72,9 @@ const CalendarColumn = () => {
             de {MONTHS[dateSelected.month()]}
           </span>
         </p>
+        <small className="text-xs text-alto-400 text-center">
+          Selecciona un horario para agendar una cita
+        </small>
       </div>
     </div>
   );
