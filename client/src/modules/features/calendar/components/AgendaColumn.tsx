@@ -15,7 +15,6 @@ const AgendaColumn = () => {
   const today = dayjs();
   const now = new Date();
 
-  console.log(citasProximas);
   return (
     <section className="flex flex-col gap-6 flex-1 overflow-hidden max-lg:w-full">
       <header className="h-10 flex items-center px-4 max-lg:px-0">

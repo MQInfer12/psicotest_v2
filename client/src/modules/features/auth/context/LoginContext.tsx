@@ -1,15 +1,15 @@
 import { Modal, useModal } from "@/modules/core/components/ui/modal/useModal";
-import { CredentialResponse } from "@react-oauth/google";
-import { createContext, useContext, useState } from "react";
-import { useUserContext } from "./UserContext";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import { toastSuccess } from "@/modules/core/utils/toasts";
+import { TokenResponse } from "@react-oauth/google";
+import { createContext, useContext, useState } from "react";
+import { useUserContext } from "./UserContext";
 
 interface Ctx {
   modal: Modal<unknown>;
   open: boolean;
   setOpen: (openOption: unknown) => void;
-  handleLogin: (data: CredentialResponse) => void;
+  handleLogin: (data: TokenResponse) => void;
   loading: boolean;
 }
 
@@ -26,16 +26,15 @@ export const LoginContextProvider = ({ children }: Props) => {
   const [loading, setLoading] = useState(false);
   const { modal, open, setOpen } = useModal();
 
-  const handleLogin = (data: CredentialResponse) => {
-    if (!data.credential) return;
+  const handleLogin = (data: TokenResponse) => {
     setLoading(true);
     loginMutation(
       {
-        token: data.credential,
+        token: data.access_token,
       },
       {
         onSuccess: (res) => {
-          login(res.data.user, res.data.token);
+          login(res.data.user, res.data.token, res.data.access_token);
           toastSuccess(res.message);
         },
         onError: () => setLoading(false),

@@ -25,28 +25,29 @@ class AuthController extends Controller
             'token.required' => 'El token es requerido.',
         ]);
 
-        try {
-            $jwks = Http::get('https://www.googleapis.com/oauth2/v3/certs')->json();
-            $tokenData = JWT::decode($data['token'], JWK::parseKeySet($jwks));
-            $tokenData = (array) $tokenData;
-        } catch (\Exception $e) {
-            return $this->notFoundResponse('Token inválido');
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $data['token'],
+        ])->get('https://www.googleapis.com/oauth2/v1/userinfo');
+        if ($response->failed()) {
+            return $this->unauthorizedResponse('Token inválido.');
         }
+        $userInfo = $response->json();
 
-        $user = U_user::where('email', $tokenData['email'])->first();
         $defaultRol = U_Rol::where('por_defecto', true)->firstOrFail();
 
-        if ($user == null) {
-            $user = U_user::create([
-                'email' => $tokenData['email'],
-                'nombre' => $tokenData['name'],
-                'foto' => $tokenData['picture'],
+        $user = U_user::firstOrCreate(
+            ['email' => $userInfo['email']],
+            [
+                'email' => $userInfo['email'],
+                'nombre' => $userInfo['name'],
+                'foto' => $userInfo['picture'],
                 'genero' => null,
                 'fecha_nacimiento' => null,
                 'estado' => true,
                 'id_rol' => $defaultRol->id
-            ]);
-        }
+            ]
+        );
+
         if ($user->estado === false) {
             return $this->unauthorizedResponse('El usuario se encuentra deshabilitado.');
         }
@@ -54,7 +55,8 @@ class AuthController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
         return $this->successResponse("Inicio de sesión correcto.", [
             'user' => new U_userResource($user),
-            'token' => $token
+            'token' => $token,
+            'access_token' => $data['token']
         ]);
     }
 

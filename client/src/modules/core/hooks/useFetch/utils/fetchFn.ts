@@ -1,10 +1,10 @@
 import { ApiSuccessResponse } from "@/modules/core/types/ApiResponse";
 import { buildUrl, RequestInitWithParams } from "./buildUrl";
 import { API_URL } from "@/modules/core/constants/ENVIRONMENT";
-import { TOKEN_NAME } from "@/modules/core/constants/CONSTANTS";
 import { handleResponse } from "./handleResponse";
 import { QueryOptions, queryOptions } from "@tanstack/react-query";
 import { getUrlData } from "./getUrlData";
+import { getTokens } from "@/modules/features/auth/utils/localStorageToken";
 
 //* FETCH DATA FN
 const fetchFn = async <K extends keyof EndpointMap>(
@@ -18,12 +18,12 @@ const fetchFn = async <K extends keyof EndpointMap>(
   const urlBuild = buildUrl(endpoint, params, config.params);
 
   //? FETCHING
-  const token = localStorage.getItem(TOKEN_NAME);
+  const token = getTokens();
   const response = await fetch(API_URL + urlBuild, {
     ...config,
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${token?.token}`,
       ...config.headers,
     },
   });

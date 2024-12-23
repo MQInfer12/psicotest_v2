@@ -4,7 +4,6 @@ import clsx from "clsx";
 import React, { CSSProperties, useEffect } from "react";
 import Button from "../Button";
 import Loader from "../loader/Loader";
-import { ICON } from "../../icons/Icon";
 import { TableAction } from "./Table";
 
 interface Props<T> {

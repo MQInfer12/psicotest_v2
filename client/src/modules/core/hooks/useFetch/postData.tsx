@@ -1,12 +1,12 @@
 import { MutateOptions, useMutation } from "@tanstack/react-query";
 import { ApiSuccessResponse } from "../../types/ApiResponse";
 import { HttpMethod } from "../../types/HttpMethod";
-import { TOKEN_NAME } from "../../constants/CONSTANTS";
 import { API_URL } from "../../constants/ENVIRONMENT";
 import { useUserContext } from "@/modules/features/auth/context/UserContext";
 import { toastError } from "../../utils/toasts";
 import { buildUrl, RequestInitWithParams } from "./utils/buildUrl";
 import { BuildedError, handleResponse } from "./utils/handleResponse";
+import { getTokens } from "@/modules/features/auth/utils/localStorageToken";
 
 //* FETCHING IN CODE
 export const postData = <K extends keyof EndpointMap>(
@@ -33,7 +33,7 @@ export const postData = <K extends keyof EndpointMap>(
       const urlBuild = buildUrl(endpoint, parameters, config.params);
       sessionStorage.removeItem(paramsLocalStorageKey);
 
-      const token = localStorage.getItem(TOKEN_NAME);
+      const tokens = getTokens();
       const response = await fetch(API_URL + urlBuild, {
         method: method,
         body:
@@ -42,7 +42,7 @@ export const postData = <K extends keyof EndpointMap>(
             : JSON.stringify(payload),
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${tokens?.token}`,
           ...config.headers,
         },
         ...config,
