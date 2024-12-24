@@ -5,6 +5,7 @@ import { stringFromDate } from "../utils/stringFromDate";
 import ScheduleCard from "./ScheduleCard";
 import { getDayIndex } from "../utils/getDayIndex";
 import { getTimeObject } from "../utils/getTimeObject";
+import { AnimatePresence, motion } from "framer-motion";
 
 const DAYS_FROM_NOW = 7;
 
@@ -22,69 +23,87 @@ const AgendaColumn = () => {
           Horarios disponibles de la semana
         </strong>
       </header>
-      {!dateSelected ? (
-        <Loader text="Cargando horarios..." />
+      {!horariosDisponibles ? (
+        <Loader text="Cargando horarios..." delay />
       ) : (
-        <main className="flex flex-col flex-1 overflow-x-hidden overflow-y-scroll gap-8 max-lg:overflow-y-hidden">
-          {[...Array(DAYS_FROM_NOW)].map((_, i) => {
-            const currentDay = dateSelected.clone().add(i, "days");
+        <ul className="flex flex-col flex-1 overflow-x-hidden overflow-y-scroll gap-8 max-lg:overflow-y-hidden">
+          <AnimatePresence>
+            {[...Array(DAYS_FROM_NOW)].map((_, i) => {
+              const currentDay = dateSelected.clone().add(i, "days");
 
-            const dayIndex = getDayIndex(currentDay);
-            const disponibles = horariosDisponibles
-              ?.filter((h) => {
-                const initialTargetTime = getTimeObject(h.hora_inicio);
-                const finalTargetTime = getTimeObject(h.hora_final);
+              const dayIndex = getDayIndex(currentDay);
+              const disponibles = horariosDisponibles
+                ?.filter((h) => {
+                  const initialTargetTime = getTimeObject(h.hora_inicio);
+                  const finalTargetTime = getTimeObject(h.hora_final);
 
-                const overlap = citasProximas?.some((cita) => {
-                  if (cita.fecha !== currentDay.format("YYYY-MM-DD"))
-                    return false;
-                  if (cita.email_psicologo !== h.email_user) return false;
-                  const horaInicioCita = getTimeObject(cita.hora_inicio);
-                  const horaFinCita = getTimeObject(cita.hora_final);
-                  const inicioOverlaping =
-                    horaInicioCita >= initialTargetTime &&
-                    horaInicioCita < finalTargetTime;
-                  const finalOverlaping =
-                    horaFinCita > initialTargetTime &&
-                    horaFinCita <= finalTargetTime;
-                  const insideOverlaping = inicioOverlaping || finalOverlaping;
-                  const outsideOverLaping =
-                    horaInicioCita < initialTargetTime &&
-                    horaFinCita > finalTargetTime;
-                  return insideOverlaping || outsideOverLaping;
-                });
+                  const overlap = citasProximas?.some((cita) => {
+                    if (cita.fecha !== currentDay.format("YYYY-MM-DD"))
+                      return false;
+                    if (cita.email_psicologo !== h.email_user) return false;
+                    const horaInicioCita = getTimeObject(cita.hora_inicio);
+                    const horaFinCita = getTimeObject(cita.hora_final);
+                    const inicioOverlaping =
+                      horaInicioCita >= initialTargetTime &&
+                      horaInicioCita < finalTargetTime;
+                    const finalOverlaping =
+                      horaFinCita > initialTargetTime &&
+                      horaFinCita <= finalTargetTime;
+                    const insideOverlaping =
+                      inicioOverlaping || finalOverlaping;
+                    const outsideOverLaping =
+                      horaInicioCita < initialTargetTime &&
+                      horaFinCita > finalTargetTime;
+                    return insideOverlaping || outsideOverLaping;
+                  });
 
-                return (
-                  h.dia === dayIndex &&
-                  (today.isSame(currentDay, "day")
-                    ? now < initialTargetTime
-                    : true) &&
-                  !overlap
-                );
-              })
-              ?.sort((a, b) => a.hora_inicio.localeCompare(b.hora_inicio));
-            if (disponibles?.length === 0) return;
+                  return (
+                    h.dia === dayIndex &&
+                    (today.isSame(currentDay, "day")
+                      ? now < initialTargetTime
+                      : true) &&
+                    !overlap
+                  );
+                })
+                ?.sort((a, b) => a.hora_inicio.localeCompare(b.hora_inicio));
+              if (disponibles?.length === 0) return;
 
-            const { date, day, month } = stringFromDate(currentDay);
-            return (
-              <div key={i} className="flex flex-col gap-6">
-                <header className="text-alto-400 text-sm px-4 max-lg:px-0">
-                  <span className="text-primary-400">{day}</span>, {date} de{" "}
-                  {month}
-                </header>
-                <div className="flex flex-col gap-4 px-4 max-lg:px-0">
-                  {disponibles?.map((h, index) => (
-                    <ScheduleCard
-                      key={index}
-                      horario={h}
-                      fecha={currentDay.format("YYYY-MM-DD")}
-                    />
-                  ))}
-                </div>
-              </div>
-            );
-          })}
-        </main>
+              const { date, day, month } = stringFromDate(currentDay);
+              return (
+                <motion.li
+                  key={`${date} de ${month}`}
+                  initial={{
+                    opacity: 0,
+                    x: 200,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    x: 0,
+                  }}
+                  exit={{
+                    opacity: 0,
+                    x: -200,
+                  }}
+                  className="flex flex-col gap-6"
+                >
+                  <header className="text-alto-400 text-sm px-4 max-lg:px-0">
+                    <span className="text-primary-400">{day}</span>, {date} de{" "}
+                    {month}
+                  </header>
+                  <div className="flex flex-col gap-4 px-4 max-lg:px-0">
+                    {disponibles?.map((h, index) => (
+                      <ScheduleCard
+                        key={index}
+                        horario={h}
+                        fecha={currentDay.format("YYYY-MM-DD")}
+                      />
+                    ))}
+                  </div>
+                </motion.li>
+              );
+            })}
+          </AnimatePresence>
+        </ul>
       )}
     </section>
   );

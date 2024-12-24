@@ -14,6 +14,7 @@ class C_Cita extends Model
     protected $guarded = [];
 
     protected $fillable = [
+        'id_calendar',
         'email_psicologo',
         'email_paciente',
         'fecha',

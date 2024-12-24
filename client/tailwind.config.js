@@ -21,6 +21,12 @@ export default {
         "max-2xl": { max: "1536px" },
         petizo: { raw: "(max-height: 780px)" },
       },
+      keyframes: {
+        appear: {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+      },
     },
   },
   plugins: [],

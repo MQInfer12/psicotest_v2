@@ -51,8 +51,11 @@ class AuthController extends Controller
         if ($user->estado === false) {
             return $this->unauthorizedResponse('El usuario se encuentra deshabilitado.');
         }
+
+        $user->access_token = $data['token'];
         Auth::login($user);
         $token = $user->createToken('auth_token')->plainTextToken;
+
         return $this->successResponse("Inicio de sesión correcto.", [
             'user' => new U_userResource($user),
             'token' => $token,

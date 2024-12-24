@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\C_CitaDestroyRequest;
 use App\Http\Requests\C_CitaStoreRequest;
 use App\Http\Resources\C_CitaResource;
 use App\Http\Resources\U_userResource;
@@ -9,6 +10,8 @@ use App\Models\C_Cita;
 use App\Models\C_Horario;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
 
 class C_CitaController extends Controller
 {
@@ -58,29 +61,91 @@ class C_CitaController extends Controller
             }
         }
 
-        C_Cita::create([
-            'email_psicologo' => $horario->email_user,
-            'email_paciente' => $user->email,
-            'fecha' => $validatedData['fecha'],
-            'hora_inicio' => $horario->hora_inicio,
-            'hora_final' => $horario->hora_final,
-        ]);
+        $access_token = $validatedData['access_token'];
+        if (!$access_token) {
+            return $this->wrongResponse("El token de acceso es inválido.");
+        }
 
-        $user->refresh();
+        $body = [
+            'summary' => 'Cita para el gabinete psicológico',
+            'location' => 'Unifranz Cochabamba - Gabinete Psicológico - 1er piso',
+            'description' => 'Cita con el psicólogo ' . $horario->user->nombre . ' - Generado automáticamente por Psicotest',
+            'colorId' => '3',
+            'start' => [
+                'dateTime' => $validatedData['fecha'] . 'T' . $horario->hora_inicio,
+                'timeZone' => 'America/La_Paz'
+            ],
+            'end' => [
+                'dateTime' => $validatedData['fecha'] . 'T' . $horario->hora_final,
+                'timeZone' => 'America/La_Paz'
+            ],
+            'attendees' => [
+                [
+                    'email' => $user->email,
+                    'responseStatus' => 'accepted'
+                ],
+                [
+                    'email' => $horario->email_user,
+                ]
+            ]
+        ];
 
-        return $this->successResponse(
-            "Cita creada correctamente.",
-            new U_userResource($user)
-        );
+        $client = new Client();
+        try {
+            $response = $client->post('https://www.googleapis.com/calendar/v3/calendars/primary/events', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $access_token,
+                    'Content-Type' => 'application/json',
+                ],
+                'json' => $body,
+            ]);
+            $event = json_decode($response->getBody()->getContents());
+
+            C_Cita::create([
+                'id_calendar' => $event->id,
+                'email_psicologo' => $horario->email_user,
+                'email_paciente' => $user->email,
+                'fecha' => $validatedData['fecha'],
+                'hora_inicio' => $horario->hora_inicio,
+                'hora_final' => $horario->hora_final,
+            ]);
+
+            $user->refresh();
+
+            return $this->successResponse(
+                "Cita creada correctamente.",
+                new U_userResource($user)
+            );
+        } catch (RequestException $e) {
+            return $this->wrongResponse("Error al crear la cita.");
+        }
     }
 
-    public function destroy(Request $request, int $id)
+    public function destroyWithToken(C_CitaDestroyRequest $request, int $id)
     {
-        $cita = C_Cita::findOrFail($id);
-        $cita->delete();
+        $validatedData = $request->validated();
 
+        $cita = C_Cita::findOrFail($id);
+
+        $access_token = $validatedData['access_token'];
+        if (!$access_token) {
+            return $this->wrongResponse("El token de acceso es inválido.");
+        }
+
+        $client = new Client();
+        try {
+            $client->delete('https://www.googleapis.com/calendar/v3/calendars/primary/events/' . $cita->id_calendar, [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $access_token,
+                    'Content-Type' => 'application/json',
+                ],
+            ]);
+        } catch (RequestException $e) {
+        }
+
+        $cita->delete();
         return $this->successResponse(
-            "Horario eliminado correctamente.",
+            "Cita cancelada correctamente.",
             new U_userResource($request->user())
         );
     }

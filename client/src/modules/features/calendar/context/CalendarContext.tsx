@@ -13,17 +13,22 @@ interface Ctx {
 const CalendarContext = createContext<Ctx | null>(null);
 
 interface Props {
-  children: JSX.Element;
+  children: React.ReactNode;
 }
 
 export const CalendarContextProvider = ({ children }: Props) => {
   const [dateSelected, setDateSelected] = useState(dayjs());
   const { fetchData } = useFetch();
+
   const { data } = fetchData("GET /horario", {
     params: {
       date: dateSelected.format("YYYY-MM-DD"),
     },
+    queryOptions: {
+      gcTime: 0,
+    },
   });
+
   return (
     <CalendarContext.Provider
       value={{

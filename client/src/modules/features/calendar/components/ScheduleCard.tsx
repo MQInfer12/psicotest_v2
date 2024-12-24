@@ -6,6 +6,7 @@ import { useUserContext } from "../../auth/context/UserContext";
 import DefaultPhoto from "@/assets/images/defaultPhoto.jpg";
 import { stringFromDate } from "../utils/stringFromDate";
 import dayjs from "dayjs";
+import { getTokens } from "../../auth/utils/localStorageToken";
 
 interface Props {
   horario: Schedule;
@@ -25,10 +26,13 @@ const ScheduleCard = ({ horario, fecha }: Props) => {
     toastConfirm(
       `¿Quieres solicitar una cita el día ${day.toLocaleLowerCase()}, ${date} de ${month} a las ${hora_inicio}?`,
       () => {
+        const tokens = getTokens();
+        if (!tokens) return;
         mutation(
           {
             id_horario: horario.id,
             fecha,
+            access_token: tokens.access_token,
           },
           {
             onSuccess: (res) => {
@@ -56,6 +60,9 @@ const ScheduleCard = ({ horario, fecha }: Props) => {
           <img
             className="h-10 w-10 object-cover rounded-md border-2 border-primary-200"
             src={horario.foto_user ?? DefaultPhoto}
+            onError={(event) => {
+              event.currentTarget.src = DefaultPhoto;
+            }}
           />
           <div className="flex flex-col gap-1 items-start overflow-hidden">
             <small className="text-alto-500 text-xs">

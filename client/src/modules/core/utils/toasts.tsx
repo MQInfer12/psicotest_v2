@@ -1,8 +1,13 @@
 import { toast, ExternalToast } from "sonner";
 import Icon from "../components/icons/Icon";
+import { COLORS } from "../constants/COLORS";
 
 interface Options extends ExternalToast {
   title?: string;
+}
+
+interface ConfirmOptions extends Options {
+  cancelable?: boolean;
 }
 
 export const toastSuccess = (message: string, data?: Options) => {
@@ -32,7 +37,7 @@ export const toastError = (message: string, data?: Options) => {
 export const toastConfirm = (
   message: string,
   onSuccess: () => void,
-  data?: Options
+  data?: ConfirmOptions
 ) => {
   toast(data?.title || "¿Estás seguro?", {
     icon: (
@@ -44,6 +49,20 @@ export const toastConfirm = (
     action: {
       label: "Confirmar",
       onClick: onSuccess,
+    },
+    cancel: data?.cancelable
+      ? {
+          label: "Cancelar",
+          onClick: () => {},
+        }
+      : undefined,
+    dismissible: data?.cancelable,
+    actionButtonStyle: {
+      backgroundColor: COLORS.primary[800],
+    },
+    cancelButtonStyle: {
+      backgroundColor: COLORS.alto[50],
+      color: COLORS.alto[950],
     },
     ...data,
   });

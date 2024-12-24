@@ -6,6 +6,7 @@ interface Props {
   scale?: string;
   white?: boolean;
   whiteOnResponsive?: boolean;
+  delay?: boolean;
 }
 
 const Loader = ({
@@ -13,6 +14,7 @@ const Loader = ({
   scale,
   white,
   whiteOnResponsive,
+  delay,
 }: Props) => {
   return (
     <div
@@ -25,6 +27,9 @@ const Loader = ({
           "text-primary-800": !white,
           "text-primary-300": white,
           "max-sm:text-primary-300": whiteOnResponsive,
+        },
+        {
+          "animate-[appear_2s]": delay,
         }
       )}
     >

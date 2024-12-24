@@ -5,12 +5,19 @@ import { useUserContext } from "../../auth/context/UserContext";
 import { stringFromDate } from "../utils/stringFromDate";
 import dayjs from "dayjs";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
-import { toastConfirm, toastSuccess } from "@/modules/core/utils/toasts";
+import {
+  toastConfirm,
+  toastError,
+  toastSuccess,
+} from "@/modules/core/utils/toasts";
+import { getTokens } from "../../auth/utils/localStorageToken";
+import { useState } from "react";
 
 const NextAppointmentBanner = () => {
   const { user, setUser } = useUserContext();
   const { postData } = useFetch();
-  const cancelMutation = postData("DELETE /cita/:id");
+  const cancelMutation = postData("PUT /cita/destroy/:id");
+  const [loading, setLoading] = useState(false);
 
   const cita_proxima = user?.cita_proxima!;
   const { day, date, month } = stringFromDate(dayjs(cita_proxima.fecha));
@@ -18,15 +25,29 @@ const NextAppointmentBanner = () => {
 
   const handleCancelAppointment = () => {
     toastConfirm("¿Estás seguro de cancelar la cita?", () => {
-      cancelMutation(null, {
-        params: {
-          id: cita_proxima.id,
+      if (loading) {
+        toastError("No puedes cancelar la cita en este momento");
+      }
+      const tokens = getTokens();
+      if (!tokens) return;
+      setLoading(true);
+      cancelMutation(
+        {
+          access_token: tokens.access_token,
         },
-        onSuccess(res) {
-          setUser(res.data);
-          toastSuccess("Cita cancelada correctamente");
-        },
-      });
+        {
+          params: {
+            id: cita_proxima.id,
+          },
+          onSuccess(res) {
+            toastSuccess(res.message);
+            setUser(res.data);
+          },
+          onSettled() {
+            setLoading(false);
+          },
+        }
+      );
     });
   };
 

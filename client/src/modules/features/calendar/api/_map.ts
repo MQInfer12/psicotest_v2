@@ -37,12 +37,15 @@ declare global {
       request: {
         id_horario: number;
         fecha: string;
+        access_token: string;
       };
       response: User;
     };
-    "DELETE /cita/:id": {
+    "PUT /cita/destroy/:id": {
       params: { id: number };
-      request: null;
+      request: {
+        access_token: string;
+      };
       response: User;
     };
   }

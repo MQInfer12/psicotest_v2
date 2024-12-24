@@ -63,7 +63,7 @@ const LoginCard = ({ redirect }: Props) => {
                     </div>
                   )}
                   <div className="w-fit h-10 flex items-center justify-center">
-                    <LoginButton size="large" />
+                    <LoginButton type="standard" />
                   </div>
                 </>
               )}
