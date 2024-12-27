@@ -1,11 +1,17 @@
+import { useEffect } from "react";
 import { useTableContext } from "../context/TableContext";
 
 interface Props {
+  folders: number[];
   children?: React.ReactNode;
 }
 
-const TableHeader = ({ children }: Props) => {
-  const { selectedRows, totalRows } = useTableContext();
+const TableHeader = ({ children, folders }: Props) => {
+  const { selectedRows, totalRows, resetSelectedRows } = useTableContext();
+
+  useEffect(() => {
+    resetSelectedRows();
+  }, [folders]);
 
   return (
     <header className="flex flex-col gap-2 px-2 py-2 bg-primary-100">

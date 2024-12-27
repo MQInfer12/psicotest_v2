@@ -34,7 +34,17 @@ class T_TestController extends Controller
 
         $respuestas = T_Respuesta::whereIn('id', $ids)->get();
 
-        if ($respuestas->contains(fn($respuesta) => $respuesta->email_asignador !== $user->email)) {
+        $carpetas = $user->carpetas->pluck('id')->toArray();
+        $compartidas = $user->carpetasCompartidas->pluck('id')->toArray();
+        $globales = T_Carpeta::where('global', true)->pluck('id')->toArray();
+
+        if ($respuestas->contains(
+            fn($respuesta) =>
+            $respuesta->email_asignador !== $user->email &&
+                !in_array($respuesta->id_carpeta, $carpetas) &&
+                !in_array($respuesta->id_carpeta, $compartidas) &&
+                !in_array($respuesta->id_carpeta, $globales)
+        )) {
             return $this->wrongResponse('No tienes permisos para acceder a algún recurso');
         }
 
@@ -57,6 +67,7 @@ class T_TestController extends Controller
     {
         $user = $request->user();
         $respuesta = T_Respuesta::findOrFail($id);
+
         if ($user->email != $respuesta->email_user) {
             return $this->wrongResponse('No tienes permisos para acceder a este recurso');
         }
@@ -71,9 +82,11 @@ class T_TestController extends Controller
         $user = $request->user();
         $respuesta = T_Respuesta::findOrFail($id);
 
+        $carpetas = $user->carpetas->pluck('id')->toArray();
         $compartidas = $user->carpetasCompartidas->pluck('id')->toArray();
         $globales = T_Carpeta::where('global', true)->pluck('id')->toArray();
-        if ($user->email != $respuesta->email_asignador && !in_array($respuesta->id_carpeta, $compartidas) && !in_array($respuesta->id_carpeta, $globales)) {
+
+        if ($user->email != $respuesta->email_asignador && !in_array($respuesta->id_carpeta, $carpetas) && !in_array($respuesta->id_carpeta, $compartidas) && !in_array($respuesta->id_carpeta, $globales)) {
             return $this->wrongResponse('No tienes permisos para acceder a este recurso');
         }
         return $this->successResponse(

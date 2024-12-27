@@ -246,7 +246,7 @@ const AnswersPage = () => {
                 const carpeta = dataFolders?.find(
                   (f) => f.id === row.id_carpeta
                 );
-                return carpeta?.tipo === "propia";
+                return carpeta?.tipo ? carpeta.tipo === "propia" : true;
               }}
               disableCheck={!!startedSelection}
               idKey="id_respuesta"
@@ -366,7 +366,7 @@ const AnswersPage = () => {
                   : undefined
               }
             >
-              <TableHeader>
+              <TableHeader folders={folders}>
                 <AnswersHeader />
               </TableHeader>
             </Table>
