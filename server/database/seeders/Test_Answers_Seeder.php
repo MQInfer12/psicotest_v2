@@ -15,6 +15,51 @@ class Test_Answers_Seeder extends Seeder
 
   public function run(): void
   {
+    $pma_answers = File::get(database_path('seeders/Tests_Answers/pma_kuder_extra.json'));
+    $data = json_decode($pma_answers, true);
+
+    $carpetaVocacionales = T_Carpeta::create([
+      'descripcion' => 'Vocacionales',
+      'email_user' => "psicologiaunifranz@gmail.com",
+      'global' => true
+    ]);
+
+    foreach ($data as $item) {
+      $fechaNacimiento = $item['datos_generales']['fecha_nacimiento'];
+      $user = U_user::create([
+        'email' => $item['datos_generales']['correo'],
+        'nombre' => $item['datos_generales']['nombre'],
+        'genero' => $item['datos_generales']['sexo'],
+        'fecha_nacimiento' => $item['datos_generales']['fecha_nacimiento'],
+        'foto' => $item['datos_generales']['foto'],
+        'estado' => true,
+        'id_rol' => 2
+      ]);
+
+      $hasKuder = count($item['respuestas']['kuder']) > 0;
+      T_Respuesta::create([
+        'id_test_version' => 2,
+        'email_user' => $user->email,
+        'email_asignador' => "psicologiaunifranz@gmail.com",
+        'estado' => "Enviado",
+        'resultados' =>  json_encode($item['respuestas']["kuder"]),
+        'fecha_asignado' => '2024-12-04',
+        'fecha_enviado' => '2024-12-04',
+        'id_carpeta' => $carpetaVocacionales->id
+      ]);
+
+      T_Respuesta::create([
+        'id_test_version' => 3,
+        'email_user' => $user->email,
+        'email_asignador' => "psicologiaunifranz@gmail.com",
+        'estado' => "Enviado",
+        'resultados' =>  json_encode($item['respuestas']["pma"]),
+        'fecha_asignado' => '2024-12-04',
+        'fecha_enviado' => '2024-12-04',
+        'id_carpeta' => $carpetaVocacionales->id
+      ]);
+    }
+
     // =========== START: PMA_KUDER ===========
     $pma_answers = File::get(database_path('seeders/Tests_Answers/pma_kuder.json'));
     $data = json_decode($pma_answers, true);

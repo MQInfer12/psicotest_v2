@@ -19,6 +19,7 @@ export interface T_Tests_Respuestas {
   fecha_nacimiento_user: string | null;
   foto_user: string;
   nombre_test: string;
+  id_carpeta: number | null;
   nombre_carpeta: string | null;
   nombre_autor: string | null;
   nombre_autor_creador: string | null;

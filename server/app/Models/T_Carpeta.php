@@ -15,6 +15,7 @@ class T_Carpeta extends Model
 
     protected $fillable = [
         'descripcion',
-        'email_user'
+        'email_user',
+        'global',
     ];
 }

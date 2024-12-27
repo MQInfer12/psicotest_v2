@@ -49,6 +49,7 @@ interface Props<T> {
 
   //* PROPS FOR CHECKING
   checkable?: boolean;
+  canBeChecked?: (row: T) => boolean;
   disableCheck?: boolean;
   idKey?: keyof T;
 }
@@ -70,6 +71,7 @@ const Table = <T,>({
   checkable,
   disableCheck,
   idKey,
+  canBeChecked,
 }: Props<T>) => {
   const [sorting, setSorting] = useState<ColumnSort[]>([]);
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
@@ -85,7 +87,8 @@ const Table = <T,>({
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     onRowSelectionChange: setRowSelection,
-    enableRowSelection: () => !!checkable && !disableCheck,
+    enableRowSelection: (row) =>
+      !!checkable && !disableCheck && (canBeChecked?.(row.original) ?? true),
     getRowId: (row) => (idKey ? String(row[idKey]) : v4()),
   });
   const tableContainerRef = useRef<ElementRef<"div">>(null);

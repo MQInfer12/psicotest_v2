@@ -88,6 +88,9 @@ const AnswersPage = () => {
       },
     }
   );
+  const { data: dataFolders, setData: setDataFolders } =
+    fetchData("GET /carpeta");
+
   const [loading, setLoading] = useState<number | null>(null);
   const { PRIVATE_PADDING_INLINE } = useMeasureContext();
 
@@ -203,7 +206,6 @@ const AnswersPage = () => {
   };
 
   const filteredData = getFilteredData();
-
   return (
     <div
       style={{
@@ -215,6 +217,8 @@ const AnswersPage = () => {
         selectedFolders={folders}
         setSelectedFolders={setFolders}
         loading={isDebouncing || isLoading}
+        data={dataFolders}
+        setData={setDataFolders}
       />
       <div className="flex-1 rounded-lg overflow-hidden shadow-lg flex flex-col">
         <AnswersHeaderContextProvider
@@ -238,6 +242,12 @@ const AnswersPage = () => {
               data={filteredData}
               columns={columns}
               checkable
+              canBeChecked={(row) => {
+                const carpeta = dataFolders?.find(
+                  (f) => f.id === row.id_carpeta
+                );
+                return carpeta?.tipo === "propia";
+              }}
               disableCheck={!!startedSelection}
               idKey="id_respuesta"
               actions={[

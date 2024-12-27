@@ -7,6 +7,7 @@ use App\Http\Requests\T_TestUpdateDbRequest;
 use App\Http\Resources\T_Test_RespuestaResource;
 use App\Http\Resources\T_TestResource;
 use App\Http\Resources\T_TestsResource;
+use App\Models\T_Carpeta;
 use App\Models\T_Respuesta;
 use App\Models\T_Test;
 use App\Models\T_TestVersion;
@@ -69,7 +70,10 @@ class T_TestController extends Controller
     {
         $user = $request->user();
         $respuesta = T_Respuesta::findOrFail($id);
-        if ($user->email != $respuesta->email_asignador) {
+
+        $compartidas = $user->carpetasCompartidas->pluck('id')->toArray();
+        $globales = T_Carpeta::where('global', true)->pluck('id')->toArray();
+        if ($user->email != $respuesta->email_asignador && !in_array($respuesta->id_carpeta, $compartidas) && !in_array($respuesta->id_carpeta, $globales)) {
             return $this->wrongResponse('No tienes permisos para acceder a este recurso');
         }
         return $this->successResponse(

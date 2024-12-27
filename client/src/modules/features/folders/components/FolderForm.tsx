@@ -82,12 +82,18 @@ const FolderForm = ({ onSuccess, onSuccessDelete, folder }: Props) => {
     });
   };
 
-  const link = folder
-    ? `${window.location.origin}/folder/${folder.id}`
-    : undefined;
+  const link =
+    folder && !folder.global
+      ? `${window.location.origin}/folder/${folder.id}`
+      : undefined;
 
   return (
     <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
+      <Input
+        label="Descripción"
+        error={errors.descripcion?.message}
+        {...register("descripcion")}
+      />
       {link && (
         <div className="flex items-end gap-2">
           <Input label="Compartir carpeta" disabled value={link} readOnly />
@@ -103,16 +109,11 @@ const FolderForm = ({ onSuccess, onSuccessDelete, folder }: Props) => {
           />
         </div>
       )}
-      <Input
-        label="Descripción"
-        error={errors.descripcion?.message}
-        {...register("descripcion")}
-      />
       <div className="flex items-center w-full gap-2">
         <Button className="flex-1" disabled={loading} type="submit">
           Enviar
         </Button>
-        {folder && (
+        {folder && !folder.global && folder.tipo === "propia" && (
           <Button
             btnType="secondary"
             className="flex-1"

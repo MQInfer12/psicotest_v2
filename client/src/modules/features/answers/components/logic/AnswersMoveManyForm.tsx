@@ -49,13 +49,15 @@ const AnswersMoveManyForm = () => {
   return (
     <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
       <Input
-        label="Carpeta destino"
+        label="Carpeta de destino propia"
         type="select"
         {...register("id_carpeta")}
         error={errors.id_carpeta?.message}
       >
         <option value="">Sin clasificación</option>
-        {carpetas?.map((c) => <option value={c.id}>{c.descripcion}</option>)}
+        {carpetas
+          ?.filter((c) => c.tipo === "propia")
+          .map((c) => <option value={c.id}>{c.descripcion}</option>)}
       </Input>
       <Button type="submit">Enviar</Button>
     </form>

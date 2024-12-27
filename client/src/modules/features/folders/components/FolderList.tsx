@@ -1,14 +1,16 @@
 import Icon from "@/modules/core/components/icons/Icon";
 import Button from "@/modules/core/components/ui/Button";
-import { useModal } from "@/modules/core/components/ui/modal/useModal";
-import { Folder } from "../api/responses";
-import useFetch from "@/modules/core/hooks/useFetch/useFetch";
-import FolderForm from "./FolderForm";
 import Loader from "@/modules/core/components/ui/loader/Loader";
+import { useModal } from "@/modules/core/components/ui/modal/useModal";
+import { SetData } from "@/modules/core/hooks/useFetch/getSetData";
 import { motion } from "framer-motion";
 import { useMeasureContext } from "../../_layout/context/MeasureContext";
+import { Folder } from "../api/responses";
+import FolderForm from "./FolderForm";
 
 interface Props {
+  data: Folder[] | undefined;
+  setData: SetData<Folder[]>;
   selectedFolders: number[];
   setSelectedFolders: React.Dispatch<React.SetStateAction<number[]>>;
   loading: boolean;
@@ -18,9 +20,9 @@ const FolderList = ({
   selectedFolders,
   setSelectedFolders,
   loading,
+  data,
+  setData,
 }: Props) => {
-  const { fetchData } = useFetch();
-  const { data, setData } = fetchData("GET /carpeta");
   const { modal, setOpen } = useModal<Folder>();
   const { size } = useMeasureContext();
 
@@ -110,7 +112,7 @@ const FolderList = ({
               </Button>
               {data?.map((folder) => (
                 <div key={folder.id} className="flex gap-2 max-lg:flex-col">
-                  <div className="flex-1 overflow-hidden">
+                  <div className="flex-1 overflow-hidden flex">
                     <Button
                       width="100%"
                       btnType={
@@ -122,7 +124,11 @@ const FolderList = ({
                       icon={
                         selectedFolders.includes(folder.id)
                           ? Icon.Types.FOLDER_OPEN
-                          : Icon.Types.FOLDER
+                          : {
+                              propia: Icon.Types.FOLDER,
+                              compartida: Icon.Types.FOLDER_SHARED,
+                              global: Icon.Types.FOLDER_GLOBAL,
+                            }[folder.tipo ?? "propia"]
                       }
                       textAlign={size === "normal" ? "start" : "center"}
                       reverse
@@ -131,12 +137,14 @@ const FolderList = ({
                       {folder.descripcion}
                     </Button>
                   </div>
-                  <Button
-                    btnType="secondary"
-                    btnSize="small"
-                    icon={Icon.Types.PENCIL}
-                    onClick={() => setOpen(folder)}
-                  />
+                  {!folder.global && (
+                    <Button
+                      btnType="secondary"
+                      btnSize="small"
+                      icon={Icon.Types.PENCIL}
+                      onClick={() => setOpen(folder)}
+                    />
+                  )}
                 </div>
               ))}
             </div>

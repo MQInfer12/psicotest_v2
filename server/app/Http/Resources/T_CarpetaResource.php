@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class T_CarpetaResource extends JsonResource
@@ -13,6 +12,8 @@ class T_CarpetaResource extends JsonResource
             'id' => $this->id,
             'descripcion' => $this->descripcion,
             'email_user' => $this->email_user,
+            'tipo' => $this->tipo,
+            'global' => $this->global,
         ];
     }
 }

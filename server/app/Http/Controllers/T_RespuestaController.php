@@ -12,6 +12,7 @@ use App\Http\Requests\T_RespuestaStoreRequest;
 use App\Http\Requests\T_RespuestaUpdateRequest;
 use App\Http\Resources\T_Test_RespuestaResource;
 use App\Http\Resources\T_Tests_RepuestaResource;
+use App\Models\T_Carpeta;
 use App\Models\T_Respuesta;
 use App\Models\T_Test;
 use App\Models\U_user;
@@ -43,10 +44,20 @@ class T_RespuestaController extends Controller
             return $this->successResponse("Tests obtenidos correctamente.", []);
         }
 
-        $respuestas = T_Respuesta::when(in_array(0, $folders), function ($query) use ($folders) {
-            return $query->where(function ($query) use ($folders) {
+        $user = $request->user();
+        $compartidas = $user->carpetasCompartidas;
+        $globales = T_Carpeta::where('global', true)->get();
+        $availableFolders = array_merge($user->carpetas->pluck('id')->toArray(), $compartidas->pluck('id')->toArray(), $globales->pluck('id')->toArray(), [0]);
+
+        $folders = array_intersect($folders, $availableFolders);
+
+        $respuestas = T_Respuesta::when(in_array(0, $folders), function ($query) use ($folders, $user) {
+            return $query->where(function ($query) use ($folders, $user) {
                 $query->whereIn('id_carpeta', array_diff($folders, [0]))
-                    ->orWhereNull('id_carpeta');
+                    ->orWhere(function ($query) use ($user) {
+                        $query->whereNull('id_carpeta')
+                            ->where('email_asignador', $user->email);
+                    });
             });
         }, function ($query) use ($folders) {
             return $query->whereIn('id_carpeta', $folders);

@@ -16,9 +16,12 @@ import IconConfig from "./tabler/iconConfig";
 import IconDots from "./tabler/iconDots";
 import IconDownload from "./tabler/iconDownload";
 import IconExcel from "./tabler/iconExcel";
+import IconFacebook from "./tabler/IconFacebook";
 import IconFolder from "./tabler/iconFolder";
 import IconGender from "./tabler/iconGender";
 import IconHandPointer from "./tabler/iconHandPointer";
+import IconInstagram from "./tabler/IconInstagram";
+import IconLinkedin from "./tabler/iconLinkedin";
 import IconLoader from "./tabler/iconLoader";
 import IconLogout from "./tabler/iconLogout";
 import IconMenu from "./tabler/iconMenu";
@@ -34,9 +37,11 @@ import IconSchool from "./tabler/iconSchool";
 import IconStarred from "./tabler/iconStarred";
 import IconSwipe from "./tabler/iconSwipe";
 import IconTemplate from "./tabler/iconTemplate";
+import IconTiktok from "./tabler/IconTiktok";
 import IconTrash from "./tabler/iconTrash";
 import IconUser from "./tabler/iconUser";
 import IconUsers from "./tabler/iconUsers";
+import IconWeb from "./tabler/iconWeb";
 import IconX from "./tabler/iconX";
 
 export enum ICON {
@@ -86,11 +91,18 @@ export enum ICON {
   FOLDER_OPEN = "folder_open",
   FOLDER_ADD = "folder_add",
   FOLDER_MOVE = "folder_mpve",
+  FOLDER_SHARED = "folder_shared",
+  FOLDER_GLOBAL = "folder_global",
   TEMPLATE = "template",
   CANCEL = "cancel",
   CONFIG = "config",
   RELOAD = "reload",
   HAND_POINTER = "hand_pointer",
+  WEB = "web",
+  INSTAGRAM = "instagram",
+  FACEBOOK = "facebook",
+  TIKTOK = "tiktok",
+  LIKEDIN = "linkedin",
 }
 
 interface Props {
@@ -145,11 +157,18 @@ const Icon = ({ type }: Props) => {
     [ICON.FOLDER_OPEN]: <IconFolder type="open" />,
     [ICON.FOLDER_ADD]: <IconFolder type="add" />,
     [ICON.FOLDER_MOVE]: <IconFolder type="move" />,
+    [ICON.FOLDER_SHARED]: <IconFolder type="shared" />,
+    [ICON.FOLDER_GLOBAL]: <IconFolder type="global" />,
     [ICON.TEMPLATE]: <IconTemplate />,
     [ICON.CANCEL]: <IconCancel />,
     [ICON.CONFIG]: <IconConfig />,
     [ICON.RELOAD]: <IconReload />,
     [ICON.HAND_POINTER]: <IconHandPointer />,
+    [ICON.WEB]: <IconWeb />,
+    [ICON.INSTAGRAM]: <IconInstagram />,
+    [ICON.FACEBOOK]: <IconFacebook />,
+    [ICON.TIKTOK]: <IconTiktok />,
+    [ICON.LIKEDIN]: <IconLinkedin />,
   };
   return icons[type];
 };

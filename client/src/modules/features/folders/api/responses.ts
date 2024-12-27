@@ -4,6 +4,8 @@ export interface Folder extends Timestamps {
   id: number;
   email_user: string;
   descripcion: string;
+  global: boolean;
+  tipo: "propia" | "compartida" | "global" | null;
 }
 
 export interface SharedFolder {

@@ -1,0 +1,561 @@
+[
+    {
+        "datos_generales": {
+            "nombre": "Lucas Vargas",
+            "sexo": "Hombre",
+            "correo": "lucvarg08@gmail.com",
+            "foto": "https://lh3.googleusercontent.com/a/ACg8ocKsDeZ5ycQl2C3Ur0K2q9nqtl-uUChaPMoG2haLjtgqqJ0b0v4=s96-c",
+            "fecha_nacimiento": "2008-05-18"
+        },
+        "respuestas": {
+            "pma": [
+                { "idPregunta": 1, "idOpcion": 3 },
+                { "idPregunta": 2, "idOpcion": 4 },
+                { "idPregunta": 3, "idOpcion": 2 },
+                { "idPregunta": 4, "idOpcion": 2 },
+                { "idPregunta": 5, "idOpcion": 3 },
+                { "idPregunta": 6, "idOpcion": 3 },
+                { "idPregunta": 7, "idOpcion": 1 },
+                { "idPregunta": 8, "idOpcion": 4 },
+                { "idPregunta": 9, "idOpcion": 4 },
+                { "idPregunta": 10, "idOpcion": 1 },
+                { "idPregunta": 11, "idOpcion": 4 },
+                { "idPregunta": 12, "idOpcion": 3 },
+                { "idPregunta": 13, "idOpcion": 4 },
+                { "idPregunta": 14, "idOpcion": 1 },
+                { "idPregunta": 15, "idOpcion": 2 },
+                { "idPregunta": 51, "idOpcion": [8, 9] },
+                { "idPregunta": 52, "idOpcion": [10] },
+                { "idPregunta": 53, "idOpcion": [8] },
+                { "idPregunta": 54, "idOpcion": [8] },
+                { "idPregunta": 55, "idOpcion": [9] },
+                { "idPregunta": 56, "idOpcion": [10] },
+                { "idPregunta": 57, "idOpcion": [7] },
+                { "idPregunta": 58, "idOpcion": [10] },
+                { "idPregunta": 59, "idOpcion": [9] },
+                { "idPregunta": 60, "idOpcion": [8] },
+                { "idPregunta": 61, "idOpcion": [7] },
+                { "idPregunta": 62, "idOpcion": [5] },
+                { "idPregunta": 63, "idOpcion": [6] },
+                { "idPregunta": 64, "idOpcion": [10] },
+                { "idPregunta": 65, "idOpcion": [5] },
+                { "idPregunta": 66, "idOpcion": [10] },
+                { "idPregunta": 67, "idOpcion": [8] },
+                { "idPregunta": 68, "idOpcion": [8] },
+                { "idPregunta": 69, "idOpcion": [8] },
+                { "idPregunta": 71, "idOpcion": 16 },
+                { "idPregunta": 72, "idOpcion": 11 },
+                { "idPregunta": 73, "idOpcion": 11 },
+                { "idPregunta": 74, "idOpcion": 14 },
+                { "idPregunta": 75, "idOpcion": 15 },
+                { "idPregunta": 76, "idOpcion": 13 },
+                { "idPregunta": 77, "idOpcion": 15 },
+                { "idPregunta": 78, "idOpcion": 11 },
+                { "idPregunta": 79, "idOpcion": 16 },
+                { "idPregunta": 80, "idOpcion": 14 },
+                { "idPregunta": 81, "idOpcion": 13 },
+                { "idPregunta": 82, "idOpcion": 12 },
+                { "idPregunta": 83, "idOpcion": 16 },
+                { "idPregunta": 84, "idOpcion": 14 },
+                { "idPregunta": 85, "idOpcion": 15 },
+                { "idPregunta": 86, "idOpcion": 11 },
+                { "idPregunta": 87, "idOpcion": 12 },
+                { "idPregunta": 88, "idOpcion": 11 },
+                { "idPregunta": 89, "idOpcion": 15 },
+                { "idPregunta": 101, "idOpcion": 17 },
+                { "idPregunta": 102, "idOpcion": 18 },
+                { "idPregunta": 103, "idOpcion": 18 },
+                { "idPregunta": 104, "idOpcion": 18 },
+                { "idPregunta": 105, "idOpcion": 18 },
+                { "idPregunta": 106, "idOpcion": 17 },
+                { "idPregunta": 107, "idOpcion": 17 },
+                { "idPregunta": 108, "idOpcion": 17 },
+                { "idPregunta": 109, "idOpcion": 17 },
+                {
+                    "idPregunta": 171,
+                    "idOpcion": [
+                        {
+                            "id": "45505658-6142-41fd-a8d3-26d807b89947",
+                            "correct": false,
+                            "word": "Salud"
+                        },
+                        {
+                            "word": "Sciencia",
+                            "correct": false,
+                            "id": "3fd00245-10f8-4576-ae84-e996cbcedf4e"
+                        },
+                        {
+                            "word": "Sexo",
+                            "correct": false,
+                            "id": "1376326e-ab37-49cb-995c-4b59045e0db7"
+                        },
+                        {
+                            "word": "Sandia",
+                            "correct": false,
+                            "id": "cd1703f8-ec49-45c4-981f-22b35b278e9a"
+                        },
+                        {
+                            "word": "Sanidad",
+                            "correct": false,
+                            "id": "5d5cbdce-3f0e-496d-8eb8-21f551e59ace"
+                        },
+                        {
+                            "word": "Sentido",
+                            "correct": false,
+                            "id": "655c9a6e-d097-4c6b-9f82-38365fc86f5d"
+                        },
+                        {
+                            "word": "Sentado",
+                            "correct": false,
+                            "id": "c5e76c67-f1be-4588-a1ca-53f8179bea59"
+                        },
+                        {
+                            "word": "Seguro",
+                            "correct": false,
+                            "id": "0a459cce-7d62-43ea-aa5c-4dcf38b8519f"
+                        },
+                        {
+                            "word": "Si",
+                            "correct": false,
+                            "id": "3dceeeab-4b72-41ef-9e79-25701185c9e3"
+                        },
+                        {
+                            "word": "Soy",
+                            "correct": false,
+                            "id": "df009fd9-c6c7-4e08-a1cc-50b34344a450"
+                        },
+                        {
+                            "word": "Siempre",
+                            "correct": false,
+                            "id": "4f4c7844-0024-4be1-b7b2-de7d2003b0e3"
+                        },
+                        {
+                            "word": "Suiza",
+                            "correct": false,
+                            "id": "670896cd-b059-4fb5-94d1-7a2bbe6d6d6c"
+                        },
+                        {
+                            "word": "Simio",
+                            "correct": false,
+                            "id": "6b91ca0a-bcb6-429a-bff0-2c6d9039195b"
+                        },
+                        {
+                            "word": "Saber",
+                            "correct": false,
+                            "id": "38ccad46-d79d-4afe-a3b7-e4c7d5021d30"
+                        },
+                        {
+                            "word": "Ser",
+                            "correct": false,
+                            "id": "c88df0bd-e35f-4a13-8e34-19d2c9aa2d1b"
+                        },
+                        {
+                            "word": "Sensacion",
+                            "correct": false,
+                            "id": "886d06de-8339-4d1c-a63e-a2cf93279949"
+                        },
+                        {
+                            "word": "Sentido",
+                            "correct": false,
+                            "id": "c7d77ee1-b73c-49d6-b344-b11d4488cbdd"
+                        },
+                        {
+                            "word": "Subir",
+                            "correct": false,
+                            "id": "f4074882-3d68-4864-bbac-88472a96fcc0"
+                        },
+                        {
+                            "word": "Supe",
+                            "correct": false,
+                            "id": "0c09c361-1da5-4a4e-a967-0763b1212177"
+                        },
+                        {
+                            "word": "Supermercado",
+                            "correct": false,
+                            "id": "f4771bd7-a33a-4a96-aa6d-887a0b23b162"
+                        },
+                        {
+                            "word": "Social",
+                            "correct": false,
+                            "id": "32327874-7ffb-493e-9f13-5f91e0a3046b"
+                        },
+                        {
+                            "word": "Sociales",
+                            "correct": false,
+                            "id": "d16e72f3-8c9a-4597-adf5-078d94ba1a67"
+                        },
+                        {
+                            "word": "Sueter",
+                            "correct": false,
+                            "id": "41738b75-31cd-4aaf-b8a0-9c1a1d3221c4"
+                        },
+                        {
+                            "word": "Sindrome",
+                            "correct": false,
+                            "id": "6edeb870-4afd-4caa-885b-03104b892223"
+                        },
+                        {
+                            "word": "Solo",
+                            "correct": false,
+                            "id": "d13cd2bf-396c-49d6-ab20-7c8df8d0f1f8"
+                        },
+                        {
+                            "word": "Sociedad",
+                            "correct": false,
+                            "id": "7bdd3f43-5489-4ed0-9ee2-9eed402ec0c2"
+                        },
+                        {
+                            "word": "Silencio",
+                            "correct": false,
+                            "id": "440e47b5-3ef4-49bb-bb30-933dbfdc779f"
+                        },
+                        {
+                            "word": "Sabiduria",
+                            "correct": false,
+                            "id": "88502083-b182-4c4b-bbae-f3efbdfd4a8d"
+                        },
+                        {
+                            "word": "Secuela",
+                            "correct": false,
+                            "id": "1da89fa9-6d69-47f3-bf56-f7bed3d14cf8"
+                        },
+                        {
+                            "word": "Suciedad",
+                            "correct": false,
+                            "id": "b616991d-9d5b-49e2-a646-20ed0f6badde"
+                        }
+                    ]
+                }
+            ],
+            "kuder": [
+                { "idPregunta": 1, "idOpcion": 4 },
+                { "idPregunta": 2, "idOpcion": 3 },
+                { "idPregunta": 3, "idOpcion": 3 },
+                { "idPregunta": 4, "idOpcion": 4 },
+                { "idPregunta": 5, "idOpcion": 3 },
+                { "idPregunta": 6, "idOpcion": 4 },
+                { "idPregunta": 7, "idOpcion": 2 },
+                { "idPregunta": 8, "idOpcion": 2 },
+                { "idPregunta": 9, "idOpcion": 4 },
+                { "idPregunta": 10, "idOpcion": 3 },
+                { "idPregunta": 11, "idOpcion": 3 },
+                { "idPregunta": 12, "idOpcion": 3 },
+                { "idPregunta": 13, "idOpcion": 3 },
+                { "idPregunta": 14, "idOpcion": 4 },
+                { "idPregunta": 15, "idOpcion": 2 },
+                { "idPregunta": 16, "idOpcion": 4 },
+                { "idPregunta": 17, "idOpcion": 3 },
+                { "idPregunta": 18, "idOpcion": 2 },
+                { "idPregunta": 19, "idOpcion": 4 },
+                { "idPregunta": 20, "idOpcion": 3 },
+                { "idPregunta": 21, "idOpcion": 4 },
+                { "idPregunta": 22, "idOpcion": 3 },
+                { "idPregunta": 23, "idOpcion": 2 },
+                { "idPregunta": 24, "idOpcion": 2 },
+                { "idPregunta": 25, "idOpcion": 3 },
+                { "idPregunta": 26, "idOpcion": 3 },
+                { "idPregunta": 27, "idOpcion": 3 },
+                { "idPregunta": 28, "idOpcion": 2 },
+                { "idPregunta": 29, "idOpcion": 1 },
+                { "idPregunta": 30, "idOpcion": 3 },
+                { "idPregunta": 31, "idOpcion": 3 },
+                { "idPregunta": 32, "idOpcion": 4 },
+                { "idPregunta": 33, "idOpcion": 2 },
+                { "idPregunta": 34, "idOpcion": 4 },
+                { "idPregunta": 35, "idOpcion": 2 },
+                { "idPregunta": 36, "idOpcion": 1 },
+                { "idPregunta": 37, "idOpcion": 1 },
+                { "idPregunta": 38, "idOpcion": 2 },
+                { "idPregunta": 39, "idOpcion": 3 },
+                { "idPregunta": 40, "idOpcion": 3 },
+                { "idPregunta": 41, "idOpcion": 3 },
+                { "idPregunta": 42, "idOpcion": 2 },
+                { "idPregunta": 43, "idOpcion": 4 },
+                { "idPregunta": 44, "idOpcion": 3 },
+                { "idPregunta": 45, "idOpcion": 3 },
+                { "idPregunta": 46, "idOpcion": 2 },
+                { "idPregunta": 47, "idOpcion": 1 },
+                { "idPregunta": 48, "idOpcion": 3 },
+                { "idPregunta": 49, "idOpcion": 3 },
+                { "idPregunta": 50, "idOpcion": 2 },
+                { "idPregunta": 51, "idOpcion": 3 },
+                { "idPregunta": 52, "idOpcion": 4 },
+                { "idPregunta": 53, "idOpcion": 2 },
+                { "idPregunta": 54, "idOpcion": 5 },
+                { "idPregunta": 55, "idOpcion": 2 },
+                { "idPregunta": 56, "idOpcion": 2 },
+                { "idPregunta": 57, "idOpcion": 1 },
+                { "idPregunta": 58, "idOpcion": 3 },
+                { "idPregunta": 59, "idOpcion": 3 },
+                { "idPregunta": 60, "idOpcion": 4 }
+            ]
+        }
+    },
+    {
+        "datos_generales": {
+            "nombre": "GUSTAVO ALBERTO MARTINEZ TORRICO",
+            "sexo": "Hombre",
+            "correo": "cbbe.gustavoalberto.martinez.to@unifranz.edu.bo",
+            "foto": "https://lh3.googleusercontent.com/a/ACg8ocK2QCa57CAO64_wlMvM1T6oP1gibZIsl5gQsnvZxr09TPKw5g=s96-c",
+            "fecha_nacimiento": "2002-07-11"
+        },
+        "respuestas": {
+            "pma": [
+                { "idPregunta": 1, "idOpcion": 3 },
+                { "idPregunta": 2, "idOpcion": 4 },
+                { "idPregunta": 3, "idOpcion": 2 },
+                { "idPregunta": 4, "idOpcion": 2 },
+                { "idPregunta": 5, "idOpcion": 3 },
+                { "idPregunta": 6, "idOpcion": 1 },
+                { "idPregunta": 7, "idOpcion": 1 },
+                { "idPregunta": 8, "idOpcion": 4 },
+                { "idPregunta": 9, "idOpcion": 3 },
+                { "idPregunta": 10, "idOpcion": 1 },
+                { "idPregunta": 11, "idOpcion": 3 },
+                { "idPregunta": 12, "idOpcion": 3 },
+                { "idPregunta": 51, "idOpcion": [10, 6, 8] },
+                { "idPregunta": 52, "idOpcion": [5, 8, 10] },
+                { "idPregunta": 53, "idOpcion": [6, 8, 10] },
+                { "idPregunta": 54, "idOpcion": [9, 8, 10] },
+                { "idPregunta": 55, "idOpcion": [9, 5, 6] },
+                { "idPregunta": 56, "idOpcion": [8, 6, 5, 10] },
+                { "idPregunta": 57, "idOpcion": [9] },
+                { "idPregunta": 71, "idOpcion": 16 },
+                { "idPregunta": 72, "idOpcion": 11 },
+                { "idPregunta": 73, "idOpcion": 11 },
+                { "idPregunta": 74, "idOpcion": 14 },
+                { "idPregunta": 75, "idOpcion": 11 },
+                { "idPregunta": 76, "idOpcion": 13 },
+                { "idPregunta": 77, "idOpcion": 16 },
+                { "idPregunta": 78, "idOpcion": 11 },
+                { "idPregunta": 80, "idOpcion": 13 },
+                { "idPregunta": 101, "idOpcion": 17 },
+                { "idPregunta": 102, "idOpcion": 17 },
+                { "idPregunta": 103, "idOpcion": 17 },
+                { "idPregunta": 104, "idOpcion": 17 },
+                { "idPregunta": 105, "idOpcion": 18 },
+                { "idPregunta": 106, "idOpcion": 17 },
+                { "idPregunta": 107, "idOpcion": 17 },
+                { "idPregunta": 108, "idOpcion": 17 },
+                { "idPregunta": 109, "idOpcion": 17 },
+                { "idPregunta": 110, "idOpcion": 18 },
+                { "idPregunta": 111, "idOpcion": 17 },
+                { "idPregunta": 112, "idOpcion": 17 },
+                { "idPregunta": 113, "idOpcion": 18 },
+                { "idPregunta": 114, "idOpcion": 17 },
+                { "idPregunta": 115, "idOpcion": 18 },
+                { "idPregunta": 116, "idOpcion": 18 },
+                { "idPregunta": 117, "idOpcion": 17 },
+                { "idPregunta": 118, "idOpcion": 18 },
+                { "idPregunta": 119, "idOpcion": 17 },
+                { "idPregunta": 120, "idOpcion": 17 },
+                { "idPregunta": 121, "idOpcion": 17 },
+                { "idPregunta": 122, "idOpcion": 17 },
+                { "idPregunta": 123, "idOpcion": 17 },
+                { "idPregunta": 124, "idOpcion": 17 },
+                { "idPregunta": 125, "idOpcion": 17 },
+                { "idPregunta": 126, "idOpcion": 17 },
+                { "idPregunta": 127, "idOpcion": 18 },
+                { "idPregunta": 128, "idOpcion": 18 },
+                { "idPregunta": 129, "idOpcion": 17 },
+                { "idPregunta": 130, "idOpcion": 18 },
+                { "idPregunta": 131, "idOpcion": 17 },
+                { "idPregunta": 132, "idOpcion": 18 },
+                { "idPregunta": 133, "idOpcion": 18 },
+                { "idPregunta": 134, "idOpcion": 17 },
+                { "idPregunta": 135, "idOpcion": 18 },
+                { "idPregunta": 136, "idOpcion": 18 },
+                { "idPregunta": 138, "idOpcion": 18 },
+                { "idPregunta": 139, "idOpcion": 18 },
+                { "idPregunta": 140, "idOpcion": 17 },
+                {
+                    "idPregunta": 171,
+                    "idOpcion": [
+                        {
+                            "id": "d78ae35e-be30-4df5-97e3-23948ca4eb86",
+                            "correct": true,
+                            "word": "Serpiente"
+                        },
+                        {
+                            "word": "Saliva",
+                            "correct": true,
+                            "id": "8ad4424d-bde1-43f2-8e30-77b4320f8ae1"
+                        },
+                        {
+                            "word": "Sabor",
+                            "correct": true,
+                            "id": "6583db8e-0e78-46b5-a8cb-4e8ea3ae4f95"
+                        },
+                        {
+                            "word": "Sirena",
+                            "correct": true,
+                            "id": "1ccc5be4-4aa0-4bb4-a651-52e7eb58bbd4"
+                        },
+                        {
+                            "word": "Serenata",
+                            "correct": true,
+                            "id": "10cba3b2-1d49-4178-911c-4ace2323970c"
+                        },
+                        {
+                            "word": "Sandía",
+                            "correct": true,
+                            "id": "39824c60-af0d-4972-9559-8e30db48d985"
+                        },
+                        {
+                            "word": "Sarampión",
+                            "correct": true,
+                            "id": "8d34374e-0412-419b-808c-8ff808fd6a04"
+                        },
+                        {
+                            "word": "Saber",
+                            "correct": true,
+                            "id": "b73553c3-f6c8-4cdf-8ff5-99eedbf64b9b"
+                        },
+                        {
+                            "word": "Sentir",
+                            "correct": true,
+                            "id": "81b462e2-34f4-4efb-b16e-59eec39ac221"
+                        },
+                        {
+                            "word": "Sonreir",
+                            "correct": true,
+                            "id": "a0109cc4-2254-454a-88d4-accc55b7994a"
+                        },
+                        {
+                            "word": "Silbar",
+                            "correct": true,
+                            "id": "e07a809f-5cb8-40c3-9326-27a7783d2d7a"
+                        },
+                        {
+                            "word": "Salir",
+                            "correct": true,
+                            "id": "ceb69169-f2cb-4506-bd9c-eebec725a469"
+                        },
+                        {
+                            "word": "Saltar",
+                            "correct": true,
+                            "id": "9f47de70-e367-4559-ba39-94f4a40a9f2a"
+                        },
+                        {
+                            "word": "Soplar",
+                            "correct": true,
+                            "id": "94240798-6c38-4a01-b73e-8468b71d7e51"
+                        },
+                        {
+                            "word": "Suspirar",
+                            "correct": true,
+                            "id": "6ea7c7a4-6824-4e82-bcb8-4edc936d6550"
+                        },
+                        {
+                            "word": "Sardina",
+                            "correct": true,
+                            "id": "19c05c56-37de-4122-abe0-57f7304ac850"
+                        },
+                        {
+                            "word": "Sentarse",
+                            "correct": true,
+                            "id": "9416f6af-83a8-429f-921a-106a2e873d36"
+                        },
+                        {
+                            "word": "Sensación",
+                            "correct": true,
+                            "id": "12f2a2ac-6c1a-4641-85ba-0d05e10726b3"
+                        },
+                        {
+                            "word": "Seda",
+                            "correct": true,
+                            "id": "289689b1-f046-46b4-99da-bbe4a6e8bba0"
+                        },
+                        {
+                            "word": "Saludar",
+                            "correct": true,
+                            "id": "221e4692-5e85-43ff-a7c0-eba39195faec"
+                        },
+                        {
+                            "word": "Saxofón",
+                            "correct": true,
+                            "id": "ab40686d-043a-408d-8c1d-77ddaa8d7c2c"
+                        },
+                        {
+                            "word": "Suerte",
+                            "correct": true,
+                            "id": "99dcba99-e781-442e-bfe4-a74d6fc6fd6b"
+                        },
+                        {
+                            "word": "Surrealismo",
+                            "correct": true,
+                            "id": "1c1e0f69-1471-4207-8b8d-e75c0ea149fb"
+                        },
+                        {
+                            "word": "Samsung",
+                            "correct": true,
+                            "id": "d3f750f5-9d22-47c4-87d1-7e68a26af7ff"
+                        }
+                    ]
+                }
+            ],
+            "kuder": [
+                { "idPregunta": 1, "idOpcion": 2 },
+                { "idPregunta": 2, "idOpcion": 3 },
+                { "idPregunta": 3, "idOpcion": 2 },
+                { "idPregunta": 4, "idOpcion": 3 },
+                { "idPregunta": 5, "idOpcion": 4 },
+                { "idPregunta": 6, "idOpcion": 2 },
+                { "idPregunta": 7, "idOpcion": 3 },
+                { "idPregunta": 8, "idOpcion": 1 },
+                { "idPregunta": 9, "idOpcion": 2 },
+                { "idPregunta": 10, "idOpcion": 4 },
+                { "idPregunta": 11, "idOpcion": 1 },
+                { "idPregunta": 12, "idOpcion": 3 },
+                { "idPregunta": 13, "idOpcion": 2 },
+                { "idPregunta": 14, "idOpcion": 4 },
+                { "idPregunta": 15, "idOpcion": 3 },
+                { "idPregunta": 16, "idOpcion": 2 },
+                { "idPregunta": 17, "idOpcion": 3 },
+                { "idPregunta": 18, "idOpcion": 2 },
+                { "idPregunta": 19, "idOpcion": 2 },
+                { "idPregunta": 20, "idOpcion": 2 },
+                { "idPregunta": 21, "idOpcion": 2 },
+                { "idPregunta": 22, "idOpcion": 4 },
+                { "idPregunta": 23, "idOpcion": 1 },
+                { "idPregunta": 24, "idOpcion": 2 },
+                { "idPregunta": 25, "idOpcion": 3 },
+                { "idPregunta": 26, "idOpcion": 1 },
+                { "idPregunta": 27, "idOpcion": 2 },
+                { "idPregunta": 28, "idOpcion": 1 },
+                { "idPregunta": 29, "idOpcion": 3 },
+                { "idPregunta": 30, "idOpcion": 4 },
+                { "idPregunta": 31, "idOpcion": 2 },
+                { "idPregunta": 32, "idOpcion": 2 },
+                { "idPregunta": 33, "idOpcion": 3 },
+                { "idPregunta": 34, "idOpcion": 2 },
+                { "idPregunta": 35, "idOpcion": 3 },
+                { "idPregunta": 36, "idOpcion": 4 },
+                { "idPregunta": 37, "idOpcion": 4 },
+                { "idPregunta": 38, "idOpcion": 3 },
+                { "idPregunta": 39, "idOpcion": 3 },
+                { "idPregunta": 40, "idOpcion": 2 },
+                { "idPregunta": 41, "idOpcion": 2 },
+                { "idPregunta": 42, "idOpcion": 3 },
+                { "idPregunta": 43, "idOpcion": 3 },
+                { "idPregunta": 44, "idOpcion": 2 },
+                { "idPregunta": 45, "idOpcion": 2 },
+                { "idPregunta": 46, "idOpcion": 2 },
+                { "idPregunta": 47, "idOpcion": 3 },
+                { "idPregunta": 48, "idOpcion": 4 },
+                { "idPregunta": 49, "idOpcion": 2 },
+                { "idPregunta": 50, "idOpcion": 3 },
+                { "idPregunta": 51, "idOpcion": 2 },
+                { "idPregunta": 52, "idOpcion": 3 },
+                { "idPregunta": 53, "idOpcion": 2 },
+                { "idPregunta": 54, "idOpcion": 2 },
+                { "idPregunta": 55, "idOpcion": 2 },
+                { "idPregunta": 56, "idOpcion": 2 },
+                { "idPregunta": 57, "idOpcion": 4 },
+                { "idPregunta": 58, "idOpcion": 2 },
+                { "idPregunta": 59, "idOpcion": 2 },
+                { "idPregunta": 60, "idOpcion": 2 }
+            ]
+        }
+    }
+]

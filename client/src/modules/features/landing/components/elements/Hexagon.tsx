@@ -3,11 +3,12 @@ import { motion } from "framer-motion";
 
 interface Props {
   size?: number;
+  secondary?: boolean;
 }
 
-const Hexagon = ({ size = 240 }: Props) => {
+const Hexagon = ({ size = 240, secondary }: Props) => {
   return (
-    <div className="text-alto-200" style={{ height: size }}>
+    <div style={{ height: size }}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="icon icon-tabler icon-tabler-hexagon"
@@ -25,7 +26,11 @@ const Hexagon = ({ size = 240 }: Props) => {
           }}
           animate={{
             pathLength: 1,
-            stroke: [COLORS.alto[200], COLORS.primary[200], COLORS.alto[200]],
+            stroke: [
+              secondary ? COLORS.alto[200] : COLORS.alto[200],
+              secondary ? COLORS.primary[400] : COLORS.primary[200],
+              secondary ? COLORS.alto[200] : COLORS.alto[200],
+            ],
           }}
           transition={{
             pathLength: { duration: 2 },

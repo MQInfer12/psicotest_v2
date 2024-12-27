@@ -19,6 +19,7 @@ class T_Tests_RepuestaResource extends JsonResource
             'email_user' => $this->user->email,
             'foto_user' => $this->user->foto,
             'nombre_test' => $test->nombre,
+            'id_carpeta' => $this->carpeta?->id,
             'nombre_carpeta' => $this->carpeta?->descripcion,
             'nombre_autor' => $test->autor,
             'nombre_autor_creador' => $test->autor_creador?->nombre,
