@@ -42,7 +42,7 @@ const Public = () => {
         </div>
       </nav>
       <LoginCard redirect={redirect} />
-      <div className="min-h-screen bg-alto-100 overflow-x-hidden">
+      <div className="min-h-screen bg-alto-100 overflow-x-hidden relative scroll-smooth">
         <Outlet />
       </div>
     </LoginContextProvider>

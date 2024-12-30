@@ -82,7 +82,7 @@ const TestPage = ({ respuestas = false }: Props) => {
             onClick={() => setOpen(true)}
             icon={Icon.Types.QR}
           >
-            Compartir
+            Compartir varios
           </Button>
           {modal(
             "Compartir tests",

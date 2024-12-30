@@ -43,7 +43,7 @@ const ShareForm = ({ idTests, nombreTest, children }: Props) => {
         >
           <option value="">Sin clasificación</option>
           {data
-            ?.filter((c) => c.tipo === "propia")
+            ?.filter((c) => c.tipo === "propia" || c.tipo === "global")
             .map((carpeta) => (
               <option key={carpeta.id} value={carpeta.id}>
                 {carpeta.descripcion}

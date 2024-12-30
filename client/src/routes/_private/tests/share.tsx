@@ -6,8 +6,8 @@ import { createFileRoute } from "@tanstack/react-router";
 
 interface Params {
   cparams?: string;
-  test: number[];
-  allocator: string;
+  test?: number[];
+  allocator?: string;
   folder?: number;
 }
 

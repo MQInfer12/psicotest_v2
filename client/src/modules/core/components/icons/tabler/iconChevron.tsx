@@ -1,7 +1,7 @@
 import clsx from "clsx";
 
 interface Props {
-  type: "left" | "right";
+  type: "left" | "right" | "down";
 }
 
 const IconChevron = ({ type }: Props) => {
@@ -20,6 +20,7 @@ const IconChevron = ({ type }: Props) => {
         "icon icon-tabler icons-tabler-outline icon-tabler-chevron-left",
         {
           "rotate-180": type === "right",
+          "-rotate-90": type === "down",
         }
       )}
     >

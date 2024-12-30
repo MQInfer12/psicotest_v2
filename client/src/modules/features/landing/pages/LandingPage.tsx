@@ -1,12 +1,14 @@
 import UnifranzLogo from "@/assets/images/unifranz-logo.png";
 import Icon from "@/modules/core/components/icons/Icon";
 import { PUBLIC_NAVBAR_HEIGHT } from "../../_layout/constants/LAYOUT_SIZES";
+import AnoyingButton from "../components/AnoyingButton";
 import Landing from "../components/Landing";
 import Services from "../components/Services";
 
 const LandingPage = () => {
   return (
     <>
+      <AnoyingButton />
       <Landing />
       <section
         className="flex pt-20 items-center justify-center flex-wrap-reverse gap-20"

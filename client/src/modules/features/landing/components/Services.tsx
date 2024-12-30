@@ -12,15 +12,17 @@ const Services = () => {
 
   return (
     <section
+      id="services"
       className="min-h-[100svh] mt-20 bg-gradient-to-b from-alto-100 to-primary-800 flex flex-col gap-12 items-center justify-center isolate"
       style={{
         paddingBlock: PUBLIC_NAVBAR_HEIGHT * 2,
         paddingInline: PUBLIC_NAVBAR_HEIGHT,
+        scrollMargin: PUBLIC_NAVBAR_HEIGHT * -1,
       }}
     >
       <div className="mt-20 w-[520px] max-w-full flex flex-col items-center z-10">
         <LandingTitle secondary>Nuestros servicios</LandingTitle>
-        <p className="text-center max-sm:text-sm py-4 text-balance text-white">
+        <p className="text-center max-sm:text-sm py-4 text-balance text-white leading-relaxed">
           ¡Mira los servicios que tenemos disponibles gratuitamente para ti!
         </p>
       </div>
@@ -39,9 +41,15 @@ const Services = () => {
           />
           <div className="flex flex-col gap-4 p-4">
             <small className="p-1 px-2 text-xs bg-primary-200 text-primary-800 max-w-fit rounded-md">
-              Agenda tu cita presencial en la Unifranz
+              Agenda tu cita presencial en la universidad
             </small>
-            <h3 className="text-xl font-bold">Gabinete psicológico</h3>
+            <div className="flex flex-col gap-2">
+              <h3 className="text-xl font-bold">Gabinete psicológico</h3>
+              <p className="text-sm text-alto-800 leading-relaxed">
+                Recuerda que es importante mantener una buena salud mental como
+                estudiante, ¡Nosotros te ayudaremos!
+              </p>
+            </div>
             <LandingButton
               onClick={() =>
                 navigate({
@@ -66,13 +74,20 @@ const Services = () => {
             <small className="p-1 px-2 text-xs bg-primary-200 text-primary-800 max-w-fit rounded-md">
               Descubre tu profesión ideal
             </small>
-            <h3 className="text-xl font-bold">Análisis vocacional</h3>
+            <div className="flex flex-col gap-2">
+              <h3 className="text-xl font-bold">Análisis vocacional</h3>
+              <p className="text-sm text-alto-800 leading-relaxed">
+                Realiza los tests de KUDER y PMA para obtener un análisis
+                personalizado acerca de tus habilidades e intereses personales.
+              </p>
+            </div>
             <LandingButton
               onClick={() =>
                 navigate({
-                  to: "/",
+                  to: "/tests/share",
                   search: {
-                    redirect: validateRoute("/calendar"),
+                    cparams:
+                      "U2FsdGVkX1+PXPY6GsXsW56LtuwJXIL4Q6DwaiEhU3zCB6whYr0S2PswCyIGpBtBVxjOlhMoxGSsEqPh4nwEL8V1tRwN1ehDN0QxTYMDFMA=",
                   },
                 })
               }

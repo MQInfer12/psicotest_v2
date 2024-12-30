@@ -122,7 +122,7 @@ const Landing = () => {
             Obtén apoyo de <span>psicólogos</span> especializados de la{" "}
             <span>Unifranz</span>
           </LandingTitle>
-          <p className="max-sm:text-center max-sm:text-sm py-4 text-balance">
+          <p className="max-sm:text-center max-sm:text-sm py-4 text-balance leading-relaxed">
             Obtén apoyo del gabinete psicológico utilizando un calendario simple
             e intuitivo y realiza tus tests de una manera moderna junto a ellos.
           </p>
