@@ -34,7 +34,7 @@ const IconMessage = ({
         <Icon type={icon} />
       </motion.div>
       <div className="flex flex-col items-center gap-2">
-        <p className="text-md leading-normal text-center font-medium text-alto-800">
+        <p className="text-md leading-normal text-center font-medium text-alto-800 text-balance">
           {message}
         </p>
         {small && <small className="text-xs text-alto-700">{small}</small>}

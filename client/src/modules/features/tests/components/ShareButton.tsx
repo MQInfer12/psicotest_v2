@@ -2,6 +2,7 @@ import Icon from "@/modules/core/components/icons/Icon";
 import Button from "@/modules/core/components/ui/Button";
 import { useModal } from "@/modules/core/components/ui/modal/useModal";
 import ShareForm from "./ShareForm";
+import { useMemo } from "react";
 
 interface Props {
   idTest: number;
@@ -11,11 +12,12 @@ interface Props {
 const ShareButton = ({ idTest, nombreTest }: Props) => {
   const { modal, setOpen } = useModal();
 
+  const sharedId = useMemo(() => [idTest], [idTest]);
   return (
     <>
       {modal(
         "Compartir test",
-        <ShareForm idTest={idTest} nombreTest={nombreTest} />
+        <ShareForm idTests={sharedId} nombreTest={nombreTest} />
       )}
       <Button
         btnType="secondary"

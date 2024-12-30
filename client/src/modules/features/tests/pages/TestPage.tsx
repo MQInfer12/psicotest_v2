@@ -1,18 +1,22 @@
-import TestCard from "../components/TestCard";
-import { useNavigate } from "@tanstack/react-router";
-import { CanvasType } from "@/modules/core/components/ui/canvas/types/Canvas";
-import useFetch from "@/modules/core/hooks/useFetch/useFetch";
-import Loader from "@/modules/core/components/ui/loader/Loader";
-import { T_Tests, T_Tests_Respuestas } from "../api/responses";
-import { useState } from "react";
-import { RespuestaEstado } from "../../answers/types/RespuestaEstado";
-import { isForResolveTests } from "../utils/isForResolve";
-import { useMeasureContext } from "../../_layout/context/MeasureContext";
-import { useUpdateTests } from "../hooks/useUpdateTests";
-import IconMessage from "@/modules/core/components/icons/IconMessage";
 import Icon from "@/modules/core/components/icons/Icon";
+import IconMessage from "@/modules/core/components/icons/IconMessage";
+import Button from "@/modules/core/components/ui/Button";
+import { CanvasType } from "@/modules/core/components/ui/canvas/types/Canvas";
+import Checkboxes from "@/modules/core/components/ui/Checkboxes";
+import Loader from "@/modules/core/components/ui/loader/Loader";
+import { useModal } from "@/modules/core/components/ui/modal/useModal";
+import useFetch from "@/modules/core/hooks/useFetch/useFetch";
+import { useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
+import { useMeasureContext } from "../../_layout/context/MeasureContext";
+import { RespuestaEstado } from "../../answers/types/RespuestaEstado";
 import { usePermiso } from "../../auth/hooks/usePermiso";
 import { Permisos } from "../../auth/types/Permisos";
+import { T_Tests, T_Tests_Respuestas } from "../api/responses";
+import ShareForm from "../components/ShareForm";
+import TestCard from "../components/TestCard";
+import { useUpdateTests } from "../hooks/useUpdateTests";
+import { isForResolveTests } from "../utils/isForResolve";
 
 interface Props {
   respuestas?: boolean;
@@ -24,6 +28,8 @@ const TestPage = ({ respuestas = false }: Props) => {
     respuestas ? "GET /respuesta/for/resolve" : "GET /test"
   );
   const [loading, setLoading] = useState<number | null>(null);
+  const { modal, setOpen } = useModal();
+  const [sharedIds, setSharedIds] = useState<number[]>([]);
 
   const { PRIVATE_PADDING_INLINE } = useMeasureContext();
 
@@ -53,6 +59,7 @@ const TestPage = ({ respuestas = false }: Props) => {
   /* const canAdd = usePermiso([Permisos.CREAR_TEST]); */
   const canEdit = usePermiso([Permisos.EDITAR_TEST]);
   const canShare = usePermiso([Permisos.COMPARTIR_TEST]);
+
   return (
     <div
       style={{
@@ -60,20 +67,43 @@ const TestPage = ({ respuestas = false }: Props) => {
       }}
       className="w-full flex flex-col items-center pb-20 gap-12 flex-1"
     >
-      {/* {!respuestas && (
+      {!respuestas && (
         <div className="w-full flex justify-between">
-          <div>
+          <span />
+          {/* <div>
             {canAdd && (
               <Button btnType="secondary" onClick={() => {}}>
                 Añadir test
               </Button>
             )}
-          </div>
-          <Button btnType="secondary" onClick={() => {}} icon={Icon.Types.QR}>
+          </div> */}
+          <Button
+            btnType="secondary"
+            onClick={() => setOpen(true)}
+            icon={Icon.Types.QR}
+          >
             Compartir
           </Button>
+          {modal(
+            "Compartir tests",
+            <ShareForm nombreTest="many" idTests={sharedIds}>
+              <Checkboxes
+                label="Tests"
+                value={sharedIds}
+                onChange={setSharedIds}
+                options={
+                  data?.map((test) => {
+                    return {
+                      label: test.nombre_test,
+                      value: test.id,
+                    };
+                  }) ?? []
+                }
+              />
+            </ShareForm>
+          )}
         </div>
-      )} */}
+      )}
       {data ? (
         data.length === 0 ? (
           <div className="w-full h-full flex items-center justify-center">

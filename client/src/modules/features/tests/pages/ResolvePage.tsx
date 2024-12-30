@@ -4,8 +4,28 @@ import { fetchOptions } from "@/modules/core/hooks/useFetch/utils/fetchFn";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { TestType } from "../types/TestType";
 import { useParams } from "@tanstack/react-router";
+import { AnimatePresence, motion } from "framer-motion";
 
 const ResolvePage = () => {
+  const { idRespuesta } = useParams({
+    strict: false,
+  });
+  return (
+    <AnimatePresence initial={false}>
+      <motion.div
+        initial={{ x: "100%" }}
+        animate={{ x: 0 }}
+        exit={{ x: "-100%" }}
+        className="absolute inset-0 w-full"
+        key={idRespuesta}
+      >
+        <Render />
+      </motion.div>
+    </AnimatePresence>
+  );
+};
+
+const Render = () => {
   const { idTest, idRespuesta } = useParams({
     strict: false,
   });

@@ -13,7 +13,7 @@ import {
 } from "@tanstack/react-router";
 import clsx from "clsx";
 import { motion } from "framer-motion";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useUserContext } from "../../auth/context/UserContext";
 import { Permisos } from "../../auth/types/Permisos";
 import AsideLink from "../components/AsideLink";
@@ -24,6 +24,7 @@ import { PRIVATE_ASIDE_WIDTH } from "../constants/LAYOUT_SIZES";
 import { PRIVATE_LINKS } from "../constants/PRIVATE_LINKS";
 import { useMeasureContext } from "../context/MeasureContext";
 import SettingsForm from "../../settings/components/SettingsForm";
+import { use } from "framer-motion/client";
 
 const Dashboard = () => {
   const { pathname, search } = useLocation();
@@ -59,6 +60,11 @@ const Dashboard = () => {
   };
 
   const { modal: modalSettings, setOpen: setOpenSettings } = useModal();
+
+  const outletContainerRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    outletContainerRef.current?.scrollTo(0, 0);
+  }, [pathname]);
 
   if (state === "unlogged")
     return (
@@ -214,7 +220,10 @@ const Dashboard = () => {
             </button>
           </div>
         </header>
-        <section className="flex-1 overflow-auto flex flex-col">
+        <section
+          ref={outletContainerRef}
+          className="flex-1 overflow-auto flex flex-col relative"
+        >
           <Outlet />
         </section>
       </main>

@@ -1,5 +1,5 @@
 export interface RespuestaDTO {
-  id_test: number;
+  id_test: number[];
   email_asignador: string;
   id_carpeta?: number;
 }

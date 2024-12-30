@@ -247,7 +247,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
             )}
             <TestCarousel test={test}>
               {finishedPage ? (
-                <TestFinishPage direction={direction} />
+                <TestFinishPage direction={direction} setOpen={setOpen} />
               ) : requirements.length > 0 ? (
                 <TestRequirements
                   direction={direction}

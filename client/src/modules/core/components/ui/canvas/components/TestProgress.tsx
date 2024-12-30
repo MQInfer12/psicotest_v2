@@ -24,7 +24,7 @@ const TestProgress = ({
     <div className="flex flex-col gap-1 petizo:flex-row petizo:gap-2">
       {secciones.length > 1 && (
         <div className="w-full flex-1 flex items-center gap-4 petizo:gap-1">
-          <div className="w-16 flex justify-center">
+          <div className="w-20 flex justify-center">
             <small>
               S: {sectionProgress} / {secciones.length}
             </small>
@@ -45,7 +45,7 @@ const TestProgress = ({
         </div>
       )}
       <div className="w-full flex-[1_1_0] flex items-center gap-4 petizo:gap-1">
-        <div className="w-16 flex justify-center">
+        <div className="w-20 flex justify-center">
           <small>
             P: {preguntaProgress} / {seccion.items.length}
           </small>

@@ -48,7 +48,7 @@ declare global {
     "POST /respuesta": {
       params: never;
       request: RespuestaDTO;
-      response: number;
+      response: number[];
     };
     "GET /respuesta/for/resolve": {
       params: never;

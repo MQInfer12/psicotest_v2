@@ -76,13 +76,10 @@ class T_RespuestaController extends Controller
         //? AL INGRESAR AL LINK DEL QR
         $validatedData = $request->validated();
 
-        $test = T_Test::findOrFail($validatedData['id_test']);
         $user = $request->user();
 
-        $id_test_version = $test->latest_version->id;
-        $email_user = $user->email;
         $email_asignador = $validatedData['email_asignador'];
-
+        $email_user = $user->email;
         if ($email_user == $email_asignador) {
             return $this->wrongResponse('No te puedes asignar un test a ti mismo.');
         }
@@ -92,29 +89,40 @@ class T_RespuestaController extends Controller
             return $this->wrongResponse('Esta persona no tiene permisos para compartir tests.');
         }
 
-        $exist = T_Respuesta::where('id_test_version', $id_test_version)
-            ->where('email_user', $email_user)
-            ->where('email_asignador', $email_asignador)
-            ->first();
-        if ($exist) {
-            return $this->successResponse(
-                'Ya se te asignó este test.',
-                $exist->id
-            );
+        $testIds = $validatedData['id_test'];
+        $responses = [];
+
+        foreach ($testIds as $testId) {
+            $test = T_Test::findOrFail($testId);
+            $id_test_version = $test->latest_version->id;
+
+            $exist = T_Respuesta::where('id_test_version', $id_test_version)
+                ->where('email_user', $email_user)
+                ->where('email_asignador', $email_asignador)
+                ->first();
+
+            if ($exist) {
+                if($exist->estado == "Pendiente") {
+                    $responses[] = $exist->id;
+                }
+                continue;
+            }
+
+            $respuesta = T_Respuesta::create([
+                "id_test_version" => $id_test_version,
+                "email_user" => $email_user,
+                "email_asignador" => $email_asignador,
+                "estado" => "Pendiente",
+                "fecha_asignado" => now(),
+                "id_carpeta" => $validatedData['id_carpeta'] ?? null
+            ]);
+ 
+            $responses[] = $respuesta->id;
         }
 
-        $respuesta = T_Respuesta::create([
-            "id_test_version" => $id_test_version,
-            "email_user" => $email_user,
-            "email_asignador" => $email_asignador,
-            "estado" => "Pendiente",
-            "fecha_asignado" => now(),
-            "id_carpeta" => $validatedData['id_carpeta'] ?? null
-        ]);
-
         return $this->successResponse(
-            "Test asignado correctamente.",
-            $respuesta->id
+            "Tests asignados correctamente.",
+            $responses
         );
     }
 

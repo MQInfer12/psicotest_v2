@@ -6,29 +6,35 @@ import QRCode from "./QRCode";
 import Input from "@/modules/core/components/ui/Input";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import { useUserContext } from "../../auth/context/UserContext";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { cypherUrl } from "@/modules/core/utils/crypto";
+import { motion } from "framer-motion";
 
 interface Props {
-  idTest: number;
+  idTests: number[];
   nombreTest: string;
+  children?: React.ReactNode;
 }
 
-const ShareForm = ({ idTest, nombreTest }: Props) => {
+const ShareForm = ({ idTests, nombreTest, children }: Props) => {
   const { fetchData } = useFetch();
   const { data } = fetchData("GET /carpeta");
   const { user } = useUserContext();
   const [carpetaId, setCarpetaId] = useState("");
 
-  const link =
-    window.location.href +
-    "/share" +
-    `?test=${idTest}` +
-    `&allocator=${user?.email}` +
-    (carpetaId ? `&folder=${carpetaId}` : "");
+  const link = useMemo(() => {
+    const params =
+      `test=${JSON.stringify(idTests)}` +
+      `&allocator=${user?.email}` +
+      (carpetaId ? `&folder=${carpetaId}` : "");
+    const cryptedParams = cypherUrl(params);
+    return window.location.href + `/share?cparams=${cryptedParams}`;
+  }, [user, carpetaId, idTests]);
 
   return (
     <div className="flex flex-col">
-      <div className="flex w-full">
+      <div className="flex w-full flex-col gap-4">
+        {children}
         <Input
           label="Carpeta"
           type="select"
@@ -36,15 +42,27 @@ const ShareForm = ({ idTest, nombreTest }: Props) => {
           onChange={(e) => setCarpetaId(e.target.value)}
         >
           <option value="">Sin clasificación</option>
-          {data?.map((carpeta) => (
-            <option key={carpeta.id} value={carpeta.id}>
-              {carpeta.descripcion}
-            </option>
-          ))}
+          {data
+            ?.filter((c) => c.tipo === "propia")
+            .map((carpeta) => (
+              <option key={carpeta.id} value={carpeta.id}>
+                {carpeta.descripcion}
+              </option>
+            ))}
         </Input>
       </div>
       <div className="w-full aspect-square flex justify-center items-center">
-        <QRCode contents={link} />
+        {idTests.length > 0 ? (
+          <motion.div
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="w-full h-full"
+          >
+            <QRCode contents={link} />
+          </motion.div>
+        ) : (
+          <small>Selecciona al menos un test para compartirlo</small>
+        )}
       </div>
       <div className="flex flex-col gap-2 items-center">
         <div className="flex gap-2">
@@ -57,6 +75,7 @@ const ShareForm = ({ idTest, nombreTest }: Props) => {
                 toastSuccess("Enlace copiado al portapapeles correctamente");
               });
             }}
+            disabled={idTests.length === 0}
           >
             Copiar enlace
           </Button>
@@ -74,6 +93,7 @@ const ShareForm = ({ idTest, nombreTest }: Props) => {
                 link.click();
               });
             }}
+            disabled={idTests.length === 0}
           >
             Descargar
           </Button>

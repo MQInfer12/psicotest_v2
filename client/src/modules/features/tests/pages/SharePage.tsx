@@ -1,5 +1,6 @@
 import Loader from "@/modules/core/components/ui/loader/Loader";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
+import { toastSuccess } from "@/modules/core/utils/toasts";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { useEffect } from "react";
 
@@ -21,10 +22,20 @@ const SharePage = () => {
       },
       {
         onSuccess(res) {
+          if (res.data.length === 0) {
+            toastSuccess(
+              "¡Felicidades! Ya resolviste todos los tests asignados por tu psicólogo correctamente."
+            );
+            navigate({
+              to: "/tests",
+            });
+            return;
+          }
+
           navigate({
             to: "/resolve/$idRespuesta",
             params: {
-              idRespuesta: String(res.data),
+              idRespuesta: String(res.data[0]),
             },
           });
         },
