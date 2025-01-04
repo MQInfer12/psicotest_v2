@@ -9,7 +9,7 @@ const Logo = ({ showText = true }: Props) => {
   return (
     <h1 className="text-xl font-light flex gap-2">
       <img className="w-14 h-auto" alt="psicotest-logo" src={Psicotest} />
-      <Appear open={showText} className="flex flex-col">
+      <Appear open={showText} className="flex flex-col dark:text-alto-50">
         <div>
           <span className="font-semibold">Psico</span>test
         </div>

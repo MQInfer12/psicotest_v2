@@ -31,19 +31,19 @@ const Landing = () => {
         }}
       >
         <div className="flex flex-col absolute mr-80 mt-80 gap-2 z-10 max-xl:mr-0 max-xl:items-center">
-          <div className="bg-alto-50 p-2 shadow-lg rounded-md flex flex-col gap-2 max-w-fit">
-            <small className="p-1 px-2 text-xs bg-primary-200 text-primary-800 max-w-fit rounded-md whitespace-nowrap">
+          <div className="bg-alto-50 dark:bg-alto-50 p-2 shadow-lg shadow-alto-950/40 rounded-md flex flex-col gap-2 max-w-fit">
+            <small className="p-1 px-2 text-xs bg-primary-200 dark:bg-primary-600 text-primary-800 dark:text-primary-200 max-w-fit rounded-md whitespace-nowrap">
               Resuelve tests y obtén tus resultados
             </small>
           </div>
-          <div className="bg-alto-50 p-2 shadow-lg rounded-md flex flex-col gap-2 max-w-fit">
-            <small className="p-1 px-2 text-xs bg-primary-200 text-primary-800 max-w-fit rounded-md whitespace-nowrap">
+          <div className="bg-alto-50 dark:bg-alto-50 p-2 shadow-lg shadow-alto-950/40 rounded-md flex flex-col gap-2 max-w-fit">
+            <small className="p-1 px-2 text-xs bg-primary-200 dark:bg-primary-600 text-primary-800 dark:text-primary-200 max-w-fit rounded-md whitespace-nowrap">
               Agenda citas con tus psicólogos
             </small>
           </div>
         </div>
         <div className="flex flex-col gap-4 items-center">
-          <div className="max-xl:w-[320px] max-xl:h-[400px] w-[440px] h-[560px] rounded-xl bg-alto-100 border-8 shadow-lg border-alto-100 flex">
+          <div className="max-xl:w-[320px] max-xl:h-[400px] w-[440px] h-[560px] rounded-xl bg-alto-100 dark:bg-alto-800 border-8 shadow-lg shadow-alto-950/40 border-alto-100 dark:border-alto-50 flex">
             {CAROUSEL_ITEMS.map((image, i) => (
               <motion.img
                 key={i}
@@ -95,7 +95,7 @@ const Landing = () => {
           paddingBottom: PUBLIC_NAVBAR_HEIGHT,
         }}
         className={clsx(
-          "flex-1 max-xl:flex-[1.5_1_0] flex items-center justify-center bg-alto-50 rounded-bl-[80px] z-10 max-lg:rounded-b-[80px]",
+          "flex-1 max-xl:flex-[1.5_1_0] flex items-center justify-center bg-alto-50 dark:bg-alto-1000 rounded-bl-[80px] z-10 max-lg:rounded-b-[80px]",
           shadowClasses
         )}
       >
@@ -115,14 +115,14 @@ const Landing = () => {
           }}
           className="flex flex-col max-sm:items-center gap-4 w-[520px] isolate relative"
         >
-          <small className="p-1 px-2 text-xs bg-primary-200 text-primary-800 max-w-fit rounded-md">
+          <small className="p-1 px-2 text-xs bg-primary-200 dark:bg-primary-600 text-primary-800 dark:text-primary-200 max-w-fit rounded-md">
             Novedad: Nuevos tests psicológicos
           </small>
           <LandingTitle>
             Obtén apoyo de <span>psicólogos</span> especializados de la{" "}
             <span>Unifranz</span>
           </LandingTitle>
-          <p className="max-sm:text-center max-sm:text-sm py-4 text-balance leading-relaxed">
+          <p className="max-sm:text-center max-sm:text-sm py-4 text-balance leading-relaxed dark:text-alto-50">
             Obtén apoyo del gabinete psicológico utilizando un calendario simple
             e intuitivo y realiza tus tests de una manera moderna junto a ellos.
           </p>

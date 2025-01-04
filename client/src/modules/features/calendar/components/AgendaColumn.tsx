@@ -19,7 +19,7 @@ const AgendaColumn = () => {
   return (
     <section className="flex flex-col gap-6 flex-1 overflow-hidden max-lg:w-full">
       <header className="h-10 flex items-center px-4 max-lg:px-0">
-        <strong className="text-primary-900">
+        <strong className="text-primary-900 dark:text-primary-400">
           Horarios disponibles de la semana
         </strong>
       </header>

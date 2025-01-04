@@ -1,11 +1,14 @@
 import Logo from "@/assets/images/icon.png";
 import { COLORS } from "@/modules/core/constants/COLORS";
+import { useThemeContext } from "@/modules/core/context/ThemeContext";
 
 interface Props {
   contents: string;
 }
 
 const QRCode = ({ contents }: Props) => {
+  const { dark } = useThemeContext();
+
   /* useEffect(() => {
     document.getElementById("qr1")?.addEventListener("codeRendered", () => {
       document
@@ -22,19 +25,21 @@ const QRCode = ({ contents }: Props) => {
   }, []); */
 
   return (
-    <qr-code
-      id="qr1"
-      module-color={COLORS.primary[400]}
-      position-ring-color={COLORS.primary[600]}
-      position-center-color={COLORS.primary[500]}
-      contents={contents}
-      style={{
-        width: 340,
-        backgroundColor: COLORS.alto[50],
-      }}
-    >
-      <img src={Logo} slot="icon" />
-    </qr-code>
+    <div className="flex justify-center items-center">
+      <qr-code
+        id="qr1"
+        module-color={COLORS.primary[400]}
+        position-ring-color={COLORS.primary[600]}
+        position-center-color={COLORS.primary[500]}
+        contents={contents}
+        style={{
+          width: 340,
+          backgroundColor: dark ? COLORS.alto[950] : COLORS.alto[50],
+        }}
+      >
+        <img src={Logo} slot="icon" />
+      </qr-code>
+    </div>
   );
 };
 

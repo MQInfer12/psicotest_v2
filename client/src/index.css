@@ -42,21 +42,21 @@ img {
 ::-webkit-scrollbar-track {
   @apply bg-alto-100;
 }
+html.dark ::-webkit-scrollbar-track {
+  @apply bg-alto-1000;
+}
+
 ::-webkit-scrollbar-thumb {
   @apply bg-alto-200;
   border-radius: 4px;
 }
+html.dark ::-webkit-scrollbar-thumb {
+  @apply bg-alto-700;
+}
+
 ::-webkit-scrollbar-thumb:hover {
   @apply bg-primary-400;
 }
-
-.nsm7Bb-HzV7m-LgbsSe-BPrWId {
-  font-family: "Poppins", sans-serif !important;
-  font-weight: 500 !important;
-  font-size: 13px !important;
-}
-
-.nsm7Bb-HzV7m-LgbsSe {
-  min-width: 220px !important;
-  max-width: 220px !important;
+html.dark ::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary-400;
 }

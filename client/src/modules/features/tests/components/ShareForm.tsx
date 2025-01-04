@@ -61,7 +61,9 @@ const ShareForm = ({ idTests, nombreTest, children }: Props) => {
             <QRCode contents={link} />
           </motion.div>
         ) : (
-          <small>Selecciona al menos un test para compartirlo</small>
+          <small className="text-alto-950 dark:text-alto-50">
+            Selecciona al menos un test para compartirlo
+          </small>
         )}
       </div>
       <div className="flex flex-col gap-2 items-center">

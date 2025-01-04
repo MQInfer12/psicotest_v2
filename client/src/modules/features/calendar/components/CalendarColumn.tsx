@@ -31,14 +31,14 @@ const CalendarColumn = () => {
   return (
     <div className="w-72 flex flex-col gap-8">
       <header className="flex gap-4 items-center justify-between">
-        <strong className="text-primary-900">
+        <strong className="text-primary-900 dark:text-primary-400">
           {mesActual} {fechaActual.format("YYYY")}
         </strong>
-        <div className="bg-primary-200 h-10 aspect-square flex flex-col items-center justify-center rounded-md">
-          <small className="text-[10px] font-medium opacity-60">
+        <div className="bg-primary-200 dark:bg-primary-1000 h-10 aspect-square flex flex-col items-center justify-center rounded-md">
+          <small className="text-[10px] font-medium opacity-60 text-alto-950 dark:text-alto-50">
             {diaActual.abrev.toUpperCase()}
           </small>
-          <p className="font-bold text-primary-900 -mt-1">
+          <p className="font-bold text-primary-900 dark:text-primary-400 -mt-1">
             {fechaActual.format("D")}
           </p>
         </div>

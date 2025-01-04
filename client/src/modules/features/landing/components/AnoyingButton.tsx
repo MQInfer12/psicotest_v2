@@ -57,7 +57,7 @@ const AnoyingButton = () => {
                   ease: "easeInOut",
                 },
               }}
-              className="absolute bottom-4 py-1 px-20 rounded-lg text-black bg-gradient-to-b from-transparent to-primary-500/20 cursor-pointer pointer-events-auto"
+              className="absolute bottom-4 py-1 px-20 rounded-lg bg-gradient-to-b from-transparent to-primary-500/20 dark:to-primary-400/20 cursor-pointer pointer-events-auto"
             >
               <motion.div
                 animate={{
@@ -71,7 +71,7 @@ const AnoyingButton = () => {
                     ease: "easeInOut",
                   },
                 }}
-                className="w-10 aspect-square text-primary-600"
+                className="w-10 aspect-square text-primary-600 dark:text-primary-300"
               >
                 <Icon type={Icon.Types.CHEVRON_DOWN} />
               </motion.div>

@@ -57,7 +57,7 @@ const ResponsesTable = () => {
         header: opcion.descripcion,
         cell: (info: CellContext<TableResultados, any>) => (
           <input
-            className="accent-primary-500 pointer-events-none"
+            className="accent-primary-500 pointer-events-none [&:not(:checked)]:opacity-40"
             tabIndex={-1}
             type="radio"
             defaultChecked={info.getValue()}
@@ -108,25 +108,28 @@ const ResponsesTable = () => {
     <>
       {modal("Pregunta", (item) => (
         <div className="w-full h-40 flex items-center justify-center">
-          <img className="w-full max-w-full max-h-full object-contain" src={STORAGE_URL + item} />
+          <img
+            className="w-full max-w-full max-h-full object-contain"
+            src={STORAGE_URL + item}
+          />
         </div>
       ))}
-      <div className="bg-primary-100 px-4 pt-2 pb-2 flex justify-center">
+      <div className="bg-primary-100 dark:bg-primary-1000 px-4 pt-2 pb-2 flex justify-center">
         <div className="w-80 flex gap-4 items-center justify-between">
           <button
-            className="w-5 aspect-square text-alto-500 disabled:text-alto-200"
+            className="w-5 aspect-square text-alto-500 dark:text-alto-100 disabled:text-alto-200 dark:disabled:text-alto-900"
             onClick={() => setSeccionIndex(seccionIndex - 1)}
             disabled={seccionIndex === 0}
           >
             <Icon type={Icon.Types.CHEVRON_LEFT} />
           </button>
-          <p className="font-semibold text-primary-950 text-sm">
+          <p className="font-semibold text-primary-950 dark:text-primary-100 text-sm">
             Sección {seccionIndex + 1}
           </p>
           <button
             onClick={() => setSeccionIndex(seccionIndex + 1)}
             disabled={seccionIndex === test.secciones.length - 1}
-            className="w-5 aspect-square text-alto-500 disabled:text-alto-200"
+            className="w-5 aspect-square text-alto-500 dark:text-alto-100 disabled:text-alto-200 dark:disabled:text-alto-900"
           >
             <Icon type={Icon.Types.CHEVRON_RIGHT} />
           </button>
@@ -135,7 +138,7 @@ const ResponsesTable = () => {
       {seccion?.type === "text" ? (
         <TestTextSectionQualify seccion={seccion} />
       ) : (
-        <Table rounded={false} data={data} columns={columns} />
+        <Table rounded={false} border={false} data={data} columns={columns} />
       )}
     </>
   );

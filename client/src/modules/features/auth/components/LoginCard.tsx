@@ -31,7 +31,7 @@ const LoginCard = ({ redirect }: Props) => {
           style={{
             top: PUBLIC_NAVBAR_HEIGHT + 24,
           }}
-          className="shadow-2xl w-full h-96 overflow-hidden"
+          className="shadow-2xl w-full h-96 overflow-hidden bg-alto-50 dark:bg-alto-1000"
         >
           <div className="w-full h-full relative">
             <img
@@ -42,22 +42,22 @@ const LoginCard = ({ redirect }: Props) => {
             <div
               className={clsx(
                 "absolute right-0 top-0 w-80 h-full flex flex-col items-center justify-center p-2 gap-6 transition-all duration-500",
-                "max-sm:bg-alto-900/80 max-sm:w-full"
+                "max-sm:bg-alto-950/80 max-sm:w-full"
               )}
             >
               {loading ? (
                 <Loader text="Iniciando sesión..." whiteOnResponsive />
               ) : (
                 <>
-                  <p className="font-bold text-xl max-sm:text-alto-50">
+                  <p className="font-bold text-xl max-sm:text-alto-50 text-alto-950 dark:text-alto-50">
                     ¡Inicia sesión ahora!
                   </p>
                   {redirect && (
                     <div className="flex flex-col gap-1 items-center">
-                      <small className="max-sm:text-alto-50">
+                      <small className="max-sm:text-alto-50 dark:text-alto-50">
                         Te estás dirigiendo hacia:
                       </small>
-                      <strong className="text-primary-800 max-sm:text-primary-300">
+                      <strong className="text-primary-800 max-sm:text-primary-400 dark:text-primary-400">
                         {getActiveBreadcrumb(redirect.split("?")[0])?.name}
                       </strong>
                     </div>

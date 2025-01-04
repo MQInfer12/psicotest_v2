@@ -11,12 +11,14 @@ const AppointmentColumn = () => {
   return (
     <section className="flex flex-col gap-6 flex-1 overflow-hidden max-lg:w-full">
       <header className="h-10 flex items-center px-4 max-lg:px-0">
-        <strong className="text-primary-900">Mis citas programadas</strong>
+        <strong className="text-primary-900 dark:text-primary-400">
+          Mis citas programadas
+        </strong>
       </header>
       {!data ? (
         <></>
       ) : data.length === 0 ? (
-        <p className="text-center text-sm text-alto-500">
+        <p className="text-center text-sm text-alto-500 dark:text-alto-400">
           No tienes citas próximamente
         </p>
       ) : (

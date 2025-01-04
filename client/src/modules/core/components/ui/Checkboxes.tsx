@@ -36,7 +36,7 @@ const Checkboxes = ({
   return (
     <div className="flex flex-col w-full">
       <div className="pb-2 flex justify-between gap-4">
-        <small className="text-xs font-semibold whitespace-nowrap">
+        <small className="text-xs font-semibold whitespace-nowrap text-alto-950 dark:text-alto-50">
           {label}
         </small>
         <Appear open={!!error}>
@@ -50,7 +50,7 @@ const Checkboxes = ({
       </div>
       <div
         className={clsx(
-          "w-full border border-alto-300/70 rounded-lg outline-none bg-white h-20` overflow-auto px-3 py-2 accent-primary-500",
+          "w-full border border-alto-300/70 dark:border-alto-900 rounded-lg outline-none bg-white dark:bg-alto-1000 h-20` overflow-auto px-3 py-2 accent-primary-500 dark:accent-primary-300",
           "ring-0 ring-inset ring-primary-400 focus:ring-1 transition-all duration-300",
           "disabled:bg-alto-100 disabled:border-primary-200",
           className
@@ -68,7 +68,7 @@ const Checkboxes = ({
               />
               <label
                 htmlFor={`${id}_${option.value}`}
-                className="text-sm px-2 text-alto-900"
+                className="text-sm px-2 text-alto-900 dark:text-alto-200"
               >
                 {option.label}
               </label>

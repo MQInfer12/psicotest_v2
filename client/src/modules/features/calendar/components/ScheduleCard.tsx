@@ -48,12 +48,16 @@ const ScheduleCard = ({ horario, fecha }: Props) => {
   return (
     <button
       onClick={handleRequestAppointment}
-      className="flex items-center justify-between gap-10 bg-alto-50 px-4 py-2 border border-alto-300 rounded-md shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-primary-200"
+      className="flex items-center justify-between gap-10 bg-alto-50 dark:bg-alto-1000 px-4 py-2 border border-alto-300/70 dark:border-alto-800 rounded-md shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-primary-200 dark:hover:shadow-primary-800/20"
     >
       <div className="flex items-center h-full gap-8 overflow-hidden max-lg:gap-5">
         <div className="flex flex-col w-12">
-          <strong className="text-xl text-primary-900">{hora_inicio}</strong>
-          <small className="text-alto-500">~ {hora_final}</small>
+          <strong className="text-xl text-primary-900 dark:text-primary-400">
+            {hora_inicio}
+          </strong>
+          <small className="text-alto-500 dark:text-alto-400">
+            ~ {hora_final}
+          </small>
         </div>
         <span className="h-[80%] w-1 rounded-full bg-primary-400" />
         <div className="flex-1 flex items-center gap-4 overflow-hidden">
@@ -65,10 +69,10 @@ const ScheduleCard = ({ horario, fecha }: Props) => {
             }}
           />
           <div className="flex flex-col gap-1 items-start overflow-hidden">
-            <small className="text-alto-500 text-xs">
+            <small className="text-alto-500 dark:text-alto-400 text-xs">
               {calcularTiempo(hora_inicio, hora_final)} apróx. con:
             </small>
-            <p className="font-medium text-start whitespace-nowrap overflow-hidden text-ellipsis w-full max-md:text-xs">
+            <p className="font-medium text-start whitespace-nowrap overflow-hidden text-ellipsis w-full max-md:text-xs text-alto-950 dark:text-alto-50">
               {horario.nombre_user}
             </p>
           </div>

@@ -46,6 +46,7 @@ const TableRows = <T,>({
     estimateSize: () => rowHeight,
     getScrollElement: () => tableContainerRef.current,
     overscan: 2,
+    gap: 1,
   });
 
   useEffect(() => {
@@ -76,10 +77,11 @@ const TableRows = <T,>({
         return (
           <tr
             className={clsx(
-              "absolute w-full grid border-b border-b-alto-100 transition-[background-color,opacity,filter] duration-300",
+              "absolute w-full grid border-b border-b-alto-300/40 dark:border-b-alto-950 transition-[background-color,opacity,filter] duration-300",
               {
-                "bg-white": virtualRow.index % 2 === 0,
-                "bg-primary-50": virtualRow.index % 2 === 1,
+                "bg-white dark:bg-alto-1000": virtualRow.index % 2 === 0,
+                "bg-primary-50 dark:bg-primary-1000":
+                  virtualRow.index % 2 === 1,
                 "hover:!invert-[4%] cursor-pointer": !!handleClickRow,
               }
             )}
@@ -100,7 +102,7 @@ const TableRows = <T,>({
                 onClick={row.getToggleSelectedHandler()}
               >
                 <input
-                  className="accent-primary-500"
+                  className="accent-primary-500 dark:accent-primary-400 dark:[&:not(:checked)]:opacity-30"
                   type="checkbox"
                   checked={row.getIsSelected()}
                   disabled={!row.getCanSelect()}
@@ -112,7 +114,7 @@ const TableRows = <T,>({
               style={{
                 height: rowHeight,
               }}
-              className="flex items-center justify-center text-[10px] overflow-hidden text-ellipsis"
+              className="flex items-center justify-center text-[10px] overflow-hidden text-ellipsis text-alto-950 dark:text-alto-50"
             >
               {virtualRow.index + 1}
             </td>
@@ -128,7 +130,7 @@ const TableRows = <T,>({
                     height: rowHeight,
                   }}
                   className={clsx(
-                    "flex items-center text-xs px-3 [&_p]:overflow-hidden [&_p]:text-ellipsis w-full",
+                    "flex items-center text-xs px-3 [&_p]:overflow-hidden [&_p]:text-ellipsis w-full text-alto-950 dark:text-alto-50",
                     {
                       "justify-center":
                         cell.column.columnDef.meta?.textAlign === "center",

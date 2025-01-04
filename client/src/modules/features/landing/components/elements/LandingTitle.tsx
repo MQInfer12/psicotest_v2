@@ -12,7 +12,7 @@ const LandingTitle = ({ children, secondary }: Props) => {
       className={clsx(
         "max-sm:text-center max-sm:text-2xl text-4xl font-bold text-balance leading-normal",
         {
-          "text-alto-950 [&>span]:text-primary-800": !secondary,
+          "text-alto-950 dark:text-alto-50 [&>span]:text-primary-800 dark:[&>span]:text-primary-400": !secondary,
           "text-alto-50": secondary,
         }
       )}

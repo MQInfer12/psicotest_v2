@@ -12,6 +12,7 @@ import { toastError } from "./modules/core/utils/toasts";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 import { BuildedError } from "./modules/core/hooks/useFetch/utils/handleResponse";
+import { ThemeContextProvider } from "./modules/core/context/ThemeContext";
 
 const queryClient = new QueryClient({
   queryCache: new QueryCache({
@@ -45,7 +46,9 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Toaster position="bottom-right" />
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <ThemeContextProvider>
+        <RouterProvider router={router} />
+      </ThemeContextProvider>
     </QueryClientProvider>
   </StrictMode>
 );

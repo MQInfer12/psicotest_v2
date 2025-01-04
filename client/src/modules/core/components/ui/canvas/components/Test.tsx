@@ -32,6 +32,7 @@ import { COLORS } from "@/modules/core/constants/COLORS";
 import TestTextSection from "./TestTextSection";
 import TestTextSectionForm from "./TestTextSectionForm";
 import usePreventNavigation from "../hooks/usePreventNavigation";
+import { useThemeContext } from "@/modules/core/context/ThemeContext";
 
 interface Props {
   data: T_Test | T_Test_Respuesta;
@@ -40,6 +41,8 @@ interface Props {
 }
 
 const Test = ({ data, test, idRespuesta }: Props) => {
+  const { dark } = useThemeContext();
+
   const { modal, open, setOpen } = useModal();
   const navigate = useNavigate();
 
@@ -279,7 +282,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                       {timer !== null && (
                         <div
                           className={clsx(
-                            "text-center select-none group h-8 hover:w-20 ring-0 hover:ring-1 ring-inset ring-primary-400 overflow-hidden transition-all duration-300 w-8 gap-1 rounded-md flex items-center justify-between border border-alto-300 text-alto-500 p-1",
+                            "text-center select-none group h-8 hover:w-20 ring-0 hover:ring-1 ring-inset ring-primary-400 overflow-hidden transition-all duration-300 w-8 gap-1 rounded-md flex items-center justify-between border border-alto-300/70 dark:border-alto-700 text-alto-500 dark:text-alto-400 p-1",
                             {
                               "!w-20": timer <= 20,
                             }
@@ -290,9 +293,15 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                               timer <= 20
                                 ? {
                                     color: [
-                                      COLORS.alto[500],
-                                      COLORS.primary[500],
-                                      COLORS.alto[500],
+                                      dark
+                                        ? COLORS.alto[400]
+                                        : COLORS.alto[500],
+                                      dark
+                                        ? COLORS.primary[400]
+                                        : COLORS.primary[500],
+                                      dark
+                                        ? COLORS.alto[400]
+                                        : COLORS.alto[500],
                                     ],
                                   }
                                 : undefined
@@ -336,7 +345,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                             setCanViewSection(true);
                             setCurrentPage((prev) => [prev[0], 1]);
                           }}
-                          className="w-8 rounded-md aspect-square flex items-center justify-between border border-alto-300 text-alto-500 p-1"
+                          className="w-8 rounded-md aspect-square flex items-center justify-between border border-alto-300/70 dark:border-alto-700 text-alto-500 dark:text-alto-400 p-1"
                         >
                           <Icon type={Icon.Types.QUESTION} />
                         </button>
@@ -347,20 +356,23 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                           <button
                             onClick={() => setAutoNext(!autoNext)}
                             title="Pasar automáticamente"
-                            className={clsx(
-                              "w-8 rounded-md aspect-square flex items-center justify-between border border-alto-300 text-alto-500 p-1 transition-all duration-300 disabled:bg-alto-100 disabled:text-primary-200 disabled:border-primary-200",
-                              {
-                                "text-primary-500": autoNext,
-                              }
-                            )}
                             disabled={!!exist}
+                            className={clsx(
+                              "w-8 rounded-md aspect-square flex items-center justify-between border border-alto-300/70 dark:border-alto-700 p-1 transition-all duration-300",
+                              {
+                                "text-primary-500 dark:text-primary-400":
+                                  autoNext,
+                              },
+                              "text-alto-500 dark:text-alto-400",
+                              "disabled:bg-alto-100 dark:disabled:bg-alto-900 disabled:text-primary-200 dark:disabled:text-alto-800 disabled:border-primary-200 dark:disabled:border-alto-800"
+                            )}
                           >
                             <Icon type={Icon.Types.SWIPE} />
                           </button>
                         )}
                     </div>
                     <div className="flex flex-col px-4 gap-1">
-                      <h4 className="text-base text-alto-600 max-md:text-sm">
+                      <h4 className="text-base text-alto-700 dark:text-alto-400 max-md:text-sm">
                         Pregunta {preguntaIndex + 1}.
                       </h4>
                       <h3 className="text-xs text-alto-500">
@@ -373,7 +385,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                         }
                       </h3>
                     </div>
-                    <div className="border-b border-alto-200 px-4 h-32 flex items-center">
+                    <div className="border-b border-alto-300/70 dark:border-alto-700 px-4 h-32 flex items-center">
                       <motion.div
                         className={clsx(
                           "w-full h-full flex flex-col justify-center",
@@ -403,7 +415,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                               <p
                                 title={descripcion}
                                 className={clsx(
-                                  "text-lg line-clamp-4 whitespace-pre-line max-md:text-sm max-md:text-center max-md:text-balance",
+                                  "text-lg line-clamp-4 whitespace-pre-line max-md:text-sm max-md:text-center max-md:text-balance text-alto-950 dark:text-alto-50",
                                   {
                                     "text-center": pregunta.align === "center",
                                   }
@@ -414,7 +426,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                             ),
                             image: (
                               <img
-                                className="object-cover max-h-36 rounded-md max-w-full border-2 border-alto-50 shadow-lg"
+                                className="object-cover max-h-36 rounded-md max-w-full border-2 border-alto-50 dark:border-alto-700 shadow-lg"
                                 src={STORAGE_URL + pregunta.descripcion}
                               />
                             ),
@@ -444,9 +456,9 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                               key={opcion.id}
                               onClick={() => handleOption(opcion.id)}
                               className={clsx(
-                                "w-full max-md:px-4 gap-2 flex items-center disabled:hover:shadow-none justify-between border border-alto-300 px-10 h-10 rounded-md transition-all duration-300 disabled:cursor-default",
+                                "w-full max-md:px-4 gap-2 flex items-center disabled:hover:shadow-none shadow-alto-950/20 dark:shadow-alto-50/10 justify-between border border-alto-300/70 dark:border-alto-700 px-10 h-10 rounded-md transition-all duration-300 disabled:cursor-default",
                                 {
-                                  "border-l-8 border-l-primary-500 bg-white shadow-sm":
+                                  "border-l-8 !border-l-primary-500 bg-white dark:bg-alto-950 shadow-sm":
                                     checked,
                                   "hover:shadow-md": !finished,
                                 }
@@ -457,13 +469,13 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                                 (seccion?.type === "multi" ? false : checked)
                               }
                             >
-                              <p className="text-sm max-md:text-xs text-start">
+                              <p className="text-sm max-md:text-xs text-start text-alto-950 dark:text-alto-50">
                                 {getOptionText(
                                   pregunta.descripcion,
                                   opcion.id
                                 ) || opcion.descripcion}
                               </p>
-                              <div className="h-6 aspect-square text-alto-300 flex items-center justify-center">
+                              <div className="h-6 aspect-square text-alto-400 flex items-center justify-center">
                                 <Icon
                                   type={
                                     checked
@@ -506,7 +518,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
               {finishedPage ? (
                 <Button
                   key="regresar_a_tests"
-                  btnType="primary"
+                  btnType="secondary"
                   icon={Icon.Types.BRAIN}
                   onClick={() => navigate({ to: "/resolve" })}
                 >

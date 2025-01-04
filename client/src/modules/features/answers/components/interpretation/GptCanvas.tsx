@@ -24,7 +24,7 @@ const GptCanvas = ({
   const [showPDF, setShowPDF] = useState(false);
 
   return (
-    <div className="bg-alto-50 flex-1 relative isolate">
+    <div className="bg-alto-50 dark:bg-alto-1000 flex-1 relative isolate">
       <div className="absolute inset-0 flex items-center justify-center -z-10 pointer-events-none overflow-visible">
         <img src={GPT} className="min-w-[540px] h-auto opacity-5" />
       </div>
@@ -37,10 +37,10 @@ const GptCanvas = ({
           <p
             dangerouslySetInnerHTML={{ __html: content }}
             className={clsx(
-              "w-full min-h-full whitespace-pre-line text-sm leading-[30px] px-8 py-6 pb-20 max-md:text-xs max-md:leading-[30px] max-md:px-4 max-md:pt-4",
-              "[&>.title]:text-base [&>.title]:font-bold",
-              "[&>.subtitle]:font-semibold",
-              "[&>.vignette]:box-decoration-clone [&>.vignette]:pl-8 [&_.vignette-title]:font-semibold [&_.vignette-t]:font-semibold"
+              "w-full min-h-full whitespace-pre-line text-sm leading-[30px] px-8 py-6 pb-20 max-md:text-xs max-md:leading-[30px] max-md:px-4 max-md:pt-4 text-alto-800 dark:text-alto-300",
+              "[&>.title]:text-base [&>.title]:font-bold [&>.title]:text-alto-950 dark:[&>.title]:text-alto-50",
+              "[&>.subtitle]:font-semibold [&>.subtitle]:text-alto-950 dark:[&>.subtitle]:text-alto-50",
+              "[&>.vignette]:box-decoration-clone [&>.vignette]:pl-8 [&_.vignette-title]:font-semibold [&_.vignette-t]:font-semibold [&_.vignette-title]:text-alto-950 dark:[&_.vignette-title]:text-alto-50 [&_.vignette-t]:text-alto-950 dark:[&_.vignette-t]:text-alto-50"
             )}
           />
         )}

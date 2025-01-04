@@ -40,10 +40,10 @@ const TestCard = ({
   return (
     <motion.div
       layoutId={layoutId}
-      className="w-full h-full rounded-lg border-t-8 border-primary-700 bg-alto-50 shadow-lg pt-4 p-8 flex flex-col gap-4"
+      className="w-full h-full rounded-lg border-t-8 border-primary-700 dark:border-primary-400 bg-alto-50 dark:bg-alto-1000 shadow-lg shadow-alto-950/10 dark:shadow-alto-50/10 pt-4 p-8 flex flex-col gap-4"
     >
       <div className="flex items-center gap-2 justify-between">
-        <strong className="text-xl w-full overflow-hidden text-ellipsis whitespace-nowrap">
+        <strong className="text-xl w-full overflow-hidden text-ellipsis whitespace-nowrap text-alto-950 dark:text-alto-50">
           {title}
         </strong>
         <div className="flex gap-1">
@@ -58,17 +58,17 @@ const TestCard = ({
           {starred && (
             <div
               title="Seleccionado por los creadores"
-              className="h-6 aspect-square text-primary-700"
+              className="h-6 aspect-square text-primary-700 dark:text-primary-400"
             >
               <Icon type={Icon.Types.STARRED} />
             </div>
           )}
         </div>
       </div>
-      <p className="text-sm text-alto-800 leading-6 line-clamp-3 h-[72px]">
+      <p className="text-sm text-alto-800 dark:text-alto-200 leading-6 line-clamp-3 h-[72px]">
         {description}
       </p>
-      <div className="flex flex-col gap-3 text-alto-700">
+      <div className="flex flex-col gap-3 text-alto-700 dark:text-alto-400">
         <div className="flex gap-4 text-sm items-center">
           <div className="w-5 aspect-square text-primary-400">
             <Icon type={Icon.Types.USER} />
@@ -102,13 +102,19 @@ const TestCard = ({
               <div
                 key={i}
                 className={clsx(
-                  "w-10 aspect-square rounded-full overflow-hidden border-2 border-white",
+                  "w-10 aspect-square rounded-full overflow-hidden border-2 border-white dark:border-alto-400",
                   {
                     "-ml-4": i > 0,
                   }
                 )}
               >
-                <img className="w-full h-full" src={u ?? DefaultPhoto} />
+                <img
+                  className="w-full h-full bg-alto-50"
+                  src={u ?? DefaultPhoto}
+                  onError={(event) => {
+                    event.currentTarget.src = DefaultPhoto;
+                  }}
+                />
               </div>
             ))}
           <button

@@ -10,7 +10,7 @@ const TestPhrase = () => {
   const frase = useMemo(() => obtenerFraseAleatoria(), []);
 
   return (
-    <small className="text-alto-700 max-md:text-center max-md:flex max-md:flex-col max-md:gap-1">
+    <small className="text-alto-700 dark:text-alto-400 max-md:text-center max-md:flex max-md:flex-col max-md:gap-1">
       <span className="italic text-xs">"{frase.frase}"&nbsp;&nbsp;</span>
       <span className="text-[10px] text-primary-400 whitespace-nowrap">
         ({frase.autor})

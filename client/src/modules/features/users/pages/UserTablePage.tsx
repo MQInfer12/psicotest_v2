@@ -97,13 +97,16 @@ const UserTablePage = () => {
               <img
                 className="w-full h-full"
                 src={info.row.original.foto || DefaultPhoto}
+                onError={(event) => {
+                  event.currentTarget.src = DefaultPhoto;
+                }}
               />
             </div>
             <div className="flex-1 flex flex-col gap-1 overflow-hidden">
               <strong className="font-semibold text-sm whitespace-nowrap overflow-hidden text-ellipsis">
                 {info.getValue()}
               </strong>
-              <p className="text-[10px] font-medium text-alto-700">
+              <p className="text-[10px] font-medium text-alto-700 dark:text-alto-400">
                 {info.row.original.email}
               </p>
             </div>
@@ -119,7 +122,7 @@ const UserTablePage = () => {
                 ? `${measureAge(info.row.original.fecha_nacimiento, getTodayUtc())} años`
                 : "Sin especificar"}
             </strong>
-            <div className="text-[10px] font-medium text-alto-700 overflow-hidden whitespace-nowrap flex gap-1">
+            <div className="text-[10px] font-medium text-alto-700 dark:text-alto-400 overflow-hidden whitespace-nowrap flex gap-1">
               <div className="w-3 aspect-square">
                 <Icon
                   type={

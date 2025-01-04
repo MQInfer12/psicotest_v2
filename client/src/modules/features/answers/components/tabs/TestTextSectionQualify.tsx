@@ -110,25 +110,23 @@ const TestTextSectionQualify = ({ seccion }: Props) => {
 
   return (
     <div className="flex-1 overflow-auto flex flex-col">
-      <div className="bg-primary-100 flex justify-center h-5">
+      <div className="bg-primary-100 dark:bg-primary-1000 flex justify-center h-5 text-alto-700 dark:text-alto-400">
         {(isDebouncing || loading) && !isFirstRender ? (
-          <small className="text-alto-700 flex items-center gap-2">
+          <small className="flex items-center gap-2">
             Procesando cambios...
             <div className="w-4 aspect-square">
               <Icon type={Icon.Types.LOADER} />
             </div>
           </small>
         ) : success && !isDebouncing ? (
-          <small className="text-alto-700 flex items-center gap-2">
+          <small className="flex items-center gap-2">
             Cambios guardados correctamente
             <div className="w-4 aspect-square text-success">
               <Icon type={Icon.Types.CHECK} />
             </div>
           </small>
         ) : (
-          <small className="text-alto-700">
-            Realiza las correcciones correspondientes
-          </small>
+          <small className="">Realiza las correcciones correspondientes</small>
         )}
       </div>
       {seccion.items.map((item) => {
@@ -138,8 +136,8 @@ const TestTextSectionQualify = ({ seccion }: Props) => {
         const repeatedWords = getRepeatedWords(opciones);
         return (
           <Fragment key={item.id}>
-            <div className="bg-primary-100 px-4 py-1">
-              <strong className="text-sm">{item.descripcion}</strong>
+            <div className="bg-primary-100 dark:bg-primary-1000 px-4 py-1">
+              <strong className="text-sm text-alto-950 dark:text-alto-50">{item.descripcion}</strong>
             </div>
             <div className="flex flex-wrap gap-2 px-4 py-2">
               {opciones.map((opcion) => (

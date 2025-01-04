@@ -31,7 +31,7 @@ const TestCarousel = ({ test, children }: Props) => {
       style={{
         height,
       }}
-      className="w-full bg-alto-100 border border-alto-200 rounded-lg flex relative overflow-hidden"
+      className="w-full bg-alto-100 dark:bg-alto-900 border border-alto-300/70 dark:border-alto-800 rounded-lg flex relative overflow-hidden"
     >
       <AnimatePresence initial={false}>{children}</AnimatePresence>
     </div>

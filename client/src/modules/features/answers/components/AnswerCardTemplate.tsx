@@ -2,6 +2,7 @@ import Icon, { ICON } from "@/modules/core/components/icons/Icon";
 import React, { useId, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { COLORS } from "@/modules/core/constants/COLORS";
+import { useThemeContext } from "@/modules/core/context/ThemeContext";
 
 interface Props {
   tabs: {
@@ -28,6 +29,8 @@ const AnswerCardTemplate = ({ tabs, gridArea }: Props) => {
   if (tabs.length === 0) {
     throw new Error("tabs tiene que tener al menos un item.");
   }
+
+  const { dark } = useThemeContext();
 
   const id = useId();
   const isTabs = tabs.length > 1;
@@ -63,8 +66,12 @@ const AnswerCardTemplate = ({ tabs, gridArea }: Props) => {
             animate={{
               color:
                 !isTabs || index === activeTab
-                  ? COLORS.alto[900]
-                  : COLORS.alto[300],
+                  ? dark
+                    ? COLORS.alto[100]
+                    : COLORS.alto[900]
+                  : dark
+                    ? COLORS.alto[700]
+                    : COLORS.alto[300],
             }}
             className="flex px-2 pb-1 gap-2 relative"
             onClick={() => setActiveTab(index)}
@@ -78,14 +85,14 @@ const AnswerCardTemplate = ({ tabs, gridArea }: Props) => {
             {isTabs && index === activeTab && (
               <motion.span
                 layoutId={id}
-                className="absolute bottom-[2px] left-0 w-full h-[2px] bg-primary-300 rounded-full"
+                className="absolute bottom-[2px] left-0 w-full h-[2px] bg-primary-400 rounded-full"
               />
             )}
           </motion.button>
         ))}
       </div>
       {/* <h3 className="text-xl pl-2 font-bold">{title}</h3> */}
-      <div className="flex-1 flex flex-col bg-alto-50 rounded-lg overflow-hidden border border-alto-200/80 relative">
+      <div className="flex-1 flex flex-col bg-alto-50 dark:bg-alto-1000 rounded-lg overflow-hidden border border-alto-300/70 dark:border-alto-900 relative">
         {isTabs ? (
           <AnimatePresence initial={false}>
             <motion.div

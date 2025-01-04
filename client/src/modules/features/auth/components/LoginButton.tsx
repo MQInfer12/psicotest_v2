@@ -23,7 +23,7 @@ const LoginBtn = ({ type }: Props) => {
   });
   return (
     <button
-      className="flex gap-4 items-center border border-alto-200 p-2 rounded-md bg-white hover:bg-alto-50 transition-all duration-300"
+      className="flex gap-4 items-center border border-alto-200 p-2 rounded-md bg-white hover:bg-alto-100 transition-all duration-300"
       onClick={() => handleLoginBtn()}
     >
       <img className="h-6 w-6" src={GoogleLogo} />

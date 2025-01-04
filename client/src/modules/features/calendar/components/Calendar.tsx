@@ -32,7 +32,7 @@ const Calendar = ({ fechaActual }: Props) => {
   return (
     <div
       className={
-        "grid border border-alto-300 p-2 rounded-md bg-alto-50 shadow-md"
+        "grid border border-alto-300/70 dark:border-alto-800 p-2 rounded-md bg-alto-50 dark:bg-alto-1000 shadow-md"
       }
       style={{
         gridTemplateColumns: "repeat(7, 1fr)",
@@ -55,7 +55,8 @@ const Calendar = ({ fechaActual }: Props) => {
             className={clsx(
               "flex group relative items-center justify-center isolate hover:opacity-60 aspect-square select-none",
               !isCurrentMonth && "opacity-40",
-              isPast && "pointer-events-none !opacity-10"
+              isPast && "pointer-events-none !opacity-10",
+              "text-alto-950 dark:text-alto-50"
             )}
             onClick={() => setDateSelected(dia)}
             disabled={isPast}
@@ -69,7 +70,7 @@ const Calendar = ({ fechaActual }: Props) => {
             <p
               className={clsx(
                 "text-nowrap text-[12px] font-bold z-50",
-                marked ? "text-white" : "text-black/60"
+                marked ? "text-alto-50" : "text-black/60 dark:text-alto-50/60"
               )}
             >
               {dia.format("D")}

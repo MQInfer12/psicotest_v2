@@ -18,25 +18,28 @@ const AnswerUser = () => {
           component: (
             <div className="w-full h-full p-4 flex flex-col justify-between">
               <div className="flex gap-4 max-lg:flex-col max-lg:items-center">
-                <div className="h-[120px] w-[120px] z-10 rounded-lg overflow-hidden shadow-md border-4 border-white">
+                <div className="h-[120px] w-[120px] z-10 rounded-lg overflow-hidden shadow-md border-4 border-white dark:border-alto-400">
                   <motion.img
                     layoutId={`answer-foto-${data.id_respuesta}`}
                     className="w-full h-full bg-alto-100"
-                    src={user.foto || DefaultPhoto}
+                    src={user.foto ?? DefaultPhoto}
                     alt={user.email}
+                    onError={(event) => {
+                      event.currentTarget.src = DefaultPhoto;
+                    }}
                   />
                 </div>
                 <div className="max-lg:w-full flex-1 py-1 flex flex-col overflow-hidden">
                   <motion.strong
                     layoutId={`answer-nombre-${data.id_respuesta}`}
-                    className="text-lg overflow-hidden text-ellipsis whitespace-nowrap max-lg:text-center"
+                    className="text-lg overflow-hidden text-ellipsis whitespace-nowrap max-lg:text-center text-alto-950 dark:text-alto-50"
                     title={user.nombre}
                   >
                     {user.nombre}
                   </motion.strong>
                   <motion.p
                     layoutId={`answer-email-${data.id_respuesta}`}
-                    className="text-sm text-alto-500 text-ellipsis whitespace-nowrap overflow-hidden max-lg:text-center"
+                    className="text-sm text-alto-400 text-ellipsis whitespace-nowrap overflow-hidden max-lg:text-center"
                     title={user.email}
                   >
                     {user.email}
@@ -50,7 +53,7 @@ const AnswerUser = () => {
                         >
                           <Icon type={Icon.Types.CAKE} />
                         </div>
-                        <p className="overflow-hidden whitespace-nowrap text-ellipsis text-xs text-alto-900">
+                        <p className="overflow-hidden whitespace-nowrap text-ellipsis text-xs text-alto-700 dark:text-alto-400">
                           {user.fecha_nacimiento && data.fecha_enviado
                             ? `${measureAge(user.fecha_nacimiento, data.fecha_enviado)} años`
                             : "N/A"}
@@ -71,7 +74,7 @@ const AnswerUser = () => {
                             }
                           />
                         </div>
-                        <p className="overflow-hidden whitespace-nowrap text-ellipsis text-xs text-alto-900">
+                        <p className="overflow-hidden whitespace-nowrap text-ellipsis text-xs text-alto-700 dark:text-alto-400">
                           {user.genero || "N/A"}
                         </p>
                       </div>
@@ -86,7 +89,7 @@ const AnswerUser = () => {
                         </div>
                         <motion.p
                           layoutId={`answer-test-${data.id_respuesta}`}
-                          className="overflow-hidden whitespace-nowrap text-ellipsis text-xs text-alto-900"
+                          className="overflow-hidden whitespace-nowrap text-ellipsis text-xs text-alto-700 dark:text-alto-400"
                           title={data.nombre_test}
                         >
                           {data.nombre_test}
@@ -99,7 +102,7 @@ const AnswerUser = () => {
                         >
                           <Icon type={Icon.Types.CALENDAR} />
                         </div>
-                        <p className="overflow-hidden whitespace-nowrap text-ellipsis text-xs text-alto-900">
+                        <p className="overflow-hidden whitespace-nowrap text-ellipsis text-xs text-alto-700 dark:text-alto-400">
                           {data.fecha_enviado
                             ? formatDate(data.fecha_enviado)
                             : "N/A"}

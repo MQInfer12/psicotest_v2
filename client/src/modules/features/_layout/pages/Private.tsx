@@ -1,3 +1,4 @@
+import DefaultPhoto from "@/assets/images/defaultPhoto.jpg";
 import Icon, { ICON } from "@/modules/core/components/icons/Icon";
 import Loader from "@/modules/core/components/ui/loader/Loader";
 import { useModal } from "@/modules/core/components/ui/modal/useModal";
@@ -16,15 +17,15 @@ import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useUserContext } from "../../auth/context/UserContext";
 import { Permisos } from "../../auth/types/Permisos";
+import SettingsForm from "../../settings/components/SettingsForm";
 import AsideLink from "../components/AsideLink";
 import Logo from "../components/Logo";
+import ThemeButton from "../components/ThemeButton";
 import Breadcrumb from "../components/breadcrumb/Breadcrumb";
 import { useBreadcrumb } from "../components/breadcrumb/hooks/useBreadcrumb";
 import { PRIVATE_ASIDE_WIDTH } from "../constants/LAYOUT_SIZES";
 import { PRIVATE_LINKS } from "../constants/PRIVATE_LINKS";
 import { useMeasureContext } from "../context/MeasureContext";
-import SettingsForm from "../../settings/components/SettingsForm";
-import { use } from "framer-motion/client";
 
 const Dashboard = () => {
   const { pathname, search } = useLocation();
@@ -75,7 +76,7 @@ const Dashboard = () => {
     );
   if (state === "loading")
     return (
-      <div className="w-screen h-screen bg-alto-100">
+      <div className="w-screen h-screen bg-alto-100 dark:bg-alto-950">
         <Loader text="Cargando datos de usuario..." />
       </div>
     );
@@ -98,7 +99,7 @@ const Dashboard = () => {
       />
       <motion.aside
         className={clsx(
-          "fixed left-0 top-0 h-[100svh] bg-alto-50 flex flex-col shadow-lg z-40 overflow-hidden"
+          "fixed left-0 top-0 h-[100svh] bg-alto-50 dark:bg-alto-1000 flex flex-col shadow-lg shadow-alto-950/20 dark:shadow-alto-50/10 z-40 overflow-hidden justify-between"
         )}
         onMouseEnter={
           size === "normal" || size === "xl" ? () => setOpen(true) : undefined
@@ -154,19 +155,20 @@ const Dashboard = () => {
             />
           </div>
         </div>
+        <ThemeButton open={open} />
       </motion.aside>
       <main
         style={{
           paddingLeft: PRIVATE_ASIDE_WIDTH_THIN,
         }}
-        className="w-screen min-h-screen bg-alto-100 flex flex-col h-screen overflow-hidden max-md:!pl-0"
+        className="w-screen min-h-screen flex flex-col h-screen overflow-hidden max-md:!pl-0"
       >
         <header
           style={{
             minHeight: PRIVATE_HEADER_HEIGHT,
             paddingInline: PRIVATE_PADDING_INLINE,
           }}
-          className="flex items-center justify-between bg-alto-100 z-20 gap-2"
+          className="flex items-center justify-between bg-alto-100 dark:bg-alto-950 z-20 gap-2"
         >
           <div className="flex items-center overflow-hidden gap-2">
             <button
@@ -180,7 +182,7 @@ const Dashboard = () => {
               <div className="flex items-center overflow-hidden">
                 {activeBreadcrumb.length > 1 && (
                   <button
-                    className="flex items-center justify-center text-alto-500 hover:text-primary-900/70 transition-all duration-300 pr-2"
+                    className="flex items-center justify-center text-alto-700 dark:text-alto-400 hover:text-primary-900/70 transition-all duration-300 pr-2"
                     onClick={() => {
                       const prevBreadcrumb =
                         activeBreadcrumb[activeBreadcrumb.length - 2];
@@ -194,7 +196,7 @@ const Dashboard = () => {
                 )}
                 <h2
                   title={activeBreadcrumb[activeBreadcrumb.length - 1].name}
-                  className="text-2xl font-bold text-alto-950 whitespace-nowrap overflow-hidden text-ellipsis max-sm:text-xl"
+                  className="text-2xl font-bold text-alto-950 dark:text-alto-50 whitespace-nowrap overflow-hidden text-ellipsis max-sm:text-xl"
                 >
                   {activeBreadcrumb[activeBreadcrumb.length - 1].name}
                 </h2>
@@ -202,20 +204,26 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="flex gap-4">
-            <button className="flex overflow-hidden items-center border border-alto-200 rounded-lg bg-alto-50">
-              <div className="w-12 aspect-square rounded-lg bg-alto-200 overflow-hidden flex items-center justify-center">
-                {user?.foto && (
-                  <img className="w-full h-full" src={user.foto} />
-                )}
+            <button className="flex overflow-hidden items-center border border-alto-200 dark:border-alto-800 rounded-lg bg-alto-50 dark:bg-alto-1000">
+              <div className="w-12 aspect-square rounded-lg bg-alto-100 overflow-hidden flex items-center justify-center border-r border-alto-200">
+                <img
+                  className="w-full h-full"
+                  src={user?.foto ?? DefaultPhoto}
+                  onError={(event) => {
+                    event.currentTarget.src = DefaultPhoto;
+                  }}
+                />
               </div>
               <div className="flex-1 overflow-hidden flex flex-col justify-center px-2 w-36 max-sm:hidden">
-                <p className="text-xs font-semibold text-primary-950 whitespace-nowrap overflow-hidden text-ellipsis">
+                <p className="text-xs font-semibold text-primary-950 dark:text-primary-300 whitespace-nowrap overflow-hidden text-ellipsis">
                   {user?.nombre}
                 </p>
-                <small className="text-[10px]">¡Bienvenido!</small>
+                <small className="text-[10px] text-alto-950 dark:text-alto-50">
+                  ¡Bienvenido!
+                </small>
               </div>
             </button>
-            <button className="w-12 aspect-square rounded-lg bg-alto-50 border border-alto-200 flex items-center justify-center p-3 text-alto-400">
+            <button className="h-full aspect-square rounded-lg bg-alto-50 dark:bg-alto-1000 border border-alto-200 dark:border-alto-800 flex items-center justify-center p-3 text-alto-400">
               <Icon type={Icon.Types.BELL} />
             </button>
           </div>

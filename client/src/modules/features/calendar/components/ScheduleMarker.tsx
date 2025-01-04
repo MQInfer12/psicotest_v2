@@ -51,7 +51,7 @@ const ScheduleMarker = ({ schedule, setData }: Props) => {
           left: `${startPercentage}%`,
           width: `${endPercentage - startPercentage}%`,
         }}
-        className="h-full bg-primary-700 absolute bottom-0 border-r border-l border-alto-50"
+        className="h-full bg-primary-700 dark:bg-primary-400 absolute bottom-0 border-r border-l border-alto-50 dark:border-alto-1000"
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}
         onClick={handleDelete}
@@ -65,9 +65,9 @@ const ScheduleMarker = ({ schedule, setData }: Props) => {
           <motion.div
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="bg-alto-50 py-1 px-2 rounded-lg shadow-lg origin-bottom"
+            className="bg-alto-50 dark:bg-alto-1000 py-1 px-2 rounded-lg shadow-lg origin-bottom"
           >
-            <small>
+            <small className="text-alto-950 dark:text-alto-50">
               {hh1}:{mm1} - {hh2}:{mm2}
             </small>
           </motion.div>

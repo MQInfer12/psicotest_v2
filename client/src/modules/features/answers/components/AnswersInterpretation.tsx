@@ -237,8 +237,8 @@ const AnswersInterpretation = () => {
 
   return (
     <div className="flex flex-col flex-1 overflow-hidden">
-      <div className="flex items-center py-2 justify-between px-2 bg-primary-100 border-b border-alto-200/80">
-        <small className="text-[10px] font-semibold [&>span]:text-primary-700 px-3">
+      <div className="flex items-center py-2 justify-between px-2 bg-primary-100 dark:bg-primary-1000 border-b border-alto-300/70 dark:border-alto-900">
+        <small className="text-[10px] px-3 text-alto-950 dark:text-alto-50 font-semibold [&>span]:text-primary-700 dark:[&>span]:text-primary-400">
           Generando respuesta para <span>{selectedTests?.user.nombre}</span>{" "}
           según {selectedTests?.selecteds.length === 1 ? "el " : "los "}
           test{selectedTests?.selecteds.length === 1 ? ": " : "s: "}

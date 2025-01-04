@@ -62,7 +62,7 @@ const Render = ({ data, onSuccess }: RenderProps) => {
   return (
     <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
       <Input
-        label="Género"
+        label="Modelo de GPT"
         error={errors.gpt_model?.message}
         type="select"
         {...register("gpt_model")}

@@ -12,6 +12,7 @@ import IconChevron from "./tabler/iconChevron";
 import IconCircle from "./tabler/iconCircle";
 import IconClipboard from "./tabler/iconClipboard";
 import IconClock from "./tabler/iconClock";
+import IconComputer from "./tabler/iconComputer";
 import IconConfig from "./tabler/iconConfig";
 import IconDots from "./tabler/iconDots";
 import IconDownload from "./tabler/iconDownload";
@@ -25,6 +26,7 @@ import IconLinkedin from "./tabler/iconLinkedin";
 import IconLoader from "./tabler/iconLoader";
 import IconLogout from "./tabler/iconLogout";
 import IconMenu from "./tabler/iconMenu";
+import IconMoon from "./tabler/iconMoon";
 import IconNotes from "./tabler/iconNotes";
 import IconPDF from "./tabler/iconPDF";
 import IconPencil from "./tabler/iconPencil";
@@ -35,6 +37,7 @@ import IconReload from "./tabler/iconReload";
 import IconSad from "./tabler/iconSad";
 import IconSchool from "./tabler/iconSchool";
 import IconStarred from "./tabler/iconStarred";
+import IconSun from "./tabler/iconSun";
 import IconSwipe from "./tabler/iconSwipe";
 import IconTemplate from "./tabler/iconTemplate";
 import IconTiktok from "./tabler/IconTiktok";
@@ -104,6 +107,9 @@ export enum ICON {
   FACEBOOK = "facebook",
   TIKTOK = "tiktok",
   LIKEDIN = "linkedin",
+  COMPUTER = "computer",
+  SUN = "sun",
+  MOON = "moon",
 }
 
 interface Props {
@@ -171,6 +177,9 @@ const Icon = ({ type }: Props) => {
     [ICON.FACEBOOK]: <IconFacebook />,
     [ICON.TIKTOK]: <IconTiktok />,
     [ICON.LIKEDIN]: <IconLinkedin />,
+    [ICON.COMPUTER]: <IconComputer />,
+    [ICON.SUN]: <IconSun />,
+    [ICON.MOON]: <IconMoon />,
   };
   return icons[type];
 };

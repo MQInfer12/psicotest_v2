@@ -98,7 +98,7 @@ const Interpretation = () => {
 
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
-      <div className="p-4 flex justify-between items-center gap-4 flex-wrap-reverse border-b border-alto-200/80">
+      <div className="p-4 flex justify-between items-center gap-4 flex-wrap-reverse border-b border-alto-300/70 dark:border-alto-900">
         <Button disabled={loading} onClick={handleInterpretation}>
           Generar interpretación
         </Button>

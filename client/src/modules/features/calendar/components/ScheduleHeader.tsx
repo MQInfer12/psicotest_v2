@@ -23,7 +23,9 @@ const ScheduleHeader = () => {
       )}
       <div className="flex flex-col gap-4 px-4 max-lg:px-0">
         <header className="h-10 flex items-center justify-between">
-          <strong className="text-primary-900">Mi horario</strong>
+          <strong className="text-primary-900 dark:text-primary-400">
+            Mi horario
+          </strong>
           <Button
             onClick={() => setOpen(true)}
             btnType="secondary"
@@ -38,8 +40,10 @@ const ScheduleHeader = () => {
               const horarios = data?.filter((horario) => horario.dia === i);
               return (
                 <div key={d.dia} className="flex flex-col gap-1">
-                  <small>{d.dia}</small>
-                  <div className="w-full h-2 bg-alto-50 border border-alto-200 rounded-full relative">
+                  <small className="text-alto-950 dark:text-alto-50">
+                    {d.dia}
+                  </small>
+                  <div className="w-full h-2 bg-alto-50 dark:bg-alto-1000 border border-alto-300/70 dark:border-alto-800 rounded-full relative">
                     {horarios?.map((h) => (
                       <ScheduleMarker
                         key={h.id}

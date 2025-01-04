@@ -34,6 +34,7 @@ interface Props<T> {
   shadow?: boolean;
   rowHeight?: number;
   rounded?: boolean;
+  border?: boolean;
   loadingRow?: (row: T) => boolean;
   emptyMessage?: string;
   smallEmptyMessage?: string;
@@ -61,6 +62,7 @@ const Table = <T,>({
   shadow = false,
   rowHeight = 64,
   rounded = true,
+  border = true,
   loadingRow,
   emptyMessage,
   smallEmptyMessage,
@@ -107,10 +109,11 @@ const Table = <T,>({
   return (
     <div
       className={clsx(
-        "flex-1 flex flex-col bg-alto-50 border overflow-hidden relative",
+        "flex-1 flex flex-col bg-alto-50 dark:bg-alto-1000 border-alto-300/70 dark:border-alto-900 overflow-hidden relative",
         {
           "rounded-lg": rounded,
-          "shadow-xl": shadow,
+          "shadow-xl shadow-alto-950/20 dark:shadow-alto-50/10": shadow,
+          border: border,
         }
       )}
     >
@@ -122,7 +125,7 @@ const Table = <T,>({
             transition={{
               duration: 0.5,
             }}
-            className="absolute inset-0 z-10 bg-alto-50"
+            className="absolute inset-0 z-10 bg-alto-50 dark:bg-alto-1000"
           >
             <Loader />
           </motion.div>
@@ -154,7 +157,7 @@ const Table = <T,>({
             <thead className="sticky top-0 z-10">
               {table.getHeaderGroups().map((group) => (
                 <tr
-                  className="grid bg-primary-100"
+                  className="grid bg-primary-100 dark:bg-primary-1000 border-b border-b-alto-300/40 dark:border-b-alto-950"
                   style={{
                     gridTemplateColumns,
                   }}
@@ -166,7 +169,7 @@ const Table = <T,>({
                       onClick={table.getToggleAllRowsSelectedHandler()}
                     >
                       <input
-                        className="accent-primary-500"
+                        className="accent-primary-500 dark:accent-primary-400 dark:[&:not(:checked)]:opacity-30"
                         type="checkbox"
                         checked={table.getIsAllRowsSelected()}
                         onChange={() => {}}
@@ -175,7 +178,7 @@ const Table = <T,>({
                     </th>
                   )}
                   <th className="h-10 flex items-center gap-2 font-bold">
-                    <p className="whitespace-nowrap overflow-hidden text-ellipsis text-[10px] uppercase w-full text-primary-950">
+                    <p className="whitespace-nowrap overflow-hidden text-ellipsis text-[10px] uppercase w-full text-primary-950 dark:text-primary-100">
                       #
                     </p>
                   </th>
@@ -187,7 +190,7 @@ const Table = <T,>({
                         key={header.id}
                         title={header.column.columnDef.header?.toString()}
                         className={clsx(
-                          "h-10 flex items-center gap-2 font-bold hover:bg-primary-200 cursor-pointer transition-colors duration-300 select-none",
+                          "h-10 flex items-center gap-2 font-bold hover:bg-primary-200 dark:hover:bg-primary-900 cursor-pointer transition-colors duration-300 select-none",
                           {
                             "justify-center":
                               header.column.columnDef.meta?.textAlign ===
@@ -203,7 +206,7 @@ const Table = <T,>({
                         {header.isPlaceholder ? null : (
                           <p
                             className={clsx(
-                              "text-[10px] uppercase text-primary-950",
+                              "text-[10px] uppercase text-primary-950 dark:text-primary-100",
                               {
                                 "whitespace-nowrap overflow-hidden text-ellipsis":
                                   !minimal,
@@ -218,10 +221,10 @@ const Table = <T,>({
                           </p>
                         )}
                         {!minimal && (
-                          <div className="w-[10px] flex flex-col text-alto-300">
+                          <div className="w-[10px] flex flex-col text-alto-300 dark:text-alto-700">
                             <div
                               className={clsx("transition-all duration-150", {
-                                "text-primary-500":
+                                "text-primary-500 dark:text-primary-200":
                                   header.column.getIsSorted() === "asc",
                               })}
                             >
@@ -229,7 +232,7 @@ const Table = <T,>({
                             </div>
                             <div
                               className={clsx("transition-all duration-150", {
-                                "text-primary-500":
+                                "text-primary-500 dark:text-primary-200":
                                   header.column.getIsSorted() === "desc",
                               })}
                             >
@@ -242,7 +245,7 @@ const Table = <T,>({
                   })}
                   {actions && (
                     <th className="h-10 flex justify-center items-center gap-2 px-3 font-bold">
-                      <p className="whitespace-nowrap overflow-hidden text-ellipsis text-[10px] uppercase text-primary-950">
+                      <p className="whitespace-nowrap overflow-hidden text-ellipsis text-[10px] uppercase text-primary-950 dark:text-primary-100">
                         Acciones
                       </p>
                     </th>

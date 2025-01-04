@@ -54,13 +54,18 @@ const NextAppointmentBanner = () => {
   return (
     <section className="flex flex-col gap-6 flex-1 overflow-hidden w-full">
       <header className="h-10 flex items-center px-4 max-lg:px-0">
-        <strong className="text-primary-900">Cita programada</strong>
+        <strong className="text-primary-900 dark:text-primary-400">
+          Cita programada
+        </strong>
       </header>
       <div className="flex-1 flex flex-col gap-8 items-center justify-center">
         <IconMessage icon={Icon.Types.CALENDAR} message="¡Tienes una cita!">
-          <p className="font-bold">{cita_proxima.nombre_psicologo}</p>
-          <small className="text-alto-600">
-            {day}, {date} de {month} a las {hora_inicio}
+          <p className="font-bold text-alto-950 dark:text-alto-50">
+            {cita_proxima.nombre_psicologo}
+          </p>
+          <small className="text-alto-600 dark:text-alto-400">
+            <span className="text-primary-400">{day}</span>, {date} de {month} a
+            las {hora_inicio}
           </small>
         </IconMessage>
         <Button btnType="secondary" onClick={handleCancelAppointment}>

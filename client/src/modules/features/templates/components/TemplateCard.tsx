@@ -12,22 +12,22 @@ const TemplateCard = ({ loading, template }: Props) => {
   const test1 = Object.keys(template.id_tests).at(0) ?? "-";
   const test2 = Object.keys(template.id_tests).at(1) ?? "-";
   return (
-    <div className="w-full h-full rounded-lg border-t-8 border-primary-700 bg-alto-50 shadow-lg pt-4 p-8 flex flex-col gap-4">
+    <div className="w-full h-full rounded-lg border-t-8 border-primary-700 dark:border-primary-400 bg-alto-50 dark:bg-alto-1000 shadow-lg shadow-alto-950/10 dark:shadow-alto-50/10 pt-4 p-8 flex flex-col gap-4">
       <div className="flex items-center gap-2 justify-between">
-        <strong className="text-xl w-full overflow-hidden text-ellipsis whitespace-nowrap">
+        <strong className="text-xl w-full overflow-hidden text-ellipsis whitespace-nowrap text-alto-950 dark:text-alto-50">
           {template.nombre}
         </strong>
         <div
           title="Seleccionado por los creadores"
-          className="h-6 aspect-square text-primary-700"
+          className="h-6 aspect-square text-primary-700 dark:text-primary-400"
         >
           <Icon type={Icon.Types.TEMPLATE} />
         </div>
       </div>
-      <p className="text-sm text-alto-800 leading-6 line-clamp-3 h-[72px]">
+      <p className="text-sm text-alto-800 dark:text-alto-200 leading-6 line-clamp-3 h-[72px]">
         {template.descripcion}
       </p>
-      <div className="flex flex-col gap-3 text-alto-700">
+      <div className="flex flex-col gap-3 text-alto-700 dark:text-alto-400">
         <div className="flex gap-4 text-sm items-center">
           <div className="w-5 aspect-square text-primary-400">
             <Icon type={Icon.Types.BRAIN} />

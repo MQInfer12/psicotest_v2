@@ -110,7 +110,7 @@ const Modal = ({
     <Appear
       open={open}
       className={clsx(
-        "bg-alto-950/60 fixed inset-0 flex items-center justify-center z-40 px-5 max-sm:px-2",
+        "bg-alto-950/60 dark:bg-alto-50/30 fixed inset-0 flex items-center justify-center z-40 px-5 max-sm:px-2",
         { "backdrop-blur-sm": blur }
       )}
       onClick={close}
@@ -129,19 +129,20 @@ const Modal = ({
         exit={{ scale: 0 }}
         onClick={(e) => e.stopPropagation()}
         className={clsx(
-          "max-w-full bg-alto-50 rounded-lg flex flex-col relative isolate",
+          "max-w-full bg-alto-50 dark:bg-alto-950 rounded-lg flex flex-col relative isolate",
           {
-            "border-8 border-alto-100": onlyContent,
+            "border-8 border-alto-100 dark:border-alto-950": onlyContent,
           }
         )}
       >
         <header
           className={clsx("flex justify-between items-center px-4 py-2 gap-4", {
-            "border-b border-alto-300/70": !onlyContent && titleBar,
+            "border-b border-alto-300/70 dark:border-alto-800":
+              !onlyContent && titleBar,
             "absolute top-0 z-10 w-full": onlyContent,
           })}
         >
-          <strong className="whitespace-nowrap overflow-hidden text-ellipsis">
+          <strong className="whitespace-nowrap overflow-hidden text-ellipsis text-alto-950 dark:text-alto-50">
             {title}
           </strong>
           <Button

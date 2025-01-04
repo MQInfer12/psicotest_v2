@@ -24,7 +24,7 @@ const TestSection = ({ direction, seccion }: Props) => {
             return (
               <p
                 key={i}
-                className={clsx("text-sm leading-loose text-alto-900 px-4", {
+                className={clsx("text-sm leading-loose text-alto-900 dark:text-alto-100 px-4", {
                   "text-center": v.align === "center",
                 })}
               >
@@ -35,7 +35,7 @@ const TestSection = ({ direction, seccion }: Props) => {
             return (
               <strong
                 key={i}
-                className="px-4 text-primary-800 border-b-2 border-primary-200 pb-2"
+                className="px-4 text-primary-800 dark:text-primary-300 border-b-2 border-primary-200 dark:border-primary-300/40 pb-2"
               >
                 {v.content}
               </strong>

@@ -42,15 +42,15 @@ const TestFinishPage = ({ direction, setOpen }: Props) => {
             textColor="success"
             delay={0.5}
           />
-          <small></small>
+          <span />
           <ul className="flex flex-col gap-2">
             {unsolvedTests?.map((v) => (
               <li className="flex items-center gap-4">
-                <div className="w-40 overflow-hidden flex flex-col gap-1">
+                <div className="w-40 overflow-hidden flex flex-col gap-1 text-alto-950 dark:text-alto-50">
                   <strong className="whitespace-nowrap overflow-hidden text-ellipsis text-sm">
                     {v.nombre_test}
                   </strong>
-                  <small className="text-xs whitespace-nowrap overflow-hidden text-ellipsis">
+                  <small className="text-xs whitespace-nowrap overflow-hidden text-ellipsis opacity-80">
                     {v.nombre_asignador}
                   </small>
                 </div>

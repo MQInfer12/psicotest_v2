@@ -1,4 +1,5 @@
 import { COLORS } from "@/modules/core/constants/COLORS";
+import { useThemeContext } from "@/modules/core/context/ThemeContext";
 import { Item, Seccion } from "@/modules/features/tests/types/TestType";
 import { motion } from "framer-motion";
 
@@ -17,6 +18,7 @@ const TestProgress = ({
   pregunta,
   paused,
 }: Props) => {
+  const { dark } = useThemeContext();
   const sectionProgress = secciones.findIndex((s) => s.id === seccion.id) + 1;
   const preguntaProgress =
     seccion.items.findIndex((p) => p.id === pregunta.id) + 1;
@@ -25,17 +27,19 @@ const TestProgress = ({
       {secciones.length > 1 && (
         <div className="w-full flex-1 flex items-center gap-4 petizo:gap-1">
           <div className="w-20 flex justify-center">
-            <small>
+            <small className="text-alto-950 dark:text-alto-50">
               S: {sectionProgress} / {secciones.length}
             </small>
           </div>
-          <div className="flex-1 h-2 bg-alto-100 rounded-md overflow-hidden">
+          <div className="flex-1 h-2 bg-alto-100 dark:bg-alto-900 rounded-md overflow-hidden">
             <motion.span
               animate={{
                 width: `${(sectionProgress / secciones.length) * 100}%`,
                 backgroundColor: !finished
                   ? paused
-                    ? COLORS.alto[200]
+                    ? dark
+                      ? COLORS.alto[800]
+                      : COLORS.alto[200]
                     : COLORS.primary[400]
                   : COLORS.success,
               }}
@@ -46,17 +50,19 @@ const TestProgress = ({
       )}
       <div className="w-full flex-[1_1_0] flex items-center gap-4 petizo:gap-1">
         <div className="w-20 flex justify-center">
-          <small>
+          <small className="text-alto-950 dark:text-alto-50">
             P: {preguntaProgress} / {seccion.items.length}
           </small>
         </div>
-        <div className="flex-1 h-2 bg-alto-100 rounded-md overflow-hidden">
+        <div className="flex-1 h-2 bg-alto-100 dark:bg-alto-900 rounded-md overflow-hidden">
           <motion.span
             animate={{
               width: `${(preguntaProgress / seccion.items.length) * 100}%`,
               backgroundColor: !finished
                 ? paused
-                  ? COLORS.alto[200]
+                  ? dark
+                    ? COLORS.alto[800]
+                    : COLORS.alto[200]
                   : COLORS.primary[400]
                 : COLORS.success,
             }}

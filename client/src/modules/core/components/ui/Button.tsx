@@ -2,6 +2,7 @@ import clsx from "clsx";
 import { HTMLMotionProps, motion } from "framer-motion";
 import { COLORS } from "../../constants/COLORS";
 import Icon, { ICON } from "../icons/Icon";
+import { useThemeContext } from "../../context/ThemeContext";
 
 export type ButtonType = "primary" | "secondary" | "tertiary";
 
@@ -32,6 +33,8 @@ const Button = ({
   ...props
 }: Props) => {
   const getColors = (hover: boolean) => {
+    const { dark } = useThemeContext();
+
     let colors: {
       backgroundColor?: string;
       borderColor?: string;
@@ -41,20 +44,19 @@ const Button = ({
     if (btnType === "primary") {
       if (disabled) {
         colors = {
-          backgroundColor: COLORS.alto[100],
-          borderColor: COLORS.primary[200],
-          color: COLORS.primary[300],
+          backgroundColor: dark ? COLORS.alto[950] : COLORS.alto[100],
+          borderColor: dark ? COLORS.alto[900] : COLORS.primary[200],
+          color: dark ? COLORS.alto[900] : COLORS.primary[300],
         };
       } else if (hover) {
         colors = {
-          backgroundColor: COLORS.primary[800],
-          borderColor: COLORS.primary[800],
-          color: undefined,
+          backgroundColor: dark ? COLORS.primary[600] : COLORS.primary[800],
+          borderColor: dark ? COLORS.primary[600] : COLORS.primary[800],
         };
       } else {
         colors = {
-          backgroundColor: COLORS.primary[700],
-          borderColor: COLORS.primary[700],
+          backgroundColor: dark ? COLORS.primary[500] : COLORS.primary[700],
+          borderColor: dark ? COLORS.primary[500] : COLORS.primary[700],
           color: COLORS.alto[50],
         };
       }
@@ -63,21 +65,21 @@ const Button = ({
     if (btnType === "secondary") {
       if (disabled) {
         colors = {
-          backgroundColor: COLORS.alto[100],
-          borderColor: COLORS.primary[200],
-          color: COLORS.primary[300],
+          backgroundColor: dark ? COLORS.alto[950] : COLORS.alto[100],
+          borderColor: dark ? COLORS.alto[900] : COLORS.primary[200],
+          color: dark ? COLORS.alto[900] : COLORS.primary[300],
         };
       } else if (hover) {
         colors = {
-          backgroundColor: COLORS.primary[500],
-          borderColor: COLORS.primary[500],
+          backgroundColor: dark ? COLORS.primary[600] : COLORS.primary[500],
+          borderColor: dark ? COLORS.primary[600] : COLORS.primary[500],
           color: COLORS.primary[50],
         };
       } else {
         colors = {
-          backgroundColor: COLORS.alto[50],
-          borderColor: COLORS.alto[300],
-          color: COLORS.alto[600],
+          backgroundColor: dark ? COLORS.alto[1000] : COLORS.alto[50],
+          borderColor: dark ? COLORS.alto[800] : COLORS.alto[300],
+          color: dark ? COLORS.alto[500] : COLORS.alto[600],
         };
       }
     }
@@ -87,13 +89,13 @@ const Button = ({
         colors = {
           backgroundColor: "transparent",
           borderColor: "transparent",
-          color: COLORS.primary[300],
+          color: COLORS.primary[400],
         };
       } else if (hover) {
         colors = {
           backgroundColor: "transparent",
           borderColor: "transparent",
-          color: COLORS.primary[800],
+          color: dark ? COLORS.primary[400] : COLORS.primary[800],
         };
       } else {
         colors = {
@@ -123,7 +125,7 @@ const Button = ({
         },
         {
           "ring-primary-400": btnType === "secondary",
-          "ring-white": btnType === "primary",
+          "ring-white dark:ring-alto-1000": btnType === "primary",
           "ring-transparent": btnType === "tertiary",
         },
         {
@@ -168,7 +170,7 @@ const Button = ({
           className={clsx("aspect-square", {
             "w-5": btnSize === "base",
             "w-4": btnSize === "small",
-            "w-6": btnSize === "square"
+            "w-6": btnSize === "square",
           })}
         >
           <Icon type={icon} />

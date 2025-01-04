@@ -1,4 +1,5 @@
 import { COLORS } from "@/modules/core/constants/COLORS";
+import { useThemeContext } from "@/modules/core/context/ThemeContext";
 import { motion } from "framer-motion";
 
 interface Props {
@@ -7,6 +8,12 @@ interface Props {
 }
 
 const Hexagon = ({ size = 240, secondary }: Props) => {
+  const { dark } = useThemeContext();
+
+  const primaryAlto = dark ? COLORS.alto[800] : COLORS.alto[200];
+  const primary1 = dark ? COLORS.primary[500] : COLORS.primary[200];
+  const primary2 = dark ? COLORS.primary[400] : COLORS.primary[400];
+
   return (
     <div style={{ height: size }}>
       <svg
@@ -26,11 +33,7 @@ const Hexagon = ({ size = 240, secondary }: Props) => {
           }}
           animate={{
             pathLength: 1,
-            stroke: [
-              secondary ? COLORS.alto[200] : COLORS.alto[200],
-              secondary ? COLORS.primary[400] : COLORS.primary[200],
-              secondary ? COLORS.alto[200] : COLORS.alto[200],
-            ],
+            stroke: [primaryAlto, secondary ? primary2 : primary1, primaryAlto],
           }}
           transition={{
             pathLength: { duration: 2 },

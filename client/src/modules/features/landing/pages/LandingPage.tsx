@@ -1,11 +1,15 @@
 import UnifranzLogo from "@/assets/images/unifranz-logo.png";
+import UnifranzLogoDark from "@/assets/images/unifranz-logo-dark.png";
 import Icon from "@/modules/core/components/icons/Icon";
 import { PUBLIC_NAVBAR_HEIGHT } from "../../_layout/constants/LAYOUT_SIZES";
 import AnoyingButton from "../components/AnoyingButton";
 import Landing from "../components/Landing";
 import Services from "../components/Services";
+import { useThemeContext } from "@/modules/core/context/ThemeContext";
 
 const LandingPage = () => {
+  const { dark } = useThemeContext();
+
   return (
     <>
       <AnoyingButton />
@@ -16,32 +20,32 @@ const LandingPage = () => {
           paddingInline: PUBLIC_NAVBAR_HEIGHT,
         }}
       >
-        <div className="bg-alto-50 py-4 px-8 flex gap-8 rounded-xl shadow-lg shadow-primary-200 items-center flex-wrap justify-center">
-          <p className="text-sm text-alto-800">¡Síguenos!</p>
-          <div className="flex gap-4">
+        <div className="bg-alto-50 dark:bg-alto-1000 py-4 px-8 flex gap-8 rounded-xl shadow-md shadow-primary-200 dark:shadow-primary-300/10 items-center flex-wrap justify-center">
+          <p className="text-sm text-alto-900 dark:text-alto-200">¡Síguenos!</p>
+          <div className="flex gap-4 text-alto-800 dark:text-alto-100">
             <a
-              className="min-w-6 aspect-square text-alto-900 hover:text-primary-800 hover:scale-125 transition-all duration-300 cursor-pointer"
+              className="min-w-6 aspect-square hover:text-primary-800 dark:hover:text-primary-400 hover:scale-125 transition-all duration-300 cursor-pointer"
               href="#"
             >
               <Icon type={Icon.Types.WEB} />
             </a>
-            <a className="min-w-6 aspect-square text-alto-900 hover:text-primary-800 hover:scale-125 transition-all duration-300 cursor-pointer">
+            <a className="min-w-6 aspect-square hover:text-primary-800 dark:hover:text-primary-400 hover:scale-125 transition-all duration-300 cursor-pointer">
               <Icon type={Icon.Types.FACEBOOK} />
             </a>
-            <a className="min-w-6 aspect-square text-alto-900 hover:text-primary-800 hover:scale-125 transition-all duration-300 cursor-pointer">
+            <a className="min-w-6 aspect-square hover:text-primary-800 dark:hover:text-primary-400 hover:scale-125 transition-all duration-300 cursor-pointer">
               <Icon type={Icon.Types.INSTAGRAM} />
             </a>
-            <a className="min-w-6 aspect-square text-alto-900 hover:text-primary-800 hover:scale-125 transition-all duration-300 cursor-pointer">
+            <a className="min-w-6 aspect-square hover:text-primary-800 dark:hover:text-primary-400 hover:scale-125 transition-all duration-300 cursor-pointer">
               <Icon type={Icon.Types.TIKTOK} />
             </a>
-            <a className="min-w-6 aspect-square text-alto-900 hover:text-primary-800 hover:scale-125 transition-all duration-300 cursor-pointer">
+            <a className="min-w-6 aspect-square hover:text-primary-800 dark:hover:text-primary-400 hover:scale-125 transition-all duration-300 cursor-pointer">
               <Icon type={Icon.Types.LIKEDIN} />
             </a>
           </div>
         </div>
         <div className="h-16">
           <img
-            src={UnifranzLogo}
+            src={dark ? UnifranzLogoDark : UnifranzLogo}
             className="h-full w-auto"
             alt="Logo de Unifranz"
           />

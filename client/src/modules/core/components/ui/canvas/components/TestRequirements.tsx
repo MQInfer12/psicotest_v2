@@ -65,7 +65,7 @@ const TestRequirements = ({ direction, requirements }: Props) => {
         className="flex flex-col gap-4 px-2 w-72"
         onSubmit={handleSubmit(handleSaveUserData)}
       >
-        <h2 className="text-sm font-bold pb-4 text-center">
+        <h2 className="text-sm font-bold pb-4 text-center text-alto-950 dark:text-alto-50">
           Por favor llena tus datos antes de comenzar
         </h2>
         {requirements.map((r) => {

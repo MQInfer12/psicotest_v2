@@ -23,10 +23,13 @@ import { COLORS } from "@/modules/core/constants/COLORS";
 import AnswersInterpretation from "../components/AnswersInterpretation";
 import { IA_Plantilla } from "../../templates/api/responses";
 import TableHeader from "@/modules/core/components/ui/table/header/TableHeader";
+import { useThemeContext } from "@/modules/core/context/ThemeContext";
 
 const columnHelper = createColumnHelper<T_Tests_Respuestas>();
 
 const AnswersPage = () => {
+  const { dark } = useThemeContext();
+
   const navigate = useNavigate();
   const [filters, setFilters] = useState<AnswersTableFilters>({
     type: "nombre",
@@ -105,6 +108,9 @@ const AnswersPage = () => {
                 layoutId={`answer-foto-${info.row.original.id_respuesta}`}
                 className="w-full h-full"
                 src={info.row.original.foto_user || DefaultPhoto}
+                onError={(event) => {
+                  event.currentTarget.src = DefaultPhoto;
+                }}
               />
             </div>
             <div className="flex-1 flex flex-col gap-1 overflow-hidden">
@@ -116,7 +122,7 @@ const AnswersPage = () => {
               </motion.strong>
               <motion.p
                 layoutId={`answer-email-${info.row.original.id_respuesta}`}
-                className="text-[10px] font-medium text-alto-700"
+                className="text-[10px] font-medium text-alto-700 dark:text-alto-400"
               >
                 {info.row.original.email_user}
               </motion.p>
@@ -130,11 +136,11 @@ const AnswersPage = () => {
           <div className="flex-1 flex flex-col gap-1 overflow-hidden">
             <motion.strong
               layoutId={`answer-test-${info.row.original.id_respuesta}`}
-              className="font-semibold text-sm text-primary-600 whitespace-nowrap overflow-hidden text-ellipsis"
+              className="font-semibold text-sm text-primary-600 dark:text-primary-400 whitespace-nowrap overflow-hidden text-ellipsis"
             >
               {info.getValue()}
             </motion.strong>
-            <div className="text-[10px] font-medium text-alto-700 overflow-hidden whitespace-nowrap flex gap-1">
+            <div className="text-[10px] font-medium text-alto-700 dark:text-alto-400 overflow-hidden whitespace-nowrap flex gap-1">
               <div className="w-3 aspect-square">
                 <Icon type={Icon.Types.FOLDER} />
               </div>
@@ -289,8 +295,12 @@ const AnswersPage = () => {
                       backgroundColor: selectedTests?.selecteds
                         .map((s) => s.id_respuesta)
                         .includes(row.id_respuesta)
-                        ? COLORS.primary[200]
-                        : COLORS.alto[50],
+                        ? dark
+                          ? COLORS.primary[900]
+                          : COLORS.primary[200]
+                        : dark
+                          ? COLORS.alto[1000]
+                          : COLORS.alto[50],
                       pointerEvents:
                         (selectedTests &&
                           row.email_user !== selectedTests?.user.email) ||

@@ -22,7 +22,7 @@ const Public = () => {
           height: PUBLIC_NAVBAR_HEIGHT,
         }}
         className={clsx(
-          "max-sm:px-5 px-20 p-2 flex items-center gap-2 justify-between fixed top-0 w-screen z-30 transition-colors duration-700 bg-alto-50/80 backdrop-blur-[10px]",
+          "max-sm:px-5 px-20 p-2 flex items-center gap-2 justify-between fixed top-0 w-screen z-30 backdrop-blur-[10px] bg-alto-50/80 dark:bg-alto-1000/80",
           shadowClasses
         )}
       >
@@ -42,7 +42,7 @@ const Public = () => {
         </div>
       </nav>
       <LoginCard redirect={redirect} />
-      <div className="min-h-screen bg-alto-100 overflow-x-hidden relative scroll-smooth">
+      <div className="min-h-screen overflow-x-hidden relative scroll-smooth">
         <Outlet />
       </div>
     </LoginContextProvider>
