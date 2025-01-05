@@ -261,8 +261,10 @@ const AnswersInterpretation = () => {
       </div>
       <GptCanvas
         content={interpretation || ""}
+        setContent={setInterpretation}
         loaded={!loading}
         reload={generateInterpretation}
+        idRespuestas={selectedTests?.selecteds.map((s) => s.id_respuesta) || []}
         success={!hasError}
         data={{
           name: selectedTests?.user.nombre || "",

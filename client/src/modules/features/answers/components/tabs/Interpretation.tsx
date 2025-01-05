@@ -11,15 +11,9 @@ const Interpretation = () => {
   const { test, data, resultados, interpretation, setInterpretation } =
     useAnswerContext();
   const [loading, setLoading] = useState(false);
-  const { postData, getDataSetter } = useFetch();
+  const { postData } = useFetch();
   const configMutation = postData("GET /configuracion");
   const mutation = postData("PATCH /respuesta/patch/interpretation/:id");
-  const setter = getDataSetter([
-    "GET /test/for/respuesta/:id",
-    {
-      id: data.id_respuesta,
-    },
-  ]);
 
   const handleInterpretation = () => {
     const rawName = data.user.nombre.split(" ")[0].toLocaleLowerCase();
@@ -82,9 +76,6 @@ const Interpretation = () => {
                     params: {
                       id: data.id_respuesta,
                     },
-                    onSuccess: (res) => {
-                      setter(res.data);
-                    },
                   }
                 );
               }
@@ -117,6 +108,8 @@ const Interpretation = () => {
       </div>
       <GptCanvas
         content={interpretation ?? ""}
+        idRespuestas={[data.id_respuesta]}
+        setContent={setInterpretation}
         loaded={!loading}
         data={{
           name: data.user.nombre,

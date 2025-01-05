@@ -35,6 +35,7 @@ import IconQR from "./tabler/iconQR";
 import IconQuestion from "./tabler/iconQuestion";
 import IconReload from "./tabler/iconReload";
 import IconSad from "./tabler/iconSad";
+import IconSave from "./tabler/iconSave";
 import IconSchool from "./tabler/iconSchool";
 import IconStarred from "./tabler/iconStarred";
 import IconSun from "./tabler/iconSun";
@@ -65,6 +66,7 @@ export enum ICON {
   CIRCLE = "circle",
   CIRCLE_ACTIVE = "circle_active",
   PENCIL = "pencil",
+  PENCIL_CANCEL = "pencil_cancel",
   TRASH = "trash",
   PERSON_ACTIVE = "person_active",
   PERSON_INACTIVE = "person_inactive",
@@ -110,6 +112,7 @@ export enum ICON {
   COMPUTER = "computer",
   SUN = "sun",
   MOON = "moon",
+  SAVE = "save",
 }
 
 interface Props {
@@ -135,6 +138,7 @@ const Icon = ({ type }: Props) => {
     [ICON.CIRCLE]: <IconCircle />,
     [ICON.CIRCLE_ACTIVE]: <IconCircle active />,
     [ICON.PENCIL]: <IconPencil />,
+    [ICON.PENCIL_CANCEL]: <IconPencil type="cancel" />,
     [ICON.TRASH]: <IconTrash />,
     [ICON.PERSON_ACTIVE]: <IconPersonActive />,
     [ICON.PERSON_INACTIVE]: <IconPersonActive x />,
@@ -180,6 +184,7 @@ const Icon = ({ type }: Props) => {
     [ICON.COMPUTER]: <IconComputer />,
     [ICON.SUN]: <IconSun />,
     [ICON.MOON]: <IconMoon />,
+    [ICON.SAVE]: <IconSave />,
   };
   return icons[type];
 };

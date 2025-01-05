@@ -31,10 +31,9 @@ const ThemeButton = ({ open }: Props) => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center py-10">
+    <div className="flex flex-col justify-center items-center py-10 w-full">
       <motion.button
         key={index}
-        layoutId="theme-button"
         layout="preserve-aspect"
         className="flex border border-alto-300/70 dark:border-alto-800 p-1 rounded-full gap-2 relative isolate"
         style={{

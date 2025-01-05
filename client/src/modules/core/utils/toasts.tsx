@@ -8,6 +8,7 @@ interface Options extends ExternalToast {
 
 interface ConfirmOptions extends Options {
   cancelable?: boolean;
+  onCancel?: () => void;
 }
 
 export const toastSuccess = (message: string, data?: Options) => {
@@ -53,7 +54,9 @@ export const toastConfirm = (
     cancel: data?.cancelable
       ? {
           label: "Cancelar",
-          onClick: () => {},
+          onClick: () => {
+            data.onCancel?.();
+          },
         }
       : undefined,
     dismissible: data?.cancelable,

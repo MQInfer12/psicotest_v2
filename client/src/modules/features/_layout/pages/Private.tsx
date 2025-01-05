@@ -93,9 +93,12 @@ const Dashboard = () => {
       )}
       <div
         onClick={() => setOpen(false)}
-        className={clsx("absolute inset-0 bg-black/20 z-30 md:hidden", {
-          hidden: !open,
-        })}
+        className={clsx(
+          "absolute inset-0 bg-alto-950/60 dark:bg-alto-50/30 z-30 md:hidden",
+          {
+            hidden: !open,
+          }
+        )}
       />
       <motion.aside
         className={clsx(

@@ -84,10 +84,11 @@ const Services = () => {
             <LandingButton
               onClick={() =>
                 navigate({
-                  to: "/tests/share",
+                  to: "/",
                   search: {
-                    cparams:
-                      "U2FsdGVkX1+PXPY6GsXsW56LtuwJXIL4Q6DwaiEhU3zCB6whYr0S2PswCyIGpBtBVxjOlhMoxGSsEqPh4nwEL8V1tRwN1ehDN0QxTYMDFMA=",
+                    redirect:
+                      validateRoute("/tests/share") +
+                      "?cparams=U2FsdGVkX1+PXPY6GsXsW56LtuwJXIL4Q6DwaiEhU3zCB6whYr0S2PswCyIGpBtBVxjOlhMoxGSsEqPh4nwEL8V1tRwN1ehDN0QxTYMDFMA=",
                   },
                 })
               }

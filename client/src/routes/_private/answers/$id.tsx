@@ -13,12 +13,18 @@ export const Route = createFileRoute("/_private/answers/$id")({
   ),
   beforeLoad: ({ context: { queryClient }, params: { id } }) => {
     return queryClient.ensureQueryData(
-      fetchOptions([
-        "GET /test/for/respuesta/:id",
+      fetchOptions(
+        [
+          "GET /test/for/respuesta/:id",
+          {
+            id: Number(id),
+          },
+        ],
+        {},
         {
-          id: Number(id),
-        },
-      ])
+          gcTime: 0,
+        }
+      )
     );
   },
   errorComponent: (props) => <ErrorComponent {...props} to="/answers" />,

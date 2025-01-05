@@ -34,12 +34,18 @@ export const AnswerContextProvider = ({ children }: Props) => {
   } = useSuspenseQuery(
     //@ts-expect-error NO SE QUE DICE EL ERROR
     // TODO: ARREGLAR ESTE ERROR QUITAR EL EXPECT ERROR
-    fetchOptions([
-      "GET /test/for/respuesta/:id",
+    fetchOptions(
+      [
+        "GET /test/for/respuesta/:id",
+        {
+          id: Number(id),
+        },
+      ],
+      {},
       {
-        id: Number(id),
-      },
-    ])
+        gcTime: 0,
+      }
+    )
   );
 
   const [interpretation, setInterpretation] = useState(data.interpretacion);

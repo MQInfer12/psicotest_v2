@@ -5,6 +5,9 @@ import Button from "@/modules/core/components/ui/Button";
 import { useState } from "react";
 import Icon from "@/modules/core/components/icons/Icon";
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
+import GptContent from "./GptContent";
+import { toastConfirm, toastSuccess } from "@/modules/core/utils/toasts";
+import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 
 interface Props {
   content: string;
@@ -12,6 +15,8 @@ interface Props {
   data: GptPdfData;
   reload?: () => void;
   success?: boolean;
+  setContent: React.Dispatch<React.SetStateAction<string | null>>;
+  idRespuestas: number[];
 }
 
 const GptCanvas = ({
@@ -20,8 +25,33 @@ const GptCanvas = ({
   data,
   reload,
   success = true,
+  setContent,
+  idRespuestas,
 }: Props) => {
+  const [edit, setEdit] = useState<string | null>(null);
   const [showPDF, setShowPDF] = useState(false);
+
+  const { postData } = useFetch();
+  const patchMutation = postData("PATCH /respuesta/patch/interpretations");
+
+  const handleSave = () => {
+    if (!edit) return;
+    patchMutation(
+      {
+        interpretaciones: idRespuestas.map((id) => ({
+          id: id,
+          interpretacion: edit,
+        })),
+      },
+      {
+        onSuccess: () => {
+          toastSuccess("Guardado correctamente");
+          setContent(edit);
+          setEdit(null);
+        },
+      }
+    );
+  };
 
   return (
     <div className="bg-alto-50 dark:bg-alto-1000 flex-1 relative isolate">
@@ -34,25 +64,9 @@ const GptCanvas = ({
             <GptPdf data={data} content={content} />
           </PDFViewer>
         ) : (
-          <p
-            dangerouslySetInnerHTML={{ __html: content }}
-            className={clsx(
-              "w-full min-h-full whitespace-pre-line text-sm leading-[30px] px-8 py-6 pb-20 max-md:text-xs max-md:leading-[30px] max-md:px-4 max-md:pt-4 text-alto-800 dark:text-alto-300",
-              "[&>.title]:text-base [&>.title]:font-bold [&>.title]:text-alto-950 dark:[&>.title]:text-alto-50",
-              "[&>.subtitle]:font-semibold [&>.subtitle]:text-alto-950 dark:[&>.subtitle]:text-alto-50",
-              "[&>.vignette]:box-decoration-clone [&>.vignette]:pl-8 [&_.vignette-title]:font-semibold [&_.vignette-t]:font-semibold [&_.vignette-title]:text-alto-950 dark:[&_.vignette-title]:text-alto-50 [&_.vignette-t]:text-alto-950 dark:[&_.vignette-t]:text-alto-50"
-            )}
-          />
+          <GptContent edit={edit} setEdit={setEdit} content={content} />
         )}
       </div>
-      {/* {showPDF ? (
-      ) : (
-        <>
-          <div className="sticky h-0 w-full top-1/2 flex items-center justify-center -z-10 pointer-events-none overflow-visible">
-            <img src={GPT} className="min-w-[540px] h-auto opacity-5" />
-          </div>
-        </>
-      )} */}
       <div
         className={clsx(
           "bottom-5 right-5 absolute flex flex-col gap-4 items-end"
@@ -71,12 +85,34 @@ const GptCanvas = ({
             btnType={success ? "secondary" : "primary"}
             onClick={reload}
             icon={Icon.Types.RELOAD}
-            disabled={!content || !loaded}
+            disabled={!!edit || !content || !loaded}
+          />
+        )}
+        {!showPDF && (
+          <Button
+            title={edit ? "Terminar edición" : "Editar contenido"}
+            btnType={edit ? "primary" : "secondary"}
+            onClick={() => {
+              if (edit) {
+                toastConfirm("¿Quieres guardar los cambios?", handleSave, {
+                  title: "Terminar edición",
+                  cancelable: true,
+                  onCancel: () => {
+                    setEdit(null);
+                  },
+                });
+                return;
+              } else {
+                setEdit(content);
+              }
+            }}
+            disabled={!success || !content || !loaded}
+            icon={edit ? Icon.Types.PENCIL_CANCEL : Icon.Types.PENCIL}
           />
         )}
         <Button
           onClick={() => setShowPDF(!showPDF)}
-          disabled={!success || !content || !loaded}
+          disabled={!!edit || !success || !content || !loaded}
           icon={showPDF ? Icon.Types.X : Icon.Types.PDF}
         >
           PDF
