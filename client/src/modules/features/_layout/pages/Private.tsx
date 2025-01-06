@@ -76,7 +76,7 @@ const Dashboard = () => {
     );
   if (state === "loading")
     return (
-      <div className="w-screen h-screen bg-alto-100 dark:bg-alto-950">
+      <div className="w-screen h-[100svh] bg-alto-100 dark:bg-alto-950">
         <Loader text="Cargando datos de usuario..." />
       </div>
     );
@@ -164,7 +164,7 @@ const Dashboard = () => {
         style={{
           paddingLeft: PRIVATE_ASIDE_WIDTH_THIN,
         }}
-        className="w-screen min-h-screen flex flex-col h-screen overflow-hidden max-md:!pl-0"
+        className="w-screen min-h-[100svh] flex flex-col h-[100svh] overflow-hidden max-md:!pl-0"
       >
         <header
           style={{

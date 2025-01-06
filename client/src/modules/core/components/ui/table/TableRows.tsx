@@ -1,7 +1,7 @@
 import { flexRender, Table } from "@tanstack/react-table";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import clsx from "clsx";
-import React, { CSSProperties, useEffect } from "react";
+import React, { CSSProperties, useEffect, useReducer } from "react";
 import Button from "../Button";
 import Loader from "../loader/Loader";
 import { TableAction } from "./Table";
@@ -36,6 +36,8 @@ const TableRows = <T,>({
   checkable,
   loadingRow,
 }: Props<T>) => {
+  const [, forceUpdate] = useReducer((x) => x + 1, 0);
+
   const rowVirtualizer = useVirtualizer({
     initialOffset: () => {
       if (!savedOffsetKey) return 0;
@@ -49,6 +51,13 @@ const TableRows = <T,>({
     gap: 1,
   });
 
+  //! QUICKFIX
+  //? Por algun motivo triggerear una renderización más arregla un error de que el virtualizador
+  //? no devuelve bien todas las filas que tiene que renderizar
+  useEffect(() => {
+    forceUpdate();
+  }, []);
+
   useEffect(() => {
     return () => {
       if (!savedOffsetKey) return;
@@ -58,6 +67,8 @@ const TableRows = <T,>({
       }
     };
   }, [savedOffsetKey]);
+
+  console.log("rendering");
 
   return (
     <tbody
@@ -77,7 +88,7 @@ const TableRows = <T,>({
         return (
           <tr
             className={clsx(
-              "absolute w-full grid border-b border-b-alto-300/40 dark:border-b-alto-950 transition-[background-color,opacity,filter] duration-300",
+              "absolute w-full grid border-b border-b-alto-300/50 dark:border-b-alto-800/40 transition-[background-color,opacity,filter] duration-300",
               {
                 "bg-white dark:bg-alto-1000": virtualRow.index % 2 === 0,
                 "bg-primary-50 dark:bg-primary-1000":

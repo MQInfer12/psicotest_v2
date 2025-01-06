@@ -157,7 +157,7 @@ const Table = <T,>({
             <thead className="sticky top-0 z-10">
               {table.getHeaderGroups().map((group) => (
                 <tr
-                  className="grid bg-primary-100 dark:bg-primary-1000 border-b border-b-alto-300/40 dark:border-b-alto-950"
+                  className="grid bg-primary-100 dark:bg-primary-1000 border-b border-b-alto-300/50 dark:border-b-alto-800/40"
                   style={{
                     gridTemplateColumns,
                   }}

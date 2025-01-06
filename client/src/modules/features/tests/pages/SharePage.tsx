@@ -16,8 +16,8 @@ const SharePage = () => {
   useEffect(() => {
     mutation(
       {
-        id_test: test,
-        email_asignador: allocator,
+        id_test: test ?? [],
+        email_asignador: allocator ?? "",
         id_carpeta: folder,
       },
       {

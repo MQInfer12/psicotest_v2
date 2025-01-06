@@ -43,9 +43,7 @@ const AnswerPunctuation = () => {
       tabs={[
         {
           title: "Puntuaciones",
-          component: (
-            <Table data={tableData} columns={columns} />
-          ),
+          component: <Table data={tableData} columns={columns} />,
         },
       ]}
       gridArea="punt"
