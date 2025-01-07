@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 type Theme = "light" | "dark";
 
@@ -24,15 +30,23 @@ interface Props {
 const mm = window.matchMedia("(prefers-color-scheme: dark)");
 
 export const ThemeContextProvider = ({ children }: Props) => {
-  const localState = localStorage.getItem("psicotest_theme");
-  const [state, setTheme] = useState<ThemeState>(
-    localState
-      ? JSON.parse(localState)
-      : {
-          auto: true,
-          theme: mm.matches ? "dark" : "light",
-        }
-  );
+  const getLocalState = useCallback((): ThemeState => {
+    const localState = localStorage.getItem("psicotest_theme");
+    if (localState) {
+      const { auto, theme } = JSON.parse(localState) as ThemeState;
+      return {
+        auto,
+        theme: auto ? (mm.matches ? "dark" : "light") : theme,
+      };
+    } else {
+      return {
+        auto: true,
+        theme: mm.matches ? "dark" : "light",
+      };
+    }
+  }, []);
+
+  const [state, setTheme] = useState<ThemeState>(getLocalState());
   const { auto, theme } = state;
 
   const activateAuto = () => {

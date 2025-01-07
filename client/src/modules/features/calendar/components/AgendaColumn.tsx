@@ -6,6 +6,8 @@ import ScheduleCard from "./ScheduleCard";
 import { getDayIndex } from "../utils/getDayIndex";
 import { getTimeObject } from "../utils/getTimeObject";
 import { AnimatePresence, motion } from "framer-motion";
+import IconMessage from "@/modules/core/components/icons/IconMessage";
+import Icon from "@/modules/core/components/icons/Icon";
 
 const DAYS_FROM_NOW = 7;
 
@@ -16,6 +18,46 @@ const AgendaColumn = () => {
   const today = dayjs();
   const now = new Date();
 
+  const horariosPorDia = [...Array(DAYS_FROM_NOW)].map((_, i) => {
+    const currentDay = dateSelected.clone().add(i, "days");
+
+    const dayIndex = getDayIndex(currentDay);
+    const disponibles =
+      horariosDisponibles
+        ?.filter((h) => {
+          const initialTargetTime = getTimeObject(h.hora_inicio);
+          const finalTargetTime = getTimeObject(h.hora_final);
+
+          const overlap = citasProximas?.some((cita) => {
+            if (cita.fecha !== currentDay.format("YYYY-MM-DD")) return false;
+            if (cita.email_psicologo !== h.email_user) return false;
+            const horaInicioCita = getTimeObject(cita.hora_inicio);
+            const horaFinCita = getTimeObject(cita.hora_final);
+            const inicioOverlaping =
+              horaInicioCita >= initialTargetTime &&
+              horaInicioCita < finalTargetTime;
+            const finalOverlaping =
+              horaFinCita > initialTargetTime && horaFinCita <= finalTargetTime;
+            const insideOverlaping = inicioOverlaping || finalOverlaping;
+            const outsideOverLaping =
+              horaInicioCita < initialTargetTime &&
+              horaFinCita > finalTargetTime;
+            return insideOverlaping || outsideOverLaping;
+          });
+
+          return (
+            h.dia === dayIndex &&
+            (today.isSame(currentDay, "day")
+              ? now < initialTargetTime
+              : true) &&
+            !overlap
+          );
+        })
+        ?.sort((a, b) => a.hora_inicio.localeCompare(b.hora_inicio)) ?? [];
+
+    return disponibles;
+  });
+
   return (
     <section className="flex flex-col gap-6 flex-1 overflow-hidden max-lg:w-full">
       <header className="h-10 flex items-center px-4 max-lg:px-0">
@@ -25,49 +67,20 @@ const AgendaColumn = () => {
       </header>
       {!horariosDisponibles ? (
         <Loader text="Cargando horarios..." delay />
+      ) : horariosPorDia.every((disponibles) => disponibles.length === 0) ? (
+        <div className="w-full h-full flex items-center justify-center">
+          <IconMessage
+            message="No existen horarios disponibles próximamente"
+            icon={Icon.Types.CALENDAR}
+            small="Selecciona otra fecha"
+          />
+        </div>
       ) : (
         <ul className="flex flex-col flex-1 overflow-x-hidden overflow-y-scroll gap-8 max-lg:overflow-y-hidden">
           <AnimatePresence>
-            {[...Array(DAYS_FROM_NOW)].map((_, i) => {
+            {horariosPorDia.map((disponibles, i) => {
               const currentDay = dateSelected.clone().add(i, "days");
-
-              const dayIndex = getDayIndex(currentDay);
-              const disponibles = horariosDisponibles
-                ?.filter((h) => {
-                  const initialTargetTime = getTimeObject(h.hora_inicio);
-                  const finalTargetTime = getTimeObject(h.hora_final);
-
-                  const overlap = citasProximas?.some((cita) => {
-                    if (cita.fecha !== currentDay.format("YYYY-MM-DD"))
-                      return false;
-                    if (cita.email_psicologo !== h.email_user) return false;
-                    const horaInicioCita = getTimeObject(cita.hora_inicio);
-                    const horaFinCita = getTimeObject(cita.hora_final);
-                    const inicioOverlaping =
-                      horaInicioCita >= initialTargetTime &&
-                      horaInicioCita < finalTargetTime;
-                    const finalOverlaping =
-                      horaFinCita > initialTargetTime &&
-                      horaFinCita <= finalTargetTime;
-                    const insideOverlaping =
-                      inicioOverlaping || finalOverlaping;
-                    const outsideOverLaping =
-                      horaInicioCita < initialTargetTime &&
-                      horaFinCita > finalTargetTime;
-                    return insideOverlaping || outsideOverLaping;
-                  });
-
-                  return (
-                    h.dia === dayIndex &&
-                    (today.isSame(currentDay, "day")
-                      ? now < initialTargetTime
-                      : true) &&
-                    !overlap
-                  );
-                })
-                ?.sort((a, b) => a.hora_inicio.localeCompare(b.hora_inicio));
               if (disponibles?.length === 0) return;
-
               const { date, day, month } = stringFromDate(currentDay);
               return (
                 <motion.li

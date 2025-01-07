@@ -40,10 +40,9 @@ class C_HorarioController extends Controller
         );
     }
 
-    public function indexForMe(Request $request)
+    public function indexForMe()
     {
-        $user = $request->user();
-        $horarios = C_Horario::where('email_user', $user->email)->get();
+        $horarios = C_Horario::all();
         return $this->successResponse(
             "Horarios obtenidos correctamente.",
             C_HorarioResource::collection($horarios)
@@ -59,19 +58,19 @@ class C_HorarioController extends Controller
         $horariosAntes = C_Horario::where('dia', $validatedData['dia'])
             ->where('hora_inicio', '<=', $validatedData['hora_inicio'])
             ->where('hora_final', '>', $validatedData['hora_inicio'])
-            ->where('email_user', $request->user()->email)
+            /* ->where('email_user', $request->user()->email) */
             ->get();
         if ($horariosAntes->count() > 0) {
-            return $this->wrongResponse("Esa hora ya esta ocupada con la cita de las " . date('H:i', strtotime($horariosAntes[0]->hora_inicio)));
+            return $this->wrongResponse("Esa hora ya esta ocupada con el horario de las " . date('H:i', strtotime($horariosAntes[0]->hora_inicio)));
         }
 
         $horariosDespues = C_Horario::where('dia', $validatedData['dia'])
             ->where('hora_inicio', '<', $hora_final)
             ->where('hora_final', '>=', $hora_final)
-            ->where('email_user', $request->user()->email)
+            /* ->where('email_user', $request->user()->email) */
             ->get();
         if ($horariosDespues->count() > 0) {
-            return $this->wrongResponse("Esa hora no esta disponible debido a que tienes una cita a las " . date('H:i', strtotime($horariosDespues[0]->hora_inicio)));
+            return $this->wrongResponse("Esa hora ya esta ocupada con el horario de las " . date('H:i', strtotime($horariosDespues[0]->hora_inicio)));
         }
 
         //TODO: Bug al crear horario con hora_final 00:00:00

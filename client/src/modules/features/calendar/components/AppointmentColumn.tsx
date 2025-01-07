@@ -10,7 +10,7 @@ const AppointmentColumn = () => {
   const groupedData = Object.groupBy(data ?? [], (v) => v.fecha);
   return (
     <section className="flex flex-col gap-6 flex-1 overflow-hidden max-lg:w-full">
-      <header className="h-10 flex items-center px-4 max-lg:px-0">
+      <header className="h-10 flex items-center">
         <strong className="text-primary-900 dark:text-primary-400">
           Mis citas programadas
         </strong>
@@ -32,7 +32,7 @@ const AppointmentColumn = () => {
                   <span className="text-primary-400">{day}</span>, {date} de{" "}
                   {month}
                 </header>
-                <div className="flex flex-col gap-4 px-4 max-lg:px-0">
+                <div className="flex flex-col gap-4 pr-4 max-lg:px-0">
                   {groupedData[appointmentsDate]?.map((h, index) => (
                     <ScheduleCard
                       key={index}

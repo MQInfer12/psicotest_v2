@@ -21,7 +21,7 @@ const ScheduleHeader = () => {
           }}
         />
       )}
-      <div className="flex flex-col gap-4 px-4 max-lg:px-0">
+      <div className="flex flex-col gap-4">
         <header className="h-10 flex items-center justify-between">
           <strong className="text-primary-900 dark:text-primary-400">
             Mi horario

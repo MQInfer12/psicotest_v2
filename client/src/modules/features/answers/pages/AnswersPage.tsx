@@ -74,7 +74,7 @@ const AnswersPage = () => {
   const { debouncedValue, isDebouncing } = useDebounce(
     JSON.stringify(folders),
     {
-      delay: 500,
+      delay: 1000,
       valueIsDefault: true,
     }
   );
@@ -223,6 +223,7 @@ const AnswersPage = () => {
         selectedFolders={folders}
         setSelectedFolders={setFolders}
         loading={isDebouncing || isLoading}
+        loadingFetch={isLoading}
         data={dataFolders}
         setData={setDataFolders}
       />

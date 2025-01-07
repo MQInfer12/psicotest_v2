@@ -14,6 +14,7 @@ interface Props {
   selectedFolders: number[];
   setSelectedFolders: React.Dispatch<React.SetStateAction<number[]>>;
   loading: boolean;
+  loadingFetch: boolean;
 }
 
 const FolderList = ({
@@ -22,6 +23,7 @@ const FolderList = ({
   loading,
   data,
   setData,
+  loadingFetch,
 }: Props) => {
   const { modal, setOpen } = useModal<Folder>();
   const { size } = useMeasureContext();
@@ -107,6 +109,7 @@ const FolderList = ({
                 textAlign={size === "normal" ? "start" : "center"}
                 reverse
                 onClick={() => handleSelectFolder(0)}
+                disabled={loadingFetch}
               >
                 Sin clasificación
               </Button>
@@ -133,6 +136,7 @@ const FolderList = ({
                       textAlign={size === "normal" ? "start" : "center"}
                       reverse
                       onClick={() => handleSelectFolder(folder.id)}
+                      disabled={loadingFetch}
                     >
                       {folder.descripcion}
                     </Button>

@@ -66,10 +66,19 @@ class C_CitaController extends Controller
             return $this->wrongResponse("El token de acceso es inválido.");
         }
 
+        $latitude = '-17.37516404213628';
+        $longitude = '-66.15866852752312';
+        $mapsLink = "https://www.google.com/maps/dir/?api=1&destination={$latitude}%2C{$longitude}";
+
+        $psicotestLink = "https://psicotest.cidtec-uc.com/calendar";
+
         $body = [
             'summary' => 'Cita para el gabinete psicológico',
-            'location' => 'Unifranz Cochabamba - Gabinete Psicológico - 1er piso',
-            'description' => 'Cita con el psicólogo ' . $horario->user->nombre . ' - Generado automáticamente por Psicotest',
+            'location' => 'Unifranz Cochabamba | Gabinete Psicológico | 1er piso',
+            'description' => 'Cita con ' . $horario->user->nombre . ' (psicólogo)' .
+                "\n\nEn el gabinete psicológico de Unifranz Cochabamba, subiendo el primer piso por las escaleras a la derecha." .
+                "\n<a href='{$mapsLink}'>Ver ubicación</a>" .
+                "\n\nGenerado automáticamente por <a href='{$psicotestLink}'>Psicotest</a>",
             'colorId' => '3',
             'start' => [
                 'dateTime' => $validatedData['fecha'] . 'T' . $horario->hora_inicio,
@@ -87,6 +96,19 @@ class C_CitaController extends Controller
                 [
                     'email' => $horario->email_user,
                 ]
+            ],
+            'reminders' => [
+                'useDefault' => false,
+                'overrides' => [
+                    [
+                        'method' => 'popup',
+                        'minutes' => 60
+                    ],
+                    [
+                        'method' => 'popup',
+                        'minutes' => 30
+                    ]
+                ]
             ]
         ];
 
@@ -98,6 +120,9 @@ class C_CitaController extends Controller
                     'Content-Type' => 'application/json',
                 ],
                 'json' => $body,
+                'query' => [
+                    'sendUpdates' => 'all' 
+                ],
             ]);
             $event = json_decode($response->getBody()->getContents());
 

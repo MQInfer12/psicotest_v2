@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import { toastConfirm, toastSuccess } from "@/modules/core/utils/toasts";
 import { SetData } from "@/modules/core/hooks/useFetch/getSetData";
+import { useUserContext } from "../../auth/context/UserContext";
+import clsx from "clsx";
 
 interface Props {
   schedule: Schedule;
@@ -12,6 +14,8 @@ interface Props {
 }
 
 const ScheduleMarker = ({ schedule, setData }: Props) => {
+  const { user } = useUserContext();
+
   const { postData } = useFetch();
   const mutation = postData("DELETE /horario/:id");
 
@@ -32,6 +36,7 @@ const ScheduleMarker = ({ schedule, setData }: Props) => {
   const endPercentage = (100 * minutesOfEnd) / totalMinutes;
 
   const handleDelete = () => {
+    if (user?.email !== schedule.email_user) return;
     toastConfirm("¿Quieres eliminar este horario?", () => {
       mutation(null, {
         params: { id: schedule.id },
@@ -51,7 +56,15 @@ const ScheduleMarker = ({ schedule, setData }: Props) => {
           left: `${startPercentage}%`,
           width: `${endPercentage - startPercentage}%`,
         }}
-        className="h-full bg-primary-700 dark:bg-primary-400 absolute bottom-0 border-r border-l border-alto-50 dark:border-alto-1000"
+        className={clsx(
+          "h-full absolute bottom-0 border-r border-l border-alto-50 dark:border-alto-1000",
+          {
+            "cursor-default": user?.email !== schedule.email_user,
+            "bg-primary-700 dark:bg-primary-400":
+              user?.email === schedule.email_user,
+            "bg-alto-300 dark:bg-alto-600": user?.email !== schedule.email_user,
+          }
+        )}
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}
         onClick={handleDelete}
@@ -65,11 +78,14 @@ const ScheduleMarker = ({ schedule, setData }: Props) => {
           <motion.div
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="bg-alto-50 dark:bg-alto-1000 py-1 px-2 rounded-lg shadow-lg origin-bottom"
+            className="bg-alto-50 dark:bg-alto-1000 py-1 px-2 rounded-lg shadow-lg shadow-alto-950/20 dark:shadow-alto-50/10 origin-bottom max-w-40 flex flex-col items-center"
           >
             <small className="text-alto-950 dark:text-alto-50">
               {hh1}:{mm1} - {hh2}:{mm2}
             </small>
+            <p className="w-full text-primary-500 dark:text-primary-400 font-bold text-xs whitespace-nowrap overflow-hidden text-ellipsis">
+              {schedule.nombre_user}
+            </p>
           </motion.div>
         </div>
       )}
