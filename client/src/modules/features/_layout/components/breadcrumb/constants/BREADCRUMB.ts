@@ -52,7 +52,7 @@ export const BREADCRUMB: Breadcrumb[] = [
     match: "/chat",
   },
   {
-    name: "Calendario",
+    name: "Gabinete",
     match: "/calendar",
   },
   {

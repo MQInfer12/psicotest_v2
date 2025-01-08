@@ -73,5 +73,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/horario/for/me', [C_HorarioController::class, 'indexForMe']);
 
     Route::apiResource('/cita', C_CitaController::class);
+    Route::get('/cita/respuesta/status', [C_CitaController::class, 'respuestaStatus']);
+    Route::patch('/cita/respuesta/{id}', [C_CitaController::class, 'respuesta']);
     Route::put('/cita/destroy/{id}', [C_CitaController::class, 'destroyWithToken']);
 });

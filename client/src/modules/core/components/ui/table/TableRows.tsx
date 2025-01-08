@@ -68,8 +68,6 @@ const TableRows = <T,>({
     };
   }, [savedOffsetKey]);
 
-  console.log("rendering");
-
   return (
     <tbody
       className="relative"

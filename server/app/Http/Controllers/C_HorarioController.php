@@ -17,10 +17,11 @@ class C_HorarioController extends Controller
 
     public function index(C_HorarioIndexRequest $request)
     {
+        $user = $request->user();
         $date = $request->input('date');
 
         $DAYS_FROM_NOW = 7;
-        $horarios = C_Horario::where(function ($query) use ($date, $DAYS_FROM_NOW) {
+        $horarios = C_Horario::where('email_user', "!=", $user->email)->where(function ($query) use ($date, $DAYS_FROM_NOW) {
             for ($i = -1; $i < $DAYS_FROM_NOW - 1; $i++) {
                 $query->orWhere('dia', date('w', strtotime($date . " $i days")));
             }

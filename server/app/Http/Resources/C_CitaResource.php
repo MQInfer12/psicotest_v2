@@ -10,6 +10,8 @@ class C_CitaResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'id_calendar' => $this->id_calendar,
+            'html_link_calendar' => $this->html_link_calendar,
             'email_psicologo' => $this->email_psicologo,
             'nombre_psicologo' => $this->psicologo->nombre,
             'foto_psicologo' => $this->psicologo->foto,
@@ -19,6 +21,7 @@ class C_CitaResource extends JsonResource
             'fecha' => $this->fecha,
             'hora_inicio' => $this->hora_inicio,
             'hora_final' => $this->hora_final,
+            'estado' => $this->estado,
         ];
     }
 }

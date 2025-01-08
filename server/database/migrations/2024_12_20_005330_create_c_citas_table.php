@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('c_citas', function (Blueprint $table) {
             $table->id();
             $table->string('id_calendar');
+            $table->string('html_link_calendar');
             $table->string('email_psicologo');
             $table->foreign('email_psicologo')->references('email')->on('u_users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('email_paciente');

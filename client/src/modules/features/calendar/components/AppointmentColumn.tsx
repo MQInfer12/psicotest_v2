@@ -3,10 +3,17 @@ import dayjs from "dayjs";
 import { getDayIndex } from "../utils/getDayIndex";
 import { stringFromDate } from "../utils/stringFromDate";
 import ScheduleCard from "./ScheduleCard";
+import { getTokens } from "../../auth/utils/localStorageToken";
+import Loader from "@/modules/core/components/ui/loader/Loader";
 
 const AppointmentColumn = () => {
   const { fetchData } = useFetch();
-  const { data } = fetchData("GET /cita");
+  const { data, setData } = fetchData("GET /cita", {
+    params: {
+      access_token: getTokens()?.access_token ?? "",
+    },
+  });
+
   const groupedData = Object.groupBy(data ?? [], (v) => v.fecha);
   return (
     <section className="flex flex-col gap-6 flex-1 overflow-hidden max-lg:w-full">
@@ -16,7 +23,7 @@ const AppointmentColumn = () => {
         </strong>
       </header>
       {!data ? (
-        <></>
+        <Loader text="Cargando tus citas próximas..." />
       ) : data.length === 0 ? (
         <p className="text-center text-sm text-alto-500 dark:text-alto-400">
           No tienes citas próximamente
@@ -37,7 +44,7 @@ const AppointmentColumn = () => {
                     <ScheduleCard
                       key={index}
                       horario={{
-                        id: 0,
+                        id: h.id,
                         hora_inicio: h.hora_inicio,
                         hora_final: h.hora_final,
                         nombre_user: h.nombre_paciente,
@@ -46,6 +53,10 @@ const AppointmentColumn = () => {
                         dia: getDayIndex(currentDay),
                       }}
                       fecha={currentDay.format("YYYY-MM-DD")}
+                      esCita
+                      estado={h.estado}
+                      setData={setData}
+                      link={h.html_link_calendar}
                     />
                   ))}
                 </div>

@@ -10,6 +10,8 @@ export interface Schedule {
 
 export interface Appointment {
   id: number;
+  id_calendar: string;
+  html_link_calendar: string;
   email_psicologo: string;
   nombre_psicologo: string;
   foto_psicologo: string | null;
@@ -19,4 +21,5 @@ export interface Appointment {
   fecha: string;
   hora_inicio: string;
   hora_final: string;
+  estado: "accepted" | "declined" | "needsAction" | null;
 }

@@ -28,9 +28,27 @@ declare global {
       response: null;
     };
     "GET /cita": {
-      params: never;
+      params: {
+        access_token: string;
+      };
       request: never;
       response: Appointment[];
+    };
+    "GET /cita/respuesta/status": {
+      params: {
+        access_token: string;
+        id_calendar: string;
+      };
+      request: never;
+      response: "accepted" | "declined" | "needsAction";
+    };
+    "PATCH /cita/respuesta/:id": {
+      params: { id: number };
+      request: {
+        access_token: string;
+        estado: "accepted" | "declined";
+      };
+      response: Appointment;
     };
     "POST /cita": {
       params: never;

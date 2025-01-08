@@ -37,7 +37,7 @@ export const PRIVATE_LINKS: PrivateLink[] = [
   {
     to: "/calendar",
     icon: ICON.CALENDAR,
-    title: "Calendario",
+    title: "Gabinete",
     permisos: [Permisos.VER_CALENDARIO],
   },
   {

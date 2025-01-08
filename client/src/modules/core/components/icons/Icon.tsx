@@ -1,4 +1,5 @@
 import IconCheckAnimated from "./css/iconCheckAnimated";
+import IconGoogleCalendar from "./extra/IconGoogleCalendar";
 import IconArrow from "./tabler/iconArrow";
 import IconBell from "./tabler/iconBell";
 import IconBrain from "./tabler/iconBrain";
@@ -58,6 +59,7 @@ export enum ICON {
   LOGOUT = "logout",
   NOTES = "notes",
   CALENDAR = "calendar",
+  GOOGLE_CALENDAR = "google_calendar",
   CHAT = "chat",
   BELL = "bell",
   GENDER_MALE = "gender_male",
@@ -130,6 +132,7 @@ const Icon = ({ type }: Props) => {
     [ICON.LOGOUT]: <IconLogout />,
     [ICON.NOTES]: <IconNotes />,
     [ICON.CALENDAR]: <IconCalendar />,
+    [ICON.GOOGLE_CALENDAR]: <IconGoogleCalendar />,
     [ICON.CHAT]: <IconChat />,
     [ICON.BELL]: <IconBell />,
     [ICON.GENDER_MALE]: <IconGender type="male" />,

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\C_CitaDestroyRequest;
+use App\Http\Requests\C_CitaIndexRequest;
+use App\Http\Requests\C_CitaRespuestaRequest;
+use App\Http\Requests\C_CitaRespuestaStatusRequest;
 use App\Http\Requests\C_CitaStoreRequest;
 use App\Http\Resources\C_CitaResource;
 use App\Http\Resources\U_userResource;
@@ -17,13 +20,115 @@ class C_CitaController extends Controller
 {
     use ApiResponse;
 
-    public function index(Request $request)
+    public function index(C_CitaIndexRequest $request)
     {
+        $access_token = $request->input('access_token');
+        if (!$access_token) {
+            return $this->wrongResponse("El token de acceso es inválido.");
+        }
+
         $citas = C_Cita::where('email_psicologo', $request->user()->email)->get();
+
+        foreach ($citas as $cita) {
+            $client = new Client();
+            try {
+                $response = $client->get('https://www.googleapis.com/calendar/v3/calendars/primary/events/' . $cita->id_calendar, [
+                    'headers' => [
+                        'Authorization' => 'Bearer ' . $access_token,
+                        'Content-Type' => 'application/json',
+                    ],
+                ]);
+                $event = json_decode($response->getBody()->getContents());
+                foreach ($event->attendees as $attendee) {
+                    if ($attendee->email == $request->user()->email) {
+                        $cita->estado = $attendee->responseStatus;
+                        break;
+                    }
+                }
+            } catch (RequestException $e) {
+                return $this->wrongResponse("Ocurrió un error al obtener las citas.");
+            }
+        }
+
         return $this->successResponse(
             "Citas encontradas correctamente.",
             C_CitaResource::collection($citas)
         );
+    }
+
+    public function respuestaStatus(C_CitaRespuestaStatusRequest $request)
+    {
+        $access_token = $request->input('access_token');
+        if (!$access_token) {
+            return $this->wrongResponse("El token de acceso es inválido.");
+        }
+        $id_calendar = $request->input('id_calendar');
+
+        $client = new Client();
+        try {
+            $response = $client->get('https://www.googleapis.com/calendar/v3/calendars/primary/events/' . $id_calendar, [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $access_token,
+                    'Content-Type' => 'application/json',
+                ],
+            ]);
+            $event = json_decode($response->getBody()->getContents());
+            foreach ($event->attendees as $attendee) {
+                if ($attendee->email != $request->user()->email) {
+                    return $this->successResponse(
+                        "Citas encontradas correctamente.",
+                        $attendee->responseStatus
+                    );
+                }
+            }
+        } catch (RequestException $e) {
+            return $this->wrongResponse("Ocurrió un error al obtener el estado de la cita.");
+        }
+    }
+
+    public function respuesta(C_CitaRespuestaRequest $request, int $id)
+    {
+        $cita = C_Cita::findOrFail($id);
+
+        $validatedData = $request->validated();
+
+        $user = $request->user();
+        $body = [
+            'attendees' => [
+                [
+                    'email' => $user->email,
+                    'responseStatus' => $validatedData['estado']
+                ]
+            ]
+        ];
+
+        $access_token = $validatedData['access_token'];
+        if (!$access_token) {
+            return $this->wrongResponse("El token de acceso es inválido.");
+        }
+
+        $client = new Client();
+        try {
+            $client->patch('https://www.googleapis.com/calendar/v3/calendars/primary/events/' . $cita->id_calendar, [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $access_token,
+                    'Content-Type' => 'application/json',
+                ],
+                'json' => $body,
+                'query' => [
+                    'sendUpdates' => 'all'
+                ],
+            ]);
+
+            $cita->estado = $validatedData['estado'];
+
+            return $this->successResponse(
+                "Cita creada correctamente.",
+                new C_CitaResource($cita)
+            );
+        } catch (RequestException $e) {
+            return $this->wrongResponse("Ocurrió un error al modificar el estado de la cita o se eliminó el evento del calendario.");
+        }
     }
 
     public function store(C_CitaStoreRequest $request)
@@ -121,13 +226,14 @@ class C_CitaController extends Controller
                 ],
                 'json' => $body,
                 'query' => [
-                    'sendUpdates' => 'all' 
+                    'sendUpdates' => 'all'
                 ],
             ]);
             $event = json_decode($response->getBody()->getContents());
 
             C_Cita::create([
                 'id_calendar' => $event->id,
+                'html_link_calendar' => $event->htmlLink,
                 'email_psicologo' => $horario->email_user,
                 'email_paciente' => $user->email,
                 'fecha' => $validatedData['fecha'],
