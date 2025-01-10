@@ -11,6 +11,7 @@ export const getAIResponse = async (
   prompt: string,
   callback: (res: string) => void,
   options?: {
+    systemRole?: string;
     model?: OpenAIModel;
     onSuccess?: () => void;
     onError?: () => void;
@@ -30,7 +31,9 @@ export const getAIResponse = async (
         messages: [
           {
             role: "system",
-            content: `
+            content:
+              options?.systemRole ??
+              `
               Soy un psicólogo profesional que trabaja con pacientes en una clínica privada. Mi objetivo es evaluar y comprender la salud mental de mis pacientes mediante la aplicación de diversos tests psicológicos.
               Necesitas analizar los datos de un paciente en distintos tests psicológicos y cruzar información de estos utilizando las puntuaciones proporcionadas, realizando análisis de información acerca de sus puntuaciones más elevadas e identificando puntos fuertes y débiles de la mente del evaluado, los tests psicológicos resueltos cuentan con una puntuación cuantitativa en diferentes dimensiones las cuales representan rasgos psicológicos, aspectos de la personalidad de la persona, aptitudes e intereses...
               Las puntuaciones naturales son puntajes directamente sumados de la resolución del test del cual no podrás conocer los mínimos ni máximos pero se te podrá especificar en la plantilla como es que estos pueden ser interpretados, así mismo algunos tests cuentan con puntajes percentiles % lo que significa que el mínimo puntaje que se puede obtener es 0 y el máximo 100.

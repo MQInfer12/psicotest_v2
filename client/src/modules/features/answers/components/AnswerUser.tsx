@@ -10,6 +10,36 @@ const AnswerUser = () => {
   const { data } = useAnswerContext();
   const { user } = data;
 
+  const DATA = [
+    {
+      title: "Género",
+      value: user.genero || "N/A",
+      icon: user.genero
+        ? user.genero === "Hombre"
+          ? Icon.Types.GENDER_MALE
+          : Icon.Types.GENDER_FEMALE
+        : Icon.Types.GENDER_NONE,
+    },
+    {
+      title: "Edad",
+      value:
+        user.fecha_nacimiento && data.fecha_enviado
+          ? `${measureAge(user.fecha_nacimiento, data.fecha_enviado)} años`
+          : "N/A",
+      icon: Icon.Types.CAKE,
+    },
+    {
+      title: "Nombre del test",
+      value: data.nombre_test,
+      icon: Icon.Types.BRAIN,
+    },
+    {
+      title: "Fecha de evaluación",
+      value: data.fecha_enviado ? formatDate(data.fecha_enviado) : "N/A",
+      icon: Icon.Types.CALENDAR,
+    },
+  ];
+
   return (
     <AnswerCardTemplate
       tabs={[
@@ -44,71 +74,21 @@ const AnswerUser = () => {
                   >
                     {user.email}
                   </motion.p>
-                  <div className="mt-4 flex flex-col gap-2">
-                    <div className="flex w-full gap-4">
-                      <div className="flex-1 flex gap-3 items-center">
-                        <div
-                          title="Edad"
-                          className="w-5 aspect-square text-primary-400"
-                        >
-                          <Icon type={Icon.Types.CAKE} />
+                  <div className="mt-4 grid grid-cols-2 gap-2">
+                    {DATA.map((data) => (
+                      <div
+                        key={data.title}
+                        title={`${data.value} (${data.title})`}
+                        className="flex gap-3 items-center"
+                      >
+                        <div className="w-5 aspect-square text-primary-400">
+                          <Icon type={data.icon} />
                         </div>
                         <p className="overflow-hidden whitespace-nowrap text-ellipsis text-xs text-alto-700 dark:text-alto-400">
-                          {user.fecha_nacimiento && data.fecha_enviado
-                            ? `${measureAge(user.fecha_nacimiento, data.fecha_enviado)} años`
-                            : "N/A"}
+                          {data.value}
                         </p>
                       </div>
-                      <div className="flex-1 flex gap-3 items-center overflow-hidden">
-                        <div
-                          title="Género"
-                          className="min-w-5 w-5 aspect-square text-primary-400"
-                        >
-                          <Icon
-                            type={
-                              user.genero
-                                ? user.genero === "Hombre"
-                                  ? Icon.Types.GENDER_MALE
-                                  : Icon.Types.GENDER_FEMALE
-                                : Icon.Types.GENDER_NONE
-                            }
-                          />
-                        </div>
-                        <p className="overflow-hidden whitespace-nowrap text-ellipsis text-xs text-alto-700 dark:text-alto-400">
-                          {user.genero || "N/A"}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex w-full gap-4">
-                      <div className="flex-1 flex gap-3 items-center overflow-hidden">
-                        <div
-                          title="Nombre del test"
-                          className="min-w-5 w-5 aspect-square text-primary-400"
-                        >
-                          <Icon type={Icon.Types.BRAIN} />
-                        </div>
-                        <motion.p
-                          layoutId={`answer-test-${data.id_respuesta}`}
-                          className="overflow-hidden whitespace-nowrap text-ellipsis text-xs text-alto-700 dark:text-alto-400"
-                          title={data.nombre_test}
-                        >
-                          {data.nombre_test}
-                        </motion.p>
-                      </div>
-                      <div className="flex-1 flex gap-3 items-center">
-                        <div
-                          title="Fecha de evaluación"
-                          className="min-w-5 w-5 aspect-square text-primary-400"
-                        >
-                          <Icon type={Icon.Types.CALENDAR} />
-                        </div>
-                        <p className="overflow-hidden whitespace-nowrap text-ellipsis text-xs text-alto-700 dark:text-alto-400">
-                          {data.fecha_enviado
-                            ? formatDate(data.fecha_enviado)
-                            : "N/A"}
-                        </p>
-                      </div>
-                    </div>
+                    ))}
                   </div>
                 </div>
               </div>

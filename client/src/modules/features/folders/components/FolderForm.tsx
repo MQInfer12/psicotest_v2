@@ -93,6 +93,7 @@ const FolderForm = ({ onSuccess, onSuccessDelete, folder }: Props) => {
         label="Descripción"
         error={errors.descripcion?.message}
         {...register("descripcion")}
+        required
       />
       {link && (
         <div className="flex items-end gap-2">

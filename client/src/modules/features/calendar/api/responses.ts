@@ -21,5 +21,13 @@ export interface Appointment {
   fecha: string;
   hora_inicio: string;
   hora_final: string;
+
+  metodo: string | null;
+  motivo: string | null;
+  antecedentes: string | null;
+  observaciones: string | null;
+  derivado_a: string | null;
+  resumen: string | null;
+
   estado: "accepted" | "declined" | "needsAction" | null;
 }

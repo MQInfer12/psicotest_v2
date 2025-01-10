@@ -2,10 +2,10 @@ import { useState } from "react";
 import Calendar from "./Calendar";
 import dayjs from "dayjs";
 import Button from "@/modules/core/components/ui/Button";
-import { DAYS } from "../data/days";
-import { MONTHS } from "../data/months";
-import { useCalendarContext } from "../context/CalendarContext";
-import { getDayIndex } from "../utils/getDayIndex";
+import { DAYS } from "../../data/days";
+import { MONTHS } from "../../data/months";
+import { useCalendarContext } from "../../context/CalendarContext";
+import { getDayIndex } from "../../utils/getDayIndex";
 
 const CalendarColumn = () => {
   const actual = dayjs();

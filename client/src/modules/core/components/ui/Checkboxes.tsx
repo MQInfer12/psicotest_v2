@@ -14,6 +14,7 @@ interface Props {
   error?: string;
   className?: string;
   options: Option[];
+  required?: boolean;
 }
 
 const Checkboxes = ({
@@ -23,6 +24,7 @@ const Checkboxes = ({
   options,
   value,
   onChange,
+  required,
 }: Props) => {
   const id = useId();
 
@@ -36,7 +38,15 @@ const Checkboxes = ({
   return (
     <div className="flex flex-col w-full">
       <div className="pb-2 flex justify-between gap-4">
-        <small className="text-xs font-semibold whitespace-nowrap text-alto-950 dark:text-alto-50">
+        <small
+          className={clsx(
+            "text-xs font-semibold whitespace-nowrap text-alto-950 dark:text-alto-50",
+            {
+              "after:content-['_*'] after:text-primary-500 dark:after:text-primary-400":
+                required,
+            }
+          )}
+        >
           {label}
         </small>
         <Appear open={!!error}>

@@ -22,6 +22,14 @@ return new class extends Migration
             $table->date('fecha');
             $table->time('hora_inicio');
             $table->time('hora_final');
+
+            $table->string('metodo')->nullable();
+            $table->text('motivo')->nullable();
+            $table->text('antecedentes')->nullable();
+            $table->text('observaciones')->nullable();
+            $table->string('derivado_a')->nullable();
+            $table->text('resumen')->nullable();
+
             $table->timestamps();
         });
     }

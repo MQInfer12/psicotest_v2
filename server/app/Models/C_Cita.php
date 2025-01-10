@@ -20,7 +20,14 @@ class C_Cita extends Model
         'email_paciente',
         'fecha',
         'hora_inicio',
-        'hora_final'
+        'hora_final',
+
+        'metodo',
+        'motivo',
+        'antecedentes',
+        'observaciones',
+        'derivado_a',
+        'resumen'
     ];
 
     public function psicologo()

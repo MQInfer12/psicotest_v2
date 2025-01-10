@@ -25,6 +25,12 @@ class U_user extends Authenticatable
         'foto',
         'genero',
         'fecha_nacimiento',
+        'carrera',
+        'semestre',
+        'codigo_estudiantil',
+        'telefono',
+        'nombre_tutor',
+        'telefono_tutor',
         'estado',
         'id_rol'
     ];

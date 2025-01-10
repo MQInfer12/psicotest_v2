@@ -7,5 +7,6 @@ export const stringFromDate = (day: Dayjs) => {
     day: DAYS[day.day() === 0 ? 6 : day.day() - 1].dia,
     date: day.format("D"),
     month: MONTHS[day.month()],
+    year: day.format("YYYY"),
   };
 };

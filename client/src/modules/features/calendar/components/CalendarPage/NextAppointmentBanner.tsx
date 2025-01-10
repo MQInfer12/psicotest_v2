@@ -1,8 +1,6 @@
 import Icon from "@/modules/core/components/icons/Icon";
 import IconMessage from "@/modules/core/components/icons/IconMessage";
 import Button from "@/modules/core/components/ui/Button";
-import { useUserContext } from "../../auth/context/UserContext";
-import { stringFromDate } from "../utils/stringFromDate";
 import dayjs from "dayjs";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import {
@@ -10,10 +8,12 @@ import {
   toastError,
   toastSuccess,
 } from "@/modules/core/utils/toasts";
-import { getTokens } from "../../auth/utils/localStorageToken";
 import { useEffect, useState } from "react";
 import DefaultPhoto from "@/assets/images/defaultPhoto.jpg";
 import clsx from "clsx";
+import { useUserContext } from "@/modules/features/auth/context/UserContext";
+import { getTokens } from "@/modules/features/auth/utils/localStorageToken";
+import { stringFromDate } from "../../utils/stringFromDate";
 
 const getIsCurrent = (fecha_cita: string, hora_cita: string) => {
   const appointmentHour = dayjs(fecha_cita + "T" + hora_cita);
@@ -81,8 +81,6 @@ const NextAppointmentBanner = () => {
       );
     });
   };
-
-  console.log(data);
 
   return (
     <section className="flex flex-col gap-6 flex-1 overflow-hidden w-full">

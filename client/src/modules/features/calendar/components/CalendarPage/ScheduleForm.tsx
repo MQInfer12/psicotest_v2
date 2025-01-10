@@ -1,14 +1,14 @@
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { ScheduleDTOSchema } from "../validations/ScheduleDTO.schema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toastSuccess } from "@/modules/core/utils/toasts";
-import { ScheduleDTO } from "../api/dtos";
 import Input from "@/modules/core/components/ui/Input";
-import { DAYS } from "../data/days";
 import Button from "@/modules/core/components/ui/Button";
-import { Schedule } from "../api/responses";
+import { Schedule } from "../../api/responses";
+import { ScheduleDTOSchema } from "../../validations/ScheduleDTO.schema";
+import { DAYS } from "../../data/days";
+import { ScheduleDTO } from "../../api/dtos";
 
 interface Props {
   onSuccess: (schedule: Schedule) => void;
@@ -50,6 +50,7 @@ const ScheduleForm = ({ onSuccess }: Props) => {
         label="Día"
         error={errors.dia?.message}
         type="select"
+        required
         {...register("dia")}
       >
         <option value="">Elije un día</option>
@@ -62,10 +63,11 @@ const ScheduleForm = ({ onSuccess }: Props) => {
       <Input
         label="Email"
         type="time"
+        required
         error={errors.hora_inicio?.message}
         {...register("hora_inicio")}
       />
-      <Input disabled readOnly value={60} label="Minutos" />
+      <Input disabled readOnly required value={60} label="Minutos" />
       <Button disabled={loading} type="submit">
         Enviar
       </Button>

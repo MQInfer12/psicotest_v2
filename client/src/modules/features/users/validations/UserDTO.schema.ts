@@ -10,6 +10,12 @@ export const UserDTOSchema = yup.object({
   foto: yup.string().nullable(),
   genero: yup.string().nullable(),
   fecha_nacimiento: yup.string().nullable(),
+  carrera: yup.string().nullable(),
+  semestre: yup.number().nullable(),
+  codigo_estudiantil: yup.string().nullable(),
+  telefono: yup.number().nullable(),
+  nombre_tutor: yup.string().nullable(),
+  telefono_tutor: yup.number().nullable(),
 });
 
 export const UserRequiredDTOSchema = yup.object().shape({

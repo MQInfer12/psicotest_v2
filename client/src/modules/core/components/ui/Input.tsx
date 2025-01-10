@@ -24,15 +24,28 @@ const isSelect = (props: InputProps | SelectProps): props is SelectProps => {
 
 const Input = forwardRef((props: Props, ref: ForwardedRef<any>) => {
   const id = useId();
-  const { label, className, error, inputSize = "base", ...rest } = props;
+  const {
+    label,
+    className,
+    error,
+    inputSize = "base",
+    required,
+    ...rest
+  } = props;
   const forwardProps = rest as InputProps | SelectProps;
 
   return (
     <div className="flex flex-col w-full">
       {label && (
-        <div className="pb-2 flex justify-between gap-4">
+        <div className="pb-2 flex justify-between gap-2">
           <label
-            className="text-xs font-semibold whitespace-nowrap text-alto-950 dark:text-alto-50"
+            className={clsx(
+              "text-xs font-semibold whitespace-nowrap text-alto-950 dark:text-alto-50",
+              {
+                "after:content-['_*'] after:text-primary-500 dark:after:text-primary-400":
+                  required,
+              }
+            )}
             htmlFor={id}
           >
             {label}

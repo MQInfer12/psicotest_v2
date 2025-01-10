@@ -53,6 +53,7 @@ const AnswersMoveManyForm = () => {
         type="select"
         {...register("id_carpeta")}
         error={errors.id_carpeta?.message}
+        required
       >
         <option value="">Sin clasificación</option>
         {carpetas

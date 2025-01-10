@@ -25,6 +25,13 @@ class U_userUpdateRequest extends FormRequest
             'foto' => 'nullable|string',
             'genero' => 'nullable|string',
             'fecha_nacimiento' => 'nullable|date',
+
+            'carrera' => 'nullable|string',
+            'semestre' => 'nullable|integer',
+            'codigo_estudiantil' => 'nullable|string',
+            'telefono' => 'nullable|integer',
+            'nombre_tutor' => 'nullable|string',
+            'telefono_tutor' => 'nullable|integer',
         ];
     }
 

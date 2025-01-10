@@ -70,12 +70,14 @@ const UserForm = ({ user, onSuccess }: Props) => {
       <Input
         label="Nombre"
         error={errors.nombre?.message}
+        required
         {...register("nombre")}
       />
       <Input
         label="Email"
         error={errors.email?.message}
         type="email"
+        required
         {...register("email")}
       />
       <Input

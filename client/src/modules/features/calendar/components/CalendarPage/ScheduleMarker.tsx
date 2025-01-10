@@ -1,12 +1,12 @@
 import { useFloating } from "@floating-ui/react";
-import { Schedule } from "../api/responses";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import { toastConfirm, toastSuccess } from "@/modules/core/utils/toasts";
 import { SetData } from "@/modules/core/hooks/useFetch/getSetData";
-import { useUserContext } from "../../auth/context/UserContext";
 import clsx from "clsx";
+import { useUserContext } from "@/modules/features/auth/context/UserContext";
+import { Schedule } from "../../api/responses";
 
 interface Props {
   schedule: Schedule;

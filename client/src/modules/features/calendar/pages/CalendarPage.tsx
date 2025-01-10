@@ -2,11 +2,11 @@ import { useMeasureContext } from "../../_layout/context/MeasureContext";
 import { useUserContext } from "../../auth/context/UserContext";
 import { usePermiso } from "../../auth/hooks/usePermiso";
 import { Permisos } from "../../auth/types/Permisos";
-import AgendaColumn from "../components/AgendaColumn";
-import AppointmentColumn from "../components/AppointmentColumn";
-import CalendarColumn from "../components/CalendarColumn";
-import NextAppointmentBanner from "../components/NextAppointmentBanner";
-import ScheduleHeader from "../components/ScheduleHeader";
+import AgendaColumn from "../components/CalendarPage/AgendaColumn";
+import AppointmentColumn from "../components/CalendarPage/AppointmentColumn";
+import CalendarColumn from "../components/CalendarPage/CalendarColumn";
+import NextAppointmentBanner from "../components/CalendarPage/NextAppointmentBanner";
+import ScheduleHeader from "../components/CalendarPage/ScheduleHeader";
 import { CalendarContextProvider } from "../context/CalendarContext";
 
 const CalendarPage = () => {
@@ -16,6 +16,7 @@ const CalendarPage = () => {
   const anadirPermisos = usePermiso([Permisos.ANADIR_HORARIOS]);
   const agendarPermisos = usePermiso([Permisos.VER_HORARIOS]);
   const verCitas = usePermiso([Permisos.VER_CITAS]);
+
   return (
     <div
       className="relative flex gap-16 flex-1 overflow-auto max-lg:flex-col max-lg:gap-8 max-lg:items-center"

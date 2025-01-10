@@ -21,6 +21,14 @@ class C_CitaResource extends JsonResource
             'fecha' => $this->fecha,
             'hora_inicio' => $this->hora_inicio,
             'hora_final' => $this->hora_final,
+
+            'metodo' => $this->metodo,
+            'motivo' => $this->motivo,
+            'antecedentes' => $this->antecedentes,
+            'observaciones' => $this->observaciones,
+            'derivado_a' => $this->derivado_a,
+            'resumen' => $this->resumen,
+
             'estado' => $this->estado,
         ];
     }

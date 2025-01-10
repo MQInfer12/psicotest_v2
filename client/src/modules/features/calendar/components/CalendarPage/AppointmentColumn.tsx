@@ -1,10 +1,10 @@
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import dayjs from "dayjs";
-import { getDayIndex } from "../utils/getDayIndex";
-import { stringFromDate } from "../utils/stringFromDate";
-import ScheduleCard from "./ScheduleCard";
-import { getTokens } from "../../auth/utils/localStorageToken";
 import Loader from "@/modules/core/components/ui/loader/Loader";
+import { getTokens } from "@/modules/features/auth/utils/localStorageToken";
+import { stringFromDate } from "../../utils/stringFromDate";
+import ScheduleCard from "./ScheduleCard";
+import { getDayIndex } from "../../utils/getDayIndex";
 
 const AppointmentColumn = () => {
   const { fetchData } = useFetch();

@@ -1,5 +1,5 @@
 import { User } from "../../users/api/responses";
-import { ScheduleDTO } from "./dtos";
+import { DerivacionDTO, FichaDTO, ScheduleDTO } from "./dtos";
 import { Appointment, Schedule } from "./responses";
 
 declare global {
@@ -34,6 +34,16 @@ declare global {
       request: never;
       response: Appointment[];
     };
+    "GET /cita/:id": {
+      params: {
+        id: number;
+      };
+      request: never;
+      response: {
+        cita: Appointment;
+        paciente: User;
+      };
+    };
     "GET /cita/respuesta/status": {
       params: {
         access_token: string;
@@ -58,6 +68,13 @@ declare global {
         access_token: string;
       };
       response: User;
+    };
+    "PUT /cita/:id": {
+      params: {
+        id: number;
+      };
+      request: FichaDTO | DerivacionDTO;
+      response: Appointment;
     };
     "PUT /cita/destroy/:id": {
       params: { id: number };

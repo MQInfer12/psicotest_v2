@@ -40,6 +40,7 @@ const ShareForm = ({ idTests, nombreTest, children }: Props) => {
           type="select"
           value={carpetaId}
           onChange={(e) => setCarpetaId(e.target.value)}
+          required
         >
           <option value="">Sin clasificación</option>
           {data

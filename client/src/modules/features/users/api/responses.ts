@@ -9,6 +9,14 @@ export interface User extends Timestamps {
   genero: Genero | null;
   foto: string | null;
   fecha_nacimiento: string | null;
+
+  carrera: string | null;
+  semestre: number | null;
+  codigo_estudiantil: string | null;
+  telefono: number | null;
+  nombre_tutor: string | null;
+  telefono_tutor: number | null;
+
   estado: boolean;
   id_rol: number;
   permisos: Permisos[];

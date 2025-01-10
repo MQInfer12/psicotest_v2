@@ -46,14 +46,19 @@ export const BREADCRUMB: Breadcrumb[] = [
     name: "Plantillas",
     match: "/templates",
   },
+  //? GABINETE
+  {
+    name: "Gabinete",
+    match: "/calendar",
+  },
+  {
+    name: "Detalles de la cita",
+    match: "/calendar/$id",
+  },
   //? SIDEBAR
   {
     name: "Chat",
     match: "/chat",
-  },
-  {
-    name: "Gabinete",
-    match: "/calendar",
   },
   {
     name: "Usuarios",

@@ -1,13 +1,13 @@
 import Loader from "@/modules/core/components/ui/loader/Loader";
 import dayjs from "dayjs";
-import { useCalendarContext } from "../context/CalendarContext";
-import { stringFromDate } from "../utils/stringFromDate";
-import ScheduleCard from "./ScheduleCard";
-import { getDayIndex } from "../utils/getDayIndex";
-import { getTimeObject } from "../utils/getTimeObject";
 import { AnimatePresence, motion } from "framer-motion";
 import IconMessage from "@/modules/core/components/icons/IconMessage";
 import Icon from "@/modules/core/components/icons/Icon";
+import { useCalendarContext } from "../../context/CalendarContext";
+import { getDayIndex } from "../../utils/getDayIndex";
+import { getTimeObject } from "../../utils/getTimeObject";
+import { stringFromDate } from "../../utils/stringFromDate";
+import ScheduleCard from "./ScheduleCard";
 
 const DAYS_FROM_NOW = 7;
 

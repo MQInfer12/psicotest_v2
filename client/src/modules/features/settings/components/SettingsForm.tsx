@@ -65,6 +65,7 @@ const Render = ({ data, onSuccess }: RenderProps) => {
         label="Modelo de GPT"
         error={errors.gpt_model?.message}
         type="select"
+        required
         {...register("gpt_model")}
       >
         {Object.values(OpenAIModel).map((model) => (

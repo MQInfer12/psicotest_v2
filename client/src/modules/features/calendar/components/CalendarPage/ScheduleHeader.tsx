@@ -1,5 +1,5 @@
 import Button from "@/modules/core/components/ui/Button";
-import { DAYS } from "../data/days";
+import { DAYS } from "../../data/days";
 import { useModal } from "@/modules/core/components/ui/modal/useModal";
 import ScheduleForm from "./ScheduleForm";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";

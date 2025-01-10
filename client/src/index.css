@@ -43,7 +43,7 @@ img {
   @apply bg-alto-100;
 }
 html.dark ::-webkit-scrollbar-track {
-  @apply bg-alto-1000;
+  @apply bg-alto-950;
 }
 
 ::-webkit-scrollbar-thumb {

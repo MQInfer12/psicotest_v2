@@ -17,6 +17,14 @@ return new class extends Migration
             $table->string('foto')->nullable();
             $table->string('genero')->nullable();
             $table->date('fecha_nacimiento')->nullable();
+
+            $table->string('carrera')->nullable();
+            $table->integer('semestre')->nullable();
+            $table->string('codigo_estudiantil')->nullable();
+            $table->integer('telefono')->nullable();
+            $table->string('nombre_tutor')->nullable();
+            $table->integer('telefono_tutor')->nullable();
+
             $table->boolean('estado')->default(true);
             $table->foreignId('id_rol')->nullable()->constrained('u_rols')->cascadeOnUpdate()->nullOnDelete();
             $table->timestamps();

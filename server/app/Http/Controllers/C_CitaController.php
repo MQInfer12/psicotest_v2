@@ -7,6 +7,7 @@ use App\Http\Requests\C_CitaIndexRequest;
 use App\Http\Requests\C_CitaRespuestaRequest;
 use App\Http\Requests\C_CitaRespuestaStatusRequest;
 use App\Http\Requests\C_CitaStoreRequest;
+use App\Http\Requests\C_CitaUpdateRequest;
 use App\Http\Resources\C_CitaResource;
 use App\Http\Resources\U_userResource;
 use App\Models\C_Cita;
@@ -53,6 +54,23 @@ class C_CitaController extends Controller
         return $this->successResponse(
             "Citas encontradas correctamente.",
             C_CitaResource::collection($citas)
+        );
+    }
+
+    public function show(int $id)
+    {
+        $cita = C_Cita::findOrFail($id);
+
+        if ($cita->email_psicologo != request()->user()->email) {
+            return $this->wrongResponse("No tienes permisos para ver esta cita.");
+        }
+
+        return $this->successResponse(
+            "Cita encontrada correctamente.",
+            [
+                'cita' => new C_CitaResource($cita),
+                'paciente' => new U_userResource($cita->paciente)
+            ]
         );
     }
 
@@ -250,6 +268,24 @@ class C_CitaController extends Controller
         } catch (RequestException $e) {
             return $this->wrongResponse("Error al crear la cita.");
         }
+    }
+
+    public function update(C_CitaUpdateRequest $request, int $id)
+    {
+        $validatedData = $request->validated();
+
+        $cita = C_Cita::findOrFail($id);
+
+        if ($cita->email_psicologo != request()->user()->email) {
+            return $this->wrongResponse("No tienes permisos para actualizar esta cita.");
+        }
+
+        $cita->update($validatedData);
+
+        return $this->successResponse(
+            "Cita actualizada correctamente.",
+            new C_CitaResource($cita)
+        );
     }
 
     public function destroyWithToken(C_CitaDestroyRequest $request, int $id)

@@ -1,8 +1,8 @@
 import { useCallback } from "react";
-import { DAYS } from "../data/days";
 import clsx from "clsx";
 import dayjs, { Dayjs } from "dayjs";
-import { useCalendarContext } from "../context/CalendarContext";
+import { useCalendarContext } from "../../context/CalendarContext";
+import { DAYS } from "../../data/days";
 
 interface Props {
   fechaActual: Dayjs;

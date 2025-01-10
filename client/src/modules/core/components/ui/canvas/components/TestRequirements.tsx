@@ -49,8 +49,6 @@ const TestRequirements = ({ direction, requirements }: Props) => {
     resolver: yupResolver(UserRequiredDTOSchema),
   });
 
-  console.log(errors);
-
   return (
     <motion.div
       variants={TEST_CAROUSEL_VARIANT}
@@ -77,6 +75,7 @@ const TestRequirements = ({ direction, requirements }: Props) => {
                   label="Fecha de nacimiento"
                   type="date"
                   error={errors.fecha_nacimiento?.message}
+                  required
                   {...register("fecha_nacimiento")}
                 />
               );
@@ -87,6 +86,7 @@ const TestRequirements = ({ direction, requirements }: Props) => {
                   label="Género"
                   error={errors.genero?.message}
                   type="select"
+                  required
                   {...register("genero")}
                 >
                   <option value="">Sin especificar</option>

@@ -43,6 +43,7 @@ const ModifyTextForm = ({ text, setEdit, closeModal }: Props) => {
         label="Texto"
         error={errors.text?.message}
         {...register("text")}
+        required
       />
       <Button type="submit">Enviar</Button>
     </form>

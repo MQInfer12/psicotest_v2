@@ -17,10 +17,12 @@ const LoginButton = (props: Props) => {
 
 const LoginBtn = ({ type }: Props) => {
   const { handleLogin } = useLoginContext();
+
   const handleLoginBtn = useGoogleLogin({
     onSuccess: handleLogin,
     scope: "https://www.googleapis.com/auth/calendar.events",
   });
+
   return (
     <button
       className="flex gap-4 items-center border border-alto-200 p-2 rounded-md bg-white hover:bg-alto-100 transition-all duration-300"

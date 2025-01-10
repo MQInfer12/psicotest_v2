@@ -1,23 +1,38 @@
 import clsx from "clsx";
-import Appear from "../utils/Appear";
 import { ForwardedRef, forwardRef, useId } from "react";
+import Appear from "../utils/Appear";
 
 interface Props extends React.InputHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
   error?: string;
   inputSize?: "base" | "small";
+  height?: number;
 }
 
 const TextArea = forwardRef((props: Props, ref: ForwardedRef<any>) => {
   const id = useId();
-  const { label, className, error, inputSize = "base", ...rest } = props;
+  const {
+    label,
+    className,
+    error,
+    inputSize = "base",
+    required,
+    height = 192,
+    ...rest
+  } = props;
 
   return (
     <div className="flex flex-col w-full">
       {label && (
         <div className="pb-2 flex justify-between gap-4">
           <label
-            className="text-xs font-semibold whitespace-nowrap text-alto-950 dark:text-alto-50"
+            className={clsx(
+              "text-xs font-semibold whitespace-nowrap text-alto-950 dark:text-alto-50",
+              {
+                "after:content-['_*'] after:text-primary-500 dark:after:text-primary-400":
+                  required,
+              }
+            )}
             htmlFor={id}
           >
             {label}
@@ -38,7 +53,7 @@ const TextArea = forwardRef((props: Props, ref: ForwardedRef<any>) => {
         type="text"
         autoComplete="off"
         className={clsx(
-          "w-full h-56 border border-alto-300/70 dark:border-alto-800 rounded-lg outline-none bg-white dark:bg-alto-1000 dark:[color-scheme:dark]",
+          "w-full border border-alto-300/70 dark:border-alto-800 rounded-lg outline-none bg-white dark:bg-alto-1000 dark:[color-scheme:dark]",
           "ring-0 ring-inset ring-primary-400 focus:ring-1 transition-colors duration-300",
           {
             "text-sm py-2 px-3": inputSize === "base",
@@ -48,6 +63,9 @@ const TextArea = forwardRef((props: Props, ref: ForwardedRef<any>) => {
           "text-alto-950 dark:text-alto-50 placeholder-alto-500 dark:placeholder-alto-700",
           className
         )}
+        style={{
+          height,
+        }}
         {...rest}
       />
     </div>

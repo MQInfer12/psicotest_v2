@@ -1,11 +1,13 @@
 import IconCheckAnimated from "./css/iconCheckAnimated";
 import IconGoogleCalendar from "./extra/IconGoogleCalendar";
 import IconArrow from "./tabler/iconArrow";
+import IconBarcode from "./tabler/iconBarcode";
 import IconBell from "./tabler/iconBell";
 import IconBrain from "./tabler/iconBrain";
 import IconCake from "./tabler/iconCake";
 import IconCalendar from "./tabler/iconCalendar";
 import IconCancel from "./tabler/iconCancel";
+import IconCareer from "./tabler/iconCareer";
 import IconCaret from "./tabler/iconCaret";
 import IconChat from "./tabler/iconChat";
 import IconCheck from "./tabler/iconCheck";
@@ -15,12 +17,15 @@ import IconClipboard from "./tabler/iconClipboard";
 import IconClock from "./tabler/iconClock";
 import IconComputer from "./tabler/iconComputer";
 import IconConfig from "./tabler/iconConfig";
+import IconContact from "./tabler/iconContact";
+import IconContactPhone from "./tabler/iconContactPhone";
 import IconDots from "./tabler/iconDots";
 import IconDownload from "./tabler/iconDownload";
 import IconExcel from "./tabler/iconExcel";
 import IconFacebook from "./tabler/IconFacebook";
 import IconFolder from "./tabler/iconFolder";
 import IconGender from "./tabler/iconGender";
+import IconGPT from "./tabler/iconGPT";
 import IconHandPointer from "./tabler/iconHandPointer";
 import IconInstagram from "./tabler/IconInstagram";
 import IconLinkedin from "./tabler/iconLinkedin";
@@ -32,6 +37,8 @@ import IconNotes from "./tabler/iconNotes";
 import IconPDF from "./tabler/iconPDF";
 import IconPencil from "./tabler/iconPencil";
 import IconPersonActive from "./tabler/iconPersonActive";
+import IconPhone from "./tabler/iconPhone";
+import IconProgress from "./tabler/iconProgress";
 import IconQR from "./tabler/iconQR";
 import IconQuestion from "./tabler/iconQuestion";
 import IconReload from "./tabler/iconReload";
@@ -115,6 +122,13 @@ export enum ICON {
   SUN = "sun",
   MOON = "moon",
   SAVE = "save",
+  CAREER = "career",
+  PHONE = "phone",
+  PROGRESS = "progress",
+  BARCODE = "barcode",
+  CONTACT = "contact",
+  CONTACTPHONE = "contactphone",
+  GPT = "gpt"
 }
 
 interface Props {
@@ -188,6 +202,13 @@ const Icon = ({ type }: Props) => {
     [ICON.SUN]: <IconSun />,
     [ICON.MOON]: <IconMoon />,
     [ICON.SAVE]: <IconSave />,
+    [ICON.CAREER]: <IconCareer />,
+    [ICON.PHONE]: <IconPhone />,
+    [ICON.PROGRESS]: <IconProgress />,
+    [ICON.BARCODE]: <IconBarcode />,
+    [ICON.CONTACT]: <IconContact />,
+    [ICON.CONTACTPHONE]: <IconContactPhone />,
+    [ICON.GPT]: <IconGPT />,
   };
   return icons[type];
 };
