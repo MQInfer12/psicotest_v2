@@ -14,7 +14,6 @@ class C_CitaIndexRequest extends FormRequest
     public function rules()
     {
         return [
-            'access_token' => 'nullable|string',
             'previous' => 'nullable|boolean',
         ];
     }
@@ -22,7 +21,6 @@ class C_CitaIndexRequest extends FormRequest
     public function messages()
     {
         return [
-            'access_token.string' => 'El access_token tiene que ser un string.',
             'previous.boolean' => 'El previous tiene que ser un boolean.',
         ];
     }

@@ -25,6 +25,9 @@ return new class extends Migration
             $table->string('nombre_tutor')->nullable();
             $table->integer('telefono_tutor')->nullable();
 
+            $table->text('access_token')->nullable();
+            $table->text('refresh_token')->nullable();
+
             $table->boolean('estado')->default(true);
             $table->foreignId('id_rol')->nullable()->constrained('u_rols')->cascadeOnUpdate()->nullOnDelete();
             $table->timestamps();

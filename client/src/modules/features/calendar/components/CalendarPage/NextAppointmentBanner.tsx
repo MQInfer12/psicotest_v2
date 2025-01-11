@@ -27,7 +27,6 @@ const NextAppointmentBanner = () => {
   const cancelMutation = postData("PUT /cita/destroy/:id");
   const { data } = fetchData("GET /cita/respuesta/status", {
     params: {
-      access_token: getTokens()?.access_token ?? "",
       id_calendar: user?.cita_proxima?.id_calendar ?? "",
     },
   });
@@ -62,23 +61,18 @@ const NextAppointmentBanner = () => {
       const tokens = getTokens();
       if (!tokens) return;
       setLoading(true);
-      cancelMutation(
-        {
-          access_token: tokens.access_token,
+      cancelMutation(null, {
+        params: {
+          id: cita_proxima.id,
         },
-        {
-          params: {
-            id: cita_proxima.id,
-          },
-          onSuccess(res) {
-            toastSuccess(res.message);
-            setUser(res.data);
-          },
-          onSettled() {
-            setLoading(false);
-          },
-        }
-      );
+        onSuccess(res) {
+          toastSuccess(res.message);
+          setUser(res.data);
+        },
+        onSettled() {
+          setLoading(false);
+        },
+      });
     });
   };
 

@@ -28,9 +28,7 @@ declare global {
       response: null;
     };
     "GET /cita": {
-      params: {
-        access_token: string;
-      };
+      params: never;
       request: never;
       response: Appointment[];
     };
@@ -46,7 +44,6 @@ declare global {
     };
     "GET /cita/respuesta/status": {
       params: {
-        access_token: string;
         id_calendar: string;
       };
       request: never;
@@ -55,7 +52,6 @@ declare global {
     "PATCH /cita/respuesta/:id": {
       params: { id: number };
       request: {
-        access_token: string;
         estado: "accepted" | "declined";
       };
       response: Appointment;
@@ -65,7 +61,6 @@ declare global {
       request: {
         id_horario: number;
         fecha: string;
-        access_token: string;
       };
       response: User;
     };
@@ -78,9 +73,7 @@ declare global {
     };
     "PUT /cita/destroy/:id": {
       params: { id: number };
-      request: {
-        access_token: string;
-      };
+      request: null;
       response: User;
     };
   }

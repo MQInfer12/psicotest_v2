@@ -15,7 +15,6 @@ class C_CitaRespuestaRequest extends FormRequest
     {
         return [
             'estado' => 'required|string|in:accepted,declined',
-            'access_token' => 'required|string'
         ];
     }
 
@@ -25,8 +24,6 @@ class C_CitaRespuestaRequest extends FormRequest
             'estado.required' => 'El estado es requerido.',
             'estado.string' => 'El estado tiene que ser una cadena.',
             'estado.in' => 'El estado debe ser "accepted" o "declined".',
-            'access_token.required' => 'El access_token es requerido.',
-            'access_token.string' => 'El access_token tiene que ser un string.'
         ];
     }
 }

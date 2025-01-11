@@ -1,6 +1,5 @@
 import Loader from "@/modules/core/components/ui/loader/Loader";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
-import { getTokens } from "@/modules/features/auth/utils/localStorageToken";
 import dayjs from "dayjs";
 import { stringFromDate } from "../../utils/stringFromDate";
 import ScheduleCard from "./ScheduleCard";
@@ -8,11 +7,7 @@ import { getDayIndex } from "../../utils/getDayIndex";
 
 const AppointmentsToCome = () => {
   const { fetchData } = useFetch();
-  const { data, setData } = fetchData("GET /cita", {
-    params: {
-      access_token: getTokens()?.access_token ?? "",
-    },
-  });
+  const { data, setData } = fetchData("GET /cita");
 
   const groupedData = Object.groupBy(data ?? [], (v) => v.fecha);
 

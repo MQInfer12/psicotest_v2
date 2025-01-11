@@ -32,8 +32,20 @@ class U_user extends Authenticatable
         'nombre_tutor',
         'telefono_tutor',
         'estado',
-        'id_rol'
+        'id_rol',
+        'access_token',
+        'refresh_token',
     ];
+
+    public function raw_access_token()
+    {
+        return $this->access_token ? decrypt($this->access_token) : null;
+    }
+
+    public function raw_refresh_token()
+    {
+        return $this->refresh_token ? decrypt($this->refresh_token) : null;
+    }
 
     public function carpetas()
     {

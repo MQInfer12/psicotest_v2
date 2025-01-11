@@ -1,3 +1,4 @@
 export interface LoginDTO {
-  token: string;
+  code: string;
+  redirect_uri: string;
 }

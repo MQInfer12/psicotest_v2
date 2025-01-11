@@ -20,7 +20,7 @@ interface Ctx {
   user: User | null;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
   state: UserContextState;
-  login: (user: User, token: string, access_token: string) => void;
+  login: (user: User, token: string) => void;
   logout: () => void;
 }
 
@@ -41,7 +41,7 @@ const GetUser = () => {
         onSuccess: (res) => {
           const tokens = getTokens();
           if (!tokens) return;
-          login(res.data, tokens.token, tokens.access_token);
+          login(res.data, tokens.token);
         },
       });
     }
@@ -57,14 +57,11 @@ export const UserContextProvider = ({ children }: Props) => {
     getTokens() ? "loading" : "unlogged"
   );
 
-  const login = useCallback(
-    (user: User, token: string, access_token: string) => {
-      saveTokens(token, access_token);
-      setUser(user);
-      setState("logged");
-    },
-    []
-  );
+  const login = useCallback((user: User, token: string) => {
+    saveTokens(token);
+    setUser(user);
+    setState("logged");
+  }, []);
 
   const logout = useCallback(() => {
     removeTokens();

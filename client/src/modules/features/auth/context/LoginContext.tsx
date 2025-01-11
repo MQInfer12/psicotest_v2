@@ -1,7 +1,7 @@
 import { Modal, useModal } from "@/modules/core/components/ui/modal/useModal";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import { toastSuccess } from "@/modules/core/utils/toasts";
-import { TokenResponse } from "@react-oauth/google";
+import { CodeResponse } from "@react-oauth/google";
 import { createContext, useContext, useState } from "react";
 import { useUserContext } from "./UserContext";
 
@@ -9,7 +9,9 @@ interface Ctx {
   modal: Modal<unknown>;
   open: boolean;
   setOpen: (openOption: unknown) => void;
-  handleLogin: (data: TokenResponse) => void;
+  handleLogin: (
+    data: Omit<CodeResponse, "error" | "error_description" | "error_uri">
+  ) => void;
   loading: boolean;
 }
 
@@ -26,15 +28,18 @@ export const LoginContextProvider = ({ children }: Props) => {
   const [loading, setLoading] = useState(false);
   const { modal, open, setOpen } = useModal();
 
-  const handleLogin = (data: TokenResponse) => {
+  const handleLogin = (
+    data: Omit<CodeResponse, "error" | "error_description" | "error_uri">
+  ) => {
     setLoading(true);
     loginMutation(
       {
-        token: data.access_token,
+        code: data.code,
+        redirect_uri: location.protocol + "//" + location.host,
       },
       {
         onSuccess: (res) => {
-          login(res.data.user, res.data.token, res.data.access_token);
+          login(res.data.user, res.data.token);
           toastSuccess(res.message);
         },
         onError: () => setLoading(false),

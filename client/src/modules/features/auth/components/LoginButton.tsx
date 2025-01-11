@@ -21,6 +21,7 @@ const LoginBtn = ({ type }: Props) => {
   const handleLoginBtn = useGoogleLogin({
     onSuccess: handleLogin,
     scope: "https://www.googleapis.com/auth/calendar.events",
+    flow: "auth-code",
   });
 
   return (

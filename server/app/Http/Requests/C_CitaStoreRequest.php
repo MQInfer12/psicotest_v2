@@ -16,7 +16,6 @@ class C_CitaStoreRequest extends FormRequest
         return [
             'id_horario' => 'required|integer|exists:c_horarios,id',
             'fecha' => 'required|date|date_format:Y-m-d',
-            'access_token' => 'required|string'
         ];
     }
 
@@ -29,8 +28,6 @@ class C_CitaStoreRequest extends FormRequest
             'fecha.required' => 'La fecha es requerida.',
             'fecha.date' => 'La fecha tiene que ser una fecha válida.',
             'fecha.date_format' => 'La fecha tiene que tener el formato Y-m-d.',
-            'access_token.required' => 'El access_token es requerido.',
-            'access_token.string' => 'El access_token tiene que ser un string.'
         ];
     }
 }

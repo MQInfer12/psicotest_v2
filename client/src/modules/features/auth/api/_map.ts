@@ -14,7 +14,6 @@ declare global {
       response: {
         token: string;
         user: User;
-        access_token: string;
       };
     };
     "POST /logout": {

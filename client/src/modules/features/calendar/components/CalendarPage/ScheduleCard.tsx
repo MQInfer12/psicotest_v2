@@ -61,7 +61,6 @@ const ScheduleCard = ({
         {
           id_horario: horario.id,
           fecha,
-          access_token: tokens.access_token,
         },
         {
           onSuccess: (res) => {
@@ -104,7 +103,6 @@ const ScheduleCard = ({
     if (!setData) return;
     patchMutation(
       {
-        access_token: getTokens()?.access_token ?? "",
         estado: "accepted",
       },
       {
