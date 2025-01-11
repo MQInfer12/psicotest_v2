@@ -13,7 +13,6 @@ use App\Http\Resources\U_userResource;
 use App\Models\C_Cita;
 use App\Models\C_Horario;
 use App\Traits\ApiResponse;
-use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
@@ -23,31 +22,47 @@ class C_CitaController extends Controller
 
     public function index(C_CitaIndexRequest $request)
     {
-        $access_token = $request->input('access_token');
-        if (!$access_token) {
-            return $this->wrongResponse("El token de acceso es inválido.");
+        $previous = $request->input('previous');
+        $access_token = null;
+
+        if (!$previous) {
+            $access_token = $request->input('access_token');
+            if (!$access_token) {
+                return $this->wrongResponse("El token de acceso es requerido.");
+            }
         }
 
-        $citas = C_Cita::where('email_psicologo', $request->user()->email)->get();
+        $citas = C_Cita::where('email_psicologo', $request->user()->email)
+            ->where('fecha', $previous ? '<' : '>=', now()->setTimezone('America/La_Paz')->format('Y-m-d'))->get();
 
-        foreach ($citas as $cita) {
-            $client = new Client();
-            try {
-                $response = $client->get('https://www.googleapis.com/calendar/v3/calendars/primary/events/' . $cita->id_calendar, [
-                    'headers' => [
-                        'Authorization' => 'Bearer ' . $access_token,
-                        'Content-Type' => 'application/json',
-                    ],
-                ]);
-                $event = json_decode($response->getBody()->getContents());
-                foreach ($event->attendees as $attendee) {
-                    if ($attendee->email == $request->user()->email) {
-                        $cita->estado = $attendee->responseStatus;
-                        break;
+        if ($previous) {
+            $citas = $citas->sortByDesc('fecha');
+        } else {
+            $citas = $citas->sortBy('fecha');
+        }
+
+        $citas = $citas;
+
+        if (!$previous) {
+            foreach ($citas as $cita) {
+                $client = new Client();
+                try {
+                    $response = $client->get('https://www.googleapis.com/calendar/v3/calendars/primary/events/' . $cita->id_calendar, [
+                        'headers' => [
+                            'Authorization' => 'Bearer ' . $access_token,
+                            'Content-Type' => 'application/json',
+                        ],
+                    ]);
+                    $event = json_decode($response->getBody()->getContents());
+                    foreach ($event->attendees as $attendee) {
+                        if ($attendee->email == $request->user()->email) {
+                            $cita->estado = $attendee->responseStatus;
+                            break;
+                        }
                     }
+                } catch (RequestException $e) {
+                    return $this->wrongResponse("Ocurrió un error al obtener las citas.");
                 }
-            } catch (RequestException $e) {
-                return $this->wrongResponse("Ocurrió un error al obtener las citas.");
             }
         }
 

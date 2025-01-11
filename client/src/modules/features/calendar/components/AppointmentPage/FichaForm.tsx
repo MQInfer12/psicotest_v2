@@ -13,9 +13,10 @@ import { FichaDTO } from "../../api/dtos";
 interface Props {
   cita: Appointment;
   onSuccess: (data: Appointment) => void;
+  disabled: boolean;
 }
 
-const FichaForm = ({ cita, onSuccess }: Props) => {
+const FichaForm = ({ cita, onSuccess, disabled }: Props) => {
   const [loading, setLoading] = useState(false);
 
   const { postData } = useFetch();
@@ -62,6 +63,7 @@ const FichaForm = ({ cita, onSuccess }: Props) => {
           type="select"
           required
           error={errors.metodo?.message}
+          disabled={disabled}
           {...register("metodo")}
         >
           <option value="">Selecciona un método</option>
@@ -74,26 +76,31 @@ const FichaForm = ({ cita, onSuccess }: Props) => {
           label="Motivo de la consulta"
           required
           error={errors.motivo?.message}
+          disabled={disabled}
           {...register("motivo")}
         />
         <TextArea
           label="Historia y antecedentes familiares breve"
           required
           error={errors.antecedentes?.message}
+          disabled={disabled}
           {...register("antecedentes")}
         />
         <TextArea
           label="Observaciones"
           required
           error={errors.observaciones?.message}
+          disabled={disabled}
           {...register("observaciones")}
         />
       </div>
-      <div className="sticky bottom-0 left-0 right-0 p-4 pt-0 bg-alto-50 dark:bg-alto-1000">
-        <Button disabled={loading} type="submit" className="w-full">
-          Guardar
-        </Button>
-      </div>
+      {!disabled && (
+        <div className="sticky bottom-0 left-0 right-0 p-4 pt-0 bg-alto-50 dark:bg-alto-1000">
+          <Button disabled={loading} type="submit" className="w-full">
+            Guardar
+          </Button>
+        </div>
+      )}
     </form>
   );
 };

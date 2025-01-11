@@ -227,7 +227,7 @@ const AnswersPage = () => {
         data={dataFolders}
         setData={setDataFolders}
       />
-      <div className="flex-1 rounded-lg overflow-hidden shadow-lg flex flex-col">
+      <div className="flex-1 rounded-lg overflow-hidden flex flex-col">
         <AnswersHeaderContextProvider
           filters={filters}
           setFilters={setFilters}

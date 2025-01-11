@@ -22,6 +22,7 @@ import IconContactPhone from "./tabler/iconContactPhone";
 import IconDots from "./tabler/iconDots";
 import IconDownload from "./tabler/iconDownload";
 import IconExcel from "./tabler/iconExcel";
+import IconEye from "./tabler/iconEye";
 import IconFacebook from "./tabler/IconFacebook";
 import IconFolder from "./tabler/iconFolder";
 import IconGender from "./tabler/iconGender";
@@ -128,7 +129,8 @@ export enum ICON {
   BARCODE = "barcode",
   CONTACT = "contact",
   CONTACTPHONE = "contactphone",
-  GPT = "gpt"
+  GPT = "gpt",
+  EYE = "eye",
 }
 
 interface Props {
@@ -209,6 +211,7 @@ const Icon = ({ type }: Props) => {
     [ICON.CONTACT]: <IconContact />,
     [ICON.CONTACTPHONE]: <IconContactPhone />,
     [ICON.GPT]: <IconGPT />,
+    [ICON.EYE]: <IconEye />,
   };
   return icons[type];
 };

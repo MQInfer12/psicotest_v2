@@ -17,9 +17,10 @@ interface Props {
   user: User;
   cita: Appointment;
   onSuccess: (data: Appointment) => void;
+  disabled: boolean;
 }
 
-const DerivacionForm = ({ user, cita, onSuccess }: Props) => {
+const DerivacionForm = ({ user, cita, onSuccess, disabled }: Props) => {
   const [loading, setLoading] = useState(false);
 
   const { postData } = useFetch();
@@ -91,6 +92,7 @@ const DerivacionForm = ({ user, cita, onSuccess }: Props) => {
           label="Derivar a"
           type="select"
           error={errors.derivado_a?.message}
+          disabled={disabled}
           {...register("derivado_a")}
         >
           <option value="">Selecciona a donde se derivará</option>
@@ -98,27 +100,32 @@ const DerivacionForm = ({ user, cita, onSuccess }: Props) => {
           <option value="Psicología">Psicología</option>
           <option value="Neurología">Neurología</option>
         </Input>
-        <div className="flex justify-end">
-          <Button
-            onClick={handleResume}
-            type="button"
-            btnType="secondary"
-            icon={Icon.Types.GPT}
-          >
-            Resumir
-          </Button>
-        </div>
+        {!disabled && (
+          <div className="flex justify-end">
+            <Button
+              onClick={handleResume}
+              type="button"
+              btnType="secondary"
+              icon={Icon.Types.GPT}
+            >
+              Resumir
+            </Button>
+          </div>
+        )}
         <TextArea
           label="Resumen"
           error={errors.resumen?.message}
+          disabled={disabled}
           {...register("resumen")}
         />
       </div>
-      <div className="sticky bottom-0 left-0 right-0 p-4 pt-0 bg-alto-50 dark:bg-alto-1000">
-        <Button disabled={loading} type="submit" className="w-full">
-          Guardar
-        </Button>
-      </div>
+      {!disabled && (
+        <div className="sticky bottom-0 left-0 right-0 p-4 pt-0 bg-alto-50 dark:bg-alto-1000">
+          <Button disabled={loading} type="submit" className="w-full">
+            Guardar
+          </Button>
+        </div>
+      )}
     </form>
   );
 };

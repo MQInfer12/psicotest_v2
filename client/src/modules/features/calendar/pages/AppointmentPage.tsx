@@ -1,4 +1,4 @@
-import { useParams } from "@tanstack/react-router";
+import { Navigate, useParams } from "@tanstack/react-router";
 import { useMeasureContext } from "../../_layout/context/MeasureContext";
 import AnswerCardTemplate from "../../answers/components/AnswerCardTemplate";
 import AppointmentUser from "../components/AppointmentPage/AppointmentUser";
@@ -9,6 +9,7 @@ import ContractPDF from "../components/AppointmentPage/ContractPDF";
 import DerivacionForm from "../components/AppointmentPage/DerivacionForm";
 import FichaPDF from "../components/AppointmentPage/FichaPDF";
 import DerivacionPDF from "../components/AppointmentPage/DerivacionPDF";
+import dayjs from "dayjs";
 
 const AppointmentPage = () => {
   const { size, PRIVATE_PADDING_INLINE } = useMeasureContext();
@@ -19,15 +20,17 @@ const AppointmentPage = () => {
   });
 
   const { fetchData } = useFetch();
-  const { data, setData } = fetchData([
+  const { data, setData, error } = fetchData([
     "GET /cita/:id",
     {
       id: Number(id),
     },
   ]);
 
+  if (!!error) return <Navigate to="/calendar" />;
   if (!data) return <Loader />;
 
+  const hasPassed = dayjs(data.cita.fecha).isBefore(dayjs(), "day");
   return (
     <div
       className="flex-1 grid pb-10 gap-x-8 gap-y-4 overflow-auto max-xl:gap-y-8"
@@ -53,6 +56,7 @@ const AppointmentPage = () => {
         onSuccess={(res) => {
           setData((prev) => ({ ...prev, paciente: res }));
         }}
+        hasPassed={hasPassed}
       />
       <AnswerCardTemplate
         gridArea="form"
@@ -60,6 +64,7 @@ const AppointmentPage = () => {
           {
             component: (
               <FichaForm
+                disabled={hasPassed}
                 cita={data.cita}
                 onSuccess={(res) => {
                   setData((prev) => ({ ...prev, cita: res }));
@@ -71,6 +76,7 @@ const AppointmentPage = () => {
           {
             component: (
               <DerivacionForm
+                disabled={hasPassed}
                 user={data.paciente}
                 cita={data.cita}
                 onSuccess={(res) => {

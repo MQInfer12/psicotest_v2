@@ -23,6 +23,8 @@ interface Props {
   esCita?: boolean;
   setData?: SetData<Appointment[]>;
   link?: string;
+  citaCorregida?: boolean;
+  citaDerivada?: string | null;
 }
 
 const ScheduleCard = ({
@@ -32,6 +34,8 @@ const ScheduleCard = ({
   esCita,
   setData,
   link,
+  citaCorregida,
+  citaDerivada,
 }: Props) => {
   const { user, setUser } = useUserContext();
   const { postData } = useFetch();
@@ -160,6 +164,10 @@ const ScheduleCard = ({
             "cursor-pointer hover:shadow-primary-200 dark:hover:shadow-primary-800/20 hover:-translate-y-1":
               !esCita,
             "cursor-default": esCita,
+          },
+          {
+            "opacity-50 grayscale-[.2] hover:grayscale-0 hover:opacity-100":
+              citaCorregida,
           }
         )}
       >
@@ -183,8 +191,21 @@ const ScheduleCard = ({
                 }}
               />
               <div className="flex flex-col gap-1 items-start overflow-hidden">
-                <small className="text-alto-500 dark:text-alto-400 text-xs whitespace-nowrap overflow-hidden text-ellipsis w-full">
-                  {calcularTiempo(hora_inicio, hora_final)} apróx. con:
+                <small className="text-alto-500 dark:text-alto-400 text-xs whitespace-nowrap overflow-hidden text-ellipsis w-full flex gap-2">
+                  {citaCorregida ? (
+                    <>
+                      <span className="bg-success/10 text-success px-2 rounded-md">
+                        Corregido
+                      </span>
+                      {citaDerivada && (
+                        <span className="bg-warning/10 text-warning px-2 rounded-md">
+                          Derivado a {citaDerivada}
+                        </span>
+                      )}
+                    </>
+                  ) : (
+                    `${calcularTiempo(hora_inicio, hora_final)} apróx. con:`
+                  )}
                 </small>
                 <p className="font-medium text-start whitespace-nowrap overflow-hidden text-ellipsis w-full max-md:text-xs text-alto-950 dark:text-alto-50">
                   {horario.nombre_user}

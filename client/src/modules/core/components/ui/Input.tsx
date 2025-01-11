@@ -71,7 +71,7 @@ const Input = forwardRef((props: Props, ref: ForwardedRef<any>) => {
               "text-sm h-[38px] px-3": inputSize === "base",
               "text-xs h-[34px] px-2": inputSize === "small",
             },
-            "disabled:bg-alto-100 disabled:border-primary-200",
+            "disabled:bg-alto-100 dark:disabled:bg-alto-900 disabled:border-primary-200 dark:disabled:border-alto-800",
             "text-alto-950 dark:text-alto-50",
             className
           )}
@@ -91,7 +91,7 @@ const Input = forwardRef((props: Props, ref: ForwardedRef<any>) => {
             "ring-0 ring-inset ring-primary-400 focus:ring-1 transition-all duration-300",
             {
               "text-sm py-2 px-3": inputSize === "base",
-              "text-xs py-2 px-3": inputSize === "small",
+              "text-xs py-2 px-3 h-[34px]": inputSize === "small",
             },
             "disabled:bg-alto-100 dark:disabled:bg-alto-900 disabled:border-primary-200 dark:disabled:border-alto-800",
             "text-alto-950 dark:text-alto-50 placeholder-alto-500 dark:placeholder-alto-700",

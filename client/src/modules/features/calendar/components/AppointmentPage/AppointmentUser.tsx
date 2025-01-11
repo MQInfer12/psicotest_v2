@@ -13,9 +13,10 @@ interface Props {
   user: User;
   fecha: string;
   onSuccess: (res: User) => void;
+  hasPassed: boolean;
 }
 
-const AppointmentUser = ({ user, fecha, onSuccess }: Props) => {
+const AppointmentUser = ({ user, fecha, onSuccess, hasPassed }: Props) => {
   const { modal, setOpen } = useModal();
 
   const DATA = [
@@ -103,14 +104,16 @@ const AppointmentUser = ({ user, fecha, onSuccess }: Props) => {
                         }}
                       />
                     </div>
-                    <Button
-                      btnSize="small"
-                      btnType="secondary"
-                      icon={Icon.Types.PENCIL}
-                      onClick={() => setOpen(true)}
-                    >
-                      Editar
-                    </Button>
+                    {!hasPassed && (
+                      <Button
+                        btnSize="small"
+                        btnType="secondary"
+                        icon={Icon.Types.PENCIL}
+                        onClick={() => setOpen(true)}
+                      >
+                        Editar
+                      </Button>
+                    )}
                   </div>
                   <div className="h-full max-lg:w-full flex-1 py-1 flex flex-col overflow-hidden">
                     <strong
