@@ -15,6 +15,7 @@ interface Props {
   width?: number;
   titleBar?: boolean;
   onlyContent?: boolean;
+  type?: "default" | "floating";
 }
 
 const getFocusableElements = (
@@ -62,6 +63,7 @@ const Modal = ({
   width,
   titleBar,
   onlyContent,
+  type = "default",
 }: Props) => {
   const lastFocusedElement = useRef<HTMLElement | null>(null);
   const modalRef = useRef<HTMLDivElement | null>(null);
@@ -110,28 +112,53 @@ const Modal = ({
     <Appear
       open={open}
       className={clsx(
-        "bg-alto-950/60 dark:bg-alto-50/30 fixed inset-0 flex items-center justify-center z-40 px-5 max-sm:px-2",
-        { "backdrop-blur-sm": blur }
+        "bg-alto-950/60 dark:bg-alto-50/30 fixed inset-0 flex items-center z-40",
+        {
+          "backdrop-blur-sm": blur,
+          "justify-center px-5 max-sm:px-2": type === "default",
+          "justify-end": type === "floating",
+        }
       )}
       onClick={close}
+      disabled={type === "floating"}
     >
       <motion.section
         ref={modalRef}
-        initial={{
-          scale: 0,
-        }}
-        animate={{
-          scale: 1,
-        }}
+        initial={
+          {
+            default: { scale: 0 },
+            floating: { x: "100%" },
+          }[type]
+        }
+        animate={
+          {
+            default: { scale: 1 },
+            floating: { x: 0 },
+          }[type]
+        }
+        exit={
+          {
+            default: { scale: 0 },
+            floating: { x: "100%" },
+          }[type]
+        }
+        transition={
+          type === "floating"
+            ? {
+                duration: 0.5,
+              }
+            : undefined
+        }
         style={{
           width: width ?? 384,
         }}
-        exit={{ scale: 0 }}
         onClick={(e) => e.stopPropagation()}
         className={clsx(
-          "max-w-full bg-alto-50 dark:bg-alto-950 rounded-lg flex flex-col relative isolate",
+          "max-w-full bg-alto-50 dark:bg-alto-950 flex flex-col relative isolate",
           {
             "border-8 border-alto-100 dark:border-alto-950": onlyContent,
+            "rounded-lg": type === "default",
+            "h-full rounded-none": type === "floating",
           }
         )}
       >
@@ -155,7 +182,7 @@ const Modal = ({
         <main
           className={clsx({
             "pt-0": !titleBar,
-            "p-4": !onlyContent,
+            "p-4 flex-1": !onlyContent,
             "rounded-md overflow-hidden": onlyContent,
           })}
         >

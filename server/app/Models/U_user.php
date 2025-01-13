@@ -79,4 +79,12 @@ class U_user extends Authenticatable
             ->orderBy('fecha', 'asc')
             ->orderBy('hora_inicio', 'asc');
     }
+
+    public function citas_previas()
+    {
+        return $this
+            ->hasMany(C_Cita::class, 'email_paciente', 'email')
+            ->where('fecha', '<', now()->setTimezone('America/La_Paz'))
+            ->orderBy("fecha", "desc");
+    }
 }

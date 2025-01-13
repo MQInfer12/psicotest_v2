@@ -15,6 +15,7 @@ class C_CitaIndexRequest extends FormRequest
     {
         return [
             'previous' => 'nullable|boolean',
+            'email' => 'nullable|string',
         ];
     }
 
@@ -22,6 +23,7 @@ class C_CitaIndexRequest extends FormRequest
     {
         return [
             'previous.boolean' => 'El previous tiene que ser un boolean.',
+            'email.string' => 'El email tiene que ser una cadena.',
         ];
     }
 

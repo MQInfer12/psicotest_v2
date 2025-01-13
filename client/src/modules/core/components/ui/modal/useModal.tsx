@@ -7,10 +7,11 @@ export interface ModalOptions {
   titleBar?: boolean;
   onlyContent?: boolean;
   onClose?: () => void;
+  type?: "default" | "floating";
 }
 
 export type Modal<T> = (
-  title: string,
+  title: ((item: T | null) => string) | string,
   children: ((item: T | null) => React.ReactNode) | React.ReactNode,
   options?: ModalOptions
 ) => JSX.Element;
@@ -30,12 +31,12 @@ export const useModal = <T,>() => {
   };
 
   const modal: Modal<T> = (
-    title: string,
+    title: ((item: T | null) => string) | string,
     children: ((item: T | null) => React.ReactNode) | React.ReactNode,
     options?: ModalOptions
   ) => (
     <Modal
-      title={title}
+      title={typeof title === "function" ? title(item) : title}
       open={open}
       close={() => {
         options?.onClose?.();
@@ -45,6 +46,7 @@ export const useModal = <T,>() => {
       width={options?.width}
       titleBar={options?.titleBar ?? true}
       onlyContent={options?.onlyContent}
+      type={options?.type}
     >
       {typeof children === "function" ? children(item) : children}
     </Modal>

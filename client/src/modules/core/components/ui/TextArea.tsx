@@ -59,7 +59,7 @@ const TextArea = forwardRef((props: Props, ref: ForwardedRef<any>) => {
             "text-sm py-2 px-3": inputSize === "base",
             "text-xs py-2 px-3": inputSize === "small",
           },
-          "disabled:bg-alto-100 dark:disabled:bg-alto-900 disabled:border-primary-200 dark:disabled:border-alto-800",
+          "disabled:bg-alto-200/60 dark:disabled:bg-alto-900 disabled:border-primary-200 dark:disabled:border-alto-800",
           "text-alto-950 dark:text-alto-50 placeholder-alto-500 dark:placeholder-alto-700",
           className
         )}

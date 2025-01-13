@@ -36,6 +36,11 @@ const Dashboard = () => {
   const url = pathname + buildUrlParams(search);
   const fromLogoutRef = useRef(false);
 
+  //@ts-expect-error: Return to can be defined
+  const returnTo: string | undefined = search.returnTo;
+  const returnToBreadcrumb = useBreadcrumb(returnTo);
+  const returnToObj = returnToBreadcrumb[returnToBreadcrumb.length - 1];
+
   const {
     size,
     PRIVATE_HEADER_HEIGHT,
@@ -183,18 +188,37 @@ const Dashboard = () => {
             <div className="flex flex-col gap-2 overflow-hidden max-sm:gap-1">
               <Breadcrumb />
               <div className="flex items-center overflow-hidden">
-                {activeBreadcrumb.length > 1 && (
+                {(activeBreadcrumb.length > 1 || returnTo) && (
                   <button
-                    className="flex items-center justify-center text-alto-700 dark:text-alto-400 hover:text-primary-900/70 transition-all duration-300 pr-2"
+                    title={
+                      returnTo
+                        ? `Volver a '${returnToObj.name}'`
+                        : "Volver atrás"
+                    }
+                    className="relative flex items-center justify-center text-alto-700 dark:text-alto-400 hover:text-primary-900/70 transition-all duration-300 pr-2"
                     onClick={() => {
-                      const prevBreadcrumb =
-                        activeBreadcrumb[activeBreadcrumb.length - 2];
-                      navigate({
-                        to: prevBreadcrumb.path,
-                      });
+                      if (returnTo) {
+                        navigate({
+                          to: returnTo,
+                        });
+                        return;
+                      }
+                      if (activeBreadcrumb.length > 1) {
+                        const prevBreadcrumb =
+                          activeBreadcrumb[activeBreadcrumb.length - 2];
+                        navigate({
+                          to: prevBreadcrumb.path,
+                        });
+                        return;
+                      }
                     }}
                   >
                     <Icon type={Icon.Types.CHEVRON_LEFT} />
+                    {returnTo && (
+                      <span className="absolute bottom-0 right-2 w-3 h-3 bg-alto-100 dark:bg-alto-950">
+                        <Icon type={returnToObj.icon ?? Icon.Types.QUESTION} />
+                      </span>
+                    )}
                   </button>
                 )}
                 <h2
@@ -216,7 +240,7 @@ const Dashboard = () => {
                   ¡Bienvenido!
                 </small>
               </div>
-              <div className="w-12 aspect-square rounded-lg bg-alto-100 overflow-hidden flex items-center justify-center border-r border-alto-200">
+              <div className="w-12 aspect-square rounded-lg bg-alto-100 overflow-hidden flex items-center justify-center border-l border-alto-200">
                 <img
                   className="w-full h-full"
                   src={user?.foto ?? DefaultPhoto}

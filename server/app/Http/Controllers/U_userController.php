@@ -6,9 +6,11 @@ use App\Http\Requests\U_userChangeRolRequest;
 use App\Http\Requests\U_userStoreRequest;
 use App\Http\Requests\U_userUpdateRequest;
 use App\Http\Resources\U_userResource;
+use App\Models\C_Cita;
 use App\Models\U_Rol;
 use App\Models\U_user;
 use App\Traits\ApiResponse;
+use Illuminate\Http\Request;
 
 class U_userController extends Controller
 {
@@ -16,10 +18,41 @@ class U_userController extends Controller
 
     public function index()
     {
-        $users = U_user::all();
+        $users = U_user::orderBy("email")->get();
         return $this->successResponse(
             "Usuarios obtenidos correctamente.",
             U_userResource::collection($users)
+        );
+    }
+
+    public function indexForPatients(Request $request)
+    {
+        $citas = C_Cita::where('email_psicologo', $request->user()->email)
+            ->with('paciente')
+            ->get();
+        $pacientes = $citas->pluck('paciente')->unique('email')->values();
+        return $this->successResponse(
+            "Pacientes obtenidos correctamente.",
+            U_userResource::collection($pacientes)
+        );
+    }
+
+    public function showProfile(Request $request, string $email)
+    {
+        $citas = C_Cita::where('email_psicologo', $request->user()->email)
+            ->with('paciente')
+            ->get();
+        $pacientes = $citas->pluck('paciente')->unique('email')->values();
+
+        if (!$pacientes->contains('email', $email)) {
+            return $this->wrongResponse("No tienes permisos para ver esto");
+        }
+
+        $user = U_user::findOrFail($email);
+
+        return $this->successResponse(
+            "Usuario obtenido correctamente.",
+            new U_userResource($user)
         );
     }
 

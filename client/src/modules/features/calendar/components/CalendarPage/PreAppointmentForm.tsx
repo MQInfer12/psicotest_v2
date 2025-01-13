@@ -9,15 +9,25 @@ import { useForm } from "react-hook-form";
 import { PreAppointmentDTO } from "../../api/dtos";
 import { CAREERS } from "../../data/careers";
 import { PreAppointmentDTOSchema } from "../../validations/PreAppointmentDTO.schema";
+import clsx from "clsx";
 
 interface Props {
   children?: React.ReactNode;
   withName?: boolean;
   user: User | null;
   onSuccess: (res: User, message: string) => Promise<void>;
+  scrollable?: boolean;
+  required?: boolean;
 }
 
-const PreAppointmentForm = ({ withName, user, children, onSuccess }: Props) => {
+const PreAppointmentForm = ({
+  withName,
+  user,
+  children,
+  onSuccess,
+  scrollable = true,
+  required = true,
+}: Props) => {
   const { postData } = useFetch();
   const userMutation = postData("PUT /user/:id/psicotest");
   const [loading, setLoading] = useState(false);
@@ -66,13 +76,18 @@ const PreAppointmentForm = ({ withName, user, children, onSuccess }: Props) => {
       telefono_tutor: user?.telefono_tutor ?? undefined,
     },
     resolver: yupResolver(PreAppointmentDTOSchema),
+    context: {
+      required,
+    },
   });
 
   const carrera = watch("carrera");
 
   return (
     <form
-      className="flex flex-col gap-4 max-h-[80svh] overflow-auto"
+      className={clsx("flex flex-col gap-4 max-h-[80svh]", {
+        "overflow-auto": scrollable,
+      })}
       onSubmit={handleSubmit(onSubmit)}
     >
       {children}
@@ -84,6 +99,7 @@ const PreAppointmentForm = ({ withName, user, children, onSuccess }: Props) => {
             required
             {...register("nombre")}
           />
+          <Input label="Email" value={user?.email} readOnly required disabled />
         </>
       )}
       <div
@@ -96,7 +112,7 @@ const PreAppointmentForm = ({ withName, user, children, onSuccess }: Props) => {
           label="Género"
           type="select"
           error={errors.genero?.message}
-          required
+          required={required}
           {...register("genero")}
         >
           <option value="">Selecciona un género</option>
@@ -110,7 +126,7 @@ const PreAppointmentForm = ({ withName, user, children, onSuccess }: Props) => {
           label="Fecha de nacimiento"
           type="date"
           error={errors.fecha_nacimiento?.message}
-          required
+          required={required}
           {...register("fecha_nacimiento")}
         />
       </div>
@@ -125,7 +141,7 @@ const PreAppointmentForm = ({ withName, user, children, onSuccess }: Props) => {
           className="text-center"
           value="+591"
           readOnly
-          required
+          required={required}
           disabled
         />
         <Input
@@ -145,7 +161,7 @@ const PreAppointmentForm = ({ withName, user, children, onSuccess }: Props) => {
           label="Carrera"
           type="select"
           error={errors.carrera?.message}
-          required
+          required={required}
           {...register("carrera")}
         >
           <option value="">Selecciona una carrera</option>
@@ -159,7 +175,7 @@ const PreAppointmentForm = ({ withName, user, children, onSuccess }: Props) => {
           label="Semestre"
           type="number"
           error={errors.semestre?.message}
-          required
+          required={required}
           {...register("semestre")}
         />
       </div>
@@ -173,7 +189,7 @@ const PreAppointmentForm = ({ withName, user, children, onSuccess }: Props) => {
           label="Código estudiantil"
           className="text-center"
           value={CAREERS.find((c) => c.name === carrera)?.sub ?? "-"}
-          required
+          required={required}
           readOnly
           disabled
         />

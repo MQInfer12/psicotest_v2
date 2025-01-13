@@ -162,10 +162,6 @@ const ScheduleCard = ({
             "cursor-pointer hover:shadow-primary-200 dark:hover:shadow-primary-800/20 hover:-translate-y-1":
               !esCita,
             "cursor-default": esCita,
-          },
-          {
-            "opacity-50 grayscale-[.2] hover:grayscale-0 hover:opacity-100":
-              citaCorregida,
           }
         )}
       >

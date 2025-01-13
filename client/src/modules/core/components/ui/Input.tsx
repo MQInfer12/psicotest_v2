@@ -68,10 +68,10 @@ const Input = forwardRef((props: Props, ref: ForwardedRef<any>) => {
             "w-full border border-alto-300/70 dark:border-alto-800 rounded-lg outline-none bg-white dark:bg-alto-1000",
             "ring-0 ring-inset ring-primary-400 focus:ring-1 transition-all duration-300",
             {
-              "text-sm h-[38px] px-3": inputSize === "base",
+              "text-sm h-[38px] px-2": inputSize === "base",
               "text-xs h-[34px] px-2": inputSize === "small",
             },
-            "disabled:bg-alto-100 dark:disabled:bg-alto-900 disabled:border-primary-200 dark:disabled:border-alto-800",
+            "disabled:bg-alto-200/60 dark:disabled:bg-alto-900 disabled:border-primary-200 dark:disabled:border-alto-800",
             "text-alto-950 dark:text-alto-50",
             className
           )}
@@ -93,7 +93,7 @@ const Input = forwardRef((props: Props, ref: ForwardedRef<any>) => {
               "text-sm py-2 px-3": inputSize === "base",
               "text-xs py-2 px-3 h-[34px]": inputSize === "small",
             },
-            "disabled:bg-alto-100 dark:disabled:bg-alto-900 disabled:border-primary-200 dark:disabled:border-alto-800",
+            "disabled:bg-alto-200/60 dark:disabled:bg-alto-900 disabled:border-primary-200 dark:disabled:border-alto-800",
             "text-alto-950 dark:text-alto-50 placeholder-alto-500 dark:placeholder-alto-700",
             className
           )}

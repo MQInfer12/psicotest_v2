@@ -15,15 +15,18 @@ import { Route as PublicImport } from './routes/_public'
 import { Route as PrivateImport } from './routes/_private'
 import { Route as PublicIndexImport } from './routes/_public/index'
 import { Route as PrivateUsersImport } from './routes/_private/users'
+import { Route as PrivateProfileImport } from './routes/_private/profile'
 import { Route as PrivateChatImport } from './routes/_private/chat'
 import { Route as PrivateTestsIndexImport } from './routes/_private/tests/index'
 import { Route as PrivateTemplatesIndexImport } from './routes/_private/templates/index'
 import { Route as PrivateResolveIndexImport } from './routes/_private/resolve/index'
+import { Route as PrivatePatientsIndexImport } from './routes/_private/patients/index'
 import { Route as PrivateCalendarIndexImport } from './routes/_private/calendar/index'
 import { Route as PrivateAnswersIndexImport } from './routes/_private/answers/index'
 import { Route as PrivateTestsShareImport } from './routes/_private/tests/share'
 import { Route as PrivateTestsIdTestImport } from './routes/_private/tests/$idTest'
 import { Route as PrivateResolveIdRespuestaImport } from './routes/_private/resolve/$idRespuesta'
+import { Route as PrivatePatientsIdImport } from './routes/_private/patients/$id'
 import { Route as PrivateFolderIdImport } from './routes/_private/folder/$id'
 import { Route as PrivateCalendarIdImport } from './routes/_private/calendar/$id'
 import { Route as PrivateAnswersIdImport } from './routes/_private/answers/$id'
@@ -52,6 +55,12 @@ const PrivateUsersRoute = PrivateUsersImport.update({
   getParentRoute: () => PrivateRoute,
 } as any)
 
+const PrivateProfileRoute = PrivateProfileImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => PrivateRoute,
+} as any)
+
 const PrivateChatRoute = PrivateChatImport.update({
   id: '/chat',
   path: '/chat',
@@ -73,6 +82,12 @@ const PrivateTemplatesIndexRoute = PrivateTemplatesIndexImport.update({
 const PrivateResolveIndexRoute = PrivateResolveIndexImport.update({
   id: '/resolve/',
   path: '/resolve/',
+  getParentRoute: () => PrivateRoute,
+} as any)
+
+const PrivatePatientsIndexRoute = PrivatePatientsIndexImport.update({
+  id: '/patients/',
+  path: '/patients/',
   getParentRoute: () => PrivateRoute,
 } as any)
 
@@ -103,6 +118,12 @@ const PrivateTestsIdTestRoute = PrivateTestsIdTestImport.update({
 const PrivateResolveIdRespuestaRoute = PrivateResolveIdRespuestaImport.update({
   id: '/resolve/$idRespuesta',
   path: '/resolve/$idRespuesta',
+  getParentRoute: () => PrivateRoute,
+} as any)
+
+const PrivatePatientsIdRoute = PrivatePatientsIdImport.update({
+  id: '/patients/$id',
+  path: '/patients/$id',
   getParentRoute: () => PrivateRoute,
 } as any)
 
@@ -149,6 +170,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivateChatImport
       parentRoute: typeof PrivateImport
     }
+    '/_private/profile': {
+      id: '/_private/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof PrivateProfileImport
+      parentRoute: typeof PrivateImport
+    }
     '/_private/users': {
       id: '/_private/users'
       path: '/users'
@@ -182,6 +210,13 @@ declare module '@tanstack/react-router' {
       path: '/folder/$id'
       fullPath: '/folder/$id'
       preLoaderRoute: typeof PrivateFolderIdImport
+      parentRoute: typeof PrivateImport
+    }
+    '/_private/patients/$id': {
+      id: '/_private/patients/$id'
+      path: '/patients/$id'
+      fullPath: '/patients/$id'
+      preLoaderRoute: typeof PrivatePatientsIdImport
       parentRoute: typeof PrivateImport
     }
     '/_private/resolve/$idRespuesta': {
@@ -219,6 +254,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivateCalendarIndexImport
       parentRoute: typeof PrivateImport
     }
+    '/_private/patients/': {
+      id: '/_private/patients/'
+      path: '/patients'
+      fullPath: '/patients'
+      preLoaderRoute: typeof PrivatePatientsIndexImport
+      parentRoute: typeof PrivateImport
+    }
     '/_private/resolve/': {
       id: '/_private/resolve/'
       path: '/resolve'
@@ -247,15 +289,18 @@ declare module '@tanstack/react-router' {
 
 interface PrivateRouteChildren {
   PrivateChatRoute: typeof PrivateChatRoute
+  PrivateProfileRoute: typeof PrivateProfileRoute
   PrivateUsersRoute: typeof PrivateUsersRoute
   PrivateAnswersIdRoute: typeof PrivateAnswersIdRoute
   PrivateCalendarIdRoute: typeof PrivateCalendarIdRoute
   PrivateFolderIdRoute: typeof PrivateFolderIdRoute
+  PrivatePatientsIdRoute: typeof PrivatePatientsIdRoute
   PrivateResolveIdRespuestaRoute: typeof PrivateResolveIdRespuestaRoute
   PrivateTestsIdTestRoute: typeof PrivateTestsIdTestRoute
   PrivateTestsShareRoute: typeof PrivateTestsShareRoute
   PrivateAnswersIndexRoute: typeof PrivateAnswersIndexRoute
   PrivateCalendarIndexRoute: typeof PrivateCalendarIndexRoute
+  PrivatePatientsIndexRoute: typeof PrivatePatientsIndexRoute
   PrivateResolveIndexRoute: typeof PrivateResolveIndexRoute
   PrivateTemplatesIndexRoute: typeof PrivateTemplatesIndexRoute
   PrivateTestsIndexRoute: typeof PrivateTestsIndexRoute
@@ -263,15 +308,18 @@ interface PrivateRouteChildren {
 
 const PrivateRouteChildren: PrivateRouteChildren = {
   PrivateChatRoute: PrivateChatRoute,
+  PrivateProfileRoute: PrivateProfileRoute,
   PrivateUsersRoute: PrivateUsersRoute,
   PrivateAnswersIdRoute: PrivateAnswersIdRoute,
   PrivateCalendarIdRoute: PrivateCalendarIdRoute,
   PrivateFolderIdRoute: PrivateFolderIdRoute,
+  PrivatePatientsIdRoute: PrivatePatientsIdRoute,
   PrivateResolveIdRespuestaRoute: PrivateResolveIdRespuestaRoute,
   PrivateTestsIdTestRoute: PrivateTestsIdTestRoute,
   PrivateTestsShareRoute: PrivateTestsShareRoute,
   PrivateAnswersIndexRoute: PrivateAnswersIndexRoute,
   PrivateCalendarIndexRoute: PrivateCalendarIndexRoute,
+  PrivatePatientsIndexRoute: PrivatePatientsIndexRoute,
   PrivateResolveIndexRoute: PrivateResolveIndexRoute,
   PrivateTemplatesIndexRoute: PrivateTemplatesIndexRoute,
   PrivateTestsIndexRoute: PrivateTestsIndexRoute,
@@ -294,16 +342,19 @@ const PublicRouteWithChildren =
 export interface FileRoutesByFullPath {
   '': typeof PublicRouteWithChildren
   '/chat': typeof PrivateChatRoute
+  '/profile': typeof PrivateProfileRoute
   '/users': typeof PrivateUsersRoute
   '/': typeof PublicIndexRoute
   '/answers/$id': typeof PrivateAnswersIdRoute
   '/calendar/$id': typeof PrivateCalendarIdRoute
   '/folder/$id': typeof PrivateFolderIdRoute
+  '/patients/$id': typeof PrivatePatientsIdRoute
   '/resolve/$idRespuesta': typeof PrivateResolveIdRespuestaRoute
   '/tests/$idTest': typeof PrivateTestsIdTestRoute
   '/tests/share': typeof PrivateTestsShareRoute
   '/answers': typeof PrivateAnswersIndexRoute
   '/calendar': typeof PrivateCalendarIndexRoute
+  '/patients': typeof PrivatePatientsIndexRoute
   '/resolve': typeof PrivateResolveIndexRoute
   '/templates': typeof PrivateTemplatesIndexRoute
   '/tests': typeof PrivateTestsIndexRoute
@@ -312,16 +363,19 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '': typeof PrivateRouteWithChildren
   '/chat': typeof PrivateChatRoute
+  '/profile': typeof PrivateProfileRoute
   '/users': typeof PrivateUsersRoute
   '/': typeof PublicIndexRoute
   '/answers/$id': typeof PrivateAnswersIdRoute
   '/calendar/$id': typeof PrivateCalendarIdRoute
   '/folder/$id': typeof PrivateFolderIdRoute
+  '/patients/$id': typeof PrivatePatientsIdRoute
   '/resolve/$idRespuesta': typeof PrivateResolveIdRespuestaRoute
   '/tests/$idTest': typeof PrivateTestsIdTestRoute
   '/tests/share': typeof PrivateTestsShareRoute
   '/answers': typeof PrivateAnswersIndexRoute
   '/calendar': typeof PrivateCalendarIndexRoute
+  '/patients': typeof PrivatePatientsIndexRoute
   '/resolve': typeof PrivateResolveIndexRoute
   '/templates': typeof PrivateTemplatesIndexRoute
   '/tests': typeof PrivateTestsIndexRoute
@@ -332,16 +386,19 @@ export interface FileRoutesById {
   '/_private': typeof PrivateRouteWithChildren
   '/_public': typeof PublicRouteWithChildren
   '/_private/chat': typeof PrivateChatRoute
+  '/_private/profile': typeof PrivateProfileRoute
   '/_private/users': typeof PrivateUsersRoute
   '/_public/': typeof PublicIndexRoute
   '/_private/answers/$id': typeof PrivateAnswersIdRoute
   '/_private/calendar/$id': typeof PrivateCalendarIdRoute
   '/_private/folder/$id': typeof PrivateFolderIdRoute
+  '/_private/patients/$id': typeof PrivatePatientsIdRoute
   '/_private/resolve/$idRespuesta': typeof PrivateResolveIdRespuestaRoute
   '/_private/tests/$idTest': typeof PrivateTestsIdTestRoute
   '/_private/tests/share': typeof PrivateTestsShareRoute
   '/_private/answers/': typeof PrivateAnswersIndexRoute
   '/_private/calendar/': typeof PrivateCalendarIndexRoute
+  '/_private/patients/': typeof PrivatePatientsIndexRoute
   '/_private/resolve/': typeof PrivateResolveIndexRoute
   '/_private/templates/': typeof PrivateTemplatesIndexRoute
   '/_private/tests/': typeof PrivateTestsIndexRoute
@@ -352,16 +409,19 @@ export interface FileRouteTypes {
   fullPaths:
     | ''
     | '/chat'
+    | '/profile'
     | '/users'
     | '/'
     | '/answers/$id'
     | '/calendar/$id'
     | '/folder/$id'
+    | '/patients/$id'
     | '/resolve/$idRespuesta'
     | '/tests/$idTest'
     | '/tests/share'
     | '/answers'
     | '/calendar'
+    | '/patients'
     | '/resolve'
     | '/templates'
     | '/tests'
@@ -369,16 +429,19 @@ export interface FileRouteTypes {
   to:
     | ''
     | '/chat'
+    | '/profile'
     | '/users'
     | '/'
     | '/answers/$id'
     | '/calendar/$id'
     | '/folder/$id'
+    | '/patients/$id'
     | '/resolve/$idRespuesta'
     | '/tests/$idTest'
     | '/tests/share'
     | '/answers'
     | '/calendar'
+    | '/patients'
     | '/resolve'
     | '/templates'
     | '/tests'
@@ -387,16 +450,19 @@ export interface FileRouteTypes {
     | '/_private'
     | '/_public'
     | '/_private/chat'
+    | '/_private/profile'
     | '/_private/users'
     | '/_public/'
     | '/_private/answers/$id'
     | '/_private/calendar/$id'
     | '/_private/folder/$id'
+    | '/_private/patients/$id'
     | '/_private/resolve/$idRespuesta'
     | '/_private/tests/$idTest'
     | '/_private/tests/share'
     | '/_private/answers/'
     | '/_private/calendar/'
+    | '/_private/patients/'
     | '/_private/resolve/'
     | '/_private/templates/'
     | '/_private/tests/'
@@ -431,15 +497,18 @@ export const routeTree = rootRoute
       "filePath": "_private.tsx",
       "children": [
         "/_private/chat",
+        "/_private/profile",
         "/_private/users",
         "/_private/answers/$id",
         "/_private/calendar/$id",
         "/_private/folder/$id",
+        "/_private/patients/$id",
         "/_private/resolve/$idRespuesta",
         "/_private/tests/$idTest",
         "/_private/tests/share",
         "/_private/answers/",
         "/_private/calendar/",
+        "/_private/patients/",
         "/_private/resolve/",
         "/_private/templates/",
         "/_private/tests/"
@@ -453,6 +522,10 @@ export const routeTree = rootRoute
     },
     "/_private/chat": {
       "filePath": "_private/chat.tsx",
+      "parent": "/_private"
+    },
+    "/_private/profile": {
+      "filePath": "_private/profile.tsx",
       "parent": "/_private"
     },
     "/_private/users": {
@@ -475,6 +548,10 @@ export const routeTree = rootRoute
       "filePath": "_private/folder/$id.tsx",
       "parent": "/_private"
     },
+    "/_private/patients/$id": {
+      "filePath": "_private/patients/$id.tsx",
+      "parent": "/_private"
+    },
     "/_private/resolve/$idRespuesta": {
       "filePath": "_private/resolve/$idRespuesta.tsx",
       "parent": "/_private"
@@ -493,6 +570,10 @@ export const routeTree = rootRoute
     },
     "/_private/calendar/": {
       "filePath": "_private/calendar/index.tsx",
+      "parent": "/_private"
+    },
+    "/_private/patients/": {
+      "filePath": "_private/patients/index.tsx",
       "parent": "/_private"
     },
     "/_private/resolve/": {

@@ -73,7 +73,6 @@ const DerivacionPDF = ({ user, cita }: Props) => {
           </Text>
           <Text
             style={{
-              flex: 1,
               fontWeight: 700,
               marginTop: 8,
             }}
@@ -84,7 +83,7 @@ const DerivacionPDF = ({ user, cita }: Props) => {
           <Text
             style={{
               fontWeight: 700,
-              marginTop: 8,
+              marginTop: 24,
             }}
           >
             FIRMA Y SELLO DEL GABINETE PSICOLÓGICO:

@@ -40,7 +40,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/user', U_userController::class);
 
     Route::get('/user', [U_userController::class, 'index']);
+    Route::get('/user/for/patients', [U_userController::class, 'indexForPatients']);
     Route::post('/user', [U_userController::class, 'store']);
+    Route::get('/user/{email}/psicotest/profile', [U_userController::class, 'showProfile']);
     Route::get('/user/{email}/psicotest', [U_userController::class, 'show']);
     Route::put('/user/{email}/psicotest', [U_userController::class, 'update']);
     Route::delete('/user/{email}/psicotest', [U_userController::class, 'destroy']);
@@ -73,6 +75,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/horario/for/me', [C_HorarioController::class, 'indexForMe']);
 
     Route::apiResource('/cita', C_CitaController::class);
+    Route::get('/cita/paciente/{email}/psicotest', [C_CitaController::class, 'showByPatient']);
     Route::get('/cita/respuesta/status', [C_CitaController::class, 'respuestaStatus']);
     Route::patch('/cita/respuesta/{id}', [C_CitaController::class, 'respuesta']);
     Route::put('/cita/destroy/{id}', [C_CitaController::class, 'destroyWithToken']);

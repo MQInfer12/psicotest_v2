@@ -17,6 +17,8 @@ export interface User extends Timestamps {
   nombre_tutor: string | null;
   telefono_tutor: number | null;
 
+  contador_citas: number;
+
   estado: boolean;
   id_rol: number;
   permisos: Permisos[];

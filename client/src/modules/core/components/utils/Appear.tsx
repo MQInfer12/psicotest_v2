@@ -6,16 +6,17 @@ interface Props {
   children: React.ReactNode;
   onClick?: (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => void;
   onMouseEnter?: () => void;
+  disabled?: boolean;
 }
 
-const Appear = ({ open, className, children, onClick }: Props) => {
+const Appear = ({ open, className, children, onClick, disabled }: Props) => {
   return (
     <AnimatePresence>
       {open && (
         <motion.span
-          initial={{ opacity: 0 }}
+          initial={{ opacity: disabled ? 1 : 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+          exit={{ opacity: disabled ? 1 : 0 }}
           className={className}
           onClick={onClick}
         >

@@ -93,6 +93,7 @@ const DerivacionForm = ({ user, cita, onSuccess, disabled }: Props) => {
           type="select"
           error={errors.derivado_a?.message}
           disabled={disabled}
+          required
           {...register("derivado_a")}
         >
           <option value="">Selecciona a donde se derivará</option>
@@ -116,6 +117,7 @@ const DerivacionForm = ({ user, cita, onSuccess, disabled }: Props) => {
           label="Resumen"
           error={errors.resumen?.message}
           disabled={disabled}
+          required
           {...register("resumen")}
         />
       </div>

@@ -27,12 +27,15 @@ const AppointmentsToCome = () => {
   return (
     <main className="flex flex-col flex-1 overflow-x-hidden overflow-y-scroll gap-8 max-lg:overflow-y-hidden">
       {Object.keys(groupedData).map((appointmentsDate) => {
+        const today = dayjs();
         const currentDay = dayjs(appointmentsDate);
         const { date, day, month } = stringFromDate(currentDay);
+        const isToday = today.isSame(currentDay, "day");
         return (
           <div key={date} className="flex flex-col gap-6">
             <header className="text-alto-400 text-sm px-4 max-lg:px-0">
               <span className="text-primary-400">{day}</span>, {date} de {month}
+              {isToday ? " (Hoy)" : ""}
             </header>
             <div className="flex flex-col gap-4 pr-4 max-lg:px-0">
               {groupedData[appointmentsDate]?.map((h, index) => (

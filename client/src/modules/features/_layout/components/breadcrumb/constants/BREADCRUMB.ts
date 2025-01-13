@@ -1,8 +1,10 @@
+import Icon, { ICON } from "@/modules/core/components/icons/Icon";
 import { LinkOptions } from "@tanstack/react-router";
 
 interface Breadcrumb {
   name: string;
   match: LinkOptions["to"];
+  icon?: ICON;
 }
 
 export const BREADCRUMB: Breadcrumb[] = [
@@ -48,12 +50,21 @@ export const BREADCRUMB: Breadcrumb[] = [
   },
   //? GABINETE
   {
+    name: "Pacientes",
+    match: "/patients",
+  },
+  {
+    name: "Detalles del paciente",
+    match: "/patients/$id",
+  },
+  {
     name: "Gabinete",
     match: "/calendar",
   },
   {
     name: "Detalles de la cita",
     match: "/calendar/$id",
+    icon: Icon.Types.CALENDAR,
   },
   //? SIDEBAR
   {
@@ -63,5 +74,10 @@ export const BREADCRUMB: Breadcrumb[] = [
   {
     name: "Usuarios",
     match: "/users",
+  },
+  //? PROFILE
+  {
+    name: "Perfil",
+    match: "/profile",
   },
 ];

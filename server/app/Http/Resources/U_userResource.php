@@ -22,6 +22,8 @@ class U_userResource extends JsonResource
             'nombre_tutor' => $this->nombre_tutor,
             'telefono_tutor' => $this->telefono_tutor,
 
+            'contador_citas' => count($this->citas_previas),
+
             'estado' => $this->estado,
             'permisos' => $this->rol->permisos,
             'id_rol' => $this->id_rol,

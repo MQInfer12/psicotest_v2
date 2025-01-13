@@ -8,6 +8,11 @@ declare global {
       request: never;
       response: User[];
     };
+    "GET /user/for/patients": {
+      params: never;
+      request: never;
+      response: User[];
+    };
     "POST /user": {
       params: never;
       request: UserDTO;
@@ -24,6 +29,11 @@ declare global {
       response: null;
     };
     "GET /user/:id/psicotest": {
+      params: { id: string };
+      request: never;
+      response: User;
+    };
+    "GET /user/:id/psicotest/profile": {
       params: { id: string };
       request: never;
       response: User;

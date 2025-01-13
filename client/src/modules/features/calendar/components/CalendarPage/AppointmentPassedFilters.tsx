@@ -13,8 +13,8 @@ const AppointmentPassedFilters = () => {
   }, [filters.type]);
 
   return (
-    <div className="flex gap-2 w-96">
-      <div className="flex-1">
+    <div className="flex gap-2 max-w-96">
+      <div className="flex-[1_1_0]">
         <Input
           inputSize="small"
           type="select"

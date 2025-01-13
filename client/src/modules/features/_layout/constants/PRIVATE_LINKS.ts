@@ -47,6 +47,12 @@ export const PRIVATE_LINKS: PrivateLink[] = [
     permisos: [Permisos.VER_CHAT],
   },
   {
+    to: "/patients",
+    icon: ICON.PATIENT,
+    title: "Pacientes",
+    permisos: [Permisos.VER_CALENDARIO, Permisos.VER_CITAS],
+  },
+  {
     to: "/users",
     icon: ICON.USERS,
     title: "Usuarios",

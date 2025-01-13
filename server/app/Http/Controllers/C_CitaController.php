@@ -11,6 +11,7 @@ use App\Http\Resources\C_CitaResource;
 use App\Http\Resources\U_userResource;
 use App\Models\C_Cita;
 use App\Models\C_Horario;
+use App\Models\U_user;
 use App\Traits\ApiResponse;
 use App\Traits\GoogleAPIs;
 use Illuminate\Http\Request;
@@ -25,11 +26,20 @@ class C_CitaController extends Controller
     public function index(C_CitaIndexRequest $request)
     {
         $previous = $request->input('previous');
+        $email = $request->input('email');
 
         $user = $request->user();
 
-        $citas = C_Cita::where('email_psicologo', $user->email)
-            ->where('fecha', $previous ? '<' : '>=', now()->setTimezone('America/La_Paz')->format('Y-m-d'))->get();
+        $citas = C_Cita::where('fecha', $previous ? '<' : '>=', now()->setTimezone('America/La_Paz')->format('Y-m-d'));
+
+        if ($email) {
+            $citas = $citas->where('email_paciente', $email);
+        } else {
+            $citas = $citas->where('email_psicologo', $user->email);
+        }
+
+        $citas = $citas->get();
+
         $citas = $previous ? $citas->sortByDesc('fecha') : $citas->sortBy('fecha');
 
         if (!$previous) {
@@ -71,6 +81,15 @@ class C_CitaController extends Controller
                 'cita' => new C_CitaResource($cita),
                 'paciente' => new U_userResource($cita->paciente)
             ]
+        );
+    }
+
+    public function showByPatient(string $email)
+    {
+        $user = U_user::findOrFail($email);
+        return $this->successResponse(
+            "Cita encontrada correctamente.",
+            C_CitaResource::collection($user->citas_previas)
         );
     }
 

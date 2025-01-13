@@ -32,6 +32,13 @@ declare global {
       request: never;
       response: Appointment[];
     };
+    "GET /cita/paciente/:email/psicotest": {
+      params: {
+        email: string;
+      };
+      request: never;
+      response: Appointment[];
+    };
     "GET /cita/:id": {
       params: {
         id: number;

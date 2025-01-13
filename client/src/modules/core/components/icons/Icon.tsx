@@ -35,6 +35,7 @@ import IconLogout from "./tabler/iconLogout";
 import IconMenu from "./tabler/iconMenu";
 import IconMoon from "./tabler/iconMoon";
 import IconNotes from "./tabler/iconNotes";
+import IconPatient from "./tabler/iconPatient";
 import IconPDF from "./tabler/iconPDF";
 import IconPencil from "./tabler/iconPencil";
 import IconPersonActive from "./tabler/iconPersonActive";
@@ -131,6 +132,7 @@ export enum ICON {
   CONTACTPHONE = "contactphone",
   GPT = "gpt",
   EYE = "eye",
+  PATIENT = "patient",
 }
 
 interface Props {
@@ -212,6 +214,7 @@ const Icon = ({ type }: Props) => {
     [ICON.CONTACTPHONE]: <IconContactPhone />,
     [ICON.GPT]: <IconGPT />,
     [ICON.EYE]: <IconEye />,
+    [ICON.PATIENT]: <IconPatient />,
   };
   return icons[type];
 };
