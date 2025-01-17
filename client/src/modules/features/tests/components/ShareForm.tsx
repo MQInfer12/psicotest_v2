@@ -91,7 +91,7 @@ const ShareForm = ({ idTests, nombreTest, children }: Props) => {
               if (!element) return;
               toJpeg(element).then((dataUrl) => {
                 var link = document.createElement("a");
-                link.download = `psicotest_qr_${nombreTest}.jpeg`;
+                link.download = `neurall_qr_${nombreTest}.jpeg`;
                 link.href = dataUrl;
                 link.click();
               });

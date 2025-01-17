@@ -1,38 +1,37 @@
-import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
-import clsx from "clsx";
-import { TestType } from "@/modules/features/tests/types/TestType";
+import { COLORS } from "@/modules/core/constants/COLORS";
+import { STORAGE_URL } from "@/modules/core/constants/ENVIRONMENT";
+import { useThemeContext } from "@/modules/core/context/ThemeContext";
+import { formatTime } from "@/modules/core/utils/formatTime";
+import { TestForm } from "@/modules/features/tests/api/dtos";
 import {
   T_Test,
   T_Test_Respuesta,
 } from "@/modules/features/tests/api/responses";
-import { useNavigate } from "@tanstack/react-router";
-import { TestForm } from "@/modules/features/tests/api/dtos";
+import { TestType } from "@/modules/features/tests/types/TestType";
 import { isForResolveTest } from "@/modules/features/tests/utils/isForResolve";
-import { STORAGE_URL } from "@/modules/core/constants/ENVIRONMENT";
-import { useModal } from "../../modal/useModal";
-import { cleanOptionTags, getOptionText } from "../utils/dynamicOptions";
-import Button from "../../Button";
+import { useBlocker, useNavigate } from "@tanstack/react-router";
+import clsx from "clsx";
+import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import Icon from "../../../icons/Icon";
+import Button from "../../Button";
+import { useModal } from "../../modal/useModal";
+import { TEST_CAROUSEL_VARIANT } from "../constants/TEST_CAROUSEL_VARIANT";
+import { useTestActual } from "../hooks/useTestActual";
+import { useTestSender } from "../hooks/useTestSender";
+import { useTestTimer } from "../hooks/useTestTimer";
+import { cleanOptionTags, getOptionText } from "../utils/dynamicOptions";
 import TestAutofill from "./TestAutofill";
-import TestProgress from "./TestProgress";
-import TestOutside from "./TestOutside";
-import TestPhrase from "./TestPhrase";
-import TestRequirements from "./TestRequirements";
 import TestCarousel from "./TestCarousel";
 import TestFinishPage from "./TestFinishPage";
-import { useTestSender } from "../hooks/useTestSender";
-import { useTestActual } from "../hooks/useTestActual";
-import { TEST_CAROUSEL_VARIANT } from "../constants/TEST_CAROUSEL_VARIANT";
+import TestOutside from "./TestOutside";
+import TestPhrase from "./TestPhrase";
+import TestProgress from "./TestProgress";
+import TestRequirements from "./TestRequirements";
 import TestSection from "./TestSection";
-import { formatTime } from "@/modules/core/utils/formatTime";
-import { useTestTimer } from "../hooks/useTestTimer";
-import TestTimeout from "./TestTimeout";
-import { COLORS } from "@/modules/core/constants/COLORS";
 import TestTextSection from "./TestTextSection";
 import TestTextSectionForm from "./TestTextSectionForm";
-import usePreventNavigation from "../hooks/usePreventNavigation";
-import { useThemeContext } from "@/modules/core/context/ThemeContext";
+import TestTimeout from "./TestTimeout";
 
 interface Props {
   data: T_Test | T_Test_Respuesta;
@@ -211,7 +210,15 @@ const Test = ({ data, test, idRespuesta }: Props) => {
     finished
   );
 
-  usePreventNavigation(!prev && !finished && form.length > 0);
+  useBlocker({
+    blockerFn: () => {
+      const shouldLeave = confirm(
+        "¿Estás seguro de que quieres salir? Tus cambios no se guardarán."
+      );
+      return shouldLeave;
+    },
+    condition: !prev && !finished && form.length > 0,
+  });
 
   const showTextSection = seccion?.type === "text";
   return (

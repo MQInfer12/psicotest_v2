@@ -1,0 +1,112 @@
+Table u_rols {
+  id integer [primary key]
+  descripcion varchar
+  por_defecto bool
+  permisos json
+}
+
+Table u_users {
+  email varchar [primary key]
+  nombre varchar
+  foto varchar
+  genero varchar
+  fecha_nacimiento date
+
+  carrera varchar
+  semestre integer
+  codigo_estudiantil varchar
+  telefono integer
+  nombre_tutor varchar
+  telefono_tutor integer
+
+  access_token text
+  refresh_token text
+
+  estado bool [default: true]
+  id_rol integer [ref: > u_rols.id]
+}
+
+Table t_tests {
+  id integer [primary key]
+  autor varchar 
+  email_autor varchar [ref: > u_users.email]
+  nombre varchar
+  canvas json
+}
+
+Table t_test_versions {
+  id integer [primary key]
+  id_test integer [ref: > t_tests.id]
+  version integer
+  test json
+  fecha date
+}
+
+Table t_carpetas {
+  id integer [primary key]
+  descripcion varchar
+  email_user varchar [ref: > u_users.email]
+}
+
+Table t_respuestas {
+  id integer [primary key]
+  id_test_version integer [ref: > t_test_versions.id]
+  id_carpeta integer [ref: > t_carpetas.id, null]
+  email_user varchar [ref: > u_users.email, null]
+  email_asignador varchar [ref: > u_users.email, null]
+  estado varchar
+  resultados json [null]
+  interpretacion text [null]
+  fecha_asignado date
+  fecha_enviado date [null]
+}
+
+Table ia_plantillas {
+  id integer [primary key]
+  nombre varchar
+  descripcion varchar
+  plantilla json
+}
+
+Table ia_test_plantillas {
+  id integer [primary key]
+  id_test integer [ref: > t_tests.id]
+  id_plantilla integer [ref: > ia_plantillas.id]
+}
+
+Table app_configuracions {
+  id integer [primary key]
+  configuraciones json
+}
+
+Table t_carpeta_compartirs {
+  id integer [primary key]
+  email_user varchar [ref: > u_users.email]
+  id_carpeta integer [ref: > t_carpetas.id]
+}
+
+Table c_horarios {
+  id integer [primary key]
+  email_user varchar [ref: > u_users.email]
+  dia integer
+  hora_inicio time
+  hora_final time
+}
+
+Table c_citas {
+  id integer [primary key]
+  id_calendar varchar
+  html_link_calendar varchar
+  email_psicologo varchar [ref: > u_users.email]
+  email_paciente varchar [ref: > u_users.email]
+  fecha date
+  hora_inicio time
+  hora_final time
+
+  metodo varchar [null]
+  motivo text [null]
+  antecedentes text [null]
+  observaciones text [null]
+  derivado_a varchar [null]
+  resumen text [null]
+}

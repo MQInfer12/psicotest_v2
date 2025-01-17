@@ -1,13 +1,13 @@
+import clsx from "clsx";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { PUBLIC_NAVBAR_HEIGHT } from "../../_layout/constants/LAYOUT_SIZES";
 import { useLoginContext } from "../../auth/context/LoginContext";
 import { CAROUSEL_ITEMS } from "../constants/CAROUSEL_ITEMS";
-import { PUBLIC_NAVBAR_HEIGHT } from "../../_layout/constants/LAYOUT_SIZES";
-import { motion } from "framer-motion";
-import Hexagon from "./elements/Hexagon";
-import LandingTitle from "./elements/LandingTitle";
-import LandingButton from "./elements/LandingButton";
-import clsx from "clsx";
 import { shadowClasses } from "../constants/LANDING_SHADOWS";
+import Hexagon from "./elements/Hexagon";
+import LandingButton from "./elements/LandingButton";
+import LandingTitle from "./elements/LandingTitle";
 
 const Landing = () => {
   const { setOpen } = useLoginContext();
@@ -23,7 +23,7 @@ const Landing = () => {
   }, [carouselIndex]);
 
   return (
-    <section className="min-h-[100svh] flex max-lg:flex-col-reverse">
+    <section className="min-h-[100svh] flex max-lg:flex-col-reverse relative isolate">
       <div
         className="flex-1 relative flex items-center justify-center isolate max-lg:mb-[80px]"
         style={{
@@ -95,7 +95,7 @@ const Landing = () => {
           paddingBottom: PUBLIC_NAVBAR_HEIGHT,
         }}
         className={clsx(
-          "flex-1 max-xl:flex-[1.5_1_0] flex items-center justify-center bg-alto-50 dark:bg-alto-1000 rounded-bl-[80px] z-10 max-lg:rounded-b-[80px]",
+          "flex-1 max-xl:flex-[1.5_1_0] flex flex-col items-center justify-center bg-alto-50 dark:bg-alto-1000 rounded-bl-[80px] z-10 max-lg:rounded-b-[80px]",
           shadowClasses
         )}
       >
@@ -113,7 +113,7 @@ const Landing = () => {
             bounce: 0.02,
             delay: 0.5,
           }}
-          className="flex flex-col max-sm:items-center gap-4 w-[520px] isolate relative"
+          className="flex flex-col max-sm:items-center gap-4 w-[520px] max-w-full isolate relative"
         >
           <small className="p-1 px-2 text-xs bg-primary-200 dark:bg-primary-600 text-primary-800 dark:text-primary-200 max-w-fit rounded-md">
             Novedad: Nuevos tests psicológicos

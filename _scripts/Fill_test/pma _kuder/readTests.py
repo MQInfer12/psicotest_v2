@@ -71,7 +71,7 @@ for archivo in archivos_excel:
   sexo = "Hombre" if (df.iloc[2,26].lower() == "masculino" or df.iloc[2,26].lower() == "m") else "Mujer" if (df.iloc[2,26].lower() == "femenino" or df.iloc[2,26].lower() == "f") else None
   colegio = df.iloc[3, 13]
   cel = df.iloc[4, 13]
-  correo = correo = "_".join(parte.lower() for parte in nombre.split(" ")) + "@psicotest.com"
+  correo = correo = "_".join(parte.lower() for parte in nombre.split(" ")) + "@neurall.com"
 
 
   # Para factor V

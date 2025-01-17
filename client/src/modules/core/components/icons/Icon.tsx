@@ -28,6 +28,7 @@ import IconFolder from "./tabler/iconFolder";
 import IconGender from "./tabler/iconGender";
 import IconGPT from "./tabler/iconGPT";
 import IconHandPointer from "./tabler/iconHandPointer";
+import IconHome from "./tabler/iconHome";
 import IconInstagram from "./tabler/IconInstagram";
 import IconLinkedin from "./tabler/iconLinkedin";
 import IconLoader from "./tabler/iconLoader";
@@ -133,6 +134,7 @@ export enum ICON {
   GPT = "gpt",
   EYE = "eye",
   PATIENT = "patient",
+  HOME = "home",
 }
 
 interface Props {
@@ -215,6 +217,7 @@ const Icon = ({ type }: Props) => {
     [ICON.GPT]: <IconGPT />,
     [ICON.EYE]: <IconEye />,
     [ICON.PATIENT]: <IconPatient />,
+    [ICON.HOME]: <IconHome />,
   };
   return icons[type];
 };

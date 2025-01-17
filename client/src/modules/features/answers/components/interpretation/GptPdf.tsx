@@ -7,7 +7,7 @@ import {
   Font,
   StyleSheet,
 } from "@react-pdf/renderer";
-import PsicotestHeader from "@/assets/images/logo-title.png";
+import PsicotestHeader from "@/assets/images/logo-title-2.png";
 import PoppinsRegular from "@/assets/fonts/Poppins/Poppins-Regular.ttf";
 import PoppinsMedium from "@/assets/fonts/Poppins/Poppins-Medium.ttf";
 import PoppinsSemiBold from "@/assets/fonts/Poppins/Poppins-SemiBold.ttf";

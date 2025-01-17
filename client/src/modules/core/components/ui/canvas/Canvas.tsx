@@ -37,7 +37,7 @@ const Canvas = ({ children, layoutId }: CanvasProps) => {
 const Title = ({ subtitle, children }: TitleProps) => {
   return (
     <div className="flex flex-col items-center">
-      <h2 className="text-3xl font-bold text-primary-900 dark:text-primary-400">
+      <h2 className="text-3xl font-bold text-primary-900 dark:text-primary-400 text-center">
         {children}
       </h2>
       {subtitle && (
@@ -75,12 +75,11 @@ const Paragraph = ({ children }: Props) => {
 
 const Vignette = ({ subtitle, children }: TitleProps) => {
   return (
-    <p className="pl-10 max-sm:pl-6 leading-loose text-sm max-sm:text-xs max-sm:leading-loose text-alto-950 dark:text-alto-50">
+    <p className="self-start pl-10 max-sm:pl-6 leading-loose text-sm max-sm:text-xs max-sm:leading-loose text-alto-950 dark:text-alto-50">
       <span className="font-medium whitespace-nowrap text-primary-800 dark:text-primary-300">
-        • {subtitle}.- <span></span>
+        • {subtitle ? `${subtitle}.-` : ""}{" "}
       </span>
-      {children} Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam,
-      eos.
+      {children}
     </p>
   );
 };

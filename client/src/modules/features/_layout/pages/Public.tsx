@@ -1,4 +1,10 @@
-import { Link, Navigate, Outlet, useSearch } from "@tanstack/react-router";
+import {
+  Link,
+  Navigate,
+  Outlet,
+  useLocation,
+  useSearch,
+} from "@tanstack/react-router";
 import clsx from "clsx";
 import LoginCard from "../../auth/components/LoginCard";
 import { LoginContextProvider } from "../../auth/context/LoginContext";
@@ -7,12 +13,18 @@ import { shadowClasses } from "../../landing/constants/LANDING_SHADOWS";
 import LoginLink from "../components/LoginLink";
 import Logo from "../components/Logo";
 import { PUBLIC_NAVBAR_HEIGHT } from "../constants/LAYOUT_SIZES";
+import { useEffect } from "react";
 
 const Public = () => {
   const { state } = useUserContext();
   const { redirect } = useSearch({
     from: "/_public",
   });
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   if (state !== "unlogged") return <Navigate to={redirect || "/tests"} />;
   return (
@@ -26,7 +38,13 @@ const Public = () => {
           shadowClasses
         )}
       >
-        <Link className="flex" to="/">
+        <Link
+          className="flex"
+          to="/"
+          onClick={() => {
+            window.scrollTo(0, 0);
+          }}
+        >
           <Logo />
         </Link>
         {/* <div className="flex gap-10">

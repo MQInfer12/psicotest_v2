@@ -14,6 +14,7 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as PublicImport } from './routes/_public'
 import { Route as PrivateImport } from './routes/_private'
 import { Route as PublicIndexImport } from './routes/_public/index'
+import { Route as PublicPrivacyImport } from './routes/_public/privacy'
 import { Route as PrivateUsersImport } from './routes/_private/users'
 import { Route as PrivateProfileImport } from './routes/_private/profile'
 import { Route as PrivateChatImport } from './routes/_private/chat'
@@ -46,6 +47,12 @@ const PrivateRoute = PrivateImport.update({
 const PublicIndexRoute = PublicIndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => PublicRoute,
+} as any)
+
+const PublicPrivacyRoute = PublicPrivacyImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => PublicRoute,
 } as any)
 
@@ -183,6 +190,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/users'
       preLoaderRoute: typeof PrivateUsersImport
       parentRoute: typeof PrivateImport
+    }
+    '/_public/privacy': {
+      id: '/_public/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PublicPrivacyImport
+      parentRoute: typeof PublicImport
     }
     '/_public/': {
       id: '/_public/'
@@ -329,10 +343,12 @@ const PrivateRouteWithChildren =
   PrivateRoute._addFileChildren(PrivateRouteChildren)
 
 interface PublicRouteChildren {
+  PublicPrivacyRoute: typeof PublicPrivacyRoute
   PublicIndexRoute: typeof PublicIndexRoute
 }
 
 const PublicRouteChildren: PublicRouteChildren = {
+  PublicPrivacyRoute: PublicPrivacyRoute,
   PublicIndexRoute: PublicIndexRoute,
 }
 
@@ -344,6 +360,7 @@ export interface FileRoutesByFullPath {
   '/chat': typeof PrivateChatRoute
   '/profile': typeof PrivateProfileRoute
   '/users': typeof PrivateUsersRoute
+  '/privacy': typeof PublicPrivacyRoute
   '/': typeof PublicIndexRoute
   '/answers/$id': typeof PrivateAnswersIdRoute
   '/calendar/$id': typeof PrivateCalendarIdRoute
@@ -365,6 +382,7 @@ export interface FileRoutesByTo {
   '/chat': typeof PrivateChatRoute
   '/profile': typeof PrivateProfileRoute
   '/users': typeof PrivateUsersRoute
+  '/privacy': typeof PublicPrivacyRoute
   '/': typeof PublicIndexRoute
   '/answers/$id': typeof PrivateAnswersIdRoute
   '/calendar/$id': typeof PrivateCalendarIdRoute
@@ -388,6 +406,7 @@ export interface FileRoutesById {
   '/_private/chat': typeof PrivateChatRoute
   '/_private/profile': typeof PrivateProfileRoute
   '/_private/users': typeof PrivateUsersRoute
+  '/_public/privacy': typeof PublicPrivacyRoute
   '/_public/': typeof PublicIndexRoute
   '/_private/answers/$id': typeof PrivateAnswersIdRoute
   '/_private/calendar/$id': typeof PrivateCalendarIdRoute
@@ -411,6 +430,7 @@ export interface FileRouteTypes {
     | '/chat'
     | '/profile'
     | '/users'
+    | '/privacy'
     | '/'
     | '/answers/$id'
     | '/calendar/$id'
@@ -431,6 +451,7 @@ export interface FileRouteTypes {
     | '/chat'
     | '/profile'
     | '/users'
+    | '/privacy'
     | '/'
     | '/answers/$id'
     | '/calendar/$id'
@@ -452,6 +473,7 @@ export interface FileRouteTypes {
     | '/_private/chat'
     | '/_private/profile'
     | '/_private/users'
+    | '/_public/privacy'
     | '/_public/'
     | '/_private/answers/$id'
     | '/_private/calendar/$id'
@@ -517,6 +539,7 @@ export const routeTree = rootRoute
     "/_public": {
       "filePath": "_public.tsx",
       "children": [
+        "/_public/privacy",
         "/_public/"
       ]
     },
@@ -531,6 +554,10 @@ export const routeTree = rootRoute
     "/_private/users": {
       "filePath": "_private/users.tsx",
       "parent": "/_private"
+    },
+    "/_public/privacy": {
+      "filePath": "_public/privacy.tsx",
+      "parent": "/_public"
     },
     "/_public/": {
       "filePath": "_public/index.tsx",

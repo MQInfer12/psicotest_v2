@@ -11,8 +11,8 @@ class Usuarios_Seeder extends Seeder
     {
         U_user::create([
             "email" => "psicologiaunifranz@gmail.com",
-            "nombre" => "Psicotest Unifranz",
-            "foto" => "https://lh3.googleusercontent.com/a/ACg8ocKsysNnPCBoQtQbX4pVZ2ahjB-mIc77L0DkX2I675nZjA62ijw=s96-c",
+            "nombre" => "Neurall Unifranz",
+            "foto" => "https://lh3.googleusercontent.com/a/ACg8ocKZbzbynjJrikcmob4oEH4iX63zbeIPQoIWuquU8azsNV9rj_0=s96-c",
             "genero" => "Hombre",
             "fecha_nacimiento" => "2000-01-01",
             "estado" => true,

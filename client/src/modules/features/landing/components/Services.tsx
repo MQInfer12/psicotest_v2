@@ -13,7 +13,7 @@ const Services = () => {
   return (
     <section
       id="services"
-      className="min-h-[100svh] mt-20 bg-gradient-to-b from-transparent to-primary-800 flex flex-col gap-12 items-center justify-center isolate"
+      className="relative min-h-[100svh] mt-20 bg-gradient-to-b from-transparent to-primary-800 flex flex-col gap-12 items-center justify-center isolate"
       style={{
         paddingBlock: PUBLIC_NAVBAR_HEIGHT * 2,
         paddingInline: PUBLIC_NAVBAR_HEIGHT,

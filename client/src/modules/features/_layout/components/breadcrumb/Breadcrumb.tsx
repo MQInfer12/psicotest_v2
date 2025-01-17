@@ -8,9 +8,9 @@ const Breadcrumb = () => {
   const activeBreadcrumb = useBreadcrumb();
 
   useEffect(() => {
-    document.title = `Psicotest | ${activeBreadcrumb[activeBreadcrumb.length - 1].name}`;
+    document.title = `Neurall | ${activeBreadcrumb[activeBreadcrumb.length - 1].name}`;
     return () => {
-      document.title = "Psicotest";
+      document.title = "Neurall";
     };
   }, [activeBreadcrumb]);
 
@@ -21,14 +21,17 @@ const Breadcrumb = () => {
     <p className="text-sm text-alto-700 dark:text-alto-400 flex gap-2 max-sm:text-xs whitespace-nowrap overflow-auto no-scrollbar">
       {activeBreadcrumb.map((a, i) => (
         <Fragment key={a.path}>
-          {i > 0 && <span className="text-alto-400 dark:text-alto-700"> / </span>}
+          {i > 0 && (
+            <span className="text-alto-400 dark:text-alto-700"> / </span>
+          )}
           <Link
             className={clsx(
               "relative after:content-[''] after:absolute after:w-full after:bottom-[2px] after:border-t after:left-0 after:border-alto-500",
               "after:scale-x-0 after:origin-left after:transition-all after:duration-300",
               "hover:after:scale-x-100",
               {
-                "text-primary-900/70 dark:text-primary-400": i === activeBreadcrumb.length - 1,
+                "text-primary-900/70 dark:text-primary-400":
+                  i === activeBreadcrumb.length - 1,
               }
             )}
             to={a.path}

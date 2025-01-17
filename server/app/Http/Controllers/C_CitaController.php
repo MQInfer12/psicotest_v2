@@ -201,7 +201,7 @@ class C_CitaController extends Controller
             'description' => 'Cita con ' . $horario->user->nombre . ' (psicólogo)' .
                 "\n\nEn el gabinete psicológico de Unifranz Cochabamba, subiendo el primer piso por las escaleras a la derecha." .
                 "\n<a href='{$mapsLink}'>Ver ubicación</a>" .
-                "\n\nGenerado automáticamente por <a href='{$psicotestLink}'>Psicotest</a>",
+                "\n\nGenerado automáticamente por <a href='{$psicotestLink}'>Neurall</a>",
             'colorId' => '3',
             'start' => [
                 'dateTime' => $validatedData['fecha'] . 'T' . $horario->hora_inicio,

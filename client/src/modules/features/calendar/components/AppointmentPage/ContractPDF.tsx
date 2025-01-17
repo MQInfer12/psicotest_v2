@@ -19,7 +19,7 @@ const ContractPDF = ({ user, fecha, nombre_psicologo }: Props) => {
 
   return (
     <PDFViewer height="100%" width="100%">
-      <Document title="Contrato terapeútico">
+      <Document title="Contrato terapéutico">
         <Page
           size="LETTER"
           style={{
@@ -33,7 +33,7 @@ const ContractPDF = ({ user, fecha, nombre_psicologo }: Props) => {
               fontWeight: 700,
             }}
           >
-            CONTRATO TERAPEÚTICO
+            CONTRATO TERAPÉUTICO
           </Text>
           <Text
             style={{
