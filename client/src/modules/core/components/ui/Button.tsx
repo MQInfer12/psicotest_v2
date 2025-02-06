@@ -13,6 +13,7 @@ interface Props extends HTMLMotionProps<"button"> {
   btnSize?: "base" | "small" | "square";
   danger?: boolean;
   icon?: ICON;
+  subicon?: ICON;
   reverse?: boolean;
   ring?: boolean;
   children?: React.ReactNode;
@@ -25,6 +26,7 @@ const Button = ({
   btnSize = "base",
   danger,
   icon,
+  subicon,
   children,
   className,
   disabled,
@@ -167,13 +169,18 @@ const Button = ({
       )}
       {icon && (
         <div
-          className={clsx("aspect-square", {
+          className={clsx("aspect-square relative bg-inherit", {
             "w-5": btnSize === "base",
             "w-4": btnSize === "small",
             "w-6": btnSize === "square",
           })}
         >
           <Icon type={icon} />
+          {subicon && (
+            <div className="absolute w-[9px] rounded-full bg-inherit aspect-square bottom-[1px] pt-[1px] pl-[1px] right-0 [&_svg]:!stroke-[4px]">
+              <Icon type={subicon} />
+            </div>
+          )}
         </div>
       )}
     </motion.button>

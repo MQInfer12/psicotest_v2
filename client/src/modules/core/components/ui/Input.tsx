@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import { ForwardedRef, forwardRef, useId } from "react";
 import Appear from "../utils/Appear";
+import Icon, { ICON } from "../icons/Icon";
 
 interface GeneralProps {
   label?: string;
@@ -10,6 +11,7 @@ interface GeneralProps {
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   type?: "text" | "date" | "number" | "email" | "time";
+  icon?: ICON;
 }
 
 interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
@@ -81,24 +83,46 @@ const Input = forwardRef((props: Props, ref: ForwardedRef<any>) => {
           {props.children}
         </select>
       ) : (
-        <input
-          id={id}
-          ref={ref}
-          type="text"
-          autoComplete="off"
-          className={clsx(
-            "w-full border border-alto-300/70 dark:border-alto-800 rounded-lg outline-none bg-white dark:bg-alto-1000 dark:[color-scheme:dark]",
-            "ring-0 ring-inset ring-primary-400 focus:ring-1 transition-all duration-300",
-            {
-              "text-sm py-2 px-3": inputSize === "base",
-              "text-xs py-2 px-3 h-[34px]": inputSize === "small",
-            },
-            "disabled:bg-alto-200/60 dark:disabled:bg-alto-900 disabled:border-primary-200 dark:disabled:border-alto-800",
-            "text-alto-950 dark:text-alto-50 placeholder-alto-500 dark:placeholder-alto-700",
-            className
+        <div
+          className={clsx("relative isolate", {
+            contents: !forwardProps.icon,
+          })}
+        >
+          <input
+            id={id}
+            ref={ref}
+            type="text"
+            autoComplete="off"
+            className={clsx(
+              "w-full border border-alto-300/70 dark:border-alto-800 rounded-lg outline-none bg-white dark:bg-alto-1000 dark:[color-scheme:dark] peer",
+              "ring-0 ring-inset ring-primary-400 focus:ring-1 transition-all duration-300",
+              "px-3",
+              {
+                "text-sm py-2 h-[38px]": inputSize === "base",
+                "text-xs py-2 px-3 h-[34px]": inputSize === "small",
+                "pl-[34px]": inputSize === "base" && forwardProps.icon,
+                "pl-[30px]": inputSize === "small" && forwardProps.icon,
+              },
+              "disabled:bg-alto-200/60 dark:disabled:bg-alto-900 disabled:border-primary-200 dark:disabled:border-alto-800",
+              "text-alto-950 dark:text-alto-50 placeholder-alto-500 dark:placeholder-alto-700",
+              className
+            )}
+            {...forwardProps}
+          />
+          {forwardProps.icon && (
+            <div
+              className={clsx(
+                "top-0 left-0 absolute z-10 aspect-square p-2 text-alto-400 peer-focus:text-primary-500 transition-all duration-300",
+                {
+                  "h-[38px]": inputSize === "base",
+                  "h-[34px]": inputSize === "small",
+                }
+              )}
+            >
+              <Icon type={forwardProps.icon} />
+            </div>
           )}
-          {...forwardProps}
-        />
+        </div>
       )}
     </div>
   );

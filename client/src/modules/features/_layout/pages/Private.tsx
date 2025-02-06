@@ -11,6 +11,7 @@ import {
   Outlet,
   useLocation,
   useNavigate,
+  useSearch,
 } from "@tanstack/react-router";
 import clsx from "clsx";
 import { motion } from "framer-motion";
@@ -71,6 +72,10 @@ const Dashboard = () => {
   useEffect(() => {
     outletContainerRef.current?.scrollTo(0, 0);
   }, [pathname]);
+
+  const { view } = useSearch({
+    strict: false,
+  });
 
   if (state === "unlogged")
     return (
@@ -208,6 +213,9 @@ const Dashboard = () => {
                           activeBreadcrumb[activeBreadcrumb.length - 2];
                         navigate({
                           to: prevBreadcrumb.path,
+                          search: {
+                            view,
+                          },
                         });
                         return;
                       }

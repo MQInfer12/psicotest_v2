@@ -47,7 +47,7 @@ const Render = () => {
   const test: TestType = JSON.parse(data.test);
 
   return (
-    <Canvas layoutId={idTest ? `test-${idTest}` : `respuesta-${idRespuesta}`}>
+    <Canvas type="test" layoutId={idTest ? `test-${idTest}` : `respuesta-${idRespuesta}`}>
       <Canvas.Title subtitle={data.nombre_autor || data.nombre_autor_creador!}>
         {data.nombre_test}
       </Canvas.Title>

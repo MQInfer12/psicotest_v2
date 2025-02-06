@@ -19,4 +19,7 @@ class Permisos
   const ANADIR_HORARIOS = "Añadir horarios";
   const VER_CITAS = "Ver citas";
   const VER_HORARIOS = "Ver horarios";
+  const VER_BLOGS = "Ver blogs";
+  const CREAR_BLOGS = "Crear blogs";
+  const DESTACAR_BLOGS = "Destacar blogs";
 }

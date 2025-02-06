@@ -1,8 +1,10 @@
 import IconCheckAnimated from "./css/iconCheckAnimated";
 import IconGoogleCalendar from "./extra/IconGoogleCalendar";
+import IconAdd from "./tabler/iconAdd";
 import IconArrow from "./tabler/iconArrow";
 import IconBarcode from "./tabler/iconBarcode";
 import IconBell from "./tabler/iconBell";
+import IconBlog from "./tabler/iconBlog";
 import IconBrain from "./tabler/iconBrain";
 import IconCake from "./tabler/iconCake";
 import IconCalendar from "./tabler/iconCalendar";
@@ -22,6 +24,7 @@ import IconContactPhone from "./tabler/iconContactPhone";
 import IconDots from "./tabler/iconDots";
 import IconDownload from "./tabler/iconDownload";
 import IconExcel from "./tabler/iconExcel";
+import IconExternal from "./tabler/iconExternal";
 import IconEye from "./tabler/iconEye";
 import IconFacebook from "./tabler/IconFacebook";
 import IconFolder from "./tabler/iconFolder";
@@ -58,6 +61,11 @@ import IconUser from "./tabler/iconUser";
 import IconUsers from "./tabler/iconUsers";
 import IconWeb from "./tabler/iconWeb";
 import IconX from "./tabler/iconX";
+import IconText from "./tabler/iconText";
+import IconList from "./tabler/iconList";
+import IconBadge from "./tabler/iconBadge";
+import IconFile from "./tabler/iconFile";
+import IconStar from "./tabler/iconStar";
 
 export enum ICON {
   CHECK = "check",
@@ -135,6 +143,14 @@ export enum ICON {
   EYE = "eye",
   PATIENT = "patient",
   HOME = "home",
+  BLOG = "blog",
+  EXTERNAL = "external",
+  ADD = "add",
+  TEXT = "text",
+  LIST = "list",
+  BADGE = "badge",
+  FILE = "file",
+  STAR = "star",
 }
 
 interface Props {
@@ -218,6 +234,14 @@ const Icon = ({ type }: Props) => {
     [ICON.EYE]: <IconEye />,
     [ICON.PATIENT]: <IconPatient />,
     [ICON.HOME]: <IconHome />,
+    [ICON.BLOG]: <IconBlog />,
+    [ICON.EXTERNAL]: <IconExternal />,
+    [ICON.ADD]: <IconAdd />,
+    [ICON.TEXT]: <IconText />,
+    [ICON.LIST]: <IconList />,
+    [ICON.BADGE]: <IconBadge />,
+    [ICON.FILE]: <IconFile />,
+    [ICON.STAR]: <IconStar />,
   };
   return icons[type];
 };

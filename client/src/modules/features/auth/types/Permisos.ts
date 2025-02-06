@@ -14,4 +14,7 @@ export enum Permisos {
   ANADIR_HORARIOS = "Añadir horarios",
   VER_CITAS = "Ver citas",
   VER_HORARIOS = "Ver horarios",
+  VER_BLOGS = "Ver blogs",
+  CREAR_BLOGS = "Crear blogs",
+  DESTACAR_BLOGS = "Destacar blogs",
 }

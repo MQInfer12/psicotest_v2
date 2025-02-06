@@ -28,12 +28,12 @@ export const PRIVATE_LINKS: PrivateLink[] = [
     title: "Respuestas",
     permisos: [Permisos.VER_RESULTADOS],
   },
-  {
+  /* {
     to: "/templates",
     icon: ICON.TEMPLATE,
     title: "Plantillas",
     permisos: [Permisos.VER_PLANTILLAS],
-  },
+  }, */
   {
     to: "/calendar",
     icon: ICON.CALENDAR,
@@ -41,17 +41,23 @@ export const PRIVATE_LINKS: PrivateLink[] = [
     permisos: [Permisos.VER_CALENDARIO],
   },
   {
-    to: "/chat",
-    icon: ICON.CHAT,
-    title: "Chat",
-    permisos: [Permisos.VER_CHAT],
-  },
-  {
     to: "/patients",
     icon: ICON.PATIENT,
     title: "Pacientes",
     permisos: [Permisos.VER_CALENDARIO, Permisos.VER_CITAS],
   },
+  {
+    to: "/blogs",
+    icon: ICON.BLOG,
+    title: "Blogs",
+    permisos: [Permisos.VER_BLOGS],
+  },
+  /* {
+    to: "/chat",
+    icon: ICON.CHAT,
+    title: "Chat",
+    permisos: [Permisos.VER_CHAT],
+  }, */
   {
     to: "/users",
     icon: ICON.USERS,

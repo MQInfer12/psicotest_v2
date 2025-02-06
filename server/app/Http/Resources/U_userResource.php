@@ -28,6 +28,7 @@ class U_userResource extends JsonResource
             'permisos' => $this->rol->permisos,
             'id_rol' => $this->id_rol,
             'cita_proxima' => $this->cita_proxima ? new C_CitaResource($this->cita_proxima) : null,
+
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

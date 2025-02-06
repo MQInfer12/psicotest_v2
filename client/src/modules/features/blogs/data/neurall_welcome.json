@@ -1,0 +1,98 @@
+{
+  "id": 1,
+  "titulo": "Te damos la introducción a Neurall",
+  "descripcion": "Neurall es la plataforma psicológica de la Unifranz que te ayudará a obtener servicios de psicología y salud mental de una manera más moderna y efectiva.",
+  "portada": "/blogs/blog1.png",
+  "autor": {
+    "email": "psicologiaunifranz@gmail.com",
+    "nombre": "Neurall Unifranz",
+    "foto": "https://lh3.googleusercontent.com/a/ACg8ocKZbzbynjJrikcmob4oEH4iX63zbeIPQoIWuquU8azsNV9rj_0=s96-c",
+    "genero": "Hombre",
+    "fecha_nacimiento": "2000-01-01",
+    "carrera": null,
+    "semestre": null,
+    "codigo_estudiantil": null,
+    "telefono": null,
+    "nombre_tutor": null,
+    "telefono_tutor": null,
+    "contador_citas": 0,
+    "estado": true,
+    "permisos": [
+      "Ver tests (asignación)",
+      "Ver resultados",
+      "Ver plantillas",
+      "Ver calendario",
+      "Compartir test",
+      "Configurar",
+      "Ver usuarios",
+      "Ver citas",
+      "Añadir horarios",
+      "Ver blogs",
+      "Crear blogs",
+      "Destacar blogs"
+    ],
+    "id_rol": 1,
+    "cita_proxima": null,
+    "created_at": "2025-02-04T13:04:32.000000Z",
+    "updated_at": "2025-02-04T14:46:46.000000Z"
+  },
+  "config": [
+    {
+      "id": "a",
+      "type": "paragraph",
+      "content": "La tecnología ha transformado la forma en que estudiamos, trabajamos y nos comunicamos. Ahora, también está revolucionando la manera en que los estudiantes acceden a evaluaciones psicológicas y consultas con profesionales. Neurall es una innovadora plataforma creada para los estudiantes de colegios y universitarios, permitiendo realizar tests psicológicos de manera digital y agilizar las consultas en el gabinete psicológico de Unifranz."
+    },
+    {
+      "id": "b",
+      "type": "subtitle",
+      "content": "¿Qué es Neurall?"
+    },
+    {
+      "id": "c",
+      "type": "paragraph",
+      "content": "Neurall es una aplicación web diseñada para facilitar la realización de tests psicológicos y mejorar la gestión de citas en el gabinete psicológico de Unifranz. Su objetivo es optimizar los procesos de evaluación vocacional y consultas psicológicas, ofreciendo un sistema rápido, preciso y seguro para los estudiantes y profesionales."
+    },
+    {
+      "id": "d",
+      "type": "subtitle",
+      "content": "¿Cómo te beneficia Neurall?"
+    },
+    {
+      "id": "e",
+      "type": "vignette",
+      "content": "Tests psicológicos digitales y automáticos."
+    },
+    {
+      "id": "f",
+      "type": "vignette",
+      "content": "Resultados personalizados con inteligencia artificial."
+    },
+    {
+      "id": "g",
+      "type": "vignette",
+      "content": "Reserva tu cita psicológica en segundos."
+    },
+    {
+      "id": "h",
+      "type": "vignette",
+      "content": "Notificaciones y organización con Google Calendar."
+    },
+    {
+      "id": "i",
+      "type": "vignette",
+      "content": "Confidencialidad y seguridad."
+    },
+    {
+      "id": "j",
+      "type": "subtitle",
+      "content": "Neurall no solo simplifica procesos, sino que transforma la manera en que los estudiantes acceden a herramientas psicológicas. Gracias al trabajo conjunto con expertos en psicología, tecnología e inteligencia artificial, la plataforma se adapta a las necesidades reales de los estudiantes, ofreciendo un servicio moderno, intuitivo y eficiente."
+    },
+    {
+      "id": "k",
+      "type": "subtitle",
+      "content": "Si estás buscando una manera rápida y efectiva de conocer tus habilidades vocacionales o necesitas una consulta psicológica sin complicaciones, Neurall es tu solución."
+    }
+  ],
+  "created_at": "2025-02-05T16:00:00.000000Z",
+  "updated_at": "2025-02-05T16:00:00.000000Z"
+}

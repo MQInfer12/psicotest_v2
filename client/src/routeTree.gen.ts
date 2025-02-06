@@ -10,314 +10,374 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as PublicImport } from './routes/_public'
-import { Route as PrivateImport } from './routes/_private'
-import { Route as PublicIndexImport } from './routes/_public/index'
-import { Route as PublicPrivacyImport } from './routes/_public/privacy'
-import { Route as PrivateUsersImport } from './routes/_private/users'
-import { Route as PrivateProfileImport } from './routes/_private/profile'
-import { Route as PrivateChatImport } from './routes/_private/chat'
-import { Route as PrivateTestsIndexImport } from './routes/_private/tests/index'
-import { Route as PrivateTemplatesIndexImport } from './routes/_private/templates/index'
-import { Route as PrivateResolveIndexImport } from './routes/_private/resolve/index'
-import { Route as PrivatePatientsIndexImport } from './routes/_private/patients/index'
-import { Route as PrivateCalendarIndexImport } from './routes/_private/calendar/index'
-import { Route as PrivateAnswersIndexImport } from './routes/_private/answers/index'
-import { Route as PrivateTestsShareImport } from './routes/_private/tests/share'
-import { Route as PrivateTestsIdTestImport } from './routes/_private/tests/$idTest'
-import { Route as PrivateResolveIdRespuestaImport } from './routes/_private/resolve/$idRespuesta'
-import { Route as PrivatePatientsIdImport } from './routes/_private/patients/$id'
-import { Route as PrivateFolderIdImport } from './routes/_private/folder/$id'
-import { Route as PrivateCalendarIdImport } from './routes/_private/calendar/$id'
-import { Route as PrivateAnswersIdImport } from './routes/_private/answers/$id'
+import { Route as rootRoute } from "./routes/__root";
+import { Route as PublicImport } from "./routes/_public";
+import { Route as PrivateImport } from "./routes/_private";
+import { Route as PublicIndexImport } from "./routes/_public/index";
+import { Route as PublicPrivacyImport } from "./routes/_public/privacy";
+import { Route as PrivateUsersImport } from "./routes/_private/users";
+import { Route as PrivateProfileImport } from "./routes/_private/profile";
+import { Route as PrivateChatImport } from "./routes/_private/chat";
+import { Route as PrivateTestsIndexImport } from "./routes/_private/tests/index";
+import { Route as PrivateTemplatesIndexImport } from "./routes/_private/templates/index";
+import { Route as PrivateResolveIndexImport } from "./routes/_private/resolve/index";
+import { Route as PrivatePatientsIndexImport } from "./routes/_private/patients/index";
+import { Route as PrivateCalendarIndexImport } from "./routes/_private/calendar/index";
+import { Route as PrivateBlogsIndexImport } from "./routes/_private/blogs/index";
+import { Route as PrivateAnswersIndexImport } from "./routes/_private/answers/index";
+import { Route as PrivateTestsShareImport } from "./routes/_private/tests/share";
+import { Route as PrivateTestsIdTestImport } from "./routes/_private/tests/$idTest";
+import { Route as PrivateResolveIdRespuestaImport } from "./routes/_private/resolve/$idRespuesta";
+import { Route as PrivatePatientsIdImport } from "./routes/_private/patients/$id";
+import { Route as PrivateFolderIdImport } from "./routes/_private/folder/$id";
+import { Route as PrivateCalendarIdImport } from "./routes/_private/calendar/$id";
+import { Route as PrivateBlogsIdImport } from "./routes/_private/blogs/$id";
+import { Route as PrivateAnswersIdImport } from "./routes/_private/answers/$id";
+import { Route as PrivateBlogsCreateIndexImport } from "./routes/_private/blogs/create/index";
+import { Route as PrivateBlogsCreateIdImport } from "./routes/_private/blogs/create/$id";
 
 // Create/Update Routes
 
 const PublicRoute = PublicImport.update({
-  id: '/_public',
+  id: "/_public",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const PrivateRoute = PrivateImport.update({
-  id: '/_private',
+  id: "/_private",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const PublicIndexRoute = PublicIndexImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => PublicRoute,
-} as any)
+} as any);
 
 const PublicPrivacyRoute = PublicPrivacyImport.update({
-  id: '/privacy',
-  path: '/privacy',
+  id: "/privacy",
+  path: "/privacy",
   getParentRoute: () => PublicRoute,
-} as any)
+} as any);
 
 const PrivateUsersRoute = PrivateUsersImport.update({
-  id: '/users',
-  path: '/users',
+  id: "/users",
+  path: "/users",
   getParentRoute: () => PrivateRoute,
-} as any)
+} as any);
 
 const PrivateProfileRoute = PrivateProfileImport.update({
-  id: '/profile',
-  path: '/profile',
+  id: "/profile",
+  path: "/profile",
   getParentRoute: () => PrivateRoute,
-} as any)
+} as any);
 
 const PrivateChatRoute = PrivateChatImport.update({
-  id: '/chat',
-  path: '/chat',
+  id: "/chat",
+  path: "/chat",
   getParentRoute: () => PrivateRoute,
-} as any)
+} as any);
 
 const PrivateTestsIndexRoute = PrivateTestsIndexImport.update({
-  id: '/tests/',
-  path: '/tests/',
+  id: "/tests/",
+  path: "/tests/",
   getParentRoute: () => PrivateRoute,
-} as any)
+} as any);
 
 const PrivateTemplatesIndexRoute = PrivateTemplatesIndexImport.update({
-  id: '/templates/',
-  path: '/templates/',
+  id: "/templates/",
+  path: "/templates/",
   getParentRoute: () => PrivateRoute,
-} as any)
+} as any);
 
 const PrivateResolveIndexRoute = PrivateResolveIndexImport.update({
-  id: '/resolve/',
-  path: '/resolve/',
+  id: "/resolve/",
+  path: "/resolve/",
   getParentRoute: () => PrivateRoute,
-} as any)
+} as any);
 
 const PrivatePatientsIndexRoute = PrivatePatientsIndexImport.update({
-  id: '/patients/',
-  path: '/patients/',
+  id: "/patients/",
+  path: "/patients/",
   getParentRoute: () => PrivateRoute,
-} as any)
+} as any);
 
 const PrivateCalendarIndexRoute = PrivateCalendarIndexImport.update({
-  id: '/calendar/',
-  path: '/calendar/',
+  id: "/calendar/",
+  path: "/calendar/",
   getParentRoute: () => PrivateRoute,
-} as any)
+} as any);
+
+const PrivateBlogsIndexRoute = PrivateBlogsIndexImport.update({
+  id: "/blogs/",
+  path: "/blogs/",
+  getParentRoute: () => PrivateRoute,
+} as any);
 
 const PrivateAnswersIndexRoute = PrivateAnswersIndexImport.update({
-  id: '/answers/',
-  path: '/answers/',
+  id: "/answers/",
+  path: "/answers/",
   getParentRoute: () => PrivateRoute,
-} as any)
+} as any);
 
 const PrivateTestsShareRoute = PrivateTestsShareImport.update({
-  id: '/tests/share',
-  path: '/tests/share',
+  id: "/tests/share",
+  path: "/tests/share",
   getParentRoute: () => PrivateRoute,
-} as any)
+} as any);
 
 const PrivateTestsIdTestRoute = PrivateTestsIdTestImport.update({
-  id: '/tests/$idTest',
-  path: '/tests/$idTest',
+  id: "/tests/$idTest",
+  path: "/tests/$idTest",
   getParentRoute: () => PrivateRoute,
-} as any)
+} as any);
 
 const PrivateResolveIdRespuestaRoute = PrivateResolveIdRespuestaImport.update({
-  id: '/resolve/$idRespuesta',
-  path: '/resolve/$idRespuesta',
+  id: "/resolve/$idRespuesta",
+  path: "/resolve/$idRespuesta",
   getParentRoute: () => PrivateRoute,
-} as any)
+} as any);
 
 const PrivatePatientsIdRoute = PrivatePatientsIdImport.update({
-  id: '/patients/$id',
-  path: '/patients/$id',
+  id: "/patients/$id",
+  path: "/patients/$id",
   getParentRoute: () => PrivateRoute,
-} as any)
+} as any);
 
 const PrivateFolderIdRoute = PrivateFolderIdImport.update({
-  id: '/folder/$id',
-  path: '/folder/$id',
+  id: "/folder/$id",
+  path: "/folder/$id",
   getParentRoute: () => PrivateRoute,
-} as any)
+} as any);
 
 const PrivateCalendarIdRoute = PrivateCalendarIdImport.update({
-  id: '/calendar/$id',
-  path: '/calendar/$id',
+  id: "/calendar/$id",
+  path: "/calendar/$id",
   getParentRoute: () => PrivateRoute,
-} as any)
+} as any);
+
+const PrivateBlogsIdRoute = PrivateBlogsIdImport.update({
+  id: "/blogs/$id",
+  path: "/blogs/$id",
+  getParentRoute: () => PrivateRoute,
+} as any);
 
 const PrivateAnswersIdRoute = PrivateAnswersIdImport.update({
-  id: '/answers/$id',
-  path: '/answers/$id',
+  id: "/answers/$id",
+  path: "/answers/$id",
   getParentRoute: () => PrivateRoute,
-} as any)
+} as any);
+
+const PrivateBlogsCreateIndexRoute = PrivateBlogsCreateIndexImport.update({
+  id: "/blogs/create/",
+  path: "/blogs/create/",
+  getParentRoute: () => PrivateRoute,
+} as any);
+
+const PrivateBlogsCreateIdRoute = PrivateBlogsCreateIdImport.update({
+  id: "/blogs/create/$id",
+  path: "/blogs/create/$id",
+  getParentRoute: () => PrivateRoute,
+} as any);
 
 // Populate the FileRoutesByPath interface
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/_private': {
-      id: '/_private'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof PrivateImport
-      parentRoute: typeof rootRoute
-    }
-    '/_public': {
-      id: '/_public'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof PublicImport
-      parentRoute: typeof rootRoute
-    }
-    '/_private/chat': {
-      id: '/_private/chat'
-      path: '/chat'
-      fullPath: '/chat'
-      preLoaderRoute: typeof PrivateChatImport
-      parentRoute: typeof PrivateImport
-    }
-    '/_private/profile': {
-      id: '/_private/profile'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof PrivateProfileImport
-      parentRoute: typeof PrivateImport
-    }
-    '/_private/users': {
-      id: '/_private/users'
-      path: '/users'
-      fullPath: '/users'
-      preLoaderRoute: typeof PrivateUsersImport
-      parentRoute: typeof PrivateImport
-    }
-    '/_public/privacy': {
-      id: '/_public/privacy'
-      path: '/privacy'
-      fullPath: '/privacy'
-      preLoaderRoute: typeof PublicPrivacyImport
-      parentRoute: typeof PublicImport
-    }
-    '/_public/': {
-      id: '/_public/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof PublicIndexImport
-      parentRoute: typeof PublicImport
-    }
-    '/_private/answers/$id': {
-      id: '/_private/answers/$id'
-      path: '/answers/$id'
-      fullPath: '/answers/$id'
-      preLoaderRoute: typeof PrivateAnswersIdImport
-      parentRoute: typeof PrivateImport
-    }
-    '/_private/calendar/$id': {
-      id: '/_private/calendar/$id'
-      path: '/calendar/$id'
-      fullPath: '/calendar/$id'
-      preLoaderRoute: typeof PrivateCalendarIdImport
-      parentRoute: typeof PrivateImport
-    }
-    '/_private/folder/$id': {
-      id: '/_private/folder/$id'
-      path: '/folder/$id'
-      fullPath: '/folder/$id'
-      preLoaderRoute: typeof PrivateFolderIdImport
-      parentRoute: typeof PrivateImport
-    }
-    '/_private/patients/$id': {
-      id: '/_private/patients/$id'
-      path: '/patients/$id'
-      fullPath: '/patients/$id'
-      preLoaderRoute: typeof PrivatePatientsIdImport
-      parentRoute: typeof PrivateImport
-    }
-    '/_private/resolve/$idRespuesta': {
-      id: '/_private/resolve/$idRespuesta'
-      path: '/resolve/$idRespuesta'
-      fullPath: '/resolve/$idRespuesta'
-      preLoaderRoute: typeof PrivateResolveIdRespuestaImport
-      parentRoute: typeof PrivateImport
-    }
-    '/_private/tests/$idTest': {
-      id: '/_private/tests/$idTest'
-      path: '/tests/$idTest'
-      fullPath: '/tests/$idTest'
-      preLoaderRoute: typeof PrivateTestsIdTestImport
-      parentRoute: typeof PrivateImport
-    }
-    '/_private/tests/share': {
-      id: '/_private/tests/share'
-      path: '/tests/share'
-      fullPath: '/tests/share'
-      preLoaderRoute: typeof PrivateTestsShareImport
-      parentRoute: typeof PrivateImport
-    }
-    '/_private/answers/': {
-      id: '/_private/answers/'
-      path: '/answers'
-      fullPath: '/answers'
-      preLoaderRoute: typeof PrivateAnswersIndexImport
-      parentRoute: typeof PrivateImport
-    }
-    '/_private/calendar/': {
-      id: '/_private/calendar/'
-      path: '/calendar'
-      fullPath: '/calendar'
-      preLoaderRoute: typeof PrivateCalendarIndexImport
-      parentRoute: typeof PrivateImport
-    }
-    '/_private/patients/': {
-      id: '/_private/patients/'
-      path: '/patients'
-      fullPath: '/patients'
-      preLoaderRoute: typeof PrivatePatientsIndexImport
-      parentRoute: typeof PrivateImport
-    }
-    '/_private/resolve/': {
-      id: '/_private/resolve/'
-      path: '/resolve'
-      fullPath: '/resolve'
-      preLoaderRoute: typeof PrivateResolveIndexImport
-      parentRoute: typeof PrivateImport
-    }
-    '/_private/templates/': {
-      id: '/_private/templates/'
-      path: '/templates'
-      fullPath: '/templates'
-      preLoaderRoute: typeof PrivateTemplatesIndexImport
-      parentRoute: typeof PrivateImport
-    }
-    '/_private/tests/': {
-      id: '/_private/tests/'
-      path: '/tests'
-      fullPath: '/tests'
-      preLoaderRoute: typeof PrivateTestsIndexImport
-      parentRoute: typeof PrivateImport
-    }
+    "/_private": {
+      id: "/_private";
+      path: "";
+      fullPath: "";
+      preLoaderRoute: typeof PrivateImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/_public": {
+      id: "/_public";
+      path: "";
+      fullPath: "";
+      preLoaderRoute: typeof PublicImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/_private/chat": {
+      id: "/_private/chat";
+      path: "/chat";
+      fullPath: "/chat";
+      preLoaderRoute: typeof PrivateChatImport;
+      parentRoute: typeof PrivateImport;
+    };
+    "/_private/profile": {
+      id: "/_private/profile";
+      path: "/profile";
+      fullPath: "/profile";
+      preLoaderRoute: typeof PrivateProfileImport;
+      parentRoute: typeof PrivateImport;
+    };
+    "/_private/users": {
+      id: "/_private/users";
+      path: "/users";
+      fullPath: "/users";
+      preLoaderRoute: typeof PrivateUsersImport;
+      parentRoute: typeof PrivateImport;
+    };
+    "/_public/privacy": {
+      id: "/_public/privacy";
+      path: "/privacy";
+      fullPath: "/privacy";
+      preLoaderRoute: typeof PublicPrivacyImport;
+      parentRoute: typeof PublicImport;
+    };
+    "/_public/": {
+      id: "/_public/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof PublicIndexImport;
+      parentRoute: typeof PublicImport;
+    };
+    "/_private/answers/$id": {
+      id: "/_private/answers/$id";
+      path: "/answers/$id";
+      fullPath: "/answers/$id";
+      preLoaderRoute: typeof PrivateAnswersIdImport;
+      parentRoute: typeof PrivateImport;
+    };
+    "/_private/blogs/$id": {
+      id: "/_private/blogs/$id";
+      path: "/blogs/$id";
+      fullPath: "/blogs/$id";
+      preLoaderRoute: typeof PrivateBlogsIdImport;
+      parentRoute: typeof PrivateImport;
+    };
+    "/_private/calendar/$id": {
+      id: "/_private/calendar/$id";
+      path: "/calendar/$id";
+      fullPath: "/calendar/$id";
+      preLoaderRoute: typeof PrivateCalendarIdImport;
+      parentRoute: typeof PrivateImport;
+    };
+    "/_private/folder/$id": {
+      id: "/_private/folder/$id";
+      path: "/folder/$id";
+      fullPath: "/folder/$id";
+      preLoaderRoute: typeof PrivateFolderIdImport;
+      parentRoute: typeof PrivateImport;
+    };
+    "/_private/patients/$id": {
+      id: "/_private/patients/$id";
+      path: "/patients/$id";
+      fullPath: "/patients/$id";
+      preLoaderRoute: typeof PrivatePatientsIdImport;
+      parentRoute: typeof PrivateImport;
+    };
+    "/_private/resolve/$idRespuesta": {
+      id: "/_private/resolve/$idRespuesta";
+      path: "/resolve/$idRespuesta";
+      fullPath: "/resolve/$idRespuesta";
+      preLoaderRoute: typeof PrivateResolveIdRespuestaImport;
+      parentRoute: typeof PrivateImport;
+    };
+    "/_private/tests/$idTest": {
+      id: "/_private/tests/$idTest";
+      path: "/tests/$idTest";
+      fullPath: "/tests/$idTest";
+      preLoaderRoute: typeof PrivateTestsIdTestImport;
+      parentRoute: typeof PrivateImport;
+    };
+    "/_private/tests/share": {
+      id: "/_private/tests/share";
+      path: "/tests/share";
+      fullPath: "/tests/share";
+      preLoaderRoute: typeof PrivateTestsShareImport;
+      parentRoute: typeof PrivateImport;
+    };
+    "/_private/answers/": {
+      id: "/_private/answers/";
+      path: "/answers";
+      fullPath: "/answers";
+      preLoaderRoute: typeof PrivateAnswersIndexImport;
+      parentRoute: typeof PrivateImport;
+    };
+    "/_private/blogs/": {
+      id: "/_private/blogs/";
+      path: "/blogs";
+      fullPath: "/blogs";
+      preLoaderRoute: typeof PrivateBlogsIndexImport;
+      parentRoute: typeof PrivateImport;
+    };
+    "/_private/calendar/": {
+      id: "/_private/calendar/";
+      path: "/calendar";
+      fullPath: "/calendar";
+      preLoaderRoute: typeof PrivateCalendarIndexImport;
+      parentRoute: typeof PrivateImport;
+    };
+    "/_private/patients/": {
+      id: "/_private/patients/";
+      path: "/patients";
+      fullPath: "/patients";
+      preLoaderRoute: typeof PrivatePatientsIndexImport;
+      parentRoute: typeof PrivateImport;
+    };
+    "/_private/resolve/": {
+      id: "/_private/resolve/";
+      path: "/resolve";
+      fullPath: "/resolve";
+      preLoaderRoute: typeof PrivateResolveIndexImport;
+      parentRoute: typeof PrivateImport;
+    };
+    "/_private/templates/": {
+      id: "/_private/templates/";
+      path: "/templates";
+      fullPath: "/templates";
+      preLoaderRoute: typeof PrivateTemplatesIndexImport;
+      parentRoute: typeof PrivateImport;
+    };
+    "/_private/tests/": {
+      id: "/_private/tests/";
+      path: "/tests";
+      fullPath: "/tests";
+      preLoaderRoute: typeof PrivateTestsIndexImport;
+      parentRoute: typeof PrivateImport;
+    };
+    "/_private/blogs/create/$id": {
+      id: "/_private/blogs/create/$id";
+      path: "/blogs/create/$id";
+      fullPath: "/blogs/create/$id";
+      preLoaderRoute: typeof PrivateBlogsCreateIdImport;
+      parentRoute: typeof PrivateImport;
+    };
+    "/_private/blogs/create/": {
+      id: "/_private/blogs/create/";
+      path: "/blogs/create";
+      fullPath: "/blogs/create";
+      preLoaderRoute: typeof PrivateBlogsCreateIndexImport;
+      parentRoute: typeof PrivateImport;
+    };
   }
 }
 
 // Create and export the route tree
 
 interface PrivateRouteChildren {
-  PrivateChatRoute: typeof PrivateChatRoute
-  PrivateProfileRoute: typeof PrivateProfileRoute
-  PrivateUsersRoute: typeof PrivateUsersRoute
-  PrivateAnswersIdRoute: typeof PrivateAnswersIdRoute
-  PrivateCalendarIdRoute: typeof PrivateCalendarIdRoute
-  PrivateFolderIdRoute: typeof PrivateFolderIdRoute
-  PrivatePatientsIdRoute: typeof PrivatePatientsIdRoute
-  PrivateResolveIdRespuestaRoute: typeof PrivateResolveIdRespuestaRoute
-  PrivateTestsIdTestRoute: typeof PrivateTestsIdTestRoute
-  PrivateTestsShareRoute: typeof PrivateTestsShareRoute
-  PrivateAnswersIndexRoute: typeof PrivateAnswersIndexRoute
-  PrivateCalendarIndexRoute: typeof PrivateCalendarIndexRoute
-  PrivatePatientsIndexRoute: typeof PrivatePatientsIndexRoute
-  PrivateResolveIndexRoute: typeof PrivateResolveIndexRoute
-  PrivateTemplatesIndexRoute: typeof PrivateTemplatesIndexRoute
-  PrivateTestsIndexRoute: typeof PrivateTestsIndexRoute
+  PrivateChatRoute: typeof PrivateChatRoute;
+  PrivateProfileRoute: typeof PrivateProfileRoute;
+  PrivateUsersRoute: typeof PrivateUsersRoute;
+  PrivateAnswersIdRoute: typeof PrivateAnswersIdRoute;
+  PrivateBlogsIdRoute: typeof PrivateBlogsIdRoute;
+  PrivateCalendarIdRoute: typeof PrivateCalendarIdRoute;
+  PrivateFolderIdRoute: typeof PrivateFolderIdRoute;
+  PrivatePatientsIdRoute: typeof PrivatePatientsIdRoute;
+  PrivateResolveIdRespuestaRoute: typeof PrivateResolveIdRespuestaRoute;
+  PrivateTestsIdTestRoute: typeof PrivateTestsIdTestRoute;
+  PrivateTestsShareRoute: typeof PrivateTestsShareRoute;
+  PrivateAnswersIndexRoute: typeof PrivateAnswersIndexRoute;
+  PrivateBlogsIndexRoute: typeof PrivateBlogsIndexRoute;
+  PrivateCalendarIndexRoute: typeof PrivateCalendarIndexRoute;
+  PrivatePatientsIndexRoute: typeof PrivatePatientsIndexRoute;
+  PrivateResolveIndexRoute: typeof PrivateResolveIndexRoute;
+  PrivateTemplatesIndexRoute: typeof PrivateTemplatesIndexRoute;
+  PrivateTestsIndexRoute: typeof PrivateTestsIndexRoute;
+  PrivateBlogsCreateIdRoute: typeof PrivateBlogsCreateIdRoute;
+  PrivateBlogsCreateIndexRoute: typeof PrivateBlogsCreateIndexRoute;
 }
 
 const PrivateRouteChildren: PrivateRouteChildren = {
@@ -325,6 +385,7 @@ const PrivateRouteChildren: PrivateRouteChildren = {
   PrivateProfileRoute: PrivateProfileRoute,
   PrivateUsersRoute: PrivateUsersRoute,
   PrivateAnswersIdRoute: PrivateAnswersIdRoute,
+  PrivateBlogsIdRoute: PrivateBlogsIdRoute,
   PrivateCalendarIdRoute: PrivateCalendarIdRoute,
   PrivateFolderIdRoute: PrivateFolderIdRoute,
   PrivatePatientsIdRoute: PrivatePatientsIdRoute,
@@ -332,178 +393,205 @@ const PrivateRouteChildren: PrivateRouteChildren = {
   PrivateTestsIdTestRoute: PrivateTestsIdTestRoute,
   PrivateTestsShareRoute: PrivateTestsShareRoute,
   PrivateAnswersIndexRoute: PrivateAnswersIndexRoute,
+  PrivateBlogsIndexRoute: PrivateBlogsIndexRoute,
   PrivateCalendarIndexRoute: PrivateCalendarIndexRoute,
   PrivatePatientsIndexRoute: PrivatePatientsIndexRoute,
   PrivateResolveIndexRoute: PrivateResolveIndexRoute,
   PrivateTemplatesIndexRoute: PrivateTemplatesIndexRoute,
   PrivateTestsIndexRoute: PrivateTestsIndexRoute,
-}
+  PrivateBlogsCreateIdRoute: PrivateBlogsCreateIdRoute,
+  PrivateBlogsCreateIndexRoute: PrivateBlogsCreateIndexRoute,
+};
 
 const PrivateRouteWithChildren =
-  PrivateRoute._addFileChildren(PrivateRouteChildren)
+  PrivateRoute._addFileChildren(PrivateRouteChildren);
 
 interface PublicRouteChildren {
-  PublicPrivacyRoute: typeof PublicPrivacyRoute
-  PublicIndexRoute: typeof PublicIndexRoute
+  PublicPrivacyRoute: typeof PublicPrivacyRoute;
+  PublicIndexRoute: typeof PublicIndexRoute;
 }
 
 const PublicRouteChildren: PublicRouteChildren = {
   PublicPrivacyRoute: PublicPrivacyRoute,
   PublicIndexRoute: PublicIndexRoute,
-}
+};
 
 const PublicRouteWithChildren =
-  PublicRoute._addFileChildren(PublicRouteChildren)
+  PublicRoute._addFileChildren(PublicRouteChildren);
 
 export interface FileRoutesByFullPath {
-  '': typeof PublicRouteWithChildren
-  '/chat': typeof PrivateChatRoute
-  '/profile': typeof PrivateProfileRoute
-  '/users': typeof PrivateUsersRoute
-  '/privacy': typeof PublicPrivacyRoute
-  '/': typeof PublicIndexRoute
-  '/answers/$id': typeof PrivateAnswersIdRoute
-  '/calendar/$id': typeof PrivateCalendarIdRoute
-  '/folder/$id': typeof PrivateFolderIdRoute
-  '/patients/$id': typeof PrivatePatientsIdRoute
-  '/resolve/$idRespuesta': typeof PrivateResolveIdRespuestaRoute
-  '/tests/$idTest': typeof PrivateTestsIdTestRoute
-  '/tests/share': typeof PrivateTestsShareRoute
-  '/answers': typeof PrivateAnswersIndexRoute
-  '/calendar': typeof PrivateCalendarIndexRoute
-  '/patients': typeof PrivatePatientsIndexRoute
-  '/resolve': typeof PrivateResolveIndexRoute
-  '/templates': typeof PrivateTemplatesIndexRoute
-  '/tests': typeof PrivateTestsIndexRoute
+  "": typeof PublicRouteWithChildren;
+  "/chat": typeof PrivateChatRoute;
+  "/profile": typeof PrivateProfileRoute;
+  "/users": typeof PrivateUsersRoute;
+  "/privacy": typeof PublicPrivacyRoute;
+  "/": typeof PublicIndexRoute;
+  "/answers/$id": typeof PrivateAnswersIdRoute;
+  "/blogs/$id": typeof PrivateBlogsIdRoute;
+  "/calendar/$id": typeof PrivateCalendarIdRoute;
+  "/folder/$id": typeof PrivateFolderIdRoute;
+  "/patients/$id": typeof PrivatePatientsIdRoute;
+  "/resolve/$idRespuesta": typeof PrivateResolveIdRespuestaRoute;
+  "/tests/$idTest": typeof PrivateTestsIdTestRoute;
+  "/tests/share": typeof PrivateTestsShareRoute;
+  "/answers": typeof PrivateAnswersIndexRoute;
+  "/blogs": typeof PrivateBlogsIndexRoute;
+  "/calendar": typeof PrivateCalendarIndexRoute;
+  "/patients": typeof PrivatePatientsIndexRoute;
+  "/resolve": typeof PrivateResolveIndexRoute;
+  "/templates": typeof PrivateTemplatesIndexRoute;
+  "/tests": typeof PrivateTestsIndexRoute;
+  "/blogs/create/$id": typeof PrivateBlogsCreateIdRoute;
+  "/blogs/create": typeof PrivateBlogsCreateIndexRoute;
 }
 
 export interface FileRoutesByTo {
-  '': typeof PrivateRouteWithChildren
-  '/chat': typeof PrivateChatRoute
-  '/profile': typeof PrivateProfileRoute
-  '/users': typeof PrivateUsersRoute
-  '/privacy': typeof PublicPrivacyRoute
-  '/': typeof PublicIndexRoute
-  '/answers/$id': typeof PrivateAnswersIdRoute
-  '/calendar/$id': typeof PrivateCalendarIdRoute
-  '/folder/$id': typeof PrivateFolderIdRoute
-  '/patients/$id': typeof PrivatePatientsIdRoute
-  '/resolve/$idRespuesta': typeof PrivateResolveIdRespuestaRoute
-  '/tests/$idTest': typeof PrivateTestsIdTestRoute
-  '/tests/share': typeof PrivateTestsShareRoute
-  '/answers': typeof PrivateAnswersIndexRoute
-  '/calendar': typeof PrivateCalendarIndexRoute
-  '/patients': typeof PrivatePatientsIndexRoute
-  '/resolve': typeof PrivateResolveIndexRoute
-  '/templates': typeof PrivateTemplatesIndexRoute
-  '/tests': typeof PrivateTestsIndexRoute
+  "": typeof PrivateRouteWithChildren;
+  "/chat": typeof PrivateChatRoute;
+  "/profile": typeof PrivateProfileRoute;
+  "/users": typeof PrivateUsersRoute;
+  "/privacy": typeof PublicPrivacyRoute;
+  "/": typeof PublicIndexRoute;
+  "/answers/$id": typeof PrivateAnswersIdRoute;
+  "/blogs/$id": typeof PrivateBlogsIdRoute;
+  "/calendar/$id": typeof PrivateCalendarIdRoute;
+  "/folder/$id": typeof PrivateFolderIdRoute;
+  "/patients/$id": typeof PrivatePatientsIdRoute;
+  "/resolve/$idRespuesta": typeof PrivateResolveIdRespuestaRoute;
+  "/tests/$idTest": typeof PrivateTestsIdTestRoute;
+  "/tests/share": typeof PrivateTestsShareRoute;
+  "/answers": typeof PrivateAnswersIndexRoute;
+  "/blogs": typeof PrivateBlogsIndexRoute;
+  "/calendar": typeof PrivateCalendarIndexRoute;
+  "/patients": typeof PrivatePatientsIndexRoute;
+  "/resolve": typeof PrivateResolveIndexRoute;
+  "/templates": typeof PrivateTemplatesIndexRoute;
+  "/tests": typeof PrivateTestsIndexRoute;
+  "/blogs/create/$id": typeof PrivateBlogsCreateIdRoute;
+  "/blogs/create": typeof PrivateBlogsCreateIndexRoute;
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/_private': typeof PrivateRouteWithChildren
-  '/_public': typeof PublicRouteWithChildren
-  '/_private/chat': typeof PrivateChatRoute
-  '/_private/profile': typeof PrivateProfileRoute
-  '/_private/users': typeof PrivateUsersRoute
-  '/_public/privacy': typeof PublicPrivacyRoute
-  '/_public/': typeof PublicIndexRoute
-  '/_private/answers/$id': typeof PrivateAnswersIdRoute
-  '/_private/calendar/$id': typeof PrivateCalendarIdRoute
-  '/_private/folder/$id': typeof PrivateFolderIdRoute
-  '/_private/patients/$id': typeof PrivatePatientsIdRoute
-  '/_private/resolve/$idRespuesta': typeof PrivateResolveIdRespuestaRoute
-  '/_private/tests/$idTest': typeof PrivateTestsIdTestRoute
-  '/_private/tests/share': typeof PrivateTestsShareRoute
-  '/_private/answers/': typeof PrivateAnswersIndexRoute
-  '/_private/calendar/': typeof PrivateCalendarIndexRoute
-  '/_private/patients/': typeof PrivatePatientsIndexRoute
-  '/_private/resolve/': typeof PrivateResolveIndexRoute
-  '/_private/templates/': typeof PrivateTemplatesIndexRoute
-  '/_private/tests/': typeof PrivateTestsIndexRoute
+  __root__: typeof rootRoute;
+  "/_private": typeof PrivateRouteWithChildren;
+  "/_public": typeof PublicRouteWithChildren;
+  "/_private/chat": typeof PrivateChatRoute;
+  "/_private/profile": typeof PrivateProfileRoute;
+  "/_private/users": typeof PrivateUsersRoute;
+  "/_public/privacy": typeof PublicPrivacyRoute;
+  "/_public/": typeof PublicIndexRoute;
+  "/_private/answers/$id": typeof PrivateAnswersIdRoute;
+  "/_private/blogs/$id": typeof PrivateBlogsIdRoute;
+  "/_private/calendar/$id": typeof PrivateCalendarIdRoute;
+  "/_private/folder/$id": typeof PrivateFolderIdRoute;
+  "/_private/patients/$id": typeof PrivatePatientsIdRoute;
+  "/_private/resolve/$idRespuesta": typeof PrivateResolveIdRespuestaRoute;
+  "/_private/tests/$idTest": typeof PrivateTestsIdTestRoute;
+  "/_private/tests/share": typeof PrivateTestsShareRoute;
+  "/_private/answers/": typeof PrivateAnswersIndexRoute;
+  "/_private/blogs/": typeof PrivateBlogsIndexRoute;
+  "/_private/calendar/": typeof PrivateCalendarIndexRoute;
+  "/_private/patients/": typeof PrivatePatientsIndexRoute;
+  "/_private/resolve/": typeof PrivateResolveIndexRoute;
+  "/_private/templates/": typeof PrivateTemplatesIndexRoute;
+  "/_private/tests/": typeof PrivateTestsIndexRoute;
+  "/_private/blogs/create/$id": typeof PrivateBlogsCreateIdRoute;
+  "/_private/blogs/create/": typeof PrivateBlogsCreateIndexRoute;
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
+  fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
-    | ''
-    | '/chat'
-    | '/profile'
-    | '/users'
-    | '/privacy'
-    | '/'
-    | '/answers/$id'
-    | '/calendar/$id'
-    | '/folder/$id'
-    | '/patients/$id'
-    | '/resolve/$idRespuesta'
-    | '/tests/$idTest'
-    | '/tests/share'
-    | '/answers'
-    | '/calendar'
-    | '/patients'
-    | '/resolve'
-    | '/templates'
-    | '/tests'
-  fileRoutesByTo: FileRoutesByTo
+    | ""
+    | "/chat"
+    | "/profile"
+    | "/users"
+    | "/privacy"
+    | "/"
+    | "/answers/$id"
+    | "/blogs/$id"
+    | "/calendar/$id"
+    | "/folder/$id"
+    | "/patients/$id"
+    | "/resolve/$idRespuesta"
+    | "/tests/$idTest"
+    | "/tests/share"
+    | "/answers"
+    | "/blogs"
+    | "/calendar"
+    | "/patients"
+    | "/resolve"
+    | "/templates"
+    | "/tests"
+    | "/blogs/create/$id"
+    | "/blogs/create";
+  fileRoutesByTo: FileRoutesByTo;
   to:
-    | ''
-    | '/chat'
-    | '/profile'
-    | '/users'
-    | '/privacy'
-    | '/'
-    | '/answers/$id'
-    | '/calendar/$id'
-    | '/folder/$id'
-    | '/patients/$id'
-    | '/resolve/$idRespuesta'
-    | '/tests/$idTest'
-    | '/tests/share'
-    | '/answers'
-    | '/calendar'
-    | '/patients'
-    | '/resolve'
-    | '/templates'
-    | '/tests'
+    | ""
+    | "/chat"
+    | "/profile"
+    | "/users"
+    | "/privacy"
+    | "/"
+    | "/answers/$id"
+    | "/blogs/$id"
+    | "/calendar/$id"
+    | "/folder/$id"
+    | "/patients/$id"
+    | "/resolve/$idRespuesta"
+    | "/tests/$idTest"
+    | "/tests/share"
+    | "/answers"
+    | "/blogs"
+    | "/calendar"
+    | "/patients"
+    | "/resolve"
+    | "/templates"
+    | "/tests"
+    | "/blogs/create/$id"
+    | "/blogs/create";
   id:
-    | '__root__'
-    | '/_private'
-    | '/_public'
-    | '/_private/chat'
-    | '/_private/profile'
-    | '/_private/users'
-    | '/_public/privacy'
-    | '/_public/'
-    | '/_private/answers/$id'
-    | '/_private/calendar/$id'
-    | '/_private/folder/$id'
-    | '/_private/patients/$id'
-    | '/_private/resolve/$idRespuesta'
-    | '/_private/tests/$idTest'
-    | '/_private/tests/share'
-    | '/_private/answers/'
-    | '/_private/calendar/'
-    | '/_private/patients/'
-    | '/_private/resolve/'
-    | '/_private/templates/'
-    | '/_private/tests/'
-  fileRoutesById: FileRoutesById
+    | "__root__"
+    | "/_private"
+    | "/_public"
+    | "/_private/chat"
+    | "/_private/profile"
+    | "/_private/users"
+    | "/_public/privacy"
+    | "/_public/"
+    | "/_private/answers/$id"
+    | "/_private/blogs/$id"
+    | "/_private/calendar/$id"
+    | "/_private/folder/$id"
+    | "/_private/patients/$id"
+    | "/_private/resolve/$idRespuesta"
+    | "/_private/tests/$idTest"
+    | "/_private/tests/share"
+    | "/_private/answers/"
+    | "/_private/blogs/"
+    | "/_private/calendar/"
+    | "/_private/patients/"
+    | "/_private/resolve/"
+    | "/_private/templates/"
+    | "/_private/tests/"
+    | "/_private/blogs/create/$id"
+    | "/_private/blogs/create/";
+  fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
-  PrivateRoute: typeof PrivateRouteWithChildren
-  PublicRoute: typeof PublicRouteWithChildren
+  PrivateRoute: typeof PrivateRouteWithChildren;
+  PublicRoute: typeof PublicRouteWithChildren;
 }
 
 const rootRouteChildren: RootRouteChildren = {
   PrivateRoute: PrivateRouteWithChildren,
   PublicRoute: PublicRouteWithChildren,
-}
+};
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
 
 /* ROUTE_MANIFEST_START
 {
@@ -522,6 +610,7 @@ export const routeTree = rootRoute
         "/_private/profile",
         "/_private/users",
         "/_private/answers/$id",
+        "/_private/blogs/$id",
         "/_private/calendar/$id",
         "/_private/folder/$id",
         "/_private/patients/$id",
@@ -529,11 +618,14 @@ export const routeTree = rootRoute
         "/_private/tests/$idTest",
         "/_private/tests/share",
         "/_private/answers/",
+        "/_private/blogs/",
         "/_private/calendar/",
         "/_private/patients/",
         "/_private/resolve/",
         "/_private/templates/",
-        "/_private/tests/"
+        "/_private/tests/",
+        "/_private/blogs/create/$id",
+        "/_private/blogs/create/"
       ]
     },
     "/_public": {
@@ -567,6 +659,10 @@ export const routeTree = rootRoute
       "filePath": "_private/answers/$id.tsx",
       "parent": "/_private"
     },
+    "/_private/blogs/$id": {
+      "filePath": "_private/blogs/$id.tsx",
+      "parent": "/_private"
+    },
     "/_private/calendar/$id": {
       "filePath": "_private/calendar/$id.tsx",
       "parent": "/_private"
@@ -595,6 +691,10 @@ export const routeTree = rootRoute
       "filePath": "_private/answers/index.tsx",
       "parent": "/_private"
     },
+    "/_private/blogs/": {
+      "filePath": "_private/blogs/index.tsx",
+      "parent": "/_private"
+    },
     "/_private/calendar/": {
       "filePath": "_private/calendar/index.tsx",
       "parent": "/_private"
@@ -613,6 +713,14 @@ export const routeTree = rootRoute
     },
     "/_private/tests/": {
       "filePath": "_private/tests/index.tsx",
+      "parent": "/_private"
+    },
+    "/_private/blogs/create/$id": {
+      "filePath": "_private/blogs/create/$id.tsx",
+      "parent": "/_private"
+    },
+    "/_private/blogs/create/": {
+      "filePath": "_private/blogs/create/index.tsx",
       "parent": "/_private"
     }
   }

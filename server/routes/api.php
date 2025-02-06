@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\App_ConfiguracionController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\B_BlogController;
 use App\Http\Controllers\C_CitaController;
 use App\Http\Controllers\C_HorarioController;
 use App\Http\Controllers\IA_PlantillaController;
@@ -79,4 +80,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/cita/respuesta/status', [C_CitaController::class, 'respuestaStatus']);
     Route::patch('/cita/respuesta/{id}', [C_CitaController::class, 'respuesta']);
     Route::put('/cita/destroy/{id}', [C_CitaController::class, 'destroyWithToken']);
+
+    Route::apiResource('/blog', B_BlogController::class);
+    Route::get('/blog/for/me', [B_BlogController::class, 'indexForMe']);
 });

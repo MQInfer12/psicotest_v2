@@ -19,6 +19,7 @@ import {
   UserTableContextProvider,
   UserTableFiltersState,
 } from "../context/UserTableContext";
+import { formatDate } from "@/modules/core/utils/formatDate";
 
 const columnHelper = createColumnHelper<User>();
 
@@ -140,6 +141,27 @@ const UserTablePage = () => {
         ),
         meta: {
           width: 148,
+        },
+      }),
+      columnHelper.accessor("created_at", {
+        header: "Registrado",
+        cell: (info) => (
+          <div className="flex-1 flex flex-col gap-1 overflow-hidden">
+            <strong className="font-semibold text-sm whitespace-nowrap overflow-hidden text-ellipsis">
+              {formatDate(info.row.original.created_at)}
+            </strong>
+            <div className="text-[10px] font-medium text-alto-700 dark:text-alto-400 overflow-hidden whitespace-nowrap flex gap-1">
+              <div className="w-3 aspect-square">
+                <Icon type={Icon.Types.CLOCK} />
+              </div>
+              <p>
+                {info.row.original.created_at.split("T")[1].substring(0, 5)}
+              </p>
+            </div>
+          </div>
+        ),
+        meta: {
+          width: 120,
         },
       }),
       columnHelper.accessor("estado", {

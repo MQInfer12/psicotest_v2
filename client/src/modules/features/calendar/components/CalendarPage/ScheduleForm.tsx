@@ -61,7 +61,7 @@ const ScheduleForm = ({ onSuccess }: Props) => {
         ))}
       </Input>
       <Input
-        label="Email"
+        label="Hora"
         type="time"
         required
         error={errors.hora_inicio?.message}
