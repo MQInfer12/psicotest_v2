@@ -16,6 +16,7 @@ const BlogPage = ({ blog, preview }: Props) => {
         subtitle={`${blog.autor.nombre} • ${formatDate(blog.updated_at)}`}
         coverSrc={preview ? blog.portada : STORAGE_URL + blog.portada}
         description={blog.descripcion}
+        showCover
       >
         {blog.titulo}
       </Canvas.Title>

@@ -1,14 +1,14 @@
 import DefaultPhoto from "@/assets/images/defaultPhoto.jpg";
 import Placeholder from "@/assets/images/placeholder.png";
 import { useMeasureContext } from "@/modules/features/_layout/context/MeasureContext";
+import { useNavigate } from "@tanstack/react-router";
+import clsx from "clsx";
 import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import Icon from "../../icons/Icon";
+import Button from "../Button";
 import Test from "./components/Test";
 import { CANVAS_PADDING } from "./constants/CANVAS";
-import Button from "../Button";
-import { useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
-import clsx from "clsx";
 
 interface Props {
   children?: React.ReactNode;
@@ -19,6 +19,7 @@ interface TitleProps extends Props {
   photoSrc?: string | null;
   coverSrc?: string;
   description?: string | null;
+  showCover?: boolean;
 }
 
 interface VigetteProps extends Props {
@@ -44,14 +45,31 @@ const Canvas = ({
   type,
 }: CanvasProps) => {
   const { PRIVATE_PADDING_INLINE } = useMeasureContext();
+  const canvasDivRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!canvasDivRef.current) return;
+
+    const allLi = canvasDivRef.current.querySelectorAll("li");
+    let lastLi = null;
+
+    allLi.forEach((li) => {
+      if (!li.nextElementSibling || li.nextElementSibling.tagName !== "LI") {
+        li.classList.add("mb-8");
+        lastLi = li;
+      }
+    });
+  }, []);
+
   return (
     <div
       style={{
         paddingInline: PRIVATE_PADDING_INLINE,
       }}
-      className="flex flex-col items-center pb-10 max-sm:!p-0"
+      className="flex flex-col items-center pb-10 max-sm:!p-0 tracking-[.1px]"
     >
       <motion.div
+        ref={canvasDivRef}
         layoutId={layoutId}
         className="flex h-full flex-col max-sm: items-center w-[1140px] max-w-full bg-alto-50 dark:bg-alto-1000 border-t-8 border-primary-700 dark:border-primary-400 rounded-lg shadow-xl shadow-alto-950/20 dark:shadow-alto-50/10 p-10 max-sm:p-4 max-sm:pt-8 max-sm:rounded-none relative overflow-hidden isolate"
       >
@@ -78,6 +96,7 @@ const Title = ({
   photoSrc,
   coverSrc,
   description,
+  showCover,
 }: TitleProps) => {
   return (
     <div className="flex flex-col items-center pb-8 w-full">
@@ -103,17 +122,19 @@ const Title = ({
           {description}
         </small>
       )}
-      <div className="relative isolate w-full h-[560px] my-8 rounded-xl overflow-hidden shadow-md shadow-alto-950/20 dark:shadow-alto-50/10 border-2 border-alto-800/20 dark:border-alto-300/90 flex items-end">
-        <img
-          src={coverSrc}
-          className="w-full h-full object-cover -z-10 absolute top-0 left-0"
-          onError={(event) => {
-            event.currentTarget.src = Placeholder;
-          }}
-        />
-        <span className="h-[100%] w-full absolute bottom-0 left-0 bg-gradient-to-b from-transparent to-primary-1000/80" />
-        <small className="text-alto-50 z-10 px-10 py-5"></small>
-      </div>
+      {showCover && (
+        <div className="relative isolate w-full h-[560px] my-8 rounded-xl overflow-hidden shadow-md shadow-alto-950/20 dark:shadow-alto-50/10 border-2 border-alto-800/20 dark:border-alto-300/90 flex items-end">
+          <img
+            src={coverSrc}
+            className="w-full h-full object-cover -z-10 absolute top-0 left-0"
+            onError={(event) => {
+              event.currentTarget.src = Placeholder;
+            }}
+          />
+          <span className="h-[100%] w-full absolute bottom-0 left-0 bg-gradient-to-b from-transparent to-primary-1000/80" />
+          <small className="text-alto-50 z-10 px-10 py-5"></small>
+        </div>
+      )}
     </div>
   );
 };
@@ -124,7 +145,7 @@ const Subtitle = ({ children }: Props) => {
       style={{
         marginInline: CANVAS_PADDING,
       }}
-      className="self-start text-base text-primary-800 dark:text-primary-300 border-primary-400/30 max-sm:text-sm mb-4 mt-6"
+      className="self-start text-base text-primary-800 dark:text-primary-300 border-primary-400/30 max-sm:text-sm mb-4 mt-4"
     >
       {children}
     </h3>
@@ -146,12 +167,12 @@ const Paragraph = ({ children }: Props) => {
 
 const Vignette = ({ subtitle, children }: VigetteProps) => {
   return (
-    <p className="self-start pl-12 max-sm:pl-6 leading-loose text-sm font-light max-sm:text-xs max-sm:leading-loose text-alto-950 dark:text-alto-50 mb-4">
+    <li className="list-none canvas-vignette self-start pl-12 max-sm:pl-6 leading-loose text-sm font-light max-sm:text-xs max-sm:leading-loose text-alto-950 dark:text-alto-50 mb-2">
       <span className="font-normal whitespace-nowrap text-primary-800 dark:text-primary-300">
         • {subtitle ? `${subtitle} •` : ""}{" "}
       </span>
       {children}
-    </p>
+    </li>
   );
 };
 
@@ -226,6 +247,7 @@ const Footer = () => {
         }
         icon={Icon.Types.CHEVRON_LEFT}
         reverse
+        btnType="secondary"
       >
         Leer más blogs
       </Button>

@@ -83,4 +83,5 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::apiResource('/blog', B_BlogController::class);
     Route::get('/blog/for/me', [B_BlogController::class, 'indexForMe']);
+    Route::patch('/blog/standout/{id}', [B_BlogController::class, 'standOut']);
 });

@@ -66,6 +66,7 @@ import IconList from "./tabler/iconList";
 import IconBadge from "./tabler/iconBadge";
 import IconFile from "./tabler/iconFile";
 import IconStar from "./tabler/iconStar";
+import IconStarOutline from "./tabler/iconStarOutline";
 
 export enum ICON {
   CHECK = "check",
@@ -151,6 +152,7 @@ export enum ICON {
   BADGE = "badge",
   FILE = "file",
   STAR = "star",
+  STAR_OUTLINE = "star_outline",
 }
 
 interface Props {
@@ -242,6 +244,7 @@ const Icon = ({ type }: Props) => {
     [ICON.BADGE]: <IconBadge />,
     [ICON.FILE]: <IconFile />,
     [ICON.STAR]: <IconStar />,
+    [ICON.STAR_OUTLINE]: <IconStarOutline />,
   };
   return icons[type];
 };

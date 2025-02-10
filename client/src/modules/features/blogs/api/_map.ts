@@ -24,5 +24,19 @@ declare global {
       request: any;
       response: Blog;
     };
+    "PATCH /blog/standout/:id": {
+      params: {
+        id: number;
+      };
+      request: null;
+      response: Blog;
+    };
+    "DELETE /blog/:id": {
+      params: {
+        id: number;
+      };
+      request: null;
+      response: null;
+    };
   }
 }

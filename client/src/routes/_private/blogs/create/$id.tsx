@@ -38,12 +38,20 @@ function RouteComponent() {
   }
 
   const { fetchData } = useFetch();
-  const { data } = fetchData([
-    "GET /blog/:id",
+  const { data } = fetchData(
+    [
+      "GET /blog/:id",
+      {
+        id: Number(id),
+      },
+    ],
     {
-      id: Number(id),
-    },
-  ]);
+      queryOptions: {
+        queryKey: ["Editar blog"],
+        gcTime: 0,
+      },
+    }
+  );
 
   if (!data) {
     return <Loader />;

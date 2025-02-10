@@ -6,15 +6,47 @@ import { useNavigate } from "@tanstack/react-router";
 import Icon from "@/modules/core/components/icons/Icon";
 import Button from "@/modules/core/components/ui/Button";
 import { BlogsView } from "@/routes/_private/blogs";
+import useFetch from "@/modules/core/hooks/useFetch/useFetch";
+import { toastConfirm, toastSuccess } from "@/modules/core/utils/toasts";
+import { usePermiso } from "../../auth/hooks/usePermiso";
+import { Permisos } from "../../auth/types/Permisos";
 
 interface Props {
   blog: Blog;
   viewOwns: boolean;
   view: BlogsView;
+  handleStandout: (blog: Blog) => void;
+  onSuccessDelete: (id: number) => void;
 }
 
-const BlogCard = ({ blog, viewOwns, view }: Props) => {
+const BlogCard = ({
+  blog,
+  viewOwns,
+  view,
+  handleStandout,
+  onSuccessDelete,
+}: Props) => {
   const navigate = useNavigate();
+
+  const { postData } = useFetch();
+  const deleteMutation = postData("DELETE /blog/:id");
+
+  const handleDelete = () => {
+    toastConfirm("¿Quieres eliminar este blog permanentemente?", () => {
+      deleteMutation(null, {
+        params: {
+          id: blog.id,
+        },
+        onSuccess: (res) => {
+          toastSuccess(res.message);
+          onSuccessDelete(blog.id);
+        },
+      });
+    });
+  };
+
+  const canStandout = usePermiso([Permisos.DESTACAR_BLOGS]);
+
   return (
     <article
       onClick={() => {
@@ -36,10 +68,24 @@ const BlogCard = ({ blog, viewOwns, view }: Props) => {
           src={STORAGE_URL + blog.portada}
         />
         <span className="absolute inset-0 bg-primary-1000/50" />
-        {blog.destacado && (
+        {blog.destacado && !canStandout && (
           <div title="Destacado" className="absolute top-4 right-4 text-white">
             <Icon type={Icon.Types.STAR} />
           </div>
+        )}
+        {canStandout && (
+          <button
+            title="Destacar blog"
+            className="absolute top-4 right-4 text-white hover:opacity-80 transition-all duration-300"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleStandout(blog);
+            }}
+          >
+            <Icon
+              type={blog.destacado ? Icon.Types.STAR : Icon.Types.STAR_OUTLINE}
+            />
+          </button>
         )}
       </div>
       <h3 className="font-normal mb-2 line-clamp-1">{blog.titulo}</h3>
@@ -89,6 +135,7 @@ const BlogCard = ({ blog, viewOwns, view }: Props) => {
             <Button
               onClick={(e) => {
                 e.stopPropagation();
+                handleDelete();
               }}
               icon={Icon.Types.TRASH}
               btnType="secondary"

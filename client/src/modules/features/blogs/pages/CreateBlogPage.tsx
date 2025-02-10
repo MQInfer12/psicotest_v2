@@ -31,6 +31,8 @@ const CreateBlogPage = ({ blog }: Props) => {
   const navigate = useNavigate();
   const [preview, setPreview] = useState(false);
 
+  const [loading, setLoading] = useState(false);
+
   const [inputs, setInputs] = useState({
     titulo: blog?.titulo ?? "",
     descripcion: blog?.descripcion ?? "",
@@ -50,6 +52,11 @@ const CreateBlogPage = ({ blog }: Props) => {
     ) {
       return toastError("Tiene que haber al menos un párrafo");
     }
+    if (!config.every((item) => item.content.trim())) {
+      return toastError("Revisar los campos requeridos");
+    }
+
+    setLoading(true);
 
     const data = new FormData();
     data.append("titulo", inputs.titulo);
@@ -83,6 +90,8 @@ const CreateBlogPage = ({ blog }: Props) => {
       }
     } catch (e) {
       toastError("Error al crear el blog");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -125,32 +134,36 @@ const CreateBlogPage = ({ blog }: Props) => {
       case "vignette":
         return (
           <div className="flex-1 flex gap-4">
-            <Input
-              type="text"
-              label="Título de la viñeta"
-              icon={Icon.Types.LIST}
-              value={item.title}
-              onChange={(e) => {
-                setConfig((prev) =>
-                  prev.map((i) =>
-                    i.id === item.id ? { ...i, title: e.target.value } : i
-                  )
-                );
-              }}
-            />
-            <Input
-              required
-              type="text"
-              label="Contenido de la viñeta"
-              value={item.content}
-              onChange={(e) => {
-                setConfig((prev) =>
-                  prev.map((i) =>
-                    i.id === item.id ? { ...i, content: e.target.value } : i
-                  )
-                );
-              }}
-            />
+            <div>
+              <Input
+                type="text"
+                label="Título de la viñeta"
+                icon={Icon.Types.LIST}
+                value={item.title}
+                onChange={(e) => {
+                  setConfig((prev) =>
+                    prev.map((i) =>
+                      i.id === item.id ? { ...i, title: e.target.value } : i
+                    )
+                  );
+                }}
+              />
+            </div>
+            <div className="flex-1">
+              <Input
+                required
+                type="text"
+                label="Contenido de la viñeta"
+                value={item.content}
+                onChange={(e) => {
+                  setConfig((prev) =>
+                    prev.map((i) =>
+                      i.id === item.id ? { ...i, content: e.target.value } : i
+                    )
+                  );
+                }}
+              />
+            </div>
           </div>
         );
     }
@@ -183,6 +196,7 @@ const CreateBlogPage = ({ blog }: Props) => {
             }}
             btnSize="small"
             icon={Icon.Types.SAVE}
+            disabled={loading}
           >
             Guardar
           </Button>
@@ -205,7 +219,11 @@ const CreateBlogPage = ({ blog }: Props) => {
         />
       ) : (
         <>
-          <div className="flex gap-4 w-full min-h-80 max-h-80 mb-4">
+          <motion.div
+            layout
+            layoutId="blog-editor-header-form"
+            className="flex gap-4 w-full min-h-80 max-h-80 mb-4"
+          >
             <div className="flex-1 flex flex-col gap-4">
               <Input
                 type="text"
@@ -230,19 +248,23 @@ const CreateBlogPage = ({ blog }: Props) => {
               />
             </div>
             <InputFile
+              accept=".png,.jpg,.jpeg"
               label="Portada"
               required
               state={img}
               setState={setImg}
               defaultSrc={blog ? STORAGE_URL + blog.portada : undefined}
+              maxSize={5 * 1024}
             />
-          </div>
+          </motion.div>
           {config.length > 0 && (
             <AnimatePresence initial={false}>
               <div className="flex flex-col gap-4">
-                {config.map((item) => (
+                {config.map((item, i) => (
                   <motion.div
                     key={item.id}
+                    layout
+                    layoutId={item.id}
                     initial={{ y: -80, opacity: 0 }}
                     animate={{ x: 0, y: 0, opacity: 1 }}
                     transition={{ duration: 0.3 }}
@@ -255,12 +277,40 @@ const CreateBlogPage = ({ blog }: Props) => {
                           tabIndex={-1}
                           icon={Icon.Types.CARET_UP}
                           btnType="secondary"
+                          onClick={() => {
+                            const index = config.findIndex(
+                              (i) => i.id === item.id
+                            );
+                            if (index === 0) return;
+                            setConfig((prev) => {
+                              const copy = [...prev];
+                              const temp = copy[index];
+                              copy[index] = copy[index - 1];
+                              copy[index - 1] = temp;
+                              return copy;
+                            });
+                          }}
+                          disabled={i === 0}
                         />
                         <Button
                           type="button"
                           tabIndex={-1}
                           icon={Icon.Types.CARET_DOWN}
                           btnType="secondary"
+                          onClick={() => {
+                            const index = config.findIndex(
+                              (i) => i.id === item.id
+                            );
+                            if (index === config.length - 1) return;
+                            setConfig((prev) => {
+                              const copy = [...prev];
+                              const temp = copy[index];
+                              copy[index] = copy[index + 1];
+                              copy[index + 1] = temp;
+                              return copy;
+                            });
+                          }}
+                          disabled={i === config.length - 1}
                         />
                         <Button
                           type="button"
@@ -352,6 +402,7 @@ const CreateBlogPage = ({ blog }: Props) => {
                 btnSize="small"
                 btnType="secondary"
                 type="button"
+                disabled
               >
                 Media
               </Button>

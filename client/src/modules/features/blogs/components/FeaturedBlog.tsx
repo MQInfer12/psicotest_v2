@@ -3,17 +3,22 @@ import { STORAGE_URL } from "@/modules/core/constants/ENVIRONMENT";
 import { useNavigate } from "@tanstack/react-router";
 import { Blog } from "../api/responses";
 import { BlogsView } from "@/routes/_private/blogs";
+import { usePermiso } from "../../auth/hooks/usePermiso";
+import { Permisos } from "../../auth/types/Permisos";
 
 interface Props {
   blog: Blog;
   view: BlogsView;
+  handleStandout: (blog: Blog) => void;
 }
 
-const FeaturedBlog = ({ blog, view }: Props) => {
+const FeaturedBlog = ({ blog, view, handleStandout }: Props) => {
   const navigate = useNavigate();
 
+  const canStandout = usePermiso([Permisos.DESTACAR_BLOGS]);
+
   return (
-    <button
+    <article
       onClick={() => {
         navigate({
           to: "/blogs/$id",
@@ -25,8 +30,20 @@ const FeaturedBlog = ({ blog, view }: Props) => {
           },
         });
       }}
-      className="min-h-[480px] max-h-[480px] hover:opacity-90 transition-opacity duration-300 ring-primary-200 text-start w-full flex items-end relative isolate rounded-3xl overflow-hidden px-16 max-sm:px-5 pb-10 shadow-md shadow-alto-950/20 dark:shadow-alto-50/10"
+      className="group cursor-pointer min-h-[480px] max-h-[480px] hover:opacity-90 transition-opacity duration-300 ring-primary-200 text-start w-full flex items-end relative isolate rounded-3xl overflow-hidden px-16 max-sm:px-5 pb-10 shadow-md shadow-alto-950/20 dark:shadow-alto-50/10"
     >
+      {canStandout && (
+        <button
+          title="Quitar destacado"
+          className="absolute top-10 right-16 text-white hover:opacity-80 w-8 h-8"
+          onClick={(e) => {
+            e.stopPropagation();
+            handleStandout(blog);
+          }}
+        >
+          <Icon type={Icon.Types.STAR} />
+        </button>
+      )}
       <div className="absolute -z-10 inset-0">
         <div className="relative h-full w-full isolate">
           <img
@@ -44,11 +61,11 @@ const FeaturedBlog = ({ blog, view }: Props) => {
             {blog.descripcion}
           </p>
         </article>
-        <div className="text-white min-w-10 h-10">
+        <div className="text-white min-w-10 h-10 group-hover:opacity-100 opacity-0 transition-opacity duration-300">
           <Icon type={Icon.Types.CHEVRON_RIGHT} />
         </div>
       </div>
-    </button>
+    </article>
   );
 };
 

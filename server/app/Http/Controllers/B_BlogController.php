@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\Permisos;
 use App\Http\Requests\B_BlogRequest;
 use App\Http\Resources\B_BlogResource;
 use App\Models\B_Blog;
@@ -83,7 +84,7 @@ class B_BlogController extends Controller
         } else {
             $portada = $blog->portada;
         }
-        
+
         $blog->update([
             'titulo' => $validatedData['titulo'],
             'descripcion' => $validatedData['descripcion'],
@@ -93,6 +94,33 @@ class B_BlogController extends Controller
 
         return $this->successResponse(
             "Blog actualizado correctamente.",
+            new B_BlogResource($blog)
+        );
+    }
+
+    public function standOut(Request $request, int $id)
+    {
+        $user = $request->user();
+        if (!in_array(Permisos::DESTACAR_BLOGS, $user->rol->permisos)) {
+            return $this->wrongResponse('No tienes permisos para destacar blogs.');
+        }
+
+        $blog = B_Blog::findOrFail($id);
+        if ($blog->destacado) {
+            $blog->update([
+                'destacado' => false
+            ]);
+        } else {
+            B_Blog::where('destacado', true)->update([
+                'destacado' => false
+            ]);
+            $blog->update([
+                'destacado' => true
+            ]);
+        }
+
+        return $this->successResponse(
+            "Blog destacado correctamente.",
             new B_BlogResource($blog)
         );
     }

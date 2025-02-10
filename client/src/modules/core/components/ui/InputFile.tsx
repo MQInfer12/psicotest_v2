@@ -9,7 +9,9 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   error?: string;
   defaultSrc?: string;
   state: File | null;
+  maxSize?: number;
   setState: React.Dispatch<React.SetStateAction<File | null>>;
+  validFormats?: string[];
 }
 
 const InputFile = (props: Props) => {
@@ -21,16 +23,23 @@ const InputFile = (props: Props) => {
     className,
     disabled,
     defaultSrc,
+    maxSize = 2048,
     state,
     setState,
   } = props;
 
   const [preview, setPreview] = useState<null | string>(null);
+  const [sizeError, setSizeError] = useState<string | null>(null);
 
   const changeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.length) {
-      setState(e.target.files[0]);
+    if (!e.target.files?.length) return;
+    if (e.target.files[0].size > maxSize * 1024) {
+      setSizeError(`Tamaño de la imagen supera ${maxSize / 1024}MB`);
+      setState(null);
+      return;
     }
+    setSizeError(null);
+    setState(e.target.files[0]);
   };
 
   useEffect(() => {
@@ -40,12 +49,16 @@ const InputFile = (props: Props) => {
       fileReader.addEventListener("load", () => {
         setPreview(fileReader.result as string);
       });
+    } else {
+      setPreview(null);
     }
   }, [state]);
 
   const selectInput = () => document.getElementById(id)?.click();
 
   const hasImage = preview ?? defaultSrc;
+
+  const realError = sizeError ?? error;
 
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
@@ -63,12 +76,12 @@ const InputFile = (props: Props) => {
           >
             {label}
           </label>
-          <Appear open={!!error}>
+          <Appear open={!!realError}>
             <p
-              title={error}
+              title={realError}
               className="text-xs font-semibold text-danger whitespace-nowrap overflow-hidden text-ellipsis"
             >
-              {error}
+              {realError}
             </p>
           </Appear>
         </div>
@@ -79,7 +92,7 @@ const InputFile = (props: Props) => {
         tabIndex={-1}
         disabled={disabled}
         className={clsx(
-          "overflow-hidden flex-1 w-full border-dashed border-2 border-alto-300/70 dark:border-alto-800 rounded-lg outline-none bg-white dark:bg-alto-1000",
+          "relative overflow-hidden flex-1 w-full border-dashed border-2 border-alto-300/70 dark:border-alto-800 rounded-lg outline-none bg-white dark:bg-alto-1000",
           "transition-all duration-300",
           "text-sm h-[38px]",
           "disabled:bg-alto-200/60 dark:disabled:bg-alto-900 disabled:border-primary-200 dark:disabled:border-alto-800",
@@ -100,6 +113,11 @@ const InputFile = (props: Props) => {
             }
             src={hasImage}
           />
+        )}
+        {!hasImage && (
+          <p className="absolute bottom-4 left-1/2 -translate-x-1/2 opacity-40">
+            Tamaño máximo {maxSize / 1024}MB
+          </p>
         )}
       </button>
       <Button
