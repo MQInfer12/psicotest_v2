@@ -286,11 +286,16 @@ const AnswersPage = () => {
                 startedSelection
                   ? (row) => ({
                       opacity:
-                        (selectedTests &&
-                          row.email_user !== selectedTests?.user.email) ||
-                        !Object.values(startedSelection.id_tests).includes(
-                          row.id
-                        )
+                        selectedTests &&
+                        (row.email_user !== selectedTests?.user.email ||
+                          selectedTests?.selecteds.some(
+                            (s) =>
+                              s.id_test === row.id &&
+                              s.id_respuesta !== row.id_respuesta
+                          ) ||
+                          !Object.values(startedSelection.id_tests).includes(
+                            row.id
+                          ))
                           ? 0.1
                           : undefined,
                       backgroundColor: selectedTests?.selecteds
@@ -303,11 +308,16 @@ const AnswersPage = () => {
                           ? COLORS.alto[1000]
                           : COLORS.alto[50],
                       pointerEvents:
-                        (selectedTests &&
-                          row.email_user !== selectedTests?.user.email) ||
-                        !Object.values(startedSelection.id_tests).includes(
-                          row.id
-                        )
+                        selectedTests &&
+                        (row.email_user !== selectedTests?.user.email ||
+                          selectedTests?.selecteds.some(
+                            (s) =>
+                              s.id_test === row.id &&
+                              s.id_respuesta !== row.id_respuesta
+                          ) ||
+                          !Object.values(startedSelection.id_tests).includes(
+                            row.id
+                          ))
                           ? "none"
                           : undefined,
                     })
@@ -367,12 +377,25 @@ const AnswersPage = () => {
                           };
                         });
                       },
-                      disabled: (row) =>
-                        (!!selectedTests &&
-                          row.email_user !== selectedTests?.user.email) ||
-                        !Object.values(startedSelection.id_tests).includes(
-                          row.id
-                        ),
+                      disabled: (row) => {
+                        if (!selectedTests) return false;
+                        const isSameUser =
+                          row.email_user === selectedTests.user.email;
+                        const isFromTemplate = Object.values(
+                          startedSelection.id_tests
+                        ).includes(row.id);
+                        const alreadySelected = selectedTests.selecteds.some(
+                          (s) =>
+                            s.id_test === row.id &&
+                            s.id_respuesta !== row.id_respuesta
+                        );
+                        return (
+                          !isSameUser ||
+                          !isFromTemplate ||
+                          alreadySelected ||
+                          row.estado === RespuestaEstado.PENDIENTE
+                        );
+                      },
                     }
                   : undefined
               }

@@ -28,12 +28,12 @@ export const PRIVATE_LINKS: PrivateLink[] = [
     title: "Respuestas",
     permisos: [Permisos.VER_RESULTADOS],
   },
-  /* {
+  {
     to: "/templates",
     icon: ICON.TEMPLATE,
     title: "Plantillas",
     permisos: [Permisos.VER_PLANTILLAS],
-  }, */
+  },
   {
     to: "/calendar",
     icon: ICON.CALENDAR,
