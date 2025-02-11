@@ -130,8 +130,8 @@ class B_BlogController extends Controller
         $user = $request->user();
         $blog = B_Blog::findOrFail($id);
 
-        if ($user->email != $blog->email_autor) {
-            return $this->wrongResponse("No tienes permisos para editar este blog.");
+        if ($user->email != $blog->email_autor && !in_array(Permisos::DESTACAR_BLOGS, $user->rol->permisos)) {
+            return $this->wrongResponse("No tienes permisos para elimibar este blog.");
         }
 
         $route = 'storage' . $blog->portada;

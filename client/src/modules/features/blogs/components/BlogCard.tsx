@@ -99,7 +99,7 @@ const BlogCard = ({
         className="flex justify-between gap-4 w-full"
         title={`${blog.autor.nombre} • ${formatDate(blog.updated_at)}`}
       >
-        <div className="flex items-center gap-4 flex-1">
+        <div className="flex items-center gap-4 flex-1 overflow-hidden">
           <img
             className="w-[34px] h-[34px] border border-alto-800/20 dark:border-alto-300/90 rounded-md"
             src={blog.autor.foto ?? DefaultPhoto}
@@ -107,13 +107,15 @@ const BlogCard = ({
               event.currentTarget.src = DefaultPhoto;
             }}
           />
-          <p className="text-xs line-clamp-1">
-            {viewOwns ? "Tú" : blog.autor.nombre} •{" "}
-            {formatDate(blog.updated_at)}
+          <p className="text-xs flex whitespace-nowrap overflow-hidden flex-1 gap-1">
+            <span className="overflow-hidden overflow-ellipsis">
+              {viewOwns ? "Tú" : blog.autor.nombre}
+            </span>
+            <span>• {formatDate(blog.updated_at)}</span>
           </p>
         </div>
-        {viewOwns && (
-          <div className="flex gap-4 justify-end">
+        <div className="flex gap-2">
+          {viewOwns && (
             <Button
               onClick={(e) => {
                 e.stopPropagation();
@@ -132,6 +134,8 @@ const BlogCard = ({
             >
               Editar
             </Button>
+          )}
+          {canStandout && (
             <Button
               onClick={(e) => {
                 e.stopPropagation();
@@ -142,8 +146,8 @@ const BlogCard = ({
               danger
               btnSize="small"
             />
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </article>
   );
