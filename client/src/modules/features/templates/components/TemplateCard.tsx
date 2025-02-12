@@ -2,15 +2,39 @@ import Icon from "@/modules/core/components/icons/Icon";
 import Button from "@/modules/core/components/ui/Button";
 import Loader from "@/modules/core/components/ui/loader/Loader";
 import { IA_Plantilla } from "../api/responses";
+import useFetch from "@/modules/core/hooks/useFetch/useFetch";
+import { toastConfirm, toastSuccess } from "@/modules/core/utils/toasts";
+import { useNavigate } from "@tanstack/react-router";
 
 interface Props {
   template: IA_Plantilla;
   loading: boolean;
+  onSuccessDelete: (id: number) => void;
 }
 
-const TemplateCard = ({ loading, template }: Props) => {
+const TemplateCard = ({ loading, template, onSuccessDelete }: Props) => {
   const test1 = Object.keys(template.id_tests).at(0) ?? "-";
   const test2 = Object.keys(template.id_tests).at(1) ?? "-";
+
+  const navigate = useNavigate();
+
+  const { postData } = useFetch();
+  const deleteMutation = postData("DELETE /plantilla/:id");
+
+  const handleDelete = () => {
+    toastConfirm("Se eliminará la plantilla permanentemente", () => {
+      deleteMutation(null, {
+        params: {
+          id: template.id,
+        },
+        onSuccess: (res) => {
+          toastSuccess(res.message);
+          onSuccessDelete(template.id);
+        },
+      });
+    });
+  };
+
   return (
     <div className="w-full h-full rounded-lg border-t-8 border-primary-700 dark:border-primary-400 bg-alto-50 dark:bg-alto-1000 shadow-lg shadow-alto-950/10 dark:shadow-alto-50/10 pt-4 p-8 flex flex-col gap-4">
       <div className="flex items-center gap-2 justify-between">
@@ -57,12 +81,28 @@ const TemplateCard = ({ loading, template }: Props) => {
             <Loader text="" scale=".5" />
           </div>
         ) : (
-          <Button
-            btnType="secondary"
-            onClick={() => {}}
-            icon={Icon.Types.PENCIL}
-            title="Editar test"
-          />
+          <>
+            <Button
+              btnType="secondary"
+              onClick={() => {
+                navigate({
+                  to: "/templates/create/$id",
+                  params: {
+                    id: String(template.id),
+                  },
+                });
+              }}
+              icon={Icon.Types.PENCIL}
+              title="Editar plantilla"
+            />
+            <Button
+              btnType="secondary"
+              onClick={handleDelete}
+              icon={Icon.Types.TRASH}
+              danger
+              title="Eliminar plantilla"
+            />
+          </>
         )}
       </div>
     </div>

@@ -79,6 +79,7 @@ const TestPage = ({ respuestas = false }: Props) => {
           </div> */}
           <Button
             btnType="secondary"
+            btnSize="small"
             onClick={() => setOpen(true)}
             icon={Icon.Types.QR}
           >

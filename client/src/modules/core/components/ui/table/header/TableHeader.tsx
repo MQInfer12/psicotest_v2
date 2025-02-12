@@ -4,9 +4,10 @@ import { useTableContext } from "../context/TableContext";
 interface Props {
   folders?: number[];
   children?: React.ReactNode;
+  text?: string;
 }
 
-const TableHeader = ({ children, folders }: Props) => {
+const TableHeader = ({ children, folders, text }: Props) => {
   const { selectedRows, totalRows, resetSelectedRows } = useTableContext();
 
   useEffect(() => {
@@ -18,7 +19,7 @@ const TableHeader = ({ children, folders }: Props) => {
       {children}
       <div className="w-full flex justify-between text-alto-950 dark:text-alto-50">
         <small className="text-[10px] font-semibold px-3">
-          {totalRows} filas
+          {text ?? `${totalRows} filas`}
         </small>
         {selectedRows.length > 0 && (
           <small className="text-[10px] font-semibold px-3">

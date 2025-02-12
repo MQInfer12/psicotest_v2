@@ -103,7 +103,7 @@ const CreateBlogPage = ({ blog }: Props) => {
             required
             type="text"
             label="Subtítulo"
-            icon={Icon.Types.BADGE}
+            icon={Icon.Types.LABEL}
             value={item.content}
             onChange={(e) => {
               setConfig((prev) =>
@@ -339,7 +339,7 @@ const CreateBlogPage = ({ blog }: Props) => {
             <span className="h-[1px] w-full absolute left-0 top-1/2 -translate-y-1/2 bg-alto-300/80 group-hover:bg-alto-300/80 transition-all duration-100" />
             <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex gap-4 group-hover:opacity-100 opacity-100 transition-all duration-100">
               <Button
-                icon={Icon.Types.BADGE}
+                icon={Icon.Types.LABEL}
                 subicon={Icon.Types.ADD}
                 btnSize="small"
                 btnType="secondary"

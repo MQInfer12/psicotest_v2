@@ -24,6 +24,7 @@ import AnswersInterpretation from "../components/AnswersInterpretation";
 import { IA_Plantilla } from "../../templates/api/responses";
 import TableHeader from "@/modules/core/components/ui/table/header/TableHeader";
 import { useThemeContext } from "@/modules/core/context/ThemeContext";
+import { formatStringList } from "@/modules/core/utils/formatStringList";
 
 const columnHelper = createColumnHelper<T_Tests_Respuestas>();
 
@@ -211,6 +212,29 @@ const AnswersPage = () => {
     });
   };
 
+  const checkDisabled = (row: T_Tests_Respuestas) => {
+    if (!startedSelection) return true;
+
+    const isFromTemplate = Object.values(startedSelection.id_tests).includes(
+      row.id
+    );
+
+    if (!selectedTests) return !isFromTemplate;
+
+    const isSameUser = row.email_user === selectedTests.user.email;
+
+    const alreadySelected = selectedTests.selecteds.some(
+      (s) => s.id_test === row.id && s.id_respuesta !== row.id_respuesta
+    );
+
+    return (
+      !isSameUser ||
+      !isFromTemplate ||
+      alreadySelected ||
+      row.estado === RespuestaEstado.PENDIENTE
+    );
+  };
+
   const filteredData = getFilteredData();
   return (
     <div
@@ -285,19 +309,7 @@ const AnswersPage = () => {
               rowStyle={
                 startedSelection
                   ? (row) => ({
-                      opacity:
-                        selectedTests &&
-                        (row.email_user !== selectedTests?.user.email ||
-                          selectedTests?.selecteds.some(
-                            (s) =>
-                              s.id_test === row.id &&
-                              s.id_respuesta !== row.id_respuesta
-                          ) ||
-                          !Object.values(startedSelection.id_tests).includes(
-                            row.id
-                          ))
-                          ? 0.1
-                          : undefined,
+                      opacity: checkDisabled(row) ? 0.1 : undefined,
                       backgroundColor: selectedTests?.selecteds
                         .map((s) => s.id_respuesta)
                         .includes(row.id_respuesta)
@@ -307,19 +319,7 @@ const AnswersPage = () => {
                         : dark
                           ? COLORS.alto[1000]
                           : COLORS.alto[50],
-                      pointerEvents:
-                        selectedTests &&
-                        (row.email_user !== selectedTests?.user.email ||
-                          selectedTests?.selecteds.some(
-                            (s) =>
-                              s.id_test === row.id &&
-                              s.id_respuesta !== row.id_respuesta
-                          ) ||
-                          !Object.values(startedSelection.id_tests).includes(
-                            row.id
-                          ))
-                          ? "none"
-                          : undefined,
+                      pointerEvents: checkDisabled(row) ? "none" : undefined,
                     })
                   : undefined
               }
@@ -377,30 +377,19 @@ const AnswersPage = () => {
                           };
                         });
                       },
-                      disabled: (row) => {
-                        if (!selectedTests) return false;
-                        const isSameUser =
-                          row.email_user === selectedTests.user.email;
-                        const isFromTemplate = Object.values(
-                          startedSelection.id_tests
-                        ).includes(row.id);
-                        const alreadySelected = selectedTests.selecteds.some(
-                          (s) =>
-                            s.id_test === row.id &&
-                            s.id_respuesta !== row.id_respuesta
-                        );
-                        return (
-                          !isSameUser ||
-                          !isFromTemplate ||
-                          alreadySelected ||
-                          row.estado === RespuestaEstado.PENDIENTE
-                        );
-                      },
+                      disabled: checkDisabled,
                     }
                   : undefined
               }
             >
-              <TableHeader folders={folders}>
+              <TableHeader
+                text={
+                  startedSelection
+                    ? `Seleccionar tests de una persona: ${formatStringList(Object.keys(startedSelection.id_tests))}`
+                    : undefined
+                }
+                folders={folders}
+              >
                 <AnswersHeader />
               </TableHeader>
             </Table>

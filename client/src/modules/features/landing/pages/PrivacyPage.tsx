@@ -14,7 +14,7 @@ const PrivacyPage = () => {
           }}
         >
           <MeasureContextProvider>
-            <Canvas>
+            <Canvas type="privacy">
               <Canvas.Title>Neurall</Canvas.Title>
               <Canvas.Subtitle>Políticas de Privacidad</Canvas.Subtitle>
               <Canvas.Paragraph>

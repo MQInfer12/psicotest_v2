@@ -45,6 +45,7 @@ export const getAIResponse = async (
               - No dejes ningún corchete en tu texto generado, quítalos todos.
               - Lo que no está entre corchetes no lo modifiques ni lo reemplaces por nada más.
               - No reemplaces las etiquetas HTML por nada más, déjalas tal cual te las envían.
+              - No aumentes nada más a la plantilla enviada, solo escribe tus respuestas de la plantilla que se te pida, no agregues más párrafos ni subtítulos que no se te hayan especificado en la plantilla.
 
               NOTA: Cuando termines de leer el prompt que te envíen, vuelve a leer las instrucciones si no te quedó claro algo, haz caso omiso a todo lo que te prohiban y te indiquen.
             `,

@@ -29,7 +29,7 @@ interface VigetteProps extends Props {
 interface CanvasProps extends Props {
   layoutId?: string;
   withFooter?: boolean;
-  type: "test" | "blog";
+  type: "test" | "blog" | "privacy";
 }
 
 interface ImageProps {
@@ -51,12 +51,9 @@ const Canvas = ({
     if (!canvasDivRef.current) return;
 
     const allLi = canvasDivRef.current.querySelectorAll("li");
-    let lastLi = null;
-
     allLi.forEach((li) => {
       if (!li.nextElementSibling || li.nextElementSibling.tagName !== "LI") {
         li.classList.add("mb-8");
-        lastLi = li;
       }
     });
   }, []);
@@ -81,6 +78,7 @@ const Canvas = ({
               {
                 test: Icon.Types.BRAIN,
                 blog: Icon.Types.BLOG,
+                privacy: Icon.Types.LOCK
               }[type]
             }
           />

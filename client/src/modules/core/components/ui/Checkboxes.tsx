@@ -15,6 +15,8 @@ interface Props {
   className?: string;
   options: Option[];
   required?: boolean;
+  max?: number;
+  disabled?: boolean;
 }
 
 const Checkboxes = ({
@@ -25,6 +27,8 @@ const Checkboxes = ({
   value,
   onChange,
   required,
+  disabled,
+  max,
 }: Props) => {
   const id = useId();
 
@@ -62,19 +66,29 @@ const Checkboxes = ({
         className={clsx(
           "w-full border border-alto-300/70 dark:border-alto-900 rounded-lg outline-none bg-white dark:bg-alto-1000 h-20` overflow-auto px-3 py-2 accent-primary-500 dark:accent-primary-300",
           "ring-0 ring-inset ring-primary-400 focus:ring-1 transition-all duration-300",
-          "disabled:bg-alto-200/60 disabled:border-primary-200",
+          {
+            "bg-alto-200/60 border-primary-200": disabled,
+          },
           className
         )}
       >
         <div className="flex flex-wrap gap-3">
           {options.map((option) => (
-            <div className="flex items-center">
+            <div key={option.value} className="flex items-center">
               <input
                 id={`${id}_${option.value}`}
                 type="checkbox"
                 checked={value.includes(option.value)}
                 value={option.value}
                 onChange={() => handleChange(option)}
+                disabled={
+                  disabled ||
+                  !!(
+                    max &&
+                    value.length >= max &&
+                    !value.includes(option.value)
+                  )
+                }
               />
               <label
                 htmlFor={`${id}_${option.value}`}

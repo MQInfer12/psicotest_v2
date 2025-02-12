@@ -100,6 +100,7 @@ const AnswersInterpretation = () => {
                 }, 0);
 
                 prompt += `${name} respondió ${itemsRespondidos} de ${seccion.items.length} preguntas en esta sección.\n`;
+
                 /*  seccion.items.forEach((item, k) => {
                   const resultado = resultados.find(
                     (resultado) => resultado.idPregunta === item.id
@@ -140,6 +141,7 @@ const AnswersInterpretation = () => {
                     prompt += `Respuestas correctas de ${name}: ${correctas}\n`;
                   }
                 }); */
+
                 prompt += "\n";
               });
 
@@ -160,9 +162,7 @@ const AnswersInterpretation = () => {
 
             prompt += "Te proporciono la siguiente plantilla: \n";
 
-            const plantilla: TemplateType = JSON.parse(
-              startedSelection.plantilla
-            );
+            const plantilla: TemplateType = startedSelection.plantilla;
             plantilla.forEach((section) => {
               switch (section.type) {
                 case "title":

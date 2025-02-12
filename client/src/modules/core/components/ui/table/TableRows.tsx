@@ -86,7 +86,7 @@ const TableRows = <T,>({
         return (
           <tr
             className={clsx(
-              "absolute w-full grid border-b border-b-alto-300/50 dark:border-b-alto-800/40 transition-[background-color,opacity,filter] duration-300",
+              "absolute w-full grid border-y border-y-alto-300/50 dark:border-y-alto-800/40 transition-[background-color,opacity,filter] duration-300",
               {
                 "bg-white dark:bg-alto-1000": virtualRow.index % 2 === 0,
                 "bg-primary-50 dark:bg-primary-1000":
