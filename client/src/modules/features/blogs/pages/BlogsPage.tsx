@@ -10,12 +10,18 @@ import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import { BlogsView } from "@/routes/_private/blogs";
 import { toastConfirm, toastSuccess } from "@/modules/core/utils/toasts";
 import { Blog } from "../api/responses";
+import Loader from "@/modules/core/components/ui/loader/Loader";
+import { useUserContext } from "../../auth/context/UserContext";
+import clsx from "clsx";
 
 interface Props {
   view?: BlogsView;
 }
 
 const BlogsPage = ({ view = BlogsView.ALL }: Props) => {
+  const { state } = useUserContext();
+  const isUnlogged = state === "unlogged";
+
   const { PRIVATE_PADDING_INLINE } = useMeasureContext();
   const navigate = useNavigate();
   const { fetchData, postData } = useFetch();
@@ -131,38 +137,51 @@ const BlogsPage = ({ view = BlogsView.ALL }: Props) => {
           </div>
         </div>
       )}
-      {!viewOwns && destacado && (
-        <FeaturedBlog
-          blog={destacado}
-          view={view}
-          handleStandout={handleStandout}
-        />
-      )}
-      <div className="flex flex-col gap-8">
-        <h3 className="text-primary-900 dark:text-primary-400 font-bold">
-          {viewOwns ? "Blogs propios" : "Blogs recientes"}
-        </h3>
-        <div
-          className="grid gap-10 gap-y-10 place-content-center"
-          style={{
-            gridTemplateColumns: `repeat(auto-fill, minmax(300px, 420fr))`,
-          }}
-        >
-          {(viewOwns ? ownData : blogsWithoutStarred)?.map((b) => (
-            <BlogCard
-              key={b.id}
-              blog={b}
-              viewOwns={viewOwns}
+      {data ? (
+        <>
+          {!viewOwns && destacado && (
+            <FeaturedBlog
+              blog={destacado}
               view={view}
               handleStandout={handleStandout}
-              onSuccessDelete={(id) => {
-                setData((prev) => prev?.filter((b) => b.id !== id));
-                setOwnData((prev) => prev?.filter((b) => b.id !== id));
-              }}
             />
-          ))}
+          )}
+          <div className="flex flex-col gap-8">
+            <h3 className="text-primary-900 dark:text-primary-400 font-bold">
+              {viewOwns ? "Blogs propios" : "Blogs recientes"}
+            </h3>
+            <div
+              className="grid gap-10 gap-y-10 place-content-center"
+              style={{
+                gridTemplateColumns: `repeat(auto-fill, minmax(300px, 420fr))`,
+              }}
+            >
+              {(viewOwns ? ownData : blogsWithoutStarred)?.map((b) => (
+                <BlogCard
+                  key={b.id}
+                  blog={b}
+                  viewOwns={viewOwns}
+                  view={view}
+                  handleStandout={handleStandout}
+                  onSuccessDelete={(id) => {
+                    setData((prev) => prev?.filter((b) => b.id !== id));
+                    setOwnData((prev) => prev?.filter((b) => b.id !== id));
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+        </>
+      ) : (
+        <div
+          className={clsx("flex justify-center items-center", {
+            "min-h-[calc(100svh-120px)]": isUnlogged,
+            "flex-1": !isUnlogged,
+          })}
+        >
+          <Loader text="Cargando blogs..." />
         </div>
-      </div>
+      )}
     </div>
   );
 };

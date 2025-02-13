@@ -17,6 +17,7 @@ import ShareForm from "../components/ShareForm";
 import TestCard from "../components/TestCard";
 import { useUpdateTests } from "../hooks/useUpdateTests";
 import { isForResolveTests } from "../utils/isForResolve";
+import { validateRoute } from "../../_layout/components/breadcrumb/utils/validateRoute";
 
 interface Props {
   respuestas?: boolean;
@@ -110,8 +111,31 @@ const TestPage = ({ respuestas = false }: Props) => {
           <div className="w-full h-full flex items-center justify-center">
             <IconMessage
               icon={Icon.Types.BRAIN}
-              message="Aún no se te asignó ningún test."
-            />
+              message="Aún no se te asignó ningún test"
+            >
+              <div className="mt-4 flex flex-col gap-4 items-center w-80">
+                <small className="text-xs text-alto-700 dark:text-alto-300 text-center leading-normal">
+                  Puedes probar los tests psicológicos de orientación vocacional
+                  que tenemos para ti
+                </small>
+                <Button
+                  icon={Icon.Types.BRAIN}
+                  onClick={() =>
+                    navigate({
+                      to: "/",
+                      search: {
+                        redirect:
+                          validateRoute("/tests/share") +
+                          "?cparams=U2FsdGVkX1+PXPY6GsXsW56LtuwJXIL4Q6DwaiEhU3zCB6whYr0S2PswCyIGpBtBVxjOlhMoxGSsEqPh4nwEL8V1tRwN1ehDN0QxTYMDFMA=",
+                      },
+                    })
+                  }
+                  reverse
+                >
+                  Orientación vocacional
+                </Button>
+              </div>
+            </IconMessage>
           </div>
         ) : (
           <div

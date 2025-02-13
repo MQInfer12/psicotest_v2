@@ -129,10 +129,11 @@ const Landing = () => {
             e intuitivo y realiza tus tests de una manera moderna junto a ellos.
           </p>
           <div className="flex gap-4 max-sm:flex-col items-center">
-            <LandingButton onClick={() => setOpen(true)}>
+            <LandingButton max onClick={() => setOpen(true)}>
               ¡Inicia sesión para comenzar!
             </LandingButton>
             <LandingButton
+              max
               type="secondary"
               onClick={() =>
                 navigate({

@@ -222,7 +222,7 @@ const CreateBlogPage = ({ blog }: Props) => {
           <motion.div
             layout
             layoutId="blog-editor-header-form"
-            className="flex gap-4 w-full min-h-80 max-h-80 mb-4"
+            className="flex gap-4 w-full min-h-80 max-h-80 max-sm:max-h-[480px] max-sm:min-h-[480px] mb-4 max-sm:flex-col"
           >
             <div className="flex-1 flex flex-col gap-4">
               <Input
@@ -259,7 +259,7 @@ const CreateBlogPage = ({ blog }: Props) => {
           </motion.div>
           {config.length > 0 && (
             <AnimatePresence initial={false}>
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-4 max-sm:gap-2">
                 {config.map((item, i) => (
                   <motion.div
                     key={item.id}
@@ -269,9 +269,9 @@ const CreateBlogPage = ({ blog }: Props) => {
                     animate={{ x: 0, y: 0, opacity: 1 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <div className="flex gap-4">
+                    <div className="flex gap-4 max-sm:flex-col max-sm:gap-2">
                       {handleInputs(item)}
-                      <div className="flex gap-2 pt-6">
+                      <div className="flex gap-2 pt-6 max-sm:pt-0 max-sm:self-end">
                         <Button
                           type="button"
                           tabIndex={-1}
@@ -354,6 +354,7 @@ const CreateBlogPage = ({ blog }: Props) => {
                     },
                   ]);
                 }}
+                textClassname="max-sm:hidden"
               >
                 Subtítulo
               </Button>
@@ -373,6 +374,7 @@ const CreateBlogPage = ({ blog }: Props) => {
                     },
                   ]);
                 }}
+                textClassname="max-sm:hidden"
               >
                 Párrafo
               </Button>
@@ -393,6 +395,7 @@ const CreateBlogPage = ({ blog }: Props) => {
                     },
                   ]);
                 }}
+                textClassname="max-sm:hidden"
               >
                 Viñeta
               </Button>
@@ -403,6 +406,7 @@ const CreateBlogPage = ({ blog }: Props) => {
                 btnType="secondary"
                 type="button"
                 disabled
+                textClassname="max-sm:hidden"
               >
                 Media
               </Button>

@@ -209,9 +209,9 @@ const TemplateEditorPage = ({ template }: Props) => {
       <motion.div
         layout
         layoutId="blog-editor-header-form"
-        className="flex gap-4 w-full mb-4"
+        className="flex gap-4 w-full mb-4 max-sm:flex-col max-sm:min-h-80"
       >
-        <div className="flex-1 flex flex-col gap-4">
+        <div className="flex-1 flex flex-col gap-4 max-sm:flex-initial">
           <Input
             type="text"
             value={inputs.nombre}
@@ -269,9 +269,9 @@ const TemplateEditorPage = ({ template }: Props) => {
                 animate={{ x: 0, y: 0, opacity: 1 }}
                 transition={{ duration: 0.3 }}
               >
-                <div className="flex gap-4">
+                <div className="flex gap-4 max-sm:flex-col max-sm:gap-2">
                   {handleInputs(item)}
-                  <div className="flex gap-2 pt-6">
+                  <div className="flex gap-2 pt-6 max-sm:pt-0 max-sm:self-end">
                     <Button
                       type="button"
                       tabIndex={-1}
@@ -350,6 +350,7 @@ const TemplateEditorPage = ({ template }: Props) => {
                 },
               ]);
             }}
+            textClassname="max-sm:hidden"
           >
             Título
           </Button>
@@ -369,6 +370,7 @@ const TemplateEditorPage = ({ template }: Props) => {
                 },
               ]);
             }}
+            textClassname="max-sm:hidden"
           >
             Subtítulo
           </Button>
@@ -388,6 +390,7 @@ const TemplateEditorPage = ({ template }: Props) => {
                 },
               ]);
             }}
+            textClassname="max-sm:hidden"
           >
             Párrafo
           </Button>
@@ -408,6 +411,7 @@ const TemplateEditorPage = ({ template }: Props) => {
                 },
               ]);
             }}
+            textClassname="max-sm:hidden"
           >
             Viñeta
           </Button>

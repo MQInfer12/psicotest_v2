@@ -17,6 +17,7 @@ interface Props extends HTMLMotionProps<"button"> {
   reverse?: boolean;
   ring?: boolean;
   children?: React.ReactNode;
+  textClassname?: string;
 }
 
 const Button = ({
@@ -32,6 +33,7 @@ const Button = ({
   disabled,
   reverse,
   ring,
+  textClassname,
   ...props
 }: Props) => {
   const getColors = (hover: boolean) => {
@@ -161,7 +163,8 @@ const Button = ({
             {
               "flex-1 whitespace-nowrap": btnSize !== "square",
               "w-full whitespace-normal line-clamp-2": btnSize === "square",
-            }
+            },
+            textClassname
           )}
         >
           {children}

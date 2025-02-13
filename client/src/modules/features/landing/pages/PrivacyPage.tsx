@@ -10,7 +10,7 @@ const PrivacyPage = () => {
         <div
           className="w-full relative flex flex-col justify-center isolate"
           style={{
-            paddingTop: PUBLIC_NAVBAR_HEIGHT * 2,
+            paddingTop: PUBLIC_NAVBAR_HEIGHT + 40,
           }}
         >
           <MeasureContextProvider>
