@@ -36,10 +36,10 @@ const LoginLink = () => {
         </div>
       ) : (
         <>
-          <LoginButton type={width <= 640 ? "icon" : "standard"} />
+          <LoginButton type={width <= 860 ? "icon" : "standard"} />
           <motion.span
             variants={variant}
-            className="origin-center block absolute bottom-0 left-0 w-full h-[1px] bg-primary-700"
+            className="origin-center block absolute bottom-0 left-0 w-full h-[1px] bg-primary-700 dark:bg-primary-400"
           />
         </>
       )}

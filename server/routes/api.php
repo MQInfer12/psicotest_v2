@@ -30,6 +30,8 @@ use Illuminate\Support\Facades\Route;
 }); */
 
 Route::post('/login', [AuthController::class, 'login']);
+Route::get('/blog', [B_BlogController::class, 'index']);
+Route::get('/blog/{id}', [B_BlogController::class, 'show']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
@@ -81,7 +83,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('/cita/respuesta/{id}', [C_CitaController::class, 'respuesta']);
     Route::put('/cita/destroy/{id}', [C_CitaController::class, 'destroyWithToken']);
 
-    Route::apiResource('/blog', B_BlogController::class);
+    Route::post('/blog', [B_BlogController::class, 'store']);
+    Route::put('/blog/{id}', [B_BlogController::class, 'update']);
+    Route::delete('/blog/{id}', [B_BlogController::class, 'destroy']);
     Route::get('/blog/for/me', [B_BlogController::class, 'indexForMe']);
     Route::patch('/blog/standout/{id}', [B_BlogController::class, 'standOut']);
 });

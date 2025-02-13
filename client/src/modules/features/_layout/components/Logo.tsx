@@ -8,9 +8,10 @@ import { useThemeContext } from "@/modules/core/context/ThemeContext";
 interface Props {
   showText?: boolean;
   slogan?: boolean;
+  autoHideText?: boolean;
 }
 
-const Logo = ({ showText = true, slogan = false }: Props) => {
+const Logo = ({ showText = true, slogan = false, autoHideText }: Props) => {
   const { dark } = useThemeContext();
   return (
     <div className="flex flex-col items-center gap-2">
@@ -22,7 +23,10 @@ const Logo = ({ showText = true, slogan = false }: Props) => {
         />
         <Appear
           open={showText}
-          className="flex flex-col dark:text-alto-50 mt-2 gap-1"
+          className={clsx(
+            "flex flex-col dark:text-alto-50 mt-2 gap-1",
+            autoHideText && "max-sm:hidden"
+          )}
         >
           <img src={Neurall} alt="neurall-logo" className="h-5 w-auto" />
           <small className="text-[10px] self-end opacity-80 leading-none">

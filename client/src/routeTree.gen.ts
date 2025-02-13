@@ -18,6 +18,7 @@ import { Route as PublicPrivacyImport } from './routes/_public/privacy'
 import { Route as PrivateUsersImport } from './routes/_private/users'
 import { Route as PrivateProfileImport } from './routes/_private/profile'
 import { Route as PrivateChatImport } from './routes/_private/chat'
+import { Route as PublicDailyIndexImport } from './routes/_public/daily/index'
 import { Route as PrivateTestsIndexImport } from './routes/_private/tests/index'
 import { Route as PrivateTemplatesIndexImport } from './routes/_private/templates/index'
 import { Route as PrivateResolveIndexImport } from './routes/_private/resolve/index'
@@ -25,6 +26,7 @@ import { Route as PrivatePatientsIndexImport } from './routes/_private/patients/
 import { Route as PrivateCalendarIndexImport } from './routes/_private/calendar/index'
 import { Route as PrivateBlogsIndexImport } from './routes/_private/blogs/index'
 import { Route as PrivateAnswersIndexImport } from './routes/_private/answers/index'
+import { Route as PublicDailyIdImport } from './routes/_public/daily/$id'
 import { Route as PrivateTestsShareImport } from './routes/_private/tests/share'
 import { Route as PrivateTestsIdTestImport } from './routes/_private/tests/$idTest'
 import { Route as PrivateResolveIdRespuestaImport } from './routes/_private/resolve/$idRespuesta'
@@ -80,6 +82,12 @@ const PrivateChatRoute = PrivateChatImport.update({
   getParentRoute: () => PrivateRoute,
 } as any)
 
+const PublicDailyIndexRoute = PublicDailyIndexImport.update({
+  id: '/daily/',
+  path: '/daily/',
+  getParentRoute: () => PublicRoute,
+} as any)
+
 const PrivateTestsIndexRoute = PrivateTestsIndexImport.update({
   id: '/tests/',
   path: '/tests/',
@@ -120,6 +128,12 @@ const PrivateAnswersIndexRoute = PrivateAnswersIndexImport.update({
   id: '/answers/',
   path: '/answers/',
   getParentRoute: () => PrivateRoute,
+} as any)
+
+const PublicDailyIdRoute = PublicDailyIdImport.update({
+  id: '/daily/$id',
+  path: '/daily/$id',
+  getParentRoute: () => PublicRoute,
 } as any)
 
 const PrivateTestsShareRoute = PrivateTestsShareImport.update({
@@ -304,6 +318,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivateTestsShareImport
       parentRoute: typeof PrivateImport
     }
+    '/_public/daily/$id': {
+      id: '/_public/daily/$id'
+      path: '/daily/$id'
+      fullPath: '/daily/$id'
+      preLoaderRoute: typeof PublicDailyIdImport
+      parentRoute: typeof PublicImport
+    }
     '/_private/answers/': {
       id: '/_private/answers/'
       path: '/answers'
@@ -352,6 +373,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/tests'
       preLoaderRoute: typeof PrivateTestsIndexImport
       parentRoute: typeof PrivateImport
+    }
+    '/_public/daily/': {
+      id: '/_public/daily/'
+      path: '/daily'
+      fullPath: '/daily'
+      preLoaderRoute: typeof PublicDailyIndexImport
+      parentRoute: typeof PublicImport
     }
     '/_private/blogs/create/$id': {
       id: '/_private/blogs/create/$id'
@@ -442,11 +470,15 @@ const PrivateRouteWithChildren =
 interface PublicRouteChildren {
   PublicPrivacyRoute: typeof PublicPrivacyRoute
   PublicIndexRoute: typeof PublicIndexRoute
+  PublicDailyIdRoute: typeof PublicDailyIdRoute
+  PublicDailyIndexRoute: typeof PublicDailyIndexRoute
 }
 
 const PublicRouteChildren: PublicRouteChildren = {
   PublicPrivacyRoute: PublicPrivacyRoute,
   PublicIndexRoute: PublicIndexRoute,
+  PublicDailyIdRoute: PublicDailyIdRoute,
+  PublicDailyIndexRoute: PublicDailyIndexRoute,
 }
 
 const PublicRouteWithChildren =
@@ -467,6 +499,7 @@ export interface FileRoutesByFullPath {
   '/resolve/$idRespuesta': typeof PrivateResolveIdRespuestaRoute
   '/tests/$idTest': typeof PrivateTestsIdTestRoute
   '/tests/share': typeof PrivateTestsShareRoute
+  '/daily/$id': typeof PublicDailyIdRoute
   '/answers': typeof PrivateAnswersIndexRoute
   '/blogs': typeof PrivateBlogsIndexRoute
   '/calendar': typeof PrivateCalendarIndexRoute
@@ -474,6 +507,7 @@ export interface FileRoutesByFullPath {
   '/resolve': typeof PrivateResolveIndexRoute
   '/templates': typeof PrivateTemplatesIndexRoute
   '/tests': typeof PrivateTestsIndexRoute
+  '/daily': typeof PublicDailyIndexRoute
   '/blogs/create/$id': typeof PrivateBlogsCreateIdRoute
   '/templates/create/$id': typeof PrivateTemplatesCreateIdRoute
   '/blogs/create': typeof PrivateBlogsCreateIndexRoute
@@ -495,6 +529,7 @@ export interface FileRoutesByTo {
   '/resolve/$idRespuesta': typeof PrivateResolveIdRespuestaRoute
   '/tests/$idTest': typeof PrivateTestsIdTestRoute
   '/tests/share': typeof PrivateTestsShareRoute
+  '/daily/$id': typeof PublicDailyIdRoute
   '/answers': typeof PrivateAnswersIndexRoute
   '/blogs': typeof PrivateBlogsIndexRoute
   '/calendar': typeof PrivateCalendarIndexRoute
@@ -502,6 +537,7 @@ export interface FileRoutesByTo {
   '/resolve': typeof PrivateResolveIndexRoute
   '/templates': typeof PrivateTemplatesIndexRoute
   '/tests': typeof PrivateTestsIndexRoute
+  '/daily': typeof PublicDailyIndexRoute
   '/blogs/create/$id': typeof PrivateBlogsCreateIdRoute
   '/templates/create/$id': typeof PrivateTemplatesCreateIdRoute
   '/blogs/create': typeof PrivateBlogsCreateIndexRoute
@@ -525,6 +561,7 @@ export interface FileRoutesById {
   '/_private/resolve/$idRespuesta': typeof PrivateResolveIdRespuestaRoute
   '/_private/tests/$idTest': typeof PrivateTestsIdTestRoute
   '/_private/tests/share': typeof PrivateTestsShareRoute
+  '/_public/daily/$id': typeof PublicDailyIdRoute
   '/_private/answers/': typeof PrivateAnswersIndexRoute
   '/_private/blogs/': typeof PrivateBlogsIndexRoute
   '/_private/calendar/': typeof PrivateCalendarIndexRoute
@@ -532,6 +569,7 @@ export interface FileRoutesById {
   '/_private/resolve/': typeof PrivateResolveIndexRoute
   '/_private/templates/': typeof PrivateTemplatesIndexRoute
   '/_private/tests/': typeof PrivateTestsIndexRoute
+  '/_public/daily/': typeof PublicDailyIndexRoute
   '/_private/blogs/create/$id': typeof PrivateBlogsCreateIdRoute
   '/_private/templates/create/$id': typeof PrivateTemplatesCreateIdRoute
   '/_private/blogs/create/': typeof PrivateBlogsCreateIndexRoute
@@ -555,6 +593,7 @@ export interface FileRouteTypes {
     | '/resolve/$idRespuesta'
     | '/tests/$idTest'
     | '/tests/share'
+    | '/daily/$id'
     | '/answers'
     | '/blogs'
     | '/calendar'
@@ -562,6 +601,7 @@ export interface FileRouteTypes {
     | '/resolve'
     | '/templates'
     | '/tests'
+    | '/daily'
     | '/blogs/create/$id'
     | '/templates/create/$id'
     | '/blogs/create'
@@ -582,6 +622,7 @@ export interface FileRouteTypes {
     | '/resolve/$idRespuesta'
     | '/tests/$idTest'
     | '/tests/share'
+    | '/daily/$id'
     | '/answers'
     | '/blogs'
     | '/calendar'
@@ -589,6 +630,7 @@ export interface FileRouteTypes {
     | '/resolve'
     | '/templates'
     | '/tests'
+    | '/daily'
     | '/blogs/create/$id'
     | '/templates/create/$id'
     | '/blogs/create'
@@ -610,6 +652,7 @@ export interface FileRouteTypes {
     | '/_private/resolve/$idRespuesta'
     | '/_private/tests/$idTest'
     | '/_private/tests/share'
+    | '/_public/daily/$id'
     | '/_private/answers/'
     | '/_private/blogs/'
     | '/_private/calendar/'
@@ -617,6 +660,7 @@ export interface FileRouteTypes {
     | '/_private/resolve/'
     | '/_private/templates/'
     | '/_private/tests/'
+    | '/_public/daily/'
     | '/_private/blogs/create/$id'
     | '/_private/templates/create/$id'
     | '/_private/blogs/create/'
@@ -679,7 +723,9 @@ export const routeTree = rootRoute
       "filePath": "_public.tsx",
       "children": [
         "/_public/privacy",
-        "/_public/"
+        "/_public/",
+        "/_public/daily/$id",
+        "/_public/daily/"
       ]
     },
     "/_private/chat": {
@@ -734,6 +780,10 @@ export const routeTree = rootRoute
       "filePath": "_private/tests/share.tsx",
       "parent": "/_private"
     },
+    "/_public/daily/$id": {
+      "filePath": "_public/daily/$id.tsx",
+      "parent": "/_public"
+    },
     "/_private/answers/": {
       "filePath": "_private/answers/index.tsx",
       "parent": "/_private"
@@ -761,6 +811,10 @@ export const routeTree = rootRoute
     "/_private/tests/": {
       "filePath": "_private/tests/index.tsx",
       "parent": "/_private"
+    },
+    "/_public/daily/": {
+      "filePath": "_public/daily/index.tsx",
+      "parent": "/_public"
     },
     "/_private/blogs/create/$id": {
       "filePath": "_private/blogs/create/$id.tsx",

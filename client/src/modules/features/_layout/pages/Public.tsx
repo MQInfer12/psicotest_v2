@@ -38,23 +38,31 @@ const Public = () => {
           shadowClasses
         )}
       >
-        <Link
-          className="flex"
-          to="/"
-          onClick={() => {
-            window.scrollTo(0, 0);
-          }}
-        >
-          <Logo />
-        </Link>
-        {/* <div className="flex gap-10">
-          <Link className="flex flex-1" to="/">
-            Inicio
+        <div className="flex gap-16 max-sm:gap-8 items-center">
+          <Link
+            className="flex"
+            to="/"
+            onClick={() => {
+              window.scrollTo(0, 0);
+            }}
+          >
+            <Logo autoHideText />
           </Link>
-          <Link className="flex flex-1" to="/">
-            Blogs
-          </Link>
-        </div> */}
+          <div className="flex gap-10 max-sm:gap-8">
+            <Link
+              className="[&.active]:text-primary-700 dark:[&.active]:text-primary-400 text-alto-950 dark:text-alto-50 text-sm relative after:content-['_'] after:absolute after:bottom-0 after:w-full after:h-[1px] after:bg-primary-700 after:dark:bg-primary-400 after:left-0 after:scale-x-0 hover:after:scale-x-100 after:transition-all after:duration-300"
+              to="/"
+            >
+              Inicio
+            </Link>
+            <Link
+              className="[&.active]:text-primary-700 dark:[&.active]:text-primary-400 text-alto-950 dark:text-alto-50 text-sm relative after:content-['_'] after:absolute after:bottom-0 after:w-full after:h-[1px] after:bg-primary-700 after:dark:bg-primary-400 after:left-0 after:scale-x-0 hover:after:scale-x-100 after:transition-all after:duration-300"
+              to="/daily"
+            >
+              Novedades
+            </Link>
+          </div>
+        </div>
         <div className="flex gap-10">
           <LoginLink />
         </div>

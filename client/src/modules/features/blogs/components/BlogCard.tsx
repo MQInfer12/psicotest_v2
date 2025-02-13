@@ -10,6 +10,7 @@ import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import { toastConfirm, toastSuccess } from "@/modules/core/utils/toasts";
 import { usePermiso } from "../../auth/hooks/usePermiso";
 import { Permisos } from "../../auth/types/Permisos";
+import { useUserContext } from "../../auth/context/UserContext";
 
 interface Props {
   blog: Blog;
@@ -26,6 +27,9 @@ const BlogCard = ({
   handleStandout,
   onSuccessDelete,
 }: Props) => {
+  const { state } = useUserContext();
+  const isUnlogged = state === "unlogged";
+
   const navigate = useNavigate();
 
   const { postData } = useFetch();
@@ -50,15 +54,24 @@ const BlogCard = ({
   return (
     <article
       onClick={() => {
-        navigate({
-          to: "/blogs/$id",
-          params: {
-            id: String(blog.id),
-          },
-          search: {
-            view,
-          },
-        });
+        if (isUnlogged) {
+          navigate({
+            to: "/daily/$id",
+            params: {
+              id: String(blog.id),
+            },
+          });
+        } else {
+          navigate({
+            to: "/blogs/$id",
+            params: {
+              id: String(blog.id),
+            },
+            search: {
+              view,
+            },
+          });
+        }
       }}
       className="cursor-pointer w-full text-start hover:opacity-90 transition-opacity duration-300 flex flex-col text-alto-950 dark:text-alto-50"
     >

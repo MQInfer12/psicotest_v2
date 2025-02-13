@@ -1,6 +1,6 @@
 import Icon from "@/modules/core/components/icons/Icon";
 import Button from "@/modules/core/components/ui/Button";
-import { useNavigate, useSearch } from "@tanstack/react-router";
+import { useNavigate } from "@tanstack/react-router";
 import { useMeasureContext } from "../../_layout/context/MeasureContext";
 import { usePermiso } from "../../auth/hooks/usePermiso";
 import { Permisos } from "../../auth/types/Permisos";
@@ -11,14 +11,14 @@ import { BlogsView } from "@/routes/_private/blogs";
 import { toastConfirm, toastSuccess } from "@/modules/core/utils/toasts";
 import { Blog } from "../api/responses";
 
-const BlogsPage = () => {
+interface Props {
+  view?: BlogsView;
+}
+
+const BlogsPage = ({ view = BlogsView.ALL }: Props) => {
   const { PRIVATE_PADDING_INLINE } = useMeasureContext();
   const navigate = useNavigate();
   const { fetchData, postData } = useFetch();
-
-  const { view = BlogsView.ALL } = useSearch({
-    from: "/_private/blogs/",
-  });
 
   const canCreate = usePermiso([Permisos.CREAR_BLOGS]);
 
@@ -94,7 +94,7 @@ const BlogsPage = () => {
 
   return (
     <div
-      className="flex flex-col gap-8 h-full overflow-scroll"
+      className="flex flex-col gap-8 h-full overflow-y-scroll overflow-x-hidden"
       style={{
         paddingInline: PRIVATE_PADDING_INLINE,
         paddingBottom: PRIVATE_PADDING_INLINE,
@@ -115,14 +115,14 @@ const BlogsPage = () => {
               {viewOwns ? "Ver todos" : "Ver propios"}
             </Button>
             <Button
-              onClick={() =>
+              onClick={() => {
                 navigate({
                   to: "/blogs/create",
                   search: {
                     view,
                   },
-                })
-              }
+                });
+              }}
               btnSize="small"
               icon={Icon.Types.ADD}
             >

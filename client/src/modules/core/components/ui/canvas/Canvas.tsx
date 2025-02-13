@@ -9,6 +9,7 @@ import Icon from "../../icons/Icon";
 import Button from "../Button";
 import Test from "./components/Test";
 import { CANVAS_PADDING } from "./constants/CANVAS";
+import { useUserContext } from "@/modules/features/auth/context/UserContext";
 
 interface Props {
   children?: React.ReactNode;
@@ -68,7 +69,7 @@ const Canvas = ({
       <motion.div
         ref={canvasDivRef}
         layoutId={layoutId}
-        className="flex h-full flex-col max-sm: items-center w-[1140px] max-w-full bg-alto-50 dark:bg-alto-1000 border-t-8 border-primary-700 dark:border-primary-400 rounded-lg shadow-xl shadow-alto-950/20 dark:shadow-alto-50/10 p-10 max-sm:p-4 max-sm:pt-8 max-sm:rounded-none relative overflow-hidden isolate"
+        className="flex h-full flex-col max-sm:border-b-2 items-center w-[1140px] max-w-full bg-alto-50 dark:bg-alto-1000 border-t-8 border-primary-700 dark:border-primary-400 rounded-lg shadow-xl shadow-alto-950/20 dark:shadow-alto-50/10 p-10 max-sm:p-4 max-sm:py-8 max-sm:rounded-none relative overflow-hidden isolate"
       >
         {children}
         {withFooter && <Footer />}
@@ -78,7 +79,7 @@ const Canvas = ({
               {
                 test: Icon.Types.BRAIN,
                 blog: Icon.Types.BLOG,
-                privacy: Icon.Types.LOCK
+                privacy: Icon.Types.LOCK,
               }[type]
             }
           />
@@ -233,6 +234,9 @@ const Pdf = ({ src }: { src: string }) => {
 };
 
 const Footer = () => {
+  const { state } = useUserContext();
+  const isUnlogged = state === "unlogged";
+
   const navigate = useNavigate();
 
   return (
@@ -240,7 +244,7 @@ const Footer = () => {
       <Button
         onClick={() =>
           navigate({
-            to: "/blogs",
+            to: isUnlogged ? "/daily" : "/blogs",
           })
         }
         icon={Icon.Types.CHEVRON_LEFT}

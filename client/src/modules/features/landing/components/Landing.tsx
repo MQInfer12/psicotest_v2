@@ -8,10 +8,12 @@ import { shadowClasses } from "../constants/LANDING_SHADOWS";
 import Hexagon from "./elements/Hexagon";
 import LandingButton from "./elements/LandingButton";
 import LandingTitle from "./elements/LandingTitle";
+import { useNavigate } from "@tanstack/react-router";
 
 const Landing = () => {
   const { setOpen } = useLoginContext();
   const [carouselIndex, setCarouselIndex] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const interval = setTimeout(() => {
@@ -126,9 +128,19 @@ const Landing = () => {
             Obtén apoyo del gabinete psicológico utilizando un calendario simple
             e intuitivo y realiza tus tests de una manera moderna junto a ellos.
           </p>
-          <div>
+          <div className="flex gap-4 max-sm:flex-col items-center">
             <LandingButton onClick={() => setOpen(true)}>
               ¡Inicia sesión para comenzar!
+            </LandingButton>
+            <LandingButton
+              type="secondary"
+              onClick={() =>
+                navigate({
+                  to: "/daily",
+                })
+              }
+            >
+              Leer novedades
             </LandingButton>
           </div>
         </motion.div>

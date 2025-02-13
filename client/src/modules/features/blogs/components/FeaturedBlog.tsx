@@ -5,6 +5,7 @@ import { Blog } from "../api/responses";
 import { BlogsView } from "@/routes/_private/blogs";
 import { usePermiso } from "../../auth/hooks/usePermiso";
 import { Permisos } from "../../auth/types/Permisos";
+import { useUserContext } from "../../auth/context/UserContext";
 
 interface Props {
   blog: Blog;
@@ -13,6 +14,9 @@ interface Props {
 }
 
 const FeaturedBlog = ({ blog, view, handleStandout }: Props) => {
+  const { state } = useUserContext();
+  const isUnlogged = state === "unlogged";
+
   const navigate = useNavigate();
 
   const canStandout = usePermiso([Permisos.DESTACAR_BLOGS]);
@@ -20,15 +24,24 @@ const FeaturedBlog = ({ blog, view, handleStandout }: Props) => {
   return (
     <article
       onClick={() => {
-        navigate({
-          to: "/blogs/$id",
-          params: {
-            id: String(blog.id),
-          },
-          search: {
-            view,
-          },
-        });
+        if (isUnlogged) {
+          navigate({
+            to: "/daily/$id",
+            params: {
+              id: String(blog.id),
+            },
+          });
+        } else {
+          navigate({
+            to: "/blogs/$id",
+            params: {
+              id: String(blog.id),
+            },
+            search: {
+              view,
+            },
+          });
+        }
       }}
       className="group cursor-pointer min-h-[480px] max-h-[480px] hover:opacity-90 transition-opacity duration-300 ring-primary-200 text-start w-full flex items-end relative isolate rounded-3xl overflow-hidden px-16 max-sm:px-5 pb-10 shadow-md shadow-alto-950/20 dark:shadow-alto-50/10"
     >

@@ -1,7 +1,7 @@
 import ProtectedRoute from "@/modules/features/auth/components/wrapper/ProtectedRoute";
 import { Permisos } from "@/modules/features/auth/types/Permisos";
 import BlogsPage from "@/modules/features/blogs/pages/BlogsPage";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useSearch } from "@tanstack/react-router";
 import * as yup from "yup";
 
 export enum BlogsView {
@@ -31,9 +31,13 @@ export const Route = createFileRoute("/_private/blogs/")({
 });
 
 function RouteComponent() {
+  const { view = BlogsView.ALL } = useSearch({
+    from: "/_private/blogs/",
+  });
+
   return (
     <ProtectedRoute permisos={[Permisos.VER_BLOGS]}>
-      <BlogsPage />
+      <BlogsPage view={view} />
     </ProtectedRoute>
   );
 }

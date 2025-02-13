@@ -21,11 +21,11 @@ const Footer = ({ secondary }: Props) => {
     <footer
       className={clsx("relative", {
         "bg-primary-800": !secondary,
-        "bg-alto-100 dark:bg-alto-1000": secondary,
+        "bg-alto-100 dark:bg-alto-950": secondary,
       })}
     >
       <div
-        className="w-full py-20 h-full flex items-center justify-center gap-20 flex-wrap-reverse bg-alto-100 dark:bg-alto-1000"
+        className="w-full py-20 h-full flex items-center justify-center gap-20 flex-wrap-reverse bg-alto-100 dark:bg-alto-950"
         style={{
           paddingInline: PUBLIC_NAVBAR_HEIGHT,
           borderTopLeftRadius: "50% 8%",
@@ -63,7 +63,7 @@ const Footer = ({ secondary }: Props) => {
           />
         </div>
       </div>
-      <div className="flex flex-col gap-10 bg-alto-100 dark:bg-alto-1000 border-b-8 border-primary-800">
+      <div className="flex flex-col gap-10 bg-alto-100 dark:bg-alto-950 border-b-8 border-primary-800">
         <div className="scale-125">
           <Logo slogan />
         </div>
@@ -87,6 +87,20 @@ const Footer = ({ secondary }: Props) => {
               }}
             >
               Inicio
+            </Button>
+            <Button
+              icon={Icon.Types.BLOG}
+              btnType="secondary"
+              btnSize="small"
+              reverse
+              onClick={() => {
+                navigate({
+                  to: "/daily",
+                });
+                window.scrollTo(0, 0);
+              }}
+            >
+              Blogs
             </Button>
             <Button
               icon={Icon.Types.BRAIN}
