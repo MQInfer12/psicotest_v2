@@ -55,6 +55,11 @@ class B_BlogController extends Controller
                 $imageRoute = $file->storeAs('public/blogs/images', $item->id . '.png');
                 $item->src = str_replace('public/', '/', $imageRoute);
             }
+            if ($item->type == 'pdf') {
+                $file = $request[$item->id];
+                $imageRoute = $file->storeAs('public/blogs/pdfs', $item->id . '.pdf');
+                $item->src = str_replace('public/', '/', $imageRoute);
+            }
         }
 
         $blog = B_Blog::create([
@@ -99,7 +104,7 @@ class B_BlogController extends Controller
 
         //BORRAR IMAGENES ANTIGUAS QUE YA NO ESTÉN EN LA NUEVA CONFIGURACIÓN
         foreach ($oldConfig as $oldItem) {
-            if ($oldItem->type == 'image' && !collect($config)->contains('id', $oldItem->id)) {
+            if (($oldItem->type == 'image' || $oldItem->type == 'pdf') && !collect($config)->contains('id', $oldItem->id)) {
                 $route = 'storage' . $oldItem->src;
                 if (file_exists($route)) {
                     unlink($route);
@@ -113,6 +118,13 @@ class B_BlogController extends Controller
                 $file = $request[$item->id];
                 if ($file) {
                     $imageRoute = $file->storeAs('public/blogs/images', $item->id . '.png');
+                    $item->src = str_replace('public/', '/', $imageRoute);
+                }
+            }
+            if ($item->type == 'pdf') {
+                $file = $request[$item->id];
+                if ($file) {
+                    $imageRoute = $file->storeAs('public/blogs/pdfs', $item->id . '.pdf');
                     $item->src = str_replace('public/', '/', $imageRoute);
                 }
             }
@@ -174,7 +186,7 @@ class B_BlogController extends Controller
 
         $config = json_decode($blog->config);
         foreach ($config as $item) {
-            if ($item->type == 'image') {
+            if ($item->type == 'image' || $item->type == 'pdf') {
                 $route = 'storage' . $item->src;
                 if (file_exists($route)) {
                     unlink($route);

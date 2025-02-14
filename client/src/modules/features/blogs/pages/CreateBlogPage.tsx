@@ -39,7 +39,7 @@ const CreateBlogPage = ({ blog }: Props) => {
   });
   const [img, setImg] = useState<File | null>(null);
   const [config, setConfig] = useState<CanvasType>(blog?.config ?? []);
-  const [images, setImages] = useState<Record<string, File | null>>({});
+  const [files, setFiles] = useState<Record<string, File | null>>({});
 
   const handleSend = async () => {
     if (!inputs.titulo.trim()) {
@@ -54,7 +54,10 @@ const CreateBlogPage = ({ blog }: Props) => {
       return toastError("Tiene que haber al menos un párrafo");
     }
     if (
-      !config.every((item) => item.type === "image" || !!item.content.trim())
+      !config.every(
+        (item) =>
+          item.type === "image" || item.type === "pdf" || !!item.content.trim()
+      )
     ) {
       return toastError("Revisar los campos requeridos");
     }
@@ -62,10 +65,15 @@ const CreateBlogPage = ({ blog }: Props) => {
       !config.every(
         (item) =>
           item.type !== "image" ||
-          ((item.src || images[item.id]) && item.title.trim())
+          ((item.src || files[item.id]) && item.title.trim())
       )
     ) {
       return toastError("Revisar las imágenes y sus títulos");
+    }
+    if (
+      !config.every((item) => item.type !== "pdf" || item.src || files[item.id])
+    ) {
+      return toastError("Revisar los PDFs");
     }
 
     setLoading(true);
@@ -78,9 +86,9 @@ const CreateBlogPage = ({ blog }: Props) => {
     }
     data.append("config", JSON.stringify(config));
 
-    Object.keys(images).forEach((key) => {
-      if (images[key]) {
-        data.append(key, images[key]!);
+    Object.keys(files).forEach((key) => {
+      if (files[key]) {
+        data.append(key, files[key]!);
       }
     });
 
@@ -113,7 +121,7 @@ const CreateBlogPage = ({ blog }: Props) => {
     }
   };
 
-  console.log(images);
+  console.log(files);
 
   const handleInputs = useCallback(
     (item: CanvasItem) => {
@@ -226,9 +234,10 @@ const CreateBlogPage = ({ blog }: Props) => {
               </div>
               <InputFile
                 label="Imagen"
-                state={images[item.id] ?? null}
+                accept=".png,.jpg,.jpeg"
+                state={files[item.id] ?? null}
                 setState={(file) => {
-                  setImages((prev) => ({ ...prev, [item.id]: file }));
+                  setFiles((prev) => ({ ...prev, [item.id]: file }));
                 }}
                 defaultSrc={
                   blog
@@ -243,10 +252,34 @@ const CreateBlogPage = ({ blog }: Props) => {
               />
             </div>
           );
+        case "pdf":
+          return (
+            <InputFile
+              label="Documento PDF"
+              accept=".pdf"
+              state={files[item.id] ?? null}
+              setState={(file) => {
+                setFiles((prev) => ({ ...prev, [item.id]: file }));
+              }}
+              defaultSrc={
+                blog
+                  ? item.src
+                    ? STORAGE_URL + item.src
+                    : undefined
+                  : undefined
+              }
+              inputType="inline"
+              required
+              maxSize={5 * 1024}
+              icon={Icon.Types.FILE}
+            />
+          );
       }
     },
-    [images]
+    [files]
   );
+
+  console.log(img);
 
   return (
     <div
@@ -287,24 +320,28 @@ const CreateBlogPage = ({ blog }: Props) => {
             id: 0,
             autor: user!,
             config: config.map((item) => {
-              if (item.type === "image") {
+              if (item.type === "image" || item.type === "pdf") {
                 return {
                   ...item,
-                  src: images[item.id]
-                    ? URL.createObjectURL(images[item.id]!)
-                    : item.src,
+                  src: files[item.id]
+                    ? URL.createObjectURL(files[item.id]!)
+                    : STORAGE_URL + item.src,
                 };
               }
               return item;
             }),
-            titulo: inputs.titulo,
+            titulo: inputs.titulo || "-",
             descripcion: inputs.descripcion,
-            portada: blog ? blog.portada : img ? URL.createObjectURL(img) : "",
+            portada: img
+              ? URL.createObjectURL(img)
+              : blog
+                ? STORAGE_URL + blog.portada
+                : "",
             destacado: false,
             created_at: getTodayUtc(),
             updated_at: getTodayUtc(),
           }}
-          preview={!blog}
+          preview
         />
       ) : (
         <>
@@ -405,6 +442,11 @@ const CreateBlogPage = ({ blog }: Props) => {
                           type="button"
                           tabIndex={-1}
                           onClick={() => {
+                            setFiles((prev) => {
+                              const copy = { ...prev };
+                              delete copy[item.id ?? "-"];
+                              return copy;
+                            });
                             setConfig((prev) =>
                               prev.filter((i) => i.id !== item.id)
                             );
@@ -489,7 +531,7 @@ const CreateBlogPage = ({ blog }: Props) => {
                 Viñeta
               </Button>
               <Button
-                icon={Icon.Types.FILE}
+                icon={Icon.Types.IMAGE}
                 subicon={Icon.Types.ADD}
                 btnSize="small"
                 btnType="secondary"
@@ -508,7 +550,27 @@ const CreateBlogPage = ({ blog }: Props) => {
                   ]);
                 }}
               >
-                Media
+                Imagen
+              </Button>
+              <Button
+                icon={Icon.Types.FILE}
+                subicon={Icon.Types.ADD}
+                btnSize="small"
+                btnType="secondary"
+                type="button"
+                textClassname="max-sm:hidden"
+                onClick={() => {
+                  setConfig((prev) => [
+                    ...prev,
+                    {
+                      id: v4(),
+                      type: "pdf",
+                      src: "",
+                    },
+                  ]);
+                }}
+              >
+                PDF
               </Button>
             </div>
           </motion.div>

@@ -19,9 +19,16 @@ type CanvasItemImage = {
   description: string;
 };
 
+type CanvasItemPDF = {
+  id: string;
+  type: "pdf";
+  src: string;
+};
+
 export type CanvasItem =
   | CanvasItemContent
   | CanvasItemVignette
-  | CanvasItemImage;
+  | CanvasItemImage
+  | CanvasItemPDF;
 
 export type CanvasType = CanvasItem[];

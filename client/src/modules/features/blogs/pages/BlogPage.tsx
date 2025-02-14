@@ -1,7 +1,7 @@
 import Canvas from "@/modules/core/components/ui/canvas/Canvas";
-import { STORAGE_URL } from "@/modules/core/constants/ENVIRONMENT";
 import { formatDate } from "@/modules/core/utils/formatDate";
 import { Blog } from "../api/responses";
+import { STORAGE_URL } from "@/modules/core/constants/ENVIRONMENT";
 
 interface Props {
   blog: Blog;
@@ -41,8 +41,14 @@ const BlogPage = ({ blog, preview }: Props) => {
                 description={item.description}
               />
             );
+          case "pdf":
+            return (
+              <Canvas.Pdf
+                key={i}
+                src={preview ? item.src : STORAGE_URL + item.src}
+              />
+            );
         }
-        return null;
       })}
       {/* <Canvas.Image
         src={Stock1}
