@@ -15,7 +15,7 @@ class Configuracion_Seeder extends Seeder
     {
         App_Configuracion::create([
             "configuraciones" => json_encode([
-                "gpt_model" => "gpt-3.5-turbo"
+                "gpt_model" => "gpt-4o-mini "
             ])
         ]);
     }

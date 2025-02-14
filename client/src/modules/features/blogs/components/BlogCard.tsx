@@ -1,16 +1,17 @@
 import DefaultPhoto from "@/assets/images/defaultPhoto.jpg";
-import { STORAGE_URL } from "@/modules/core/constants/ENVIRONMENT";
-import { Blog } from "../api/responses";
-import { formatDate } from "@/modules/core/utils/formatDate";
-import { useNavigate } from "@tanstack/react-router";
 import Icon from "@/modules/core/components/icons/Icon";
 import Button from "@/modules/core/components/ui/Button";
-import { BlogsView } from "@/routes/_private/blogs";
+import { CanvasItemContent } from "@/modules/core/components/ui/canvas/types/Canvas";
+import { STORAGE_URL } from "@/modules/core/constants/ENVIRONMENT";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
+import { formatDate } from "@/modules/core/utils/formatDate";
 import { toastConfirm, toastSuccess } from "@/modules/core/utils/toasts";
+import { BlogsView } from "@/routes/_private/blogs";
+import { useNavigate } from "@tanstack/react-router";
+import { useUserContext } from "../../auth/context/UserContext";
 import { usePermiso } from "../../auth/hooks/usePermiso";
 import { Permisos } from "../../auth/types/Permisos";
-import { useUserContext } from "../../auth/context/UserContext";
+import { Blog } from "../api/responses";
 
 interface Props {
   blog: Blog;
@@ -51,6 +52,10 @@ const BlogCard = ({
 
   const canStandout = usePermiso([Permisos.DESTACAR_BLOGS]);
 
+  const firstParagraph = blog.config.find(
+    (item) => item.type === "paragraph"
+  ) as CanvasItemContent | undefined;
+
   return (
     <article
       onClick={() => {
@@ -75,7 +80,10 @@ const BlogCard = ({
       }}
       className="cursor-pointer w-full text-start hover:opacity-90 transition-opacity duration-300 flex flex-col text-alto-950 dark:text-alto-50"
     >
-      <div className="h-36 w-full rounded-xl relative isolate overflow-hidden shadow-md shadow-alto-950/20 dark:shadow-alto-50/10 mb-4">
+      <div
+        className="h-36 w-full rounded-xl relative isolate overflow-hidden shadow-md shadow-alto-950/20 dark:shadow-alto-50/10 mb-4"
+        title={blog.titulo}
+      >
         <img
           className="w-full h-full object-cover -z-10"
           src={STORAGE_URL + blog.portada}
@@ -101,11 +109,12 @@ const BlogCard = ({
           </button>
         )}
       </div>
-      <h3 className="font-normal mb-2 line-clamp-1">{blog.titulo}</h3>
+      <h3 className="font-normal mb-2 line-clamp-1" title={blog.titulo}>
+        {blog.titulo}
+      </h3>
       <div className="h-9 mb-4">
         <p className="text-xs font-light opacity-80 leading-normal line-clamp-2">
-          {blog.descripcion ??
-            blog.config.find((item) => item.type === "paragraph")?.content}
+          {blog.descripcion ?? firstParagraph?.content}
         </p>
       </div>
       <div
@@ -144,6 +153,7 @@ const BlogCard = ({
               }}
               icon={Icon.Types.PENCIL}
               btnSize="small"
+              title="Editar blog"
             >
               Editar
             </Button>
@@ -158,6 +168,7 @@ const BlogCard = ({
               btnType="secondary"
               danger
               btnSize="small"
+              title="Eliminar blog"
             />
           )}
         </div>

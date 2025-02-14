@@ -5,7 +5,7 @@ type CanvasItemVignette = {
   content: string;
 };
 
-type CanvasItemContent = {
+export type CanvasItemContent = {
   id?: string;
   type: "subtitle" | "paragraph";
   content: string;

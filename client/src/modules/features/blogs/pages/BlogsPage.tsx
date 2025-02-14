@@ -98,6 +98,8 @@ const BlogsPage = ({ view = BlogsView.ALL }: Props) => {
   const destacado = data?.find((b) => b.destacado);
   const blogsWithoutStarred = data?.filter((b) => !b.destacado);
 
+  const mapData = viewOwns ? ownData : blogsWithoutStarred;
+
   return (
     <div
       className="flex flex-col gap-8 h-full overflow-y-scroll overflow-x-hidden"
@@ -146,30 +148,40 @@ const BlogsPage = ({ view = BlogsView.ALL }: Props) => {
               handleStandout={handleStandout}
             />
           )}
-          <div className="flex flex-col gap-8">
+          <div className="flex-1 flex flex-col gap-8">
             <h3 className="text-primary-900 dark:text-primary-400 font-bold">
               {viewOwns ? "Blogs propios" : "Blogs recientes"}
             </h3>
-            <div
-              className="grid gap-10 gap-y-10 place-content-center"
-              style={{
-                gridTemplateColumns: `repeat(auto-fill, minmax(300px, 420fr))`,
-              }}
-            >
-              {(viewOwns ? ownData : blogsWithoutStarred)?.map((b) => (
-                <BlogCard
-                  key={b.id}
-                  blog={b}
-                  viewOwns={viewOwns}
-                  view={view}
-                  handleStandout={handleStandout}
-                  onSuccessDelete={(id) => {
-                    setData((prev) => prev?.filter((b) => b.id !== id));
-                    setOwnData((prev) => prev?.filter((b) => b.id !== id));
-                  }}
-                />
-              ))}
-            </div>
+            {mapData && mapData.length > 0 ? (
+              <div
+                className="grid gap-10 gap-y-10 place-content-center"
+                style={{
+                  gridTemplateColumns: `repeat(auto-fill, minmax(300px, 420fr))`,
+                }}
+              >
+                {mapData?.map((b) => (
+                  <BlogCard
+                    key={b.id}
+                    blog={b}
+                    viewOwns={viewOwns}
+                    view={view}
+                    handleStandout={handleStandout}
+                    onSuccessDelete={(id) => {
+                      setData((prev) => prev?.filter((b) => b.id !== id));
+                      setOwnData((prev) => prev?.filter((b) => b.id !== id));
+                    }}
+                  />
+                ))}
+              </div>
+            ) : (
+              <p className="text-center text-sm text-alto-500 dark:text-alto-400 flex items-center justify-center py-8">
+                {!viewOwns
+                  ? "No hay blogs recientes"
+                  : !ownData
+                    ? "Cargando..."
+                    : "No has creado blogs aún"}
+              </p>
+            )}
           </div>
         </>
       ) : (

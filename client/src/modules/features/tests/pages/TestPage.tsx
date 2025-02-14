@@ -1,7 +1,10 @@
 import Icon from "@/modules/core/components/icons/Icon";
 import IconMessage from "@/modules/core/components/icons/IconMessage";
 import Button from "@/modules/core/components/ui/Button";
-import { CanvasType } from "@/modules/core/components/ui/canvas/types/Canvas";
+import {
+  CanvasItemContent,
+  CanvasType,
+} from "@/modules/core/components/ui/canvas/types/Canvas";
 import Checkboxes from "@/modules/core/components/ui/Checkboxes";
 import Loader from "@/modules/core/components/ui/loader/Loader";
 import { useModal } from "@/modules/core/components/ui/modal/useModal";
@@ -116,7 +119,7 @@ const TestPage = ({ respuestas = false }: Props) => {
               <div className="mt-4 flex flex-col gap-4 items-center w-80">
                 <small className="text-xs text-alto-700 dark:text-alto-300 text-center leading-normal">
                   Puedes probar los tests psicológicos de orientación vocacional
-                  que tenemos para ti
+                  que tenemos para ti (35 minutos aprox.)
                 </small>
                 <Button
                   icon={Icon.Types.BRAIN}
@@ -146,6 +149,9 @@ const TestPage = ({ respuestas = false }: Props) => {
           >
             {data?.map((v) => {
               const canvas: CanvasType = JSON.parse(v.canvas);
+              const firstParagraph = canvas.find(
+                (c) => c.type === "paragraph"
+              ) as CanvasItemContent | undefined;
               return (
                 <TestCard
                   key={isForResolveTests(v) ? v.id_respuesta : v.id}
@@ -157,9 +163,7 @@ const TestPage = ({ respuestas = false }: Props) => {
                   }
                   starred={v.nombre_autor_creador === null}
                   title={v.nombre_test}
-                  description={
-                    canvas.find((c) => c.type === "paragraph")?.content || ""
-                  }
+                  description={firstParagraph?.content || ""}
                   author={v.nombre_autor || v.nombre_autor_creador!}
                   psychologist={
                     isForResolveTests(v) ? v.nombre_asignador : undefined
