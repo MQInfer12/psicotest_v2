@@ -45,15 +45,24 @@ class B_BlogController extends Controller
         $user = $request->user();
         $validatedData = $request->validated();
 
-        $route = $validatedData['portada']->store('public/blogs');
+        $route = $validatedData['portada']->store('public/blogs/covers');
         $route = str_replace('public/', '/', $route);
+
+        $config = json_decode($validatedData['config']);
+        foreach ($config as $item) {
+            if ($item->type == 'image') {
+                $file = $request[$item->id];
+                $imageRoute = $file->storeAs('public/blogs/images', $item->id . '.png');
+                $item->src = str_replace('public/', '/', $imageRoute);
+            }
+        }
 
         $blog = B_Blog::create([
             'titulo' => $validatedData['titulo'],
             'descripcion' => $validatedData['descripcion'],
             'portada' => $route,
             'email_autor' => $user->email,
-            'config' => $validatedData['config']
+            'config' => json_encode($config)
         ]);
 
         return $this->successResponse(
@@ -79,17 +88,41 @@ class B_BlogController extends Controller
             if (file_exists($oldRoute)) {
                 unlink($oldRoute);
             }
-            $route = $portada->store('public/blogs');
+            $route = $portada->store('public/blogs/covers');
             $portada = str_replace('public/', '/', $route);
         } else {
             $portada = $blog->portada;
+        }
+
+        $oldConfig = json_decode($blog->config);
+        $config = json_decode($validatedData['config']);
+
+        //BORRAR IMAGENES ANTIGUAS QUE YA NO ESTÉN EN LA NUEVA CONFIGURACIÓN
+        foreach ($oldConfig as $oldItem) {
+            if ($oldItem->type == 'image' && !collect($config)->contains('id', $oldItem->id)) {
+                $route = 'storage' . $oldItem->src;
+                if (file_exists($route)) {
+                    unlink($route);
+                }
+            }
+        }
+
+        //GUARDAR NUEVAS IMÁGENES
+        foreach ($config as $item) {
+            if ($item->type == 'image') {
+                $file = $request[$item->id];
+                if ($file) {
+                    $imageRoute = $file->storeAs('public/blogs/images', $item->id . '.png');
+                    $item->src = str_replace('public/', '/', $imageRoute);
+                }
+            }
         }
 
         $blog->update([
             'titulo' => $validatedData['titulo'],
             'descripcion' => $validatedData['descripcion'],
             'portada' => $portada,
-            'config' => $validatedData['config']
+            'config' => json_encode($config)
         ]);
 
         return $this->successResponse(
@@ -138,6 +171,17 @@ class B_BlogController extends Controller
         if (file_exists($route)) {
             unlink($route);
         }
+
+        $config = json_decode($blog->config);
+        foreach ($config as $item) {
+            if ($item->type == 'image') {
+                $route = 'storage' . $item->src;
+                if (file_exists($route)) {
+                    unlink($route);
+                }
+            }
+        }
+
         $blog->delete();
         return $this->successResponse("Blog eliminado correctamente.", null);
     }

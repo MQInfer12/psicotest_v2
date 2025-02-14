@@ -32,6 +32,15 @@ const BlogPage = ({ blog, preview }: Props) => {
                 {item.content}
               </Canvas.Vignette>
             );
+          case "image":
+            return (
+              <Canvas.Image
+                key={i}
+                src={preview ? item.src : STORAGE_URL + item.src}
+                alt={item.title}
+                description={item.description}
+              />
+            );
         }
         return null;
       })}

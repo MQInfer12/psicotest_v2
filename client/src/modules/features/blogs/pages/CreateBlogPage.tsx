@@ -39,6 +39,7 @@ const CreateBlogPage = ({ blog }: Props) => {
   });
   const [img, setImg] = useState<File | null>(null);
   const [config, setConfig] = useState<CanvasType>(blog?.config ?? []);
+  const [images, setImages] = useState<Record<string, File | null>>({});
 
   const handleSend = async () => {
     if (!inputs.titulo.trim()) {
@@ -52,8 +53,19 @@ const CreateBlogPage = ({ blog }: Props) => {
     ) {
       return toastError("Tiene que haber al menos un párrafo");
     }
-    if (!config.every((item) => item.content.trim())) {
+    if (
+      !config.every((item) => item.type === "image" || !!item.content.trim())
+    ) {
       return toastError("Revisar los campos requeridos");
+    }
+    if (
+      !config.every(
+        (item) =>
+          item.type !== "image" ||
+          ((item.src || images[item.id]) && item.title.trim())
+      )
+    ) {
+      return toastError("Revisar las imágenes y sus títulos");
     }
 
     setLoading(true);
@@ -65,6 +77,12 @@ const CreateBlogPage = ({ blog }: Props) => {
       data.append("portada", img);
     }
     data.append("config", JSON.stringify(config));
+
+    Object.keys(images).forEach((key) => {
+      if (images[key]) {
+        data.append(key, images[key]!);
+      }
+    });
 
     const tokens = getTokens();
     try {
@@ -95,79 +113,140 @@ const CreateBlogPage = ({ blog }: Props) => {
     }
   };
 
-  const handleInputs = useCallback((item: CanvasItem) => {
-    switch (item.type) {
-      case "subtitle":
-        return (
-          <Input
-            required
-            type="text"
-            label="Subtítulo"
-            icon={Icon.Types.LABEL}
-            value={item.content}
-            onChange={(e) => {
-              setConfig((prev) =>
-                prev.map((i) =>
-                  i.id === item.id ? { ...i, content: e.target.value } : i
-                )
-              );
-            }}
-          />
-        );
-      case "paragraph":
-        return (
-          <TextArea
-            required
-            label="Párrafo"
-            height={78}
-            icon={Icon.Types.TEXT}
-            value={item.content}
-            onChange={(e) => {
-              setConfig((prev) =>
-                prev.map((i) =>
-                  i.id === item.id ? { ...i, content: e.target.value } : i
-                )
-              );
-            }}
-          />
-        );
-      case "vignette":
-        return (
-          <div className="flex-1 flex gap-4">
-            <div>
-              <Input
-                type="text"
-                label="Título de la viñeta"
-                icon={Icon.Types.LIST}
-                value={item.title}
-                onChange={(e) => {
-                  setConfig((prev) =>
-                    prev.map((i) =>
-                      i.id === item.id ? { ...i, title: e.target.value } : i
-                    )
-                  );
-                }}
-              />
+  console.log(images);
+
+  const handleInputs = useCallback(
+    (item: CanvasItem) => {
+      switch (item.type) {
+        case "subtitle":
+          return (
+            <Input
+              required
+              type="text"
+              label="Subtítulo"
+              icon={Icon.Types.LABEL}
+              value={item.content}
+              onChange={(e) => {
+                setConfig((prev) =>
+                  prev.map((i) =>
+                    i.id === item.id ? { ...i, content: e.target.value } : i
+                  )
+                );
+              }}
+            />
+          );
+        case "paragraph":
+          return (
+            <TextArea
+              required
+              label="Párrafo"
+              height={78}
+              icon={Icon.Types.TEXT}
+              value={item.content}
+              onChange={(e) => {
+                setConfig((prev) =>
+                  prev.map((i) =>
+                    i.id === item.id ? { ...i, content: e.target.value } : i
+                  )
+                );
+              }}
+            />
+          );
+        case "vignette":
+          return (
+            <div className="flex-1 flex gap-4">
+              <div className="flex-1 max-w-64">
+                <Input
+                  type="text"
+                  label="Título de la viñeta"
+                  icon={Icon.Types.LIST}
+                  value={item.title}
+                  onChange={(e) => {
+                    setConfig((prev) =>
+                      prev.map((i) =>
+                        i.id === item.id ? { ...i, title: e.target.value } : i
+                      )
+                    );
+                  }}
+                />
+              </div>
+              <div className="flex-1">
+                <Input
+                  required
+                  type="text"
+                  label="Contenido de la viñeta"
+                  value={item.content}
+                  onChange={(e) => {
+                    setConfig((prev) =>
+                      prev.map((i) =>
+                        i.id === item.id ? { ...i, content: e.target.value } : i
+                      )
+                    );
+                  }}
+                />
+              </div>
             </div>
-            <div className="flex-1">
-              <Input
+          );
+        case "image":
+          return (
+            <div className="flex w-full flex-col gap-4">
+              <div className="flex gap-4">
+                <div className="flex-1 max-w-64">
+                  <Input
+                    required
+                    type="text"
+                    label="Título de la imagen"
+                    icon={Icon.Types.IMAGE}
+                    value={item.title}
+                    onChange={(e) => {
+                      setConfig((prev) =>
+                        prev.map((i) =>
+                          i.id === item.id ? { ...i, title: e.target.value } : i
+                        )
+                      );
+                    }}
+                  />
+                </div>
+                <div className="flex-1">
+                  <Input
+                    type="text"
+                    label="Contenido de la imagen"
+                    value={item.description}
+                    onChange={(e) => {
+                      setConfig((prev) =>
+                        prev.map((i) =>
+                          i.id === item.id
+                            ? { ...i, description: e.target.value }
+                            : i
+                        )
+                      );
+                    }}
+                  />
+                </div>
+              </div>
+              <InputFile
+                label="Imagen"
+                state={images[item.id] ?? null}
+                setState={(file) => {
+                  setImages((prev) => ({ ...prev, [item.id]: file }));
+                }}
+                defaultSrc={
+                  blog
+                    ? item.src
+                      ? STORAGE_URL + item.src
+                      : undefined
+                    : undefined
+                }
+                row
                 required
-                type="text"
-                label="Contenido de la viñeta"
-                value={item.content}
-                onChange={(e) => {
-                  setConfig((prev) =>
-                    prev.map((i) =>
-                      i.id === item.id ? { ...i, content: e.target.value } : i
-                    )
-                  );
-                }}
+                maxSize={5 * 1024}
               />
             </div>
-          </div>
-        );
-    }
-  }, []);
+          );
+      }
+    },
+    [images]
+  );
 
   return (
     <div
@@ -207,7 +286,17 @@ const CreateBlogPage = ({ blog }: Props) => {
           blog={{
             id: 0,
             autor: user!,
-            config,
+            config: config.map((item) => {
+              if (item.type === "image") {
+                return {
+                  ...item,
+                  src: images[item.id]
+                    ? URL.createObjectURL(images[item.id]!)
+                    : item.src,
+                };
+              }
+              return item;
+            }),
             titulo: inputs.titulo,
             descripcion: inputs.descripcion,
             portada: blog ? blog.portada : img ? URL.createObjectURL(img) : "",
@@ -259,7 +348,7 @@ const CreateBlogPage = ({ blog }: Props) => {
           </motion.div>
           {config.length > 0 && (
             <AnimatePresence initial={false}>
-              <div className="flex flex-col gap-4 max-sm:gap-2">
+              <div className="flex flex-col gap-4">
                 {config.map((item, i) => (
                   <motion.div
                     key={item.id}
@@ -405,8 +494,19 @@ const CreateBlogPage = ({ blog }: Props) => {
                 btnSize="small"
                 btnType="secondary"
                 type="button"
-                disabled
                 textClassname="max-sm:hidden"
+                onClick={() => {
+                  setConfig((prev) => [
+                    ...prev,
+                    {
+                      id: v4(),
+                      type: "image",
+                      src: "",
+                      title: "",
+                      description: "",
+                    },
+                  ]);
+                }}
               >
                 Media
               </Button>

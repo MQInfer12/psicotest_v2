@@ -69,6 +69,7 @@ import IconStar from "./tabler/iconStar";
 import IconStarOutline from "./tabler/iconStarOutline";
 import IconLock from "./tabler/iconLock";
 import IconLabel from "./tabler/iconLabel";
+import IconImage from "./tabler/iconImage";
 
 export enum ICON {
   CHECK = "check",
@@ -157,6 +158,7 @@ export enum ICON {
   STAR_OUTLINE = "star_outline",
   LOCK = "lock",
   LABEL = "label",
+  IMAGE = "image",
 }
 
 interface Props {
@@ -251,6 +253,7 @@ const Icon = ({ type }: Props) => {
     [ICON.STAR_OUTLINE]: <IconStarOutline />,
     [ICON.LOCK]: <IconLock />,
     [ICON.LABEL]: <IconLabel />,
+    [ICON.IMAGE]: <IconImage />,
   };
   return icons[type];
 };
