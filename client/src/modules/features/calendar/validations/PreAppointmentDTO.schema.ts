@@ -63,11 +63,23 @@ export const PreAppointmentDTOSchema = yup.object({
         return isNaN(v) ? null : v;
       });
     }),
-  nombre_tutor: yup.string(),
+  nombre_tutor: yup.string().when("$required", (ctx, schema) => {
+    const [required] = ctx;
+    if (required) {
+      return schema.required("Requerido");
+    }
+    return schema;
+  }),
   telefono_tutor: yup
     .number()
-    .nullable()
-    .transform((v) => {
-      return isNaN(v) ? null : v;
+    .integer("Número entero")
+    .when("$required", (ctx, schema) => {
+      const [required] = ctx;
+      if (required) {
+        return schema.typeError("Requerido").required("Requerido");
+      }
+      return schema.nullable().transform((v) => {
+        return isNaN(v) ? null : v;
+      });
     }),
 });

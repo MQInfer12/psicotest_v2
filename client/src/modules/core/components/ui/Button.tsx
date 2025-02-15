@@ -12,6 +12,7 @@ interface Props extends HTMLMotionProps<"button"> {
   btnType?: "primary" | "secondary" | "tertiary";
   btnSize?: "base" | "small" | "square";
   danger?: boolean;
+  primary?: boolean;
   icon?: ICON;
   subicon?: ICON;
   reverse?: boolean;
@@ -26,6 +27,7 @@ const Button = ({
   btnType = "primary",
   btnSize = "base",
   danger,
+  primary,
   icon,
   subicon,
   children,
@@ -112,6 +114,9 @@ const Button = ({
 
     if (danger && !disabled && !hover) {
       colors.color = COLORS.danger;
+    }
+    if (primary && !disabled && !hover) {
+      colors.color = dark ? COLORS.primary[400] : COLORS.primary[500];
     }
 
     return colors;

@@ -9,5 +9,12 @@ export interface Blog extends Timestamps {
   portada: string;
   autor: User;
   destacado: boolean;
+  evento_nombre: string | null;
+  evento_fecha: string | null;
+  evento_latitud: number | null;
+  evento_longitud: number | null;
+  evento_id_calendar: string | null;
+  evento_link_calendar: string | null;
+  yo_atiendo: boolean;
   config: CanvasType;
 }

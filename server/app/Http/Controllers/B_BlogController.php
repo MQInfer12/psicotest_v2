@@ -7,11 +7,14 @@ use App\Http\Requests\B_BlogRequest;
 use App\Http\Resources\B_BlogResource;
 use App\Models\B_Blog;
 use App\Traits\ApiResponse;
+use App\Traits\GoogleAPIs;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
 class B_BlogController extends Controller
 {
     use ApiResponse;
+    use GoogleAPIs;
 
     public function index()
     {
@@ -22,9 +25,30 @@ class B_BlogController extends Controller
         );
     }
 
-    public function show(int $id)
+    public function show(int $id, Request $request)
     {
         $blog = B_Blog::findOrFail($id);
+
+        $token = $request->bearerToken();
+
+        $user = null;
+        if ($token) {
+            try {
+                $user = \Auth::guard('api')->user();
+            } catch (\Exception $e) {
+                return $this->wrongResponse("Token inválido.");
+            }
+        }
+
+        if ($user && !!$blog->evento_id_calendar) {
+            $access_token = $user->raw_access_token();
+            if (!$access_token) {
+                return $this->wrongResponse("El token de acceso es inválido.");
+            }
+            $status = $this->getAttendeeResponseStatus($blog->evento_id_calendar, $access_token, $user, true);
+            $blog->yo_atiendo = $status === "accepted";
+        }
+
         return $this->successResponse(
             "Blog obtenido correctamente.",
             new B_BlogResource($blog)
@@ -69,6 +93,84 @@ class B_BlogController extends Controller
             'email_autor' => $user->email,
             'config' => json_encode($config)
         ]);
+
+        $bodyHasEvent = $validatedData['evento_nombre'] ?? null;
+        if ($bodyHasEvent) {
+            $user = $request->user();
+            $access_token = $request->user()->raw_access_token();
+            if (!$access_token) {
+                return $this->wrongResponse("El token de acceso es inválido.");
+            }
+
+            $lat = $validatedData['evento_latitud'];
+            $lng = $validatedData['evento_longitud'];
+            $urlReverse = "https://nominatim.openstreetmap.org/reverse?format=json&lat={$lat}&lon={$lng}";
+            $client = new Client([
+                'headers' => [
+                    'User-Agent' => 'Neurall/v3 (psicologiaunifranz@gmail.com)'
+                ]
+            ]);
+            $response = $client->get($urlReverse);
+            $response = json_decode($response->getBody()->getContents());
+            $name = $response->name != "" ? $response->name : ($response->display_name != "" ? $response->display_name . " (automático)" : "Ubicación desconocida");
+
+            $mapsLink = "https://www.google.com/maps/dir/?api=1&destination={$lat}%2C{$lng}";
+            $psicotestLink = "https://psicotest.cidtec-uc.com/daily/{$blog->id}";
+
+            $datetime = date('c', strtotime($validatedData['evento_fecha'] . ' ' . $validatedData['evento_hora'] . ' +4 hours'));
+            $datetimeEnd = date('c', strtotime($validatedData['evento_fecha'] . ' ' . $validatedData['evento_hora'] . ' +5 hours'));
+
+            $body = [
+                'summary' => $validatedData['evento_nombre'],
+                'location' => $name,
+                'description' => 'Evento de psicología' .
+                    "\n\n" . $validatedData['titulo'] . " | " . $validatedData['evento_nombre'] .
+                    "\n<a href='{$mapsLink}'>Ver ubicación</a>" .
+                    "\n\nGenerado automáticamente por <a href='{$psicotestLink}'>Neurall</a>",
+                'colorId' => '3',
+                'visibility' => 'public',
+                'start' => [
+                    'dateTime' => $datetime,
+                    'timeZone' => 'America/La_Paz'
+                ],
+                'end' => [
+                    'dateTime' => $datetimeEnd,
+                    'timeZone' => 'America/La_Paz'
+                ],
+                'attendees' => [
+                    [
+                        'email' => $user->email,
+                        'responseStatus' => 'accepted'
+                    ]
+                ],
+                'reminders' => [
+                    'useDefault' => false,
+                    'overrides' => [
+                        [
+                            'method' => 'popup',
+                            'minutes' => 60
+                        ],
+                        [
+                            'method' => 'popup',
+                            'minutes' => 30
+                        ]
+                    ]
+                ]
+            ];
+            $event = $this->createGoogleCalendarEvent($body, $access_token, $user);
+            if (!$event) {
+                return $this->wrongResponse("Error al crear el evento del blog.");
+            }
+
+            $blog->update([
+                'evento_nombre' => $validatedData['evento_nombre'],
+                'evento_fecha' => $datetime,
+                'evento_latitud' => $validatedData['evento_latitud'],
+                'evento_longitud' => $validatedData['evento_longitud'],
+                'evento_id_calendar' => $event->id,
+                'evento_link_calendar' => $event->htmlLink
+            ]);
+        }
 
         return $this->successResponse(
             "Blog creado correctamente.",
@@ -137,8 +239,146 @@ class B_BlogController extends Controller
             'config' => json_encode($config)
         ]);
 
+        $alreadyHasEvent = !!$blog->evento_id_calendar;
+        $bodyHasEvent = $validatedData['evento_nombre'] ?? null;
+
+        $user = $request->user();
+        $access_token = $request->user()->raw_access_token();
+        if (!$access_token) {
+            return $this->wrongResponse("El token de acceso es inválido.");
+        }
+
+        if ($bodyHasEvent) {
+            $lat = $validatedData['evento_latitud'];
+            $lng = $validatedData['evento_longitud'];
+            $urlReverse = "https://nominatim.openstreetmap.org/reverse?format=json&lat={$lat}&lon={$lng}";
+            $client = new Client([
+                'headers' => [
+                    'User-Agent' => 'Neurall/v3 (psicologiaunifranz@gmail.com)'
+                ]
+            ]);
+            $response = $client->get($urlReverse);
+            $response = json_decode($response->getBody()->getContents());
+            $name = $response->name != "" ? $response->name : ($response->display_name != "" ? $response->display_name . " (automático)" : "Ubicación desconocida");
+
+            $mapsLink = "https://www.google.com/maps/dir/?api=1&destination={$lat}%2C{$lng}";
+            $psicotestLink = "https://psicotest.cidtec-uc.com/daily/{$blog->id}";
+
+            $datetime = date('c', strtotime($validatedData['evento_fecha'] . ' ' . $validatedData['evento_hora'] . ' +4 hours'));
+            $datetimeEnd = date('c', strtotime($validatedData['evento_fecha'] . ' ' . $validatedData['evento_hora'] . ' +5 hours'));
+
+            if ($alreadyHasEvent) {
+                $body = [
+                    'summary' => $validatedData['evento_nombre'],
+                    'location' => $name,
+                    'description' => 'Evento de psicología' .
+                        "\n\n" . $validatedData['titulo'] . " | " . $validatedData['evento_nombre'] .
+                        "\n<a href='{$mapsLink}'>Ver ubicación</a>" .
+                        "\n\nGenerado automáticamente por <a href='{$psicotestLink}'>Neurall</a>",
+                    'start' => [
+                        'dateTime' => $datetime,
+                        'timeZone' => 'America/La_Paz'
+                    ],
+                    'end' => [
+                        'dateTime' => $datetimeEnd,
+                        'timeZone' => 'America/La_Paz'
+                    ]
+                ];
+
+                $event = $this->updateGoogleCalendarEvent($blog->evento_id_calendar, $body, $access_token, $user);
+                if (!$event) {
+                    return $this->wrongResponse("Error al crear el evento del blog.");
+                }
+
+                $blog->update([
+                    'evento_nombre' => $validatedData['evento_nombre'],
+                    'evento_fecha' => $datetime,
+                    'evento_latitud' => $validatedData['evento_latitud'],
+                    'evento_longitud' => $validatedData['evento_longitud']
+                ]);
+            } else {
+                $body = [
+                    'summary' => $validatedData['evento_nombre'],
+                    'location' => $name,
+                    'description' => 'Evento de psicología' .
+                        "\n\n" . $validatedData['titulo'] . " | " . $validatedData['evento_nombre'] .
+                        "\n<a href='{$mapsLink}'>Ver ubicación</a>" .
+                        "\n\nGenerado automáticamente por <a href='{$psicotestLink}'>Neurall</a>",
+                    'colorId' => '3',
+                    'start' => [
+                        'dateTime' => $datetime,
+                        'timeZone' => 'America/La_Paz'
+                    ],
+                    'end' => [
+                        'dateTime' => $datetimeEnd,
+                        'timeZone' => 'America/La_Paz'
+                    ],
+                    'attendees' => [
+                        [
+                            'email' => $user->email,
+                            'responseStatus' => 'accepted'
+                        ]
+                    ],
+                    'reminders' => [
+                        'useDefault' => false,
+                        'overrides' => [
+                            [
+                                'method' => 'popup',
+                                'minutes' => 60
+                            ],
+                            [
+                                'method' => 'popup',
+                                'minutes' => 30
+                            ]
+                        ]
+                    ]
+                ];
+                $event = $this->createGoogleCalendarEvent($body, $access_token, $user);
+                if (!$event) {
+                    return $this->wrongResponse("Error al crear el evento del blog.");
+                }
+
+                $blog->update([
+                    'evento_nombre' => $validatedData['evento_nombre'],
+                    'evento_fecha' => $datetime,
+                    'evento_latitud' => $validatedData['evento_latitud'],
+                    'evento_longitud' => $validatedData['evento_longitud'],
+                    'evento_id_calendar' => $event->id,
+                    'evento_link_calendar' => $event->htmlLink
+                ]);
+            }
+        } else if ($alreadyHasEvent) {
+            $this->deleteGoogleCalendarEvent($blog->evento_id_calendar, $access_token, $user);
+            $blog->update([
+                'evento_nombre' => null,
+                'evento_fecha' => null,
+                'evento_latitud' => null,
+                'evento_longitud' => null,
+                'evento_id_calendar' => null,
+                'evento_link_calendar' => null
+            ]);
+        }
+
         return $this->successResponse(
             "Blog actualizado correctamente.",
+            new B_BlogResource($blog)
+        );
+    }
+
+    public function attend(Request $request, int $id)
+    {
+        $user = $request->user();
+        $blog = B_Blog::findOrFail($id);
+        $access_token = $user->raw_access_token();
+        if (!$access_token) {
+            return $this->wrongResponse("El token de acceso es inválido.");
+        }
+        $response = $this->attendGoogleCalendarEvent($blog->evento_id_calendar, $access_token, $user);
+        if (!$response) {
+            return $this->wrongResponse("Error al confirmar asistencia al evento.");
+        }
+        return $this->successResponse(
+            "Se agregó el evento a tu calendario correctamente.",
             new B_BlogResource($blog)
         );
     }
@@ -192,6 +432,14 @@ class B_BlogController extends Controller
                     unlink($route);
                 }
             }
+        }
+
+        if (!!$blog->evento_id_calendar) {
+            $access_token = $user->raw_access_token();
+            if (!$access_token) {
+                return $this->wrongResponse("El token de acceso es inválido.");
+            }
+            $this->deleteGoogleCalendarEvent($blog->evento_id_calendar, $user->raw_access_token(), $user);
         }
 
         $blog->delete();

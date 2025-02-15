@@ -8,10 +8,10 @@ import Icon, { ICON } from "../icons/Icon";
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: string;
-  defaultSrc?: string;
+  defaultsrc?: string;
   state: File | null;
-  maxSize?: number;
-  setState: (newState: File | null) => void;
+  maxsize?: number;
+  setstate: (newState: File | null) => void;
   validFormats?: string[];
   row?: boolean;
   inputType?: "image" | "inline";
@@ -26,10 +26,10 @@ const InputFile = (props: Props) => {
     required,
     className,
     disabled,
-    defaultSrc,
-    maxSize = 2048,
+    defaultsrc,
+    maxsize = 2048,
     state,
-    setState,
+    setstate,
     row,
     inputType = "image",
     icon,
@@ -40,13 +40,13 @@ const InputFile = (props: Props) => {
 
   const changeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files?.length) return;
-    if (e.target.files[0].size > maxSize * 1024) {
-      setSizeError(`Tamaño supera ${maxSize / 1024}MB`);
-      setState(null);
+    if (e.target.files[0].size > maxsize * 1024) {
+      setSizeError(`Tamaño supera ${maxsize / 1024}MB`);
+      setstate(null);
       return;
     }
     setSizeError(null);
-    setState(e.target.files[0]);
+    setstate(e.target.files[0]);
   };
 
   useEffect(() => {
@@ -63,7 +63,7 @@ const InputFile = (props: Props) => {
 
   const selectInput = () => document.getElementById(id)?.click();
 
-  const hasImage = preview ?? defaultSrc;
+  const hasImage = preview ?? defaultsrc;
 
   const realError = sizeError ?? error;
 
@@ -129,8 +129,8 @@ const InputFile = (props: Props) => {
             >
               {state
                 ? state.name
-                : (defaultSrc?.split("/").pop() ??
-                  `Seleccionar archivo (max. ${maxSize / 1024}MB)`)}
+                : (defaultsrc?.split("/").pop() ??
+                  `Seleccionar archivo (max. ${maxsize / 1024}MB)`)}
             </button>
             {icon && (
               <div
@@ -177,7 +177,7 @@ const InputFile = (props: Props) => {
             )}
             {!hasImage && (
               <p className="absolute bottom-2 left-1/2 -translate-x-1/2 opacity-40 text-xs whitespace-nowrap">
-                Tamaño máximo: {maxSize / 1024}MB
+                Tamaño máximo: {maxsize / 1024}MB
               </p>
             )}
           </button>
@@ -203,7 +203,7 @@ const InputFile = (props: Props) => {
         <input
           id={id}
           onChange={changeFile}
-          {...props}
+          {...{ ...props, setstate: undefined }}
           className="hidden"
           type="file"
         />

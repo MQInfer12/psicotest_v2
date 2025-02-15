@@ -201,14 +201,16 @@ const PreAppointmentForm = ({
         />
       </div>
       <Input
-        label={withName ? "Nombre del tutor" : "Nombre de tu apoderado"}
+        label={"Nombre del padre / madre / tutor"}
         error={errors.nombre_tutor?.message}
+        required={required}
         {...register("nombre_tutor")}
       />
       <Input
-        label={withName ? "Teléfono del tutor" : "Teléfono de tu apoderado"}
+        label={"Teléfono del padre / madre / tutor"}
         type="number"
         error={errors.telefono_tutor?.message}
+        required={required}
         {...register("telefono_tutor")}
       />
       <Button disabled={loading} type="submit">

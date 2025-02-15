@@ -88,4 +88,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/blog/{id}', [B_BlogController::class, 'destroy']);
     Route::get('/blog/for/me', [B_BlogController::class, 'indexForMe']);
     Route::patch('/blog/standout/{id}', [B_BlogController::class, 'standOut']);
+    Route::patch('/blog/attend/{id}', [B_BlogController::class, 'attend']);
 });

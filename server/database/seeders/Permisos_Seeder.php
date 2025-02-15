@@ -24,7 +24,9 @@ class Permisos_Seeder extends Seeder
                     Permisos::VER_USUARIOS,
                     Permisos::VER_CITAS,
                     Permisos::ANADIR_HORARIOS,
-                    Permisos::VER_BLOGS
+                    Permisos::VER_BLOGS,
+                    Permisos::CREAR_BLOGS,
+                    Permisos::DESTACAR_BLOGS
                 ]
             ],
             [

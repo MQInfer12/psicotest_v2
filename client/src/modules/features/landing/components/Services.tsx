@@ -75,7 +75,7 @@ const Services = () => {
               Descubre tu profesión ideal
             </small>
             <div className="flex flex-col gap-2">
-              <h3 className="text-xl font-bold">Análisis vocacional</h3>
+              <h3 className="text-xl font-bold">Orientación vocacional</h3>
               <p className="text-sm text-alto-800 leading-relaxed">
                 Realiza los tests de KUDER y PMA para obtener un análisis
                 personalizado acerca de tus habilidades e intereses personales.

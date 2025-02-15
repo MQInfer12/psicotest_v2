@@ -20,6 +20,9 @@ import { BlogsView } from "@/routes/_private/blogs";
 import BlogPage from "./BlogPage";
 import { useUserContext } from "../../auth/context/UserContext";
 import { getTodayUtc } from "@/modules/core/utils/getTodayUtc";
+import { EventDTO } from "../validations/EventDTO.schema";
+import { useModal } from "@/modules/core/components/ui/modal/useModal";
+import EventForm from "../components/EventForm";
 
 interface Props {
   blog?: Blog;
@@ -40,6 +43,19 @@ const CreateBlogPage = ({ blog }: Props) => {
   const [img, setImg] = useState<File | null>(null);
   const [config, setConfig] = useState<CanvasType>(blog?.config ?? []);
   const [files, setFiles] = useState<Record<string, File | null>>({});
+
+  const [event, setEvent] = useState<EventDTO | null>(
+    blog?.evento_id_calendar
+      ? {
+          evento_nombre: blog.evento_nombre!,
+          evento_fecha: blog.evento_fecha!.split("T")[0],
+          evento_hora: blog.evento_fecha!.split("T")[1].slice(0, 5),
+          evento_latitud: blog.evento_latitud!,
+          evento_longitud: blog.evento_longitud!,
+        }
+      : null
+  );
+  const { modal, setOpen } = useModal();
 
   const handleSend = async () => {
     if (!inputs.titulo.trim()) {
@@ -92,6 +108,13 @@ const CreateBlogPage = ({ blog }: Props) => {
       }
     });
 
+    if (event) {
+      Object.keys(event).forEach((key) => {
+        //@ts-expect-error key should be te key of event object
+        data.append(key, event[key]);
+      });
+    }
+
     const tokens = getTokens();
     try {
       const response = await fetch(
@@ -120,8 +143,6 @@ const CreateBlogPage = ({ blog }: Props) => {
       setLoading(false);
     }
   };
-
-  console.log(files);
 
   const handleInputs = useCallback(
     (item: CanvasItem) => {
@@ -236,10 +257,10 @@ const CreateBlogPage = ({ blog }: Props) => {
                 label="Imagen"
                 accept=".png,.jpg,.jpeg"
                 state={files[item.id] ?? null}
-                setState={(file) => {
+                setstate={(file) => {
                   setFiles((prev) => ({ ...prev, [item.id]: file }));
                 }}
-                defaultSrc={
+                defaultsrc={
                   blog
                     ? item.src
                       ? STORAGE_URL + item.src
@@ -248,7 +269,7 @@ const CreateBlogPage = ({ blog }: Props) => {
                 }
                 row
                 required
-                maxSize={5 * 1024}
+                maxsize={5 * 1024}
               />
             </div>
           );
@@ -258,10 +279,10 @@ const CreateBlogPage = ({ blog }: Props) => {
               label="Documento PDF"
               accept=".pdf"
               state={files[item.id] ?? null}
-              setState={(file) => {
+              setstate={(file) => {
                 setFiles((prev) => ({ ...prev, [item.id]: file }));
               }}
-              defaultSrc={
+              defaultsrc={
                 blog
                   ? item.src
                     ? STORAGE_URL + item.src
@@ -270,7 +291,7 @@ const CreateBlogPage = ({ blog }: Props) => {
               }
               inputType="inline"
               required
-              maxSize={5 * 1024}
+              maxsize={5 * 1024}
               icon={Icon.Types.FILE}
             />
           );
@@ -279,304 +300,344 @@ const CreateBlogPage = ({ blog }: Props) => {
     [files]
   );
 
-  console.log(img);
-
   return (
-    <div
-      className="flex h-full flex-col  overflow-scroll isolate"
-      style={{
-        paddingInline: PRIVATE_PADDING_INLINE,
-        paddingBottom: PRIVATE_PADDING_INLINE,
-      }}
-    >
-      <div className="flex gap-4 justify-between items-center sticky top-0 bg-alto-100 dark:bg-alto-950 pb-4 z-10">
-        <span />
-        <div className="flex gap-4">
-          <Button
-            onClick={() => {
-              setPreview((prev) => !prev);
-            }}
-            btnType="tertiary"
-            icon={preview ? Icon.Types.PENCIL : Icon.Types.EYE}
-          >
-            {preview ? "Editar" : "Previsualizar"}
-          </Button>
-          <Button
-            onClick={(e) => {
-              e.preventDefault();
-              handleSend();
-            }}
-            btnSize="small"
-            icon={Icon.Types.SAVE}
-            disabled={loading}
-          >
-            Guardar
-          </Button>
-        </div>
-      </div>
-      {preview ? (
-        <BlogPage
-          blog={{
-            id: 0,
-            autor: user!,
-            config: config.map((item) => {
-              if (item.type === "image" || item.type === "pdf") {
-                return {
-                  ...item,
-                  src: files[item.id]
-                    ? URL.createObjectURL(files[item.id]!)
-                    : STORAGE_URL + item.src,
-                };
-              }
-              return item;
-            }),
-            titulo: inputs.titulo || "-",
-            descripcion: inputs.descripcion,
-            portada: img
-              ? URL.createObjectURL(img)
-              : blog
-                ? STORAGE_URL + blog.portada
-                : "",
-            destacado: false,
-            created_at: getTodayUtc(),
-            updated_at: getTodayUtc(),
+    <>
+      {modal(
+        "Formulario de evento",
+        <EventForm
+          event={event ?? { evento_nombre: inputs.titulo }}
+          onSuccess={(form) => {
+            setEvent(form);
+            setOpen(false);
           }}
-          preview
+          onDelete={() => {
+            setEvent(null);
+            setOpen(false);
+          }}
         />
-      ) : (
-        <>
-          <motion.div
-            layout
-            layoutId="blog-editor-header-form"
-            className="flex gap-4 w-full min-h-80 max-h-80 max-sm:max-h-[480px] max-sm:min-h-[480px] mb-4 max-sm:flex-col"
-          >
-            <div className="flex-1 flex flex-col gap-4">
-              <Input
-                type="text"
-                value={inputs.titulo}
-                onChange={(e) =>
-                  setInputs((prev) => ({ ...prev, titulo: e.target.value }))
-                }
-                label="Título"
-                required
-              />
-              <TextArea
-                value={inputs.descripcion}
-                onChange={(e) =>
-                  setInputs((prev) => ({
-                    ...prev,
-                    descripcion: e.target.value,
-                  }))
-                }
-                className="resize-none flex-1"
-                containerClassName="flex-1"
-                label="Descripción"
-              />
-            </div>
-            <InputFile
-              accept=".png,.jpg,.jpeg"
-              label="Portada"
-              required
-              state={img}
-              setState={setImg}
-              defaultSrc={blog ? STORAGE_URL + blog.portada : undefined}
-              maxSize={5 * 1024}
-            />
-          </motion.div>
-          {config.length > 0 && (
-            <AnimatePresence initial={false}>
-              <div className="flex flex-col gap-4">
-                {config.map((item, i) => (
-                  <motion.div
-                    key={item.id}
-                    layout
-                    layoutId={item.id}
-                    initial={{ y: -80, opacity: 0 }}
-                    animate={{ x: 0, y: 0, opacity: 1 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <div className="flex gap-4 max-sm:flex-col max-sm:gap-2">
-                      {handleInputs(item)}
-                      <div className="flex gap-2 pt-6 max-sm:pt-0 max-sm:self-end">
-                        <Button
-                          type="button"
-                          tabIndex={-1}
-                          icon={Icon.Types.CARET_UP}
-                          btnType="secondary"
-                          onClick={() => {
-                            const index = config.findIndex(
-                              (i) => i.id === item.id
-                            );
-                            if (index === 0) return;
-                            setConfig((prev) => {
-                              const copy = [...prev];
-                              const temp = copy[index];
-                              copy[index] = copy[index - 1];
-                              copy[index - 1] = temp;
-                              return copy;
-                            });
-                          }}
-                          disabled={i === 0}
-                        />
-                        <Button
-                          type="button"
-                          tabIndex={-1}
-                          icon={Icon.Types.CARET_DOWN}
-                          btnType="secondary"
-                          onClick={() => {
-                            const index = config.findIndex(
-                              (i) => i.id === item.id
-                            );
-                            if (index === config.length - 1) return;
-                            setConfig((prev) => {
-                              const copy = [...prev];
-                              const temp = copy[index];
-                              copy[index] = copy[index + 1];
-                              copy[index + 1] = temp;
-                              return copy;
-                            });
-                          }}
-                          disabled={i === config.length - 1}
-                        />
-                        <Button
-                          type="button"
-                          tabIndex={-1}
-                          onClick={() => {
-                            setFiles((prev) => {
-                              const copy = { ...prev };
-                              delete copy[item.id ?? "-"];
-                              return copy;
-                            });
-                            setConfig((prev) =>
-                              prev.filter((i) => i.id !== item.id)
-                            );
-                          }}
-                          icon={Icon.Types.TRASH}
-                          danger
-                          btnType="secondary"
-                        />
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </AnimatePresence>
-          )}
-          <motion.div
-            layoutId="controles"
-            transition={{ duration: 0.3 }}
-            className="w-full relative py-4 group mt-4"
-          >
-            <span className="h-[1px] w-full absolute left-0 top-1/2 -translate-y-1/2 bg-alto-300/80 group-hover:bg-alto-300/80 transition-all duration-100" />
-            <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex gap-4 group-hover:opacity-100 opacity-100 transition-all duration-100">
-              <Button
-                icon={Icon.Types.LABEL}
-                subicon={Icon.Types.ADD}
-                btnSize="small"
-                btnType="secondary"
-                type="button"
-                onClick={() => {
-                  setConfig((prev) => [
-                    ...prev,
-                    {
-                      id: v4(),
-                      type: "subtitle",
-                      content: "",
-                    },
-                  ]);
-                }}
-                textClassname="max-sm:hidden"
-              >
-                Subtítulo
-              </Button>
-              <Button
-                icon={Icon.Types.TEXT}
-                subicon={Icon.Types.ADD}
-                btnSize="small"
-                btnType="secondary"
-                type="button"
-                onClick={() => {
-                  setConfig((prev) => [
-                    ...prev,
-                    {
-                      id: v4(),
-                      type: "paragraph",
-                      content: "",
-                    },
-                  ]);
-                }}
-                textClassname="max-sm:hidden"
-              >
-                Párrafo
-              </Button>
-              <Button
-                icon={Icon.Types.LIST}
-                subicon={Icon.Types.ADD}
-                btnSize="small"
-                btnType="secondary"
-                type="button"
-                onClick={() => {
-                  setConfig((prev) => [
-                    ...prev,
-                    {
-                      id: v4(),
-                      type: "vignette",
-                      title: "",
-                      content: "",
-                    },
-                  ]);
-                }}
-                textClassname="max-sm:hidden"
-              >
-                Viñeta
-              </Button>
-              <Button
-                icon={Icon.Types.IMAGE}
-                subicon={Icon.Types.ADD}
-                btnSize="small"
-                btnType="secondary"
-                type="button"
-                textClassname="max-sm:hidden"
-                onClick={() => {
-                  setConfig((prev) => [
-                    ...prev,
-                    {
-                      id: v4(),
-                      type: "image",
-                      src: "",
-                      title: "",
-                      description: "",
-                    },
-                  ]);
-                }}
-              >
-                Imagen
-              </Button>
-              <Button
-                icon={Icon.Types.FILE}
-                subicon={Icon.Types.ADD}
-                btnSize="small"
-                btnType="secondary"
-                type="button"
-                textClassname="max-sm:hidden"
-                onClick={() => {
-                  setConfig((prev) => [
-                    ...prev,
-                    {
-                      id: v4(),
-                      type: "pdf",
-                      src: "",
-                    },
-                  ]);
-                }}
-              >
-                PDF
-              </Button>
-            </div>
-          </motion.div>
-        </>
       )}
-    </div>
+      <div
+        className="flex h-full flex-col  overflow-scroll isolate"
+        style={{
+          paddingInline: PRIVATE_PADDING_INLINE,
+          paddingBottom: PRIVATE_PADDING_INLINE,
+        }}
+      >
+        <div className="flex gap-4 justify-between items-center sticky top-0 bg-alto-100 dark:bg-alto-950 pb-4 z-10 flex-wrap-reverse">
+          <div className="flex gap-4 items-center">
+            <Button
+              onClick={() => {
+                setOpen(true);
+              }}
+              btnType="secondary"
+              icon={Icon.Types.GOOGLE_CALENDAR}
+              btnSize="small"
+              primary={!!event}
+              textClassname="max-sm:max-w-[100px]"
+            >
+              {event ? event.evento_nombre : "Añadir evento"}
+            </Button>
+          </div>
+          <div className="flex gap-4 flex-1 justify-end">
+            <Button
+              onClick={() => {
+                setPreview((prev) => !prev);
+              }}
+              btnSize="small"
+              btnType="tertiary"
+              icon={preview ? Icon.Types.PENCIL : Icon.Types.EYE}
+              textClassname="max-sm:hidden"
+            >
+              {preview ? "Editar" : "Previsualizar"}
+            </Button>
+            <Button
+              onClick={(e) => {
+                e.preventDefault();
+                handleSend();
+              }}
+              btnSize="small"
+              icon={Icon.Types.SAVE}
+              disabled={loading}
+            >
+              Guardar
+            </Button>
+          </div>
+        </div>
+        {preview ? (
+          <BlogPage
+            blog={{
+              id: 0,
+              autor: user!,
+              config: config.map((item) => {
+                if (item.type === "image" || item.type === "pdf") {
+                  return {
+                    ...item,
+                    src: files[item.id]
+                      ? URL.createObjectURL(files[item.id]!)
+                      : STORAGE_URL + item.src,
+                  };
+                }
+                return item;
+              }),
+              titulo: inputs.titulo || "-",
+              descripcion: inputs.descripcion,
+              portada: img
+                ? URL.createObjectURL(img)
+                : blog
+                  ? STORAGE_URL + blog.portada
+                  : "",
+              destacado: false,
+              evento_nombre: event?.evento_nombre ?? null,
+              evento_fecha: event?.evento_fecha
+                ? `${event.evento_fecha} ${event.evento_hora}`
+                : null,
+              evento_latitud: event?.evento_latitud ?? null,
+              evento_longitud: event?.evento_longitud ?? null,
+              evento_id_calendar: null,
+              evento_link_calendar: null,
+              yo_atiendo: false,
+              created_at: getTodayUtc(),
+              updated_at: getTodayUtc(),
+            }}
+            preview
+          />
+        ) : (
+          <>
+            <motion.div
+              layout
+              layoutId="blog-editor-header-form"
+              className="flex gap-4 w-full min-h-80 max-h-80 max-sm:max-h-[480px] max-sm:min-h-[480px] mb-4 max-sm:flex-col"
+            >
+              <div className="flex-1 flex flex-col gap-4">
+                <Input
+                  type="text"
+                  value={inputs.titulo}
+                  onChange={(e) =>
+                    setInputs((prev) => ({ ...prev, titulo: e.target.value }))
+                  }
+                  label="Título"
+                  required
+                />
+                <TextArea
+                  value={inputs.descripcion}
+                  onChange={(e) =>
+                    setInputs((prev) => ({
+                      ...prev,
+                      descripcion: e.target.value,
+                    }))
+                  }
+                  className="resize-none flex-1"
+                  containerClassName="flex-1"
+                  label="Descripción"
+                />
+              </div>
+              <InputFile
+                accept=".png,.jpg,.jpeg"
+                label="Portada"
+                required
+                state={img}
+                setstate={(file) => {
+                  setImg(file);
+                }}
+                defaultsrc={blog ? STORAGE_URL + blog.portada : undefined}
+                maxsize={5 * 1024}
+              />
+            </motion.div>
+            {config.length > 0 && (
+              <AnimatePresence initial={false}>
+                <div className="flex flex-col gap-4">
+                  {config.map((item, i) => (
+                    <motion.div
+                      key={item.id}
+                      layout
+                      layoutId={item.id}
+                      initial={{ y: -80, opacity: 0 }}
+                      animate={{ x: 0, y: 0, opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <div className="flex gap-4 max-sm:flex-col max-sm:gap-2">
+                        {handleInputs(item)}
+                        <div className="flex gap-2 pt-6 max-sm:pt-0 max-sm:self-end">
+                          <Button
+                            type="button"
+                            tabIndex={-1}
+                            icon={Icon.Types.CARET_UP}
+                            btnType="secondary"
+                            onClick={() => {
+                              const index = config.findIndex(
+                                (i) => i.id === item.id
+                              );
+                              if (index === 0) return;
+                              setConfig((prev) => {
+                                const copy = [...prev];
+                                const temp = copy[index];
+                                copy[index] = copy[index - 1];
+                                copy[index - 1] = temp;
+                                return copy;
+                              });
+                            }}
+                            disabled={i === 0}
+                          />
+                          <Button
+                            type="button"
+                            tabIndex={-1}
+                            icon={Icon.Types.CARET_DOWN}
+                            btnType="secondary"
+                            onClick={() => {
+                              const index = config.findIndex(
+                                (i) => i.id === item.id
+                              );
+                              if (index === config.length - 1) return;
+                              setConfig((prev) => {
+                                const copy = [...prev];
+                                const temp = copy[index];
+                                copy[index] = copy[index + 1];
+                                copy[index + 1] = temp;
+                                return copy;
+                              });
+                            }}
+                            disabled={i === config.length - 1}
+                          />
+                          <Button
+                            type="button"
+                            tabIndex={-1}
+                            onClick={() => {
+                              setFiles((prev) => {
+                                const copy = { ...prev };
+                                delete copy[item.id ?? "-"];
+                                return copy;
+                              });
+                              setConfig((prev) =>
+                                prev.filter((i) => i.id !== item.id)
+                              );
+                            }}
+                            icon={Icon.Types.TRASH}
+                            danger
+                            btnType="secondary"
+                          />
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </AnimatePresence>
+            )}
+            <motion.div
+              layoutId="controles"
+              transition={{ duration: 0.3 }}
+              className="w-full relative py-4 group mt-4"
+            >
+              <span className="h-[1px] w-full absolute left-0 top-1/2 -translate-y-1/2 bg-alto-300/80 group-hover:bg-alto-300/80 transition-all duration-100" />
+              <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex gap-4 group-hover:opacity-100 opacity-100 transition-all duration-100">
+                <Button
+                  icon={Icon.Types.LABEL}
+                  subicon={Icon.Types.ADD}
+                  btnSize="small"
+                  btnType="secondary"
+                  type="button"
+                  onClick={() => {
+                    setConfig((prev) => [
+                      ...prev,
+                      {
+                        id: v4(),
+                        type: "subtitle",
+                        content: "",
+                      },
+                    ]);
+                  }}
+                  textClassname="max-sm:hidden"
+                >
+                  Subtítulo
+                </Button>
+                <Button
+                  icon={Icon.Types.TEXT}
+                  subicon={Icon.Types.ADD}
+                  btnSize="small"
+                  btnType="secondary"
+                  type="button"
+                  onClick={() => {
+                    setConfig((prev) => [
+                      ...prev,
+                      {
+                        id: v4(),
+                        type: "paragraph",
+                        content: "",
+                      },
+                    ]);
+                  }}
+                  textClassname="max-sm:hidden"
+                >
+                  Párrafo
+                </Button>
+                <Button
+                  icon={Icon.Types.LIST}
+                  subicon={Icon.Types.ADD}
+                  btnSize="small"
+                  btnType="secondary"
+                  type="button"
+                  onClick={() => {
+                    setConfig((prev) => [
+                      ...prev,
+                      {
+                        id: v4(),
+                        type: "vignette",
+                        title: "",
+                        content: "",
+                      },
+                    ]);
+                  }}
+                  textClassname="max-sm:hidden"
+                >
+                  Viñeta
+                </Button>
+                <Button
+                  icon={Icon.Types.IMAGE}
+                  subicon={Icon.Types.ADD}
+                  btnSize="small"
+                  btnType="secondary"
+                  type="button"
+                  textClassname="max-sm:hidden"
+                  onClick={() => {
+                    setConfig((prev) => [
+                      ...prev,
+                      {
+                        id: v4(),
+                        type: "image",
+                        src: "",
+                        title: "",
+                        description: "",
+                      },
+                    ]);
+                  }}
+                >
+                  Imagen
+                </Button>
+                <Button
+                  icon={Icon.Types.FILE}
+                  subicon={Icon.Types.ADD}
+                  btnSize="small"
+                  btnType="secondary"
+                  type="button"
+                  textClassname="max-sm:hidden"
+                  onClick={() => {
+                    setConfig((prev) => [
+                      ...prev,
+                      {
+                        id: v4(),
+                        type: "pdf",
+                        src: "",
+                      },
+                    ]);
+                  }}
+                >
+                  PDF
+                </Button>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </div>
+    </>
   );
 };
 

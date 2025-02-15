@@ -76,6 +76,8 @@ const NextAppointmentBanner = () => {
     });
   };
 
+  /* const data: "accepted" | "declined" | "needsAction" | undefined = ; */
+
   return (
     <section className="flex flex-col gap-6 flex-1 overflow-hidden w-full">
       <header className="h-10 flex items-center">
@@ -147,11 +149,11 @@ const NextAppointmentBanner = () => {
                       "w-28 flex justify-center text-xs px-4 py-1 rounded-md border transition-colors duration-500",
                       {
                         "bg-alto-700/10 text-alto-700 border-alto-700/40 dark:bg-alto-400/10 dark:text-alto-400 dark:border-alto-400/40":
-                          data === "needsAction" || !data,
+                          /* data === "needsAction" */ false || !data,
                         "bg-success/10 text-success border-success/40":
-                          data === "accepted",
+                          /* data === "accepted" */ !!data,
                         "bg-danger/10 text-danger border-danger/40":
-                          data === "declined",
+                          /*  data === "declined" */ false,
                       }
                     )}
                   >
@@ -161,7 +163,7 @@ const NextAppointmentBanner = () => {
                           needsAction: "Pendiente",
                           accepted: "Aceptada",
                           declined: "Rechazada",
-                        }[data]}
+                        }["accepted"]}
                   </span>
                 </div>
               </div>

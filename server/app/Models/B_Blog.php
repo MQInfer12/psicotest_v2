@@ -20,6 +20,12 @@ class B_Blog extends Model
         'email_autor',
         'config',
         'destacado',
+        'evento_nombre',
+        'evento_fecha',
+        'evento_latitud',
+        'evento_longitud',
+        'evento_id_calendar',
+        'evento_link_calendar'
     ];
 
     public function autor()

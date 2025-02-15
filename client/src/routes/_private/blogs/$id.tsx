@@ -32,6 +32,8 @@ function RouteComponent() {
   const { id } = useParams({
     from: "/_private/blogs/$id",
   });
+  if (isNaN(Number(id))) return <Navigate to="/blogs" />;
+
   const { fetchData } = useFetch();
   const { data, isError } = fetchData([
     `GET /blog/:id`,

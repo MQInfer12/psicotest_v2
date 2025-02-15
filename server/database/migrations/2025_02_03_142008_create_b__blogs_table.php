@@ -20,6 +20,14 @@ return new class extends Migration
             $table->foreign('email_autor')->references('email')->on('u_users')->onUpdate('cascade')->onDelete('cascade');
             $table->json('config');
             $table->boolean('destacado')->default(false);
+
+            $table->string('evento_nombre')->nullable();
+            $table->timestamp('evento_fecha')->nullable();
+            $table->decimal('evento_latitud', 10, 7)->nullable();
+            $table->decimal('evento_longitud', 10, 7)->nullable();
+            $table->string('evento_id_calendar')->nullable();
+            $table->string('evento_link_calendar')->nullable();
+
             $table->timestamps();
         });
     }

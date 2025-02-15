@@ -26,7 +26,16 @@ const Public = () => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
-  if (state !== "unlogged") return <Navigate to={redirect || "/tests"} />;
+  if (state !== "unlogged") {
+    const isDaily = pathname.startsWith("/daily");
+    return (
+      <Navigate
+        to={
+          redirect || (isDaily ? pathname.replace("daily", "blogs") : "/tests")
+        }
+      />
+    );
+  }
   return (
     <LoginContextProvider>
       <nav

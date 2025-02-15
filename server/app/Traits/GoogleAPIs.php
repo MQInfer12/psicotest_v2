@@ -30,14 +30,14 @@ trait GoogleAPIs
     return false;
   }
 
-  public function getAttendeeResponseStatus($id_calendar, $access_token, $user)
+  public function getAttendeeResponseStatus($id_calendar, $access_token, $user, $me = false)
   {
     $event = $this->fetchGoogleCalendarEvent($id_calendar, $access_token, $user);
     if (!$event) {
       return false;
     }
     foreach ($event->attendees as $attendee) {
-      if ($attendee->email != $user->email) {
+      if ($me ? $attendee->email == $user->email : $attendee->email != $user->email) {
         return $attendee->responseStatus;
       }
     }
@@ -69,6 +69,28 @@ trait GoogleAPIs
     }
 
     return false;
+  }
+
+  public function attendGoogleCalendarEvent($id_calendar, $access_token, $user)
+  {
+    $event = $this->fetchGoogleCalendarEvent($id_calendar, $access_token, $user);
+    if (!$event) {
+      return false;
+    }
+    foreach ($event->attendees as $attendee) {
+      if ($attendee->email == $user->email) {
+        return true;
+      }
+    }
+    $body = [
+      'attendees' => array_merge($event->attendees, [
+        [
+          'email' => $user->email,
+          'responseStatus' => 'accepted',
+        ],
+      ]),
+    ];
+    return $this->updateGoogleCalendarEvent($id_calendar, $body, $access_token, $user);
   }
 
   public function createGoogleCalendarEvent($body, $access_token, $user)
