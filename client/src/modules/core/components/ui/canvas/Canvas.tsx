@@ -10,6 +10,7 @@ import Button from "../Button";
 import Test from "./components/Test";
 import { CANVAS_PADDING } from "./constants/CANVAS";
 import { useUserContext } from "@/modules/features/auth/context/UserContext";
+import ShareCanvas from "./components/ShareCanvas";
 
 interface Props {
   children?: React.ReactNode;
@@ -22,6 +23,7 @@ interface TitleProps extends Props {
   description?: string | null;
   showCover?: boolean;
   coverJsx?: React.ReactNode;
+  shareLink?: string;
 }
 
 interface VigetteProps extends Props {
@@ -32,6 +34,11 @@ interface CanvasProps extends Props {
   layoutId?: string;
   withFooter?: boolean;
   type: "test" | "blog" | "privacy";
+  shareLink?: string;
+}
+
+interface FooterProps {
+  shareLink?: string;
 }
 
 interface ImageProps {
@@ -45,6 +52,7 @@ const Canvas = ({
   withFooter = false,
   layoutId,
   type,
+  shareLink,
 }: CanvasProps) => {
   const { PRIVATE_PADDING_INLINE } = useMeasureContext();
   const canvasDivRef = useRef<HTMLDivElement>(null);
@@ -73,7 +81,7 @@ const Canvas = ({
         className="flex h-full flex-col max-sm:border-b-2 items-center w-[1140px] max-w-full bg-alto-50 dark:bg-alto-1000 border-t-8 border-primary-700 dark:border-primary-400 rounded-lg shadow-xl shadow-alto-950/20 dark:shadow-alto-50/10 p-10 max-sm:p-4 max-sm:py-8 max-sm:rounded-none relative overflow-hidden isolate"
       >
         {children}
-        {withFooter && <Footer />}
+        {withFooter && <Footer shareLink={shareLink} />}
         <div className="w-40 h-40 absolute -top-10 -right-10 text-primary-200 opacity-40 -z-10 dark:text-primary-700 dark:opacity-20">
           <Icon
             type={
@@ -98,6 +106,7 @@ const Title = ({
   description,
   showCover,
   coverJsx,
+  shareLink,
 }: TitleProps) => {
   return (
     <div className="flex flex-col items-center pb-8 w-full">
@@ -136,6 +145,7 @@ const Title = ({
           {coverJsx}
         </div>
       )}
+      {shareLink && <ShareCanvas shareLink={shareLink} />}
     </div>
   );
 };
@@ -235,14 +245,14 @@ const Pdf = ({ src }: { src: string }) => {
   );
 };
 
-const Footer = () => {
+const Footer = ({ shareLink }: FooterProps) => {
   const { state } = useUserContext();
   const isUnlogged = state === "unlogged";
 
   const navigate = useNavigate();
 
   return (
-    <footer className="w-full flex flex-col items-start gap-10 mt-10">
+    <footer className="w-full flex items-start gap-4 justify-between mt-10">
       <Button
         onClick={() =>
           navigate({
@@ -255,6 +265,7 @@ const Footer = () => {
       >
         Leer más blogs
       </Button>
+      {shareLink && <ShareCanvas shareLink={shareLink} onFooter />}
     </footer>
   );
 };

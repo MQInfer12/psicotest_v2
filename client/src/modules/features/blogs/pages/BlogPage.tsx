@@ -12,6 +12,7 @@ import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import { toastConfirm, toastSuccess } from "@/modules/core/utils/toasts";
 import { useUserContext } from "../../auth/context/UserContext";
 import { useRef, useState } from "react";
+import { validateRoute } from "../../_layout/components/breadcrumb/utils/validateRoute";
 
 interface Props {
   blog: Blog;
@@ -61,8 +62,14 @@ const BlogPage = ({ blog, preview, onSuccessAssist }: Props) => {
     }
   };
 
+  const shareLink =
+    window.location.protocol +
+    "//" +
+    window.location.host +
+    validateRoute("/daily/$id", { id: String(blog.id) });
+
   return (
-    <Canvas type="blog" withFooter>
+    <Canvas type="blog" withFooter shareLink={shareLink}>
       <Canvas.Title
         photoSrc={blog.autor.foto}
         subtitle={`${blog.autor.nombre} • ${formatDate(blog.updated_at)}`}
