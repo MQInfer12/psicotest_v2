@@ -12,6 +12,7 @@ import { useUserContext } from "../../auth/context/UserContext";
 import { usePermiso } from "../../auth/hooks/usePermiso";
 import { Permisos } from "../../auth/types/Permisos";
 import { Blog } from "../api/responses";
+import clsx from "clsx";
 
 interface Props {
   blog: Blog;
@@ -85,10 +86,10 @@ const BlogCard = ({
         title={blog.titulo}
       >
         <img
-          className="w-full h-full object-cover -z-10"
+          className="w-full h-full object-cover -z-20 absolute left-0 top-0"
           src={STORAGE_URL + blog.portada}
         />
-        <span className="absolute inset-0 bg-primary-1000/50" />
+        <span className="absolute inset-0 bg-primary-1000/50 -z-10" />
         {blog.destacado && !canStandout && (
           <div title="Destacado" className="absolute top-4 right-4 text-white">
             <Icon type={Icon.Types.STAR} />
@@ -107,6 +108,41 @@ const BlogCard = ({
               type={blog.destacado ? Icon.Types.STAR : Icon.Types.STAR_OUTLINE}
             />
           </button>
+        )}
+        {blog.evento && (
+          <div className="flex absolute bottom-4 right-4">
+            {blog.asistencias
+              .filter((_, i) => i < 8)
+              .map((u, i) => (
+                <div
+                  key={u.id}
+                  className={clsx(
+                    "w-7 aspect-square rounded-full overflow-hidden border-2 border-white dark:border-alto-400",
+                    {
+                      "-ml-4": i > 0,
+                    }
+                  )}
+                >
+                  <img
+                    className="w-full h-full bg-alto-50"
+                    src={u.foto_user ?? DefaultPhoto}
+                    onError={(event) => {
+                      event.currentTarget.src = DefaultPhoto;
+                    }}
+                  />
+                </div>
+              ))}
+            <div
+              className={clsx(
+                "w-7 aspect-square rounded-full overflow-hidden border-2 border-white bg-alto-100 text-alto-800 p-2",
+                {
+                  "-ml-4": blog.asistencias.length > 0,
+                }
+              )}
+            >
+              <Icon type={Icon.Types.DOTS} />
+            </div>
+          </div>
         )}
       </div>
       <h3 className="font-normal mb-2 line-clamp-1" title={blog.titulo}>

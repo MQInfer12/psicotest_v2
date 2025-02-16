@@ -21,6 +21,7 @@ interface TitleProps extends Props {
   coverSrc?: string;
   description?: string | null;
   showCover?: boolean;
+  coverJsx?: React.ReactNode;
 }
 
 interface VigetteProps extends Props {
@@ -96,6 +97,7 @@ const Title = ({
   coverSrc,
   description,
   showCover,
+  coverJsx,
 }: TitleProps) => {
   return (
     <div className="flex flex-col items-center pb-8 w-full">
@@ -125,13 +127,13 @@ const Title = ({
         <div className="relative isolate w-full h-[560px] my-8 rounded-xl overflow-hidden shadow-md shadow-alto-950/20 dark:shadow-alto-50/10 border-2 border-alto-800/20 dark:border-alto-300/90 flex items-end">
           <img
             src={coverSrc}
-            className="w-full h-full object-cover -z-10 absolute top-0 left-0"
+            className="w-full h-full object-cover -z-20 absolute top-0 left-0"
             onError={(event) => {
               event.currentTarget.src = Placeholder;
             }}
           />
-          <span className="h-[100%] w-full absolute bottom-0 left-0 bg-gradient-to-b from-transparent to-primary-1000/80" />
-          <small className="text-alto-50 z-10 px-10 py-5"></small>
+          <span className="-z-10 h-[100%] w-full absolute bottom-0 left-0 bg-gradient-to-b from-transparent to-primary-1000/80" />
+          {coverJsx}
         </div>
       )}
     </div>

@@ -6,6 +6,8 @@ import { BlogsView } from "@/routes/_private/blogs";
 import { usePermiso } from "../../auth/hooks/usePermiso";
 import { Permisos } from "../../auth/types/Permisos";
 import { useUserContext } from "../../auth/context/UserContext";
+import clsx from "clsx";
+import DefaultPhoto from "@/assets/images/defaultPhoto.jpg";
 
 interface Props {
   blog: Blog;
@@ -73,6 +75,41 @@ const FeaturedBlog = ({ blog, view, handleStandout }: Props) => {
           <p className="font-light text-sm opacity-80 line-clamp-3">
             {blog.descripcion}
           </p>
+          {blog.evento && (
+            <div className="flex">
+              {blog.asistencias
+                .filter((_, i) => i < 8)
+                .map((u, i) => (
+                  <div
+                    key={u.id}
+                    className={clsx(
+                      "w-7 aspect-square rounded-full overflow-hidden border-2 border-white dark:border-alto-400",
+                      {
+                        "-ml-4": i > 0,
+                      }
+                    )}
+                  >
+                    <img
+                      className="w-full h-full bg-alto-50"
+                      src={u.foto_user ?? DefaultPhoto}
+                      onError={(event) => {
+                        event.currentTarget.src = DefaultPhoto;
+                      }}
+                    />
+                  </div>
+                ))}
+              <div
+                className={clsx(
+                  "w-7 aspect-square rounded-full overflow-hidden border-2 border-white bg-alto-100 text-alto-800 p-2",
+                  {
+                    "-ml-4": blog.asistencias.length > 0,
+                  }
+                )}
+              >
+                <Icon type={Icon.Types.DOTS} />
+              </div>
+            </div>
+          )}
         </article>
         <div className="text-white min-w-10 h-10 group-hover:opacity-100 opacity-0 transition-opacity duration-300">
           <Icon type={Icon.Types.CHEVRON_RIGHT} />

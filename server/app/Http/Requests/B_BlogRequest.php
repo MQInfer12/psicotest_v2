@@ -18,11 +18,12 @@ class B_BlogRequest extends FormRequest
             'descripcion' => 'string|nullable',
             'portada' => 'file|nullable|mimes:jpg,jpeg,png|max:5120',
             'config' => 'string|required',
-            'evento_nombre' => 'string|nullable',
-            'evento_fecha' => 'string|nullable',
-            'evento_hora' => 'string|nullable',
-            'evento_latitud' => 'numeric|nullable',
-            'evento_longitud' => 'numeric|nullable',
+            'evento' => 'array|sometimes|nullable',
+            'evento.nombre' => 'required_with:evento|string',
+            'evento.fecha' => 'required_with:evento|string',
+            'evento.hora' => 'required_with:evento|string',
+            'evento.latitud' => 'required_with:evento|numeric',
+            'evento.longitud' => 'required_with:evento|numeric',
         ];
     }
 
@@ -37,13 +38,29 @@ class B_BlogRequest extends FormRequest
             'portada.max' => 'La portada no puede pesar más de 5MB',
             'config.required' => 'La configuración es requerida',
             'config.string' => 'La configuración tiene que ser una cadena',
-            'evento_nombre.string' => 'El nombre del evento tiene que ser una cadena',
-            'evento_fecha.string' => 'La fecha del evento tiene que ser una fecha',
-            'evento_hora.string' => 'La hora del evento tiene que ser una hora',
-            'evento_latitud.numeric' => 'La latitud del evento tiene que ser un número',
-            'evento_longitud.numeric' => 'La longitud del evento tiene que ser un número',
+            'evento.array' => 'El evento tiene que ser un objeto',
+            'evento.nombre.string' => 'El nombre del evento tiene que ser una cadena',
+            'evento.nombre.required' => 'El nombre del evento es requerido',
+            'evento.fecha.string' => 'La fecha del evento tiene que ser una fecha',
+            'evento.fecha.required' => 'La fecha del evento es requerida',
+            'evento.hora.string' => 'La hora del evento tiene que ser una hora',
+            'evento.hora.required' => 'La hora del evento es requerida',
+            'evento.latitud.numeric' => 'La latitud del evento tiene que ser un número',
+            'evento.latitud.required' => 'La latitud del evento es requerida',
+            'evento.longitud.numeric' => 'La longitud del evento tiene que ser un número',
+            'evento.longitud.required' => 'La longitud del evento es requerida',
         ];
     }
 
-    protected function prepareForValidation() {}
+    protected function prepareForValidation()
+    {
+        if (is_string($this->evento)) {
+            $evento = json_decode($this->evento, true);
+            if (json_last_error() === JSON_ERROR_NONE) {
+                $this->merge([
+                    'evento' => $evento,
+                ]);
+            }
+        }
+    }
 }

@@ -9,12 +9,24 @@ export interface Blog extends Timestamps {
   portada: string;
   autor: User;
   destacado: boolean;
-  evento_nombre: string | null;
-  evento_fecha: string | null;
-  evento_latitud: number | null;
-  evento_longitud: number | null;
-  evento_id_calendar: string | null;
-  evento_link_calendar: string | null;
-  yo_atiendo: boolean;
+  evento: Evento | null;
+  asistencias: Asistencia[];
   config: CanvasType;
+}
+
+export interface Evento {
+  id: number;
+  nombre: string;
+  fecha: string;
+  direccion: string;
+  latitud: number;
+  longitud: number;
+}
+
+export interface Asistencia {
+  id: number;
+  email_user: string;
+  nombre_user: string;
+  foto_user?: string | null;
+  link_calendar: string;
 }

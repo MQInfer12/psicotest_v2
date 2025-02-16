@@ -24,12 +24,21 @@ class B_Blog extends Model
         'evento_fecha',
         'evento_latitud',
         'evento_longitud',
-        'evento_id_calendar',
-        'evento_link_calendar'
+        'evento_direccion'
     ];
 
     public function autor()
     {
         return $this->belongsTo(U_User::class, 'email_autor', 'email');
+    }
+
+    public function asistencias()
+    {
+        return $this->hasManyThrough(B_Asistencia::class, B_Evento::class, 'id_blog', 'id_evento', 'id', 'id');
+    }
+
+    public function evento()
+    {
+        return $this->hasOne(B_Evento::class, 'id_blog');
     }
 }

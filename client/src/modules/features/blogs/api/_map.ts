@@ -31,6 +31,13 @@ declare global {
       request: null;
       response: Blog;
     };
+    "PATCH /blog/attend/:id": {
+      params: {
+        id: number;
+      };
+      request: null;
+      response: Blog;
+    };
     "DELETE /blog/:id": {
       params: {
         id: number;

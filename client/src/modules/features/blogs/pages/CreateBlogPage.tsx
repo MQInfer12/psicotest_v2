@@ -45,13 +45,13 @@ const CreateBlogPage = ({ blog }: Props) => {
   const [files, setFiles] = useState<Record<string, File | null>>({});
 
   const [event, setEvent] = useState<EventDTO | null>(
-    blog?.evento_id_calendar
+    blog?.evento
       ? {
-          evento_nombre: blog.evento_nombre!,
-          evento_fecha: blog.evento_fecha!.split("T")[0],
-          evento_hora: blog.evento_fecha!.split("T")[1].slice(0, 5),
-          evento_latitud: blog.evento_latitud!,
-          evento_longitud: blog.evento_longitud!,
+          nombre: blog.evento.nombre,
+          fecha: blog.evento.fecha.split("T")[0],
+          hora: blog.evento.fecha.split("T")[1].slice(0, 5),
+          latitud: blog.evento.latitud,
+          longitud: blog.evento.longitud,
         }
       : null
   );
@@ -109,10 +109,7 @@ const CreateBlogPage = ({ blog }: Props) => {
     });
 
     if (event) {
-      Object.keys(event).forEach((key) => {
-        //@ts-expect-error key should be te key of event object
-        data.append(key, event[key]);
-      });
+      data.append("evento", JSON.stringify(event));
     }
 
     const tokens = getTokens();
@@ -305,7 +302,7 @@ const CreateBlogPage = ({ blog }: Props) => {
       {modal(
         "Formulario de evento",
         <EventForm
-          event={event ?? { evento_nombre: inputs.titulo }}
+          event={event ?? { nombre: inputs.titulo }}
           onSuccess={(form) => {
             setEvent(form);
             setOpen(false);
@@ -335,7 +332,7 @@ const CreateBlogPage = ({ blog }: Props) => {
               primary={!!event}
               textClassname="max-sm:max-w-[100px]"
             >
-              {event ? event.evento_nombre : "Añadir evento"}
+              {event ? event.nombre : "Añadir evento"}
             </Button>
           </div>
           <div className="flex gap-4 flex-1 justify-end">
@@ -387,15 +384,17 @@ const CreateBlogPage = ({ blog }: Props) => {
                   ? STORAGE_URL + blog.portada
                   : "",
               destacado: false,
-              evento_nombre: event?.evento_nombre ?? null,
-              evento_fecha: event?.evento_fecha
-                ? `${event.evento_fecha} ${event.evento_hora}`
+              evento: event
+                ? {
+                    id: 0,
+                    nombre: event.nombre,
+                    fecha: `${event.fecha}T${event.hora}`,
+                    direccion: "(Lugar generado automáticamente)",
+                    latitud: event.latitud,
+                    longitud: event.longitud,
+                  }
                 : null,
-              evento_latitud: event?.evento_latitud ?? null,
-              evento_longitud: event?.evento_longitud ?? null,
-              evento_id_calendar: null,
-              evento_link_calendar: null,
-              yo_atiendo: false,
+              asistencias: [],
               created_at: getTodayUtc(),
               updated_at: getTodayUtc(),
             }}

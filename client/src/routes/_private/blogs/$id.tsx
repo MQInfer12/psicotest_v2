@@ -35,18 +35,28 @@ function RouteComponent() {
   if (isNaN(Number(id))) return <Navigate to="/blogs" />;
 
   const { fetchData } = useFetch();
-  const { data, isError } = fetchData([
+  const { data, setData, isError } = fetchData([
     `GET /blog/:id`,
     {
       id: Number(id),
     },
   ]);
+  const { getDataSetter } = useFetch();
+  const dataSetter = getDataSetter("GET /blog/:id", {
+    id,
+  });
 
   if (isError) return <Navigate to="/blogs" />;
   if (!data) return <Loader text="Cargando blog..." />;
   return (
     <ProtectedRoute permisos={[Permisos.VER_BLOGS]}>
-      <BlogPage blog={data} />
+      <BlogPage
+        blog={data}
+        onSuccessAssist={(newBlog) => {
+          setData(newBlog);
+          dataSetter(newBlog);
+        }}
+      />
     </ProtectedRoute>
   );
 }

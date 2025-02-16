@@ -19,11 +19,11 @@ const EventForm = ({ event, onSuccess, onDelete }: Props) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      evento_nombre: event?.evento_nombre ?? "",
-      evento_fecha: event?.evento_fecha ?? getTodayUtc(),
-      evento_hora: event?.evento_hora ?? "",
-      evento_latitud: event?.evento_latitud ?? -17.375174392296934,
-      evento_longitud: event?.evento_longitud ?? -66.15867219891513,
+      nombre: event?.nombre ?? "",
+      fecha: event?.fecha ?? getTodayUtc(),
+      hora: event?.hora ?? "",
+      latitud: event?.latitud ?? -17.375174392296934,
+      longitud: event?.longitud ?? -66.15867219891513,
     },
     resolver: yupResolver(EventDTOSchema),
   });
@@ -40,50 +40,52 @@ const EventForm = ({ event, onSuccess, onDelete }: Props) => {
     <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
       <Input
         label="Nombre del evento"
-        error={errors.evento_nombre?.message}
+        error={errors.nombre?.message}
         required
-        {...register("evento_nombre")}
+        {...register("nombre")}
       />
       <div className="flex gap-4">
         <Input
           label="Fecha del evento"
-          error={errors.evento_fecha?.message}
+          error={errors.fecha?.message}
           type="date"
           required
-          {...register("evento_fecha")}
+          {...register("fecha")}
         />
         <Input
           label="Hora del evento"
           type="time"
-          error={errors.evento_hora?.message}
-          {...register("evento_hora")}
+          error={errors.hora?.message}
+          {...register("hora")}
         />
       </div>
       <Input
         label="Latitud"
-        error={errors.evento_latitud?.message}
+        error={errors.latitud?.message}
         required
-        {...register("evento_latitud")}
+        {...register("latitud")}
       />
       <Input
         label="Nombre"
-        error={errors.evento_longitud?.message}
+        error={errors.longitud?.message}
         required
-        {...register("evento_longitud")}
+        {...register("longitud")}
       />
       <div className="flex gap-4">
         <Button className="flex-1" type="submit">
           Guardar
         </Button>
-        <Button
-          className="flex-1"
-          type="button"
-          btnType="secondary"
-          danger
-          onClick={handleDelete}
-        >
-          Eliminar
-        </Button>
+        {event?.fecha && (
+          <Button
+            className="flex-1"
+            type="button"
+            btnType="secondary"
+            danger
+            onClick={handleDelete}
+          >
+            Eliminar
+          </Button>
+        )}
       </div>
     </form>
   );
