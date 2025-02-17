@@ -4,7 +4,7 @@ import LoginButton from "./LoginButton";
 import { useEffect } from "react";
 import Loader from "@/modules/core/components/ui/loader/Loader";
 import clsx from "clsx";
-import { useNavigate } from "@tanstack/react-router";
+import { useLocation, useNavigate } from "@tanstack/react-router";
 import { getActiveBreadcrumb } from "../../_layout/components/breadcrumb/utils/getActiveBreadcrumb";
 import { useLoginContext } from "../context/LoginContext";
 
@@ -15,6 +15,7 @@ interface Props {
 const LoginCard = ({ redirect }: Props) => {
   const { modal, setOpen, loading } = useLoginContext();
   const navigate = useNavigate({ from: "/" });
+  const { pathname } = useLocation();
 
   useEffect(() => {
     if (redirect) {
@@ -75,7 +76,7 @@ const LoginCard = ({ redirect }: Props) => {
           width: 640,
           onlyContent: true,
           onClose() {
-            navigate({ to: "/" });
+            navigate({ to: pathname });
           },
         }
       )}

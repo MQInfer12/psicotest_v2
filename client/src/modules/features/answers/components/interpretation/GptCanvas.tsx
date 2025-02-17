@@ -2,7 +2,7 @@ import GPT from "@/assets/images/gpt.png";
 import clsx from "clsx";
 import GptPdf, { GptPdfData } from "./GptPdf";
 import Button from "@/modules/core/components/ui/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Icon from "@/modules/core/components/icons/Icon";
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import GptContent from "./GptContent";
@@ -17,6 +17,7 @@ interface Props {
   success?: boolean;
   setContent: React.Dispatch<React.SetStateAction<string | null>>;
   idRespuestas: number[];
+  onChangePDF?: (showPDF: boolean) => void;
 }
 
 const GptCanvas = ({
@@ -27,9 +28,14 @@ const GptCanvas = ({
   success = true,
   setContent,
   idRespuestas,
+  onChangePDF,
 }: Props) => {
   const [edit, setEdit] = useState<string | null>(null);
   const [showPDF, setShowPDF] = useState(false);
+
+  useEffect(() => {
+    onChangePDF?.(showPDF);
+  }, [showPDF]);
 
   const { postData } = useFetch();
   const patchMutation = postData("PATCH /respuesta/patch/interpretations");

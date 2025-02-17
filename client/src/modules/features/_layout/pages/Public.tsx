@@ -14,6 +14,7 @@ import LoginLink from "../components/LoginLink";
 import Logo from "../components/Logo";
 import { PUBLIC_NAVBAR_HEIGHT } from "../constants/LAYOUT_SIZES";
 import { useEffect } from "react";
+import { validateRoute } from "../components/breadcrumb/utils/validateRoute";
 
 const Public = () => {
   const { state } = useUserContext();
@@ -27,7 +28,7 @@ const Public = () => {
   }, [pathname]);
 
   if (state !== "unlogged") {
-    const isDaily = pathname.startsWith("/daily");
+    const isDaily = pathname.startsWith(validateRoute("/daily"));
     return (
       <Navigate
         to={

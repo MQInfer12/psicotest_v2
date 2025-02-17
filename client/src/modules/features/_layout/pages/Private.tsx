@@ -77,19 +77,22 @@ const Dashboard = () => {
     strict: false,
   });
 
-  if (state === "unlogged")
+  if (state === "unlogged") {
     return (
       <Navigate
         to="/"
         search={!fromLogoutRef.current ? { redirect: url } : undefined}
       />
     );
-  if (state === "loading")
+  }
+
+  if (state === "loading") {
     return (
       <div className="w-screen h-[100svh] bg-alto-100 dark:bg-alto-950">
         <Loader text="Cargando datos de usuario..." />
       </div>
     );
+  }
 
   return (
     <>

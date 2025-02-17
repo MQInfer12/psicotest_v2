@@ -14,6 +14,7 @@ const Interpretation = () => {
   const { postData } = useFetch();
   const configMutation = postData("GET /configuracion");
   const mutation = postData("PATCH /respuesta/patch/interpretation/:id");
+  const [showPDF, setShowPDF] = useState(false);
 
   const handleInterpretation = () => {
     const rawName = data.user.nombre.split(" ")[0].toLocaleLowerCase();
@@ -90,7 +91,7 @@ const Interpretation = () => {
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
       <div className="p-4 flex justify-between items-center gap-4 flex-wrap-reverse border-b border-alto-300/70 dark:border-alto-900">
-        <Button disabled={loading} onClick={handleInterpretation}>
+        <Button disabled={loading || showPDF} onClick={handleInterpretation}>
           Generar interpretación
         </Button>
         {/* <div className="flex-[9999_1_0] flex justify-end gap-2">
@@ -121,6 +122,7 @@ const Interpretation = () => {
               : "No especificado",
           group: data.nombre_carpeta || "Sin clasificación",
         }}
+        onChangePDF={setShowPDF}
       />
     </div>
   );

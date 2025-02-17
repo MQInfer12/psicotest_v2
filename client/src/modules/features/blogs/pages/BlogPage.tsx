@@ -13,6 +13,7 @@ import { toastConfirm, toastSuccess } from "@/modules/core/utils/toasts";
 import { useUserContext } from "../../auth/context/UserContext";
 import { useRef, useState } from "react";
 import { validateRoute } from "../../_layout/components/breadcrumb/utils/validateRoute";
+import { useNavigate } from "@tanstack/react-router";
 
 interface Props {
   blog: Blog;
@@ -29,26 +30,40 @@ const BlogPage = ({ blog, preview, onSuccessAssist }: Props) => {
   const [loading, setLoading] = useState(false);
   const loadingRef = useRef(false);
 
+  const navigate = useNavigate();
+
   const { user } = useUserContext();
   const im_assisting = blog.asistencias.find(
     (a) => a.email_user === user?.email
   );
 
   const assist = () => {
-    setLoading(true);
-    if (!loadingRef.current) {
-      loadingRef.current = true;
-      patchMutation(null, {
+    if (user) {
+      setLoading(true);
+      if (!loadingRef.current) {
+        loadingRef.current = true;
+        patchMutation(null, {
+          params: {
+            id: blog.id,
+          },
+          onSuccess: (res) => {
+            toastSuccess(res.message);
+            onSuccessAssist?.(res.data);
+          },
+          onSettled: () => {
+            setLoading(false);
+            loadingRef.current = false;
+          },
+        });
+      }
+    } else {
+      navigate({
+        to: "/daily/$id",
         params: {
-          id: blog.id,
+          id: String(blog.id),
         },
-        onSuccess: (res) => {
-          toastSuccess(res.message);
-          onSuccessAssist?.(res.data);
-        },
-        onSettled: () => {
-          setLoading(false);
-          loadingRef.current = false;
+        search: {
+          redirect: validateRoute("/blogs/$id", { id: String(blog.id) }),
         },
       });
     }
