@@ -29,6 +29,8 @@ return new class extends Migration
             $table->text('refresh_token')->nullable();
 
             $table->boolean('estado')->default(true);
+            $table->boolean('disponible')->default(true);
+
             $table->foreignId('id_rol')->nullable()->constrained('u_rols')->cascadeOnUpdate()->nullOnDelete();
             $table->timestamps();
         });

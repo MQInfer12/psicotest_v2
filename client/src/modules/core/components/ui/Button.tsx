@@ -12,7 +12,9 @@ interface Props extends HTMLMotionProps<"button"> {
   btnType?: "primary" | "secondary" | "tertiary";
   btnSize?: "base" | "small" | "square";
   danger?: boolean;
+  success?: boolean;
   primary?: boolean;
+  noHover?: boolean;
   icon?: ICON;
   subicon?: ICON;
   reverse?: boolean;
@@ -27,7 +29,9 @@ const Button = ({
   btnType = "primary",
   btnSize = "base",
   danger,
+  success,
   primary,
+  noHover = false,
   icon,
   subicon,
   children,
@@ -54,7 +58,7 @@ const Button = ({
           borderColor: dark ? COLORS.alto[900] : COLORS.primary[200],
           color: dark ? COLORS.alto[900] : COLORS.primary[300],
         };
-      } else if (hover) {
+      } else if (hover && !noHover) {
         colors = {
           backgroundColor: dark ? COLORS.primary[600] : COLORS.primary[800],
           borderColor: dark ? COLORS.primary[600] : COLORS.primary[800],
@@ -75,7 +79,7 @@ const Button = ({
           borderColor: dark ? COLORS.alto[900] : COLORS.primary[200],
           color: dark ? COLORS.alto[900] : COLORS.primary[300],
         };
-      } else if (hover) {
+      } else if (hover && !noHover) {
         colors = {
           backgroundColor: dark ? COLORS.primary[600] : COLORS.primary[500],
           borderColor: dark ? COLORS.primary[600] : COLORS.primary[500],
@@ -97,7 +101,7 @@ const Button = ({
           borderColor: "transparent",
           color: COLORS.primary[400],
         };
-      } else if (hover) {
+      } else if (hover && !noHover) {
         colors = {
           backgroundColor: "transparent",
           borderColor: "transparent",
@@ -112,11 +116,14 @@ const Button = ({
       }
     }
 
-    if (danger && !disabled && !hover) {
+    if (danger && !disabled && (!hover || noHover)) {
       colors.color = COLORS.danger;
     }
-    if (primary && !disabled && !hover) {
+    if (primary && !disabled && (!hover || noHover)) {
       colors.color = dark ? COLORS.primary[400] : COLORS.primary[500];
+    }
+    if (success && !disabled && (!hover || noHover)) {
+      colors.color = COLORS.success;
     }
 
     return colors;

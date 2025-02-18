@@ -20,6 +20,8 @@ export interface User extends Timestamps {
   contador_citas: number;
 
   estado: boolean;
+  disponible: boolean;
+
   id_rol: number;
   permisos: Permisos[];
   cita_proxima: Appointment | null;

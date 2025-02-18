@@ -51,6 +51,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/user/{email}/psicotest', [U_userController::class, 'destroy']);
     Route::patch('/user/change-state/{email}/psicotest', [U_userController::class, 'changeState']);
     Route::patch('/user/change-rol/{email}/psicotest', [U_userController::class, 'changeRol']);
+    Route::patch('/user/change-disponibility/{email}/psicotest', [U_userController::class, 'disponibilityToggle']);
 
     Route::apiResource('/test', T_TestController::class);
     Route::get('/test/by/respuesta/{id}', [T_TestController::class, 'showByRespuesta']);

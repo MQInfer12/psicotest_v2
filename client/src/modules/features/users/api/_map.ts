@@ -43,6 +43,11 @@ declare global {
       request: null;
       response: User;
     };
+    "PATCH /user/change-disponibility/:id/psicotest": {
+      params: { id: string };
+      request: null;
+      response: User;
+    };
     "PATCH /user/change-rol/:id/psicotest": {
       params: { id: string };
       request: {

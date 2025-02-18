@@ -122,6 +122,19 @@ class U_userController extends Controller
         );
     }
 
+    public function disponibilityToggle(string $email)
+    {
+        $user = U_user::findOrFail($email);
+        $user->disponible = !$user->disponible;
+
+        $user->save();
+
+        return $this->successResponse(
+            $user->disponible ? "Ahora estas disponible." : "Ya no estás disponible.",
+            new U_userResource($user)
+        );
+    }
+
     public function destroy(string $email)
     {
         $user = U_user::findOrFail($email);

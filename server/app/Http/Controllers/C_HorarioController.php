@@ -9,7 +9,6 @@ use App\Http\Resources\C_HorarioResource;
 use App\Models\C_Cita;
 use App\Models\C_Horario;
 use App\Traits\ApiResponse;
-use Illuminate\Http\Request;
 
 class C_HorarioController extends Controller
 {
@@ -21,11 +20,15 @@ class C_HorarioController extends Controller
         $date = $request->input('date');
 
         $DAYS_FROM_NOW = 7;
-        $horarios = C_Horario::where('email_user', "!=", $user->email)->where(function ($query) use ($date, $DAYS_FROM_NOW) {
-            for ($i = -1; $i < $DAYS_FROM_NOW - 1; $i++) {
-                $query->orWhere('dia', date('w', strtotime($date . " $i days")));
-            }
-        })->get();
+        $horarios = C_Horario::where('email_user', "!=", $user->email)
+            ->whereHas('user', function ($query) {
+                $query->where('disponible', true);
+            })
+            ->where(function ($query) use ($date, $DAYS_FROM_NOW) {
+                for ($i = -1; $i < $DAYS_FROM_NOW - 1; $i++) {
+                    $query->orWhere('dia', date('w', strtotime($date . " $i days")));
+                }
+            })->get();
         $citas = C_Cita::where(function ($query) use ($date, $DAYS_FROM_NOW) {
             for ($i = -1; $i < $DAYS_FROM_NOW - 1; $i++) {
                 $query->orWhere('fecha', date('Y-m-d', strtotime($date . " $i days")));
