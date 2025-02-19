@@ -48,5 +48,13 @@ class Usuarios_Seeder extends Seeder
             "estado" => true,
             "id_rol" => 2
         ]);
+
+        U_user::create([
+            "email" => "michell.von@unifranz.edu.bo",
+            "nombre" => "Michell Raiza Von Schoettler Quinteros",
+            "foto" => "https://lh3.googleusercontent.com/a/ACg8ocInSj6eZlhCKcqXOHmUEUDf_E31OXvKMhUxd5VAQeE6NSN1m6zv=s96-c",
+            "estado" => true,
+            "id_rol" => 1
+        ]);
     }
 }

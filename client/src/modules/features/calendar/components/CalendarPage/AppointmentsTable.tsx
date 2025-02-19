@@ -1,24 +1,24 @@
-import { createColumnHelper } from "@tanstack/react-table";
-import { Appointment } from "../../api/responses";
-import { useMemo, useState } from "react";
 import DefaultPhoto from "@/assets/images/defaultPhoto.jpg";
-import { stringFromDate } from "../../utils/stringFromDate";
-import dayjs from "dayjs";
-import { formatDate } from "@/modules/core/utils/formatDate";
 import Icon from "@/modules/core/components/icons/Icon";
-import clsx from "clsx";
+import { useModal } from "@/modules/core/components/ui/modal/useModal";
+import TableHeader from "@/modules/core/components/ui/table/header/TableHeader";
 import Table from "@/modules/core/components/ui/table/Table";
+import { formatDate } from "@/modules/core/utils/formatDate";
+import { useUserContext } from "@/modules/features/auth/context/UserContext";
+import { User } from "@/modules/features/users/api/responses";
+import { useNavigate } from "@tanstack/react-router";
+import { createColumnHelper } from "@tanstack/react-table";
+import clsx from "clsx";
+import dayjs from "dayjs";
+import { useMemo, useState } from "react";
+import { Appointment } from "../../api/responses";
 import {
   AppointmentPassedContextProvider,
   AppointmentPassedFiltersState,
 } from "../../context/AppointmentPassedContext";
-import TableHeader from "@/modules/core/components/ui/table/header/TableHeader";
+import { stringFromDate } from "../../utils/stringFromDate";
+import AppointmentHistory from "../AppointmentPage/AppointmentHistory";
 import AppointmentPassedFilters from "./AppointmentPassedFilters";
-import { useNavigate } from "@tanstack/react-router";
-import { useUserContext } from "@/modules/features/auth/context/UserContext";
-import { useModal } from "@/modules/core/components/ui/modal/useModal";
-import AppointmentPDFsRenderer from "../AppointmentPage/AppointmentPDFsRenderer";
-import { User } from "@/modules/features/users/api/responses";
 
 const columnHelper = createColumnHelper<Appointment>();
 
@@ -168,7 +168,7 @@ const AppointmentsTable = ({ isProfile, data }: Props) => {
           item &&
           isProfile && (
             <div className="h-full w-full">
-              <AppointmentPDFsRenderer cita={item} paciente={isProfile} />
+              <AppointmentHistory cita={item} paciente={isProfile} />
             </div>
           ),
         {
