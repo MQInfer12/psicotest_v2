@@ -22,6 +22,6 @@ class B_Asistencia extends Model
 
     public function user()
     {
-        return $this->belongsTo(U_User::class, 'email_user', 'email');
+        return $this->belongsTo(U_user::class, 'email_user', 'email');
     }
 }

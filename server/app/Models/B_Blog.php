@@ -29,7 +29,7 @@ class B_Blog extends Model
 
     public function autor()
     {
-        return $this->belongsTo(U_User::class, 'email_autor', 'email');
+        return $this->belongsTo(U_user::class, 'email_autor', 'email');
     }
 
     public function asistencias()

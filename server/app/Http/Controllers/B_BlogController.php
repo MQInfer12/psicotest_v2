@@ -51,19 +51,19 @@ class B_BlogController extends Controller
         $user = $request->user();
         $validatedData = $request->validated();
 
-        $route = $validatedData['portada']->store('public/blogs/covers');
+        $route = $validatedData['portada']->store('public/info/src');
         $route = str_replace('public/', '/', $route);
 
         $config = json_decode($validatedData['config']);
         foreach ($config as $item) {
             if ($item->type == 'image') {
                 $file = $request[$item->id];
-                $imageRoute = $file->storeAs('public/blogs/images', $item->id . '.png');
+                $imageRoute = $file->storeAs('public/info/static', $item->id . '.png');
                 $item->src = str_replace('public/', '/', $imageRoute);
             }
             if ($item->type == 'pdf') {
                 $file = $request[$item->id];
-                $imageRoute = $file->storeAs('public/blogs/pdfs', $item->id . '.pdf');
+                $imageRoute = $file->storeAs('public/info/pdf', $item->id . '.pdf');
                 $item->src = str_replace('public/', '/', $imageRoute);
             }
         }
@@ -184,7 +184,7 @@ class B_BlogController extends Controller
             if (file_exists($oldRoute)) {
                 unlink($oldRoute);
             }
-            $route = $portada->store('public/blogs/covers');
+            $route = $portada->store('public/info/src');
             $portada = str_replace('public/', '/', $route);
         } else {
             $portada = $blog->portada;
@@ -208,14 +208,14 @@ class B_BlogController extends Controller
             if ($item->type == 'image') {
                 $file = $request[$item->id];
                 if ($file) {
-                    $imageRoute = $file->storeAs('public/blogs/images', $item->id . '.png');
+                    $imageRoute = $file->storeAs('public/info/static', $item->id . '.png');
                     $item->src = str_replace('public/', '/', $imageRoute);
                 }
             }
             if ($item->type == 'pdf') {
                 $file = $request[$item->id];
                 if ($file) {
-                    $imageRoute = $file->storeAs('public/blogs/pdfs', $item->id . '.pdf');
+                    $imageRoute = $file->storeAs('public/info/pdf', $item->id . '.pdf');
                     $item->src = str_replace('public/', '/', $imageRoute);
                 }
             }
