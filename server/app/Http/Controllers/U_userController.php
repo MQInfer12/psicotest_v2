@@ -114,6 +114,13 @@ class U_userController extends Controller
         $user = U_user::findOrFail($email);
         $user->estado = !$user->estado;
 
+        if (!$user->estado) {
+            $user->tokens()->delete();
+            $user->access_token = null;
+            $user->refresh_token = null;
+            $user->disponible = false;
+        }
+
         $user->save();
 
         return $this->successResponse(
