@@ -2,19 +2,53 @@
     "autor": "Millon",
     "nombre": "MAPI",
     "canvas": [
-        { "type": "subtitle", "content": "Descripción" },
         {
-            "type": "paragraph",
-            "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat, delectus? Totam quibusdam vel quo incidunt. Aut, quisquam? Architecto rerum quidem incidunt magnam sunt, iste tempore eaque possimus modi? Porro ipsum quam nisi eum quae fuga doloribus eligendi laboriosam ab quaerat ullam autem ut magnam perferendis recusandae, impedit eaque placeat earum."
+            "type": "subtitle",
+            "content": "¿Qué es el test MAPI?"
         },
         {
             "type": "paragraph",
-            "content": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non ratione voluptatibus dolore sapiente quasi repellendus molestias at doloremque consequatur rem consequuntur, assumenda dolorem suscipit perferendis voluptas neque quo? Ut totam unde commodi magnam veli."
+            "content": "El Millon Adolescent Personality Inventory (MAPI) es un cuestionario de autoinforme diseñado para evaluar la personalidad, características y problemas de comportamiento en adolescentes de 13 a 18 años."
         },
-        { "type": "subtitle", "content": "¿Cómo resolver?" },
         {
             "type": "paragraph",
-            "content": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non ratione voluptatibus dolore sapiente quasi repellendus molestias at doloremque consequatur rem consequuntur, assumenda dolorem suscipit perferendis voluptas neque quo? Ut totam unde commodi magnam velit dignissimos iusto hic molestiae, laboriosam et! Quidem, quia vero quasi, corporis vitae odio quos ea corrupti iste magnam quae nisi minima aperiam quisquam. Placeat, architecto maiores!"
+            "content": "Este test se diferencia por su construcción específica para adolescentes, con un lenguaje comprensible y una aplicación breve de aproximadamente 20 minutos."
+        },
+        {
+            "type": "subtitle",
+            "content": "Características principales"
+        },
+        {
+            "type": "vignette",
+            "title": "Diseñado para adolescentes",
+            "content": "El MAPI utiliza un lenguaje adaptado y trata problemas relevantes para los jóvenes, diferenciándose de otros tests diseñados para adultos."
+        },
+        {
+            "type": "vignette",
+            "title": "Breve y eficiente",
+            "content": "Consta de 150 ítems con respuestas de verdadero o falso, facilitando su aplicación en contextos escolares y clínicos."
+        },
+        {
+            "type": "vignette",
+            "title": "Basado en un sistema teórico sólido",
+            "content": "Se fundamenta en la teoría de la personalidad de Millon, integrando avances psicométricos y teóricos para una evaluación precisa."
+        },
+        {
+            "type": "vignette",
+            "title": "Evaluación de múltiples dimensiones",
+            "content": "Incluye 8 escalas de personalidad, 8 escalas de sentimientos y actitudes, y 4 escalas de comportamiento problemático."
+        },
+        {
+            "type": "subtitle",
+            "content": "Aplicaciones del MAPI"
+        },
+        {
+            "type": "paragraph",
+            "content": "El MAPI es utilizado en el ámbito escolar para orientación vocacional y académica, así como en salud mental para evaluar el estado psicológico del adolescente."
+        },
+        {
+            "type": "paragraph",
+            "content": "Permite identificar problemas personales, dificultades en relaciones interpersonales, confusión de identidad y predicción de conductas de riesgo."
         }
     ],
     "versions": [
