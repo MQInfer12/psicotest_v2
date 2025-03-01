@@ -28,7 +28,10 @@ const ShareForm = ({ idTests, nombreTest, children }: Props) => {
       `&allocator=${user?.email}` +
       (carpetaId ? `&folder=${carpetaId}` : "");
     const cryptedParams = cypherUrl(params);
-    return window.location.href + `/share?cparams=${cryptedParams}`;
+    return (
+      window.location.href.replaceAll("?", "") +
+      `/share?cparams=${cryptedParams}`
+    );
   }, [user, carpetaId, idTests]);
 
   return (

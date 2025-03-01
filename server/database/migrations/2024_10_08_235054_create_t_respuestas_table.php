@@ -26,6 +26,7 @@ return new class extends Migration
             $table->text('interpretacion')->nullable();
             $table->date('fecha_asignado');
             $table->date('fecha_enviado')->nullable();
+            $table->decimal('tiempo')->nullable();
 
             $table->timestamps();
         });

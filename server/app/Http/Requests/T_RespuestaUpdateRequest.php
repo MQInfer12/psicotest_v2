@@ -15,6 +15,7 @@ class T_RespuestaUpdateRequest extends FormRequest
     {
         return [
             'resultados' => 'required|string',
+            'tiempo' => 'sometimes|required|numeric',
         ];
     }
 
@@ -22,6 +23,8 @@ class T_RespuestaUpdateRequest extends FormRequest
     {
         return [
             'resultados.required' => 'Los resultados son requeridos.',
+            'tiempo.required' => 'El tiempo es requerido.',
+            'tiempo.numeric' => 'El tiempo debe ser un número.',
         ];
     }
 }

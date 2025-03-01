@@ -102,7 +102,7 @@ class T_RespuestaController extends Controller
                 ->first();
 
             if ($exist) {
-                if($exist->estado == "Pendiente") {
+                if ($exist->estado == "Pendiente") {
                     $responses[] = $exist->id;
                 }
                 continue;
@@ -116,7 +116,7 @@ class T_RespuestaController extends Controller
                 "fecha_asignado" => now(),
                 "id_carpeta" => $validatedData['id_carpeta'] ?? null
             ]);
- 
+
             $responses[] = $respuesta->id;
         }
 
@@ -143,6 +143,12 @@ class T_RespuestaController extends Controller
             "estado" => "Enviado",
             "fecha_enviado" => now()
         ]);
+
+        if ($validatedData['tiempo'] ?? null) {
+            $respuesta->update([
+                "tiempo" => $validatedData['tiempo']
+            ]);
+        }
 
         return $this->successResponse(
             "Test enviado correctamente.",

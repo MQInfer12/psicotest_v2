@@ -17,4 +17,5 @@ export enum Permisos {
   VER_BLOGS = "Ver blogs",
   CREAR_BLOGS = "Crear blogs",
   DESTACAR_BLOGS = "Destacar blogs",
+  VER_REPORTES = "Ver reportes",
 }

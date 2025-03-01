@@ -17,12 +17,11 @@ type Search = yup.InferType<typeof SearchSchema>;
 export const Route = createFileRoute("/_private/answers/")({
   validateSearch: (search: Record<string, unknown>): Search => {
     const local_search = localStorage.getItem(LOCAL_ANSWERS_SEARCH);
-    search =
-      Object.keys(search).length > 0
-        ? search
-        : local_search
-          ? JSON.parse(local_search)
-          : search;
+    search = Object.keys(search).includes("folders")
+      ? search
+      : local_search
+        ? JSON.parse(local_search)
+        : search;
     try {
       const validSearch = SearchSchema.validateSync(search, {
         stripUnknown: true,

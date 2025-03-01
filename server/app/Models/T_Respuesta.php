@@ -22,7 +22,8 @@ class T_Respuesta extends Model
         'resultados',
         'interpretacion',
         'fecha_asignado',
-        'fecha_enviado'
+        'fecha_enviado',
+        'tiempo'
     ];
 
     public function user()

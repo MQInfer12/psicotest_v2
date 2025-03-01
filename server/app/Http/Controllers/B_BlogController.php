@@ -12,7 +12,6 @@ use App\Traits\ApiResponse;
 use App\Traits\GoogleAPIs;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class B_BlogController extends Controller
 {
@@ -21,7 +20,7 @@ class B_BlogController extends Controller
 
     public function index()
     {
-        $blogs = B_Blog::orderBy('updated_at', 'desc')->get();
+        $blogs = B_Blog::orderBy('id', 'desc')->get();
         return $this->successResponse(
             "Blogs obtenidos correctamente.",
             B_BlogResource::collection($blogs)
@@ -31,6 +30,13 @@ class B_BlogController extends Controller
     public function show(int $id)
     {
         $blog = B_Blog::findOrFail($id);
+
+        $count = request()->query('count') == 'true';
+        if ($count) {
+            $blog->visitas++;
+            $blog->save();
+        }
+
         return $this->successResponse(
             "Blog obtenido correctamente.",
             new B_BlogResource($blog)
@@ -39,7 +45,7 @@ class B_BlogController extends Controller
 
     public function indexForMe(Request $request)
     {
-        $blogs = B_Blog::orderBy('updated_at', 'desc')->where('email_autor', $request->user()->email)->get();
+        $blogs = B_Blog::orderBy('id', 'desc')->where('email_autor', $request->user()->email)->get();
         return $this->successResponse(
             "Blogs obtenidos correctamente.",
             B_BlogResource::collection($blogs)

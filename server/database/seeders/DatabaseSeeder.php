@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
             Respuestas_Seeder::class,
             Test_Answers_Seeder::class,
             Plantillas_Seeder::class,
-            Blog_Seeder::class
+            Blog_Seeder::class,
+            Contador_Seeder::class,
         ]);
     }
 }

@@ -11,6 +11,7 @@ use App\Http\Resources\C_CitaResource;
 use App\Http\Resources\U_userResource;
 use App\Models\C_Cita;
 use App\Models\C_Horario;
+use App\Models\R_Contador;
 use App\Models\U_user;
 use App\Traits\ApiResponse;
 use App\Traits\GoogleAPIs;
@@ -291,6 +292,10 @@ class C_CitaController extends Controller
         $this->deleteGoogleCalendarEvent($cita->id_calendar, $access_token, $user);
 
         $cita->delete();
+
+        $contador = R_Contador::firstOrFail();
+        $contador->citas_canceladas += 1;
+        $contador->save();
 
         return $this->successResponse(
             "Cita cancelada correctamente.",

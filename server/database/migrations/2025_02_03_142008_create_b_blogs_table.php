@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreign('email_autor')->references('email')->on('u_users')->onUpdate('cascade')->onDelete('cascade');
             $table->json('config');
             $table->boolean('destacado')->default(false);
+            $table->unsignedBigInteger('visitas')->default(0);
             $table->timestamps();
         });
     }

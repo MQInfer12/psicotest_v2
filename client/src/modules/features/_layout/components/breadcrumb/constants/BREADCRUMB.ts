@@ -92,6 +92,11 @@ export const BREADCRUMB: Breadcrumb[] = [
     name: "Usuarios",
     match: "/users",
   },
+  //?
+  {
+    name: "Reportes",
+    match: "/reports",
+  },
   //? PROFILE
   {
     name: "Perfil",

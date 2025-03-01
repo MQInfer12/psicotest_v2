@@ -128,7 +128,7 @@ const Dashboard = () => {
         }}
       >
         <div
-          className="flex flex-col gap-10"
+          className="flex flex-col gap-10 flex-1 overflow-hidden"
           style={{
             minWidth: PRIVATE_ASIDE_WIDTH_THIN,
           }}
@@ -143,7 +143,7 @@ const Dashboard = () => {
               <Logo showText={open} />
             </Link>
           </div>
-          <div className="px-4 flex flex-col gap-2 overflow-hidden">
+          <div className="px-4 flex flex-col gap-2 overflow-x-hidden overflow-y-auto no-scrollbar">
             {PRIVATE_LINKS.map((link) => (
               <AsideLink
                 key={link.to}
@@ -233,10 +233,10 @@ const Dashboard = () => {
                   </button>
                 )}
                 <h2
-                  title={activeBreadcrumb[activeBreadcrumb.length - 1].name}
+                  title={activeBreadcrumb[activeBreadcrumb.length - 1]?.name}
                   className="text-2xl font-bold text-alto-950 dark:text-alto-50 whitespace-nowrap overflow-hidden text-ellipsis max-sm:text-xl"
                 >
-                  {activeBreadcrumb[activeBreadcrumb.length - 1].name}
+                  {activeBreadcrumb[activeBreadcrumb.length - 1]?.name}
                 </h2>
               </div>
             </div>

@@ -51,10 +51,12 @@ const Test = ({ data, test, idRespuesta }: Props) => {
     ? JSON.parse(data.resultados)
     : null;
 
+  const initiatedTimeRef = useRef<number | null>(null);
   const [form, setForm] = useState<TestForm[]>(resultados || []);
   const { finished, finishedPage, handleSend, setFinishedPage } = useTestSender(
     idRespuesta,
-    resultados
+    resultados,
+    initiatedTimeRef.current ?? 0
   );
 
   const [[preguntaIndex, direction], setCurrentPage] = useState([0, 1]);
@@ -210,6 +212,15 @@ const Test = ({ data, test, idRespuesta }: Props) => {
     finished
   );
 
+  const initiated = form.length > 0;
+
+  useEffect(() => {
+    if (initiated) {
+      //iniciar un contador de tiempo
+      initiatedTimeRef.current = new Date().getTime();
+    }
+  }, [initiated, finished]);
+
   useBlocker({
     blockerFn: () => {
       const shouldLeave = confirm(
@@ -217,7 +228,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
       );
       return shouldLeave;
     },
-    condition: !prev && !finished && form.length > 0,
+    condition: !prev && !finished && initiated,
   });
 
   const showTextSection = seccion?.type === "text";
@@ -226,7 +237,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
       <TestOutside
         data={data}
         finished={finished}
-        initiated={form.length > 0}
+        initiated={initiated}
         setOpen={setOpen}
       />
       {modal(

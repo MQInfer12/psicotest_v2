@@ -5,22 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class B_Evento extends Model
+class R_Contador extends Model
 {
     use HasFactory;
 
-    protected $table = "b_eventos";
+    protected $table = "r_contadors";
 
     protected $guarded = [];
 
     protected $fillable = [
-        'id_blog',
-        'nombre',
-        'fecha',
-        'latitud',
-        'longitud',
-        'direccion',
+        'citas_canceladas'
     ];
-
-    
 }

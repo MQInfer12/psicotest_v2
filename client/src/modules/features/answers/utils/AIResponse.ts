@@ -42,8 +42,8 @@ export const getAIResponse = async (
               Necesito que generes una respuesta basada en el formato (plantilla) que te van a proporcionar al final de la prompt, siguiendo las siguientes instrucciones:
               - Solo escribe tus respuestas donde el texto esté encerrado entre corchetes [], le quitas los corchetes para escribir tu respuesta.
               - No escribas el texto cuando esté encerrado entre llaves {} ya que estas son instrucciones para que generes la respuesta de manera más personalizada, analiza los datos del texto entre llaves {} y saca una conclusión para generar el texto restante, recuerda no escribir para nada el texto entre llaves.
-              - No dejes ninguna llave en tu texto generado, quítalos todos
-              - No dejes ningún corchete en tu texto generado, quítalos todos.
+              - No dejes ninguna llave en tu texto generado, quítalos todos y también quita su contenido de dentro para que no perjudique al párrafo, son solamente aclaraciones para ti.
+              - No dejes ningún corchete en tu texto generado, quítalos todos y reemplaza su contenido de dentro por lo consultado.
               - Lo que no está entre corchetes no lo modifiques ni lo reemplaces por nada más.
               - No reemplaces las etiquetas HTML por nada más, déjalas tal cual te las envían.
               - No aumentes nada más a la plantilla enviada, solo escribe tus respuestas de la plantilla que se te pida, no agregues más párrafos ni subtítulos que no se te hayan especificado en la plantilla.

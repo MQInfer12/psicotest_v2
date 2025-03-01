@@ -15,12 +15,19 @@ function RouteComponent() {
     from: "/_public/daily/$id",
   });
   const { fetchData } = useFetch();
-  const { data, isError } = fetchData([
-    `GET /blog/:id`,
+  const { data, isError } = fetchData(
+    [
+      `GET /blog/:id`,
+      {
+        id: Number(id),
+      },
+    ],
     {
-      id: Number(id),
-    },
-  ]);
+      params: {
+        count: "true",
+      },
+    }
+  );
 
   if (isError) return <Navigate to="/daily" />;
   if (!data) return <Loader text="Cargando blog..." />;

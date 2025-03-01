@@ -16,6 +16,7 @@ import { Route as PrivateImport } from './routes/_private'
 import { Route as PublicIndexImport } from './routes/_public/index'
 import { Route as PublicPrivacyImport } from './routes/_public/privacy'
 import { Route as PrivateUsersImport } from './routes/_private/users'
+import { Route as PrivateReportsImport } from './routes/_private/reports'
 import { Route as PrivateProfileImport } from './routes/_private/profile'
 import { Route as PrivateChatImport } from './routes/_private/chat'
 import { Route as PublicDailyIndexImport } from './routes/_public/daily/index'
@@ -67,6 +68,12 @@ const PublicPrivacyRoute = PublicPrivacyImport.update({
 const PrivateUsersRoute = PrivateUsersImport.update({
   id: '/users',
   path: '/users',
+  getParentRoute: () => PrivateRoute,
+} as any)
+
+const PrivateReportsRoute = PrivateReportsImport.update({
+  id: '/reports',
+  path: '/reports',
   getParentRoute: () => PrivateRoute,
 } as any)
 
@@ -239,6 +246,13 @@ declare module '@tanstack/react-router' {
       path: '/profile'
       fullPath: '/profile'
       preLoaderRoute: typeof PrivateProfileImport
+      parentRoute: typeof PrivateImport
+    }
+    '/_private/reports': {
+      id: '/_private/reports'
+      path: '/reports'
+      fullPath: '/reports'
+      preLoaderRoute: typeof PrivateReportsImport
       parentRoute: typeof PrivateImport
     }
     '/_private/users': {
@@ -417,6 +431,7 @@ declare module '@tanstack/react-router' {
 interface PrivateRouteChildren {
   PrivateChatRoute: typeof PrivateChatRoute
   PrivateProfileRoute: typeof PrivateProfileRoute
+  PrivateReportsRoute: typeof PrivateReportsRoute
   PrivateUsersRoute: typeof PrivateUsersRoute
   PrivateAnswersIdRoute: typeof PrivateAnswersIdRoute
   PrivateBlogsIdRoute: typeof PrivateBlogsIdRoute
@@ -442,6 +457,7 @@ interface PrivateRouteChildren {
 const PrivateRouteChildren: PrivateRouteChildren = {
   PrivateChatRoute: PrivateChatRoute,
   PrivateProfileRoute: PrivateProfileRoute,
+  PrivateReportsRoute: PrivateReportsRoute,
   PrivateUsersRoute: PrivateUsersRoute,
   PrivateAnswersIdRoute: PrivateAnswersIdRoute,
   PrivateBlogsIdRoute: PrivateBlogsIdRoute,
@@ -488,6 +504,7 @@ export interface FileRoutesByFullPath {
   '': typeof PublicRouteWithChildren
   '/chat': typeof PrivateChatRoute
   '/profile': typeof PrivateProfileRoute
+  '/reports': typeof PrivateReportsRoute
   '/users': typeof PrivateUsersRoute
   '/privacy': typeof PublicPrivacyRoute
   '/': typeof PublicIndexRoute
@@ -518,6 +535,7 @@ export interface FileRoutesByTo {
   '': typeof PrivateRouteWithChildren
   '/chat': typeof PrivateChatRoute
   '/profile': typeof PrivateProfileRoute
+  '/reports': typeof PrivateReportsRoute
   '/users': typeof PrivateUsersRoute
   '/privacy': typeof PublicPrivacyRoute
   '/': typeof PublicIndexRoute
@@ -550,6 +568,7 @@ export interface FileRoutesById {
   '/_public': typeof PublicRouteWithChildren
   '/_private/chat': typeof PrivateChatRoute
   '/_private/profile': typeof PrivateProfileRoute
+  '/_private/reports': typeof PrivateReportsRoute
   '/_private/users': typeof PrivateUsersRoute
   '/_public/privacy': typeof PublicPrivacyRoute
   '/_public/': typeof PublicIndexRoute
@@ -582,6 +601,7 @@ export interface FileRouteTypes {
     | ''
     | '/chat'
     | '/profile'
+    | '/reports'
     | '/users'
     | '/privacy'
     | '/'
@@ -611,6 +631,7 @@ export interface FileRouteTypes {
     | ''
     | '/chat'
     | '/profile'
+    | '/reports'
     | '/users'
     | '/privacy'
     | '/'
@@ -641,6 +662,7 @@ export interface FileRouteTypes {
     | '/_public'
     | '/_private/chat'
     | '/_private/profile'
+    | '/_private/reports'
     | '/_private/users'
     | '/_public/privacy'
     | '/_public/'
@@ -697,6 +719,7 @@ export const routeTree = rootRoute
       "children": [
         "/_private/chat",
         "/_private/profile",
+        "/_private/reports",
         "/_private/users",
         "/_private/answers/$id",
         "/_private/blogs/$id",
@@ -734,6 +757,10 @@ export const routeTree = rootRoute
     },
     "/_private/profile": {
       "filePath": "_private/profile.tsx",
+      "parent": "/_private"
+    },
+    "/_private/reports": {
+      "filePath": "_private/reports.tsx",
       "parent": "/_private"
     },
     "/_private/users": {

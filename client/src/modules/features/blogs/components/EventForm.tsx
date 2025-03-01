@@ -66,7 +66,7 @@ const EventForm = ({ event, onSuccess, onDelete }: Props) => {
         {...register("latitud")}
       />
       <Input
-        label="Nombre"
+        label="Longitud"
         error={errors.longitud?.message}
         required
         {...register("longitud")}

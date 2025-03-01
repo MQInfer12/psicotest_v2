@@ -64,4 +64,10 @@ export const PRIVATE_LINKS: PrivateLink[] = [
     title: "Usuarios",
     permisos: [Permisos.VER_USUARIOS],
   },
+  {
+    to: "/reports",
+    icon: ICON.PDF,
+    title: "Reportes",
+    permisos: [Permisos.VER_REPORTES],
+  },
 ];

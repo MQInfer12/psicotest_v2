@@ -35,12 +35,19 @@ function RouteComponent() {
   if (isNaN(Number(id))) return <Navigate to="/blogs" />;
 
   const { fetchData } = useFetch();
-  const { data, setData, isError } = fetchData([
-    `GET /blog/:id`,
+  const { data, setData, isError } = fetchData(
+    [
+      `GET /blog/:id`,
+      {
+        id: Number(id),
+      },
+    ],
     {
-      id: Number(id),
-    },
-  ]);
+      params: {
+        count: "true",
+      },
+    }
+  );
   const { getDataSetter } = useFetch();
   const dataSetter = getDataSetter("GET /blog/:id", {
     id,

@@ -22,4 +22,5 @@ class Permisos
   const VER_BLOGS = "Ver blogs";
   const CREAR_BLOGS = "Crear blogs";
   const DESTACAR_BLOGS = "Destacar blogs";
+  const VER_REPORTES = "Ver reportes";
 }

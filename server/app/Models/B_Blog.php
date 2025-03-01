@@ -24,7 +24,8 @@ class B_Blog extends Model
         'evento_fecha',
         'evento_latitud',
         'evento_longitud',
-        'evento_direccion'
+        'evento_direccion',
+        'visitas'
     ];
 
     public function autor()
