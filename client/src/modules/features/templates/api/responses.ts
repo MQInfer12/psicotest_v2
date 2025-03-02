@@ -5,6 +5,7 @@ export interface IA_Plantilla {
   nombre: string;
   descripcion: string;
   plantilla: TemplateType;
+  contexto: string | null;
   id_tests: {
     [nombre: string]: number;
   };

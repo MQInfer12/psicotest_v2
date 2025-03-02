@@ -1,113 +1,138 @@
 [
   {
+    "id": "a",
     "type": "title",
     "content": "Introducción"
   },
   {
+    "id": "b",
     "type": "paragraph",
     "content": "Este informe presenta los resultados del proceso de orientación vocacional realizado con [Nombre del paciente], con el objetivo de identificar intereses, habilidades y posibles trayectorias profesionales que se alineen con sus aspiraciones y características personales."
   },
   {
+    "id": "c",
     "type": "title",
     "content": "Metodología"
   },
   {
+    "id": "d",
     "type": "paragraph",
     "content": "Se emplearon las siguientes herramientas y técnicas:"
   },
   {
+    "id": "e",
     "type": "vignette",
     "title": "Test de Kuder:",
     "content": "Se aplicó el test de Kuder para evaluar los intereses vocacionales del estudiante."
   },
   {
+    "id": "f",
     "type": "vignette",
     "title": "PMA (Prueba de Motivación Académica):",
     "content": "Se utilizó esta prueba para identificar la motivación del estudiante hacia diferentes áreas académicas y profesionales."
   },
   {
+    "id": "g",
     "type": "title",
     "content": "Resultados"
   },
   {
+    "id": "h",
     "type": "subtitle",
     "content": "Intereses Vocacionales (Resultados del Test de Kuder)"
   },
   {
+    "id": "i",
     "type": "vignette",
     "title": "Áreas de interés predominantes:",
     "content": "[Descripción de las áreas más destacadas según los resultados del test de Kuder.]"
   },
   {
+    "id": "j",
     "type": "vignette",
     "title": "Ranking de intereses:",
     "content": "[Resumen del ranking de intereses, indicando las tres principales áreas.]"
   },
   {
+    "id": "k",
     "type": "subtitle",
     "content": "Motivación Académica (Resultados del PMA)"
   },
   {
+    "id": "l",
     "type": "vignette",
     "title": "Niveles de motivación:",
     "content": "[Descripción de los niveles de motivación identificados, destacando las áreas de alta motivación y aquellas que requieren atención.]"
   },
   {
+    "id": "m",
     "type": "vignette",
     "title": "Áreas de interés y compromiso:",
     "content": "[Resumen de las áreas en las que el estudiante se muestra más comprometido y motivado.]"
   },
   {
+    "id": "n",
     "type": "subtitle",
     "content": "Habilidades y Fortalezas"
   },
   {
+    "id": "o",
     "type": "vignette",
     "title": "Habilidades identificadas:",
     "content": "[Lista de habilidades destacadas en relación con los intereses del test de Kuder, la PMA y el MAPI.]"
   },
   {
+    "id": "p",
     "type": "vignette",
     "title": "Fortalezas personales:",
     "content": "[Breve descripción de las cualidades que destacan en el estudiante.]"
   },
   {
+    "id": "q",
     "type": "subtitle",
     "content": "Áreas de Mejora"
   },
   {
+    "id": "r",
     "type": "vignette",
     "title": "Fortalezas personales:",
     "content": "[Descripción de áreas donde el estudiante podría beneficiarse de desarrollo adicional.]"
   },
   {
+    "id": "s",
     "type": "title",
     "content": "Recomendaciones Vocacionales"
   },
   {
+    "id": "t",
     "type": "paragraph",
     "content": "Basado en los intereses y habilidades del estudiante, se recomienda las siguientes carreras o áreas de especialización: {elige aquellas carreras que se puedan estudiar en la Universidad Franz Tamayo (Unifranz) como ser Ingeniería de sistemas, Diseño gráfico y producción cross-media, Publicidad y marketing, Derecho, Psicología, Bioquímica y farmacia, Odontología, Medicina, Administración de empresas, Ingeniería económica y financiera e Ingeniería comercial pero si la persona puede estudiar algo más que no exista en la universidad lo puedes mencionar pero con menos prioridad}"
   },
   {
+    "id": "u",
     "type": "vignette",
     "title": "[Opción 1]:",
     "content": "[Descripción breve de la opción, incluyendo posibles carreras y ámbitos laborales.]"
   },
   {
+    "id": "v",
     "type": "vignette",
     "title": "[Opción 2]:",
     "content": "[Descripción breve de la opción.]"
   },
   {
+    "id": "w",
     "type": "vignette",
     "title": "[Opción 3]:",
     "content": "[Descripción breve de la opción.]"
   },
   {
+    "id": "x",
     "type": "title",
     "content": "Conclusiones"
   },
   {
+    "id": "y",
     "type": "paragraph",
     "content": "[Una breve conclusión acerca de los gustos, recomendaciones y análisis de los tests proporcionados del paciente]"
   }

@@ -17,6 +17,7 @@ class IA_Plantilla extends Model
         'nombre',
         'descripcion',
         'plantilla',
+        'contexto'
     ];
 
     public function tests()

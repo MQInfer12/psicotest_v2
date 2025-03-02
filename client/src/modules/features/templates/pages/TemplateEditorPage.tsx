@@ -25,6 +25,7 @@ const TemplateEditorPage = ({ template }: Props) => {
   const [inputs, setInputs] = useState({
     nombre: template?.nombre ?? "",
     descripcion: template?.descripcion ?? "",
+    contexto: template?.contexto ?? "",
     idTests: template ? Object.values(template.id_tests) : ([] as number[]),
   });
 
@@ -43,6 +44,7 @@ const TemplateEditorPage = ({ template }: Props) => {
         nombre: inputs.nombre,
         descripcion: inputs.descripcion,
         plantilla: JSON.stringify(config),
+        contexto: inputs.contexto,
         idTests: inputs.idTests,
       });
 
@@ -257,6 +259,18 @@ const TemplateEditorPage = ({ template }: Props) => {
           required
         />
       </motion.div>
+      <TextArea
+        value={inputs.contexto}
+        onChange={(e) =>
+          setInputs((prev) => ({
+            ...prev,
+            contexto: e.target.value,
+          }))
+        }
+        height={80}
+        containerClassName="mb-4"
+        label="Contexto"
+      />
       {config.length > 0 && (
         <AnimatePresence initial={false}>
           <div className="flex flex-col gap-4">
@@ -280,6 +294,7 @@ const TemplateEditorPage = ({ template }: Props) => {
                       onClick={() => {
                         const index = config.findIndex((i) => i.id === item.id);
                         if (index === 0) return;
+                        console.log(index);
                         setConfig((prev) => {
                           const copy = [...prev];
                           const temp = copy[index];

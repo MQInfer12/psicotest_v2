@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('descripcion');
+            $table->text('contexto')->nullable();
             $table->json('plantilla');
             $table->timestamps();
         });

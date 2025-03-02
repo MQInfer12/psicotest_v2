@@ -13,6 +13,7 @@ class IA_PlantillaResource extends JsonResource
             'nombre' => $this->nombre,
             'descripcion' => $this->descripcion,
             'plantilla' => json_decode($this->plantilla),
+            'contexto' => $this->contexto,
             'id_tests' => $this->tests->pluck('id', 'nombre')->toArray(),
         ];
     }

@@ -39,7 +39,8 @@ class IA_PlantillaController extends Controller
         $plantilla = IA_Plantilla::create([
             'nombre' => $validatedData['nombre'],
             'descripcion' => $validatedData['descripcion'],
-            'plantilla' => $validatedData['plantilla']
+            'plantilla' => $validatedData['plantilla'],
+            'contexto' => $validatedData['contexto']
         ]);
 
         foreach ($validatedData['idTests'] as $idTest) {
@@ -63,7 +64,8 @@ class IA_PlantillaController extends Controller
         $plantilla->update([
             'nombre' => $validatedData['nombre'],
             'descripcion' => $validatedData['descripcion'],
-            'plantilla' => $validatedData['plantilla']
+            'plantilla' => $validatedData['plantilla'],
+            'contexto' => $validatedData['contexto']
         ]);
 
         IA_Test_Plantilla::where('id_plantilla', $plantilla->id)->delete();

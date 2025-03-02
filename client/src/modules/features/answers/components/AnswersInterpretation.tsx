@@ -160,7 +160,13 @@ const AnswersInterpretation = () => {
               prompt += "\n";
             });
 
-            prompt += "Te proporciono la siguiente plantilla: \n";
+            if (startedSelection.contexto) {
+              prompt += `Para el llenado de la plantilla se te proporciona la siguiente información, haz de cuenta que son instrucciones extras y así proporcionar un análisis más preciso, el contexto puede contener instrucciones acerca de la interpretación de las puntuaciones de los tests, así como instrucciones generales para el llenado:\n\n`;
+              prompt += startedSelection.contexto + "\n\n";
+            }
+
+            prompt +=
+              "Con base en las respuestas proporcionadas por el usuario, se procede a realizar el análisis correspondiente llenando la siguiente plantilla, recuerda remover todos los corchetes y llaves según tus instrucciones de sistema proporcionadas: \n";
 
             const plantilla: TemplateType = startedSelection.plantilla;
             plantilla.forEach((section) => {
