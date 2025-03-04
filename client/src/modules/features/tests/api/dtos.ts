@@ -6,7 +6,7 @@ export interface RespuestaDTO {
 
 export interface SendTestDTO {
   resultados: string;
-  tiempo: number;
+  tiempo?: number;
 }
 
 export type TextSectionOption = {

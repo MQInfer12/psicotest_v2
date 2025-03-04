@@ -1,0 +1,1 @@
+export const SESSION_STORAGE_TABLE_ANSWERS_LAST_FOCUSED_KEY = "psicotest_table_answers_last_focused";

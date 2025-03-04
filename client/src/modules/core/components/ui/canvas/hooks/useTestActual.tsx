@@ -15,6 +15,12 @@ export const useTestActual = (test: TestType, preguntaIndex: number) => {
         return !user?.fecha_nacimiento;
       case Requirements.GENERO:
         return !user?.genero;
+      case Requirements.TELEFONO:
+        return !user?.telefono;
+      case Requirements.NOMBRE_TUTOR:
+        return !user?.nombre_tutor;
+      case Requirements.TELEFONO_TUTOR:
+        return !user?.telefono_tutor;
       default:
         return true;
     }
@@ -39,5 +45,5 @@ export const useTestActual = (test: TestType, preguntaIndex: number) => {
   );
   const opciones = seccion?.opciones || [];
 
-return { preguntas, secciones, pregunta, seccion, opciones, requirements };
+  return { preguntas, secciones, pregunta, seccion, opciones, requirements };
 };

@@ -23,6 +23,7 @@ export interface SelectedTests {
     id_test: number;
     nombre_test: string;
     nombre_carpeta: string;
+    fecha_visible: string | null;
   }[];
 }
 

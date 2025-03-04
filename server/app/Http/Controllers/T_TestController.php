@@ -77,22 +77,40 @@ class T_TestController extends Controller
         );
     }
 
-    public function showForRespuesta(Request  $request, $id)
+    public function showForRespuesta(Request $request, $id)
     {
         $user = $request->user();
         $respuesta = T_Respuesta::findOrFail($id);
 
-        $carpetas = $user->carpetas->pluck('id')->toArray();
-        $compartidas = $user->carpetasCompartidas->pluck('id')->toArray();
-        $globales = T_Carpeta::where('global', true)->pluck('id')->toArray();
-
-        if ($user->email != $respuesta->email_asignador && !in_array($respuesta->id_carpeta, $carpetas) && !in_array($respuesta->id_carpeta, $compartidas) && !in_array($respuesta->id_carpeta, $globales)) {
-            return $this->wrongResponse('No tienes permisos para acceder a este recurso');
+        $isAsignador = $user->email == $respuesta->email_asignador;
+        if ($isAsignador) {
+            $carpetas = $user->carpetas->pluck('id')->toArray();
+            $compartidas = $user->carpetasCompartidas->pluck('id')->toArray();
+            $globales = T_Carpeta::where('global', true)->pluck('id')->toArray();
+            if (!in_array($respuesta->id_carpeta, $carpetas) && !in_array($respuesta->id_carpeta, $compartidas) && !in_array($respuesta->id_carpeta, $globales)) {
+                return $this->wrongResponse('No tienes permisos para acceder a este recurso');
+            }
+            return $this->successResponse(
+                "Test obtenido correctamente.",
+                new T_Test_RespuestaResource($respuesta)
+            );
         }
-        return $this->successResponse(
-            "Test obtenido correctamente.",
-            new T_Test_RespuestaResource($respuesta)
-        );
+
+        $isUser = $user->email == $respuesta->email_user;
+        if ($isUser) {
+            if (!$respuesta->fecha_visible) {
+                return $this->wrongResponse('No puedes ver esto aún');
+            }
+            if (!$respuesta->interpretacion) {
+                return $this->wrongResponse('No puedes ver esto aún');
+            }
+            return $this->successResponse(
+                "Test obtenido correctamente.",
+                new T_Test_RespuestaResource($respuesta)
+            );
+        }
+
+        return $this->wrongResponse('No tienes permisos para acceder a este recurso');
     }
 
     public function updateDb(T_TestUpdateDbRequest $request)

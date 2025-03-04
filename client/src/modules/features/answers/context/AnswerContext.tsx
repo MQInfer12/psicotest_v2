@@ -1,11 +1,12 @@
-import React, { createContext, useContext, useState } from "react";
-import { T_Test_Respuesta } from "../../tests/api/responses";
-import { useParams } from "@tanstack/react-router";
-import { TestType } from "../../tests/types/TestType";
-import { TestForm } from "../../tests/api/dtos";
 import Loader from "@/modules/core/components/ui/loader/Loader";
-import { useSuspenseQuery } from "@tanstack/react-query";
 import { fetchOptions } from "@/modules/core/hooks/useFetch/utils/fetchFn";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { useParams } from "@tanstack/react-router";
+import React, { createContext, useContext, useState } from "react";
+import { TestForm } from "../../tests/api/dtos";
+import { T_Test_Respuesta } from "../../tests/api/responses";
+import { TestType } from "../../tests/types/TestType";
+import { useLastFocused } from "../hooks/useLastFocused";
 
 interface Ctx {
   data: T_Test_Respuesta;
@@ -47,6 +48,9 @@ export const AnswerContextProvider = ({ children }: Props) => {
       }
     )
   );
+
+  const { saveLastFocused } = useLastFocused();
+  saveLastFocused(data && [data.id_respuesta]);
 
   const [interpretation, setInterpretation] = useState(data.interpretacion);
   const [seccionIndex, setSeccionIndex] = useState(0);

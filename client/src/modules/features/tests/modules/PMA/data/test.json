@@ -1,5 +1,11 @@
 {
-  "requerimientos": ["edad", "genero"],
+  "requerimientos": [
+    "edad",
+    "genero",
+    "telefono",
+    "nombre_tutor",
+    "telefono_tutor"
+  ],
   "secciones": [
     {
       "id": 1,

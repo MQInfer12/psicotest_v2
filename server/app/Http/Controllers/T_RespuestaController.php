@@ -8,6 +8,7 @@ use App\Http\Requests\T_RespuestaIndexForTableRequest;
 use App\Http\Requests\T_RespuestaMoveManyRequest;
 use App\Http\Requests\T_RespuestaPatchInterpretationRequest;
 use App\Http\Requests\T_RespuestaPatchInterpretationsRequest;
+use App\Http\Requests\T_RespuestaPatchVisibilidadRequest;
 use App\Http\Requests\T_RespuestaStoreRequest;
 use App\Http\Requests\T_RespuestaUpdateRequest;
 use App\Http\Resources\T_Test_RespuestaResource;
@@ -17,11 +18,13 @@ use App\Models\T_Respuesta;
 use App\Models\T_Test;
 use App\Models\U_user;
 use App\Traits\ApiResponse;
+use App\Traits\GoogleAPIs;
 use Illuminate\Http\Request;
 
 class T_RespuestaController extends Controller
 {
     use ApiResponse;
+    use GoogleAPIs;
 
     public function index()
     {
@@ -182,6 +185,49 @@ class T_RespuestaController extends Controller
         }
         return $this->successResponse(
             "Interpretaciones guardadas correctamente.",
+            T_Tests_RepuestaResource::collection($respuestas)
+        );
+    }
+
+    public function patchVisibilidad(T_RespuestaPatchVisibilidadRequest $request)
+    {
+        $user = $request->user();
+        $access_token = $request->user()->raw_access_token();
+        if (!$access_token) {
+            return $this->wrongResponse("El token de acceso es inválido.");
+        }
+
+        $respuestas = T_Respuesta::whereIn('id', $request->input('ids'))->get();
+        $first = $respuestas->first();
+
+        $psicotestLink = "https://neurall.cidtec-uc.com/download/{$first->id}";
+        $messageBody = "<p>¡Hola, espero que estés teniendo un gran día!</p>"
+            . '<p>Desde <span style="font-weight:bold">Neurall</span> Me comunico contigo para informarte que ya tenemos listo el resultado de tu prueba '
+            . "psicológica realizada en nuestra plataforma.</p>"
+            . "<p>Para descargar tus resultados, ingresa al enlace que te proporcionamos e inicia sesión con tu cuenta.</p>"
+            . '<p>¡Gracias por confiar en nosotros, esperamos verte pronto en <span style="font-weight:bold">Unifranz</span>! 🧡🖤</p>'
+            . "<a href='{$psicotestLink}' target='_blank'>¡Haz clic aquí para ver tus resultados!</a>";
+
+        $result = $this->sendGmail(
+            $first->email_user,
+            'Resultado de la prueba psicológica',
+            $messageBody,
+            $access_token,
+            $user,
+            true
+        );
+        if (!$result) {
+            return $this->wrongResponse("No se pudo enviar la respuesta.");
+        }
+
+        foreach ($respuestas as $respuesta) {
+            $respuesta->update([
+                "fecha_visible" => now()
+            ]);
+        }
+
+        return $this->successResponse(
+            "Respuesta enviada al correo del evaluado correctamente.",
             T_Tests_RepuestaResource::collection($respuestas)
         );
     }

@@ -7,6 +7,7 @@ import { AnswerContextProvider } from "../context/AnswerContext";
 const AnswerPage = () => {
   const { size, PRIVATE_PADDING_INLINE } = useMeasureContext();
   const isSmall = size !== "normal";
+
   return (
     <AnswerContextProvider>
       <div

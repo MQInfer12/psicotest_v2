@@ -21,6 +21,11 @@ export const BREADCRUMB: Breadcrumb[] = [
     name: "Previsualizar test",
     match: "/tests/$idTest",
   },
+  //? DESCARGA
+  {
+    name: "Resultados",
+    match: "/download/$id",
+  },
   //? RESOLVER
   {
     name: "Tests",
@@ -92,7 +97,7 @@ export const BREADCRUMB: Breadcrumb[] = [
     name: "Usuarios",
     match: "/users",
   },
-  //?
+  //? REPORTEs
   {
     name: "Reportes",
     match: "/reports",

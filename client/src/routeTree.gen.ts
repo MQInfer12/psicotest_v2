@@ -33,6 +33,7 @@ import { Route as PrivateTestsIdTestImport } from './routes/_private/tests/$idTe
 import { Route as PrivateResolveIdRespuestaImport } from './routes/_private/resolve/$idRespuesta'
 import { Route as PrivatePatientsIdImport } from './routes/_private/patients/$id'
 import { Route as PrivateFolderIdImport } from './routes/_private/folder/$id'
+import { Route as PrivateDownloadIdImport } from './routes/_private/download/$id'
 import { Route as PrivateCalendarIdImport } from './routes/_private/calendar/$id'
 import { Route as PrivateBlogsIdImport } from './routes/_private/blogs/$id'
 import { Route as PrivateAnswersIdImport } from './routes/_private/answers/$id'
@@ -173,6 +174,12 @@ const PrivateFolderIdRoute = PrivateFolderIdImport.update({
   getParentRoute: () => PrivateRoute,
 } as any)
 
+const PrivateDownloadIdRoute = PrivateDownloadIdImport.update({
+  id: '/download/$id',
+  path: '/download/$id',
+  getParentRoute: () => PrivateRoute,
+} as any)
+
 const PrivateCalendarIdRoute = PrivateCalendarIdImport.update({
   id: '/calendar/$id',
   path: '/calendar/$id',
@@ -295,6 +302,13 @@ declare module '@tanstack/react-router' {
       path: '/calendar/$id'
       fullPath: '/calendar/$id'
       preLoaderRoute: typeof PrivateCalendarIdImport
+      parentRoute: typeof PrivateImport
+    }
+    '/_private/download/$id': {
+      id: '/_private/download/$id'
+      path: '/download/$id'
+      fullPath: '/download/$id'
+      preLoaderRoute: typeof PrivateDownloadIdImport
       parentRoute: typeof PrivateImport
     }
     '/_private/folder/$id': {
@@ -436,6 +450,7 @@ interface PrivateRouteChildren {
   PrivateAnswersIdRoute: typeof PrivateAnswersIdRoute
   PrivateBlogsIdRoute: typeof PrivateBlogsIdRoute
   PrivateCalendarIdRoute: typeof PrivateCalendarIdRoute
+  PrivateDownloadIdRoute: typeof PrivateDownloadIdRoute
   PrivateFolderIdRoute: typeof PrivateFolderIdRoute
   PrivatePatientsIdRoute: typeof PrivatePatientsIdRoute
   PrivateResolveIdRespuestaRoute: typeof PrivateResolveIdRespuestaRoute
@@ -462,6 +477,7 @@ const PrivateRouteChildren: PrivateRouteChildren = {
   PrivateAnswersIdRoute: PrivateAnswersIdRoute,
   PrivateBlogsIdRoute: PrivateBlogsIdRoute,
   PrivateCalendarIdRoute: PrivateCalendarIdRoute,
+  PrivateDownloadIdRoute: PrivateDownloadIdRoute,
   PrivateFolderIdRoute: PrivateFolderIdRoute,
   PrivatePatientsIdRoute: PrivatePatientsIdRoute,
   PrivateResolveIdRespuestaRoute: PrivateResolveIdRespuestaRoute,
@@ -511,6 +527,7 @@ export interface FileRoutesByFullPath {
   '/answers/$id': typeof PrivateAnswersIdRoute
   '/blogs/$id': typeof PrivateBlogsIdRoute
   '/calendar/$id': typeof PrivateCalendarIdRoute
+  '/download/$id': typeof PrivateDownloadIdRoute
   '/folder/$id': typeof PrivateFolderIdRoute
   '/patients/$id': typeof PrivatePatientsIdRoute
   '/resolve/$idRespuesta': typeof PrivateResolveIdRespuestaRoute
@@ -542,6 +559,7 @@ export interface FileRoutesByTo {
   '/answers/$id': typeof PrivateAnswersIdRoute
   '/blogs/$id': typeof PrivateBlogsIdRoute
   '/calendar/$id': typeof PrivateCalendarIdRoute
+  '/download/$id': typeof PrivateDownloadIdRoute
   '/folder/$id': typeof PrivateFolderIdRoute
   '/patients/$id': typeof PrivatePatientsIdRoute
   '/resolve/$idRespuesta': typeof PrivateResolveIdRespuestaRoute
@@ -575,6 +593,7 @@ export interface FileRoutesById {
   '/_private/answers/$id': typeof PrivateAnswersIdRoute
   '/_private/blogs/$id': typeof PrivateBlogsIdRoute
   '/_private/calendar/$id': typeof PrivateCalendarIdRoute
+  '/_private/download/$id': typeof PrivateDownloadIdRoute
   '/_private/folder/$id': typeof PrivateFolderIdRoute
   '/_private/patients/$id': typeof PrivatePatientsIdRoute
   '/_private/resolve/$idRespuesta': typeof PrivateResolveIdRespuestaRoute
@@ -608,6 +627,7 @@ export interface FileRouteTypes {
     | '/answers/$id'
     | '/blogs/$id'
     | '/calendar/$id'
+    | '/download/$id'
     | '/folder/$id'
     | '/patients/$id'
     | '/resolve/$idRespuesta'
@@ -638,6 +658,7 @@ export interface FileRouteTypes {
     | '/answers/$id'
     | '/blogs/$id'
     | '/calendar/$id'
+    | '/download/$id'
     | '/folder/$id'
     | '/patients/$id'
     | '/resolve/$idRespuesta'
@@ -669,6 +690,7 @@ export interface FileRouteTypes {
     | '/_private/answers/$id'
     | '/_private/blogs/$id'
     | '/_private/calendar/$id'
+    | '/_private/download/$id'
     | '/_private/folder/$id'
     | '/_private/patients/$id'
     | '/_private/resolve/$idRespuesta'
@@ -724,6 +746,7 @@ export const routeTree = rootRoute
         "/_private/answers/$id",
         "/_private/blogs/$id",
         "/_private/calendar/$id",
+        "/_private/download/$id",
         "/_private/folder/$id",
         "/_private/patients/$id",
         "/_private/resolve/$idRespuesta",
@@ -785,6 +808,10 @@ export const routeTree = rootRoute
     },
     "/_private/calendar/$id": {
       "filePath": "_private/calendar/$id.tsx",
+      "parent": "/_private"
+    },
+    "/_private/download/$id": {
+      "filePath": "_private/download/$id.tsx",
       "parent": "/_private"
     },
     "/_private/folder/$id": {

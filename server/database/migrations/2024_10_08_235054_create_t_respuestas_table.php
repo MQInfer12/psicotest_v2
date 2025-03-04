@@ -28,6 +28,8 @@ return new class extends Migration
             $table->date('fecha_enviado')->nullable();
             $table->decimal('tiempo')->nullable();
 
+            $table->timestamp('fecha_visible')->nullable()->default(null);
+
             $table->timestamps();
         });
     }

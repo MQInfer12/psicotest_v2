@@ -40,6 +40,7 @@ interface Props<T> {
   smallEmptyMessage?: string;
   children?: React.ReactNode;
   savedOffsetKey?: string;
+  defaultFocusedRows?: number[];
 
   //* PROPS FOR HANDLE ROW STATES
   onClickRow?: {
@@ -74,7 +75,12 @@ const Table = <T,>({
   disableCheck,
   idKey,
   canBeChecked,
+  defaultFocusedRows,
 }: Props<T>) => {
+  const [defaultFocusedRowsState, setDefaultFocusedRowsState] = useState(
+    defaultFocusedRows ?? []
+  );
+
   const [sorting, setSorting] = useState<ColumnSort[]>([]);
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
@@ -266,6 +272,8 @@ const Table = <T,>({
                 onClickRow={onClickRow}
                 rowStyle={rowStyle}
                 savedOffsetKey={savedOffsetKey}
+                defaultFocusedRows={defaultFocusedRowsState}
+                setDefaultFocusedRows={setDefaultFocusedRowsState}
               />
             )}
           </table>

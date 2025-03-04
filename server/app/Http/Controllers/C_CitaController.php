@@ -194,7 +194,7 @@ class C_CitaController extends Controller
         $longitude = '-66.15866852752312';
         $mapsLink = "https://www.google.com/maps/dir/?api=1&destination={$latitude}%2C{$longitude}";
 
-        $psicotestLink = "https://psicotest.cidtec-uc.com/calendar";
+        $psicotestLink = "https://neurall.cidtec-uc.com/calendar";
 
         $body = [
             'summary' => 'Cita para el gabinete psicológico',

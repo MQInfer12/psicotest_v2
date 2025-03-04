@@ -26,7 +26,8 @@ class T_Tests_RepuestaResource extends JsonResource
             'canvas' => $test->canvas,
             'estado' => $this->estado,
             'tiene_interpretacion' => !!$this->interpretacion,
-            'fecha_enviado' => $this->fecha_enviado
+            'fecha_enviado' => $this->fecha_enviado,
+            'fecha_visible' => $this->fecha_visible
         ];
     }
 }

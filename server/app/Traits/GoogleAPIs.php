@@ -7,6 +7,51 @@ use GuzzleHttp\Exception\RequestException;
 
 trait GoogleAPIs
 {
+  protected function sendGmail($recipient, $subject, $messageBody, $access_token, $user, $isHtml = false)
+  {
+    $client = new Client();
+
+    $encodedSubject = "=?UTF-8?Q?" . quoted_printable_encode($subject) . "?=";
+    if ($isHtml) {
+        $contentType = "text/html";
+        $contentEncoding = "quoted-printable";
+    } else {
+        $contentType = "text/plain";
+        $contentEncoding = "quoted-printable";
+    }
+    $rawMessage = "From: <{$user->email}>\r\n";
+    $rawMessage .= "To: <{$recipient}>\r\n";
+    $rawMessage .= "Subject: {$encodedSubject}\r\n";
+    $rawMessage .= "MIME-Version: 1.0\r\n";
+    $rawMessage .= "Content-Type: {$contentType}; charset=UTF-8\r\n";
+    $rawMessage .= "Content-Transfer-Encoding: {$contentEncoding}\r\n\r\n";
+    $rawMessage .= quoted_printable_encode($messageBody);
+    $rawMessage = base64_encode($rawMessage);
+    $rawMessage = str_replace(['+', '/', '='], ['-', '_', ''], $rawMessage);
+
+    try {
+      $response = $client->post('https://www.googleapis.com/gmail/v1/users/me/messages/send', [
+        'headers' => [
+          'Authorization' => 'Bearer ' . $access_token,
+          'Content-Type'  => 'application/json',
+        ],
+        'json' => [
+          'raw' => $rawMessage,
+        ],
+      ]);
+      return json_decode($response->getBody()->getContents(), true);
+    } catch (RequestException $e) {
+      if ($e->getResponse() && $e->getResponse()->getStatusCode() == 401) {
+        $access_token = $this->refreshAccessToken($user);
+        if ($access_token) {
+          return $this->sendGmail($recipient, $subject, $messageBody, $access_token, $user);
+        }
+      }
+    }
+
+    return false;
+  }
+
   protected function fetchGoogleCalendarEvent($id_calendar, $access_token, $user)
   {
     $client = new Client();

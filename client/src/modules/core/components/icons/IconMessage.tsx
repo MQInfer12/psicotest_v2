@@ -38,7 +38,7 @@ const IconMessage = ({
           {message}
         </p>
         {small && (
-          <small className="text-xs text-alto-700 dark:text-alto-300">
+          <small className="text-xs text-alto-700 dark:text-alto-300 text-center">
             {small}
           </small>
         )}

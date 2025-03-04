@@ -6,6 +6,9 @@ export interface TestType {
 export enum Requirements {
   EDAD = "edad",
   GENERO = "genero",
+  TELEFONO = "telefono",
+  NOMBRE_TUTOR = "nombre_tutor",
+  TELEFONO_TUTOR = "telefono_tutor",
 }
 
 export interface Item {

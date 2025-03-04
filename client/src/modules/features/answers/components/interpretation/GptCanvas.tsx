@@ -8,6 +8,8 @@ import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import GptContent from "./GptContent";
 import { toastConfirm, toastSuccess } from "@/modules/core/utils/toasts";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
+import { useSendMail } from "../../hooks/useSendMail";
+import { T_Tests_Respuestas } from "@/modules/features/tests/api/responses";
 
 interface Props {
   content: string;
@@ -18,6 +20,8 @@ interface Props {
   setContent: React.Dispatch<React.SetStateAction<string | null>>;
   idRespuestas: number[];
   onChangePDF?: (showPDF: boolean) => void;
+  alreadySendedMail?: boolean;
+  onSuccessSendMail?: (data: T_Tests_Respuestas[]) => void;
 }
 
 const GptCanvas = ({
@@ -29,9 +33,12 @@ const GptCanvas = ({
   setContent,
   idRespuestas,
   onChangePDF,
+  alreadySendedMail,
+  onSuccessSendMail,
 }: Props) => {
   const [edit, setEdit] = useState<string | null>(null);
   const [showPDF, setShowPDF] = useState(false);
+  const [sendedMail, setSendedMail] = useState(!!alreadySendedMail);
 
   useEffect(() => {
     onChangePDF?.(showPDF);
@@ -59,6 +66,7 @@ const GptCanvas = ({
     );
   };
 
+  const { handleSendMail } = useSendMail();
   return (
     <div className="bg-alto-50 dark:bg-alto-1000 flex-1 relative isolate">
       <div className="absolute inset-0 flex items-center justify-center -z-10 pointer-events-none overflow-visible">
@@ -74,47 +82,71 @@ const GptCanvas = ({
         )}
       </div>
       <div
-        className={clsx(
-          "bottom-5 right-5 absolute flex flex-col gap-4 items-end"
-        )}
+        className={clsx("bottom-5 right-5 absolute flex gap-4 items-end", {
+          "flex-col": showPDF,
+        })}
       >
         {success && showPDF && (
-          <PDFDownloadLink
-            document={<GptPdf data={data} content={content} />}
-            fileName={`${data.name.toLocaleLowerCase().replaceAll(" ", "_")}.pdf`}
-          >
-            <Button btnType="secondary" icon={Icon.Types.DOWNLOAD} />
-          </PDFDownloadLink>
+          <>
+            <PDFDownloadLink
+              document={<GptPdf data={data} content={content} />}
+              fileName={`${data.name.toLocaleLowerCase().replaceAll(" ", "_")}.pdf`}
+            >
+              <Button btnType="secondary" icon={Icon.Types.DOWNLOAD} />
+            </PDFDownloadLink>
+          </>
         )}
         {reload && !showPDF && (
           <Button
             btnType={success ? "secondary" : "primary"}
-            onClick={reload}
+            onClick={() => {
+              if (success) {
+                toastConfirm("La interpretación se volverá a generar", reload);
+              } else {
+                reload();
+              }
+            }}
             icon={Icon.Types.RELOAD}
             disabled={!!edit || !content || !loaded}
           />
         )}
         {!showPDF && (
-          <Button
-            title={edit ? "Terminar edición" : "Editar contenido"}
-            btnType={edit ? "primary" : "secondary"}
-            onClick={() => {
-              if (edit) {
-                toastConfirm("¿Quieres guardar los cambios?", handleSave, {
-                  title: "Terminar edición",
-                  cancelable: true,
-                  onCancel: () => {
-                    setEdit(null);
-                  },
-                });
-                return;
-              } else {
-                setEdit(content);
+          <>
+            <Button
+              title="Enviar mail al evaluado"
+              btnType="secondary"
+              onClick={() =>
+                handleSendMail(idRespuestas, (data) => {
+                  setSendedMail(true);
+                  onSuccessSendMail?.(data);
+                })
               }
-            }}
-            disabled={!success || !content || !loaded}
-            icon={edit ? Icon.Types.PENCIL_CANCEL : Icon.Types.PENCIL}
-          />
+              disabled={!success || !content || !loaded || !!edit}
+              icon={Icon.Types.MAIL}
+              subicon={sendedMail ? Icon.Types.CHECK : undefined}
+              success={sendedMail}
+            />
+            <Button
+              title={edit ? "Terminar edición" : "Editar contenido"}
+              btnType={edit ? "primary" : "secondary"}
+              onClick={() => {
+                if (edit) {
+                  toastConfirm("¿Quieres guardar los cambios?", handleSave, {
+                    title: "Terminar edición",
+                    cancelable: true,
+                    onCancel: () => {
+                      setEdit(null);
+                    },
+                  });
+                  return;
+                } else {
+                  setEdit(content);
+                }
+              }}
+              disabled={!success || !content || !loaded}
+              icon={edit ? Icon.Types.PENCIL_CANCEL : Icon.Types.PENCIL}
+            />
+          </>
         )}
         <Button
           onClick={() => setShowPDF(!showPDF)}

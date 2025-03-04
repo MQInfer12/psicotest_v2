@@ -24,7 +24,8 @@ class T_Test_RespuestaResource extends JsonResource
             'user' => new U_userResource($this->user),
             'fecha_enviado' => $this->fecha_enviado,
             'interpretacion' => $this->interpretacion,
-            'nombre_carpeta' => $this->carpeta?->descripcion
+            'nombre_carpeta' => $this->carpeta?->descripcion,
+            'fecha_visible' => $this->fecha_visible
         ];
     }
 }

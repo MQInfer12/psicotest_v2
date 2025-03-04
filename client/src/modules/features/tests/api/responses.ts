@@ -27,6 +27,7 @@ export interface T_Tests_Respuestas {
   estado: RespuestaEstado;
   tiene_interpretacion: boolean;
   fecha_enviado: string;
+  fecha_visible: string | null;
 }
 
 export interface T_Test {
@@ -53,4 +54,5 @@ export interface T_Test_Respuesta {
   fecha_enviado: string | null;
   interpretacion: string | null;
   nombre_carpeta: string | null;
+  fecha_visible: string | null;
 }

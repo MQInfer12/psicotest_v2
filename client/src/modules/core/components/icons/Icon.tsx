@@ -73,6 +73,7 @@ import IconImage from "./tabler/iconImage";
 import IconShare from "./tabler/iconShare";
 import IconDotFilled from "./tabler/iconDotFilled";
 import IconDot from "./tabler/iconDot";
+import IconMail from "./tabler/iconMail";
 
 export enum ICON {
   CHECK = "check",
@@ -165,6 +166,7 @@ export enum ICON {
   SHARE = "share",
   DOT = "dot",
   DOT_FILLED = "dot_filled",
+  MAIL = "mail",
 }
 
 interface Props {
@@ -263,6 +265,7 @@ const Icon = ({ type }: Props) => {
     [ICON.SHARE]: <IconShare />,
     [ICON.DOT]: <IconDot />,
     [ICON.DOT_FILLED]: <IconDotFilled />,
+    [ICON.MAIL]: <IconMail />,
   };
   return icons[type];
 };

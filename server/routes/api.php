@@ -65,6 +65,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/respuesta/for/table', [T_RespuestaController::class, 'indexForTable']);
     Route::patch('/respuesta/patch/interpretation/{id}', [T_RespuestaController::class, 'patchInterpretation']);
     Route::patch('/respuesta/patch/interpretations', [T_RespuestaController::class, 'patchInterpretations']);
+    Route::patch('/respuesta/patch/visibilidad', [T_RespuestaController::class, 'patchVisibilidad']);
     Route::put('/respuesta/delete/many', [T_RespuestaController::class, 'destroyMany']);
     Route::put('/respuesta/move/many', [T_RespuestaController::class, 'moveMany']);
 

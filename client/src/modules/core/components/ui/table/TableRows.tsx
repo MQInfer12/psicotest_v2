@@ -21,6 +21,8 @@ interface Props<T> {
   actions?: TableAction<T>[];
   loadingRow?: (row: T) => boolean;
   checkable?: boolean;
+  defaultFocusedRows: number[];
+  setDefaultFocusedRows: React.Dispatch<React.SetStateAction<number[]>>;
 }
 
 const TableRows = <T,>({
@@ -35,6 +37,8 @@ const TableRows = <T,>({
   actions,
   checkable,
   loadingRow,
+  defaultFocusedRows,
+  setDefaultFocusedRows,
 }: Props<T>) => {
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
 
@@ -62,7 +66,7 @@ const TableRows = <T,>({
     return () => {
       if (!savedOffsetKey) return;
       const offset = rowVirtualizer.scrollOffset;
-      if (offset) {
+      if (offset !== null) {
         sessionStorage.setItem(savedOffsetKey, String(offset));
       }
     };
@@ -83,15 +87,21 @@ const TableRows = <T,>({
             : onClickRow.fn
           : onClickRow?.fn;
         const styles = rowStyle?.(row.original) || {};
+        const isDefaultFocused =
+          !!defaultFocusedRows &&
+          defaultFocusedRows.some((r) => String(r) === row.id);
         return (
           <tr
+            key={row.id}
             className={clsx(
-              "absolute w-full grid border-y border-y-alto-300/50 dark:border-y-alto-800/40 transition-[background-color,opacity,filter] duration-300",
+              "absolute w-full grid border-y border-y-alto-300/50 dark:border-y-alto-800/40 ring-inset ring-primary-400 transition-[background-color,opacity,filter,box-shadow] duration-300",
               {
                 "bg-white dark:bg-alto-1000": virtualRow.index % 2 === 0,
                 "bg-primary-50 dark:bg-primary-1000":
                   virtualRow.index % 2 === 1,
                 "hover:!invert-[4%] cursor-pointer": !!handleClickRow,
+                "ring-2": isDefaultFocused,
+                "ring-0": !isDefaultFocused,
               }
             )}
             style={{
@@ -100,7 +110,10 @@ const TableRows = <T,>({
               ...styles,
             }}
             onClick={() => handleClickRow?.(row.original)}
-            key={row.id}
+            onBlur={() => {
+              if (isDefaultFocused) setDefaultFocusedRows([]);
+            }}
+            autoFocus={isDefaultFocused}
           >
             {checkable && (
               <td

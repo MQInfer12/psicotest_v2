@@ -1,30 +1,32 @@
-import Table from "@/modules/core/components/ui/table/Table";
-import { useEffect, useMemo, useState } from "react";
-import { createColumnHelper } from "@tanstack/react-table";
-import Icon from "@/modules/core/components/icons/Icon";
-import { useNavigate, useSearch } from "@tanstack/react-router";
-import useFetch from "@/modules/core/hooks/useFetch/useFetch";
-import { T_Tests_Respuestas } from "../../tests/api/responses";
-import clsx from "clsx";
-import { RespuestaEstado } from "../types/RespuestaEstado";
-import { motion } from "framer-motion";
 import DefaultPhoto from "@/assets/images/defaultPhoto.jpg";
+import Icon from "@/modules/core/components/icons/Icon";
+import TableHeader from "@/modules/core/components/ui/table/header/TableHeader";
+import Table from "@/modules/core/components/ui/table/Table";
+import { COLORS } from "@/modules/core/constants/COLORS";
+import { LOCAL_ANSWERS_SEARCH } from "@/modules/core/constants/LOCALS";
+import { useThemeContext } from "@/modules/core/context/ThemeContext";
+import { useDebounce } from "@/modules/core/hooks/useDebounce";
+import useFetch from "@/modules/core/hooks/useFetch/useFetch";
+import { formatStringList } from "@/modules/core/utils/formatStringList";
+import { useNavigate, useSearch } from "@tanstack/react-router";
+import { createColumnHelper } from "@tanstack/react-table";
+import clsx from "clsx";
+import { motion } from "framer-motion";
+import { useEffect, useMemo, useState } from "react";
 import { useMeasureContext } from "../../_layout/context/MeasureContext";
 import FolderList from "../../folders/components/FolderList";
-import { useDebounce } from "@/modules/core/hooks/useDebounce";
-import { LOCAL_ANSWERS_SEARCH } from "@/modules/core/constants/LOCALS";
+import { IA_Plantilla } from "../../templates/api/responses";
+import { T_Tests_Respuestas } from "../../tests/api/responses";
 import AnswersHeader from "../components/AnswersHeader";
+import AnswersInterpretation from "../components/AnswersInterpretation";
 import {
   AnswersHeaderContextProvider,
   AnswersTableFilters,
   SelectedTests,
 } from "../context/AnswersHeaderContext";
-import { COLORS } from "@/modules/core/constants/COLORS";
-import AnswersInterpretation from "../components/AnswersInterpretation";
-import { IA_Plantilla } from "../../templates/api/responses";
-import TableHeader from "@/modules/core/components/ui/table/header/TableHeader";
-import { useThemeContext } from "@/modules/core/context/ThemeContext";
-import { formatStringList } from "@/modules/core/utils/formatStringList";
+import { useLastFocused } from "../hooks/useLastFocused";
+import { useSendMail } from "../hooks/useSendMail";
+import { RespuestaEstado } from "../types/RespuestaEstado";
 
 const columnHelper = createColumnHelper<T_Tests_Respuestas>();
 
@@ -94,6 +96,8 @@ const AnswersPage = () => {
   );
   const { data: dataFolders, setData: setDataFolders } =
     fetchData("GET /carpeta");
+
+  const { handleSendMail } = useSendMail();
 
   const [loading, setLoading] = useState<number | null>(null);
   const { PRIVATE_PADDING_INLINE } = useMeasureContext();
@@ -180,17 +184,38 @@ const AnswersPage = () => {
         header: "Interpretado",
         cell: (info) => (
           <div className="flex w-full justify-center">
-            <small
+            <button
               className={clsx(
-                "px-2 py-[2px] text-xs font-semibold rounded-md",
+                "px-2 py-[2px] text-xs font-semibold rounded-md flex items-center justify-center gap-1",
                 {
                   "bg-success/10 text-success": info.getValue(),
                   "bg-alto-600/10 text-alto-600": !info.getValue(),
                 }
               )}
+              disabled={!info.getValue()}
+              onClick={() =>
+                handleSendMail([info.row.original.id_respuesta], (res) => {
+                  setData((prev) =>
+                    prev.map((v) => {
+                      const exist = res.find(
+                        (respuesta) => respuesta.id_respuesta === v.id_respuesta
+                      );
+                      if (exist) {
+                        return exist;
+                      }
+                      return v;
+                    })
+                  );
+                })
+              }
             >
               {info.getValue() ? "SI" : "NO"}
-            </small>
+              {info.row.original.fecha_visible && (
+                <div className="h-3 w-3">
+                  <Icon type={Icon.Types.MAIL} />
+                </div>
+              )}
+            </button>
           </div>
         ),
         meta: {
@@ -234,6 +259,9 @@ const AnswersPage = () => {
       row.estado === RespuestaEstado.PENDIENTE
     );
   };
+
+  const { getLastFocused } = useLastFocused();
+  const lastFocused = getLastFocused(showInterpretation);
 
   const filteredData = getFilteredData();
   return (
@@ -281,6 +309,7 @@ const AnswersPage = () => {
               }}
               disableCheck={!!startedSelection}
               idKey="id_respuesta"
+              defaultFocusedRows={lastFocused ?? []}
               actions={[
                 {
                   fn: (row) => {
@@ -343,6 +372,7 @@ const AnswersPage = () => {
                                   nombre_test: row.nombre_test,
                                   nombre_carpeta:
                                     row.nombre_carpeta || "Sin clasificación",
+                                  fecha_visible: row.fecha_visible,
                                 },
                               ],
                             };
@@ -361,6 +391,7 @@ const AnswersPage = () => {
                                   nombre_test: row.nombre_test,
                                   nombre_carpeta:
                                     row.nombre_carpeta || "Sin clasificación",
+                                  fecha_visible: row.fecha_visible,
                                 },
                               ],
                             };

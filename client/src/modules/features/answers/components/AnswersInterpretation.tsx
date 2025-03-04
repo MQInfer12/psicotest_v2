@@ -272,6 +272,19 @@ const AnswersInterpretation = () => {
         reload={generateInterpretation}
         idRespuestas={selectedTests?.selecteds.map((s) => s.id_respuesta) || []}
         success={!hasError}
+        alreadySendedMail={selectedTests?.selecteds.some(
+          (v) => !!v.fecha_visible
+        )}
+        onSuccessSendMail={(data) => {
+          setData((prev) =>
+            prev.map((row) => {
+              const exist = data.find(
+                (r) => r.id_respuesta === row.id_respuesta
+              );
+              return exist ?? row;
+            })
+          );
+        }}
         data={{
           name: selectedTests?.user.nombre || "",
           age: selectedTests?.user.fechaNacimiento

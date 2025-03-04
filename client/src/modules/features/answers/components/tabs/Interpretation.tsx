@@ -112,6 +112,7 @@ const Interpretation = () => {
         idRespuestas={[data.id_respuesta]}
         setContent={setInterpretation}
         loaded={!loading}
+        alreadySendedMail={!!data.fecha_visible}
         data={{
           name: data.user.nombre,
           age:

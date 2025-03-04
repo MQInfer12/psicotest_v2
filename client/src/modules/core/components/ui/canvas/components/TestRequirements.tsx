@@ -1,5 +1,4 @@
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
-import { toastSuccess } from "@/modules/core/utils/toasts";
 import { useUserContext } from "@/modules/features/auth/context/UserContext";
 import { Requirements } from "@/modules/features/tests/types/TestType";
 import { UserRequiredDTO } from "@/modules/features/users/api/dtos";
@@ -10,6 +9,7 @@ import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import Input from "../../Input";
 import { TEST_CAROUSEL_VARIANT } from "../constants/TEST_CAROUSEL_VARIANT";
+import { toastSuccess } from "@/modules/core/utils/toasts";
 
 interface Props {
   direction: number;
@@ -42,6 +42,9 @@ const TestRequirements = ({ direction, requirements }: Props) => {
     defaultValues: {
       fecha_nacimiento: user?.fecha_nacimiento ?? undefined,
       genero: user?.genero ?? undefined,
+      telefono: user?.telefono ?? undefined,
+      nombre_tutor: user?.nombre_tutor ?? undefined,
+      telefono_tutor: user?.telefono_tutor ?? undefined,
     },
     context: {
       requirements,
@@ -96,6 +99,39 @@ const TestRequirements = ({ direction, requirements }: Props) => {
                     </option>
                   ))}
                 </Input>
+              );
+            case Requirements.TELEFONO:
+              return (
+                <Input
+                  key={r}
+                  label="Teléfono"
+                  type="number"
+                  error={errors.telefono?.message}
+                  required
+                  {...register("telefono")}
+                />
+              );
+            case Requirements.NOMBRE_TUTOR:
+              return (
+                <Input
+                  key={r}
+                  label="Nombre del padre / madre / tutor"
+                  type="text"
+                  error={errors.nombre_tutor?.message}
+                  required
+                  {...register("nombre_tutor")}
+                />
+              );
+            case Requirements.TELEFONO_TUTOR:
+              return (
+                <Input
+                  key={r}
+                  label="Teléfono del padre / madre / tutor"
+                  type="number"
+                  error={errors.telefono_tutor?.message}
+                  required
+                  {...register("telefono_tutor")}
+                />
               );
           }
         })}

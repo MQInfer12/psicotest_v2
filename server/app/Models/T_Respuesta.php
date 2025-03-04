@@ -23,7 +23,8 @@ class T_Respuesta extends Model
         'interpretacion',
         'fecha_asignado',
         'fecha_enviado',
-        'tiempo'
+        'tiempo',
+        'fecha_visible'
     ];
 
     public function user()

@@ -84,6 +84,13 @@ declare global {
       request: RespuestaPatchInterpretationsDTO;
       response: T_Tests_Respuestas[];
     };
+    "PATCH /respuesta/patch/visibilidad": {
+      params: never;
+      request: {
+        ids: number[];
+      };
+      response: T_Tests_Respuestas[];
+    };
     "PUT /respuesta/delete/many": {
       params: never;
       request: {
