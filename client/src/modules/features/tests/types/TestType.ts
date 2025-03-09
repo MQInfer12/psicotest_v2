@@ -31,6 +31,7 @@ export interface Seccion {
   maxWords?: number;
   //! maxWords should only work in "text" sections
   timer?: number;
+  shortDescription?: string;
   description?: (SeccionTitle | SeccionParagraph)[];
   customPrompt?: string;
   items: Item[];

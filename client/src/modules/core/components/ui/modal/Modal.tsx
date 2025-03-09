@@ -112,7 +112,7 @@ const Modal = ({
     <Appear
       open={open}
       className={clsx(
-        "bg-alto-950/60 dark:bg-alto-50/30 fixed inset-0 flex items-center z-40",
+        "bg-alto-950/60 dark:bg-alto-50/30 fixed left-0 top-0 h-[100svh] w-full flex items-center z-40",
         {
           "backdrop-blur-sm": blur,
           "justify-center px-5 max-sm:px-2": type === "default",

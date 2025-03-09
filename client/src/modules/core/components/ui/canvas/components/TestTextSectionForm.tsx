@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import Input from "../../Input";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -21,6 +21,18 @@ interface Props {
   seccion: Seccion;
 }
 
+const getRandomPhrase = () => {
+  const moods = [
+    "¡Excelente, sigue así!",
+    "¡Sigue así!",
+    "¡Bien hecho, continúa!",
+    "¡Buen trabajo, continúa!",
+    "¡Sigue adelante!",
+  ];
+  const randomIndex = Math.floor(Math.random() * moods.length);
+  return moods[randomIndex];
+};
+
 const TestTextSectionForm = ({
   form,
   pregunta,
@@ -37,9 +49,11 @@ const TestTextSectionForm = ({
     resolver: yupResolver(TextSectionDTOSchema),
   });
 
+  const exist = form.find((f) => f.idPregunta === pregunta.id);
+  const existIdOpcion = (exist?.idOpcion ?? []) as TextSectionOption[];
+
   const handleWords = (body: TextSectionDTO) => {
-    const value = body.word;
-    const exist = form.find((f) => f.idPregunta === pregunta.id);
+    const value = body.word.trim();
 
     if (!exist) {
       setForm((prev) => [
@@ -56,11 +70,11 @@ const TestTextSectionForm = ({
         },
       ]);
     } else {
-      const existIdOpcion = exist.idOpcion as TextSectionOption[];
-      if (existIdOpcion.length === seccion.maxWords)
+      if (existIdOpcion.length === seccion.maxWords) {
         return toastError(
-          `El límite máximo de palabras es ${seccion.maxWords}`
+          `Llegaste al límite de palabras (max. ${seccion.maxWords})`
         );
+      }
       setForm((prev) =>
         prev.map((p) => {
           if (p.idPregunta === pregunta.id) {
@@ -100,13 +114,28 @@ const TestTextSectionForm = ({
       | TextSectionOption[]
       | undefined) || []
   ).length;
+
+  const randomPhrase = useMemo(() => getRandomPhrase(), [existIdOpcion.length]);
+
   return (
     <form onSubmit={handleSubmit(handleWords)} className="flex items-end gap-4">
       <Input
         className="test-text-section-input"
         {...register("word")}
         error={errors.word?.message}
-        label={`Escribe aquí ${seccion.maxWords ? `(${wordCount} de ${seccion.maxWords})` : ""}`}
+        required
+        label={`Escribe aquí`}
+        placeholder={
+          existIdOpcion.length === 0
+            ? "Ingresa una palabra"
+            : existIdOpcion.length > 60
+              ? "Ya casi terminas..."
+              : existIdOpcion.length > 3
+                ? undefined
+                : existIdOpcion.length > 0
+                  ? randomPhrase
+                  : undefined
+        }
         disabled={finished || wordCount === seccion.maxWords}
       />
       <Button

@@ -34,6 +34,7 @@ export const MeasureContextProvider = ({ children }: Props) => {
         : "md"
       : "normal"
   );
+
   const [privatePaddingInline, setPrivatePaddingInline] = useState(
     window.innerWidth >= SM_BREAKPOINT
       ? PRIVATE_PADDING_INLINE

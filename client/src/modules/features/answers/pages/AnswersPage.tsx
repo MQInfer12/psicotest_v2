@@ -27,6 +27,7 @@ import {
 import { useLastFocused } from "../hooks/useLastFocused";
 import { useSendMail } from "../hooks/useSendMail";
 import { RespuestaEstado } from "../types/RespuestaEstado";
+import { FOLDER_TYPES_I_CAN_MOVE } from "../constants/params";
 
 const columnHelper = createColumnHelper<T_Tests_Respuestas>();
 
@@ -305,7 +306,9 @@ const AnswersPage = () => {
                 const carpeta = dataFolders?.find(
                   (f) => f.id === row.id_carpeta
                 );
-                return carpeta?.tipo ? carpeta.tipo === "propia" : true;
+                return carpeta?.tipo
+                  ? FOLDER_TYPES_I_CAN_MOVE.includes(carpeta.tipo)
+                  : true;
               }}
               disableCheck={!!startedSelection}
               idKey="id_respuesta"

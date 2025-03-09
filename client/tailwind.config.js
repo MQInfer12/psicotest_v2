@@ -21,6 +21,7 @@ export default {
         "max-xl": { max: "1280px" },
         "max-2xl": { max: "1536px" },
         petizo: { raw: "(max-height: 780px)" },
+        chikito: { raw: "(max-height: 720px)" },
       },
       keyframes: {
         appear: {

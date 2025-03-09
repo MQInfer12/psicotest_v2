@@ -11,6 +11,7 @@
       "id": 1,
       "timer": 240,
       "required": false,
+      "shortDescription": "Selecciona el sinónimo",
       "description": [
         {
           "type": "title",
@@ -22,7 +23,7 @@
         },
         {
           "type": "title",
-          "content": "Factor V"
+          "content": "Factor V - Instrucciones"
         },
         {
           "type": "paragraph",
@@ -321,7 +322,7 @@
       "description": [
         {
           "type": "title",
-          "content": "Factor E"
+          "content": "Factor E - Instrucciones"
         },
         {
           "type": "paragraph",
@@ -473,10 +474,11 @@
       "id": 3,
       "timer": 360,
       "required": false,
+      "shortDescription": "Selecciona la letra siguiente",
       "description": [
         {
           "type": "title",
-          "content": "Factor R"
+          "content": "Factor R - Instrucciones"
         },
         {
           "type": "paragraph",
@@ -508,7 +510,7 @@
         {
           "id": 72,
           "align": "center",
-          "descripcion": "a x a y b x b y x c x y d x<op11>d</op11><op12>e</op12><op13>f</op13><op14>x</op14><op15>y</op15><op16>z</op16>"
+          "descripcion": "a x a y b x b y c x c y d x d<op11>d</op11><op12>e</op12><op13>f</op13><op14>x</op14><op15>y</op15><op16>z</op16>"
         },
         {
           "id": 73,
@@ -523,27 +525,27 @@
         {
           "id": 75,
           "align": "center",
-          "descripcion": "a b c d a b e a b f<op11>a</op11><op12>b</op12><op13>c</op13><op14>f</op14><op15>g</op15><op16>h</op16>"
+          "descripcion": "a b c a b d a b e a b f<op11>a</op11><op12>b</op12><op13>c</op13><op14>f</op14><op15>g</op15><op16>h</op16>"
         },
         {
           "id": 76,
           "align": "center",
-          "descripcion": "x y z a x y z b x y z<op11>x</op11><op12>b</op12><op13>c</op13><op14>d</op14><op15>e</op15><op16>f</op16>"
+          "descripcion": "x y z a x y z b x y z c x y z<op11>x</op11><op12>b</op12><op13>c</op13><op14>d</op14><op15>e</op15><op16>f</op16>"
         },
         {
           "id": 77,
           "align": "center",
-          "descripcion": "e f g h c i j j c k l c m n c<op11>c</op11><op12>d</op12><op13>m</op13><op14>n</op14><op15>ñ</op15><op16>o</op16>"
+          "descripcion": "e f c g h c i j c k l c m n c<op11>c</op11><op12>d</op12><op13>m</op13><op14>n</op14><op15>ñ</op15><op16>o</op16>"
         },
         {
           "id": 78,
           "align": "center",
-          "descripcion": "c b a c b a c b a c b a c b<op11>a</op11><op12>b</op12><op13>c</op13><op14>d</op14><op15>e</op15><op16>f</op16>"
+          "descripcion": "c b a c b a c b a c b<op11>a</op11><op12>b</op12><op13>c</op13><op14>d</op14><op15>e</op15><op16>f</op16>"
         },
         {
           "id": 79,
           "align": "center",
-          "descripcion": "a m b c m d e f m g h j l j<op11>h</op11><op12>i</op12><op13>j</op13><op14>k</op14><op15>l</op15><op16>m</op16>"
+          "descripcion": "a m b c m d e f m g h j i j<op11>h</op11><op12>i</op12><op13>j</op13><op14>k</op14><op15>l</op15><op16>m</op16>"
         },
         {
           "id": 80,
@@ -558,22 +560,22 @@
         {
           "id": 82,
           "align": "center",
-          "descripcion": "a b b c c d d d e e e<op11>d</op11><op12>e</op12><op13>f</op13><op14>g</op14><op15>h</op15><op16>i</op16>"
+          "descripcion": "a b b c c c d d d d e e e e<op11>d</op11><op12>e</op12><op13>f</op13><op14>g</op14><op15>h</op15><op16>i</op16>"
         },
         {
           "id": 83,
           "align": "center",
-          "descripcion": "a a b c a b c d e f<op11>a</op11><op12>b</op12><op13>c</op13><op14>d</op14><op15>e</op15><op16>f</op16>"
+          "descripcion": "a b c a b c d a b c d e<op11>a</op11><op12>b</op12><op13>c</op13><op14>d</op14><op15>e</op15><op16>f</op16>"
         },
         {
           "id": 84,
           "align": "center",
-          "descripcion": "a b c a d e f f g h i j k l<op11>j</op11><op12>k</op12><op13>l</op13><op14>m</op14><op15>n</op15><op16>ñ</op16>"
+          "descripcion": "a b c c d e f f g h i i j k l<op11>j</op11><op12>k</op12><op13>l</op13><op14>m</op14><op15>n</op15><op16>ñ</op16>"
         },
         {
           "id": 85,
           "align": "center",
-          "descripcion": "a b a c d c e f f g h i j<op11>g</op11><op12>h</op12><op13>i</op13><op14>j</op14><op15>k</op15><op16>l</op16>"
+          "descripcion": "a b a c d c e f e g h g i j<op11>g</op11><op12>h</op12><op13>i</op13><op14>j</op14><op15>k</op15><op16>l</op16>"
         },
         {
           "id": 86,
@@ -583,7 +585,7 @@
         {
           "id": 87,
           "align": "center",
-          "descripcion": "a b b b c d d d e f f g h h<op11>g</op11><op12>h</op12><op13>i</op13><op14>j</op14><op15>k</op15><op16>l</op16>"
+          "descripcion": "a b b b c d d d e f f f g h h<op11>g</op11><op12>h</op12><op13>i</op13><op14>j</op14><op15>k</op15><op16>l</op16>"
         },
         {
           "id": 88,
@@ -603,7 +605,7 @@
         {
           "id": 91,
           "align": "center",
-          "descripcion": "a b b c d e f f g h<op11>e</op11><op12>f</op12><op13>g</op13><op14>h</op14><op15>i</op15><op16>j</op16>"
+          "descripcion": "a b b c d d e f f g h<op11>e</op11><op12>f</op12><op13>g</op13><op14>h</op14><op15>i</op15><op16>j</op16>"
         },
         {
           "id": 92,
@@ -628,7 +630,7 @@
         {
           "id": 96,
           "align": "center",
-          "descripcion": "a a b a c d e d a o e f<op11>e</op11><op12>f</op12><op13>g</op13><op14>h</op14><op15>i</op15><op16>j</op16>"
+          "descripcion": "a a b a b c c d c d e e f<op11>e</op11><op12>f</op12><op13>g</op13><op14>h</op14><op15>i</op15><op16>j</op16>"
         },
         {
           "id": 97,
@@ -638,17 +640,17 @@
         {
           "id": 98,
           "align": "center",
-          "descripcion": "v v v v v w w w w x x y<op11>q</op11><op12>v</op12><op13>w</op13><op14>x</op14><op15>y</op15><op16>z</op16>"
+          "descripcion": "v v v v v w w w w x x x y<op11>q</op11><op12>v</op12><op13>w</op13><op14>x</op14><op15>y</op15><op16>z</op16>"
         },
         {
           "id": 99,
           "align": "center",
-          "descripcion": "a b c b a d e f f e g d g h i<op11>h</op11><op12>i</op12><op13>j</op13><op14>k</op14><op15>l</op15><op16>m</op16>"
+          "descripcion": "a b c c b a d e f f e d g h i<op11>h</op11><op12>i</op12><op13>j</op13><op14>k</op14><op15>l</op15><op16>m</op16>"
         },
         {
           "id": 100,
           "align": "center",
-          "descripcion": "a a b b c d e f e f g h i i<op11>h</op11><op12>i</op12><op13>j</op13><op14>k</op14><op15>l</op15><op16>p</op16>"
+          "descripcion": "a b c b c d e f e f g h i h<op11>h</op11><op12>i</op12><op13>j</op13><op14>k</op14><op15>l</op15><op16>p</op16>"
         }
       ],
       "opciones": [
@@ -685,7 +687,7 @@
       "description": [
         {
           "type": "title",
-          "content": "Factor N"
+          "content": "Factor N - Instrucciones"
         },
         {
           "type": "paragraph",
@@ -1072,10 +1074,11 @@
       "type": "text",
       "maxWords": 70,
       "timer": 300,
+      "shortDescription": "Escribe palabras con S",
       "description": [
         {
           "type": "title",
-          "content": "Factor D"
+          "content": "Factor D - Instrucciones"
         },
         {
           "type": "paragraph",
@@ -1083,7 +1086,7 @@
         },
         {
           "type": "paragraph",
-          "content": "Tomemos el ejemplo la letra 'D', para este caso tendríamos que escribir 'diente', 'dado', 'decir', 'Danubio', 'dinamita', etc."
+          "content": "Tomemos el ejemplo la letra 'D', para este caso tendríamos que escribir 'diente', 'dado', 'decir', 'danubio', 'dinamita', etc."
         },
         {
           "type": "paragraph",

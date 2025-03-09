@@ -28,6 +28,7 @@ export const getAIResponse = async (
       },
       body: JSON.stringify({
         model: options?.model ?? "gpt-3.5-turbo",
+        reasoning_effort: "medium",
         messages: [
           {
             role: "system",

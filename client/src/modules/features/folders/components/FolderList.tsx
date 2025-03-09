@@ -38,6 +38,10 @@ const FolderList = ({
     });
   };
 
+  data?.sort((a, b) => {
+    if (a.tipo !== "global" && b.tipo === "global") return 1;
+    return a.descripcion.localeCompare(b.descripcion);
+  });
   return (
     <>
       {modal("Formulario de carpeta", (item) => (
@@ -106,6 +110,7 @@ const FolderList = ({
                     ? Icon.Types.FOLDER_OPEN
                     : Icon.Types.FOLDER
                 }
+                subicon={Icon.Types.MINUS}
                 textAlign={size === "normal" ? "start" : "center"}
                 reverse
                 onClick={() => handleSelectFolder(0)}
@@ -127,11 +132,14 @@ const FolderList = ({
                       icon={
                         selectedFolders.includes(folder.id)
                           ? Icon.Types.FOLDER_OPEN
-                          : {
-                              propia: Icon.Types.FOLDER,
-                              compartida: Icon.Types.FOLDER_SHARED,
-                              global: Icon.Types.FOLDER_GLOBAL,
-                            }[folder.tipo ?? "propia"]
+                          : Icon.Types.FOLDER
+                      }
+                      subicon={
+                        {
+                          propia: undefined,
+                          compartida: Icon.Types.SHARE,
+                          global: Icon.Types.GLOBE,
+                        }[folder.tipo ?? "propia"]
                       }
                       textAlign={size === "normal" ? "start" : "center"}
                       reverse

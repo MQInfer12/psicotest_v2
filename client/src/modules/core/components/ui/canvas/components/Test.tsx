@@ -231,6 +231,8 @@ const Test = ({ data, test, idRespuesta }: Props) => {
     condition: !prev && !finished && initiated,
   });
 
+  const requiredRequirements = requirements.length > 0 && !prev;
+
   const showTextSection = seccion?.type === "text";
   return (
     <>
@@ -253,7 +255,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
             preguntas={preguntas}
             setSectionViews={setSectionViews}
           />
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 max-h-[90svh] overflow-hidden">
             <div className="petizo:hidden">
               <TestPhrase />
             </div>
@@ -263,13 +265,13 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                 seccion={seccion}
                 pregunta={pregunta}
                 finished={finished}
-                paused={requirements.length > 0 || timer === 0 || viewSection}
+                paused={requiredRequirements || timer === 0 || viewSection}
               />
             )}
             <TestCarousel test={test}>
               {finishedPage ? (
                 <TestFinishPage direction={direction} setOpen={setOpen} />
-              ) : requirements.length > 0 ? (
+              ) : requiredRequirements ? (
                 <TestRequirements
                   direction={direction}
                   requirements={requirements}
@@ -293,7 +295,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                   initial="enter"
                   animate="active"
                   exit="exit"
-                  className="flex justify-center py-6 max-md:py-4 inset-0 absolute"
+                  className="flex justify-center py-6 max-md:py-4 chikito:py-4 inset-0 absolute"
                 >
                   <div className="flex flex-col gap-3 w-[600px] max-w-full relative">
                     <div className="absolute top-0 right-4 flex gap-2">
@@ -365,7 +367,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                           }}
                           className="w-8 rounded-md aspect-square flex items-center justify-between border border-alto-300/70 dark:border-alto-700 text-alto-500 dark:text-alto-400 p-1"
                         >
-                          <Icon type={Icon.Types.QUESTION} />
+                          <Icon type={Icon.Types.INFO} />
                         </button>
                       )}
                       {!finished &&
@@ -390,17 +392,16 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                         )}
                     </div>
                     <div className="flex flex-col px-4 gap-1">
-                      <h4 className="text-base text-alto-700 dark:text-alto-400 max-md:text-sm">
+                      <h4 className="text-base text-alto-700 dark:text-alto-400 max-md:text-sm chikito:text-sm">
                         Pregunta {preguntaIndex + 1}.
                       </h4>
-                      <h3 className="text-xs text-alto-500">
-                        {
+                      <h3 className="text-xs text-primary-500/70 dark:text-primary-400">
+                        {seccion?.shortDescription ??
                           {
                             single: "Selecciona una opción",
                             multi: "Selecciona varias opciones",
                             text: "Escribe tu respuesta",
-                          }[seccion?.type ?? "single"]
-                        }
+                          }[seccion?.type ?? "single"]}
                       </h3>
                     </div>
                     <div className="border-b border-alto-300/70 dark:border-alto-700 px-4 h-32 flex items-center">
@@ -433,7 +434,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                               <p
                                 title={descripcion}
                                 className={clsx(
-                                  "text-lg line-clamp-4 whitespace-pre-line max-md:text-sm max-md:text-center max-md:text-balance text-alto-950 dark:text-alto-50",
+                                  "text-lg line-clamp-4 whitespace-pre-line max-md:text-sm chikito:text-sm max-md:text-center chikito:text-center chikito:text-balance max-md:text-balance text-alto-950 dark:text-alto-50",
                                   {
                                     "text-center": pregunta.align === "center",
                                   }
@@ -452,7 +453,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                         )}
                       </motion.div>
                     </div>
-                    <div className="flex flex-col pt-2 px-4 gap-4">
+                    <div className="flex flex-col pt-2 px-4 gap-4 chikito:gap-3">
                       {showTextSection ? (
                         <TestTextSectionForm
                           finished={finished}
@@ -474,7 +475,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                               key={opcion.id}
                               onClick={() => handleOption(opcion.id)}
                               className={clsx(
-                                "w-full max-md:px-4 gap-2 flex items-center disabled:hover:shadow-none shadow-alto-950/20 dark:shadow-alto-50/10 justify-between border border-alto-300/70 dark:border-alto-700 px-10 h-10 rounded-md transition-all duration-300 disabled:cursor-default",
+                                "w-full max-md:px-4 gap-2 flex items-center disabled:hover:shadow-none shadow-alto-950/20 dark:shadow-alto-50/10 justify-between border border-alto-300/70 dark:border-alto-700 px-10 h-10 chikito:h-8 rounded-md transition-all duration-300 disabled:cursor-default",
                                 {
                                   "border-l-8 !border-l-primary-500 bg-white dark:bg-alto-950 shadow-sm":
                                     checked,
@@ -487,7 +488,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                                 (seccion?.type === "multi" ? false : checked)
                               }
                             >
-                              <p className="text-sm max-md:text-xs text-start text-alto-950 dark:text-alto-50">
+                              <p className="text-sm max-md:text-xs chikito:text-xs text-start text-alto-950 dark:text-alto-50">
                                 {getOptionText(
                                   pregunta.descripcion,
                                   opcion.id
@@ -512,7 +513,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
               )}
             </TestCarousel>
             <div className={clsx("w-full flex gap-4", "justify-between")}>
-              {preguntaIndex !== 0 ? (
+              {preguntaIndex !== 0 && !viewSection ? (
                 <Button
                   key="anterior"
                   disabled={firstOfSection || viewSection || timer === 0}
@@ -542,7 +543,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                 >
                   Regresar a tests
                 </Button>
-              ) : requirements.length > 0 ? (
+              ) : requiredRequirements ? (
                 <Button
                   key="continuar_al_test"
                   btnType="primary"
@@ -590,7 +591,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                     setCurrentPage((prev) => [prev[0], 1]);
                   }}
                 >
-                  Continuar
+                  Leí las instrucciones
                 </Button>
               ) : !inLastPregunta ? (
                 <Button

@@ -4,7 +4,12 @@ export const TextSectionDTOSchema = yup.object({
   word: yup
     .string()
     .required("Requerido")
-    .matches(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$/, "Palabra inválida"),
+    .test(
+      "single-word",
+      "Una palabra a la vez",
+      (value) => value?.trim().split(/\s+/).length === 1
+    )
+    .matches(/^\s*[a-zA-ZáéíóúÁÉÍÓÚñÑ]+\s*$/, "Palabra inválida"),
 });
 
 export type TextSectionDTO = yup.InferType<typeof TextSectionDTOSchema>;
