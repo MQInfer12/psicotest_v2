@@ -30,3 +30,8 @@ Route::get('/link', function () {
     Artisan::call("storage:link");
     return 1;
 });
+
+Route::get('/backup', function () {
+    Artisan::call("db:backup");
+    return 1;
+});

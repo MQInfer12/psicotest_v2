@@ -87,7 +87,7 @@ class T_TestController extends Controller
             $carpetas = $user->carpetas->pluck('id')->toArray();
             $compartidas = $user->carpetasCompartidas->pluck('id')->toArray();
             $globales = T_Carpeta::where('global', true)->pluck('id')->toArray();
-            if (!in_array($respuesta->id_carpeta, $carpetas) && !in_array($respuesta->id_carpeta, $compartidas) && !in_array($respuesta->id_carpeta, $globales)) {
+            if ($respuesta->id_carpeta && !in_array($respuesta->id_carpeta, $carpetas) && !in_array($respuesta->id_carpeta, $compartidas) && !in_array($respuesta->id_carpeta, $globales)) {
                 return $this->wrongResponse('No tienes permisos para acceder a este recurso');
             }
             return $this->successResponse(
