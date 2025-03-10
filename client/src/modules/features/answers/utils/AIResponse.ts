@@ -1,11 +1,15 @@
 import { OPENAI } from "@/modules/core/constants/ENVIRONMENT";
 import { toastError } from "@/modules/core/utils/toasts";
+import OpenAI from "openai";
 
 export enum OpenAIModel {
   GPT_3_5 = "gpt-3.5-turbo",
   GPT_4_o_mini = "gpt-4o-mini",
   GPT_4_o = "gpt-4o",
+  GPT_o_3_mini = "o3-mini",
 }
+
+const openai = new OpenAI({ apiKey: OPENAI, dangerouslyAllowBrowser: true });
 
 export const getAIResponse = async (
   prompt: string,
@@ -19,22 +23,16 @@ export const getAIResponse = async (
   }
 ) => {
   try {
-    const apiUrl = "https://api.openai.com/v1/chat/completions";
-    const response = await fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${OPENAI}`,
-      },
-      body: JSON.stringify({
-        model: options?.model ?? "gpt-3.5-turbo",
-        reasoning_effort: "medium",
-        messages: [
-          {
-            role: "system",
-            content:
-              options?.systemRole ??
-              `Eres un modelo de lenguaje avanzado especializado en el análisis de datos de tests psicológicos para evaluaciones de salud mental. Tu rol es el de un psicólogo profesional en una clínica privada. A partir de la información cuantitativa de distintos tests psicológicos —que evalúan rasgos de personalidad, aptitudes, intereses y otros aspectos mentales— debes generar un análisis conciso y preciso centrándote en identificar los puntos fuertes y débiles de cada paciente. Piensa de forma meticulosa y reflexiva. Realiza un análisis paso a paso, evaluando múltiples perspectivas antes de generar tu respuesta.\n\n
+    const model = options?.model ?? OpenAIModel.GPT_3_5;
+    const isReasoning = model === OpenAIModel.GPT_o_3_mini;
+    const stream = await openai.chat.completions.create({
+      model,
+      messages: [
+        {
+          role: "system",
+          content:
+            options?.systemRole ??
+            `Eres un modelo de lenguaje avanzado especializado en el análisis de datos de tests psicológicos para evaluaciones de salud mental. Tu rol es el de un psicólogo profesional en una clínica privada. A partir de la información cuantitativa de distintos tests psicológicos —que evalúan rasgos de personalidad, aptitudes, intereses y otros aspectos mentales— debes generar un análisis conciso y preciso centrándote en identificar los puntos fuertes y débiles de cada paciente. Piensa de forma meticulosa y reflexiva. Realiza un análisis paso a paso, evaluando múltiples perspectivas antes de generar tu respuesta.\n\n
               
               **Instrucciones clave en la generación de la plantilla:**\n
               1. **Contexto y análisis**:\n
@@ -65,44 +63,32 @@ export const getAIResponse = async (
               - Todo el contenido que no está entre corchetes o llaves se deja exactamente sin cambios (incluidas etiquetas HTML).\n\n
               
               Utiliza esta prompt como base para procesar la "plantilla" que se te envíe, cumpliendo estrictamente con cada una de las instrucciones para garantizar que el resultado sea lo más preciso y claro posible.`,
-          },
-          {
-            role: "user",
-            content: prompt,
-          },
-        ],
-        temperature: 0.3,
-        max_tokens: 2400,
-        stream: true,
-      }),
+        },
+        {
+          role: "user",
+          content: [
+            {
+              type: "text",
+              text: prompt,
+            },
+          ],
+        },
+      ],
+      response_format: {
+        type: "text",
+      },
+      reasoning_effort: isReasoning ? "medium" : undefined,
+      temperature: isReasoning ? undefined : 0.4,
+      max_completion_tokens: isReasoning ? undefined : 2400,
+      stream: true,
     });
 
-    if (response.ok && response.body) {
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder("utf-8");
-      while (true) {
-        const chunk = await reader.read();
-        const { done, value } = chunk;
-        if (done) {
-          break;
-        }
-        const decodedChunk = decoder.decode(value);
-        const lines = decodedChunk.split("\n");
-        const parsedLines = lines
-          .map((line) => line.replace(/^data: /, ""))
-          .filter((line) => line !== "" && line !== "[DONE]")
-          .map((line) => JSON.parse(line));
-        for (const parsedLine of parsedLines) {
-          const { choices } = parsedLine;
-          const { delta, finish_reason } = choices[0];
-          const { content } = delta;
-          if (content) {
-            callback(content);
-          }
-          if (finish_reason === "stop") {
-            options?.onSuccess?.();
-          }
-        }
+    for await (const part of stream) {
+      if (part.choices[0]?.delta?.content) {
+        callback(part.choices[0].delta.content);
+      }
+      if (part.choices[0]?.finish_reason === "stop") {
+        options?.onSuccess?.();
       }
     }
   } catch (error) {
