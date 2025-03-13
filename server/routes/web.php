@@ -35,3 +35,8 @@ Route::get('/backup', function () {
     Artisan::call("db:backup");
     return 1;
 });
+
+Route::get('/restore', function () {
+    $success = Artisan::call("db:restore");
+    return $success ? "Database restored successfully" : "Database restore failed";
+});

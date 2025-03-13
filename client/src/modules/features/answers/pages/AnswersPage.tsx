@@ -83,18 +83,19 @@ const AnswersPage = () => {
     }
   );
 
-  const { fetchData } = useFetch();
-  const { data, setData, isLoading, refetch } = fetchData(
-    "GET /respuesta/for/table",
-    {
-      params: {
-        folders: debouncedValue ?? "[]",
-      },
-      queryOptions: {
-        gcTime: 0,
-      },
-    }
-  );
+  const { fetchData, getDataSetter } = useFetch();
+  const { data, isLoading, refetch } = fetchData("GET /respuesta/for/table", {
+    params: {
+      folders: debouncedValue ?? "[]",
+    },
+    queryOptions: {
+      gcTime: 0,
+    },
+  });
+  const setData = getDataSetter("GET /respuesta/for/table", {
+    folders: debouncedValue ?? "[]",
+  });
+
   const { data: dataFolders, setData: setDataFolders } =
     fetchData("GET /carpeta");
 

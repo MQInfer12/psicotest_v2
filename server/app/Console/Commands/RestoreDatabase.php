@@ -30,16 +30,16 @@ class RestoreDatabase extends Command
    */
   public function handle()
   {
-    $file = 'storage/app/backups/backup.sql';
+    $file = storage_path('app/backups/backup.sql');
 
     if (!file_exists($file)) {
       $this->error("The file {$file} does not exist.");
-      return;
+      return false;
     }
 
     $this->info('Starting database restore process...');
 
-    $process = new Process([
+    /* $process = new Process([
       'pg_restore',
       '--clean',
       '--if-exists',
@@ -51,6 +51,18 @@ class RestoreDatabase extends Command
       '-d',
       env('DB_DATABASE'),
       $file
+    ], null, ['PGPASSWORD' => env('DB_PASSWORD')]); */
+
+    $process = new Process([
+      'psql',
+      '-U',
+      env('DB_USERNAME'),
+      '-h',
+      env('DB_HOST', 'localhost'),
+      '-d',
+      env('DB_DATABASE'),
+      '-f',
+      $file
     ], null, ['PGPASSWORD' => env('DB_PASSWORD')]);
 
     try {
@@ -58,9 +70,11 @@ class RestoreDatabase extends Command
       $process->mustRun();
       Artisan::call('migrate');
       $this->info('The database has been restored successfully.');
+      return true;
     } catch (ProcessFailedException $exception) {
       logger()->error('Restore exception', compact('exception'));
       $this->error('The database restore process failed.');
+      return false;
     }
   }
 }

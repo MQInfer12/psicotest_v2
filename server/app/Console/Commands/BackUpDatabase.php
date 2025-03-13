@@ -37,13 +37,13 @@ class BackUpDatabase extends Command
     parent::__construct();
     $this->process = new Process([
       'pg_dump',
+      '--no-owner',
+      '--no-privileges',
       '-U',
       env('DB_USERNAME'),
       '-h',
       env('DB_HOST', 'localhost'),
       env('DB_DATABASE'),
-      '-F',
-      'c',
       '-f',
       storage_path(sprintf('app/backups/backup_%s.sql', now()->format('Ymd')))
     ], null, ['PGPASSWORD' => env('DB_PASSWORD')]);
