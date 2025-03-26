@@ -22,6 +22,7 @@ export default {
         "max-2xl": { max: "1536px" },
         petizo: { raw: "(max-height: 780px)" },
         chikito: { raw: "(max-height: 720px)" },
+        diosmio: { raw: "(max-height: 600px)" },
       },
       keyframes: {
         appear: {

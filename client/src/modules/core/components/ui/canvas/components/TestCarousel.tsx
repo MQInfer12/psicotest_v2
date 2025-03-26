@@ -32,8 +32,7 @@ const TestCarousel = ({ test, children }: Props) => {
   let height = (size !== "normal" && size !== "xl") || chikito ? 32 : 48; //py-6
   height += (size !== "normal" && size !== "xl") || chikito ? 40 : 44; //h4
   height += 24; //gap-3 x2
-  height +=
-    ((size !== "normal" && size !== "xl") || chikito ? 20 : 28) * 4 + 20; //p
+  height += (size !== "normal" && size !== "xl") || chikito ? 96 : 128; //p
   height += 8; //opciones pt-2
   height += (maxOpciones - 1) * (chikito ? 12 : 16); //gap-4 entre opciones
   height += maxOpciones * (chikito ? 32 : 40); //cada opcion 40

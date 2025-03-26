@@ -404,7 +404,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                           }[seccion?.type ?? "single"]}
                       </h3>
                     </div>
-                    <div className="border-b border-alto-300/70 dark:border-alto-700 px-4 h-32 flex items-center">
+                    <div className="border-b border-alto-300/70 dark:border-alto-700 px-4 h-32 chikito:h-24 flex items-center">
                       <motion.div
                         className={clsx(
                           "w-full h-full flex flex-col justify-center",
@@ -512,7 +512,12 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                 </motion.div>
               )}
             </TestCarousel>
-            <div className={clsx("w-full flex gap-4", "justify-between")}>
+            <div
+              className={clsx(
+                "w-full flex gap-4 diosmio:absolute bottom-6 left-0 px-6",
+                "justify-between"
+              )}
+            >
               {preguntaIndex !== 0 && !viewSection ? (
                 <Button
                   key="anterior"
