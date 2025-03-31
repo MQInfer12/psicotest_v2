@@ -19,6 +19,7 @@ import { IA_Plantilla } from "../../templates/api/responses";
 import { T_Tests_Respuestas } from "../../tests/api/responses";
 import AnswersHeader from "../components/AnswersHeader";
 import AnswersInterpretation from "../components/AnswersInterpretation";
+import { FOLDER_TYPES_I_CAN_MOVE } from "../constants/params";
 import {
   AnswersHeaderContextProvider,
   AnswersTableFilters,
@@ -27,7 +28,6 @@ import {
 import { useLastFocused } from "../hooks/useLastFocused";
 import { useSendMail } from "../hooks/useSendMail";
 import { RespuestaEstado } from "../types/RespuestaEstado";
-import { FOLDER_TYPES_I_CAN_MOVE } from "../constants/params";
 
 const columnHelper = createColumnHelper<T_Tests_Respuestas>();
 
@@ -266,6 +266,8 @@ const AnswersPage = () => {
   const lastFocused = getLastFocused(showInterpretation);
 
   const filteredData = getFilteredData();
+  /* useGetFolderResultsCSV(filteredData ?? []); */
+
   return (
     <div
       style={{

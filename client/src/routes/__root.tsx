@@ -1,4 +1,3 @@
-import { UserContextProvider } from "@/modules/features/auth/context/UserContext";
 import { QueryClient } from "@tanstack/react-query";
 import {
   createRootRouteWithContext,
@@ -7,11 +6,7 @@ import {
 } from "@tanstack/react-router";
 
 const Root = () => {
-  return (
-    <UserContextProvider>
-      <Outlet />
-    </UserContextProvider>
-  );
+  return <Outlet />;
 };
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(

@@ -1,5 +1,6 @@
 import { RespuestaEstado } from "../../answers/types/RespuestaEstado";
 import { User } from "../../users/api/responses";
+import { Genero } from "../../users/types/Genero";
 
 export interface T_Tests {
   id: number;
@@ -24,6 +25,12 @@ export interface T_Tests_Respuestas {
   nombre_autor: string | null;
   nombre_autor_creador: string | null;
   canvas: string;
+  resultados: string;
+  test: string;
+  genero_user: Genero | null;
+  telefono_user: number | null;
+  nombre_tutor_user: string | null;
+  telefono_tutor_user: number | null;
   estado: RespuestaEstado;
   tiene_interpretacion: boolean;
   fecha_enviado: string;

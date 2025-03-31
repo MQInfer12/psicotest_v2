@@ -13,6 +13,7 @@ import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 import { BuildedError } from "./modules/core/hooks/useFetch/utils/handleResponse";
 import { ThemeContextProvider } from "./modules/core/context/ThemeContext";
+import { UserContextProvider } from "./modules/features/auth/context/UserContext";
 
 const queryClient = new QueryClient({
   queryCache: new QueryCache({
@@ -47,7 +48,9 @@ createRoot(document.getElementById("root")!).render(
     <Toaster position="bottom-right" />
     <QueryClientProvider client={queryClient}>
       <ThemeContextProvider>
-        <RouterProvider router={router} />
+        <UserContextProvider>
+          <RouterProvider router={router} />
+        </UserContextProvider>
       </ThemeContextProvider>
     </QueryClientProvider>
   </StrictMode>
