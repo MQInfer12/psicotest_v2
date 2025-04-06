@@ -39,6 +39,7 @@ class BackUpDatabase extends Command
       'pg_dump',
       '--no-owner',
       '--no-privileges',
+      '--clean',
       '-U',
       env('DB_USERNAME'),
       '-h',

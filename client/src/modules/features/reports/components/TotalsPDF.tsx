@@ -149,7 +149,7 @@ const TotalsPDF = ({ data }: Props) => {
               {data.tests.map((test) => (
                 <Row key={test.id}>
                   <Th>{test.nombre}</Th>
-                  <Td>{test.tiempo_promedio}</Td>
+                  <Td>{test.tiempo_promedio.toFixed(2)}</Td>
                   <Td>{test.sin_responder}</Td>
                   <Td>{test.varones}</Td>
                   <Td>{test.mujeres}</Td>

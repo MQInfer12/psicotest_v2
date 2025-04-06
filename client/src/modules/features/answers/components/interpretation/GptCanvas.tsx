@@ -39,10 +39,27 @@ const GptCanvas = ({
   const [edit, setEdit] = useState<string | null>(null);
   const [showPDF, setShowPDF] = useState(false);
   const [sendedMail, setSendedMail] = useState(!!alreadySendedMail);
+  const [metaKey, setMetaKey] = useState(false);
 
   useEffect(() => {
     onChangePDF?.(showPDF);
   }, [showPDF]);
+
+  useEffect(() => {
+    const eventListener = (e: KeyboardEvent) => {
+      setMetaKey(e.shiftKey);
+    };
+    const windowListener = () => setMetaKey(false);
+
+    document.addEventListener("keydown", eventListener);
+    document.addEventListener("keyup", eventListener);
+    window.addEventListener("blur", windowListener);
+    return () => {
+      document.removeEventListener("keydown", eventListener);
+      document.removeEventListener("keyup", eventListener);
+      window.removeEventListener("blur", windowListener);
+    };
+  }, []);
 
   const { postData } = useFetch();
   const patchMutation = postData("PATCH /respuesta/patch/interpretations");
@@ -72,13 +89,24 @@ const GptCanvas = ({
       <div className="absolute inset-0 flex items-center justify-center -z-10 pointer-events-none overflow-visible">
         <img src={GPT} className="min-w-[540px] h-auto opacity-5" />
       </div>
-      <div className="absolute inset-0 flex-1 overflow-auto">
+      <div
+        id="gpt-content-div-container"
+        className={clsx(
+          "absolute inset-0 flex-1",
+          showPDF ? "overflow-hidden" : "overflow-y-scroll overflow-x-hidden"
+        )}
+      >
         {showPDF ? (
           <PDFViewer height="100%" width="100%">
             <GptPdf data={data} content={content} />
           </PDFViewer>
         ) : (
-          <GptContent edit={edit} setEdit={setEdit} content={content} />
+          <GptContent
+            edit={edit}
+            setEdit={setEdit}
+            content={content}
+            hasError={!content && !success}
+          />
         )}
       </div>
       <div
@@ -107,7 +135,7 @@ const GptCanvas = ({
               }
             }}
             icon={Icon.Types.RELOAD}
-            disabled={!!edit || !content || !loaded}
+            disabled={!!edit || (!content && success) || !loaded}
           />
         )}
         {!showPDF && (
@@ -148,13 +176,28 @@ const GptCanvas = ({
             />
           </>
         )}
-        <Button
-          onClick={() => setShowPDF(!showPDF)}
-          disabled={!!edit || !success || !content || !loaded}
-          icon={showPDF ? Icon.Types.X : Icon.Types.PDF}
-        >
-          PDF
-        </Button>
+        {metaKey && !showPDF && !(!!edit || !success || !content || !loaded) ? (
+          <PDFDownloadLink
+            document={<GptPdf data={data} content={content} />}
+            fileName={`${data.name.toLocaleLowerCase().replaceAll(" ", "_")}.pdf`}
+          >
+            <Button
+              disabled={!!edit || !success || !content || !loaded}
+              icon={Icon.Types.PDF}
+              subicon={Icon.Types.DOWNLOAD}
+            >
+              PDF
+            </Button>
+          </PDFDownloadLink>
+        ) : (
+          <Button
+            onClick={() => setShowPDF(!showPDF)}
+            disabled={!!edit || !success || !content || !loaded}
+            icon={showPDF ? Icon.Types.X : Icon.Types.PDF}
+          >
+            PDF
+          </Button>
+        )}
       </div>
     </div>
   );

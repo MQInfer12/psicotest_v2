@@ -39,6 +39,7 @@ const AnswersInterpretation = () => {
   const generateInterpretation = () => {
     if (!selectedTests || !startedSelection) return;
     setLoading(true);
+    setHasError(false);
     const rawName = selectedTests.user.nombre.split(" ")[0].toLocaleLowerCase();
     const [firstLetter, ...letters] = rawName;
     const name = firstLetter.toLocaleUpperCase() + letters.join("");

@@ -241,6 +241,7 @@ const AnswersPage = () => {
 
   const checkDisabled = (row: T_Tests_Respuestas) => {
     if (!startedSelection) return true;
+    if (row.estado === RespuestaEstado.PENDIENTE) return true;
 
     const isFromTemplate = Object.values(startedSelection.id_tests).includes(
       row.id
@@ -254,12 +255,7 @@ const AnswersPage = () => {
       (s) => s.id_test === row.id && s.id_respuesta !== row.id_respuesta
     );
 
-    return (
-      !isSameUser ||
-      !isFromTemplate ||
-      alreadySelected ||
-      row.estado === RespuestaEstado.PENDIENTE
-    );
+    return !isSameUser || !isFromTemplate || alreadySelected;
   };
 
   const { getLastFocused } = useLastFocused();
@@ -359,6 +355,7 @@ const AnswersPage = () => {
               onClickRow={
                 startedSelection
                   ? {
+                      disabled: checkDisabled,
                       fn: (row) => {
                         setSelectedTests((prev) => {
                           if (!prev) {
@@ -412,7 +409,6 @@ const AnswersPage = () => {
                           };
                         });
                       },
-                      disabled: checkDisabled,
                     }
                   : undefined
               }

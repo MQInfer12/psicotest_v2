@@ -1,6 +1,7 @@
 import { OPENAI } from "@/modules/core/constants/ENVIRONMENT";
 import { toastError } from "@/modules/core/utils/toasts";
 import OpenAI from "openai";
+import { Stream } from "openai/streaming.mjs";
 
 export enum OpenAIModel {
   GPT_3_5 = "gpt-3.5-turbo",
@@ -11,6 +12,21 @@ export enum OpenAIModel {
 
 const openai = new OpenAI({ apiKey: OPENAI, dangerouslyAllowBrowser: true });
 
+const isStream = (
+  _response:
+    | (Stream<OpenAI.Chat.Completions.ChatCompletionChunk> & {
+        _request_id?: string | null;
+      })
+    | (OpenAI.Chat.Completions.ChatCompletion & {
+        _request_id?: string | null;
+      }),
+  streaming: boolean
+): _response is Stream<OpenAI.Chat.Completions.ChatCompletionChunk> & {
+  _request_id?: string | null;
+} => {
+  return streaming;
+};
+
 export const getAIResponse = async (
   prompt: string,
   callback: (res: string) => void,
@@ -20,12 +36,15 @@ export const getAIResponse = async (
     onSuccess?: () => void;
     onError?: () => void;
     onFinally?: () => void;
+    stream?: boolean;
   }
 ) => {
   try {
     const model = options?.model ?? OpenAIModel.GPT_3_5;
     const isReasoning = model === OpenAIModel.GPT_o_3_mini;
-    const stream = await openai.chat.completions.create({
+    const streaming = options?.stream ?? true;
+
+    const response = await openai.chat.completions.create({
       model,
       messages: [
         {
@@ -80,16 +99,23 @@ export const getAIResponse = async (
       reasoning_effort: isReasoning ? "medium" : undefined,
       temperature: isReasoning ? undefined : 0.4,
       max_completion_tokens: isReasoning ? undefined : 2400,
-      stream: true,
+      stream: streaming,
     });
 
-    for await (const part of stream) {
-      if (part.choices[0]?.delta?.content) {
-        callback(part.choices[0].delta.content);
+    if (isStream(response, streaming)) {
+      for await (const part of response) {
+        if (part.choices[0]?.delta?.content) {
+          callback(part.choices[0].delta.content);
+        }
+        if (part.choices[0]?.finish_reason === "stop") {
+          options?.onSuccess?.();
+        }
       }
-      if (part.choices[0]?.finish_reason === "stop") {
-        options?.onSuccess?.();
-      }
+    } else {
+      const result = response;
+      const fullText = result.choices[0]?.message?.content || "";
+      callback(fullText);
+      options?.onSuccess?.();
     }
   } catch (error) {
     toastError("Error al comunicarse con el servidor");

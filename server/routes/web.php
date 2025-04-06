@@ -1,8 +1,5 @@
 <?php
 
-use App\Models\T_Carpeta;
-use App\Models\T_Respuesta;
-use App\Models\U_user;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 

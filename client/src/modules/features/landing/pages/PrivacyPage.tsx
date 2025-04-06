@@ -101,8 +101,9 @@ const PrivacyPage = () => {
                 tales como:
               </Canvas.Paragraph>
               <Canvas.Vignette>
-                Servicios de Google (OAuth y Calendar) para autenticación y
-                gestión de citas.
+                Servicios de Google (OAuth, Calendar y Gmail) para
+                autenticación, gestión de citas y envío de respuestas a personas
+                evaluadas.
               </Canvas.Vignette>
               <Canvas.Vignette>
                 Procesamiento de datos a través de la API de OpenAI para generar
@@ -111,6 +112,15 @@ const PrivacyPage = () => {
               <Canvas.Paragraph>
                 En ningún caso se venderá o compartirá información personal con
                 fines comerciales.
+              </Canvas.Paragraph>
+              <Canvas.Paragraph>
+                Neurall no utiliza los datos de usuario obtenidos a través de la
+                API de Google Workspace para desarrollar, mejorar o entrenar
+                modelos de inteligencia artificial o aprendizaje automático
+                generalizados. Esta restricción aplica específicamente a los
+                datos accedidos mediante servicios como Google OAuth, Google
+                Calendar, Gmail y refleja nuestro compromiso con la privacidad y
+                la transparencia.
               </Canvas.Paragraph>
               <Canvas.Subtitle>Derechos de los Usuarios</Canvas.Subtitle>
               <Canvas.Paragraph>

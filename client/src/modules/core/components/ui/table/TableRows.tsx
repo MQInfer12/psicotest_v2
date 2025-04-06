@@ -81,10 +81,8 @@ const TableRows = <T,>({
     >
       {rowVirtualizer.getVirtualItems().map((virtualRow) => {
         const row = table.getRowModel().rows[virtualRow.index];
-        const handleClickRow = onClickRow?.disabled
-          ? onClickRow?.disabled(row.original)
-            ? undefined
-            : onClickRow.fn
+        const handleClickRow = onClickRow?.disabled?.(row.original)
+          ? undefined
           : onClickRow?.fn;
         const styles = rowStyle?.(row.original) || {};
         const isDefaultFocused =
