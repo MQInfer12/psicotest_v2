@@ -46,13 +46,11 @@ const ShareForm = ({ idTests, nombreTest, children }: Props) => {
           required
         >
           <option value="">Sin clasificación</option>
-          {data
-            ?.filter((c) => c.tipo === "propia" || c.tipo === "global")
-            .map((carpeta) => (
-              <option key={carpeta.id} value={carpeta.id}>
-                {carpeta.descripcion}
-              </option>
-            ))}
+          {data?.map((carpeta) => (
+            <option key={carpeta.id} value={carpeta.id}>
+              {carpeta.descripcion}
+            </option>
+          ))}
         </Input>
       </div>
       <div className="w-full aspect-square flex justify-center items-center">

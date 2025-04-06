@@ -1,5 +1,5 @@
 import { FolderDTO } from "./dtos";
-import { Folder, SharedFolder } from "./responses";
+import { Folder } from "./responses";
 
 declare global {
   interface EndpointMap {
@@ -22,11 +22,6 @@ declare global {
       params: { id: number };
       request: null;
       response: null;
-    };
-    "POST /carpeta_compartir/:idCarpeta": {
-      params: { idCarpeta: number };
-      request: null;
-      response: SharedFolder;
     };
   }
 }

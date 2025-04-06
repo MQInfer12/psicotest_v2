@@ -16,10 +16,20 @@ class U_Rol extends Model
     protected $fillable = [
         'descripcion',
         'por_defecto',
-        'permisos'
+        'permisos',
     ];
 
     protected $casts = [
         'permisos' => 'array'
     ];
+    
+    public function grupos()
+    {
+        return $this->belongsToMany(T_Grupo::class, 't_grupo_rols', 'id_rol', 'id_grupo');
+    }
+
+    public function carpetasGrupales()
+    {
+        return T_Carpeta::whereIn('id_grupo', $this->grupos()->pluck('t_grupos.id'))->get();
+    }
 }

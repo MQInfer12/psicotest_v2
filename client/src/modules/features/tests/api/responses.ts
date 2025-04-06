@@ -56,3 +56,8 @@ export interface T_Test_Respuesta {
   nombre_carpeta: string | null;
   fecha_visible: string | null;
 }
+
+export interface T_Grupo {
+  id: number;
+  descripcion: string;
+}

@@ -7,7 +7,6 @@ use App\Http\Controllers\C_CitaController;
 use App\Http\Controllers\C_HorarioController;
 use App\Http\Controllers\IA_PlantillaController;
 use App\Http\Controllers\ReportsController;
-use App\Http\Controllers\T_Carpeta_CompartirController;
 use App\Http\Controllers\T_CarpetaController;
 use App\Http\Controllers\T_RespuestaController;
 use App\Http\Controllers\T_TestController;
@@ -72,8 +71,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/rol', U_RolController::class);
 
     Route::apiResource('/carpeta', T_CarpetaController::class);
-
-    Route::post('/carpeta_compartir/{id_carpeta}', [T_Carpeta_CompartirController::class, 'shareFolder']);
 
     Route::apiResource('/plantilla', IA_PlantillaController::class);
 

@@ -1,22 +1,30 @@
+import Button from "@/modules/core/components/ui/Button";
 import Input from "@/modules/core/components/ui/Input";
-import { useForm } from "react-hook-form";
-import { FolderDTO } from "../api/dtos";
-import { Folder } from "../api/responses";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { FolderDTOSchema } from "../validations/FolderDTO.schema";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import { toastConfirm, toastSuccess } from "@/modules/core/utils/toasts";
-import Button from "@/modules/core/components/ui/Button";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
-import Icon from "@/modules/core/components/icons/Icon";
+import { useForm } from "react-hook-form";
+import { useUserContext } from "../../auth/context/UserContext";
+import { FolderDTO } from "../api/dtos";
+import { Folder } from "../api/responses";
+import { FolderDTOSchema } from "../validations/FolderDTO.schema";
+import { Permisos } from "../../auth/types/Permisos";
 
 interface Props {
   folder: Folder | null;
+  id_grupo: number | null;
   onSuccess: (folder: Folder) => void;
   onSuccessDelete?: (item: Folder) => void;
 }
 
-const FolderForm = ({ onSuccess, onSuccessDelete, folder }: Props) => {
+const FolderForm = ({
+  onSuccess,
+  onSuccessDelete,
+  folder,
+  id_grupo,
+}: Props) => {
+  const { user } = useUserContext();
   const [loading, setLoading] = useState(false);
 
   const { postData } = useFetch();
@@ -31,6 +39,7 @@ const FolderForm = ({ onSuccess, onSuccessDelete, folder }: Props) => {
   } = useForm<FolderDTO>({
     defaultValues: {
       descripcion: folder?.descripcion,
+      id_grupo,
     },
     resolver: yupResolver(FolderDTOSchema),
   });
@@ -65,8 +74,8 @@ const FolderForm = ({ onSuccess, onSuccessDelete, folder }: Props) => {
 
   const handleDelete = () => {
     if (!folder) return;
-    setLoading(true);
     toastConfirm("¿Quieres eliminar la carpeta permanentemente?", () => {
+      setLoading(true);
       deleteMutation(null, {
         params: {
           id: folder.id,
@@ -82,10 +91,11 @@ const FolderForm = ({ onSuccess, onSuccessDelete, folder }: Props) => {
     });
   };
 
-  const link =
-    folder && !folder.global
-      ? `${window.location.origin}/folder/${folder.id}`
-      : undefined;
+  const isMine =
+    folder &&
+    !folder.global &&
+    (user?.permisos.includes(Permisos.VER_TODAS_LAS_CARPETAS) ||
+      folder.email_user === user?.email);
 
   return (
     <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
@@ -95,26 +105,27 @@ const FolderForm = ({ onSuccess, onSuccessDelete, folder }: Props) => {
         {...register("descripcion")}
         required
       />
-      {link && (
-        <div className="flex items-end gap-2">
-          <Input label="Compartir carpeta" disabled value={link} readOnly />
-          <Button
-            type="button"
-            btnType="secondary"
-            icon={Icon.Types.CLIPBOARD}
-            onClick={() => {
-              navigator.clipboard.writeText(link).then(() => {
-                toastSuccess("Enlace copiado al portapapeles correctamente");
-              });
-            }}
-          />
-        </div>
+      {isMine && (
+        <Input
+          label="Grupo"
+          error={errors.id_grupo?.message}
+          type="select"
+          required
+          {...register("id_grupo")}
+        >
+          <option value="">Carpetas propias</option>
+          {user?.grupos.map((grupo) => (
+            <option key={grupo.id} value={grupo.id}>
+              {grupo.descripcion}
+            </option>
+          ))}
+        </Input>
       )}
       <div className="flex items-center w-full gap-2">
         <Button className="flex-1" disabled={loading} type="submit">
           Enviar
         </Button>
-        {folder && !folder.global && folder.tipo === "propia" && (
+        {isMine && (
           <Button
             btnType="secondary"
             className="flex-1"

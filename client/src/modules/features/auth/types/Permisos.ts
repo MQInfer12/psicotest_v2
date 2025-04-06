@@ -18,4 +18,5 @@ export enum Permisos {
   CREAR_BLOGS = "Crear blogs",
   DESTACAR_BLOGS = "Destacar blogs",
   VER_REPORTES = "Ver reportes",
+  VER_TODAS_LAS_CARPETAS = "Ver todas las carpetas",
 }

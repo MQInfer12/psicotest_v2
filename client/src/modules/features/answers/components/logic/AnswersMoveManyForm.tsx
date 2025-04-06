@@ -58,7 +58,11 @@ const AnswersMoveManyForm = () => {
         <option value="">Sin clasificación</option>
         {carpetas
           /* ?.filter((c) => c.tipo === "propia") */
-          ?.map((c) => <option value={c.id}>{c.descripcion}</option>)}
+          ?.map((c) => (
+            <option key={c.id ?? 0} value={c.id}>
+              {c.descripcion}
+            </option>
+          ))}
       </Input>
       <Button type="submit">Enviar</Button>
     </form>

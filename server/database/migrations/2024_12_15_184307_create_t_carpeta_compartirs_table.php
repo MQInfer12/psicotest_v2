@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    //! ESTA TABLA YA NO EXISTE
+
     /**
      * Run the migrations.
      */

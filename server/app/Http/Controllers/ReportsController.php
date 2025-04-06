@@ -10,16 +10,18 @@ use App\Models\C_Cita;
 use App\Models\T_Test;
 use App\Models\U_user;
 use App\Traits\ApiResponse;
+use App\Traits\PermisosTrait;
 use Illuminate\Http\Request;
 
 class ReportsController extends Controller
 {
+    use PermisosTrait;
     use ApiResponse;
 
     public function totals(Request $request)
     {
         $user = $request->user();
-        if (!in_array(Permisos::VER_REPORTES, $user->rol->permisos)) {
+        if (!$this->tienePermiso($user, Permisos::VER_REPORTES)) {
             return $this->wrongResponse('No tienes permisos para ver reportes.');
         }
 

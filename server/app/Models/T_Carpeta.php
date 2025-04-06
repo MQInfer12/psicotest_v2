@@ -17,5 +17,11 @@ class T_Carpeta extends Model
         'descripcion',
         'email_user',
         'global',
+        'id_grupo'
     ];
+
+    public function grupo()
+    {
+        return $this->belongsTo(T_Grupo::class, 'id_grupo');
+    }
 }

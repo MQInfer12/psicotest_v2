@@ -8,11 +8,13 @@ use App\Http\Resources\IA_PlantillaResource;
 use App\Models\IA_Plantilla;
 use App\Models\IA_Test_Plantilla;
 use App\Traits\ApiResponse;
+use App\Traits\PermisosTrait;
 use Illuminate\Http\Request;
 
 class IA_PlantillaController extends Controller
 {
     use ApiResponse;
+    use PermisosTrait;
 
     public function index()
     {
@@ -87,7 +89,7 @@ class IA_PlantillaController extends Controller
         $user = $request->user();
         $plantilla = IA_Plantilla::findOrFail($id);
 
-        if (!in_array(Permisos::VER_PLANTILLAS, $user->rol->permisos)) {
+        if (!$this->tienePermiso($user, Permisos::VER_PLANTILLAS)) {
             return $this->wrongResponse("No tienes permisos para eliminar esta plantilla.");
         }
 

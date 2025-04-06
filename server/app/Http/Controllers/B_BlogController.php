@@ -10,6 +10,7 @@ use App\Models\B_Blog;
 use App\Models\B_Evento;
 use App\Traits\ApiResponse;
 use App\Traits\GoogleAPIs;
+use App\Traits\PermisosTrait;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
@@ -17,6 +18,7 @@ class B_BlogController extends Controller
 {
     use ApiResponse;
     use GoogleAPIs;
+    use PermisosTrait;
 
     public function index()
     {
@@ -468,7 +470,7 @@ class B_BlogController extends Controller
     public function standOut(Request $request, int $id)
     {
         $user = $request->user();
-        if (!in_array(Permisos::DESTACAR_BLOGS, $user->rol->permisos)) {
+        if (!$this->tienePermiso($user, Permisos::DESTACAR_BLOGS)) {
             return $this->wrongResponse('No tienes permisos para destacar blogs.');
         }
 
@@ -497,7 +499,7 @@ class B_BlogController extends Controller
         $user = $request->user();
         $blog = B_Blog::findOrFail($id);
 
-        if ($user->email != $blog->email_autor && !in_array(Permisos::DESTACAR_BLOGS, $user->rol->permisos)) {
+        if ($user->email != $blog->email_autor && !$this->tienePermiso($user, Permisos::DESTACAR_BLOGS)) {
             return $this->wrongResponse("No tienes permisos para eliminar este blog.");
         }
 

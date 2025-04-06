@@ -2,6 +2,7 @@ import { Timestamps } from "@/modules/core/types/Timestamps";
 import { Genero } from "../types/Genero";
 import { Permisos } from "../../auth/types/Permisos";
 import { Appointment } from "../../calendar/api/responses";
+import { T_Grupo } from "../../tests/api/responses";
 
 export interface User extends Timestamps {
   email: string;
@@ -23,6 +24,7 @@ export interface User extends Timestamps {
   disponible: boolean;
 
   id_rol: number;
+  grupos: T_Grupo[];
   permisos: Permisos[];
   cita_proxima: Appointment | null;
 }

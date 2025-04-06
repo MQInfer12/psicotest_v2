@@ -26,6 +26,7 @@ class U_userResource extends JsonResource
 
             'estado' => $this->estado,
             'permisos' => $this->rol->permisos,
+            'grupos' => T_GrupoResource::collection($this->grupos()),
             'id_rol' => $this->id_rol,
             'cita_proxima' => $this->cita_proxima ? new C_CitaResource($this->cita_proxima) : null,
 

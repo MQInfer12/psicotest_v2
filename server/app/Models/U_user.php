@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Constants\Permisos;
+use App\Traits\PermisosTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -11,6 +13,7 @@ use Laravel\Sanctum\HasApiTokens;
 class U_user extends Authenticatable
 {
     use HasFactory, HasApiTokens, Notifiable;
+    use PermisosTrait;
 
     public $incrementing = false;
     protected $keyType = 'string';
@@ -47,16 +50,6 @@ class U_user extends Authenticatable
         return $this->refresh_token ? decrypt($this->refresh_token) : null;
     }
 
-    public function carpetas()
-    {
-        return $this->hasMany(T_Carpeta::class, 'email_user')->orderBy('id', 'asc');
-    }
-
-    public function carpetasCompartidas()
-    {
-        return $this->belongsToMany(T_Carpeta::class, 't_carpeta_compartirs', 'email_user', 'id_carpeta');
-    }
-
     public function respuestas()
     {
         return $this->hasMany(T_Respuesta::class, 'email_user')->orderBy('id', 'asc');
@@ -71,6 +64,34 @@ class U_user extends Authenticatable
     {
         return $this->belongsTo(U_Rol::class, 'id_rol');
     }
+
+    public function grupos()
+    {
+        return $this->tienePermiso($this, Permisos::VER_TODAS_LAS_CARPETAS) ? T_Grupo::all() : $this->rol->grupos;
+    }
+
+    public function carpetas()
+    {
+        return $this->hasMany(T_Carpeta::class, 'email_user')->where('id_grupo', null)->orderBy('id', 'asc');
+    }
+
+    public function carpetasTotales()
+    {
+        if ($this->tienePermiso($this, Permisos::VER_TODAS_LAS_CARPETAS)) return T_Carpeta::all();
+
+        $carpetasPropias = $this->carpetas;
+        $carpetasDeGrupo = $this->rol->carpetasGrupales();
+        $carpetasGlobales = T_Carpeta::where('global', true)->get();
+
+        $carpetasTotales = $carpetasPropias
+            ->merge($carpetasDeGrupo)
+            ->merge($carpetasGlobales)
+            ->sortBy('descripcion')
+            ->values();
+
+        return $carpetasTotales;
+    }
+
 
     public function cita_proxima()
     {

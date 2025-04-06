@@ -34,16 +34,13 @@ class T_TestController extends Controller
 
         $respuestas = T_Respuesta::whereIn('id', $ids)->get();
 
-        $carpetas = $user->carpetas->pluck('id')->toArray();
-        $compartidas = $user->carpetasCompartidas->pluck('id')->toArray();
-        $globales = T_Carpeta::where('global', true)->pluck('id')->toArray();
+        $availableFolders = $user->carpetasTotales()->pluck('id')->toArray();
+        //? antes no estaba añadiendo el cero y ahora si pero no sé si habrá un bug a futuro.
+        $availableFolders[] = 0;
 
         if ($respuestas->contains(
             fn($respuesta) =>
-            $respuesta->email_asignador !== $user->email &&
-                !in_array($respuesta->id_carpeta, $carpetas) &&
-                !in_array($respuesta->id_carpeta, $compartidas) &&
-                !in_array($respuesta->id_carpeta, $globales)
+            $respuesta->email_asignador !== $user->email && !in_array($respuesta->id_carpeta, $availableFolders)
         )) {
             return $this->wrongResponse('No tienes permisos para acceder a algún recurso');
         }
@@ -84,10 +81,11 @@ class T_TestController extends Controller
 
         $isAsignador = $user->email == $respuesta->email_asignador;
         if ($isAsignador) {
-            $carpetas = $user->carpetas->pluck('id')->toArray();
-            $compartidas = $user->carpetasCompartidas->pluck('id')->toArray();
-            $globales = T_Carpeta::where('global', true)->pluck('id')->toArray();
-            if ($respuesta->id_carpeta && !in_array($respuesta->id_carpeta, $carpetas) && !in_array($respuesta->id_carpeta, $compartidas) && !in_array($respuesta->id_carpeta, $globales)) {
+            $availableFolders = $user->carpetasTotales()->pluck('id')->toArray();
+            //? antes no estaba añadiendo el cero y ahora si pero no sé si habrá un bug a futuro.
+            $availableFolders[] = 0;
+
+            if ($respuesta->id_carpeta && !in_array($respuesta->id_carpeta, $availableFolders)) {
                 return $this->wrongResponse('No tienes permisos para acceder a este recurso');
             }
             return $this->successResponse(

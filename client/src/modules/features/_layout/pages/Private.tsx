@@ -37,7 +37,7 @@ const Dashboard = () => {
   const url = pathname + buildUrlParams(search);
   const fromLogoutRef = useRef(false);
 
-  //@ts-expect-error: Return to can be defined
+  //@ts-ignore
   const returnTo: string | undefined = search.returnTo;
   const returnToBreadcrumb = useBreadcrumb(returnTo);
   const returnToObj = returnToBreadcrumb[returnToBreadcrumb.length - 1];

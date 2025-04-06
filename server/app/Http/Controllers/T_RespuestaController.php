@@ -19,12 +19,14 @@ use App\Models\T_Test;
 use App\Models\U_user;
 use App\Traits\ApiResponse;
 use App\Traits\GoogleAPIs;
+use App\Traits\PermisosTrait;
 use Illuminate\Http\Request;
 
 class T_RespuestaController extends Controller
 {
     use ApiResponse;
     use GoogleAPIs;
+    use PermisosTrait;
 
     public function index()
     {
@@ -48,9 +50,8 @@ class T_RespuestaController extends Controller
         }
 
         $user = $request->user();
-        $compartidas = $user->carpetasCompartidas;
-        $globales = T_Carpeta::where('global', true)->get();
-        $availableFolders = array_merge($user->carpetas->pluck('id')->toArray(), $compartidas->pluck('id')->toArray(), $globales->pluck('id')->toArray(), [0]);
+        $availableFolders = $user->carpetasTotales()->pluck('id')->toArray();
+        $availableFolders[] = 0;
 
         $folders = array_intersect($folders, $availableFolders);
 
@@ -88,7 +89,7 @@ class T_RespuestaController extends Controller
         }
 
         $asignador = U_user::findOrFail($email_asignador);
-        if (!in_array(Permisos::COMPARTIR_TEST, $asignador->rol->permisos)) {
+        if (!$this->tienePermiso($asignador, Permisos::COMPARTIR_TEST)) {
             return $this->wrongResponse('Esta persona no tiene permisos para compartir tests.');
         }
 

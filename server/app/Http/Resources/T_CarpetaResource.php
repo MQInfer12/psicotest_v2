@@ -12,7 +12,8 @@ class T_CarpetaResource extends JsonResource
             'id' => $this->id,
             'descripcion' => $this->descripcion,
             'email_user' => $this->email_user,
-            'tipo' => $this->tipo,
+            'id_grupo' => $this->id_grupo,
+            'descripcion_grupo' => $this->grupo?->descripcion,
             'global' => $this->global,
         ];
     }
