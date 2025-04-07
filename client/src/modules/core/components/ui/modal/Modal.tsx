@@ -149,7 +149,7 @@ const Modal = ({
         transition={
           type === "floating"
             ? {
-                duration: 0.5,
+                duration: 0.3,
               }
             : undefined
         }

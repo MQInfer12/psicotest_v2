@@ -6,6 +6,7 @@ use App\Http\Controllers\B_BlogController;
 use App\Http\Controllers\C_CitaController;
 use App\Http\Controllers\C_HorarioController;
 use App\Http\Controllers\IA_PlantillaController;
+use App\Http\Controllers\OpenAIController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\T_CarpetaController;
 use App\Http\Controllers\T_RespuestaController;
@@ -91,4 +92,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('/blog/attend/{id}', [B_BlogController::class, 'attendToggle']);
 
     Route::get('/reportes/totales', [ReportsController::class, 'totals']);
+
 });
+
+Route::post('/openai-stream', [OpenAIController::class, 'stream']);
