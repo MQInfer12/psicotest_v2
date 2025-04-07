@@ -27,11 +27,15 @@ import { useBreadcrumb } from "../components/breadcrumb/hooks/useBreadcrumb";
 import { PRIVATE_ASIDE_WIDTH } from "../constants/LAYOUT_SIZES";
 import { PRIVATE_LINKS } from "../constants/PRIVATE_LINKS";
 import { useMeasureContext } from "../context/MeasureContext";
+import UnifranzLogo from "@/assets/images/unifranz-logo.png";
+import UnifranzLogoDark from "@/assets/images/unifranz-logo-dark.png";
+import { useThemeContext } from "@/modules/core/context/ThemeContext";
 
 const Dashboard = () => {
   const { pathname, search } = useLocation();
   const activeBreadcrumb = useBreadcrumb();
   const navigate = useNavigate();
+  const { dark } = useThemeContext();
 
   const { user, state, logout } = useUserContext();
   const url = pathname + buildUrlParams(search);
@@ -268,9 +272,17 @@ const Dashboard = () => {
         </header>
         <section
           ref={outletContainerRef}
-          className="flex-1 overflow-auto flex flex-col relative"
+          className="flex-1 overflow-auto flex flex-col relative isolate"
         >
           <Outlet />
+          <img
+            src={dark ? UnifranzLogoDark : UnifranzLogo}
+            className="w-64 max-sm:w-32 fixed opacity-10 -z-50"
+            style={{
+              bottom: 40,
+              right: PRIVATE_PADDING_INLINE,
+            }}
+          />
         </section>
       </main>
     </>

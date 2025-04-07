@@ -77,7 +77,11 @@ const Modal = ({
 
       const handleTabKey = (e: KeyboardEvent) => {
         if (e.key === "Escape") {
-          close();
+          const elements = document.querySelectorAll(".modal-close-button");
+          if (elements.length > 0) {
+            const lastElement = elements[elements.length - 1] as HTMLElement;
+            lastElement.click();
+          }
         }
 
         const focusableElements = getFocusableElements(modalRef.current);
@@ -112,15 +116,15 @@ const Modal = ({
     <Appear
       open={open}
       className={clsx(
+        "modal-close-button",
         "bg-alto-950/60 dark:bg-alto-50/30 fixed left-0 top-0 h-[100svh] w-full flex items-center z-40",
         {
           "backdrop-blur-sm": blur,
           "justify-center px-5 max-sm:px-2": type === "default",
-          "justify-end": type === "floating",
+          "justify-end p-5 max-sm:p-2": type === "floating",
         }
       )}
       onClick={close}
-      disabled={type === "floating"}
     >
       <motion.section
         ref={modalRef}
@@ -158,7 +162,7 @@ const Modal = ({
           {
             "border-8 border-alto-100 dark:border-alto-950": onlyContent,
             "rounded-lg": type === "default",
-            "h-full rounded-none": type === "floating",
+            "h-full rounded-lg": type === "floating",
           }
         )}
       >
@@ -182,7 +186,7 @@ const Modal = ({
         <main
           className={clsx({
             "pt-0": !titleBar,
-            "p-4 flex-1": !onlyContent,
+            "p-4 flex-1 overflow-auto": !onlyContent,
             "rounded-md overflow-hidden": onlyContent,
           })}
         >

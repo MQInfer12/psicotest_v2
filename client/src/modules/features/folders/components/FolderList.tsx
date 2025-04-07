@@ -42,7 +42,12 @@ const FolderList = ({
     });
   };
 
-  data?.sort((a, b) => a.descripcion.localeCompare(b.descripcion));
+  data?.sort((a, b) => {
+    if (a.global && !b.global) return -1;
+    if (!a.global && b.global) return 1;
+    return a.descripcion.localeCompare(b.descripcion);
+  });
+
   return (
     <>
       {modal("Formulario de carpeta", (item) => (
@@ -70,7 +75,7 @@ const FolderList = ({
           }}
         />
       ))}
-      <div className="w-80 flex flex-col gap-2 max-lg:w-full">
+      <div className="flex flex-col gap-2">
         {!data ? (
           <Loader text="Cargando carpetas..." />
         ) : (
@@ -90,7 +95,7 @@ const FolderList = ({
                 })
               }
             />
-            <div className="flex flex-col gap-2 max-lg:flex-row">
+            <div className="flex flex-col gap-2">
               <FolderButton
                 id={0}
                 title="Sin clasificación"
@@ -110,6 +115,7 @@ const FolderList = ({
                   })
                 }
                 selectedFolders={selectedFolders}
+                showMessage={false}
               />
             </div>
             {user?.grupos.map((grupo) => (
@@ -129,7 +135,7 @@ const FolderList = ({
                     })
                   }
                 />
-                <div className="flex flex-col gap-2 max-lg:flex-row">
+                <div className="flex flex-col gap-2">
                   <FolderMap
                     folders={data.filter(
                       (folder) => folder.id_grupo === grupo.id

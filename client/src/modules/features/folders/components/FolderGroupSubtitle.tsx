@@ -11,7 +11,7 @@ interface Props {
 const FolderGroupSubtitle = ({ title, onClick, loading }: Props) => {
   return (
     <div className="h-9 flex items-center justify-between relative">
-      <strong>{title}</strong>
+      <strong className="dark:text-alto-100">{title}</strong>
       <Button
         btnType="tertiary"
         btnSize="small"

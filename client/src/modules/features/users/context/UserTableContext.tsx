@@ -17,6 +17,8 @@ interface Ctx {
   roles: Rol[] | undefined;
   filters: UserTableFiltersState;
   setFilters: React.Dispatch<React.SetStateAction<UserTableFiltersState>>;
+  showAnonymous?: boolean;
+  setShowAnonymous?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const UserTableContext = createContext<Ctx | null>(null);
@@ -28,7 +30,9 @@ interface Props {
 
 export const UserTableContextProvider = ({ children, value }: Props) => {
   return (
-    <UserTableContext.Provider value={value}>{children}</UserTableContext.Provider>
+    <UserTableContext.Provider value={value}>
+      {children}
+    </UserTableContext.Provider>
   );
 };
 

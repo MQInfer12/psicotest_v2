@@ -1,6 +1,9 @@
 import DefaultPhoto from "@/assets/images/defaultPhoto.jpg";
 import Icon from "@/modules/core/components/icons/Icon";
 import { useModal } from "@/modules/core/components/ui/modal/useModal";
+import DoubleColumn from "@/modules/core/components/ui/table/columns/DoubleColumn";
+import PhotoColumn from "@/modules/core/components/ui/table/columns/PhotoColumn";
+import StateColumn from "@/modules/core/components/ui/table/columns/StateColumn";
 import TableHeader from "@/modules/core/components/ui/table/header/TableHeader";
 import Table from "@/modules/core/components/ui/table/Table";
 import { formatDate } from "@/modules/core/utils/formatDate";
@@ -8,7 +11,6 @@ import { useUserContext } from "@/modules/features/auth/context/UserContext";
 import { User } from "@/modules/features/users/api/responses";
 import { useNavigate } from "@tanstack/react-router";
 import { createColumnHelper } from "@tanstack/react-table";
-import clsx from "clsx";
 import dayjs from "dayjs";
 import { useMemo, useState } from "react";
 import { Appointment } from "../../api/responses";
@@ -43,31 +45,19 @@ const AppointmentsTable = ({ isProfile, data }: Props) => {
         {
           header: isProfile ? "Psicólogo" : "Usuario",
           cell: (info) => (
-            <div className="flex gap-3 items-center w-full overflow-hidden">
-              <div className="min-w-10 w-10 aspect-square rounded-md bg-alto-100 overflow-hidden">
-                <img
-                  className="w-full h-full"
-                  src={
-                    (isProfile
-                      ? info.row.original.foto_psicologo
-                      : info.row.original.foto_paciente) || DefaultPhoto
-                  }
-                  onError={(event) => {
-                    event.currentTarget.src = DefaultPhoto;
-                  }}
-                />
-              </div>
-              <div className="flex-1 flex flex-col gap-1 overflow-hidden">
-                <strong className="font-semibold text-sm whitespace-nowrap overflow-hidden text-ellipsis">
-                  {info.getValue()}
-                </strong>
-                <p className="text-[10px] font-medium text-alto-700 dark:text-alto-400">
-                  {isProfile
-                    ? info.row.original.email_psicologo
-                    : info.row.original.email_paciente}
-                </p>
-              </div>
-            </div>
+            <PhotoColumn
+              src={
+                (isProfile
+                  ? info.row.original.foto_psicologo
+                  : info.row.original.foto_paciente) || DefaultPhoto
+              }
+              text={info.getValue()}
+              small={
+                isProfile
+                  ? info.row.original.email_psicologo
+                  : info.row.original.email_paciente
+              }
+            />
           ),
         }
       ),
@@ -75,26 +65,23 @@ const AppointmentsTable = ({ isProfile, data }: Props) => {
         header: "Fecha",
         cell: (info) => {
           const { day } = stringFromDate(dayjs(info.row.original.fecha));
+          const isMine = info.row.original.email_psicologo === user?.email;
           return (
-            <div className="flex-1 flex flex-col gap-1 overflow-hidden">
-              <strong className="font-semibold text-sm whitespace-nowrap overflow-hidden text-ellipsis">
-                {formatDate(info.row.original.fecha)}
-              </strong>
-              <div className="flex justify-between text-[10px] font-medium text-alto-700 dark:text-alto-400">
-                <span>{day}</span>
-                {info.row.original.email_psicologo === user?.email && (
-                  <a
-                    href={info.row.original.html_link_calendar}
-                    className="text-[10px] font-medium text-alto-700 dark:text-alto-400 overflow-hidden whitespace-nowrap flex gap-1 underline hover:text-primary-400 max-w-max"
-                  >
-                    <div className="w-3 aspect-square">
-                      <Icon type={Icon.Types.GOOGLE_CALENDAR} />
-                    </div>
-                    <p>Ver</p>
-                  </a>
-                )}
-              </div>
-            </div>
+            <DoubleColumn
+              text={formatDate(info.row.original.fecha)}
+              small={isMine ? `${day} (Ver)` : day}
+              icon={isMine ? Icon.Types.GOOGLE_CALENDAR : undefined}
+              onClickSmall={
+                isMine
+                  ? () => {
+                      window.open(
+                        info.row.original.html_link_calendar,
+                        "_blank"
+                      );
+                    }
+                  : undefined
+              }
+            />
           );
         },
         meta: {
@@ -107,17 +94,25 @@ const AppointmentsTable = ({ isProfile, data }: Props) => {
         {
           header: "Estado",
           cell: (info) => (
-            <div className="flex-1 flex flex-col gap-1 overflow-hidden items-center">
-              <span
-                className={clsx("text-xs w-max px-4 py-1 rounded-md", {
-                  "bg-warning/10 text-warning": info.getValue() === "Derivado",
-                  "bg-success/10 text-success": info.getValue() === "Corregido",
-                  "bg-danger/10 text-danger": info.getValue() === "Ignorado",
-                })}
-              >
-                {info.getValue()}
-              </span>
-            </div>
+            <StateColumn
+              data={[
+                {
+                  text: "Derivado",
+                  color: "warning",
+                  condition: info.getValue() === "Derivado",
+                },
+                {
+                  text: "Corregido",
+                  color: "success",
+                  condition: info.getValue() === "Corregido",
+                },
+                {
+                  text: "Ignorado",
+                  color: "danger",
+                  condition: info.getValue() === "Ignorado",
+                },
+              ]}
+            />
           ),
           meta: {
             width: 120,

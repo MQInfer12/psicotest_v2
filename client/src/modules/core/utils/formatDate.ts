@@ -1,5 +1,4 @@
 export const formatDate = (date: string) => {
-
   const MONTHS = [
     "Ene",
     "Feb",

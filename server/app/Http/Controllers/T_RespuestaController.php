@@ -13,7 +13,6 @@ use App\Http\Requests\T_RespuestaStoreRequest;
 use App\Http\Requests\T_RespuestaUpdateRequest;
 use App\Http\Resources\T_Test_RespuestaResource;
 use App\Http\Resources\T_Tests_RepuestaResource;
-use App\Models\T_Carpeta;
 use App\Models\T_Respuesta;
 use App\Models\T_Test;
 use App\Models\U_user;
@@ -145,11 +144,11 @@ class T_RespuestaController extends Controller
         $respuesta->update([
             "resultados" => $validatedData['resultados'],
             "estado" => "Enviado",
-            "fecha_enviado" => now()
         ]);
 
         if ($validatedData['tiempo'] ?? null) {
             $respuesta->update([
+                "fecha_enviado" => now(),
                 "tiempo" => $validatedData['tiempo']
             ]);
         }

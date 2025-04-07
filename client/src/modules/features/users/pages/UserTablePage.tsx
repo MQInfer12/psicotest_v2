@@ -1,15 +1,17 @@
-import DefaultPhoto from "@/assets/images/defaultPhoto.jpg";
 import Icon from "@/modules/core/components/icons/Icon";
 import { useModal } from "@/modules/core/components/ui/modal/useModal";
+import DoubleColumn from "@/modules/core/components/ui/table/columns/DoubleColumn";
+import PhotoColumn from "@/modules/core/components/ui/table/columns/PhotoColumn";
+import StateColumn from "@/modules/core/components/ui/table/columns/StateColumn";
 import TableHeader from "@/modules/core/components/ui/table/header/TableHeader";
 import Table from "@/modules/core/components/ui/table/Table";
 import { postData } from "@/modules/core/hooks/useFetch/postData";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
+import { formatDate } from "@/modules/core/utils/formatDate";
 import { getTodayUtc } from "@/modules/core/utils/getTodayUtc";
 import { measureAge } from "@/modules/core/utils/measureAge";
 import { toastConfirm, toastSuccess } from "@/modules/core/utils/toasts";
 import { createColumnHelper } from "@tanstack/react-table";
-import clsx from "clsx";
 import { useMemo, useState } from "react";
 import { useMeasureContext } from "../../_layout/context/MeasureContext";
 import PreAppointmentForm from "../../calendar/components/CalendarPage/PreAppointmentForm";
@@ -19,7 +21,6 @@ import {
   UserTableContextProvider,
   UserTableFiltersState,
 } from "../context/UserTableContext";
-import { formatDate } from "@/modules/core/utils/formatDate";
 
 const columnHelper = createColumnHelper<User>();
 
@@ -28,6 +29,7 @@ const UserTablePage = () => {
     type: "nombre",
     value: "",
   });
+  const [showAnonymous, setShowAnonymous] = useState(false);
   const { modal, setOpen } = useModal<User>();
   const { fetchData } = useFetch();
   const { data, setData } = fetchData("GET /user");
@@ -93,51 +95,31 @@ const UserTablePage = () => {
       columnHelper.accessor("nombre", {
         header: "Usuario",
         cell: (info) => (
-          <div className="flex gap-3 items-center w-full overflow-hidden">
-            <div className="min-w-10 w-10 aspect-square rounded-md bg-alto-100 overflow-hidden">
-              <img
-                className="w-full h-full"
-                src={info.row.original.foto || DefaultPhoto}
-                onError={(event) => {
-                  event.currentTarget.src = DefaultPhoto;
-                }}
-              />
-            </div>
-            <div className="flex-1 flex flex-col gap-1 overflow-hidden">
-              <strong className="font-semibold text-sm whitespace-nowrap overflow-hidden text-ellipsis">
-                {info.getValue()}
-              </strong>
-              <p className="text-[10px] font-medium text-alto-700 dark:text-alto-400">
-                {info.row.original.email}
-              </p>
-            </div>
-          </div>
+          <PhotoColumn
+            src={info.row.original.foto}
+            text={info.getValue()}
+            small={info.row.original.email}
+          />
         ),
       }),
       columnHelper.accessor("fecha_nacimiento", {
         header: "Edad y género",
         cell: (info) => (
-          <div className="flex-1 flex flex-col gap-1 overflow-hidden">
-            <strong className="font-semibold text-sm whitespace-nowrap overflow-hidden text-ellipsis">
-              {info.row.original.fecha_nacimiento
+          <DoubleColumn
+            text={
+              info.row.original.fecha_nacimiento
                 ? `${measureAge(info.row.original.fecha_nacimiento, getTodayUtc())} años`
-                : "Sin especificar"}
-            </strong>
-            <div className="text-[10px] font-medium text-alto-700 dark:text-alto-400 overflow-hidden whitespace-nowrap flex gap-1">
-              <div className="w-3 aspect-square">
-                <Icon
-                  type={
-                    info.row.original.genero
-                      ? info.row.original.genero === "Hombre"
-                        ? Icon.Types.GENDER_MALE
-                        : Icon.Types.GENDER_FEMALE
-                      : Icon.Types.GENDER_NONE
-                  }
-                />
-              </div>
-              <p>{info.row.original.genero ?? "Sin especificar"}</p>
-            </div>
-          </div>
+                : "Sin especificar"
+            }
+            small={info.row.original.genero ?? "Sin especificar"}
+            icon={
+              info.row.original.genero
+                ? info.row.original.genero === "Hombre"
+                  ? Icon.Types.GENDER_MALE
+                  : Icon.Types.GENDER_FEMALE
+                : Icon.Types.GENDER_NONE
+            }
+          />
         ),
         meta: {
           width: 148,
@@ -146,19 +128,11 @@ const UserTablePage = () => {
       columnHelper.accessor("created_at", {
         header: "Registrado",
         cell: (info) => (
-          <div className="flex-1 flex flex-col gap-1 overflow-hidden">
-            <strong className="font-semibold text-sm whitespace-nowrap overflow-hidden text-ellipsis">
-              {formatDate(info.row.original.created_at)}
-            </strong>
-            <div className="text-[10px] font-medium text-alto-700 dark:text-alto-400 overflow-hidden whitespace-nowrap flex gap-1">
-              <div className="w-3 aspect-square">
-                <Icon type={Icon.Types.CLOCK} />
-              </div>
-              <p>
-                {info.row.original.created_at.split("T")[1].substring(0, 5)}
-              </p>
-            </div>
-          </div>
+          <DoubleColumn
+            text={formatDate(info.row.original.created_at)}
+            small={info.row.original.created_at.split("T")[1].substring(0, 5)}
+            icon={Icon.Types.CLOCK}
+          />
         ),
         meta: {
           width: 120,
@@ -167,17 +141,23 @@ const UserTablePage = () => {
       columnHelper.accessor("estado", {
         header: "Estado",
         cell: (info) => (
-          <div className="flex-1 flex flex-col gap-1 overflow-hidden items-center">
-            <button
-              onClick={() => handleChangeState(info.row.original.email)}
-              className={clsx("text-xs w-max px-4 py-1 rounded-md", {
-                "bg-danger/10 text-danger": !info.row.original.estado,
-                "bg-success/10 text-success": info.row.original.estado,
-              })}
-            >
-              {info.row.original.estado ? "Activo" : "Inactivo"}
-            </button>
-          </div>
+          <StateColumn
+            data={[
+              {
+                text: "Inactivo",
+                color: "danger",
+                condition: !info.row.original.estado,
+
+                onClick: () => handleChangeState(info.row.original.email),
+              },
+              {
+                text: "Activo",
+                color: "success",
+                condition: info.row.original.estado,
+                onClick: () => handleChangeState(info.row.original.email),
+              },
+            ]}
+          />
         ),
         meta: {
           width: 120,
@@ -215,6 +195,9 @@ const UserTablePage = () => {
 
   const getFilteredData = () => {
     return data?.filter((v) => {
+      if (!showAnonymous) {
+        if (v.email.includes("@neurall.com")) return false;
+      }
       const { value } = filters;
       switch (filters.type) {
         case "nombre":
@@ -277,6 +260,8 @@ const UserTablePage = () => {
             roles,
             filters,
             setFilters,
+            showAnonymous,
+            setShowAnonymous,
           }}
         >
           <TableHeader>

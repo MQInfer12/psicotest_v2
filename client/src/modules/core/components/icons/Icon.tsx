@@ -77,6 +77,7 @@ import IconMail from "./tabler/iconMail";
 import IconGlobe from "./tabler/iconGlobe";
 import IconMinus from "./tabler/iconMinus";
 import IconInfo from "./tabler/iconInfo";
+import IconAnonymous from "./tabler/iconAnonymous";
 
 export enum ICON {
   CHECK = "check",
@@ -173,6 +174,7 @@ export enum ICON {
   GLOBE = "globe",
   MINUS = "minus",
   INFO = "info",
+  ANONYMOUS = "anonymous",
 }
 
 interface Props {
@@ -275,6 +277,7 @@ const Icon = ({ type }: Props) => {
     [ICON.GLOBE]: <IconGlobe />,
     [ICON.MINUS]: <IconMinus />,
     [ICON.INFO]: <IconInfo />,
+    [ICON.ANONYMOUS]: <IconAnonymous />,
   };
   return icons[type];
 };

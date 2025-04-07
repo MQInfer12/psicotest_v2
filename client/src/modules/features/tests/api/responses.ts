@@ -17,7 +17,7 @@ export interface T_Tests_Respuestas {
   nombre_user: string;
   email_user: string;
   fecha_nacimiento_user: string | null;
-  foto_user: string;
+  foto_user: string | null;
   nombre_test: string;
   id_carpeta: number | null;
   nombre_carpeta: string | null;
@@ -26,7 +26,8 @@ export interface T_Tests_Respuestas {
   canvas: string;
   estado: RespuestaEstado;
   tiene_interpretacion: boolean;
-  fecha_enviado: string;
+  fecha_asignado: string;
+  fecha_enviado: string | null;
   fecha_visible: string | null;
 }
 

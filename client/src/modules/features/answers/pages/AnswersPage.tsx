@@ -1,5 +1,9 @@
-import DefaultPhoto from "@/assets/images/defaultPhoto.jpg";
 import Icon from "@/modules/core/components/icons/Icon";
+import Button from "@/modules/core/components/ui/Button";
+import { useModal } from "@/modules/core/components/ui/modal/useModal";
+import DoubleColumn from "@/modules/core/components/ui/table/columns/DoubleColumn";
+import PhotoColumn from "@/modules/core/components/ui/table/columns/PhotoColumn";
+import StateColumn from "@/modules/core/components/ui/table/columns/StateColumn";
 import TableHeader from "@/modules/core/components/ui/table/header/TableHeader";
 import Table from "@/modules/core/components/ui/table/Table";
 import { COLORS } from "@/modules/core/constants/COLORS";
@@ -7,11 +11,10 @@ import { LOCAL_ANSWERS_SEARCH } from "@/modules/core/constants/LOCALS";
 import { useThemeContext } from "@/modules/core/context/ThemeContext";
 import { useDebounce } from "@/modules/core/hooks/useDebounce";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
+import { formatDate } from "@/modules/core/utils/formatDate";
 import { formatStringList } from "@/modules/core/utils/formatStringList";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { createColumnHelper } from "@tanstack/react-table";
-import clsx from "clsx";
-import { motion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
 import { useMeasureContext } from "../../_layout/context/MeasureContext";
 import FolderList from "../../folders/components/FolderList";
@@ -19,6 +22,7 @@ import { IA_Plantilla } from "../../templates/api/responses";
 import { T_Tests_Respuestas } from "../../tests/api/responses";
 import AnswersHeader from "../components/AnswersHeader";
 import AnswersInterpretation from "../components/AnswersInterpretation";
+import EnsureAnswerPage from "../components/EnsureAnswerPage";
 import {
   AnswersHeaderContextProvider,
   AnswersTableFilters,
@@ -32,6 +36,9 @@ const columnHelper = createColumnHelper<T_Tests_Respuestas>();
 
 const AnswersPage = () => {
   const { dark } = useThemeContext();
+
+  const { setOpen, modal } = useModal();
+  const { setOpen: setOpenDetalle, modal: modalDetalle } = useModal<number>();
 
   const navigate = useNavigate();
   const [filters, setFilters] = useState<AnswersTableFilters>({
@@ -108,74 +115,65 @@ const AnswersPage = () => {
       columnHelper.accessor("nombre_user", {
         header: "Usuario",
         cell: (info) => (
-          <div className="flex gap-3 items-center w-full overflow-hidden">
-            <div className="min-w-10 w-10 aspect-square rounded-md bg-alto-100 overflow-hidden">
-              <motion.img
-                layoutId={`answer-foto-${info.row.original.id_respuesta}`}
-                className="w-full h-full"
-                src={info.row.original.foto_user || DefaultPhoto}
-                onError={(event) => {
-                  event.currentTarget.src = DefaultPhoto;
-                }}
-              />
-            </div>
-            <div className="flex-1 flex flex-col gap-1 overflow-hidden">
-              <motion.strong
-                layoutId={`answer-nombre-${info.row.original.id_respuesta}`}
-                className="font-semibold text-sm whitespace-nowrap overflow-hidden text-ellipsis"
-              >
-                {info.getValue()}
-              </motion.strong>
-              <motion.p
-                layoutId={`answer-email-${info.row.original.id_respuesta}`}
-                className="text-[10px] font-medium text-alto-700 dark:text-alto-400"
-              >
-                {info.row.original.email_user}
-              </motion.p>
-            </div>
-          </div>
+          <PhotoColumn
+            src={info.row.original.foto_user}
+            text={info.getValue()}
+            small={info.row.original.email_user}
+            imgLayoutId={`answer-foto-${info.row.original.id_respuesta}`}
+            textLayoutId={`answer-nombre-${info.row.original.id_respuesta}`}
+            smallLayoutId={`answer-email-${info.row.original.id_respuesta}`}
+          />
         ),
       }),
       columnHelper.accessor("nombre_test", {
         header: "Test",
         cell: (info) => (
-          <div className="flex-1 flex flex-col gap-1 overflow-hidden">
-            <motion.strong
-              layoutId={`answer-test-${info.row.original.id_respuesta}`}
-              className="font-semibold text-sm text-primary-600 dark:text-primary-400 whitespace-nowrap overflow-hidden text-ellipsis"
-            >
-              {info.getValue()}
-            </motion.strong>
-            <div className="text-[10px] font-medium text-alto-700 dark:text-alto-400 overflow-hidden whitespace-nowrap flex gap-1">
-              <div className="w-3 aspect-square">
-                <Icon type={Icon.Types.FOLDER} />
-              </div>
-              <p>{info.row.original.nombre_carpeta ?? "Sin clasificación"}</p>
-            </div>
-          </div>
+          <DoubleColumn
+            text={info.getValue()}
+            small={info.row.original.nombre_carpeta ?? "Sin clasificación"}
+            icon={Icon.Types.FOLDER}
+            textLayoutId={`answer-test-${info.row.original.id_respuesta}`}
+          />
         ),
         meta: {
-          width: 200,
+          width: 160,
+        },
+      }),
+      columnHelper.accessor("fecha_enviado", {
+        header: "Fechas",
+        cell: (info) => {
+          const fecha_enviado = info.getValue();
+          return (
+            <DoubleColumn
+              text={fecha_enviado ? formatDate(fecha_enviado) : "-"}
+              textTitleDetail="Fecha de envío"
+              small={formatDate(info.row.original.fecha_asignado)}
+              smallTitleDetail="Fecha de asignación"
+              icon={Icon.Types.CALENDAR}
+            />
+          );
+        },
+        meta: {
+          width: 120,
         },
       }),
       columnHelper.accessor("estado", {
         header: "Estado",
         cell: (info) => (
-          <div className="flex w-full justify-center">
-            <small
-              className={clsx(
-                "px-2 py-[2px] text-xs font-semibold rounded-md",
-                {
-                  "bg-success/10 text-success":
-                    info.getValue() === RespuestaEstado.ENVIADO,
-                  "bg-alto-600/10 text-alto-600":
-                    info.getValue() === RespuestaEstado.PENDIENTE,
-                }
-              )}
-            >
-              {info.getValue()}
-            </small>
-          </div>
+          <StateColumn
+            data={[
+              {
+                text: RespuestaEstado.ENVIADO,
+                color: "success",
+                condition: info.getValue() === RespuestaEstado.ENVIADO,
+              },
+              {
+                text: RespuestaEstado.PENDIENTE,
+                color: "alto",
+                condition: info.getValue() === RespuestaEstado.PENDIENTE,
+              },
+            ]}
+          />
         ),
         meta: {
           width: 120,
@@ -184,40 +182,39 @@ const AnswersPage = () => {
       columnHelper.accessor("tiene_interpretacion", {
         header: "Interpretado",
         cell: (info) => (
-          <div className="flex w-full justify-center">
-            <button
-              className={clsx(
-                "px-2 py-[2px] text-xs font-semibold rounded-md flex items-center justify-center gap-1",
-                {
-                  "bg-success/10 text-success": info.getValue(),
-                  "bg-alto-600/10 text-alto-600": !info.getValue(),
-                }
-              )}
-              disabled={!info.getValue()}
-              onClick={() =>
-                handleSendMail([info.row.original.id_respuesta], (res) => {
-                  setData((prev) =>
-                    prev.map((v) => {
-                      const exist = res.find(
-                        (respuesta) => respuesta.id_respuesta === v.id_respuesta
-                      );
-                      if (exist) {
-                        return exist;
-                      }
-                      return v;
-                    })
-                  );
-                })
-              }
-            >
-              {info.getValue() ? "SI" : "NO"}
-              {info.row.original.fecha_visible && (
-                <div className="h-3 w-3">
-                  <Icon type={Icon.Types.MAIL} />
-                </div>
-              )}
-            </button>
-          </div>
+          <StateColumn
+            data={[
+              {
+                text: "SI",
+                color: "success",
+                condition: info.getValue(),
+                onClick: () => {
+                  handleSendMail([info.row.original.id_respuesta], (res) => {
+                    setData((prev) =>
+                      prev.map((v) => {
+                        const exist = res.find(
+                          (respuesta) =>
+                            respuesta.id_respuesta === v.id_respuesta
+                        );
+                        if (exist) {
+                          return exist;
+                        }
+                        return v;
+                      })
+                    );
+                  });
+                },
+                icon: info.row.original.fecha_visible
+                  ? Icon.Types.MAIL
+                  : undefined,
+              },
+              {
+                text: "NO",
+                color: "alto",
+                condition: !info.getValue(),
+              },
+            ]}
+          />
         ),
         meta: {
           width: 120,
@@ -261,44 +258,98 @@ const AnswersPage = () => {
   const lastFocused = getLastFocused(showInterpretation);
 
   const filteredData = getFilteredData();
+
+  const actualFolders = folders
+    .map((f) =>
+      f === 0
+        ? "Sin clasificación"
+        : (dataFolders?.find((f2) => f2.id === f)?.descripcion ?? "")
+    )
+    .filter((v) => !!v);
+
   return (
-    <div
-      style={{
-        paddingInline: PRIVATE_PADDING_INLINE,
-      }}
-      className="flex pb-10 flex-1 overflow-hidden gap-8 max-lg:flex-col max-lg:gap-4"
-    >
-      <FolderList
-        selectedFolders={folders}
-        setSelectedFolders={setFolders}
-        loading={isDebouncing || isLoading}
-        loadingFetch={isLoading}
-        data={dataFolders}
-        setData={setDataFolders}
-      />
-      <div className="flex-1 rounded-lg overflow-hidden flex flex-col">
-        <AnswersHeaderContextProvider
-          filters={filters}
-          setFilters={setFilters}
-          selectedTests={selectedTests}
-          setSelectedTests={setSelectedTests}
-          startedSelection={startedSelection}
-          setStartedSelection={setStartedSelection}
-          disableFilters={showInterpretation}
-          setData={setData}
-          refetch={refetch}
-          plantilla={plantilla}
-          setPlantilla={setPlantilla}
-        >
-          {showInterpretation ? (
-            <AnswersInterpretation />
+    <>
+      {modal(
+        "Selección de carpetas",
+        <FolderList
+          selectedFolders={folders}
+          setSelectedFolders={setFolders}
+          loading={isDebouncing || isLoading}
+          loadingFetch={isLoading}
+          data={dataFolders}
+          setData={setDataFolders}
+        />,
+        {
+          type: "floating",
+        }
+      )}
+      {modalDetalle(
+        "Detalles del resultado",
+        (id) => (
+          <EnsureAnswerPage id={id} loading={loading} setLoading={setLoading} />
+        ),
+        {
+          width: 1420,
+          type: "floating",
+          blur: true,
+        }
+      )}
+      <div
+        style={{
+          paddingInline: PRIVATE_PADDING_INLINE,
+        }}
+        className="flex flex-col pb-10 flex-1 overflow-hidden gap-4"
+      >
+        <header className="flex gap-4 justify-between items-center overflow-hidden">
+          {actualFolders.length ? (
+            <Button
+              btnSize="small"
+              onClick={() => setOpen(true)}
+              icon={Icon.Types.FOLDER}
+              reverse
+              btnType="tertiary"
+              className="overflow-hidden"
+            >
+              {formatStringList(actualFolders)}
+            </Button>
           ) : (
-            <Table
-              savedOffsetKey="answers_page_table_offset"
-              data={filteredData}
-              columns={columns}
-              checkable
-              /* canBeChecked={(row) => {
+            <span />
+          )}
+          <div className="flex gap-4">
+            <Button
+              onClick={() => setOpen(true)}
+              btnType="secondary"
+              btnSize="small"
+              icon={Icon.Types.MENU}
+              subicon={Icon.Types.FOLDER}
+            >
+              Carpetas
+            </Button>
+          </div>
+        </header>
+        <div className="flex-1 rounded-lg overflow-hidden flex flex-col">
+          <AnswersHeaderContextProvider
+            filters={filters}
+            setFilters={setFilters}
+            selectedTests={selectedTests}
+            setSelectedTests={setSelectedTests}
+            startedSelection={startedSelection}
+            setStartedSelection={setStartedSelection}
+            disableFilters={showInterpretation}
+            setData={setData}
+            refetch={refetch}
+            plantilla={plantilla}
+            setPlantilla={setPlantilla}
+          >
+            {showInterpretation ? (
+              <AnswersInterpretation />
+            ) : (
+              <Table
+                savedOffsetKey="answers_page_table_offset"
+                data={filteredData}
+                columns={columns}
+                checkable
+                /* canBeChecked={(row) => {
                 const carpeta = dataFolders?.find(
                   (f) => f.id === row.id_carpeta
                 );
@@ -306,127 +357,136 @@ const AnswersPage = () => {
                   ? FOLDER_TYPES_I_CAN_MOVE.includes(carpeta.tipo)
                   : true;
               }} */
-              disableCheck={!!startedSelection}
-              idKey="id_respuesta"
-              defaultFocusedRows={lastFocused ?? []}
-              actions={[
-                {
-                  fn: (row) => {
-                    setLoading(row.id_respuesta);
-                    navigate({
-                      to: "/answers/$id",
-                      params: {
-                        id: String(row.id_respuesta),
-                      },
-                    });
-                  },
-                  icon: Icon.Types.BRAIN,
-                  title: "Ver respuesta",
-                  disabled: (row) =>
-                    !!startedSelection ||
-                    row.estado === RespuestaEstado.PENDIENTE,
-                },
-              ]}
-              loadingRow={(row) => row.id_respuesta === loading}
-              rounded={false}
-              smallEmptyMessage={
-                folders.length === 0
-                  ? "Selecciona una carpeta para mostrar las respuestas"
-                  : undefined
-              }
-              rowStyle={
-                startedSelection
-                  ? (row) => ({
-                      opacity: checkDisabled(row) ? 0.1 : undefined,
-                      backgroundColor: selectedTests?.selecteds
-                        .map((s) => s.id_respuesta)
-                        .includes(row.id_respuesta)
-                        ? dark
-                          ? COLORS.primary[900]
-                          : COLORS.primary[200]
-                        : dark
-                          ? COLORS.alto[1000]
-                          : COLORS.alto[50],
-                      pointerEvents: checkDisabled(row) ? "none" : undefined,
-                    })
-                  : undefined
-              }
-              onClickRow={
-                startedSelection
-                  ? {
-                      disabled: checkDisabled,
-                      fn: (row) => {
-                        setSelectedTests((prev) => {
-                          if (!prev) {
-                            return {
-                              user: {
-                                email: row.email_user,
-                                nombre: row.nombre_user,
-                                fechaNacimiento: row.fecha_nacimiento_user,
-                                fechaEnviado: row.fecha_enviado,
-                              },
-                              selecteds: [
-                                {
-                                  id_respuesta: row.id_respuesta,
-                                  id_test: row.id,
-                                  nombre_test: row.nombre_test,
-                                  nombre_carpeta:
-                                    row.nombre_carpeta || "Sin clasificación",
-                                  fecha_visible: row.fecha_visible,
-                                },
-                              ],
-                            };
-                          }
-                          const exists = prev.selecteds
-                            .map((s) => s.id_respuesta)
-                            .includes(row.id_respuesta);
-                          if (!exists) {
-                            return {
-                              ...prev,
-                              selecteds: [
-                                ...prev.selecteds,
-                                {
-                                  id_respuesta: row.id_respuesta,
-                                  id_test: row.id,
-                                  nombre_test: row.nombre_test,
-                                  nombre_carpeta:
-                                    row.nombre_carpeta || "Sin clasificación",
-                                  fecha_visible: row.fecha_visible,
-                                },
-                              ],
-                            };
-                          }
-                          if (prev.selecteds.length - 1 === 0) {
-                            return null;
-                          }
-                          return {
-                            ...prev,
-                            selecteds: prev.selecteds.filter(
-                              (selected) =>
-                                selected.id_respuesta !== row.id_respuesta
-                            ),
-                          };
+                disableCheck={!!startedSelection}
+                idKey="id_respuesta"
+                defaultFocusedRows={lastFocused ?? []}
+                actions={[
+                  {
+                    fn: (row) => {
+                      setLoading(row.id_respuesta);
+                      //! xd
+                      if (false) {
+                        setOpenDetalle(row.id_respuesta);
+                      } else {
+                        navigate({
+                          to: "/answers/$id",
+                          params: {
+                            id: String(row.id_respuesta),
+                          },
                         });
-                      },
-                    }
-                  : undefined
-              }
-            >
-              <TableHeader
-                text={
+                      }
+                    },
+                    icon: Icon.Types.EYE,
+                    title: "Ver respuesta",
+                    type: "secondary",
+                    disabled: (row) =>
+                      !!startedSelection ||
+                      row.estado === RespuestaEstado.PENDIENTE,
+                  },
+                ]}
+                loadingRow={(row) => row.id_respuesta === loading}
+                rounded={false}
+                smallEmptyMessage={
+                  actualFolders.length === 0
+                    ? "Selecciona una carpeta para mostrar las respuestas"
+                    : loading || isDebouncing
+                      ? "Cargando..."
+                      : "Sin resultados"
+                }
+                rowStyle={
                   startedSelection
-                    ? `Seleccionar tests de una persona: ${formatStringList(Object.keys(startedSelection.id_tests))}`
+                    ? (row) => ({
+                        opacity: checkDisabled(row) ? 0.1 : undefined,
+                        backgroundColor: selectedTests?.selecteds
+                          .map((s) => s.id_respuesta)
+                          .includes(row.id_respuesta)
+                          ? dark
+                            ? COLORS.primary[900]
+                            : COLORS.primary[200]
+                          : dark
+                            ? COLORS.alto[1000]
+                            : COLORS.alto[50],
+                        pointerEvents: checkDisabled(row) ? "none" : undefined,
+                      })
                     : undefined
                 }
-                folders={folders}
+                onClickRow={
+                  startedSelection
+                    ? {
+                        disabled: checkDisabled,
+                        fn: (row) => {
+                          setSelectedTests((prev) => {
+                            if (!prev) {
+                              return {
+                                user: {
+                                  email: row.email_user,
+                                  nombre: row.nombre_user,
+                                  fechaNacimiento: row.fecha_nacimiento_user,
+                                  fechaEnviado: row.fecha_enviado,
+                                },
+                                selecteds: [
+                                  {
+                                    id_respuesta: row.id_respuesta,
+                                    id_test: row.id,
+                                    nombre_test: row.nombre_test,
+                                    nombre_carpeta:
+                                      row.nombre_carpeta || "Sin clasificación",
+                                    fecha_visible: row.fecha_visible,
+                                  },
+                                ],
+                              };
+                            }
+                            const exists = prev.selecteds
+                              .map((s) => s.id_respuesta)
+                              .includes(row.id_respuesta);
+                            if (!exists) {
+                              return {
+                                ...prev,
+                                selecteds: [
+                                  ...prev.selecteds,
+                                  {
+                                    id_respuesta: row.id_respuesta,
+                                    id_test: row.id,
+                                    nombre_test: row.nombre_test,
+                                    nombre_carpeta:
+                                      row.nombre_carpeta || "Sin clasificación",
+                                    fecha_visible: row.fecha_visible,
+                                  },
+                                ],
+                              };
+                            }
+                            if (prev.selecteds.length - 1 === 0) {
+                              return null;
+                            }
+                            return {
+                              ...prev,
+                              selecteds: prev.selecteds.filter(
+                                (selected) =>
+                                  selected.id_respuesta !== row.id_respuesta
+                              ),
+                            };
+                          });
+                        },
+                      }
+                    : undefined
+                }
               >
-                <AnswersHeader />
-              </TableHeader>
-            </Table>
-          )}
-        </AnswersHeaderContextProvider>
+                <TableHeader
+                  text={
+                    startedSelection
+                      ? `Seleccionar tests de una persona: ${formatStringList(Object.keys(startedSelection.id_tests))}`
+                      : undefined
+                  }
+                  folders={folders}
+                >
+                  <AnswersHeader />
+                </TableHeader>
+              </Table>
+            )}
+          </AnswersHeaderContextProvider>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

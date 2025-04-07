@@ -13,7 +13,7 @@ interface Props {
 const DerivacionPDF = ({ user, cita }: Props) => {
   return (
     <PDFViewer height="100%" width="100%">
-      <Document title="Ficha de apertura del paciente">
+      <Document title="Ficha de derivación">
         <Page
           size="LETTER"
           style={{

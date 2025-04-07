@@ -288,14 +288,16 @@ const AnswersInterpretation = () => {
         }}
         data={{
           name: selectedTests?.user.nombre || "",
-          age: selectedTests?.user.fechaNacimiento
-            ? String(
-                measureAge(
-                  selectedTests.user.fechaNacimiento,
-                  selectedTests.user.fechaEnviado
+          age:
+            selectedTests?.user.fechaNacimiento &&
+            selectedTests.user.fechaEnviado
+              ? String(
+                  measureAge(
+                    selectedTests.user.fechaNacimiento,
+                    selectedTests.user.fechaEnviado
+                  )
                 )
-              )
-            : "No especificado",
+              : "No especificado",
           group: selectedTests
             ? Object.keys(
                 Object.groupBy(

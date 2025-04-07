@@ -16,7 +16,7 @@ export interface SelectedTests {
     nombre: string;
     email: string;
     fechaNacimiento: string | null;
-    fechaEnviado: string;
+    fechaEnviado: string | null;
   };
   selecteds: {
     id_respuesta: number;

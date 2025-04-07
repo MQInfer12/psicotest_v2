@@ -10,6 +10,7 @@ interface Props {
   loadingFetch: boolean;
   handleSelectFolder: (id: number) => void;
   onClickEdit: (folder: Folder) => void;
+  showMessage?: boolean;
 }
 
 const FolderMap = ({
@@ -18,12 +19,20 @@ const FolderMap = ({
   loadingFetch,
   handleSelectFolder,
   onClickEdit,
+  showMessage = true,
 }: Props) => {
   const { user } = useUserContext();
+  if (folders.length === 0 && showMessage) {
+    return (
+      <div className="flex justify-center items-center">
+        <small className="text-alto-500">No hay carpetas disponibles</small>
+      </div>
+    );
+  }
   return (
     <>
       {folders.map((folder) => (
-        <div key={folder.id} className="flex gap-2 max-lg:flex-col">
+        <div key={folder.id} className="flex gap-2">
           <div className="flex-1 overflow-hidden flex">
             <FolderButton
               id={folder.id}

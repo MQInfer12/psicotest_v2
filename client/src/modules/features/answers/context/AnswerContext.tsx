@@ -22,12 +22,13 @@ interface Ctx {
 const AnswerContext = createContext<Ctx | null>(null);
 
 interface Props {
+  id?: number | null;
   children: JSX.Element;
 }
 
-export const AnswerContextProvider = ({ children }: Props) => {
+export const AnswerContextProvider = ({ id: idProp, children }: Props) => {
   const { id } = useParams({
-    from: "/_private/answers/$id",
+    strict: false,
   });
 
   const {
@@ -39,7 +40,7 @@ export const AnswerContextProvider = ({ children }: Props) => {
       [
         "GET /test/for/respuesta/:id",
         {
-          id: Number(id),
+          id: idProp ?? Number(id),
         },
       ],
       {},

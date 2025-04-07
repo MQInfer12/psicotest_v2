@@ -1,11 +1,13 @@
-import DefaultPhoto from "@/assets/images/defaultPhoto.jpg";
 import Icon from "@/modules/core/components/icons/Icon";
 import { useModal } from "@/modules/core/components/ui/modal/useModal";
+import DoubleColumn from "@/modules/core/components/ui/table/columns/DoubleColumn";
+import PhotoColumn from "@/modules/core/components/ui/table/columns/PhotoColumn";
 import TableHeader from "@/modules/core/components/ui/table/header/TableHeader";
 import Table from "@/modules/core/components/ui/table/Table";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import { getTodayUtc } from "@/modules/core/utils/getTodayUtc";
 import { measureAge } from "@/modules/core/utils/measureAge";
+import { useNavigate } from "@tanstack/react-router";
 import { createColumnHelper } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
 import { useMeasureContext } from "../../_layout/context/MeasureContext";
@@ -16,7 +18,6 @@ import {
   UserTableContextProvider,
   UserTableFiltersState,
 } from "../context/UserTableContext";
-import { useNavigate } from "@tanstack/react-router";
 
 const columnHelper = createColumnHelper<User>();
 
@@ -37,51 +38,31 @@ const PatientPage = () => {
       columnHelper.accessor("nombre", {
         header: "Usuario",
         cell: (info) => (
-          <div className="flex gap-3 items-center w-full overflow-hidden">
-            <div className="min-w-10 w-10 aspect-square rounded-md bg-alto-100 overflow-hidden">
-              <img
-                className="w-full h-full"
-                src={info.row.original.foto || DefaultPhoto}
-                onError={(event) => {
-                  event.currentTarget.src = DefaultPhoto;
-                }}
-              />
-            </div>
-            <div className="flex-1 flex flex-col gap-1 overflow-hidden">
-              <strong className="font-semibold text-sm whitespace-nowrap overflow-hidden text-ellipsis">
-                {info.getValue()}
-              </strong>
-              <p className="text-[10px] font-medium text-alto-700 dark:text-alto-400">
-                {info.row.original.email}
-              </p>
-            </div>
-          </div>
+          <PhotoColumn
+            src={info.row.original.foto}
+            text={info.getValue()}
+            small={info.row.original.email}
+          />
         ),
       }),
       columnHelper.accessor("fecha_nacimiento", {
         header: "Edad y género",
         cell: (info) => (
-          <div className="flex-1 flex flex-col gap-1 overflow-hidden">
-            <strong className="font-semibold text-sm whitespace-nowrap overflow-hidden text-ellipsis">
-              {info.row.original.fecha_nacimiento
+          <DoubleColumn
+            text={
+              info.row.original.fecha_nacimiento
                 ? `${measureAge(info.row.original.fecha_nacimiento, getTodayUtc())} años`
-                : "Sin especificar"}
-            </strong>
-            <div className="text-[10px] font-medium text-alto-700 dark:text-alto-400 overflow-hidden whitespace-nowrap flex gap-1">
-              <div className="w-3 aspect-square">
-                <Icon
-                  type={
-                    info.row.original.genero
-                      ? info.row.original.genero === "Hombre"
-                        ? Icon.Types.GENDER_MALE
-                        : Icon.Types.GENDER_FEMALE
-                      : Icon.Types.GENDER_NONE
-                  }
-                />
-              </div>
-              <p>{info.row.original.genero ?? "Sin especificar"}</p>
-            </div>
-          </div>
+                : "Sin especificar"
+            }
+            small={info.row.original.genero ?? "Sin especificar"}
+            icon={
+              info.row.original.genero
+                ? info.row.original.genero === "Hombre"
+                  ? Icon.Types.GENDER_MALE
+                  : Icon.Types.GENDER_FEMALE
+                : Icon.Types.GENDER_NONE
+            }
+          />
         ),
         meta: {
           width: 148,
@@ -90,31 +71,15 @@ const PatientPage = () => {
       columnHelper.accessor("carrera", {
         header: "Carrera",
         cell: (info) => (
-          <div className="flex-1 flex flex-col gap-1 overflow-hidden">
-            <strong className="font-semibold text-sm whitespace-nowrap overflow-hidden text-ellipsis">
-              {info.row.original.carrera || "Sin especificar"}
-            </strong>
-            <div className="flex justify-between text-[10px] font-medium text-alto-700 dark:text-alto-400">
-              <div className="overflow-hidden whitespace-nowrap flex gap-1">
-                <div className="w-3 aspect-square">
-                  <Icon type={Icon.Types.PROGRESS} />
-                </div>
-                <p>
-                  {info.row.original.semestre
-                    ? `Semestre ${info.row.original.semestre}`
-                    : "Sin especificar"}
-                </p>
-              </div>
-              {info.row.original.codigo_estudiantil && (
-                <div className="overflow-hidden whitespace-nowrap flex gap-1">
-                  <div className="w-3 aspect-square">
-                    <Icon type={Icon.Types.BARCODE} />
-                  </div>
-                  <p>{info.row.original.codigo_estudiantil}</p>
-                </div>
-              )}
-            </div>
-          </div>
+          <DoubleColumn
+            text={info.row.original.carrera || "Sin especificar"}
+            small={
+              info.row.original.codigo_estudiantil
+                ? info.row.original.codigo_estudiantil
+                : "Sin especificar"
+            }
+            icon={Icon.Types.BARCODE}
+          />
         ),
         meta: {
           width: 192,
@@ -127,22 +92,15 @@ const PatientPage = () => {
           if (info.row.original.nombre_tutor)
             string += ` (${info.row.original.nombre_tutor})`;
           return (
-            <div className="flex-1 flex flex-col gap-1 overflow-hidden">
-              <strong className="font-semibold text-sm whitespace-nowrap overflow-hidden text-ellipsis">
-                {info.row.original.telefono || "Sin especificar"}
-              </strong>
-              <div
-                title={String(string)}
-                className="flex justify-between text-[10px] font-medium text-alto-700 dark:text-alto-400"
-              >
-                <div className="overflow-hidden whitespace-nowrap flex gap-1">
-                  <div className="w-3 aspect-square">
-                    <Icon type={Icon.Types.CONTACT} />
-                  </div>
-                  <p>{string}</p>
-                </div>
-              </div>
-            </div>
+            <DoubleColumn
+              text={
+                info.row.original.telefono
+                  ? String(info.row.original.telefono)
+                  : "Sin especificar"
+              }
+              small={String(string)}
+              icon={Icon.Types.CONTACT}
+            />
           );
         },
         meta: {
