@@ -19,6 +19,11 @@ export const UserDTOSchema = yup.object({
 });
 
 export const UserRequiredDTOSchema = yup.object().shape({
+  nombre: yup.string().when("$requirements", ([requirements], schema) => {
+    if (requirements.includes(Requirements.NOMBRE))
+      return schema.required("Requerido");
+    return schema;
+  }),
   genero: yup.string().when("$requirements", ([requirements], schema) => {
     if (requirements.includes(Requirements.GENERO))
       return schema.required("Requerido");

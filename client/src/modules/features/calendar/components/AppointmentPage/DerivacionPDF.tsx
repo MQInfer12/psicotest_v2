@@ -4,6 +4,7 @@ import { Text } from "@/modules/features/answers/components/interpretation/GptPd
 import { User } from "@/modules/features/users/api/responses";
 import { Document, Page, PDFViewer } from "@react-pdf/renderer";
 import { Appointment } from "../../api/responses";
+import { getTodayUtc } from "@/modules/core/utils/getTodayUtc";
 
 interface Props {
   user: User;
@@ -29,6 +30,10 @@ const DerivacionPDF = ({ user, cita }: Props) => {
           >
             HOJA DE INTERCONSULTA {"\n"}
             GABINETE PSICOLÓGICO UNIVERSIDAD FRANZ TAMAYO
+          </Text>
+          <Text style={{ marginTop: 8 }}>
+            <Text style={{ fontWeight: 700 }}>Fecha del reporte:</Text>{" "}
+            {formatDate(getTodayUtc())}
           </Text>
           <Text
             style={{

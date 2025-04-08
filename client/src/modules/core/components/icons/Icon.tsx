@@ -78,6 +78,9 @@ import IconGlobe from "./tabler/iconGlobe";
 import IconMinus from "./tabler/iconMinus";
 import IconInfo from "./tabler/iconInfo";
 import IconAnonymous from "./tabler/iconAnonymous";
+import IconCalendarTime from "./tabler/iconCalendarTime";
+import IconTimelane from "./tabler/iconTimelane";
+import IconWhatsapp from "./tabler/iconWhatsapp";
 
 export enum ICON {
   CHECK = "check",
@@ -89,6 +92,7 @@ export enum ICON {
   LOGOUT = "logout",
   NOTES = "notes",
   CALENDAR = "calendar",
+  CALENDAR_TIME = "calendar_time",
   GOOGLE_CALENDAR = "google_calendar",
   CHAT = "chat",
   BELL = "bell",
@@ -175,6 +179,8 @@ export enum ICON {
   MINUS = "minus",
   INFO = "info",
   ANONYMOUS = "anonymous",
+  TIMELINE = "timeline",
+  WHATSAPP = "whatsapp",
 }
 
 interface Props {
@@ -192,6 +198,7 @@ const Icon = ({ type }: Props) => {
     [ICON.LOGOUT]: <IconLogout />,
     [ICON.NOTES]: <IconNotes />,
     [ICON.CALENDAR]: <IconCalendar />,
+    [ICON.CALENDAR_TIME]: <IconCalendarTime />,
     [ICON.GOOGLE_CALENDAR]: <IconGoogleCalendar />,
     [ICON.CHAT]: <IconChat />,
     [ICON.BELL]: <IconBell />,
@@ -278,6 +285,8 @@ const Icon = ({ type }: Props) => {
     [ICON.MINUS]: <IconMinus />,
     [ICON.INFO]: <IconInfo />,
     [ICON.ANONYMOUS]: <IconAnonymous />,
+    [ICON.TIMELINE]: <IconTimelane />,
+    [ICON.WHATSAPP]: <IconWhatsapp />,
   };
   return icons[type];
 };

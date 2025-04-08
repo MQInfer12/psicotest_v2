@@ -84,6 +84,11 @@ class U_userController extends Controller
     {
         $validatedData = $request->validated();
 
+        $nombre = $validatedData['nombre'] ?? null;
+        if ($nombre) {
+            $validatedData['nombre_verificado'] = true;
+        }
+
         $user = U_user::findOrFail($email);
 
         $user->update($validatedData);

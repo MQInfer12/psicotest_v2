@@ -11,6 +11,8 @@ export interface User extends Timestamps {
   foto: string | null;
   fecha_nacimiento: string | null;
 
+  nombre_verificado: boolean;
+
   carrera: string | null;
   semestre: number | null;
   codigo_estudiantil: string | null;
@@ -19,6 +21,7 @@ export interface User extends Timestamps {
   telefono_tutor: number | null;
 
   contador_citas: number;
+  fecha_ultima_cita: string | null;
 
   estado: boolean;
   disponible: boolean;

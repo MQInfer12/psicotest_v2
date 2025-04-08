@@ -10,11 +10,13 @@ import { measureAge } from "@/modules/core/utils/measureAge";
 const Interpretation = () => {
   const { test, data, resultados, interpretation, setInterpretation } =
     useAnswerContext();
+  const [alreadyStarted, setAlreadyStarted] = useState(false);
   const [loading, setLoading] = useState(false);
   const { postData } = useFetch();
   const configMutation = postData("GET /configuracion");
   const mutation = postData("PATCH /respuesta/patch/interpretation/:id");
   const [showPDF, setShowPDF] = useState(false);
+  const [hasError, setHasError] = useState(false);
 
   const handleInterpretation = () => {
     const rawName = data.user.nombre.split(" ")[0].toLocaleLowerCase();
@@ -55,6 +57,8 @@ const Interpretation = () => {
 
     let newInterpretation = "";
     setInterpretation(null);
+    setAlreadyStarted(true);
+    setHasError(false);
     setLoading(true);
 
     configMutation(null, {
@@ -67,6 +71,12 @@ const Interpretation = () => {
           },
           {
             model: config.gpt_model,
+            onError: () => {
+              setHasError(true);
+            },
+            onSuccess: () => {
+              setHasError(false);
+            },
             onFinally: () => {
               if (interpretation !== "") {
                 mutation(
@@ -108,10 +118,13 @@ const Interpretation = () => {
         </div> */}
       </div>
       <GptCanvas
-        content={interpretation ?? ""}
+        alreadyStarted={alreadyStarted}
+        content={interpretation || ""}
         idRespuestas={[data.id_respuesta]}
         setContent={setInterpretation}
         loaded={!loading}
+        reload={handleInterpretation}
+        success={!hasError}
         alreadySendedMail={!!data.fecha_visible}
         data={{
           name: data.user.nombre,

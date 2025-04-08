@@ -5,6 +5,7 @@ import { Document, Page, PDFViewer, View } from "@react-pdf/renderer";
 import { stringFromDate } from "../../utils/stringFromDate";
 import dayjs from "dayjs";
 import { measureAge } from "@/modules/core/utils/measureAge";
+import { getTodayUtc } from "@/modules/core/utils/getTodayUtc";
 
 interface Props {
   user: User;
@@ -26,6 +27,9 @@ const ContractPDF = ({ user, fecha, nombre_psicologo }: Props) => {
             padding: 72,
           }}
         >
+          <View fixed style={{ position: "absolute", top: 50, right: 72 }}>
+            <Text>{formatDate(getTodayUtc())}</Text>
+          </View>
           <Text
             style={{
               textAlign: "center",
@@ -49,11 +53,13 @@ const ContractPDF = ({ user, fecha, nombre_psicologo }: Props) => {
             Nombre: <Text style={{ fontWeight: 700 }}>{user.nombre}</Text>
           </Text>
           <Text>
-            Con código{" "}
+            Código estudiantil:{" "}
             <Text style={{ fontWeight: 700 }}>
               {user.codigo_estudiantil || "-"}
             </Text>
-            , fecha de nacimiento{" "}
+          </Text>
+          <Text>
+            Fecha de nacimiento:{" "}
             <Text style={{ fontWeight: 700 }}>
               {user.fecha_nacimiento
                 ? `${formatDate(user.fecha_nacimiento)} (${measureAge(user.fecha_nacimiento, fecha)} años)`

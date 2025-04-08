@@ -22,6 +22,7 @@ interface Props {
   onChangePDF?: (showPDF: boolean) => void;
   alreadySendedMail?: boolean;
   onSuccessSendMail?: (data: T_Tests_Respuestas[]) => void;
+  alreadyStarted: boolean;
 }
 
 const GptCanvas = ({
@@ -35,6 +36,7 @@ const GptCanvas = ({
   onChangePDF,
   alreadySendedMail,
   onSuccessSendMail,
+  alreadyStarted,
 }: Props) => {
   const [edit, setEdit] = useState<string | null>(null);
   const [showPDF, setShowPDF] = useState(false);
@@ -105,7 +107,8 @@ const GptCanvas = ({
             edit={edit}
             setEdit={setEdit}
             content={content}
-            hasError={!content && !success}
+            hasError={!success}
+            alreadyStarted={alreadyStarted}
           />
         )}
       </div>

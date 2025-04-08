@@ -15,6 +15,8 @@ class U_userResource extends JsonResource
             'genero' => $this->genero,
             'fecha_nacimiento' => $this->fecha_nacimiento,
 
+            'nombre_verificado' => $this->nombre_verificado,
+
             'carrera' => $this->carrera,
             'semestre' => $this->semestre,
             'codigo_estudiantil' => $this->codigo_estudiantil,
@@ -23,6 +25,7 @@ class U_userResource extends JsonResource
             'telefono_tutor' => $this->telefono_tutor,
 
             'contador_citas' => count($this->citas_previas),
+            'fecha_ultima_cita' => $this->citas_previas->last() ? $this->citas_previas->last()->fecha : null,
 
             'estado' => $this->estado,
             'permisos' => $this->rol->permisos,

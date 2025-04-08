@@ -11,6 +11,8 @@ export const useTestActual = (test: TestType, preguntaIndex: number) => {
 
   const requirements = test.requerimientos.filter((r) => {
     switch (r) {
+      case Requirements.NOMBRE:
+        return !user?.nombre_verificado;
       case Requirements.EDAD:
         return !user?.fecha_nacimiento;
       case Requirements.GENERO:

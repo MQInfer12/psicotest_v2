@@ -20,6 +20,7 @@ interface Props {
   layoutId?: string;
   loading?: boolean;
   finished?: boolean;
+  respuestas?: boolean;
 }
 
 const TestCard = ({
@@ -36,6 +37,7 @@ const TestCard = ({
   layoutId,
   loading,
   finished,
+  respuestas,
 }: Props) => {
   return (
     <motion.div
@@ -139,10 +141,10 @@ const TestCard = ({
             {resolve && (
               <Button
                 onClick={resolve}
-                icon={Icon.Types.BRAIN}
+                icon={respuestas ? Icon.Types.BRAIN : Icon.Types.EYE}
                 title="Resolver test"
               >
-                Resolver
+                {respuestas ? "Resolver" : "Previsualizar"}
               </Button>
             )}
             {edit && (

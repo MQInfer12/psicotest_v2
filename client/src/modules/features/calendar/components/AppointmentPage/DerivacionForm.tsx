@@ -2,7 +2,7 @@ import Button from "@/modules/core/components/ui/Button";
 import Input from "@/modules/core/components/ui/Input";
 import TextArea from "@/modules/core/components/ui/TextArea";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
-import { toastSuccess } from "@/modules/core/utils/toasts";
+import { toastConfirm, toastSuccess } from "@/modules/core/utils/toasts";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -32,6 +32,7 @@ const DerivacionForm = ({ user, cita, onSuccess, disabled }: Props) => {
     handleSubmit,
     formState: { errors },
     setValue,
+    reset,
   } = useForm({
     defaultValues: {
       derivado_a: cita.derivado_a ?? "",
@@ -53,6 +54,31 @@ const DerivacionForm = ({ user, cita, onSuccess, disabled }: Props) => {
       onSettled: () => {
         setLoading(false);
       },
+    });
+  };
+
+  const handleDelete = () => {
+    toastConfirm("Se vaciará el formulario de derivación", () => {
+      setLoading(true);
+      putMutation(
+        {
+          derivado_a: null,
+          resumen: null,
+        },
+        {
+          params: {
+            id: cita.id,
+          },
+          onSuccess: (res) => {
+            toastSuccess("Derivación eliminada correctamente");
+            onSuccess(res.data);
+            reset();
+          },
+          onSettled: () => {
+            setLoading(false);
+          },
+        }
+      );
     });
   };
 
@@ -122,10 +148,22 @@ const DerivacionForm = ({ user, cita, onSuccess, disabled }: Props) => {
         />
       </div>
       {!disabled && (
-        <div className="sticky bottom-0 left-0 right-0 p-4 pt-0 bg-alto-50 dark:bg-alto-1000">
+        <div className="sticky bottom-0 left-0 right-0 p-4 pt-0 bg-alto-50 dark:bg-alto-1000 flex gap-2">
           <Button disabled={loading} type="submit" className="w-full">
             Guardar
           </Button>
+          {cita.derivado_a && (
+            <Button
+              btnType="secondary"
+              danger
+              className="w-full"
+              type="button"
+              disabled={loading}
+              onClick={handleDelete}
+            >
+              Eliminar
+            </Button>
+          )}
         </div>
       )}
     </form>

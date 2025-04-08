@@ -9,9 +9,16 @@ interface Props {
   edit: string | null;
   setEdit: React.Dispatch<React.SetStateAction<string | null>>;
   hasError: boolean;
+  alreadyStarted: boolean;
 }
 
-const GptContent = ({ content, setEdit, edit, hasError }: Props) => {
+const GptContent = ({
+  content,
+  setEdit,
+  edit,
+  hasError,
+  alreadyStarted,
+}: Props) => {
   const { modal, setOpen } = useModal<string>();
 
   useEffect(() => {
@@ -79,6 +86,8 @@ const GptContent = ({ content, setEdit, edit, hasError }: Props) => {
 
   const showContent = edit ?? content;
 
+  const isLoading = alreadyStarted && !hasError && !content;
+
   return (
     <>
       {modal("Editar texto", (text) => (
@@ -108,7 +117,7 @@ const GptContent = ({ content, setEdit, edit, hasError }: Props) => {
           )}
         />
       ) : (
-        !hasError && <Loader text="Pensando..." />
+        isLoading && <Loader text="Pensando..." />
       )}
     </>
   );

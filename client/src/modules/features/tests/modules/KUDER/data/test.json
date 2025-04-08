@@ -1,5 +1,6 @@
 {
   "requerimientos": [
+    "nombre",
     "edad",
     "genero",
     "telefono",

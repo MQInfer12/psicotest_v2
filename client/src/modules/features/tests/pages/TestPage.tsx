@@ -71,7 +71,7 @@ const TestPage = ({ respuestas = false }: Props) => {
       }}
       className="w-full flex flex-col items-center pb-20 gap-12 flex-1 h-full overflow-y-scroll overflow-x-hidden"
     >
-      {!respuestas && (
+      {!respuestas && canShare && (
         <div className="w-full flex justify-between">
           <span />
           {/* <div>
@@ -182,6 +182,7 @@ const TestPage = ({ respuestas = false }: Props) => {
                       ? v.estado === RespuestaEstado.ENVIADO
                       : undefined
                   }
+                  respuestas={respuestas}
                 />
               );
             })}

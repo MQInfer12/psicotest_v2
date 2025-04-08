@@ -461,6 +461,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                           pregunta={pregunta}
                           setForm={setForm}
                           seccion={seccion}
+                          idTest={data.id}
                         />
                       ) : (
                         opciones.map((opcion) => {

@@ -3,16 +3,17 @@ import Icon from "@/modules/core/components/icons/Icon";
 import Button from "@/modules/core/components/ui/Button";
 import { useModal } from "@/modules/core/components/ui/modal/useModal";
 import { formatDate } from "@/modules/core/utils/formatDate";
+import { getRelativeTime } from "@/modules/core/utils/getRelativeTime";
 import { measureAge } from "@/modules/core/utils/measureAge";
 import { toastSuccess } from "@/modules/core/utils/toasts";
+import { validateRoute } from "@/modules/features/_layout/components/breadcrumb/utils/validateRoute";
 import AnswerCardTemplate from "@/modules/features/answers/components/AnswerCardTemplate";
 import { User } from "@/modules/features/users/api/responses";
-import PreAppointmentForm from "../CalendarPage/PreAppointmentForm";
-import clsx from "clsx";
 import { useNavigate } from "@tanstack/react-router";
-import { validateRoute } from "@/modules/features/_layout/components/breadcrumb/utils/validateRoute";
-import UserResume from "./UserResume";
+import clsx from "clsx";
 import { UserResumeContextProvider } from "../../context/UserResumeContext";
+import PreAppointmentForm from "../CalendarPage/PreAppointmentForm";
+import UserResume from "./UserResume";
 
 interface Props {
   id: number;
@@ -100,6 +101,15 @@ const AppointmentUser = ({ id, user, fecha, onSuccess }: Props) => {
         });
       },
     },
+    {
+      title: "Última cita",
+      value: user.fecha_ultima_cita
+        ? `${formatDate(user.fecha_ultima_cita)} (${getRelativeTime(
+            user.fecha_ultima_cita
+          )})`
+        : "Nunca",
+      icon: Icon.Types.TIMELINE,
+    },
   ];
 
   return (
@@ -124,7 +134,7 @@ const AppointmentUser = ({ id, user, fecha, onSuccess }: Props) => {
           gridArea="user"
           tabs={[
             {
-              title: "Datos del paciente",
+              title: "Paciente",
               component: (
                 <div className="w-full h-full p-4 flex flex-col justify-between">
                   <div className="flex gap-4 max-lg:flex-col max-lg:items-center">
@@ -153,8 +163,21 @@ const AppointmentUser = ({ id, user, fecha, onSuccess }: Props) => {
                     </div>
                     <div className="h-full max-lg:w-full flex-1 py-1 flex flex-col overflow-hidden">
                       <strong
-                        className="text-lg overflow-hidden text-ellipsis whitespace-nowrap max-lg:text-center text-alto-950 dark:text-alto-50"
+                        className="text-lg overflow-hidden text-ellipsis whitespace-nowrap max-lg:text-center text-alto-950 dark:text-alto-50 hover:underline cursor-pointer max-w-fit"
                         title={user.nombre}
+                        onClick={() => {
+                          navigate({
+                            to: "/patients/$id",
+                            params: {
+                              id: user.email,
+                            },
+                            search: {
+                              returnTo: validateRoute("/calendar/$id", {
+                                id: String(id),
+                              }),
+                            },
+                          });
+                        }}
                       >
                         {user.nombre}
                       </strong>
@@ -206,6 +229,10 @@ const AppointmentUser = ({ id, user, fecha, onSuccess }: Props) => {
               title: "Resumen",
               component: <UserResume user={user} />,
             },
+            /*  {
+              title: "Reprogramación",
+              component: <AppointmentReprogramming />,
+            }, */
           ]}
         />
       </UserResumeContextProvider>

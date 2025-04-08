@@ -104,8 +104,17 @@ const UserResumeStarted = ({ user }: Props) => {
     );
   }, [citas, config, index, messages]);
 
+  useEffect(() => {
+    if (!generating) {
+      document.getElementById("questionInput")?.focus();
+    }
+  }, [generating]);
+
   return (
-    <div className="flex flex-col w-full h-full text-alto-950 dark:text-alto-50">
+    <div
+      className="flex flex-col w-full h-full text-alto-950 dark:text-alto-50"
+      onClick={() => document.getElementById("questionInput")?.focus()}
+    >
       <header className="py-2 px-5 border-b border-alto-300/80 dark:border-alto-900 flex items-center justify-between gap-6">
         <small className="font-bold overflow-hidden text-ellipsis whitespace-nowrap">
           {messages[index].question}
@@ -132,10 +141,7 @@ const UserResumeStarted = ({ user }: Props) => {
           />
         </div>
       </header>
-      <main
-        className="flex-1 overflow-y-scroll overflow-x-auto relative"
-        onClick={() => document.getElementById("questionInput")?.focus()}
-      >
+      <main className="flex-1 overflow-y-scroll overflow-x-auto relative">
         <div className="absolute inset-0 px-5 py-2">
           <small
             className="[&_span]:text-primary-500 dark:[&_span]:text-primary-400"
@@ -161,6 +167,7 @@ const UserResumeStarted = ({ user }: Props) => {
           disabled={generating}
           onClick={(e) => {
             e.preventDefault();
+            if (!question) return;
             setMessages((prev) => [...prev, { question, answer: null }]);
             setIndex(() => messages.length);
             setQuestion("");

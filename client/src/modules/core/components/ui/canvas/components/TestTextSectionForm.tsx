@@ -12,6 +12,7 @@ import Button from "../../Button";
 import Icon from "../../../icons/Icon";
 import { toastError } from "@/modules/core/utils/toasts";
 import { v4 } from "uuid";
+import { TestIds } from "@/modules/features/tests/types/TestIds";
 
 interface Props {
   form: TestForm[];
@@ -19,6 +20,7 @@ interface Props {
   pregunta: Item;
   finished: boolean;
   seccion: Seccion;
+  idTest: number;
 }
 
 const getRandomPhrase = () => {
@@ -39,6 +41,7 @@ const TestTextSectionForm = ({
   setForm,
   finished,
   seccion,
+  idTest,
 }: Props) => {
   const {
     register,
@@ -55,6 +58,16 @@ const TestTextSectionForm = ({
   const handleWords = (body: TextSectionDTO) => {
     const value = body.word.trim();
 
+    let correct = false;
+    switch (idTest) {
+      case TestIds.PMA:
+        const existingWords = existIdOpcion.map((o) => o.word.toLowerCase());
+        correct =
+          value.toLocaleLowerCase().startsWith("s") &&
+          !existingWords.includes(value.toLocaleLowerCase());
+        break;
+    }
+
     if (!exist) {
       setForm((prev) => [
         ...prev,
@@ -63,7 +76,7 @@ const TestTextSectionForm = ({
           idOpcion: [
             {
               id: v4(),
-              correct: false,
+              correct: correct,
               word: value,
             },
           ],
@@ -85,7 +98,7 @@ const TestTextSectionForm = ({
                 ...idOpcion,
                 {
                   word: value,
-                  correct: false,
+                  correct: correct,
                   id: v4(),
                 },
               ],
@@ -95,6 +108,7 @@ const TestTextSectionForm = ({
         })
       );
     }
+
     reset();
   };
 

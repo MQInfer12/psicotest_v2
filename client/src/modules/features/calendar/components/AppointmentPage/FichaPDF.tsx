@@ -1,4 +1,5 @@
 import { formatDate } from "@/modules/core/utils/formatDate";
+import { getTodayUtc } from "@/modules/core/utils/getTodayUtc";
 import { measureAge } from "@/modules/core/utils/measureAge";
 import { Text } from "@/modules/features/answers/components/interpretation/GptPdf";
 import { User } from "@/modules/features/users/api/responses";
@@ -28,6 +29,14 @@ const FichaPDF = ({ user, cita }: Props) => {
             }}
           >
             FICHA DE APERTURA DEL PACIENTE
+          </Text>
+          <Text style={{ marginTop: 8 }}>
+            <Text style={{ fontWeight: 700 }}>Fecha y hora de la cita:</Text>{" "}
+            {formatDate(cita.fecha) + " " + cita.hora_inicio.substring(0, 5)}
+          </Text>
+          <Text>
+            <Text style={{ fontWeight: 700 }}>Fecha del reporte:</Text>{" "}
+            {formatDate(getTodayUtc())}
           </Text>
           <Text
             style={{
@@ -84,7 +93,7 @@ const FichaPDF = ({ user, cita }: Props) => {
             }}
           >
             Motivo de consulta:
-            <Text>{"\n" + cita.motivo}</Text>
+            <Text>{"\n" + (cita.motivo ?? "")}</Text>
           </Text>
           <Text
             style={{
@@ -93,7 +102,7 @@ const FichaPDF = ({ user, cita }: Props) => {
             }}
           >
             Historia y antecedentes familiares breve:
-            <Text>{"\n" + cita.antecedentes}</Text>
+            <Text>{"\n" + (cita.antecedentes ?? "")}</Text>
           </Text>
           <Text
             style={{
@@ -102,7 +111,7 @@ const FichaPDF = ({ user, cita }: Props) => {
             }}
           >
             Observaciones:
-            <Text>{"\n" + cita.observaciones}</Text>
+            <Text>{"\n" + (cita.observaciones ?? "")}</Text>
           </Text>
         </Page>
       </Document>

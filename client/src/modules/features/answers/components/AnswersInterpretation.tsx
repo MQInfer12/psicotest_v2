@@ -267,11 +267,12 @@ const AnswersInterpretation = () => {
         />
       </div>
       <GptCanvas
+        alreadyStarted
         content={interpretation || ""}
+        idRespuestas={selectedTests?.selecteds.map((s) => s.id_respuesta) || []}
         setContent={setInterpretation}
         loaded={!loading}
         reload={generateInterpretation}
-        idRespuestas={selectedTests?.selecteds.map((s) => s.id_respuesta) || []}
         success={!hasError}
         alreadySendedMail={selectedTests?.selecteds.some(
           (v) => !!v.fecha_visible

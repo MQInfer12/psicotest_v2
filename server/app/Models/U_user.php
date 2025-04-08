@@ -36,6 +36,7 @@ class U_user extends Authenticatable
         'telefono_tutor',
         'estado',
         'id_rol',
+        'nombre_verificado',
         'access_token',
         'refresh_token',
     ];

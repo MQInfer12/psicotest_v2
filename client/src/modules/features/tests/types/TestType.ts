@@ -4,6 +4,7 @@ export interface TestType {
 }
 
 export enum Requirements {
+  NOMBRE = "nombre",
   EDAD = "edad",
   GENERO = "genero",
   TELEFONO = "telefono",
