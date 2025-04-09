@@ -1,25 +1,45 @@
 import Icon from "@/modules/core/components/icons/Icon";
 import Button from "@/modules/core/components/ui/Button";
 import Input from "@/modules/core/components/ui/Input";
-import { useState } from "react";
-import { Appointment } from "../../api/responses";
-import useFetch from "@/modules/core/hooks/useFetch/useFetch";
-import { User } from "@/modules/features/users/api/responses";
-import { useUserContext } from "@/modules/features/auth/context/UserContext";
-import { stringFromDate } from "../../utils/stringFromDate";
-import dayjs from "dayjs";
 import { useModal } from "@/modules/core/components/ui/modal/useModal";
-import ReprogrammingForm from "./ReprogrammingForm";
+import useFetch from "@/modules/core/hooks/useFetch/useFetch";
+import { useUserContext } from "@/modules/features/auth/context/UserContext";
+import { User } from "@/modules/features/users/api/responses";
+import dayjs from "dayjs";
+import { useEffect, useState } from "react";
+import { Appointment } from "../../api/responses";
+import { stringFromDate } from "../../utils/stringFromDate";
 import CancelationForm from "./CancelationForm";
+import ReprogrammingForm from "./ReprogrammingForm";
 
 interface Props {
   cita: Appointment;
   user: User;
 }
 
+const localStorageKey = "psicotest-appointments-reprogramming";
+
 const AppointmentReprogramming = ({ cita, user }: Props) => {
-  const [selectedDate, setSelectedDate] = useState(cita.fecha);
-  const [selectedSchedule, setSelectedSchedule] = useState("");
+  const [selectedDate, setSelectedDate] = useState(() => {
+    const storedData = JSON.parse(
+      localStorage.getItem(localStorageKey) || "[]"
+    );
+    const appointmentData = storedData.find(
+      (item: any) => item.idCita === cita.id
+    );
+    return appointmentData?.values?.selectedDate || cita.fecha;
+  });
+
+  const [selectedSchedule, setSelectedSchedule] = useState(() => {
+    const storedData = JSON.parse(
+      localStorage.getItem(localStorageKey) || "[]"
+    );
+    const appointmentData = storedData.find(
+      (item: any) => item.idCita === cita.id
+    );
+    return appointmentData?.values?.selectedSchedule || "";
+  });
+
   const { user: me } = useUserContext();
   const { modal: modalReprogramming, setOpen: setOpenReprogramming } =
     useModal();
@@ -32,11 +52,44 @@ const AppointmentReprogramming = ({ cita, user }: Props) => {
     },
   });
 
+  useEffect(() => {
+    const storedData = JSON.parse(
+      localStorage.getItem(localStorageKey) || "[]"
+    );
+    const updatedData = storedData.filter(
+      (item: any) => item.idCita !== cita.id
+    );
+
+    updatedData.push({
+      idCita: cita.id,
+      values: {
+        selectedDate,
+        selectedSchedule: selectedSchedule,
+      },
+    });
+
+    localStorage.setItem(localStorageKey, JSON.stringify(updatedData));
+  }, [selectedDate, selectedSchedule, cita.id]);
+
+  useEffect(() => {
+    if (!data) return;
+    const exists = data.find(
+      (horario) => String(horario.id) === selectedSchedule
+    );
+    if (!exists) {
+      setSelectedSchedule("");
+    }
+  }, [data]);
+
   const horarioSeleccionado = data?.find(
     (horario) => String(horario.id) === selectedSchedule
   );
-  const { day } = stringFromDate(dayjs(selectedDate));
-  const message = `Hola ${user.nombre.split(" ")[0]}, soy ${me?.nombre.split(" ")[0]}, te escribo del gabinete psicológico para informarte que tu cita esta siendo reprogramada para el día ${day ?? "DÍA"} ${selectedDate || "YYYY-MM-DD"} a horas ${horarioSeleccionado?.hora_inicio ?? "HH:MM"}, por favor confírmame si estas de acuerdo con la nueva fecha y hora.`;
+  const { day } = selectedDate
+    ? stringFromDate(dayjs(selectedDate))
+    : { day: "" };
+  const message = `Hola ${user.nombre.split(" ")[0]}, soy ${me?.nombre.split(" ")[0]}, te escribo del gabinete psicológico para informarte que tu cita esta siendo reprogramada para el día ${day || "DÍA"} ${selectedDate || "YYYY-MM-DD"} a horas ${horarioSeleccionado?.hora_inicio.slice(0, 5) ?? "HH:MM"}, por favor confírmame si estas de acuerdo con la nueva fecha y hora.`;
+
+  const dayLessThanToday = dayjs(selectedDate).isBefore(dayjs(), "day");
 
   return (
     <>
@@ -70,6 +123,12 @@ const AppointmentReprogramming = ({ cita, user }: Props) => {
               }}
               type="date"
               inputSize="small"
+              danger={dayLessThanToday}
+              error={
+                dayLessThanToday
+                  ? "No puedes seleccionar una fecha anterior a hoy"
+                  : undefined
+              }
             />
             <Input
               value={selectedSchedule}
@@ -77,6 +136,11 @@ const AppointmentReprogramming = ({ cita, user }: Props) => {
               type="select"
               inputSize="small"
               danger={data?.length === 0}
+              error={
+                data?.length === 0
+                  ? "No tienes horarios disponibles este día"
+                  : undefined
+              }
             >
               {!data && <option value="">Cargando...</option>}
               {data?.length === 0 && (

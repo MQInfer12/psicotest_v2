@@ -9,6 +9,7 @@ import TextArea from "@/modules/core/components/ui/TextArea";
 import Input from "@/modules/core/components/ui/Input";
 import Button from "@/modules/core/components/ui/Button";
 import { useNavigate } from "@tanstack/react-router";
+import dayjs from "dayjs";
 
 interface Props {
   idCita: number;
@@ -58,6 +59,7 @@ const ReprogrammingForm = ({ fecha, idHorario, idCita }: Props) => {
   };
 
   const selectedDate = watch("fecha");
+  const selectedHorario = watch("id_horario");
   const { data } = fetchData("GET /horario/for/reprogramming", {
     params: {
       fecha: selectedDate,
@@ -69,6 +71,8 @@ const ReprogrammingForm = ({ fecha, idHorario, idCita }: Props) => {
     if (data?.length === 0) setValue("id_horario", "");
   }, [fecha]);
 
+  const dayLessThanToday = dayjs(selectedDate).isBefore(dayjs(), "day");
+
   return (
     <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
       <Input
@@ -77,6 +81,8 @@ const ReprogrammingForm = ({ fecha, idHorario, idCita }: Props) => {
         {...register("fecha")}
         error={errors.fecha?.message}
         required
+        disabled
+        danger={dayLessThanToday}
       />
       <Input
         label="Horario"
@@ -84,7 +90,8 @@ const ReprogrammingForm = ({ fecha, idHorario, idCita }: Props) => {
         {...register("id_horario")}
         error={errors.id_horario?.message}
         type="select"
-        danger={data?.length === 0}
+        disabled
+        danger={data?.length === 0 || !selectedHorario}
       >
         {!data && <option value="">Cargando...</option>}
         {data?.length === 0 && (

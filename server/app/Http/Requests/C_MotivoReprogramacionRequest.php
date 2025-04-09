@@ -16,7 +16,16 @@ class C_MotivoReprogramacionRequest extends FormRequest
         return [
             'descripcion' => 'string|required',
             'id_horario' => 'required|integer|exists:c_horarios,id',
-            'fecha' => 'required|date|date_format:Y-m-d',
+            'fecha' => [
+                'required',
+                'date',
+                'date_format:Y-m-d',
+                function ($attribute, $value, $fail) {
+                    if (strtotime($value) < strtotime(now()->timezone('America/La_Paz')->format('Y-m-d'))) {
+                        $fail('La fecha no puede ser anterior a hoy.');
+                    }
+                },
+            ],
         ];
     }
 
