@@ -9,6 +9,7 @@ use App\Http\Resources\C_HorarioResource;
 use App\Models\C_Cita;
 use App\Models\C_Horario;
 use App\Traits\ApiResponse;
+use Illuminate\Http\Request;
 
 class C_HorarioController extends Controller
 {
@@ -29,6 +30,7 @@ class C_HorarioController extends Controller
                     $query->orWhere('dia', date('w', strtotime($date . " $i days")));
                 }
             })->get();
+
         $citas = C_Cita::where(function ($query) use ($date, $DAYS_FROM_NOW) {
             for ($i = -1; $i < $DAYS_FROM_NOW - 1; $i++) {
                 $query->orWhere('fecha', date('Y-m-d', strtotime($date . " $i days")));
@@ -41,6 +43,48 @@ class C_HorarioController extends Controller
                 'horarios' => C_HorarioResource::collection($horarios),
                 'citas' => C_CitaResource::collection($citas)
             ]
+        );
+    }
+
+    public function indexForReprogramming(Request $request)
+    {
+        $user = $request->user();
+        $today = now()->setTimezone('America/La_Paz')->format('Y-m-d');
+        $fecha = $request->query('fecha') ?? $today;
+        $dayIndex = (date('w', strtotime($fecha)) + 6) % 7;
+
+        $horarios = C_Horario::where('email_user', $user->email)
+            ->where('dia', $dayIndex)
+            ->when($fecha === $today, function ($query) {
+                $query->where('hora_inicio', '>', now()->setTimezone('America/La_Paz')->format('H:i:s'));
+            })
+            ->get();
+
+        $citas = C_Cita::where('fecha', date('Y-m-d', strtotime($fecha)))
+            ->get();
+
+        $horarios = $horarios->filter(function ($horario) use ($citas) {
+            foreach ($citas as $cita) {
+                $horaInicioCita = strtotime($cita->hora_inicio);
+                $horaFinCita = strtotime($cita->hora_final);
+                $horaInicioHorario = strtotime($horario->hora_inicio);
+                $horaFinHorario = strtotime($horario->hora_final);
+
+                $inicioOverlapping = $horaInicioCita >= $horaInicioHorario && $horaInicioCita < $horaFinHorario;
+                $finalOverlapping = $horaFinCita > $horaInicioHorario && $horaFinCita <= $horaFinHorario;
+                $insideOverlapping = $inicioOverlapping || $finalOverlapping;
+                $outsideOverlapping = $horaInicioCita < $horaInicioHorario && $horaFinCita > $horaFinHorario;
+
+                if ($insideOverlapping || $outsideOverlapping) {
+                    return false;
+                }
+            }
+            return true;
+        });
+
+        return $this->successResponse(
+            "Horarios obtenidos correctamente.",
+            C_HorarioResource::collection($horarios)
         );
     }
 

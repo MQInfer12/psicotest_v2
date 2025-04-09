@@ -4,12 +4,14 @@ import { AnimatePresence, motion } from "framer-motion";
 import { COLORS } from "@/modules/core/constants/COLORS";
 import { useThemeContext } from "@/modules/core/context/ThemeContext";
 
+export interface AnswerCardTemplateTab {
+  title: string;
+  icon?: ICON;
+  component: React.ReactNode;
+}
+
 interface Props {
-  tabs: {
-    title: string;
-    icon?: ICON;
-    component: React.ReactNode;
-  }[];
+  tabs: AnswerCardTemplateTab[];
   gridArea: string;
 }
 

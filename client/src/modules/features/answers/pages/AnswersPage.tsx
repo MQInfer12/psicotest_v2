@@ -309,6 +309,7 @@ const AnswersPage = () => {
               reverse
               btnType="tertiary"
               className="overflow-hidden"
+              disabled={isLoading}
             >
               {formatStringList(actualFolders)}
             </Button>
@@ -322,6 +323,7 @@ const AnswersPage = () => {
               btnSize="small"
               icon={Icon.Types.MENU}
               subicon={Icon.Types.FOLDER}
+              disabled={isLoading}
             >
               Carpetas
             </Button>

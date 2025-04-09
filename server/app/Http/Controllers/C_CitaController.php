@@ -15,12 +15,14 @@ use App\Models\R_Contador;
 use App\Models\U_user;
 use App\Traits\ApiResponse;
 use App\Traits\GoogleAPIs;
+use App\Traits\GoogleCalendarTrait;
 use Illuminate\Http\Request;
 
 class C_CitaController extends Controller
 {
     use ApiResponse;
     use GoogleAPIs;
+    use GoogleCalendarTrait;
 
     //region GETs
 
@@ -190,51 +192,14 @@ class C_CitaController extends Controller
             return $this->wrongResponse("El token de acceso es inválido.");
         }
 
-        $latitude = '-17.37516404213628';
-        $longitude = '-66.15866852752312';
-        $mapsLink = "https://www.google.com/maps/dir/?api=1&destination={$latitude}%2C{$longitude}";
-
-        $psicotestLink = "https://neurall.cidtec-uc.com/calendar";
-
-        $body = [
-            'summary' => 'Cita para el gabinete psicológico',
-            'location' => 'Unifranz Cochabamba | Gabinete Psicológico | 1er piso',
-            'description' => 'Cita con ' . $horario->user->nombre . ' (psicólogo)' .
-                "\n\nEn el gabinete psicológico de Unifranz Cochabamba, subiendo el primer piso por las escaleras a la derecha." .
-                "\n<a href='{$mapsLink}'>Ver ubicación</a>" .
-                "\n\nGenerado automáticamente por <a href='{$psicotestLink}'>Neurall</a>",
-            'colorId' => '3',
-            'start' => [
-                'dateTime' => $validatedData['fecha'] . 'T' . $horario->hora_inicio,
-                'timeZone' => 'America/La_Paz'
-            ],
-            'end' => [
-                'dateTime' => $validatedData['fecha'] . 'T' . $horario->hora_final,
-                'timeZone' => 'America/La_Paz'
-            ],
-            'attendees' => [
-                [
-                    'email' => $user->email,
-                    'responseStatus' => 'accepted'
-                ],
-                [
-                    'email' => $horario->email_user,
-                ]
-            ],
-            'reminders' => [
-                'useDefault' => false,
-                'overrides' => [
-                    [
-                        'method' => 'popup',
-                        'minutes' => 60
-                    ],
-                    [
-                        'method' => 'popup',
-                        'minutes' => 30
-                    ]
-                ]
-            ]
-        ];
+        $body = $this->create_calendar_body(
+            $horario->user->nombre,
+            $validatedData['fecha'],
+            $horario->hora_inicio,
+            $horario->hora_final,
+            $user->email,
+            $horario->email_user
+        );
 
         $event = $this->createGoogleCalendarEvent($body, $access_token, $user);
         if (!$event) {
@@ -244,6 +209,7 @@ class C_CitaController extends Controller
         C_Cita::create([
             'id_calendar' => $event->id,
             'html_link_calendar' => $event->htmlLink,
+            'creador_calendar' => $user->email,
             'email_psicologo' => $horario->email_user,
             'email_paciente' => $user->email,
             'fecha' => $validatedData['fecha'],

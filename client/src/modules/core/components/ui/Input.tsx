@@ -7,6 +7,7 @@ interface GeneralProps {
   label?: string;
   error?: string;
   inputSize?: "base" | "small";
+  danger?: boolean;
 }
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -27,6 +28,7 @@ const isSelect = (props: InputProps | SelectProps): props is SelectProps => {
 const Input = forwardRef((props: Props, ref: ForwardedRef<any>) => {
   const id = useId();
   const {
+    danger,
     label,
     className,
     error,
@@ -74,7 +76,10 @@ const Input = forwardRef((props: Props, ref: ForwardedRef<any>) => {
               "text-xs h-[34px] px-2": inputSize === "small",
             },
             "disabled:bg-alto-200/60 dark:disabled:bg-alto-900 disabled:border-primary-200 dark:disabled:border-alto-800",
-            "text-alto-950 dark:text-alto-50",
+            {
+              "text-alto-950 dark:text-alto-50": !danger,
+              "text-danger": danger,
+            },
             className
           )}
           autoComplete="off"

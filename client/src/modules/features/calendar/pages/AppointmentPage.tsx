@@ -55,10 +55,11 @@ const AppointmentPage = () => {
       <AppointmentUser
         id={data.cita.id}
         user={data.paciente}
-        fecha={data.cita.fecha}
         onSuccess={(res) => {
           setData((prev) => ({ ...prev, paciente: res }));
         }}
+        cita={data.cita}
+        hasPassed={hasPassed}
       />
       <AnswerCardTemplate
         gridArea="form"

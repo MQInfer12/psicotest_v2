@@ -16,6 +16,8 @@ class C_Cita extends Model
     protected $fillable = [
         'id_calendar',
         'html_link_calendar',
+        'creador_calendar',
+
         'email_psicologo',
         'email_paciente',
         'fecha',

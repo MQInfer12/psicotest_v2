@@ -7,22 +7,27 @@ import { getRelativeTime } from "@/modules/core/utils/getRelativeTime";
 import { measureAge } from "@/modules/core/utils/measureAge";
 import { toastSuccess } from "@/modules/core/utils/toasts";
 import { validateRoute } from "@/modules/features/_layout/components/breadcrumb/utils/validateRoute";
-import AnswerCardTemplate from "@/modules/features/answers/components/AnswerCardTemplate";
+import AnswerCardTemplate, {
+  AnswerCardTemplateTab,
+} from "@/modules/features/answers/components/AnswerCardTemplate";
 import { User } from "@/modules/features/users/api/responses";
 import { useNavigate } from "@tanstack/react-router";
 import clsx from "clsx";
 import { UserResumeContextProvider } from "../../context/UserResumeContext";
 import PreAppointmentForm from "../CalendarPage/PreAppointmentForm";
 import UserResume from "./UserResume";
+import AppointmentReprogramming from "./AppointmentReprogramming";
+import { Appointment } from "../../api/responses";
 
 interface Props {
   id: number;
   user: User;
-  fecha: string;
   onSuccess: (res: User) => void;
+  cita: Appointment;
+  hasPassed: boolean;
 }
 
-const AppointmentUser = ({ id, user, fecha, onSuccess }: Props) => {
+const AppointmentUser = ({ id, user, cita, onSuccess, hasPassed }: Props) => {
   const { modal, setOpen } = useModal();
   const navigate = useNavigate();
 
@@ -39,7 +44,7 @@ const AppointmentUser = ({ id, user, fecha, onSuccess }: Props) => {
     {
       title: "Fecha de nacimiento",
       value: user.fecha_nacimiento
-        ? `${formatDate(user.fecha_nacimiento)} (${measureAge(user.fecha_nacimiento, fecha)} años)`
+        ? `${formatDate(user.fecha_nacimiento)} (${measureAge(user.fecha_nacimiento, cita.fecha)} años)`
         : "-",
       icon: Icon.Types.CAKE,
     },
@@ -112,6 +117,110 @@ const AppointmentUser = ({ id, user, fecha, onSuccess }: Props) => {
     },
   ];
 
+  const tabs: AnswerCardTemplateTab[] = [
+    {
+      title: "Paciente",
+      component: (
+        <div className="w-full h-full p-4 flex flex-col justify-between">
+          <div className="flex gap-4 max-lg:flex-col max-lg:items-center">
+            <div className="flex flex-col h-full max-lg:h-[170px] gap-4">
+              <div className="h-[120px] w-[120px] aspect-square z-10 rounded-lg overflow-hidden shadow-md border-4 border-white dark:border-alto-400">
+                <img
+                  className="w-full h-full bg-alto-100"
+                  src={user.foto ?? DefaultPhoto}
+                  alt={user.email}
+                  onError={(event) => {
+                    event.currentTarget.src = DefaultPhoto;
+                  }}
+                />
+              </div>
+              <div className="flex justify-between gap-4">
+                <Button
+                  className="w-full"
+                  btnSize="small"
+                  btnType="secondary"
+                  icon={Icon.Types.PENCIL}
+                  onClick={() => setOpen(true)}
+                >
+                  Editar
+                </Button>
+              </div>
+            </div>
+            <div className="h-full max-lg:w-full flex-1 py-1 flex flex-col overflow-hidden">
+              <strong
+                className="text-lg overflow-hidden text-ellipsis whitespace-nowrap max-lg:text-center text-alto-950 dark:text-alto-50 hover:underline cursor-pointer max-w-fit"
+                title={user.nombre}
+                onClick={() => {
+                  navigate({
+                    to: "/patients/$id",
+                    params: {
+                      id: user.email,
+                    },
+                    search: {
+                      returnTo: validateRoute("/calendar/$id", {
+                        id: String(id),
+                      }),
+                    },
+                  });
+                }}
+              >
+                {user.nombre}
+              </strong>
+              <p
+                className="text-sm text-alto-400 text-ellipsis whitespace-nowrap overflow-hidden max-lg:text-center"
+                title={user.email}
+              >
+                {user.email}
+              </p>
+              <div className="mt-4 grid grid-cols-2 gap-2">
+                {DATA.map((data) => (
+                  <div key={data.title} title={`${data.value} (${data.title})`}>
+                    <div
+                      className={clsx(
+                        "flex gap-3 items-center max-w-max text-alto-700 dark:text-alto-400",
+                        {
+                          "cursor-pointer hover:text-primary-400":
+                            !!data.onClick && !data.disabled,
+                        }
+                      )}
+                      onClick={data.onClick}
+                    >
+                      <div className="min-w-5 max-w-5 aspect-square text-primary-400">
+                        <Icon type={data.icon} />
+                      </div>
+                      <p
+                        className={clsx(
+                          "overflow-hidden whitespace-nowrap text-ellipsis text-xs",
+                          {
+                            underline: !!data.onClick && !data.disabled,
+                          }
+                        )}
+                      >
+                        {data.value}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      ),
+    },
+  ];
+  if (!hasPassed) {
+    tabs.push(
+      {
+        title: "Resumen",
+        component: <UserResume user={user} />,
+      },
+      {
+        title: "Reprogramación",
+        component: <AppointmentReprogramming cita={cita} user={user} />,
+      }
+    );
+  }
+
   return (
     <>
       {modal(
@@ -130,111 +239,7 @@ const AppointmentUser = ({ id, user, fecha, onSuccess }: Props) => {
         }
       )}
       <UserResumeContextProvider user={user}>
-        <AnswerCardTemplate
-          gridArea="user"
-          tabs={[
-            {
-              title: "Paciente",
-              component: (
-                <div className="w-full h-full p-4 flex flex-col justify-between">
-                  <div className="flex gap-4 max-lg:flex-col max-lg:items-center">
-                    <div className="flex flex-col h-full max-lg:h-[170px] gap-4">
-                      <div className="h-[120px] w-[120px] aspect-square z-10 rounded-lg overflow-hidden shadow-md border-4 border-white dark:border-alto-400">
-                        <img
-                          className="w-full h-full bg-alto-100"
-                          src={user.foto ?? DefaultPhoto}
-                          alt={user.email}
-                          onError={(event) => {
-                            event.currentTarget.src = DefaultPhoto;
-                          }}
-                        />
-                      </div>
-                      <div className="flex justify-between gap-4">
-                        <Button
-                          className="w-full"
-                          btnSize="small"
-                          btnType="secondary"
-                          icon={Icon.Types.PENCIL}
-                          onClick={() => setOpen(true)}
-                        >
-                          Editar
-                        </Button>
-                      </div>
-                    </div>
-                    <div className="h-full max-lg:w-full flex-1 py-1 flex flex-col overflow-hidden">
-                      <strong
-                        className="text-lg overflow-hidden text-ellipsis whitespace-nowrap max-lg:text-center text-alto-950 dark:text-alto-50 hover:underline cursor-pointer max-w-fit"
-                        title={user.nombre}
-                        onClick={() => {
-                          navigate({
-                            to: "/patients/$id",
-                            params: {
-                              id: user.email,
-                            },
-                            search: {
-                              returnTo: validateRoute("/calendar/$id", {
-                                id: String(id),
-                              }),
-                            },
-                          });
-                        }}
-                      >
-                        {user.nombre}
-                      </strong>
-                      <p
-                        className="text-sm text-alto-400 text-ellipsis whitespace-nowrap overflow-hidden max-lg:text-center"
-                        title={user.email}
-                      >
-                        {user.email}
-                      </p>
-                      <div className="mt-4 grid grid-cols-2 gap-2">
-                        {DATA.map((data) => (
-                          <div
-                            key={data.title}
-                            title={`${data.value} (${data.title})`}
-                          >
-                            <div
-                              className={clsx(
-                                "flex gap-3 items-center max-w-max text-alto-700 dark:text-alto-400",
-                                {
-                                  "cursor-pointer hover:text-primary-400":
-                                    !!data.onClick && !data.disabled,
-                                }
-                              )}
-                              onClick={data.onClick}
-                            >
-                              <div className="min-w-5 max-w-5 aspect-square text-primary-400">
-                                <Icon type={data.icon} />
-                              </div>
-                              <p
-                                className={clsx(
-                                  "overflow-hidden whitespace-nowrap text-ellipsis text-xs",
-                                  {
-                                    underline: !!data.onClick && !data.disabled,
-                                  }
-                                )}
-                              >
-                                {data.value}
-                              </p>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ),
-            },
-            {
-              title: "Resumen",
-              component: <UserResume user={user} />,
-            },
-            /*  {
-              title: "Reprogramación",
-              component: <AppointmentReprogramming />,
-            }, */
-          ]}
-        />
+        <AnswerCardTemplate gridArea="user" tabs={tabs} />
       </UserResumeContextProvider>
     </>
   );

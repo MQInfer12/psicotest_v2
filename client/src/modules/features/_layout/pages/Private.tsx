@@ -59,14 +59,21 @@ const Dashboard = () => {
   const logoutMutation = postData("POST /logout");
 
   const handleLogout = () => {
-    toastConfirm("¿Quieres cerrar sesión?", () =>
-      logoutMutation(null, {
-        onSuccess: (res) => {
-          logout();
-          toastSuccess(res.message);
-          fromLogoutRef.current = true;
-        },
-      })
+    toastConfirm(
+      user?.cita_proxima
+        ? "Te recomendamos mantener abierta tu sesión para recibir actualizaciones del calendario."
+        : "Te recomendamos mantener abierta la sesión.",
+      () =>
+        logoutMutation(null, {
+          onSuccess: (res) => {
+            logout();
+            toastSuccess(res.message);
+            fromLogoutRef.current = true;
+          },
+        }),
+      {
+        title: "¿Quieres cerrar sesión?",
+      }
     );
   };
 

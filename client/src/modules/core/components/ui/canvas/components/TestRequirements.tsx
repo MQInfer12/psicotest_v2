@@ -83,7 +83,7 @@ const TestRequirements = ({ direction, requirements }: Props) => {
                   return (
                     <Input
                       key={r}
-                      label="Nombre"
+                      label="Nombre completo"
                       type="text"
                       error={errors.nombre?.message}
                       required

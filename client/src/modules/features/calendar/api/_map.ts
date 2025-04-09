@@ -1,5 +1,5 @@
 import { User } from "../../users/api/responses";
-import { DerivacionDTO, FichaDTO, ScheduleDTO } from "./dtos";
+import { CancelationDTO, DerivacionDTO, FichaDTO, ReprogrammingDTO, ScheduleDTO } from "./dtos";
 import { Appointment, Schedule } from "./responses";
 
 declare global {
@@ -13,6 +13,11 @@ declare global {
       };
     };
     "GET /horario/for/me": {
+      params: never;
+      request: never;
+      response: Schedule[];
+    };
+    "GET /horario/for/reprogramming": {
       params: never;
       request: never;
       response: Schedule[];
@@ -82,6 +87,16 @@ declare global {
       params: { id: number };
       request: null;
       response: User;
+    };
+    "PATCH /cita/reprogramacion/:id": {
+      params: { id: number };
+      request: ReprogrammingDTO;
+      response: Appointment;
+    };
+    "PATCH /cita/cancelacion/:id": {
+      params: { id: number };
+      request: CancelationDTO;
+      response: null;
     };
   }
 }
