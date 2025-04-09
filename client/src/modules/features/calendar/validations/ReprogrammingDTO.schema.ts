@@ -1,4 +1,5 @@
 import * as yup from "yup";
+import dayjs from "dayjs";
 
 export const ReprogrammingDTOSchema = yup.object({
   descripcion: yup.string().required("Requerido"),
@@ -10,10 +11,9 @@ export const ReprogrammingDTOSchema = yup.object({
       "La fecha no puede ser anterior a la de hoy",
       (value) => {
         if (!value) return false;
-        const today = new Date();
-        today.setHours(0, 0, 0, 0); // Reset time to start of the day
-        const inputDate = new Date(value);
-        return inputDate >= today;
+        const today = dayjs().startOf("day");
+        const inputDate = dayjs(value);
+        return inputDate.isSame(today) || inputDate.isAfter(today);
       }
     ),
   id_horario: yup.number().typeError("Requerido").required("Requerido"),
