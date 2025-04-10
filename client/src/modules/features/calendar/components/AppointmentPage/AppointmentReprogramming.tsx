@@ -165,7 +165,7 @@ const AppointmentReprogramming = ({ cita, user }: Props) => {
             <strong>2</strong>
             <small className="w-full text-alto-950 dark:text-alto-50 opacity-60 leading-relaxed text-center text-xs">
               Por favor contacta con el paciente para informarle de la
-              reprogramación .
+              reprogramación.
             </small>
           </div>
           <div className="flex flex-col gap-2 px-4">

@@ -88,6 +88,23 @@ const AppointmentsTable = ({ isProfile, data }: Props) => {
           width: 148,
         },
       }),
+      columnHelper.accessor("metodo", {
+        header: "Resumen",
+        cell: (info) => {
+          return (
+            <DoubleColumn
+              text={info.getValue() ?? "Sin atender"}
+              textTitleDetail="Método"
+              small={info.row.original.derivado_a ?? "Sin derivar"}
+              smallTitleDetail="Derivado a"
+              icon={Icon.Types.ARROW_RIGHT}
+            />
+          );
+        },
+        meta: {
+          width: 148,
+        },
+      }),
       columnHelper.accessor(
         (row) =>
           row.derivado_a ? "Derivado" : row.metodo ? "Corregido" : "Ignorado",

@@ -1,11 +1,7 @@
-import Icon from "@/modules/core/components/icons/Icon";
-import Button from "@/modules/core/components/ui/Button";
 import AppointmentsToCome from "./AppointmentsToCome";
-import { useState } from "react";
-import AppointmentsPassed from "./AppointmentsPassed";
 
 const AppointmentColumn = () => {
-  const [showPassed, setShowPassed] = useState(false);
+  /* const [showPassed, setShowPassed] = useState(false); */
 
   return (
     <section className="flex flex-col gap-6 flex-1 overflow-hidden max-lg:w-full">
@@ -13,16 +9,17 @@ const AppointmentColumn = () => {
         <strong className="text-primary-900 dark:text-primary-400">
           Mis citas programadas
         </strong>
-        <Button
+        {/* <Button
           onClick={() => setShowPassed((prev) => !prev)}
           btnSize="small"
           btnType="tertiary"
           icon={Icon.Types.CALENDAR}
         >
           {showPassed ? "Ver próximas" : "Ver pasadas"}
-        </Button>
+        </Button> */}
       </header>
-      {showPassed ? <AppointmentsPassed /> : <AppointmentsToCome />}
+      <AppointmentsToCome />
+      {/* {showPassed ? <AppointmentsPassed /> : <AppointmentsToCome />} */}
     </section>
   );
 };

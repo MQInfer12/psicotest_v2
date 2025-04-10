@@ -24,7 +24,7 @@ const UserResumeContext = createContext<Ctx | null>(null);
 
 interface Props {
   user: User;
-  children: JSX.Element;
+  children: React.ReactNode;
 }
 
 interface Message {

@@ -5,6 +5,7 @@ import { Text } from "@/modules/features/answers/components/interpretation/GptPd
 import { User } from "@/modules/features/users/api/responses";
 import { Document, Page, PDFViewer } from "@react-pdf/renderer";
 import { Appointment } from "../../api/responses";
+import { MetodoConsulta } from "./FichaForm";
 
 interface Props {
   user: User;
@@ -12,6 +13,8 @@ interface Props {
 }
 
 const FichaPDF = ({ user, cita }: Props) => {
+  const isReconsulta = cita.metodo === MetodoConsulta.Reconsulta;
+
   return (
     <PDFViewer height="100%" width="100%">
       <Document title="Ficha de apertura del paciente">
@@ -81,36 +84,40 @@ const FichaPDF = ({ user, cita }: Props) => {
               : "-"}
           </Text>
           <Text>
-            <Text style={{ fontWeight: 700 }}>
-              Derivación o búsqueda propia de apoyo:
-            </Text>{" "}
+            <Text style={{ fontWeight: 700 }}>Método de la consulta:</Text>{" "}
             {cita.metodo}
           </Text>
+          {cita.motivo && (
+            <Text
+              style={{
+                fontWeight: 700,
+                marginTop: 8,
+              }}
+            >
+              {isReconsulta ? "Motivo de la reconsulta" : "Motivo de consulta"}:
+              <Text>{"\n" + (cita.motivo ?? "")}</Text>
+            </Text>
+          )}
+          {cita.antecedentes && (
+            <Text
+              style={{
+                fontWeight: 700,
+                marginTop: 8,
+              }}
+            >
+              {isReconsulta
+                ? "Antecedentes familiares adicionales"
+                : "Historia y antecedentes familiares breve"}
+              :<Text>{"\n" + (cita.antecedentes ?? "")}</Text>
+            </Text>
+          )}
           <Text
             style={{
               fontWeight: 700,
               marginTop: 8,
             }}
           >
-            Motivo de consulta:
-            <Text>{"\n" + (cita.motivo ?? "")}</Text>
-          </Text>
-          <Text
-            style={{
-              fontWeight: 700,
-              marginTop: 8,
-            }}
-          >
-            Historia y antecedentes familiares breve:
-            <Text>{"\n" + (cita.antecedentes ?? "")}</Text>
-          </Text>
-          <Text
-            style={{
-              fontWeight: 700,
-              marginTop: 8,
-            }}
-          >
-            Observaciones:
+            Reporte de sesión:
             <Text>{"\n" + (cita.observaciones ?? "")}</Text>
           </Text>
         </Page>

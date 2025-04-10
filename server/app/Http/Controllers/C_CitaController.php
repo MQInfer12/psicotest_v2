@@ -52,14 +52,18 @@ class C_CitaController extends Controller
             }
             foreach ($citas as $cita) {
                 $event = $this->fetchGoogleCalendarEvent($cita->id_calendar, $access_token, $user);
-                if ($event === false) {
+                /* if ($event === false) {
                     return $this->wrongResponse("Ocurrió un error al obtener las citas.");
-                }
-                foreach ($event->attendees as $attendee) {
-                    if ($attendee->email == $user->email) {
-                        $cita->estado = $attendee->responseStatus;
-                        break;
+                } */
+                if ($event) {
+                    foreach ($event->attendees as $attendee) {
+                        if ($attendee->email == $user->email) {
+                            $cita->estado = $attendee->responseStatus;
+                            break;
+                        }
                     }
+                } else {
+                    $cita->estado = 'needsAction';
                 }
             }
         }

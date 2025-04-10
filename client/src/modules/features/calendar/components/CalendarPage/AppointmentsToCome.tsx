@@ -38,27 +38,33 @@ const AppointmentsToCome = () => {
               {isToday ? " (Hoy)" : ""}
             </header>
             <div className="flex flex-col gap-4 pr-4 max-lg:px-0">
-              {groupedData[appointmentsDate]?.map((h, index) => (
-                <ScheduleCard
-                  key={index}
-                  horario={{
-                    id: h.id,
-                    hora_inicio: h.hora_inicio,
-                    hora_final: h.hora_final,
-                    nombre_user: h.nombre_paciente,
-                    email_user: h.email_paciente,
-                    foto_user: h.foto_paciente,
-                    dia: getDayIndex(currentDay),
-                  }}
-                  fecha={currentDay.format("YYYY-MM-DD")}
-                  esCita
-                  citaCorregida={!!h.metodo}
-                  citaDerivada={h.derivado_a}
-                  estado={h.estado}
-                  setData={setData}
-                  link={h.html_link_calendar}
-                />
-              ))}
+              {groupedData[appointmentsDate]
+                ?.sort((a, b) =>
+                  dayjs(a.fecha + " " + a.hora_inicio).diff(
+                    dayjs(b.fecha + " " + b.hora_inicio)
+                  )
+                )
+                .map((h, index) => (
+                  <ScheduleCard
+                    key={index}
+                    horario={{
+                      id: h.id,
+                      hora_inicio: h.hora_inicio,
+                      hora_final: h.hora_final,
+                      nombre_user: h.nombre_paciente,
+                      email_user: h.email_paciente,
+                      foto_user: h.foto_paciente,
+                      dia: getDayIndex(currentDay),
+                    }}
+                    fecha={currentDay.format("YYYY-MM-DD")}
+                    esCita
+                    citaCorregida={!!h.metodo}
+                    citaDerivada={h.derivado_a}
+                    estado={h.estado}
+                    setData={setData}
+                    link={h.html_link_calendar}
+                  />
+                ))}
             </div>
           </div>
         );

@@ -9,6 +9,7 @@ import AppointmentPDFsRenderer from "../components/AppointmentPage/AppointmentPD
 import AppointmentUser from "../components/AppointmentPage/AppointmentUser";
 import DerivacionForm from "../components/AppointmentPage/DerivacionForm";
 import FichaForm from "../components/AppointmentPage/FichaForm";
+import { UserResumeContextProvider } from "../context/UserResumeContext";
 
 const AppointmentPage = () => {
   const { size, PRIVATE_PADDING_INLINE } = useMeasureContext();
@@ -52,51 +53,55 @@ const AppointmentPage = () => {
      `,
       }}
     >
-      <AppointmentUser
-        id={data.cita.id}
-        user={data.paciente}
-        onSuccess={(res) => {
-          setData((prev) => ({ ...prev, paciente: res }));
-        }}
-        cita={data.cita}
-        hasPassed={hasPassed}
-      />
-      <AnswerCardTemplate
-        gridArea="form"
-        tabs={[
-          {
-            component: (
-              <FichaForm
-                disabled={hasPassed}
-                cita={data.cita}
-                onSuccess={(res) => {
-                  setData((prev) => ({ ...prev, cita: res }));
-                }}
-              />
-            ),
-            title: "Ficha",
-          },
-          {
-            component: data.cita.metodo ? (
-              <DerivacionForm
-                disabled={hasPassed}
-                user={data.paciente}
-                cita={data.cita}
-                onSuccess={(res) => {
-                  setData((prev) => ({ ...prev, cita: res }));
-                }}
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center">
-                <small className="text-alto-950 dark:text-alto-50 opacity-60">
-                  Primero llena la ficha inicial para comenzar con la derivación
-                </small>
-              </div>
-            ),
-            title: "Derivación",
-          },
-        ]}
-      />
+      <UserResumeContextProvider user={data.paciente}>
+        <AppointmentUser
+          id={data.cita.id}
+          user={data.paciente}
+          onSuccess={(res) => {
+            setData((prev) => ({ ...prev, paciente: res }));
+          }}
+          cita={data.cita}
+          hasPassed={hasPassed}
+        />
+        <AnswerCardTemplate
+          gridArea="form"
+          tabs={[
+            {
+              component: (
+                <FichaForm
+                  paciente={data.paciente}
+                  disabled={hasPassed}
+                  cita={data.cita}
+                  onSuccess={(res) => {
+                    setData((prev) => ({ ...prev, cita: res }));
+                  }}
+                />
+              ),
+              title: "Ficha",
+            },
+            {
+              component: data.cita.metodo ? (
+                <DerivacionForm
+                  disabled={hasPassed}
+                  user={data.paciente}
+                  cita={data.cita}
+                  onSuccess={(res) => {
+                    setData((prev) => ({ ...prev, cita: res }));
+                  }}
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center">
+                  <small className="text-alto-950 dark:text-alto-50 opacity-60">
+                    Primero llena la ficha inicial para comenzar con la
+                    derivación
+                  </small>
+                </div>
+              ),
+              title: "Derivación",
+            },
+          ]}
+        />
+      </UserResumeContextProvider>
       <AppointmentPDFsRenderer cita={data.cita} paciente={data.paciente} />
     </div>
   );

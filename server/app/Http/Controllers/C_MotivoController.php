@@ -79,6 +79,9 @@ class C_MotivoController extends Controller
             //? si casualmente tengo el token del creador entonces borrar el evento del calendario anterior
             if ($access_token_creador) {
                 $this->deleteGoogleCalendarEvent($cita->id_calendar, $access_token_creador, $creador);
+            } else {
+                $me = $request->user();
+                $this->deleteGoogleCalendarEvent($cita->id_calendar, $me->raw_access_token(), $me);
             }
         }
 

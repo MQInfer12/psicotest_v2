@@ -60,10 +60,10 @@ const UserResumeStarted = ({ user }: Props) => {
                 Psicólogo que le atendió: ${cita.nombre_psicologo}\n
                 Fecha: ${cita.fecha}\n
                 Hora: ${cita.hora_inicio} hasta ${cita.hora_final}\n
-                Método (se le derivó o vino por cuenta propia): ${cita.metodo}\n
-                Motivo: ${cita.motivo}\n
-                Antecedentes familiares: ${cita.antecedentes}\n
-                Observaciones: ${cita.observaciones}\n
+                Método (se le derivó, vino por cuenta propia o es una reconsulta): ${cita.metodo}\n
+                ${cita.motivo ? `Motivo: ${cita.motivo}` : ""}\n
+                ${cita.antecedentes ? `Antecedentes familiares (escrito por el psicólogo pero narrado por el paciente): ${cita.antecedentes}` : ""}\n
+                Reporte de la sesión (escrito por el psicólogo): ${cita.observaciones}\n
                 Se le derivó a: ${cita.derivado_a ?? "No se le derivó a ninguna otra especialidad"}\n\n
               `;
             })}
@@ -71,7 +71,7 @@ const UserResumeStarted = ({ user }: Props) => {
             : ""
         }
 
-        Responde las siguiente pregunta con los datos proporcionados: ${messages[index].question}
+        Responde la siguiente pregunta con los datos proporcionados: ${messages[index].question}
       `,
       (content) => {
         fullContent += content;

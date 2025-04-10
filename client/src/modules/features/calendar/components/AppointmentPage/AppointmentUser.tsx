@@ -13,11 +13,10 @@ import AnswerCardTemplate, {
 import { User } from "@/modules/features/users/api/responses";
 import { useNavigate } from "@tanstack/react-router";
 import clsx from "clsx";
-import { UserResumeContextProvider } from "../../context/UserResumeContext";
-import PreAppointmentForm from "../CalendarPage/PreAppointmentForm";
-import UserResume from "./UserResume";
-import AppointmentReprogramming from "./AppointmentReprogramming";
 import { Appointment } from "../../api/responses";
+import PreAppointmentForm from "../CalendarPage/PreAppointmentForm";
+import AppointmentReprogramming from "./AppointmentReprogramming";
+import UserResume from "./UserResume";
 
 interface Props {
   id: number;
@@ -238,9 +237,7 @@ const AppointmentUser = ({ id, user, cita, onSuccess, hasPassed }: Props) => {
           width: 480,
         }
       )}
-      <UserResumeContextProvider user={user}>
-        <AnswerCardTemplate gridArea="user" tabs={tabs} />
-      </UserResumeContextProvider>
+      <AnswerCardTemplate gridArea="user" tabs={tabs} />
     </>
   );
 };

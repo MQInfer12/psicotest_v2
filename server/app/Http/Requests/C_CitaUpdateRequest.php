@@ -15,8 +15,8 @@ class C_CitaUpdateRequest extends FormRequest
     {
         return [
             'metodo' => 'sometimes|required|string',
-            'motivo' => 'sometimes|required|string',
-            'antecedentes' => 'sometimes|required|string',
+            'motivo' => 'sometimes|string|nullable',
+            'antecedentes' => 'sometimes|string|nullable',
             'observaciones' => 'sometimes|required|string',
             'derivado_a' => 'sometimes|string|nullable',
             'resumen' => 'sometimes|string|nullable',
@@ -28,9 +28,7 @@ class C_CitaUpdateRequest extends FormRequest
         return [
             'metodo.required' => 'El método es requerido',
             'metodo.string' => 'El método debe ser una cadena de texto',
-            'motivo.required' => 'El motivo es requerido',
             'motivo.string' => 'El motivo debe ser una cadena de texto',
-            'antecedentes.required' => 'Los antecedentes son requeridos',
             'antecedentes.string' => 'Los antecedentes deben ser una cadena de texto',
             'observaciones.required' => 'Las observaciones son requeridas',
             'observaciones.string' => 'Las observaciones deben ser una cadena de texto',

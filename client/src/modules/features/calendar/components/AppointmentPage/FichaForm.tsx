@@ -9,15 +9,27 @@ import { FichaDTOSchema } from "../../validations/FichaDTO.schema";
 import { useForm } from "react-hook-form";
 import { Appointment } from "../../api/responses";
 import { FichaDTO } from "../../api/dtos";
+import { User } from "@/modules/features/users/api/responses";
+import { useUserResumeContext } from "../../context/UserResumeContext";
+
+export enum MetodoConsulta {
+  BúsquedaPropiaApoyo = "Búsqueda propia de apoyo",
+  Derivacion = "Derivación",
+  Reconsulta = "Reconsulta",
+}
 
 interface Props {
+  paciente: User;
   cita: Appointment;
   onSuccess: (data: Appointment) => void;
   disabled: boolean;
+  preview?: boolean;
 }
 
-const FichaForm = ({ cita, onSuccess, disabled }: Props) => {
+const FichaForm = ({ paciente, cita, onSuccess, disabled, preview }: Props) => {
   const [loading, setLoading] = useState(false);
+
+  const { citas } = preview ? {} : useUserResumeContext();
 
   const { postData } = useFetch();
   const putMutation = postData("PUT /cita/:id");
@@ -26,9 +38,10 @@ const FichaForm = ({ cita, onSuccess, disabled }: Props) => {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm({
     defaultValues: {
-      metodo: cita.metodo ?? "",
+      metodo: cita.metodo ?? (paciente.contador_citas > 0 ? "Reconsulta" : ""),
       motivo: cita.motivo ?? "",
       antecedentes: cita.antecedentes ?? "",
       observaciones: cita.observaciones ?? "",
@@ -52,6 +65,8 @@ const FichaForm = ({ cita, onSuccess, disabled }: Props) => {
     });
   };
 
+  const metodo = watch("metodo");
+
   return (
     <form
       className="overflow-y-scroll overflow-x-hidden min-h-full flex flex-col"
@@ -67,27 +82,61 @@ const FichaForm = ({ cita, onSuccess, disabled }: Props) => {
           {...register("metodo")}
         >
           <option value="">Selecciona un método</option>
-          <option value="Derivación">Derivación</option>
-          <option value="Búsqueda propia de apoyo">
-            Búsqueda propia de apoyo
+          <option value={MetodoConsulta.Derivacion}>
+            {MetodoConsulta.Derivacion}
           </option>
+          <option value={MetodoConsulta.BúsquedaPropiaApoyo}>
+            {MetodoConsulta.BúsquedaPropiaApoyo}
+          </option>
+          {paciente.contador_citas > 0 && (
+            <option value={MetodoConsulta.Reconsulta}>
+              {MetodoConsulta.Reconsulta}
+            </option>
+          )}
         </Input>
         <TextArea
-          label="Motivo de la consulta"
-          required
+          label={
+            metodo === MetodoConsulta.Reconsulta
+              ? "Motivo de la reconsulta (opcional)"
+              : "Motivo de la consulta"
+          }
+          required={metodo !== MetodoConsulta.Reconsulta}
           error={errors.motivo?.message}
           disabled={disabled}
+          placeholder={
+            metodo === MetodoConsulta.Reconsulta
+              ? citas
+                  ?.filter((cita) => !!cita.motivo)
+                  .map((cita) => cita.motivo + "\n\n")
+                  .join("")
+              : undefined
+          }
           {...register("motivo")}
         />
         <TextArea
-          label="Historia y antecedentes familiares breve"
-          required
+          label={
+            metodo === MetodoConsulta.Reconsulta
+              ? "Antecedentes familiares adicionales (opcional)"
+              : "Historia y antecedentes familiares breve"
+          }
+          required={metodo !== MetodoConsulta.Reconsulta}
           error={errors.antecedentes?.message}
           disabled={disabled}
+          placeholder={
+            metodo === MetodoConsulta.Reconsulta
+              ? citas
+                  ?.filter((cita) => !!cita.antecedentes)
+                  .map(
+                    (cita, index) =>
+                      `${index + 1}. ` + cita.antecedentes + "\n\n"
+                  )
+                  .join("")
+              : undefined
+          }
           {...register("antecedentes")}
         />
         <TextArea
-          label="Observaciones"
+          label="Reporte de sesión"
           required
           error={errors.observaciones?.message}
           disabled={disabled}
