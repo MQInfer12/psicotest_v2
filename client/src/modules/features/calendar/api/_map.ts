@@ -1,6 +1,13 @@
 import { User } from "../../users/api/responses";
-import { CancelationDTO, DerivacionDTO, FichaDTO, ReprogrammingDTO, ScheduleDTO } from "./dtos";
-import { Appointment, Schedule } from "./responses";
+import {
+  CancelationDTO,
+  DerivacionDTO,
+  FichaDTO,
+  OcuppationDTO,
+  ReprogrammingDTO,
+  ScheduleDTO,
+} from "./dtos";
+import { Appointment, Ocuppation, Schedule } from "./responses";
 
 declare global {
   interface EndpointMap {
@@ -10,6 +17,7 @@ declare global {
       response: {
         horarios: Schedule[];
         citas: Appointment[];
+        ocupaciones: Ocuppation[];
       };
     };
     "GET /horario/for/me": {
@@ -96,6 +104,26 @@ declare global {
     "PATCH /cita/cancelacion/:id": {
       params: { id: number };
       request: CancelationDTO;
+      response: null;
+    };
+    "GET /ocupacion": {
+      params: never;
+      request: never;
+      response: Ocuppation[];
+    };
+    "POST /ocupacion": {
+      params: never;
+      request: OcuppationDTO;
+      response: Ocuppation;
+    };
+    "PUT /ocupacion/:id": {
+      params: { id: number };
+      request: OcuppationDTO;
+      response: Ocuppation;
+    };
+    "DELETE /ocupacion/:id": {
+      params: { id: number };
+      request: null;
       response: null;
     };
   }

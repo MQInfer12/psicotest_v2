@@ -7,7 +7,7 @@ import { useUserContext } from "../../auth/context/UserContext";
 import { Folder } from "../api/responses";
 import FolderButton from "./FolderButton";
 import FolderForm from "./FolderForm";
-import FolderGroupSubtitle from "./FolderGroupSubtitle";
+import GroupSubtitle from "./GroupSubtitle";
 import FolderMap from "./FolderMap";
 
 interface Props {
@@ -80,7 +80,7 @@ const FolderList = ({
           <Loader text="Cargando carpetas..." />
         ) : (
           <>
-            <FolderGroupSubtitle
+            <GroupSubtitle
               title="Carpetas propias"
               loading={
                 loading &&
@@ -120,7 +120,7 @@ const FolderList = ({
             </div>
             {user?.grupos.map((grupo) => (
               <React.Fragment key={grupo.id}>
-                <FolderGroupSubtitle
+                <GroupSubtitle
                   title={grupo.descripcion}
                   loading={
                     loading &&

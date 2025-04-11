@@ -8,9 +8,11 @@ import Icon from "@/modules/core/components/icons/Icon";
 import { useUserContext } from "@/modules/features/auth/context/UserContext";
 import { toastSuccess } from "@/modules/core/utils/toasts";
 import { useState } from "react";
+import OcuppationList from "./OcuppationList";
 
 const ScheduleHeader = () => {
   const { modal, setOpen } = useModal();
+  const { modal: modalOcupacion, setOpen: setOpenOcupacion } = useModal();
   const { fetchData } = useFetch();
   const { data, setData } = fetchData("GET /horario/for/me");
   const { user, setUser } = useUserContext();
@@ -48,6 +50,10 @@ const ScheduleHeader = () => {
           }}
         />
       )}
+      {modalOcupacion("Ocupaciones", <OcuppationList />, {
+        type: "floating",
+        bodyPadding: false,
+      })}
       <div className="flex flex-col gap-4">
         <header className="h-10 flex items-center justify-between">
           <strong className="text-primary-900 dark:text-primary-400">
@@ -70,10 +76,23 @@ const ScheduleHeader = () => {
               onClick={() => setOpen(true)}
               btnType="secondary"
               btnSize="small"
-              icon={Icon.Types.ADD}
+              icon={Icon.Types.CALENDAR}
+              subicon={Icon.Types.ADD}
               textClassname="max-sm:hidden"
+              reverse
             >
-              Añadir horario
+              Horario
+            </Button>
+            <Button
+              onClick={() => setOpenOcupacion(true)}
+              btnType="secondary"
+              btnSize="small"
+              icon={Icon.Types.CALENDAR}
+              subicon={Icon.Types.MINUS}
+              textClassname="max-sm:hidden"
+              reverse
+            >
+              Ocupación
             </Button>
           </div>
         </header>

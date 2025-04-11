@@ -11,9 +11,26 @@ import ScheduleCard from "./ScheduleCard";
 
 const DAYS_FROM_NOW = 7;
 
+const checkOverlaping = (
+  horaInicio1: Date,
+  horaFin1: Date,
+  horaInicio2: Date,
+  horaFin2: Date
+) => {
+  const inicioOverlaping = horaInicio1 >= horaInicio2 && horaInicio1 < horaFin2;
+  const finalOverlaping = horaFin1 > horaInicio2 && horaFin1 <= horaFin2;
+  const insideOverlaping = inicioOverlaping || finalOverlaping;
+  const outsideOverLaping = horaInicio1 < horaInicio2 && horaFin1 > horaFin2;
+  return insideOverlaping || outsideOverLaping;
+};
+
 const AgendaColumn = () => {
-  const { dateSelected, horariosDisponibles, citasProximas } =
-    useCalendarContext();
+  const {
+    dateSelected,
+    horariosDisponibles,
+    citasProximas,
+    ocupacionesProximas,
+  } = useCalendarContext();
 
   const today = dayjs();
   const now = new Date();
@@ -25,33 +42,38 @@ const AgendaColumn = () => {
     const disponibles =
       horariosDisponibles
         ?.filter((h) => {
+          const elPsicologoEstaOcupado = ocupacionesProximas?.some((o) => {
+            if (o.fecha !== currentDay.format("YYYY-MM-DD")) return false;
+            if (o.email_user !== h.email_user) return false;
+            return checkOverlaping(
+              getTimeObject(o.hora_inicio),
+              getTimeObject(o.hora_final),
+              getTimeObject(h.hora_inicio),
+              getTimeObject(h.hora_final)
+            );
+          });
+
+          if (elPsicologoEstaOcupado) return false;
+          if (h.dia !== dayIndex) return false;
+
           const initialTargetTime = getTimeObject(h.hora_inicio);
-          const finalTargetTime = getTimeObject(h.hora_final);
+
+          if (today.isSame(currentDay, "day") && now >= initialTargetTime) {
+            return false;
+          }
 
           const overlap = citasProximas?.some((cita) => {
             if (cita.fecha !== currentDay.format("YYYY-MM-DD")) return false;
             if (cita.email_psicologo !== h.email_user) return false;
-            const horaInicioCita = getTimeObject(cita.hora_inicio);
-            const horaFinCita = getTimeObject(cita.hora_final);
-            const inicioOverlaping =
-              horaInicioCita >= initialTargetTime &&
-              horaInicioCita < finalTargetTime;
-            const finalOverlaping =
-              horaFinCita > initialTargetTime && horaFinCita <= finalTargetTime;
-            const insideOverlaping = inicioOverlaping || finalOverlaping;
-            const outsideOverLaping =
-              horaInicioCita < initialTargetTime &&
-              horaFinCita > finalTargetTime;
-            return insideOverlaping || outsideOverLaping;
+            return checkOverlaping(
+              getTimeObject(cita.hora_inicio),
+              getTimeObject(cita.hora_final),
+              initialTargetTime,
+              getTimeObject(h.hora_final)
+            );
           });
 
-          return (
-            h.dia === dayIndex &&
-            (today.isSame(currentDay, "day")
-              ? now < initialTargetTime
-              : true) &&
-            !overlap
-          );
+          return !overlap;
         })
         ?.sort((a, b) => a.hora_inicio.localeCompare(b.hora_inicio)) ?? [];
 

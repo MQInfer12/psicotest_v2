@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Constants\Permisos;
 use App\Traits\PermisosTrait;
+use App\Traits\TimeTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -14,6 +15,7 @@ class U_user extends Authenticatable
 {
     use HasFactory, HasApiTokens, Notifiable;
     use PermisosTrait;
+    use TimeTrait;
 
     public $incrementing = false;
     protected $keyType = 'string';
@@ -106,7 +108,7 @@ class U_user extends Authenticatable
     {
         return $this
             ->hasMany(C_Cita::class, 'email_paciente', 'email')
-            ->where('fecha', '<', now()->setTimezone('America/La_Paz'))
+            ->where('fecha', '<', $this->get_now_local())
             ->orderBy("fecha", "desc");
     }
 }

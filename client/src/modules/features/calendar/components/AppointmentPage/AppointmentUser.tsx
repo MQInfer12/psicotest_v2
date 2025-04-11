@@ -207,17 +207,24 @@ const AppointmentUser = ({ id, user, cita, onSuccess, hasPassed }: Props) => {
       ),
     },
   ];
+
   if (!hasPassed) {
-    tabs.push(
-      {
-        title: "Resumen",
-        component: <UserResume user={user} />,
-      },
-      {
+    tabs.push({
+      title: "Resumen",
+      component: <UserResume user={user} />,
+    });
+
+    if (cita.metodo) {
+      tabs.push({
         title: "Reprogramación",
         component: <AppointmentReprogramming cita={cita} user={user} />,
-      }
-    );
+      });
+    } else {
+      tabs.push({
+        title: "Reprogramación",
+        component: <AppointmentReprogramming cita={cita} user={user} />,
+      });
+    }
   }
 
   return (

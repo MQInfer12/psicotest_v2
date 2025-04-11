@@ -112,7 +112,7 @@ const Input = forwardRef((props: Props, ref: ForwardedRef<any>) => {
               },
               "disabled:bg-alto-200/60 dark:disabled:bg-alto-900 disabled:border-primary-200 dark:disabled:border-alto-800",
               {
-                "text-alto-950 dark:text-alto-50 placeholder-alto-500 dark:placeholder-alto-700":
+                "text-alto-950 dark:text-alto-50 placeholder-alto-400/80 dark:placeholder-alto-700":
                   !danger,
                 "text-danger": danger,
               },

@@ -11,12 +11,14 @@ use App\Models\T_Test;
 use App\Models\U_user;
 use App\Traits\ApiResponse;
 use App\Traits\PermisosTrait;
+use App\Traits\TimeTrait;
 use Illuminate\Http\Request;
 
 class ReportsController extends Controller
 {
     use PermisosTrait;
     use ApiResponse;
+    use TimeTrait;
 
     public function totals(Request $request)
     {
@@ -122,9 +124,9 @@ class ReportsController extends Controller
         $data['gabinete'] = $gabinete;
         $data['gabinete_totals'] = $gabineteTotals;
 
-        $pasadasSinAtender = C_Cita::where('fecha', '<', now()->setTimezone('America/La_Paz'))->whereNull('metodo')->count();
-        $pasadasAtendidas = C_Cita::where('fecha', '<', now()->setTimezone('America/La_Paz'))->whereNotNull('metodo')->count();
-        $pasadasDerivadas = C_Cita::where('fecha', '<', now()->setTimezone('America/La_Paz'))->whereNotNull('derivado_a')->count();
+        $pasadasSinAtender = C_Cita::where('fecha', '<', $this->get_now_local()->whereNull('metodo')->count());
+        $pasadasAtendidas = C_Cita::where('fecha', '<', $this->get_now_local()->whereNotNull('metodo')->count());
+        $pasadasDerivadas = C_Cita::where('fecha', '<', $this->get_now_local()->whereNotNull('derivado_a')->count());
         $data['gabinete_counters'] = [
             "pasadas_sin_atender" => $pasadasSinAtender,
             "pasadas_atendidas" => $pasadasAtendidas,

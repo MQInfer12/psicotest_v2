@@ -4,21 +4,23 @@ import { motion } from "framer-motion";
 
 interface Props {
   title: string;
-  onClick: () => void;
-  loading: boolean;
+  onClick?: () => void;
+  loading?: boolean;
 }
 
-const FolderGroupSubtitle = ({ title, onClick, loading }: Props) => {
+const GroupSubtitle = ({ title, onClick, loading }: Props) => {
   return (
     <div className="h-9 flex items-center justify-between relative">
       <strong className="dark:text-alto-100">{title}</strong>
-      <Button
-        btnType="tertiary"
-        btnSize="small"
-        title="Añadir carpeta"
-        icon={Icon.Types.FOLDER_ADD}
-        onClick={onClick}
-      />
+      {onClick && (
+        <Button
+          btnType="tertiary"
+          btnSize="small"
+          title="Añadir carpeta"
+          icon={Icon.Types.FOLDER_ADD}
+          onClick={onClick}
+        />
+      )}
       {loading && (
         <motion.span
           animate={{
@@ -46,4 +48,4 @@ const FolderGroupSubtitle = ({ title, onClick, loading }: Props) => {
   );
 };
 
-export default FolderGroupSubtitle;
+export default GroupSubtitle;

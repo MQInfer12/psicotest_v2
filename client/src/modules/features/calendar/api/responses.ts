@@ -31,3 +31,12 @@ export interface Appointment {
 
   estado: "accepted" | "declined" | "needsAction" | null;
 }
+
+export interface Ocuppation {
+  id: number;
+  email_user: string;
+  descripcion: string;
+  fecha: string;
+  hora_inicio: string;
+  hora_final: string;
+}

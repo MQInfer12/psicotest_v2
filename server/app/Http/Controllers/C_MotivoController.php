@@ -8,17 +8,20 @@ use App\Http\Resources\C_CitaResource;
 use App\Models\C_Cita;
 use App\Models\C_Horario;
 use App\Models\C_Motivo;
+use App\Models\C_Ocupacion;
 use App\Models\R_Contador;
 use App\Models\U_user;
 use App\Traits\ApiResponse;
 use App\Traits\GoogleAPIs;
 use App\Traits\GoogleCalendarTrait;
+use App\Traits\TimeTrait;
 
 class C_MotivoController extends Controller
 {
     use ApiResponse;
     use GoogleAPIs;
     use GoogleCalendarTrait;
+    use TimeTrait;
 
     public function reprogramacion(C_MotivoReprogramacionRequest $request, int $id)
     {
@@ -31,18 +34,28 @@ class C_MotivoController extends Controller
             ->get();
 
         foreach ($citasProximas as $cita) {
-            $horaInicioCita = strtotime($cita->hora_inicio);
-            $horaFinCita = strtotime($cita->hora_final);
-            $horaInicioNuevaCita = strtotime($horario->hora_inicio);
-            $horaFinNuevaCita = strtotime($horario->hora_final);
-
-            $inicioOverlaping = $horaInicioCita >= $horaInicioNuevaCita && $horaInicioCita < $horaFinNuevaCita;
-            $finalOverlaping = $horaFinCita > $horaInicioNuevaCita && $horaFinCita <= $horaFinNuevaCita;
-            $insideOverlaping = $inicioOverlaping || $finalOverlaping;
-            $outsideOverLaping = $horaInicioCita < $horaInicioNuevaCita && $horaFinCita > $horaFinNuevaCita;
-
-            if ($insideOverlaping || $outsideOverLaping) {
+            if ($this->check_overlaping_hour(
+                $cita->hora_inicio,
+                $cita->hora_final,
+                $horario->hora_inicio,
+                $horario->hora_final
+            )) {
                 return $this->wrongResponse("El horario de la cita se solapa con otra cita existente.");
+            }
+        }
+
+        $ocupacionesProximas = C_Ocupacion::where('fecha', $validatedData['fecha'])
+            ->where('email_user', $horario->email_user)
+            ->get();
+
+        foreach ($ocupacionesProximas as $ocupacion) {
+            if ($this->check_overlaping_hour(
+                $ocupacion->hora_inicio,
+                $ocupacion->hora_final,
+                $horario->hora_inicio,
+                $horario->hora_final
+            )) {
+                return $this->wrongResponse("El horario de la cita se solapa con una ocupación existente.");
             }
         }
 

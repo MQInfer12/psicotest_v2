@@ -1,13 +1,14 @@
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import dayjs, { Dayjs } from "dayjs";
 import { createContext, useContext, useState } from "react";
-import { Appointment, Schedule } from "../api/responses";
+import { Appointment, Ocuppation, Schedule } from "../api/responses";
 
 interface Ctx {
   dateSelected: Dayjs;
   setDateSelected: React.Dispatch<React.SetStateAction<Dayjs>>;
   horariosDisponibles: Schedule[] | undefined;
   citasProximas: Appointment[] | undefined;
+  ocupacionesProximas: Ocuppation[] | undefined;
 }
 
 const CalendarContext = createContext<Ctx | null>(null);
@@ -36,6 +37,7 @@ export const CalendarContextProvider = ({ children }: Props) => {
         setDateSelected,
         horariosDisponibles: data?.horarios,
         citasProximas: data?.citas,
+        ocupacionesProximas: data?.ocupaciones,
       }}
     >
       {children}

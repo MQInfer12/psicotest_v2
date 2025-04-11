@@ -16,6 +16,7 @@ interface Props {
   titleBar?: boolean;
   onlyContent?: boolean;
   type?: "default" | "floating";
+  bodyPadding?: boolean;
 }
 
 const getFocusableElements = (
@@ -64,6 +65,7 @@ const Modal = ({
   titleBar,
   onlyContent,
   type = "default",
+  bodyPadding = true,
 }: Props) => {
   const lastFocusedElement = useRef<HTMLElement | null>(null);
   const modalRef = useRef<HTMLDivElement | null>(null);
@@ -186,7 +188,8 @@ const Modal = ({
         <main
           className={clsx({
             "pt-0": !titleBar,
-            "p-4 flex-1 overflow-auto": !onlyContent,
+            "flex-1 overflow-auto": !onlyContent,
+            "p-4": bodyPadding && !onlyContent,
             "rounded-md overflow-hidden": onlyContent,
           })}
         >

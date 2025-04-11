@@ -2,10 +2,13 @@
 
 namespace App\Http\Requests;
 
+use App\Traits\TimeTrait;
 use Illuminate\Foundation\Http\FormRequest;
 
 class C_MotivoReprogramacionRequest extends FormRequest
 {
+    use TimeTrait;
+
     public function authorize()
     {
         return true;
@@ -21,7 +24,7 @@ class C_MotivoReprogramacionRequest extends FormRequest
                 'date',
                 'date_format:Y-m-d',
                 function ($attribute, $value, $fail) {
-                    if (strtotime($value) < strtotime(now()->timezone('America/La_Paz')->format('Y-m-d'))) {
+                    if (strtotime($value) < strtotime($this->get_now_local()->format('Y-m-d'))) {
                         $fail('La fecha no puede ser anterior a hoy.');
                     }
                 },

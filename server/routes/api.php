@@ -6,6 +6,7 @@ use App\Http\Controllers\B_BlogController;
 use App\Http\Controllers\C_CitaController;
 use App\Http\Controllers\C_HorarioController;
 use App\Http\Controllers\C_MotivoController;
+use App\Http\Controllers\C_OcupacionController;
 use App\Http\Controllers\IA_PlantillaController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\T_CarpetaController;
@@ -84,6 +85,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/cita/respuesta/status', [C_CitaController::class, 'respuestaStatus']);
     Route::patch('/cita/respuesta/{id}', [C_CitaController::class, 'respuesta']);
     Route::put('/cita/destroy/{id}', [C_CitaController::class, 'destroyWithToken']);
+
+    Route::apiResource('/ocupacion', C_OcupacionController::class);
 
     Route::patch('/cita/reprogramacion/{id}', [C_MotivoController::class, 'reprogramacion']);
     Route::patch('/cita/cancelacion/{id}', [C_MotivoController::class, 'cancelacion']);

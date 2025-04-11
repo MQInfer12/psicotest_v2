@@ -6,42 +6,48 @@ use App\Http\Requests\C_HorarioIndexRequest;
 use App\Http\Requests\C_HorarioStoreRequest;
 use App\Http\Resources\C_CitaResource;
 use App\Http\Resources\C_HorarioResource;
+use App\Http\Resources\C_OcupacionResource;
 use App\Models\C_Cita;
 use App\Models\C_Horario;
+use App\Models\C_Ocupacion;
 use App\Traits\ApiResponse;
+use App\Traits\TimeTrait;
 use Illuminate\Http\Request;
 
 class C_HorarioController extends Controller
 {
     use ApiResponse;
+    use TimeTrait;
 
     public function index(C_HorarioIndexRequest $request)
     {
         $user = $request->user();
         $date = $request->input('date');
 
-        $DAYS_FROM_NOW = 7;
+        $DAYS_FROM_NOW = 6;
+        $DAYS_FROM_NOW_HORARIOS = $DAYS_FROM_NOW + 1;
+        $END_DATE = date('Y-m-d', strtotime($date . " +$DAYS_FROM_NOW days"));
+
         $horarios = C_Horario::where('email_user', "!=", $user->email)
             ->whereHas('user', function ($query) {
                 $query->where('disponible', true);
             })
-            ->where(function ($query) use ($date, $DAYS_FROM_NOW) {
-                for ($i = -1; $i < $DAYS_FROM_NOW - 1; $i++) {
+            ->where(function ($query) use ($date, $DAYS_FROM_NOW_HORARIOS) {
+                for ($i = -1; $i < $DAYS_FROM_NOW_HORARIOS - 1; $i++) {
                     $query->orWhere('dia', date('w', strtotime($date . " $i days")));
                 }
             })->get();
 
-        $citas = C_Cita::where(function ($query) use ($date, $DAYS_FROM_NOW) {
-            for ($i = -1; $i < $DAYS_FROM_NOW - 1; $i++) {
-                $query->orWhere('fecha', date('Y-m-d', strtotime($date . " $i days")));
-            }
-        })->get();
+        $citas = C_Cita::whereBetween('fecha', [$date, $END_DATE])->get();
+
+        $ocupaciones = C_Ocupacion::whereBetween('fecha', [$date, $END_DATE])->get();
 
         return $this->successResponse(
             "Horarios obtenidos correctamente.",
             [
                 'horarios' => C_HorarioResource::collection($horarios),
-                'citas' => C_CitaResource::collection($citas)
+                'citas' => C_CitaResource::collection($citas),
+                'ocupaciones' => C_OcupacionResource::collection($ocupaciones)
             ]
         );
     }
@@ -49,42 +55,54 @@ class C_HorarioController extends Controller
     public function indexForReprogramming(Request $request)
     {
         $user = $request->user();
-        $today = now()->setTimezone('America/La_Paz')->format('Y-m-d');
+        $today = $this->get_now_local()->format('Y-m-d');
         $fecha = $request->query('fecha') ?? $today;
         $dayIndex = (date('w', strtotime($fecha)) + 6) % 7;
 
         $horarios = C_Horario::where('email_user', $user->email)
             ->where('dia', $dayIndex)
             ->when($fecha === $today, function ($query) {
-                $query->where('hora_inicio', '>', now()->setTimezone('America/La_Paz')->format('H:i:s'));
+                $query->where('hora_inicio', '>', $this->get_now_local()->format('H:i:s'));
             })
             ->get();
 
         $citas = C_Cita::where('fecha', date('Y-m-d', strtotime($fecha)))
+            ->where('email_psicologo', $user->email)
             ->get();
 
-        $horarios = $horarios->filter(function ($horario) use ($citas) {
+        $ocupaciones = C_Ocupacion::where('fecha', date('Y-m-d', strtotime($fecha)))
+            ->where('email_user', $user->email)
+            ->get();
+
+        $disponibles = $horarios->filter(function ($horario) use ($citas, $ocupaciones) {
             foreach ($citas as $cita) {
-                $horaInicioCita = strtotime($cita->hora_inicio);
-                $horaFinCita = strtotime($cita->hora_final);
-                $horaInicioHorario = strtotime($horario->hora_inicio);
-                $horaFinHorario = strtotime($horario->hora_final);
-
-                $inicioOverlapping = $horaInicioCita >= $horaInicioHorario && $horaInicioCita < $horaFinHorario;
-                $finalOverlapping = $horaFinCita > $horaInicioHorario && $horaFinCita <= $horaFinHorario;
-                $insideOverlapping = $inicioOverlapping || $finalOverlapping;
-                $outsideOverlapping = $horaInicioCita < $horaInicioHorario && $horaFinCita > $horaFinHorario;
-
-                if ($insideOverlapping || $outsideOverlapping) {
+                if ($this->check_overlaping_hour(
+                    $cita->hora_inicio,
+                    $cita->hora_final,
+                    $horario->hora_inicio,
+                    $horario->hora_final
+                )) {
                     return false;
                 }
             }
+
+            foreach ($ocupaciones as $ocupacion) {
+                if ($this->check_overlaping_hour(
+                    $ocupacion->hora_inicio,
+                    $ocupacion->hora_final,
+                    $horario->hora_inicio,
+                    $horario->hora_final
+                )) {
+                    return false;
+                }
+            }
+
             return true;
         });
 
         return $this->successResponse(
             "Horarios obtenidos correctamente.",
-            C_HorarioResource::collection($horarios)
+            C_HorarioResource::collection($disponibles)
         );
     }
 
