@@ -57,9 +57,7 @@ const AppointmentPage = () => {
         <AppointmentUser
           id={data.cita.id}
           user={data.paciente}
-          onSuccess={(res) => {
-            setData((prev) => ({ ...prev, paciente: res }));
-          }}
+          setData={setData}
           cita={data.cita}
           hasPassed={hasPassed}
         />

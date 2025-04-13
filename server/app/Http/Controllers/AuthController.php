@@ -6,6 +6,7 @@ use App\Http\Resources\U_userResource;
 use App\Models\U_Rol;
 use App\Models\U_user;
 use App\Traits\ApiResponse;
+use App\Traits\TimeTrait;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Request;
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Http;
 class AuthController extends Controller
 {
     use ApiResponse;
+    use TimeTrait;
 
     public function login(Request $request)
     {
@@ -94,6 +96,15 @@ class AuthController extends Controller
 
     public function me(Request $request)
     {
+        $initial = $request->query('initial') == "true";
+        $user = $request->user();
+
+        if ($initial) {
+            $user->update([
+                'ultima_conexion' => now(),
+            ]);
+        }
+
         return $this->successResponse("Usuario obtenido correctamente.", new U_userResource($request->user()));
     }
 

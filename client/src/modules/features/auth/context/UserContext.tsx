@@ -33,7 +33,11 @@ interface Props {
 const GetUser = () => {
   const { state, login } = useUserContext();
   const { postData } = useFetch();
-  const mutation = postData("GET /me");
+  const mutation = postData("GET /me", {
+    params: {
+      initial: "true",
+    },
+  });
 
   useEffect(() => {
     if (state === "loading") {

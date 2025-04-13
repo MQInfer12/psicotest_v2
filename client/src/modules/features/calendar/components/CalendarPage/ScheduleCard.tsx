@@ -65,8 +65,8 @@ const ScheduleCard = ({
         {
           onSuccess: (res) => {
             toastSuccess("Cita solicitada con éxito");
-            setUser(res.data);
-            resolve(res.data);
+            setUser(res.data.paciente);
+            resolve(true);
           },
           onSettled() {
             setLoading(false);

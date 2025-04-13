@@ -37,6 +37,7 @@ class U_userResource extends JsonResource
 
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'ultima_conexion' => $this->ultima_conexion,
         ];
     }
 }

@@ -30,6 +30,7 @@ const NextAppointmentBanner = () => {
       id_calendar: user?.cita_proxima?.id_calendar ?? "",
     },
   });
+  const getMutation = postData("GET /me");
 
   const [loading, setLoading] = useState(false);
 
@@ -172,9 +173,19 @@ const NextAppointmentBanner = () => {
         </IconMessage>
         {hasPassed && (
           <Button
-            onClick={() =>
-              setUser((prev) => (prev ? { ...prev, cita_proxima: null } : prev))
-            }
+            onClick={() => {
+              setLoading(true);
+              getMutation(null, {
+                onSuccess: (res) => {
+                  console.log(res.data);
+                  setUser(res.data);
+                },
+                onSettled: () => {
+                  setLoading(false);
+                },
+              });
+            }}
+            disabled={loading}
           >
             Regresar
           </Button>

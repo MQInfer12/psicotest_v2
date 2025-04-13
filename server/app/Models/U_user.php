@@ -41,6 +41,7 @@ class U_user extends Authenticatable
         'nombre_verificado',
         'access_token',
         'refresh_token',
+        'ultima_conexion',
     ];
 
     public function raw_access_token()

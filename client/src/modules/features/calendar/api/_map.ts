@@ -1,5 +1,6 @@
 import { User } from "../../users/api/responses";
 import {
+  AppointmentDTO,
   CancelationDTO,
   DerivacionDTO,
   FichaDTO,
@@ -78,11 +79,11 @@ declare global {
     };
     "POST /cita": {
       params: never;
-      request: {
-        id_horario: number;
-        fecha: string;
+      request: AppointmentDTO;
+      response: {
+        cita: Appointment;
+        paciente: User;
       };
-      response: User;
     };
     "PUT /cita/:id": {
       params: {

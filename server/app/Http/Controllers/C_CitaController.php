@@ -162,15 +162,16 @@ class C_CitaController extends Controller
     public function store(C_CitaStoreRequest $request)
     {
         $validatedData = $request->validated();
+        $emailPaciente = $validatedData['email_paciente'];
 
-        $user = $request->user();
+        $paciente = $emailPaciente ? U_user::findOrFail($emailPaciente) : $request->user();
 
-        if ($user->cita_proxima) {
+        if (!$emailPaciente && $paciente->cita_proxima) {
             return $this->wrongResponse("Ya tienes una cita próximamente.");
         }
 
         $horario = C_Horario::findOrFail($validatedData['id_horario']);
-        if ($horario->email_user == $user->email) {
+        if ($horario->email_user == $paciente->email) {
             return $this->wrongResponse("No puedes pedir una cita en un horario tuyo.");
         }
 
@@ -204,41 +205,46 @@ class C_CitaController extends Controller
             }
         }
 
-        $access_token = $request->user()->raw_access_token();
+        $creador_evento = $request->user();
+        $access_token = $creador_evento->raw_access_token();
         if (!$access_token) {
             return $this->wrongResponse("El token de acceso es inválido.");
         }
 
+        $email_invitado = $emailPaciente ? $paciente->email : $horario->email_user;
         $body = $this->create_calendar_body(
             $horario->user->nombre,
             $validatedData['fecha'],
             $horario->hora_inicio,
             $horario->hora_final,
-            $user->email,
-            $horario->email_user
+            $creador_evento->email,
+            $email_invitado
         );
 
-        $event = $this->createGoogleCalendarEvent($body, $access_token, $user);
+        $event = $this->createGoogleCalendarEvent($body, $access_token, $creador_evento);
         if (!$event) {
             return $this->wrongResponse("Error al crear la cita.");
         }
 
-        C_Cita::create([
+        $cita = C_Cita::create([
             'id_calendar' => $event->id,
             'html_link_calendar' => $event->htmlLink,
-            'creador_calendar' => $user->email,
+            'creador_calendar' => $creador_evento->email,
             'email_psicologo' => $horario->email_user,
-            'email_paciente' => $user->email,
+            'email_paciente' => $paciente->email,
             'fecha' => $validatedData['fecha'],
             'hora_inicio' => $horario->hora_inicio,
             'hora_final' => $horario->hora_final,
         ]);
 
-        $user->refresh();
+        $paciente->refresh();
 
         return $this->successResponse(
             "Cita creada correctamente.",
-            new U_userResource($user)
+            [
+                "paciente" => new U_userResource($paciente),
+                "cita" => new C_CitaResource($cita)
+            ]
         );
     }
 

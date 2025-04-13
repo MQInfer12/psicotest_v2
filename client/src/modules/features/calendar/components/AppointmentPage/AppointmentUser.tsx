@@ -17,16 +17,21 @@ import { Appointment } from "../../api/responses";
 import PreAppointmentForm from "../CalendarPage/PreAppointmentForm";
 import AppointmentReprogramming from "./AppointmentReprogramming";
 import UserResume from "./UserResume";
+import AppointmentReconsult from "./AppointmentReconsult";
+import { SetData } from "@/modules/core/hooks/useFetch/getSetData";
 
 interface Props {
   id: number;
   user: User;
-  onSuccess: (res: User) => void;
   cita: Appointment;
   hasPassed: boolean;
+  setData: SetData<{
+    cita: Appointment;
+    paciente: User;
+  }>;
 }
 
-const AppointmentUser = ({ id, user, cita, onSuccess, hasPassed }: Props) => {
+const AppointmentUser = ({ id, user, cita, setData, hasPassed }: Props) => {
   const { modal, setOpen } = useModal();
   const navigate = useNavigate();
 
@@ -216,8 +221,10 @@ const AppointmentUser = ({ id, user, cita, onSuccess, hasPassed }: Props) => {
 
     if (cita.metodo) {
       tabs.push({
-        title: "Reprogramación",
-        component: <AppointmentReprogramming cita={cita} user={user} />,
+        title: "Reconsulta",
+        component: (
+          <AppointmentReconsult cita={cita} user={user} setData={setData} />
+        ),
       });
     } else {
       tabs.push({
@@ -236,7 +243,7 @@ const AppointmentUser = ({ id, user, cita, onSuccess, hasPassed }: Props) => {
           user={user}
           onSuccess={async (res, message) => {
             toastSuccess(message);
-            onSuccess(res);
+            setData((prev) => ({ ...prev, paciente: res }));
             setOpen(false);
           }}
         />,

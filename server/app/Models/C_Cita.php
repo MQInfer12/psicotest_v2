@@ -41,4 +41,21 @@ class C_Cita extends Model
     {
         return $this->belongsTo(U_user::class, 'email_paciente', 'email');
     }
+
+    public function cita_proxima()
+    {
+        $siguiente_cita = C_Cita::where('email_psicologo', $this->email_psicologo)
+            ->where('email_paciente', $this->email_paciente)
+            ->where(function ($query) {
+                $query->where('fecha', '>', $this->fecha)
+                    ->orWhere(function ($query) {
+                        $query->where('fecha', $this->fecha)
+                            ->where('hora_inicio', '>', $this->hora_inicio);
+                    });
+            })
+            ->orderBy('fecha', 'asc')
+            ->orderBy('hora_inicio', 'asc')
+            ->first();
+        return $siguiente_cita;
+    }
 }

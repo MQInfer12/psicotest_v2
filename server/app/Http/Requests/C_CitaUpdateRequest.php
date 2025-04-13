@@ -30,8 +30,8 @@ class C_CitaUpdateRequest extends FormRequest
             'metodo.string' => 'El método debe ser una cadena de texto',
             'motivo.string' => 'El motivo debe ser una cadena de texto',
             'antecedentes.string' => 'Los antecedentes deben ser una cadena de texto',
-            'observaciones.required' => 'Las observaciones son requeridas',
-            'observaciones.string' => 'Las observaciones deben ser una cadena de texto',
+            'observaciones.required' => 'El reporte de sesión es requerido',
+            'observaciones.string' => 'El reporte de sesión deben ser una cadena de texto',
             'derivado_a.string' => 'El derivado a debe ser una cadena de texto',
             'resumen.string' => 'El resumen debe ser una cadena de texto',
         ];

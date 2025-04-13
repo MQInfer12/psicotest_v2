@@ -30,6 +30,8 @@ class C_CitaResource extends JsonResource
             'resumen' => $this->resumen,
 
             'estado' => $this->estado,
+
+            'cita_proxima' => new C_CitaResource($this->cita_proxima()),
         ];
     }
 }

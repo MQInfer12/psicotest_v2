@@ -4,7 +4,7 @@ import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import { User } from "@/modules/features/users/api/responses";
 import { Genero } from "@/modules/features/users/types/Genero";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { PreAppointmentDTO } from "../../api/dtos";
 import { CAREERS } from "../../data/careers";
@@ -61,6 +61,7 @@ const PreAppointmentForm = ({
     handleSubmit,
     watch,
     formState: { errors },
+    setValue,
   } = useForm({
     defaultValues: {
       nombre: user?.nombre,
@@ -82,6 +83,10 @@ const PreAppointmentForm = ({
   });
 
   const carrera = watch("carrera");
+  const carreraSelected = CAREERS.find((c) => c.name === carrera);
+
+  //@ts-expect-error: Semestre can be setted to empty string
+  useEffect(() => setValue("semestre", ""), [carrera]);
 
   return (
     <form
@@ -173,11 +178,22 @@ const PreAppointmentForm = ({
         </Input>
         <Input
           label="Semestre"
-          type="number"
+          type="select"
           error={errors.semestre?.message}
           required={required}
           {...register("semestre")}
-        />
+        >
+          <option value="">-</option>
+          {carreraSelected ? (
+            Array.of(...Array(carreraSelected.semesters)).map((_, i) => (
+              <option key={i + 1} value={i + 1}>
+                {i + 1}
+              </option>
+            ))
+          ) : (
+            <option value="">Selecciona una carrera primero</option>
+          )}
+        </Input>
       </div>
       <div
         className="grid gap-4 overflow-hidden min-h-min"
@@ -188,7 +204,7 @@ const PreAppointmentForm = ({
         <Input
           label="Código estudiantil"
           className="text-center"
-          value={CAREERS.find((c) => c.name === carrera)?.sub ?? "-"}
+          value={carreraSelected?.sub ?? "-"}
           required={required}
           readOnly
           disabled

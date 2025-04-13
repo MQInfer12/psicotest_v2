@@ -30,6 +30,8 @@ export interface Appointment {
   resumen: string | null;
 
   estado: "accepted" | "declined" | "needsAction" | null;
+
+  cita_proxima: Appointment | null;
 }
 
 export interface Ocuppation {

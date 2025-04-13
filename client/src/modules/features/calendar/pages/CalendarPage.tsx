@@ -26,7 +26,7 @@ const CalendarPage = () => {
       }}
     >
       {user?.cita_proxima ? (
-        <NextAppointmentBanner />
+        <NextAppointmentBanner key={user.cita_proxima.id} />
       ) : (
         <CalendarContextProvider>
           {agendarPermisos && <CalendarColumn />}
