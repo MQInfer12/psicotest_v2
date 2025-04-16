@@ -4,13 +4,25 @@ namespace App\Traits;
 
 trait GoogleCalendarTrait
 {
-  protected function create_calendar_body($nombre_psicologo, $fecha, $hora_inicio, $hora_final, $email_creador, $email_invitado)
+  protected function create_calendar_body($nombre_psicologo, $fecha, $hora_inicio, $hora_final, $email_creador, $email_invitado, $anonimo = false)
   {
     $latitude = '-17.37516404213628';
     $longitude = '-66.15866852752312';
     $mapsLink = "https://www.google.com/maps/dir/?api=1&destination={$latitude}%2C{$longitude}";
 
     $psicotestLink = "https://neurall.cidtec-uc.com/calendar";
+
+    $attendees = [
+      [
+        'email' => $email_creador,
+        'responseStatus' => 'accepted'
+      ]
+    ];
+    if (!$anonimo) {
+      $attendees[] = [
+        'email' => $email_invitado,
+      ];
+    }
 
     $body = [
       'summary' => 'Cita para el gabinete psicológico',
@@ -28,15 +40,7 @@ trait GoogleCalendarTrait
         'dateTime' => $fecha . 'T' . $hora_final,
         'timeZone' => 'America/La_Paz'
       ],
-      'attendees' => [
-        [
-          'email' => $email_creador,
-          'responseStatus' => 'accepted'
-        ],
-        [
-          'email' => $email_invitado,
-        ]
-      ],
+      'attendees' => $attendees,
       'reminders' => [
         'useDefault' => false,
         'overrides' => [

@@ -8,7 +8,8 @@ class T_TestsResource extends JsonResource
 {
     public function toArray($request)
     {
-        $userEmail = $request->user()->email;
+        $user = $request->user();
+
         //? AL MODIFICAR ESTA RESPUESTA AÑADIR LOS MISMOS CAMPOS A T_Tests_RespuestasResource.php
         return [
             'id' => $this->id,
@@ -16,18 +17,11 @@ class T_TestsResource extends JsonResource
             'nombre_autor' => $this->autor,
             'nombre_autor_creador' => $this->autor_creador ? $this->autor_creador->nombre : null,
             'canvas' => $this->canvas,
-            'fotos' => $this->getUserFotos($userEmail)
+            'fotos' => collect($this->evaluados($user))
+                ->map(function ($user) {
+                    return $user->foto;
+                })
+                ->all(),
         ];
-    }
-
-    private function getUserFotos($userEmail)
-    {
-        return $this->versions->map(function ($version) use ($userEmail) {
-            return $version->respuestas
-                ->where('email_asignador', $userEmail)
-                ->map(function ($respuesta) {
-                    return $respuesta->user->foto ?? null;
-                });
-        })->flatten()->all();
     }
 }

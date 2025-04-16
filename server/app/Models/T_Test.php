@@ -34,4 +34,26 @@ class T_Test extends Model
     {
         return $this->hasOne(T_TestVersion::class, 'id_test')->latestOfMany();
     }
+
+    public function evaluados($user)
+    {
+        $versiones = $this->versions->pluck('id');
+
+        $respuestasSinClasificacion = T_Respuesta::whereNull('id_carpeta')
+            ->whereIn('id_test_version', $versiones)
+            ->where('email_asignador', $user->email)
+            ->get()
+            ->map(fn($respuesta) => $respuesta->user);
+
+        $respuestasTotales = $user->carpetasTotales()
+            ->flatMap(fn($carpeta) => $carpeta->respuestas->filter(fn($respuesta) => $respuesta->test_version->id_test == $this->id)
+                ->map(fn($respuesta) => $respuesta->user));
+
+        $respuestasTotales = $respuestasTotales->merge($respuestasSinClasificacion)
+            ->unique('email')
+            ->sortBy('email')
+            ->values();
+
+        return $respuestasTotales;
+    }
 }

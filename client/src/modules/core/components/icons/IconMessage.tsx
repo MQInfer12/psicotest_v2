@@ -6,7 +6,7 @@ interface Props {
   icon: ICON;
   message: string;
   small?: string;
-  textColor?: "primary" | "danger" | "success";
+  textColor?: "primary" | "danger" | "success" | "warning";
   delay?: number;
   children?: React.ReactNode;
 }
@@ -29,6 +29,7 @@ const IconMessage = ({
           "text-primary-800 dark:text-primary-400": textColor === "primary",
           "text-danger": textColor === "danger",
           "text-success": textColor === "success",
+          "text-warning": textColor === "warning",
         })}
       >
         <Icon type={icon} />

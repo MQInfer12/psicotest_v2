@@ -45,6 +45,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/user', U_userController::class);
 
     Route::get('/user', [U_userController::class, 'index']);
+    Route::get('/user/for/search', [U_userController::class, 'indexSearch']);
     Route::get('/user/for/patients', [U_userController::class, 'indexForPatients']);
     Route::post('/user', [U_userController::class, 'store']);
     Route::get('/user/{email}/psicotest/profile', [U_userController::class, 'showProfile']);

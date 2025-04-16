@@ -2,30 +2,12 @@ import Canvas from "@/modules/core/components/ui/canvas/Canvas";
 import { CanvasType } from "@/modules/core/components/ui/canvas/types/Canvas";
 import { fetchOptions } from "@/modules/core/hooks/useFetch/utils/fetchFn";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { TestType } from "../types/TestType";
 import { useParams } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
+import { TestType } from "../types/TestType";
+import { T_Test_Respuesta } from "../api/responses";
 
 const ResolvePage = () => {
-  const { idRespuesta } = useParams({
-    strict: false,
-  });
-  return (
-    <AnimatePresence initial={false}>
-      <motion.div
-        initial={{ x: "100%" }}
-        animate={{ x: 0 }}
-        exit={{ x: "-100%" }}
-        className="absolute inset-0 w-full"
-        key={idRespuesta}
-      >
-        <Render />
-      </motion.div>
-    </AnimatePresence>
-  );
-};
-
-const Render = () => {
   const { idTest, idRespuesta } = useParams({
     strict: false,
   });
@@ -38,16 +20,41 @@ const Render = () => {
     fetchOptions([
       idRespuesta ? "GET /test/by/respuesta/:id" : "GET /test/:id",
       {
-        id: Number(idRespuesta || idTest),
+        id: Number(idRespuesta ?? idTest),
       },
     ])
   );
 
+  return (
+    <AnimatePresence initial={false}>
+      <motion.div
+        initial={{ x: "100%" }}
+        animate={{ x: 0 }}
+        exit={{ x: "-100%" }}
+        className="absolute inset-0 w-full"
+        key={idRespuesta}
+      >
+        <Render idTest={idTest} idRespuesta={idRespuesta} data={data} />
+      </motion.div>
+    </AnimatePresence>
+  );
+};
+
+interface RenderProps {
+  idTest: string | undefined;
+  idRespuesta: string | undefined;
+  data: T_Test_Respuesta;
+}
+
+const Render = ({ idTest, idRespuesta, data }: RenderProps) => {
   const canvas: CanvasType = JSON.parse(data.canvas);
   const test: TestType = JSON.parse(data.test);
 
   return (
-    <Canvas type="test" layoutId={idTest ? `test-${idTest}` : `respuesta-${idRespuesta}`}>
+    <Canvas
+      type="test"
+      layoutId={idTest ? `test-${idTest}` : `respuesta-${idRespuesta}`}
+    >
       <Canvas.Title subtitle={data.nombre_autor || data.nombre_autor_creador!}>
         {data.nombre_test}
       </Canvas.Title>

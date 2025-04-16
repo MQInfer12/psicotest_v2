@@ -13,6 +13,7 @@ use App\Models\C_Cita;
 use App\Models\C_Horario;
 use App\Models\C_Ocupacion;
 use App\Models\R_Contador;
+use App\Models\U_Rol;
 use App\Models\U_user;
 use App\Traits\ApiResponse;
 use App\Traits\GoogleAPIs;
@@ -162,9 +163,27 @@ class C_CitaController extends Controller
     public function store(C_CitaStoreRequest $request)
     {
         $validatedData = $request->validated();
-        $emailPaciente = $validatedData['email_paciente'];
 
-        $paciente = $emailPaciente ? U_user::findOrFail($emailPaciente) : $request->user();
+        $emailPaciente = $validatedData['email_paciente'] ?? null;
+        $nombrePaciente = $validatedData['nombre_paciente'] ?? null;
+        $anonimo = $validatedData['anonimo'] ?? false;
+
+        $nuevoPaciente = null;
+        if ($nombrePaciente) {
+            $randomness = substr(str_shuffle(str_repeat('0123456789abcdefghijklmnopqrstuvwxyz', 8)), 0, 8);
+            $nuevoEmail = strtolower(str_replace(' ', '_', $nombrePaciente)) . "_" . $randomness . "@neurall.com";
+            $rolPorDefecto = U_Rol::where('por_defecto', true)->first();
+            if (!$rolPorDefecto) {
+                return $this->wrongResponse("No se encontró un rol por defecto.");
+            }
+            $nuevoPaciente = U_user::create([
+                "email" => $nuevoEmail,
+                "nombre" => $nombrePaciente,
+                "id_rol" => $rolPorDefecto->id,
+            ]);
+        }
+
+        $paciente = $nuevoPaciente ?? ($emailPaciente ? U_user::findOrFail($emailPaciente) : $request->user());
 
         if (!$emailPaciente && $paciente->cita_proxima) {
             return $this->wrongResponse("Ya tienes una cita próximamente.");
@@ -218,7 +237,8 @@ class C_CitaController extends Controller
             $horario->hora_inicio,
             $horario->hora_final,
             $creador_evento->email,
-            $email_invitado
+            $email_invitado,
+            $anonimo
         );
 
         $event = $this->createGoogleCalendarEvent($body, $access_token, $creador_evento);
@@ -272,13 +292,16 @@ class C_CitaController extends Controller
     {
         $cita = C_Cita::findOrFail($id);
 
-        $user = $request->user();
-        $access_token = $user->raw_access_token();
-        if (!$access_token) {
-            return $this->wrongResponse("El token de acceso es inválido.");
+        $user_creador = U_user::find($cita->creador_calendar);
+        if ($user_creador) {
+            $access_token_creador = $user_creador->raw_access_token();
+            if (!$access_token_creador) {
+                $this->deleteGoogleCalendarEvent($cita->id_calendar, $access_token_creador, $user_creador);
+            } else {
+                $me = $request->user();
+                $this->deleteGoogleCalendarEvent($cita->id_calendar, $me->raw_access_token(), $me);
+            }
         }
-
-        $this->deleteGoogleCalendarEvent($cita->id_calendar, $access_token, $user);
 
         $cita->delete();
 

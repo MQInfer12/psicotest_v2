@@ -16,7 +16,9 @@ class C_CitaStoreRequest extends FormRequest
         return [
             'id_horario' => 'required|integer|exists:c_horarios,id',
             'fecha' => 'required|date|date_format:Y-m-d',
-            'email_paciente' => 'sometimes|required|string'
+            'email_paciente' => 'sometimes|required|string',
+            'nombre_paciente' => 'sometimes|required|string',
+            'anonimo' => 'sometimes|boolean',
         ];
     }
 
@@ -31,6 +33,8 @@ class C_CitaStoreRequest extends FormRequest
             'fecha.date_format' => 'La fecha tiene que tener el formato Y-m-d.',
             'email_paciente.required' => 'El email del paciente es requerido.',
             'email_paciente.string' => 'El email del paciente tiene que ser una cadena de texto.',
+            'nombre_paciente.required' => 'El nombre del paciente es requerido.',
+            'nombre_paciente.string' => 'El nombre del paciente tiene que ser una cadena de texto.',
         ];
     }
 }

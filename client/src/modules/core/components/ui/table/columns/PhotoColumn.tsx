@@ -41,7 +41,7 @@ const PhotoColumn = ({
         {small && (
           <motion.p
             layoutId={smallLayoutId}
-            className="text-[10px] text-alto-700 dark:text-alto-400 whitespace-nowrap"
+            className="text-[10px] text-alto-700 dark:text-alto-400 whitespace-nowrap overflow-hidden text-ellipsis"
             title={small}
           >
             {small}

@@ -4,9 +4,9 @@ import OpenAI from "openai";
 import { Stream } from "openai/streaming.mjs";
 
 export enum OpenAIModel {
-  GPT_3_5 = "gpt-3.5-turbo",
   GPT_4_o_mini = "gpt-4o-mini",
   GPT_4_o = "gpt-4o",
+  GPT_4_1_mini = "gpt-4.1-mini",
   GPT_o_3_mini = "o3-mini",
 }
 
@@ -40,7 +40,7 @@ export const getAIResponse = async (
   }
 ) => {
   try {
-    const model = options?.model ?? OpenAIModel.GPT_3_5;
+    const model = options?.model ?? OpenAIModel.GPT_4_o_mini;
     const isReasoning = model === OpenAIModel.GPT_o_3_mini;
     const streaming = options?.stream ?? true;
 

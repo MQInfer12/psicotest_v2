@@ -76,7 +76,7 @@ const ScheduleHeader = () => {
               onClick={() => setOpen(true)}
               btnType="secondary"
               btnSize="small"
-              icon={Icon.Types.CALENDAR}
+              icon={Icon.Types.CLOCK}
               subicon={Icon.Types.ADD}
               textClassname="max-sm:hidden"
               reverse
@@ -87,7 +87,7 @@ const ScheduleHeader = () => {
               onClick={() => setOpenOcupacion(true)}
               btnType="secondary"
               btnSize="small"
-              icon={Icon.Types.CALENDAR}
+              icon={Icon.Types.CLOCK}
               subicon={Icon.Types.MINUS}
               textClassname="max-sm:hidden"
               reverse

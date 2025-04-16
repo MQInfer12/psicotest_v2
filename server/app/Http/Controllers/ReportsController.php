@@ -52,8 +52,7 @@ class ReportsController extends Controller
                     $genero = $respuesta->user->genero;
                     if ($respuesta->estado == "Pendiente") {
                         $sin_responder++;
-                    }
-                    if ($genero === 'Hombre') {
+                    } else if ($genero === 'Hombre') {
                         $varones++;
                     } elseif ($genero === 'Mujer') {
                         $mujeres++;
@@ -124,9 +123,9 @@ class ReportsController extends Controller
         $data['gabinete'] = $gabinete;
         $data['gabinete_totals'] = $gabineteTotals;
 
-        $pasadasSinAtender = C_Cita::where('fecha', '<', $this->get_now_local()->whereNull('metodo')->count());
-        $pasadasAtendidas = C_Cita::where('fecha', '<', $this->get_now_local()->whereNotNull('metodo')->count());
-        $pasadasDerivadas = C_Cita::where('fecha', '<', $this->get_now_local()->whereNotNull('derivado_a')->count());
+        $pasadasSinAtender = C_Cita::where('fecha', '<', $this->get_now_local())->whereNull('metodo')->count();
+        $pasadasAtendidas = C_Cita::where('fecha', '<', $this->get_now_local())->whereNotNull('metodo')->count();
+        $pasadasDerivadas = C_Cita::where('fecha', '<', $this->get_now_local())->whereNotNull('derivado_a')->count();
         $data['gabinete_counters'] = [
             "pasadas_sin_atender" => $pasadasSinAtender,
             "pasadas_atendidas" => $pasadasAtendidas,

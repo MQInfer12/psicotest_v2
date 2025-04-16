@@ -7,6 +7,7 @@ use App\Http\Requests\U_userStoreRequest;
 use App\Http\Requests\U_userUpdateRequest;
 use App\Http\Resources\U_userResource;
 use App\Models\C_Cita;
+use App\Models\T_Test;
 use App\Models\U_Rol;
 use App\Models\U_user;
 use App\Traits\ApiResponse;
@@ -34,6 +35,60 @@ class U_userController extends Controller
         return $this->successResponse(
             "Pacientes obtenidos correctamente.",
             U_userResource::collection($pacientes)
+        );
+    }
+
+    public function indexSearch(Request $request)
+    {
+        $search = $request->query('search', '');
+        $anonymous = $request->query('anonymous', 'false') == 'true';
+        $emptySearchAll = $request->query('emptySearchAll', 'true') == 'true';
+        $idTest = $request->query('idTest', null);
+
+        $evaluados = null;
+        if ($idTest) {
+            $test = T_Test::findOrFail($idTest);
+            $user = $request->user();
+            $evaluados = collect($test->evaluados($user));
+        }
+
+        if ($search == '') {
+            if ($emptySearchAll) {
+                $allUsers = $evaluados ?? U_user::all();
+                return $this->successResponse(
+                    "Usuarios obtenidos correctamente.",
+                    U_userResource::collection($allUsers)
+                );
+            } else {
+                return $this->successResponse(
+                    "Usuarios obtenidos correctamente.",
+                    U_userResource::collection([])
+                );;
+            }
+        }
+
+        $users = U_user::where(function ($query) use ($search, $anonymous) {
+            if ($anonymous) {
+                $query->where('email', 'ilike', "%$search%@neurall.com")
+                    ->orWhere(function ($q) use ($search) {
+                        $q->where('nombre', 'ilike', "%$search%")
+                            ->where('email', 'ilike', "%@neurall.com");
+                    });
+            } else {
+                $query->where('email', 'ilike', "%$search%")
+                    ->orWhere('nombre', 'ilike', "%$search%");
+            }
+        })
+            ->orderBy("email")
+            ->get();
+
+        if ($evaluados) {
+            $users = $users->whereIn('email', $evaluados->pluck('email'));
+        }
+
+        return $this->successResponse(
+            "Usuarios obtenidos correctamente.",
+            U_userResource::collection($users)
         );
     }
 

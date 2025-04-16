@@ -24,4 +24,9 @@ class T_Carpeta extends Model
     {
         return $this->belongsTo(T_Grupo::class, 'id_grupo');
     }
+
+    public function respuestas()
+    {
+        return $this->hasMany(T_Respuesta::class, 'id_carpeta');
+    }
 }

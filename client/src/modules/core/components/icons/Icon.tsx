@@ -81,6 +81,8 @@ import IconAnonymous from "./tabler/iconAnonymous";
 import IconCalendarTime from "./tabler/iconCalendarTime";
 import IconTimelane from "./tabler/iconTimelane";
 import IconWhatsapp from "./tabler/iconWhatsapp";
+import IconSearch from "./tabler/iconSearch";
+import IconMinusCircle from "./tabler/iconMinusCircle";
 
 export enum ICON {
   CHECK = "check",
@@ -181,6 +183,8 @@ export enum ICON {
   ANONYMOUS = "anonymous",
   TIMELINE = "timeline",
   WHATSAPP = "whatsapp",
+  SEARCH = "search",
+  MINUS_CIRCLE = "minus_circle",
 }
 
 interface Props {
@@ -287,6 +291,8 @@ const Icon = ({ type }: Props) => {
     [ICON.ANONYMOUS]: <IconAnonymous />,
     [ICON.TIMELINE]: <IconTimelane />,
     [ICON.WHATSAPP]: <IconWhatsapp />,
+    [ICON.SEARCH]: <IconSearch />,
+    [ICON.MINUS_CIRCLE]: <IconMinusCircle />,
   };
   return icons[type];
 };

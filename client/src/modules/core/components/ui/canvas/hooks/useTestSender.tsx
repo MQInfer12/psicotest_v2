@@ -23,7 +23,6 @@ export const useTestSender = (
 
   const handleSend = async (form: TestForm[]) => {
     if (!idRespuesta) return;
-    console.log(inititatedTime);
     const finishTime = new Date().getTime();
     const timeMs = finishTime - inititatedTime;
     const timeMins = Number((timeMs / 60000).toFixed(2));

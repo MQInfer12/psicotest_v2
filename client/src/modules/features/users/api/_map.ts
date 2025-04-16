@@ -8,6 +8,11 @@ declare global {
       request: never;
       response: User[];
     };
+    "GET /user/for/search": {
+      params: never;
+      request: never;
+      response: User[];
+    };
     "GET /user/for/patients": {
       params: never;
       request: never;
