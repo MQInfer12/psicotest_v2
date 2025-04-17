@@ -56,8 +56,6 @@ RUN echo "\
 
 RUN echo "\
     #!/bin/sh\n\
-    echo \"Generating .env from environment...\"
-    printenv | grep -E '^(APP_|DB_|GOOGLE_)' > /var/www/html/.env
     echo \"Starting services...\"\n\
     service php8.2-fpm start\n\
     nginx -g \"daemon off;\" &\n\
