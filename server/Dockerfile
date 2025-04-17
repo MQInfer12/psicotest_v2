@@ -31,7 +31,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN apt install -y nginx
 RUN echo "\
     server {\n\
-        listen 80;\n\
+        listen ${PORT};\n\
         listen [::]:80;\n\
         root /var/www/html/public;\n\
         add_header X-Frame-Options \"SAMEORIGIN\";\n\
@@ -52,24 +52,24 @@ RUN echo "\
         location ~ /\.(?!well-known).* {\n\
             deny all;\n\
         }\n\
-    }\n" > /etc/nginx/sites-available/default
+    }\n" > /etc/nginx/sites-available/default.template
 
-RUN echo "\
+RUN echo '\
     #!/bin/sh\n\
-    echo \"Starting services...\"\n\
+    envsubst '\''$PORT'\'' < /etc/nginx/sites-available/default.template > /etc/nginx/sites-available/default\n\
     service php8.2-fpm start\n\
-    nginx -g \"daemon off;\" &\n\
-    echo \"Ready.\"\n\
-    tail -s 1 /var/log/nginx/*.log -f\n\
-    " > /start.sh
+    nginx -g "daemon off;"\n\
+' > /start.sh && chmod +x /start.sh
 
 COPY . /var/www/html
 WORKDIR /var/www/html
 
 RUN chown -R www-data:www-data /var/www/html
 
+RUN chmod -R 775 storage bootstrap/cache
+
 RUN composer install
 
-EXPOSE 80
+EXPOSE 5013
 
 CMD ["sh", "/start.sh"]
