@@ -31,7 +31,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN apt install -y nginx
 RUN echo "\
     server {\n\
-        listen ${PORT};\n\
+        listen 5013;\n\
         listen [::]:80;\n\
         root /var/www/html/public;\n\
         add_header X-Frame-Options \"SAMEORIGIN\";\n\
