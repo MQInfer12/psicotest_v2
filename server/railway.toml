@@ -1,2 +1,2 @@
 [deploy]
-preDeployCommand = ["php artisan storage:link", "php artisan serve"]
+preDeployCommand = ["php artisan storage:link && php artisan serve"]
