@@ -54,17 +54,36 @@ RUN echo "\
         }\n\
     }\n" > /etc/nginx/sites-available/default
 
-RUN echo "\
+    RUN echo "\
     #!/bin/sh\n\
-    echo \"Starting services...\"\n\
+    echo \"Generando archivo .env desde variables de entorno...\"\n\
+    cat <<EOF > /var/www/html/.env\n\
+    APP_NAME=\"\$APP_NAME\"\n\
+    APP_ENV=\"\$APP_ENV\"\n\
+    APP_KEY=\"\$APP_KEY\"\n\
+    APP_DEBUG=\"\$APP_DEBUG\"\n\
+    APP_URL=\"\$APP_URL\"\n\
+    DB_CONNECTION=\"\$DB_CONNECTION\"\n\
+    DB_HOST=\"\$DB_HOST\"\n\
+    DB_PORT=\"\$DB_PORT\"\n\
+    DB_DATABASE=\"\$DB_DATABASE\"\n\
+    DB_USERNAME=\"\$DB_USERNAME\"\n\
+    DB_PASSWORD=\"\$DB_PASSWORD\"\n\
+    GOOGLE_CLIENT_ID=\"\$GOOGLE_CLIENT_ID\"\n\
+    GOOGLE_CLIENT_SECRET=\"\$GOOGLE_CLIENT_SECRET\"\n\
+    EOF\n\
+    chown www-data:www-data /var/www/html/.env\n\
+    echo \"Cacheando configuración de Laravel...\"\n\
+    cd /var/www/html\n\
+    php artisan config:clear && php artisan config:cache\n\
+    echo \"Iniciando servicios...\"\n\
     service php8.2-fpm start\n\
     nginx -g \"daemon off;\" &\n\
-    echo \"Ready.\"\n\
+    echo \"Listo.\"\n\
     tail -s 1 /var/log/nginx/*.log -f\n\
-    " > /start.sh
+" > /start.sh
 
 COPY . /var/www/html
-COPY .env /var/www/html/.env
 WORKDIR /var/www/html
 
 RUN chown -R www-data:www-data /var/www/html
