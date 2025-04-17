@@ -56,6 +56,8 @@ RUN echo "\
 
 RUN echo "\
     #!/bin/sh\n\
+    echo \"Generating .env from environment...\"
+    printenv | grep -E '^(APP_|DB_|GOOGLE_)' > /var/www/html/.env
     echo \"Starting services...\"\n\
     service php8.2-fpm start\n\
     nginx -g \"daemon off;\" &\n\
@@ -64,6 +66,7 @@ RUN echo "\
     " > /start.sh
 
 COPY . /var/www/html
+COPY .env /var/www/html/.env
 WORKDIR /var/www/html
 
 RUN chown -R www-data:www-data /var/www/html
