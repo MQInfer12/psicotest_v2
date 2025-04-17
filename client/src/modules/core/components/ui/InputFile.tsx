@@ -2,7 +2,7 @@ import clsx from "clsx";
 import Button from "./Button";
 import { useEffect, useId, useState } from "react";
 import Appear from "../utils/Appear";
-import Placeholder from "@assets/images/placeholder.png";
+import Placeholder from "@/assets/images/placeholder.png";
 import Icon, { ICON } from "../icons/Icon";
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {

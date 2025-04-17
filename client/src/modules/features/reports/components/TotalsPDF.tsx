@@ -1,4 +1,4 @@
-import PsicotestLogo from "@assets/images/logo-title-2.png";
+import PsicotestLogo from "@/assets/images/logo-title-2.png";
 import { Document, Image, Page, PDFViewer, View } from "@react-pdf/renderer";
 import { Text } from "../../answers/components/interpretation/GptPdf";
 import { getTodayUtc } from "@/modules/core/utils/getTodayUtc";

@@ -1,7 +1,7 @@
 import Psicotest from "@/assets/images/logo.png";
 import PsicotestDark from "@/assets/images/logo-dark.png";
 import Appear from "@/modules/core/components/utils/Appear";
-import Neurall from "@assets/images/Neurall.png";
+import Neurall from "@/assets/images/Neurall.png";
 import clsx from "clsx";
 import { useThemeContext } from "@/modules/core/context/ThemeContext";
 
