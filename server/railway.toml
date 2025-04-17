@@ -1,0 +1,7 @@
+[build]
+builder = "nixpacks"
+buildCommand = "echo building!"
+
+[deploy]
+preDeployCommand = ["php artisan storage:link"]
+startCommand = "echo starting!"
