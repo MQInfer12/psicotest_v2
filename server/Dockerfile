@@ -52,14 +52,16 @@ RUN echo "\
         location ~ /\.(?!well-known).* {\n\
             deny all;\n\
         }\n\
-    }\n" > /etc/nginx/sites-available/default.template
+    }\n" > /etc/nginx/sites-available/default
 
-RUN echo '\
+RUN echo "\
     #!/bin/sh\n\
-    envsubst '\''$PORT'\'' < /etc/nginx/sites-available/default.template > /etc/nginx/sites-available/default\n\
+    echo \"Starting services...\"\n\
     service php8.2-fpm start\n\
-    nginx -g "daemon off;"\n\
-' > /start.sh && chmod +x /start.sh
+    nginx -g \"daemon off;\" &\n\
+    echo \"Ready.\"\n\
+    tail -s 1 /var/log/nginx/*.log -f\n\
+    " > /start.sh
 
 COPY . /var/www/html
 WORKDIR /var/www/html
