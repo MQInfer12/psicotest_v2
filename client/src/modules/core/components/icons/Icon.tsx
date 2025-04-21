@@ -83,6 +83,8 @@ import IconTimelane from "./tabler/iconTimelane";
 import IconWhatsapp from "./tabler/iconWhatsapp";
 import IconSearch from "./tabler/iconSearch";
 import IconMinusCircle from "./tabler/iconMinusCircle";
+import IconCalendarWeek from "./tabler/iconCalendarWeek";
+import IconCalendarUser from "./tabler/iconCalendarUser";
 
 export enum ICON {
   CHECK = "check",
@@ -95,6 +97,8 @@ export enum ICON {
   NOTES = "notes",
   CALENDAR = "calendar",
   CALENDAR_TIME = "calendar_time",
+  CALENDAR_WEEK = "calendar_week",
+  CALENDAR_USER = "calendar_user",
   GOOGLE_CALENDAR = "google_calendar",
   CHAT = "chat",
   BELL = "bell",
@@ -203,6 +207,8 @@ const Icon = ({ type }: Props) => {
     [ICON.NOTES]: <IconNotes />,
     [ICON.CALENDAR]: <IconCalendar />,
     [ICON.CALENDAR_TIME]: <IconCalendarTime />,
+    [ICON.CALENDAR_WEEK]: <IconCalendarWeek />,
+    [ICON.CALENDAR_USER]: <IconCalendarUser />,
     [ICON.GOOGLE_CALENDAR]: <IconGoogleCalendar />,
     [ICON.CHAT]: <IconChat />,
     [ICON.BELL]: <IconBell />,

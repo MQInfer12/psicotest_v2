@@ -82,11 +82,18 @@ const PreAppointmentForm = ({
     },
   });
 
+  const [prevCarrera, setPrevCarrera] = useState<string | undefined>(
+    user?.carrera ?? undefined
+  );
   const carrera = watch("carrera");
   const carreraSelected = CAREERS.find((c) => c.name === carrera);
 
-  //@ts-expect-error: Semestre can be setted to empty string
-  useEffect(() => setValue("semestre", ""), [carrera]);
+  useEffect(() => {
+    if (prevCarrera === carrera) return;
+    setPrevCarrera(carrera);
+    //@ts-expect-error: Semestre can be setted to empty string
+    setValue("semestre", "");
+  }, [carrera]);
 
   return (
     <form

@@ -240,7 +240,7 @@ const ScheduleCard = ({
                 <Button
                   btnSize="small"
                   icon={Icon.Types.PENCIL}
-                  title="Ver en mi calendario de Google"
+                  title="Atender la cita con el paciente"
                   onClick={(e) => {
                     e.stopPropagation();
                     navigate({
@@ -251,7 +251,7 @@ const ScheduleCard = ({
                     });
                   }}
                 >
-                  Llenar
+                  Atender
                 </Button>
               </div>
             )}

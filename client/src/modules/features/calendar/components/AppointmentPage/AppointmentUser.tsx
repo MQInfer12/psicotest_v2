@@ -19,6 +19,8 @@ import AppointmentReprogramming from "./AppointmentReprogramming";
 import UserResume from "./UserResume";
 import AppointmentReconsult from "./AppointmentReconsult";
 import { SetData } from "@/modules/core/hooks/useFetch/getSetData";
+import AppointmentUserContractButton from "./AppointmentUserContractButton";
+import { useUserContext } from "@/modules/features/auth/context/UserContext";
 
 interface Props {
   id: number;
@@ -31,9 +33,28 @@ interface Props {
   }>;
 }
 
+function abreviaturaOrdinal(numero: number) {
+  const abreviaturas: Record<number, string> = {
+    1: "1er",
+    2: "2do",
+    3: "3er",
+    4: "4to",
+    5: "5to",
+    6: "6to",
+    7: "7mo",
+    8: "8vo",
+    9: "9no",
+    10: "10mo",
+    11: "11vo",
+    12: "12vo",
+  };
+  return abreviaturas[numero] || `${numero}°`;
+}
+
 const AppointmentUser = ({ id, user, cita, setData, hasPassed }: Props) => {
   const { modal, setOpen } = useModal();
   const navigate = useNavigate();
+  const { user: me } = useUserContext();
 
   const DATA = [
     {
@@ -53,8 +74,20 @@ const AppointmentUser = ({ id, user, cita, setData, hasPassed }: Props) => {
       icon: Icon.Types.CAKE,
     },
     {
+      title: "Carrera",
+      value: user.carrera
+        ? `${user.carrera} ${user.semestre ? `(${abreviaturaOrdinal(user.semestre)} sem.)` : ""}`
+        : "-",
+      icon: Icon.Types.CAREER,
+    },
+    {
+      title: "Código estudiantil",
+      value: user.codigo_estudiantil || "-",
+      icon: Icon.Types.BARCODE,
+    },
+    {
       title: "Teléfono",
-      value: user.telefono ? String(user.telefono) : "-",
+      value: user.telefono ? `${user.telefono} (${user.nombre})` : "-",
       icon: Icon.Types.PHONE,
       onClick: () => {
         if (!user.telefono) return;
@@ -63,28 +96,12 @@ const AppointmentUser = ({ id, user, cita, setData, hasPassed }: Props) => {
       disabled: !user.telefono,
     },
     {
-      title: "Carrera",
-      value: user.carrera || "-",
-      icon: Icon.Types.CAREER,
-    },
-    {
-      title: "Semestre",
-      value: user.semestre ? `Semestre ${user.semestre}` : "-",
-      icon: Icon.Types.PROGRESS,
-    },
-    {
-      title: "Código estudiantil",
-      value: user.codigo_estudiantil || "-",
-      icon: Icon.Types.BARCODE,
-    },
-    {
       title: "Nombre del tutor",
-      value: user.nombre_tutor || "-",
-      icon: Icon.Types.CONTACT,
-    },
-    {
-      title: "Teléfono del tutor",
-      value: user.telefono_tutor ? String(user.telefono_tutor) : "-",
+      value: user.nombre_tutor
+        ? user.telefono_tutor
+          ? `${user.telefono_tutor} (${user.nombre_tutor})`
+          : user.nombre_tutor
+        : "-",
       icon: Icon.Types.CONTACTPHONE,
       onClick: () => {
         if (!user.telefono_tutor) return;
@@ -92,34 +109,53 @@ const AppointmentUser = ({ id, user, cita, setData, hasPassed }: Props) => {
       },
       disabled: !user.telefono_tutor,
     },
-    {
-      title: "Citas anteriores",
-      value: `${user.contador_citas} cita${user.contador_citas !== 1 ? "s" : ""} previa${user.contador_citas !== 1 ? "s" : ""}`,
-      icon: Icon.Types.CALENDAR,
-      onClick: () => {
-        navigate({
-          to: "/patients/$id",
-          params: {
-            id: user.email,
-          },
-          search: {
-            returnTo: validateRoute("/calendar/$id", {
-              id: String(id),
-            }),
-          },
-        });
-      },
-    },
-    {
-      title: "Última cita",
-      value: user.fecha_ultima_cita
-        ? `${formatDate(user.fecha_ultima_cita)} (${getRelativeTime(
-            user.fecha_ultima_cita
-          )})`
-        : "Nunca",
-      icon: Icon.Types.TIMELINE,
-    },
   ];
+
+  if (!hasPassed) {
+    DATA.push(
+      {
+        title: "Citas anteriores",
+        value: `${user.contador_citas} cita${user.contador_citas !== 1 ? "s" : ""} previa${user.contador_citas !== 1 ? "s" : ""}`,
+        icon: Icon.Types.CALENDAR_WEEK,
+        onClick: () => {
+          navigate({
+            to: "/patients/$id",
+            params: {
+              id: user.email,
+            },
+            search: {
+              returnTo: validateRoute("/calendar/$id", {
+                id: String(id),
+              }),
+            },
+          });
+        },
+        disabled: false,
+      },
+      {
+        title: "Última cita",
+        value: user.fecha_ultima_cita
+          ? `${formatDate(user.fecha_ultima_cita)} (${getRelativeTime(
+              user.fecha_ultima_cita
+            )})`
+          : "Nunca",
+        icon: Icon.Types.TIMELINE,
+      }
+    );
+  }
+
+  DATA.push(
+    {
+      title: "Cita actual",
+      value: `${formatDate(cita.fecha)} ${hasPassed ? `(${getRelativeTime(cita.fecha)})` : `(${cita.hora_inicio.slice(0, 5)} - ${cita.hora_final.slice(0, 5)})`}`,
+      icon: Icon.Types.CALENDAR,
+    },
+    {
+      title: "Psicólogo",
+      value: `${cita.nombre_psicologo} ${cita.email_psicologo === me?.email ? "(Tú)" : ""}`,
+      icon: Icon.Types.CALENDAR_USER,
+    }
+  );
 
   const tabs: AnswerCardTemplateTab[] = [
     {
@@ -138,16 +174,15 @@ const AppointmentUser = ({ id, user, cita, setData, hasPassed }: Props) => {
                   }}
                 />
               </div>
-              <div className="flex justify-between gap-4">
+              <div className="flex justify-between gap-2">
                 <Button
                   className="w-full"
                   btnSize="small"
                   btnType="secondary"
                   icon={Icon.Types.PENCIL}
                   onClick={() => setOpen(true)}
-                >
-                  Editar
-                </Button>
+                />
+                <AppointmentUserContractButton user={user} />
               </div>
             </div>
             <div className="h-full max-lg:w-full flex-1 py-1 flex flex-col overflow-hidden">

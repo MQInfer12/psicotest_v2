@@ -41,7 +41,9 @@ const FichaForm = ({ paciente, cita, onSuccess, disabled, preview }: Props) => {
     watch,
   } = useForm({
     defaultValues: {
-      metodo: cita.metodo ?? (paciente.contador_citas > 0 ? "Reconsulta" : ""),
+      metodo:
+        cita.metodo ??
+        (paciente.contador_citas > 0 && !disabled ? "Reconsulta" : ""),
       motivo: cita.motivo ?? "",
       antecedentes: cita.antecedentes ?? "",
       observaciones: cita.observaciones ?? "",
@@ -126,10 +128,7 @@ const FichaForm = ({ paciente, cita, onSuccess, disabled, preview }: Props) => {
             metodo === MetodoConsulta.Reconsulta
               ? citas
                   ?.filter((cita) => !!cita.antecedentes)
-                  .map(
-                    (cita, index) =>
-                      `${index + 1}. ` + cita.antecedentes + "\n\n"
-                  )
+                  .map((cita) => cita.antecedentes + "\n\n")
                   .join("")
               : undefined
           }

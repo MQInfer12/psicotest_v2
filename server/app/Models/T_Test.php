@@ -37,23 +37,28 @@ class T_Test extends Model
 
     public function evaluados($user)
     {
-        $versiones = $this->versions->pluck('id');
+        $versiones = $this->versions()->pluck('id');
 
-        $respuestasSinClasificacion = T_Respuesta::whereNull('id_carpeta')
+        $evaluadosSinClasificacion = T_Respuesta::whereNull('id_carpeta')
             ->whereIn('id_test_version', $versiones)
             ->where('email_asignador', $user->email)
+            ->with('user')
             ->get()
-            ->map(fn($respuesta) => $respuesta->user);
+            ->pluck('user');
 
-        $respuestasTotales = $user->carpetasTotales()
-            ->flatMap(fn($carpeta) => $carpeta->respuestas->filter(fn($respuesta) => $respuesta->test_version->id_test == $this->id)
-                ->map(fn($respuesta) => $respuesta->user));
+        $evaluadosTotales = $user->carpetasTotales()
+            ->load('respuestas.test_version', 'respuestas.user')
+            ->flatMap(
+                fn($carpeta) => $carpeta->respuestas
+                    ->filter(fn($respuesta) => $respuesta->test_version->id_test == $this->id)
+                    ->pluck('user')
+            );
 
-        $respuestasTotales = $respuestasTotales->merge($respuestasSinClasificacion)
+        $evaluadosTotales = $evaluadosTotales->merge($evaluadosSinClasificacion)
             ->unique('email')
             ->sortBy('email')
             ->values();
-
-        return $respuestasTotales;
+            
+       return $evaluadosTotales;
     }
 }

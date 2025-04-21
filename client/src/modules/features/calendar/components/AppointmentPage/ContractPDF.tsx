@@ -1,19 +1,23 @@
 import { formatDate } from "@/modules/core/utils/formatDate";
+import { measureAge } from "@/modules/core/utils/measureAge";
 import { Text } from "@/modules/features/answers/components/interpretation/GptPdf";
 import { User } from "@/modules/features/users/api/responses";
 import { Document, Page, PDFViewer, View } from "@react-pdf/renderer";
-import { stringFromDate } from "../../utils/stringFromDate";
 import dayjs from "dayjs";
-import { measureAge } from "@/modules/core/utils/measureAge";
+import { stringFromDate } from "../../utils/stringFromDate";
+import { useUserContext } from "@/modules/features/auth/context/UserContext";
 import { getTodayUtc } from "@/modules/core/utils/getTodayUtc";
 
 interface Props {
   user: User;
-  fecha: string;
-  nombre_psicologo: string;
 }
 
-const ContractPDF = ({ user, fecha, nombre_psicologo }: Props) => {
+const ContractPDF = ({ user }: Props) => {
+  const { user: me } = useUserContext();
+
+  const nombre_psicologo = me?.nombre ?? "-";
+  const fecha = getTodayUtc();
+
   const { date, day, month, year } = stringFromDate(dayjs(fecha));
 
   const CI = user.codigo_estudiantil?.slice(3);
@@ -27,9 +31,6 @@ const ContractPDF = ({ user, fecha, nombre_psicologo }: Props) => {
             padding: 72,
           }}
         >
-          <View fixed style={{ position: "absolute", top: 50, right: 72 }}>
-            <Text>{formatDate(getTodayUtc())}</Text>
-          </View>
           <Text
             style={{
               textAlign: "center",
@@ -149,8 +150,10 @@ const ContractPDF = ({ user, fecha, nombre_psicologo }: Props) => {
               marginTop: 8,
             }}
           >
-            Conforme a lo anterior expuesto, firmamos en Cochabamba a {day}{" "}
-            {date} de {month} del {year}
+            Conforme a lo anterior expuesto, firmamos en Cochabamba a{" "}
+            <Text style={{ fontWeight: 700 }}>
+              {day} {date} de {month} del {year}
+            </Text>
           </Text>
           <View
             style={{
