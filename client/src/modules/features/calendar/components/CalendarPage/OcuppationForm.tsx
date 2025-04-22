@@ -5,7 +5,11 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { OcuppationDTOSchema } from "../../validations/OcuppationDTO.schema";
 import { OcuppationDTO } from "../../api/dtos";
-import { toastConfirm, toastSuccess } from "@/modules/core/utils/toasts";
+import {
+  toastConfirm,
+  toastSuccess,
+  toastWarning,
+} from "@/modules/core/utils/toasts";
 import { Ocuppation } from "../../api/responses";
 import Button from "@/modules/core/components/ui/Button";
 import { getTodayUtc } from "@/modules/core/utils/getTodayUtc";
@@ -45,6 +49,11 @@ const OcuppationForm = ({ ocupacion, onSuccess, onSuccessDelete }: Props) => {
       postMutation(form, {
         onSuccess: (res) => {
           toastSuccess(res.message);
+          if (res.data.citas_colindantes_count > 0) {
+            toastWarning(
+              "La ocupación tiene citas colindantes, coordina con el paciente para reprogramarlas o cancelarlas."
+            );
+          }
           onSuccess(res.data);
         },
         onSettled: () => {
@@ -58,6 +67,12 @@ const OcuppationForm = ({ ocupacion, onSuccess, onSuccessDelete }: Props) => {
         },
         onSuccess: (res) => {
           toastSuccess(res.message);
+          console.log(res.data);
+          if (res.data.citas_colindantes_count > 0) {
+            toastWarning(
+              "La ocupación tiene citas colindantes, coordina con el paciente para reprogramarlas o cancelarlas."
+            );
+          }
           onSuccess(res.data);
         },
         onSettled: () => {

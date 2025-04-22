@@ -6,9 +6,10 @@ import ContractPDF from "./ContractPDF";
 
 interface Props {
   user: User;
+  full?: boolean;
 }
 
-const AppointmentUserContractButton = ({ user }: Props) => {
+const AppointmentUserContractButton = ({ user, full }: Props) => {
   const { modal: modalContract, setOpen: setOpenContract } = useModal();
 
   return (
@@ -27,7 +28,9 @@ const AppointmentUserContractButton = ({ user }: Props) => {
         btnType="secondary"
         icon={Icon.Types.PDF}
         onClick={() => setOpenContract(true)}
-      />
+      >
+        {full ? "Imprimir contrato" : ""}
+      </Button>
     </>
   );
 };

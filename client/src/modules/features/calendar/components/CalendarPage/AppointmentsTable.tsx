@@ -237,7 +237,7 @@ const AppointmentsTable = ({ isProfile, data }: Props) => {
             setFilters,
           }}
         >
-          <TableHeader>
+          <TableHeader rowsName="citas previas" rowsNameSingular="cita previa">
             <AppointmentPassedFilters />
           </TableHeader>
         </AppointmentPassedContextProvider>

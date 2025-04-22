@@ -14,8 +14,14 @@ const OcuppationCard = ({ ocupacion, onClick }: Props) => {
     <button
       onClick={onClick}
       title={ocupacion.descripcion}
-      className="hover:-translate-y-1 hover:shadow-primary-200 dark:hover:shadow-primary-800/20 transition-all duration-200 flex justify-center py-4 h-20 bg-white dark:bg-alto-1000 rounded-lg shadow-md border border-alto-300/70 dark:border-alto-900 text-alto-950 dark:text-alto-50 overflow-hidden text-start"
+      className="relative hover:-translate-y-1 hover:shadow-primary-200 dark:hover:shadow-primary-800/20 transition-all duration-200 flex justify-center py-4 h-24 bg-white dark:bg-alto-1000 rounded-lg shadow-md border border-alto-300/70 dark:border-alto-900 text-alto-950 dark:text-alto-50 overflow-hidden text-start"
     >
+      {ocupacion.citas_colindantes_count > 0 && (
+        <span className="absolute bottom-0 right-0 bg-danger text-xs px-2 text-white pt-[2px] rounded-tl-md">
+          {ocupacion.citas_colindantes_count} cita
+          {ocupacion.citas_colindantes_count === 1 ? "" : "s"} en este horario
+        </span>
+      )}
       <div className="flex flex-col justify-center items-center w-20">
         <p className="text-xs">{day.slice(0, 3).toLocaleLowerCase()}</p>
         <strong className="text-2xl">{date}</strong>

@@ -1,14 +1,14 @@
-import useFetch from "@/modules/core/hooks/useFetch/useFetch";
-import { useUserContext } from "../../auth/context/UserContext";
-import { Navigate } from "@tanstack/react-router";
-import Loader from "@/modules/core/components/ui/loader/Loader";
-import PreAppointmentForm from "../../calendar/components/CalendarPage/PreAppointmentForm";
-import { useMeasureContext } from "../../_layout/context/MeasureContext";
 import DefaultPhoto from "@/assets/images/defaultPhoto.jpg";
-import AppointmentsTable from "../../calendar/components/CalendarPage/AppointmentsTable";
-import clsx from "clsx";
-import AnswerCardTemplate from "../../answers/components/AnswerCardTemplate";
+import Loader from "@/modules/core/components/ui/loader/Loader";
+import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import { toastSuccess } from "@/modules/core/utils/toasts";
+import { Navigate } from "@tanstack/react-router";
+import clsx from "clsx";
+import { useMeasureContext } from "../../_layout/context/MeasureContext";
+import { useUserContext } from "../../auth/context/UserContext";
+import AppointmentUserContractButton from "../../calendar/components/AppointmentPage/AppointmentUserContractButton";
+import AppointmentsTable from "../../calendar/components/CalendarPage/AppointmentsTable";
+import PreAppointmentForm from "../../calendar/components/CalendarPage/PreAppointmentForm";
 
 interface Props {
   email?: string;
@@ -103,15 +103,19 @@ const Profile = ({ email }: Props) => {
         />
       </div>
       {email && (
-        <AnswerCardTemplate
-          gridArea="table"
-          tabs={[
-            {
-              title: "Citas previas",
-              component: <AppointmentsTable isProfile={data} data={citas} />,
-            },
-          ]}
-        />
+        <div
+          style={{
+            gridArea: "table",
+          }}
+          className="w-full h-full flex-1 flex flex-col gap-4 overflow-hidden"
+        >
+          <div className="self-end">
+            <AppointmentUserContractButton user={data} full />
+          </div>
+          <div className="flex flex-1 flex-col border border-alto-300/70 dark:border-alto-900 rounded-lg overflow-hidden">
+            <AppointmentsTable isProfile={data} data={citas} />
+          </div>
+        </div>
       )}
     </div>
   );

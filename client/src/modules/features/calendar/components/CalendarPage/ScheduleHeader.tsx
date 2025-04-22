@@ -55,8 +55,8 @@ const ScheduleHeader = () => {
         bodyPadding: false,
       })}
       <div className="flex flex-col gap-4">
-        <header className="h-10 flex items-center justify-between">
-          <strong className="text-primary-900 dark:text-primary-400">
+        <header className="h-10 flex justify-between">
+          <strong className="text-primary-900 dark:text-primary-400 self-center">
             Mi horario
           </strong>
           <div className="flex gap-4">
@@ -79,7 +79,6 @@ const ScheduleHeader = () => {
               icon={Icon.Types.CLOCK}
               subicon={Icon.Types.ADD}
               textClassname="max-sm:hidden"
-              reverse
             >
               Horario
             </Button>
@@ -90,7 +89,6 @@ const ScheduleHeader = () => {
               icon={Icon.Types.CLOCK}
               subicon={Icon.Types.MINUS}
               textClassname="max-sm:hidden"
-              reverse
             >
               Ocupación
             </Button>

@@ -131,6 +131,7 @@ const BlogsPage = ({ view = BlogsView.ALL }: Props) => {
                   },
                 });
               }}
+              btnType="secondary"
               btnSize="small"
               icon={Icon.Types.ADD}
             >

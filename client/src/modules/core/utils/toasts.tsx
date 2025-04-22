@@ -23,6 +23,18 @@ export const toastSuccess = (message: string, data?: Options) => {
   });
 };
 
+export const toastWarning = (message: string, data?: Options) => {
+  toast(data?.title || "Advertencia", {
+    icon: (
+      <div className="w-5 h-5 text-amber-500">
+        <Icon type={Icon.Types.INFO} />
+      </div>
+    ),
+    description: message,
+    ...data,
+  });
+};
+
 export const toastError = (message: string, data?: Options) => {
   toast(data?.title || "Error", {
     icon: (

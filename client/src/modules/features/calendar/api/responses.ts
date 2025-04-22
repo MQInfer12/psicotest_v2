@@ -41,4 +41,5 @@ export interface Ocuppation {
   fecha: string;
   hora_inicio: string;
   hora_final: string;
+  citas_colindantes_count: number;
 }

@@ -5,9 +5,17 @@ interface Props {
   folders?: number[];
   children?: React.ReactNode;
   text?: string;
+  rowsName?: string;
+  rowsNameSingular?: string;
 }
 
-const TableHeader = ({ children, folders, text }: Props) => {
+const TableHeader = ({
+  children,
+  folders,
+  text,
+  rowsName = "filas",
+  rowsNameSingular = "fila",
+}: Props) => {
   const { selectedRows, totalRows, resetSelectedRows } = useTableContext();
 
   useEffect(() => {
@@ -19,7 +27,8 @@ const TableHeader = ({ children, folders, text }: Props) => {
       {children}
       <div className="w-full flex justify-between text-alto-950 dark:text-alto-50">
         <small className="text-[10px] font-semibold px-3">
-          {text ?? `${totalRows} filas`}
+          {text ??
+            `${totalRows} ${totalRows === 1 ? rowsNameSingular : rowsName}`}
         </small>
         {selectedRows.length > 0 && (
           <small className="text-[10px] font-semibold px-3">

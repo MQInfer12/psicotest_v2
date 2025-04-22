@@ -17,7 +17,7 @@ const TemplatePage = () => {
       style={{
         paddingInline: PRIVATE_PADDING_INLINE,
       }}
-      className="w-full flex flex-col items-center pb-20 gap-12 flex-1 overflow-y-scroll overflow-x-hidden"
+      className="w-full flex flex-col items-center pb-20 gap-12 flex-1 overflow-y-auto overflow-x-hidden"
     >
       <div className="w-full flex gap-4 justify-between items-center">
         <span />
@@ -28,6 +28,7 @@ const TemplatePage = () => {
                 to: "/templates/create",
               })
             }
+            btnType="secondary"
             btnSize="small"
             icon={Icon.Types.ADD}
           >
