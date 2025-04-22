@@ -21,6 +21,8 @@ import {
 import { stringFromDate } from "../../utils/stringFromDate";
 import AppointmentHistory from "../AppointmentPage/AppointmentHistory";
 import AppointmentPassedFilters from "./AppointmentPassedFilters";
+import { validateRoute } from "@/modules/features/_layout/components/breadcrumb/utils/validateRoute";
+import { useReturnTo } from "@/modules/core/hooks/navigation/useReturnTo";
 
 const columnHelper = createColumnHelper<Appointment>();
 
@@ -36,7 +38,8 @@ const AppointmentsTable = ({ isProfile, data }: Props) => {
     type: "nombre",
     value: "",
   });
-  const { modal, setOpen } = useModal<Appointment>();
+  const { modal, setOpen: _setOpen } = useModal<Appointment>();
+  const { goWithReturnTo } = useReturnTo();
 
   const columns = useMemo(
     () => [
@@ -196,9 +199,21 @@ const AppointmentsTable = ({ isProfile, data }: Props) => {
           isProfile
             ? [
                 {
-                  fn: (row) => setOpen(row),
+                  fn: (row) => {
+                    navigate({
+                      to: "/calendar/$id",
+                      params: { id: String(row.id) },
+                      search: {
+                        returnTo: goWithReturnTo(
+                          validateRoute("/patients/$id", {
+                            id: row.email_paciente,
+                          })
+                        ),
+                      },
+                    });
+                  },
                   icon: Icon.Types.EYE,
-                  title: "Ver",
+                  title: "Ver cita previa",
                   type: "secondary",
                 },
               ]

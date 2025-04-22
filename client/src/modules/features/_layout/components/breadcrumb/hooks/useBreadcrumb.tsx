@@ -8,7 +8,7 @@ interface Breadcrumb {
   icon?: ICON;
 }
 
-export const useBreadcrumb = (path?: string) => {
+export const useBreadcrumb = (path?: string | null) => {
   const { pathname } = useLocation();
 
   const route_history = (path ?? pathname)

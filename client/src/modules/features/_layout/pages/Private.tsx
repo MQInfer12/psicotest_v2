@@ -30,6 +30,7 @@ import { useMeasureContext } from "../context/MeasureContext";
 import UnifranzLogo from "@/assets/images/unifranz-logo.png";
 import UnifranzLogoDark from "@/assets/images/unifranz-logo-dark.png";
 import { useThemeContext } from "@/modules/core/context/ThemeContext";
+import { useReturnTo } from "@/modules/core/hooks/navigation/useReturnTo";
 
 const Dashboard = () => {
   const { pathname, search } = useLocation();
@@ -42,7 +43,8 @@ const Dashboard = () => {
   const fromLogoutRef = useRef(false);
 
   //@ts-ignore
-  const returnTo: string | undefined = search.returnTo;
+  const { returnTo, goBackWithReturnTo } = useReturnTo();
+
   const returnToBreadcrumb = useBreadcrumb(returnTo);
   const returnToObj = returnToBreadcrumb[returnToBreadcrumb.length - 1];
 
@@ -217,9 +219,7 @@ const Dashboard = () => {
                     className="relative flex items-center justify-center text-alto-700 dark:text-alto-400 hover:text-primary-900/70 transition-all duration-300 pr-2"
                     onClick={() => {
                       if (returnTo) {
-                        navigate({
-                          to: returnTo,
-                        });
+                        goBackWithReturnTo();
                         return;
                       }
                       if (activeBreadcrumb.length > 1) {

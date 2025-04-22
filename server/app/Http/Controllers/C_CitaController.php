@@ -82,8 +82,15 @@ class C_CitaController extends Controller
     {
         $cita = C_Cita::findOrFail($id);
 
-        if ($cita->email_psicologo != request()->user()->email) {
-            return $this->wrongResponse("No tienes permisos para ver esta cita.");
+        $me = request()->user();
+
+        if ($cita->email_psicologo != $me->email) {
+            $citas = C_Cita::where('email_paciente', $cita->email_paciente)
+                ->where('email_psicologo', $me->email)
+                ->get();
+            if ($citas->isEmpty()) {
+                return $this->wrongResponse("No tienes permisos para ver esto.");
+            }
         }
 
         return $this->successResponse(

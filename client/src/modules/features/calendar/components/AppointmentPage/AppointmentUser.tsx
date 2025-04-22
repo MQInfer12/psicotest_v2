@@ -21,6 +21,7 @@ import AppointmentReconsult from "./AppointmentReconsult";
 import { SetData } from "@/modules/core/hooks/useFetch/getSetData";
 import AppointmentUserContractButton from "./AppointmentUserContractButton";
 import { useUserContext } from "@/modules/features/auth/context/UserContext";
+import { useReturnTo } from "@/modules/core/hooks/navigation/useReturnTo";
 
 interface Props {
   id: number;
@@ -55,6 +56,7 @@ const AppointmentUser = ({ id, user, cita, setData, hasPassed }: Props) => {
   const { modal, setOpen } = useModal();
   const navigate = useNavigate();
   const { user: me } = useUserContext();
+  const { goWithReturnTo } = useReturnTo();
 
   const DATA = [
     {
@@ -124,9 +126,11 @@ const AppointmentUser = ({ id, user, cita, setData, hasPassed }: Props) => {
               id: user.email,
             },
             search: {
-              returnTo: validateRoute("/calendar/$id", {
-                id: String(id),
-              }),
+              returnTo: goWithReturnTo(
+                validateRoute("/calendar/$id", {
+                  id: String(id),
+                })
+              ),
             },
           });
         },
@@ -196,9 +200,11 @@ const AppointmentUser = ({ id, user, cita, setData, hasPassed }: Props) => {
                       id: user.email,
                     },
                     search: {
-                      returnTo: validateRoute("/calendar/$id", {
-                        id: String(id),
-                      }),
+                      returnTo: goWithReturnTo(
+                        validateRoute("/calendar/$id", {
+                          id: String(id),
+                        })
+                      ),
                     },
                   });
                 }}

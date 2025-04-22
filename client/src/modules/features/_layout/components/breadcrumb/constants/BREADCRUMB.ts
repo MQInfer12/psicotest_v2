@@ -74,6 +74,7 @@ export const BREADCRUMB: Breadcrumb[] = [
   {
     name: "Detalles del paciente",
     match: "/patients/$id",
+    icon: Icon.Types.PATIENT,
   },
   {
     name: "Gabinete",
