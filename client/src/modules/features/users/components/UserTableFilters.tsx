@@ -115,8 +115,8 @@ const UserTableFilters = () => {
             onClick={() => setShowAnonymous((prev) => !prev)}
             title={
               showAnonymous
-                ? "Ocultar usuarios anónimos"
-                : "Mostrar usuarios anónimos"
+                ? "Mostrando usuarios anónimos"
+                : "Ocultando usuarios anónimos"
             }
           />
         </div>

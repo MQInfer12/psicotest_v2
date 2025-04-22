@@ -12,24 +12,30 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
 import { useMeasureContext } from "../../_layout/context/MeasureContext";
 import { User } from "../api/responses";
+import PatientTableFilters from "../components/PatientTableFilters";
 import UserForm from "../components/UserForm";
-import UserTableFilters from "../components/UserTableFilters";
 import {
-  UserTableContextProvider,
-  UserTableFiltersState,
-} from "../context/UserTableContext";
+  PatientTableContextProvider,
+  PatientTableFiltersState,
+} from "../context/PatientTableContext";
 
 const columnHelper = createColumnHelper<User>();
 
 const PatientPage = () => {
-  const [filters, setFilters] = useState<UserTableFiltersState>({
+  const [filters, setFilters] = useState<PatientTableFiltersState>({
     type: "nombre",
     value: "",
   });
+  const [showMine, setShowMine] = useState(false);
+
   const { modal, setOpen } = useModal<User>();
   const { fetchData } = useFetch();
-  const { data, setData } = fetchData("GET /user/for/patients");
-  const { data: roles } = fetchData("GET /rol");
+  const { data, setData } = fetchData("GET /user/for/patients", {
+    params: {
+      solo_mios: String(showMine),
+    },
+  });
+
   const { PRIVATE_PADDING_INLINE } = useMeasureContext();
   const navigate = useNavigate();
 
@@ -128,12 +134,9 @@ const PatientPage = () => {
           console.log(value, v.genero);
           if (!v.genero) return value === "Sin especificar";
           return v.genero === value;
-        case "estado":
+        case "carrera":
           if (!value) return true;
-          return v.estado ? value === "Activo" : value === "Inactivo";
-        case "rol":
-          if (!value) return true;
-          return String(v.id_rol) === value;
+          return v.carrera === value;
         default:
           return true;
       }
@@ -168,17 +171,18 @@ const PatientPage = () => {
         columns={columns}
         data={filteredData}
       >
-        <UserTableContextProvider
+        <PatientTableContextProvider
           value={{
-            roles,
             filters,
             setFilters,
+            showMine,
+            setShowMine,
           }}
         >
           <TableHeader>
-            <UserTableFilters />
+            <PatientTableFilters />
           </TableHeader>
-        </UserTableContextProvider>
+        </PatientTableContextProvider>
       </Table>
       {modal("Formulario de usuario", (item) => (
         <UserForm

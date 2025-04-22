@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\Permisos;
 use App\Http\Requests\C_CitaIndexRequest;
 use App\Http\Requests\C_CitaRespuestaRequest;
 use App\Http\Requests\C_CitaRespuestaStatusRequest;
@@ -18,6 +19,7 @@ use App\Models\U_user;
 use App\Traits\ApiResponse;
 use App\Traits\GoogleAPIs;
 use App\Traits\GoogleCalendarTrait;
+use App\Traits\PermisosTrait;
 use App\Traits\TimeTrait;
 use Illuminate\Http\Request;
 
@@ -27,6 +29,7 @@ class C_CitaController extends Controller
     use GoogleAPIs;
     use GoogleCalendarTrait;
     use TimeTrait;
+    use PermisosTrait;
 
     //region GETs
 
@@ -84,13 +87,19 @@ class C_CitaController extends Controller
 
         $me = request()->user();
 
-        if ($cita->email_psicologo != $me->email) {
+        $puede_ver_todas = $this->tienePermiso($me, Permisos::ADMINISTRAR_PACIENTES);
+
+        if ($cita->email_psicologo != $me->email && !$puede_ver_todas) {
             $citas = C_Cita::where('email_paciente', $cita->email_paciente)
                 ->where('email_psicologo', $me->email)
                 ->get();
             if ($citas->isEmpty()) {
                 return $this->wrongResponse("No tienes permisos para ver esto.");
             }
+        }
+
+        if ($puede_ver_todas && $cita->fecha >= $this->get_now_local()->format('Y-m-d')) {
+            return $this->wrongResponse("No tienes permisos para ver esto.");
         }
 
         return $this->successResponse(

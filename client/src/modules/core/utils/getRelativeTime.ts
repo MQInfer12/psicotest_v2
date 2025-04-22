@@ -3,6 +3,7 @@ export function getRelativeTime(date: string) {
 
   const now = new Date();
   const dateObj = new Date(date);
+  dateObj.setHours(dateObj.getHours() + 4);
 
   const diff = now.getTime() - dateObj.getTime(); // Diferencia en milisegundos
 

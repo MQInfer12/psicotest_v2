@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\Permisos;
 use App\Http\Requests\U_userChangeRolRequest;
 use App\Http\Requests\U_userStoreRequest;
 use App\Http\Requests\U_userUpdateRequest;
@@ -11,11 +12,13 @@ use App\Models\T_Test;
 use App\Models\U_Rol;
 use App\Models\U_user;
 use App\Traits\ApiResponse;
+use App\Traits\PermisosTrait;
 use Illuminate\Http\Request;
 
 class U_userController extends Controller
 {
     use ApiResponse;
+    use PermisosTrait;
 
     public function index()
     {
@@ -28,10 +31,18 @@ class U_userController extends Controller
 
     public function indexForPatients(Request $request)
     {
-        $citas = C_Cita::where('email_psicologo', $request->user()->email)
+        $solo_mios = $request->query('solo_mios', 'true') == 'true';
+
+        $puede_ver_todos = $this->tienePermiso($request->user(), Permisos::ADMINISTRAR_PACIENTES);
+
+        $citas = C_Cita::when(!$puede_ver_todos || $solo_mios, function ($query) use ($request) {
+            $query->where('email_psicologo', $request->user()->email);
+        })
             ->with('paciente')
             ->get();
+
         $pacientes = $citas->pluck('paciente')->unique('email')->values();
+
         return $this->successResponse(
             "Pacientes obtenidos correctamente.",
             U_userResource::collection($pacientes)
@@ -94,9 +105,14 @@ class U_userController extends Controller
 
     public function showProfile(Request $request, string $email)
     {
-        $citas = C_Cita::where('email_psicologo', $request->user()->email)
+        $puede_ver_todos = $this->tienePermiso($request->user(), Permisos::ADMINISTRAR_PACIENTES);
+
+        $citas = C_Cita::when(!$puede_ver_todos, function ($query) use ($request) {
+            $query->where('email_psicologo', $request->user()->email);
+        })
             ->with('paciente')
             ->get();
+
         $pacientes = $citas->pluck('paciente')->unique('email')->values();
 
         if (!$pacientes->contains('email', $email)) {
