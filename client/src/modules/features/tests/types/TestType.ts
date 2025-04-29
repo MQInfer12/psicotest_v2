@@ -10,6 +10,9 @@ export enum Requirements {
   TELEFONO = "telefono",
   NOMBRE_TUTOR = "nombre_tutor",
   TELEFONO_TUTOR = "telefono_tutor",
+  CARRERA = "carrera",
+  SEMESTRE = "semestre",
+  CODIGO_ESTUDIANTIL = "codigo_estudiantil",
 }
 
 export interface Item {

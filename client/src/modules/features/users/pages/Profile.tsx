@@ -15,7 +15,7 @@ interface Props {
 }
 
 const Profile = ({ email }: Props) => {
-  const { user } = useUserContext();
+  const { user, setUser } = useUserContext();
   const { size, PRIVATE_PADDING_INLINE } = useMeasureContext();
   const isSmall = size !== "normal";
 
@@ -79,7 +79,7 @@ const Profile = ({ email }: Props) => {
           style={{
             gridArea: "photo",
           }}
-          className="w-20 h-20 rounded-md border-4 border-white dark:border-alto-400 shadow-lg shadow-alto-950/20 dark:shadow-alto-50/10"
+          className="w-20 h-20 rounded-md border-4 border-white dark:border-alto-400 shadow-lg shadow-alto-950/20 dark:shadow-alto-50/10 pointer-events-none"
           src={data.foto ?? DefaultPhoto}
           onError={(event) => {
             event.currentTarget.src = DefaultPhoto;
@@ -87,16 +87,19 @@ const Profile = ({ email }: Props) => {
         />
       </div>
       <div
-        className="overflow-auto"
+        className="overflow-y-auto overflow-x-hidden w-[448px] max-w-full"
         style={{
           gridArea: "form",
         }}
       >
         <PreAppointmentForm
           user={data}
-          onSuccess={async (user) => {
+          onSuccess={async (userRes) => {
+            if (userRes.email === user?.email) {
+              setUser(userRes);
+            }
             toastSuccess("Datos actualizados correctamente");
-            setData(user);
+            setData(userRes);
           }}
           withName
           scrollable={false}

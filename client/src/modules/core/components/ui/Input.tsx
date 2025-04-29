@@ -8,6 +8,7 @@ interface GeneralProps {
   error?: string;
   inputSize?: "base" | "small";
   danger?: boolean;
+  overflowLabel?: boolean;
 }
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -34,14 +35,25 @@ const Input = forwardRef((props: Props, ref: ForwardedRef<any>) => {
     error,
     inputSize = "base",
     required,
+    overflowLabel = false,
     ...rest
   } = props;
   const forwardProps = rest as InputProps | SelectProps;
 
   return (
-    <div className="flex flex-col w-full">
+    <div
+      className={clsx(
+        "flex flex-col min-h-min w-full",
+        !overflowLabel && "overflow-hidden"
+      )}
+    >
       {label && (
-        <div className="pb-2 flex justify-between gap-2">
+        <div
+          className={clsx(
+            "pb-2 flex justify-between gap-2",
+            !overflowLabel && "overflow-hidden"
+          )}
+        >
           <label
             className={clsx(
               "text-xs font-semibold whitespace-nowrap text-alto-950 dark:text-alto-50",
@@ -54,7 +66,7 @@ const Input = forwardRef((props: Props, ref: ForwardedRef<any>) => {
           >
             {label}
           </label>
-          <Appear open={!!error}>
+          <Appear className="overflow-hidden" open={!!error}>
             <p
               title={error}
               className="text-xs font-semibold text-danger whitespace-nowrap overflow-hidden text-ellipsis"

@@ -46,6 +46,9 @@ const TestRequirements = ({ direction, requirements }: Props) => {
       telefono: user?.telefono ?? undefined,
       nombre_tutor: user?.nombre_tutor ?? undefined,
       telefono_tutor: user?.telefono_tutor ?? undefined,
+      carrera: user?.carrera ?? undefined,
+      semestre: user?.semestre ?? undefined,
+      codigo_estudiantil: user?.codigo_estudiantil ?? undefined,
     },
     context: {
       requirements,

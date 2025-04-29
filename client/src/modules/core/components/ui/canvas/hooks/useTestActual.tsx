@@ -23,6 +23,12 @@ export const useTestActual = (test: TestType, preguntaIndex: number) => {
         return !user?.nombre_tutor;
       case Requirements.TELEFONO_TUTOR:
         return !user?.telefono_tutor;
+      case Requirements.CARRERA:
+        return !user?.carrera;
+      case Requirements.SEMESTRE:
+        return !user?.semestre;
+      case Requirements.CODIGO_ESTUDIANTIL:
+        return !user?.codigo_estudiantil;
       default:
         return true;
     }

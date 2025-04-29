@@ -57,4 +57,25 @@ export const UserRequiredDTOSchema = yup.object().shape({
         return schema.required("Requerido");
       return schema;
     }),
+  carrera: yup.string().when("$requirements", ([requirements], schema) => {
+    if (requirements.includes(Requirements.CARRERA))
+      return schema.required("Requerido");
+    return schema;
+  }),
+  semestre: yup
+    .number()
+    .typeError("Requerido")
+    .when("$requirements", ([requirements], schema) => {
+      if (requirements.includes(Requirements.SEMESTRE))
+        return schema.required("Requerido");
+      return schema;
+    }),
+  codigo_estudiantil: yup
+    .string()
+    .typeError("Requerido")
+    .when("$requirements", ([requirements], schema) => {
+      if (requirements.includes(Requirements.CODIGO_ESTUDIANTIL))
+        return schema.required("Requerido");
+      return schema;
+    }),
 });

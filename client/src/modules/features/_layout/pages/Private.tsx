@@ -260,7 +260,14 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="flex gap-4">
-            <button className="flex overflow-hidden items-center border border-alto-200 dark:border-alto-800 rounded-lg bg-alto-50 dark:bg-alto-1000">
+            <button
+              onClick={() =>
+                navigate({
+                  to: "/profile",
+                })
+              }
+              className="flex overflow-hidden items-center border border-alto-200 dark:border-alto-800 rounded-lg bg-alto-50 dark:bg-alto-1000"
+            >
               <div className="flex-1 overflow-hidden flex flex-col justify-center px-2 w-36 max-sm:hidden">
                 <p className="text-xs font-semibold text-primary-950 dark:text-primary-300 whitespace-nowrap overflow-hidden text-ellipsis">
                   {user?.nombre}

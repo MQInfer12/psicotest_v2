@@ -215,6 +215,7 @@ const PreAppointmentForm = ({
           required={required}
           readOnly
           disabled
+          overflowLabel
         />
         <Input
           label="&nbsp;"
@@ -229,13 +230,28 @@ const PreAppointmentForm = ({
         required={required}
         {...register("nombre_tutor")}
       />
-      <Input
-        label={"Teléfono del padre / madre / tutor"}
-        type="number"
-        error={errors.telefono_tutor?.message}
-        required={required}
-        {...register("telefono_tutor")}
-      />
+      <div
+        className="grid gap-4 overflow-hidden min-h-min"
+        style={{
+          gridTemplateColumns: "80px 1fr",
+        }}
+      >
+        <Input
+          label={"Teléfono del padre / madre / tutor"}
+          className="text-center"
+          value="+591"
+          readOnly
+          required={required}
+          disabled
+          overflowLabel
+        />
+        <Input
+          label="&nbsp;"
+          type="number"
+          error={errors.telefono_tutor?.message}
+          {...register("telefono_tutor")}
+        />
+      </div>
       <Button disabled={loading} type="submit">
         Enviar
       </Button>
