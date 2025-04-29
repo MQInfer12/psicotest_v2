@@ -94,7 +94,11 @@ const Dashboard = () => {
     return (
       <Navigate
         to="/"
-        search={!fromLogoutRef.current ? { redirect: url } : undefined}
+        search={
+          !fromLogoutRef.current
+            ? { redirect: url, canBeClosed: "false" }
+            : undefined
+        }
       />
     );
   }

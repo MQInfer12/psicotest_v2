@@ -9,6 +9,7 @@ export interface ModalOptions {
   onClose?: () => void;
   type?: "default" | "floating";
   bodyPadding?: boolean;
+  canBeClosed?: boolean;
 }
 
 export type Modal<T> = (
@@ -49,6 +50,7 @@ export const useModal = <T,>() => {
       onlyContent={options?.onlyContent}
       type={options?.type}
       bodyPadding={options?.bodyPadding}
+      canBeClosed={options?.canBeClosed}
     >
       {typeof children === "function" ? children(item) : children}
     </Modal>

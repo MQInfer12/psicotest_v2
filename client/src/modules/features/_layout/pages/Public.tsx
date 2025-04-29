@@ -18,10 +18,12 @@ import { validateRoute } from "../components/breadcrumb/utils/validateRoute";
 
 const Public = () => {
   const { state } = useUserContext();
-  const { redirect } = useSearch({
+  const { redirect, canBeClosed: canBeClosedSearch = "true" } = useSearch({
     from: "/_public",
   });
   const { pathname } = useLocation();
+
+  const canBeClosed = canBeClosedSearch === "true";
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -37,6 +39,7 @@ const Public = () => {
       />
     );
   }
+
   return (
     <LoginContextProvider>
       <nav
@@ -77,7 +80,7 @@ const Public = () => {
           <LoginLink />
         </div>
       </nav>
-      <LoginCard redirect={redirect} />
+      <LoginCard redirect={redirect} canBeClosed={canBeClosed} />
       <div className="min-h-[100svh] overflow-x-hidden relative scroll-smooth">
         <Outlet />
       </div>

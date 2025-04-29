@@ -17,6 +17,7 @@ interface Props {
   onlyContent?: boolean;
   type?: "default" | "floating";
   bodyPadding?: boolean;
+  canBeClosed?: boolean;
 }
 
 const getFocusableElements = (
@@ -66,6 +67,7 @@ const Modal = ({
   onlyContent,
   type = "default",
   bodyPadding = true,
+  canBeClosed = true,
 }: Props) => {
   const lastFocusedElement = useRef<HTMLElement | null>(null);
   const modalRef = useRef<HTMLDivElement | null>(null);
@@ -126,7 +128,7 @@ const Modal = ({
           "justify-end p-5 max-sm:p-2": type === "floating",
         }
       )}
-      onClick={close}
+      onClick={canBeClosed ? close : undefined}
     >
       <motion.section
         ref={modalRef}
@@ -178,12 +180,14 @@ const Modal = ({
           <strong className="whitespace-nowrap overflow-hidden text-ellipsis text-alto-950 dark:text-alto-50">
             {title}
           </strong>
-          <Button
-            className="!py-1"
-            btnType="secondary"
-            onClick={close}
-            icon={Icon.Types.X}
-          />
+          {canBeClosed && (
+            <Button
+              className="!py-1"
+              btnType="secondary"
+              onClick={close}
+              icon={Icon.Types.X}
+            />
+          )}
         </header>
         <main
           className={clsx({

@@ -10,9 +10,10 @@ import { useLoginContext } from "../context/LoginContext";
 
 interface Props {
   redirect?: string;
+  canBeClosed?: boolean;
 }
 
-const LoginCard = ({ redirect }: Props) => {
+const LoginCard = ({ redirect, canBeClosed }: Props) => {
   const { modal, setOpen, loading } = useLoginContext();
   const navigate = useNavigate({ from: "/" });
   const { pathname } = useLocation();
@@ -75,6 +76,7 @@ const LoginCard = ({ redirect }: Props) => {
           blur: true,
           width: 640,
           onlyContent: true,
+          canBeClosed,
           onClose() {
             navigate({ to: pathname });
           },

@@ -1,17 +1,16 @@
+import { useNavigate } from "@tanstack/react-router";
 import clsx from "clsx";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { validateRoute } from "../../_layout/components/breadcrumb/utils/validateRoute";
 import { PUBLIC_NAVBAR_HEIGHT } from "../../_layout/constants/LAYOUT_SIZES";
-import { useLoginContext } from "../../auth/context/LoginContext";
 import { CAROUSEL_ITEMS } from "../constants/CAROUSEL_ITEMS";
 import { shadowClasses } from "../constants/LANDING_SHADOWS";
 import Hexagon from "./elements/Hexagon";
 import LandingButton from "./elements/LandingButton";
 import LandingTitle from "./elements/LandingTitle";
-import { useNavigate } from "@tanstack/react-router";
 
 const Landing = () => {
-  const { setOpen } = useLoginContext();
   const [carouselIndex, setCarouselIndex] = useState(0);
   const navigate = useNavigate();
 
@@ -118,10 +117,10 @@ const Landing = () => {
           className="flex flex-col max-sm:items-center gap-4 w-[520px] max-w-full isolate relative"
         >
           <small className="p-1 px-2 text-xs bg-primary-200 dark:bg-primary-600 text-primary-800 dark:text-primary-200 max-w-fit rounded-md">
-            Novedad: Nuevos tests psicológicos
+            Novedad: Gabinete psicológico y tests vocacionales
           </small>
           <LandingTitle>
-            Obtén apoyo de <span>psicólogos</span> especializados de la{" "}
+            Obtén tu cita en el <span>gabinete psicológico</span> de la{" "}
             <span>Unifranz</span>
           </LandingTitle>
           <p className="max-sm:text-center max-sm:text-sm py-4 text-balance leading-relaxed dark:text-alto-50">
@@ -129,7 +128,17 @@ const Landing = () => {
             e intuitivo y realiza tus tests de una manera moderna junto a ellos.
           </p>
           <div className="flex gap-4 max-sm:flex-col items-center">
-            <LandingButton max onClick={() => setOpen(true)}>
+            <LandingButton
+              max
+              onClick={() =>
+                navigate({
+                  to: "/",
+                  search: {
+                    redirect: validateRoute("/calendar"),
+                  },
+                })
+              }
+            >
               ¡Inicia sesión para comenzar!
             </LandingButton>
             <LandingButton
