@@ -1,4 +1,3 @@
-import { OPENAI } from "@/modules/core/constants/ENVIRONMENT";
 import { toastError } from "@/modules/core/utils/toasts";
 import OpenAI from "openai";
 import { Stream } from "openai/streaming.mjs";
@@ -9,8 +8,6 @@ export enum OpenAIModel {
   GPT_4_1_mini = "gpt-4.1-mini",
   GPT_o_3_mini = "o3-mini",
 }
-
-const openai = new OpenAI({ apiKey: OPENAI, dangerouslyAllowBrowser: true });
 
 const isStream = (
   _response:
@@ -27,6 +24,14 @@ const isStream = (
   return streaming;
 };
 
+export class NotFoundError extends Error {
+  constructor(message?: string) {
+    super(message);
+    this.name = "NotFoundError";
+    Object.setPrototypeOf(this, NotFoundError.prototype);
+  }
+}
+
 export const getAIResponse = async (
   prompt: string,
   callback: (res: string) => void,
@@ -40,6 +45,15 @@ export const getAIResponse = async (
   }
 ) => {
   try {
+    const gptKey = localStorage.getItem("neurall_gpt_huevo");
+    if (!gptKey) {
+      throw new NotFoundError("No se ha encontrado la clave de GPT");
+    }
+    const openai = new OpenAI({
+      apiKey: gptKey,
+      dangerouslyAllowBrowser: true,
+    });
+
     const model = options?.model ?? OpenAIModel.GPT_4_o_mini;
     const isReasoning = model === OpenAIModel.GPT_o_3_mini;
     const streaming = options?.stream ?? true;
@@ -118,8 +132,13 @@ export const getAIResponse = async (
       options?.onSuccess?.();
     }
   } catch (error) {
-    toastError("Error al comunicarse con el servidor");
-    console.error(error);
+    if (error instanceof NotFoundError) {
+      const errorMessage = (error as Error).message;
+      toastError(errorMessage);
+    } else {
+      toastError("Error al comunicarse con el servidor");
+      console.error(error);
+    }
     options?.onError?.();
   } finally {
     options?.onFinally?.();

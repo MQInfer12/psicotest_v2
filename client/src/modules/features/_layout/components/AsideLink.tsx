@@ -16,6 +16,7 @@ interface Props extends LinkOptions {
       | React.MouseEvent<"a", MouseEvent>
   ) => void;
   permisos: Permisos[];
+  behavior: "and" | "or";
 }
 
 const ASIDE_LINK_CLASSES = () => {
@@ -35,9 +36,10 @@ const AsideLink = ({
   type,
   showText = true,
   permisos,
+  behavior,
   ...props
 }: Props) => {
-  const render = usePermiso(permisos);
+  const render = usePermiso(permisos, behavior);
   if (!render) return;
 
   const child = (

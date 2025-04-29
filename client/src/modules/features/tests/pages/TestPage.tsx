@@ -69,7 +69,7 @@ const TestPage = ({ respuestas = false }: Props) => {
       style={{
         paddingInline: PRIVATE_PADDING_INLINE,
       }}
-      className="w-full flex flex-col items-center pb-20 gap-12 flex-1 h-full overflow-y-auto overflow-x-hidden"
+      className="w-full flex flex-col items-center pb-20 gap-12 flex-1 h-full overflow-y-scroll overflow-x-hidden"
     >
       {!respuestas && canShare && (
         <div className="w-full flex justify-between">

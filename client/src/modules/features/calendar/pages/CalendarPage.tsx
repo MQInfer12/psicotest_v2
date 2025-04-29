@@ -13,9 +13,7 @@ const CalendarPage = () => {
   const { user } = useUserContext();
   const { PRIVATE_PADDING_INLINE } = useMeasureContext();
 
-  const anadirPermisos = usePermiso([Permisos.ANADIR_HORARIOS]);
-  const agendarPermisos = usePermiso([Permisos.VER_HORARIOS]);
-  const verCitas = usePermiso([Permisos.VER_CITAS]);
+  const isPsychologist = usePermiso([Permisos.VER_CITAS]);
 
   return (
     <div
@@ -29,11 +27,11 @@ const CalendarPage = () => {
         <NextAppointmentBanner key={user.cita_proxima.id} />
       ) : (
         <CalendarContextProvider>
-          {agendarPermisos && <CalendarColumn />}
+          {!isPsychologist && <CalendarColumn />}
           <div className="flex-1 flex flex-col gap-6 overflow-hidden max-lg:overflow-visible max-lg:w-full sticky top-0">
-            {anadirPermisos && <ScheduleHeader />}
-            {agendarPermisos && <AgendaColumn />}
-            {verCitas && <AppointmentColumn />}
+            {!isPsychologist && <AgendaColumn />}
+            {isPsychologist && <ScheduleHeader />}
+            {isPsychologist && <AppointmentColumn />}
           </div>
         </CalendarContextProvider>
       )}

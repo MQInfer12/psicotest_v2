@@ -163,6 +163,7 @@ const Dashboard = () => {
                 onClick={size !== "normal" ? () => setOpen(false) : undefined}
                 showText={open}
                 type="link"
+                behavior="and"
                 {...link}
               />
             ))}
@@ -172,7 +173,12 @@ const Dashboard = () => {
               icon={ICON.CONFIG}
               title="Configuración"
               showText={open}
-              permisos={[Permisos.CONFIGURAR]}
+              behavior="or"
+              permisos={[
+                Permisos.CONFIGURAR,
+                Permisos.VER_CITAS,
+                Permisos.VER_RESULTADOS,
+              ]}
             />
             <AsideLink
               type="button"
@@ -180,6 +186,7 @@ const Dashboard = () => {
               icon={ICON.LOGOUT}
               title="Cerrar sesión"
               showText={open}
+              behavior="and"
               permisos={[]}
             />
           </div>

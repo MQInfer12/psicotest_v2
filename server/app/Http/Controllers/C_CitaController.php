@@ -98,7 +98,7 @@ class C_CitaController extends Controller
             }
         }
 
-        if ($puede_ver_todas && $cita->fecha >= $this->get_now_local()->format('Y-m-d')) {
+        if ($cita->email_psicologo != $me->email && $puede_ver_todas && $cita->fecha >= $this->get_now_local()->format('Y-m-d')) {
             return $this->wrongResponse("No tienes permisos para ver esto.");
         }
 
