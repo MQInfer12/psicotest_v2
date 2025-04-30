@@ -15,7 +15,7 @@ class T_RespuestaStoreRequest extends FormRequest
     {
         return [
             'id_test' => 'required|array|min:1',
-            "id_test.*" => 'integer|exists:t_tests,id',
+            "id_test.*" => 'integer|exists:t_test_versions,id',
             'email_asignador' => 'required|email|string|exists:u_users,email',
             'id_carpeta' => 'nullable|integer|exists:t_carpetas,id'
         ];

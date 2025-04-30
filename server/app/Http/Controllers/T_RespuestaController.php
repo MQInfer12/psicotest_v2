@@ -95,10 +95,7 @@ class T_RespuestaController extends Controller
         $testIds = $validatedData['id_test'];
         $responses = [];
 
-        foreach ($testIds as $testId) {
-            $test = T_Test::findOrFail($testId);
-            $id_test_version = $test->latest_version->id;
-
+        foreach ($testIds as $id_test_version) {
             $exist = T_Respuesta::where('id_test_version', $id_test_version)
                 ->where('email_user', $email_user)
                 ->where('email_asignador', $email_asignador)

@@ -33,7 +33,12 @@ const TestPage = ({ respuestas = false }: Props) => {
   );
   const [loading, setLoading] = useState<number | null>(null);
   const { modal, setOpen } = useModal();
-  const [sharedIds, setSharedIds] = useState<number[]>([]);
+  const [sharedIds, setSharedIds] = useState<
+    {
+      id: number;
+      nombre: string;
+    }[]
+  >([]);
 
   const { PRIVATE_PADDING_INLINE } = useMeasureContext();
 
@@ -91,11 +96,21 @@ const TestPage = ({ respuestas = false }: Props) => {
           </Button>
           {modal(
             "Compartir tests",
-            <ShareForm nombreTest="many" idTests={sharedIds}>
+            <ShareForm tests={sharedIds}>
               <Checkboxes
                 label="Tests"
-                value={sharedIds}
-                onChange={setSharedIds}
+                value={sharedIds.map((v) => v.id)}
+                onChange={(ids) => {
+                  setSharedIds(
+                    ids.map((id) => {
+                      const test = data?.find((t) => t.id === id);
+                      return {
+                        id,
+                        nombre: test?.nombre_test ?? "",
+                      };
+                    })
+                  );
+                }}
                 options={
                   data?.map((test) => {
                     return {
@@ -105,7 +120,12 @@ const TestPage = ({ respuestas = false }: Props) => {
                   }) ?? []
                 }
               />
-            </ShareForm>
+            </ShareForm>,
+            {
+              onClose: () => {
+                setSharedIds([]);
+              },
+            }
           )}
         </div>
       )}

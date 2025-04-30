@@ -32,7 +32,7 @@ class T_Test extends Model
 
     public function latest_version()
     {
-        return $this->hasOne(T_TestVersion::class, 'id_test')->latestOfMany();
+        return $this->hasOne(T_TestVersion::class, 'id_test')->orderByDesc('version');
     }
 
     public function evaluados($user)
@@ -58,7 +58,7 @@ class T_Test extends Model
             ->unique('email')
             ->sortBy('email')
             ->values();
-            
-       return $evaluadosTotales;
+
+        return $evaluadosTotales;
     }
 }

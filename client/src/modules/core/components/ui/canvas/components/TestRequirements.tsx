@@ -49,6 +49,9 @@ const TestRequirements = ({ direction, requirements }: Props) => {
       carrera: user?.carrera ?? undefined,
       semestre: user?.semestre ?? undefined,
       codigo_estudiantil: user?.codigo_estudiantil ?? undefined,
+      curso: user?.curso ?? undefined,
+      institucion: user?.institucion ?? undefined,
+      municipio: user?.municipio ?? undefined,
     },
     context: {
       requirements,
@@ -154,6 +157,48 @@ const TestRequirements = ({ direction, requirements }: Props) => {
                       required
                       {...register("telefono_tutor")}
                     />
+                  );
+                case Requirements.INSTITUCION:
+                  return (
+                    <Input
+                      key={r}
+                      label="Colegio / Institución"
+                      type="text"
+                      error={errors.institucion?.message}
+                      required
+                      {...register("institucion")}
+                    />
+                  );
+                case Requirements.CURSO:
+                  return (
+                    <Input
+                      key={r}
+                      label="Curso"
+                      type="select"
+                      error={errors.curso?.message}
+                      required
+                      {...register("curso")}
+                    >
+                      <option value="">Selecciona un curso</option>
+                      <option value="Pre promo">Pre promo</option>
+                      <option value="Promo">Promo</option>
+                    </Input>
+                  );
+                case Requirements.MUNICIPIO:
+                  return (
+                    <Input
+                      key={r}
+                      label="Municipio"
+                      type="select"
+                      error={errors.municipio?.message}
+                      required
+                      {...register("municipio")}
+                    >
+                      <option value="">Selecciona un municipio</option>
+                      <option value="Cocapata">Cocapata</option>
+                      <option value="Morochata">Morochata</option>
+                      <option value="Independencia">Independencia</option>
+                    </Input>
                   );
               }
             })}

@@ -29,6 +29,12 @@ export const useTestActual = (test: TestType, preguntaIndex: number) => {
         return !user?.semestre;
       case Requirements.CODIGO_ESTUDIANTIL:
         return !user?.codigo_estudiantil;
+      case Requirements.INSTITUCION:
+        return !user?.institucion;
+      case Requirements.CURSO:
+        return !user?.curso;
+      case Requirements.MUNICIPIO:
+        return !user?.municipio;
       default:
         return true;
     }

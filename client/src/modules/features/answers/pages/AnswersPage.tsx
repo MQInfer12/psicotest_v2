@@ -281,6 +281,7 @@ const AnswersPage = () => {
         />,
         {
           type: "floating",
+          canBeClosed: !isLoading,
         }
       )}
       {modalDetalle(

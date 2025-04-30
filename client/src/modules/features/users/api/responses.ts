@@ -20,6 +20,10 @@ export interface User extends Timestamps {
   nombre_tutor: string | null;
   telefono_tutor: number | null;
 
+  institucion: string | null;
+  curso: string | null;
+  municipio: string | null;
+
   contador_citas: number;
   fecha_ultima_cita: string | null;
 

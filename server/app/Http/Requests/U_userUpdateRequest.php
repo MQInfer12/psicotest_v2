@@ -32,6 +32,10 @@ class U_userUpdateRequest extends FormRequest
             'telefono' => 'nullable|integer',
             'nombre_tutor' => 'nullable|string',
             'telefono_tutor' => 'nullable|integer',
+
+            'institucion' => 'string|nullable',
+            'curso' => 'string|nullable',
+            'municipio' => 'string|nullable',
         ];
     }
 

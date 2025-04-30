@@ -62,3 +62,11 @@ export interface T_Grupo {
   id: number;
   descripcion: string;
 }
+
+export interface T_Test_Version {
+  id: number;
+  nombre: string;
+  id_test: number;
+  version: number;
+  fecha: string;
+}

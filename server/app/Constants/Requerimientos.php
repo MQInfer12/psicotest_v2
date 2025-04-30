@@ -13,4 +13,7 @@ class Requerimientos
   const CARRERA = "carrera";
   const SEMESTRE = "semestre";
   const CODIGO_ESTUDIANTIL = "codigo_estudiantil";
+  const INSTITUCION = "institucion";
+  const CURSO = "curso";
+  const MUNICIPIO = "municipio";
 }

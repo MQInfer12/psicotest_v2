@@ -7,9 +7,7 @@ class Permisos
   const VER_TESTS_ASIGNACION = 'Ver tests (asignación)';
   const VER_TESTS_RESOLUCION = 'Ver tests (resolución)';
   const VER_RESULTADOS = 'Ver resultados';
-  const VER_TODAS_LAS_CARPETAS = 'Ver todas las carpetas';
   const VER_PLANTILLAS = 'Ver plantillas';
-  const VER_CHAT = 'Ver chat';
   const VER_CALENDARIO = 'Ver calendario';
   const VER_USUARIOS = 'Ver usuarios';
   const COMPARTIR_TEST = 'Compartir test';
@@ -22,5 +20,6 @@ class Permisos
   const CREAR_BLOGS = "Crear blogs";
   const DESTACAR_BLOGS = "Destacar blogs";
   const VER_REPORTES = "Ver reportes";
+  const VER_TODAS_LAS_CARPETAS = 'Ver todas las carpetas';
   const ADMINISTRAR_PACIENTES = "Administrar pacientes";
 }

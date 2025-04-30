@@ -13,6 +13,9 @@ export enum Requirements {
   CARRERA = "carrera",
   SEMESTRE = "semestre",
   CODIGO_ESTUDIANTIL = "codigo_estudiantil",
+  INSTITUCION = "institucion",
+  CURSO = "curso",
+  MUNICIPIO = "municipio",
 }
 
 export interface Item {

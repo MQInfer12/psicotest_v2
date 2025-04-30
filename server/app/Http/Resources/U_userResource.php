@@ -24,6 +24,10 @@ class U_userResource extends JsonResource
             'nombre_tutor' => $this->nombre_tutor,
             'telefono_tutor' => $this->telefono_tutor,
 
+            'institucion' => $this->institucion,
+            'curso' => $this->curso,
+            'municipio' => $this->municipio,
+
             'contador_citas' => count($this->citas_previas),
             'fecha_ultima_cita' => $this->citas_previas->last() ? $this->citas_previas->last()->fecha : null,
 

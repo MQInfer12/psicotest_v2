@@ -180,14 +180,13 @@ const Modal = ({
           <strong className="whitespace-nowrap overflow-hidden text-ellipsis text-alto-950 dark:text-alto-50">
             {title}
           </strong>
-          {canBeClosed && (
-            <Button
-              className="!py-1"
-              btnType="secondary"
-              onClick={close}
-              icon={Icon.Types.X}
-            />
-          )}
+          <Button
+            className="!py-1"
+            btnType="secondary"
+            onClick={close}
+            icon={Icon.Types.X}
+            disabled={!canBeClosed}
+          />
         </header>
         <main
           className={clsx({

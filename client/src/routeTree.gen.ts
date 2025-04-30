@@ -18,7 +18,6 @@ import { Route as PublicPrivacyImport } from './routes/_public/privacy'
 import { Route as PrivateUsersImport } from './routes/_private/users'
 import { Route as PrivateReportsImport } from './routes/_private/reports'
 import { Route as PrivateProfileImport } from './routes/_private/profile'
-import { Route as PrivateChatImport } from './routes/_private/chat'
 import { Route as PublicDailyIndexImport } from './routes/_public/daily/index'
 import { Route as PrivateTestsIndexImport } from './routes/_private/tests/index'
 import { Route as PrivateTemplatesIndexImport } from './routes/_private/templates/index'
@@ -80,12 +79,6 @@ const PrivateReportsRoute = PrivateReportsImport.update({
 const PrivateProfileRoute = PrivateProfileImport.update({
   id: '/profile',
   path: '/profile',
-  getParentRoute: () => PrivateRoute,
-} as any)
-
-const PrivateChatRoute = PrivateChatImport.update({
-  id: '/chat',
-  path: '/chat',
   getParentRoute: () => PrivateRoute,
 } as any)
 
@@ -233,13 +226,6 @@ declare module '@tanstack/react-router' {
       fullPath: ''
       preLoaderRoute: typeof PublicImport
       parentRoute: typeof rootRoute
-    }
-    '/_private/chat': {
-      id: '/_private/chat'
-      path: '/chat'
-      fullPath: '/chat'
-      preLoaderRoute: typeof PrivateChatImport
-      parentRoute: typeof PrivateImport
     }
     '/_private/profile': {
       id: '/_private/profile'
@@ -429,7 +415,6 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface PrivateRouteChildren {
-  PrivateChatRoute: typeof PrivateChatRoute
   PrivateProfileRoute: typeof PrivateProfileRoute
   PrivateReportsRoute: typeof PrivateReportsRoute
   PrivateUsersRoute: typeof PrivateUsersRoute
@@ -455,7 +440,6 @@ interface PrivateRouteChildren {
 }
 
 const PrivateRouteChildren: PrivateRouteChildren = {
-  PrivateChatRoute: PrivateChatRoute,
   PrivateProfileRoute: PrivateProfileRoute,
   PrivateReportsRoute: PrivateReportsRoute,
   PrivateUsersRoute: PrivateUsersRoute,
@@ -502,7 +486,6 @@ const PublicRouteWithChildren =
 
 export interface FileRoutesByFullPath {
   '': typeof PublicRouteWithChildren
-  '/chat': typeof PrivateChatRoute
   '/profile': typeof PrivateProfileRoute
   '/reports': typeof PrivateReportsRoute
   '/users': typeof PrivateUsersRoute
@@ -533,7 +516,6 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '': typeof PrivateRouteWithChildren
-  '/chat': typeof PrivateChatRoute
   '/profile': typeof PrivateProfileRoute
   '/reports': typeof PrivateReportsRoute
   '/users': typeof PrivateUsersRoute
@@ -566,7 +548,6 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/_private': typeof PrivateRouteWithChildren
   '/_public': typeof PublicRouteWithChildren
-  '/_private/chat': typeof PrivateChatRoute
   '/_private/profile': typeof PrivateProfileRoute
   '/_private/reports': typeof PrivateReportsRoute
   '/_private/users': typeof PrivateUsersRoute
@@ -599,7 +580,6 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | ''
-    | '/chat'
     | '/profile'
     | '/reports'
     | '/users'
@@ -629,7 +609,6 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | ''
-    | '/chat'
     | '/profile'
     | '/reports'
     | '/users'
@@ -660,7 +639,6 @@ export interface FileRouteTypes {
     | '__root__'
     | '/_private'
     | '/_public'
-    | '/_private/chat'
     | '/_private/profile'
     | '/_private/reports'
     | '/_private/users'
@@ -717,7 +695,6 @@ export const routeTree = rootRoute
     "/_private": {
       "filePath": "_private.tsx",
       "children": [
-        "/_private/chat",
         "/_private/profile",
         "/_private/reports",
         "/_private/users",
@@ -750,10 +727,6 @@ export const routeTree = rootRoute
         "/_public/daily/$id",
         "/_public/daily/"
       ]
-    },
-    "/_private/chat": {
-      "filePath": "_private/chat.tsx",
-      "parent": "/_private"
     },
     "/_private/profile": {
       "filePath": "_private/profile.tsx",

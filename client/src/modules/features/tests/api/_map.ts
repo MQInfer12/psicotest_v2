@@ -8,6 +8,7 @@ import {
 import {
   T_Test,
   T_Test_Respuesta,
+  T_Test_Version,
   T_Tests,
   T_Tests_Respuestas,
 } from "./responses";
@@ -107,6 +108,13 @@ declare global {
         id_carpeta: string | undefined;
       };
       response: null;
+    };
+    "GET /version/test/:id": {
+      params: {
+        id: number;
+      };
+      request: never;
+      response: T_Test_Version[];
     };
   }
 }

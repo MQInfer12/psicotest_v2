@@ -12,6 +12,7 @@ use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\T_CarpetaController;
 use App\Http\Controllers\T_RespuestaController;
 use App\Http\Controllers\T_TestController;
+use App\Http\Controllers\T_TestVersionController;
 use App\Http\Controllers\U_RolController;
 use App\Http\Controllers\U_userController;
 use Illuminate\Support\Facades\Route;
@@ -61,6 +62,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/test/for/respuesta/{id}', [T_TestController::class, 'showForRespuesta']);
     Route::get('/test/for/respuesta', [T_TestController::class, 'indexForRespuesta']);
     Route::put('/test/update/db', [T_TestController::class, 'updateDb']);
+
+    Route::get('/version/test/{id}', [T_TestVersionController::class, 'showByTest']);
 
     Route::apiResource('/respuesta', T_RespuestaController::class);
     Route::get('/respuesta/for/resolve', [T_RespuestaController::class, 'indexForResolve']);
