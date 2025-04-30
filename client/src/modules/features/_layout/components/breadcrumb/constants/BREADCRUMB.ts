@@ -87,10 +87,6 @@ export const BREADCRUMB: Breadcrumb[] = [
   },
   //? SIDEBAR
   {
-    name: "Chat",
-    match: "/chat",
-  },
-  {
     name: "Usuarios",
     match: "/users",
   },
