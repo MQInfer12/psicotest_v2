@@ -31,4 +31,4 @@ jobs:
           server: ${{ secrets.CPANEL_SERVER }}
           username: ${{ secrets.CPANEL_BACKEND_USERNAME }}
           password: ${{ secrets.CPANEL_PASSWORD }}
-          local-dir: ./server
+          local-dir: ./server/
