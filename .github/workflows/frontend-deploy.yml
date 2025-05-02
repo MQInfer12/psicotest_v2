@@ -2,7 +2,9 @@ on:
   push:
     branches:
       - main
-
+    paths:
+      - "client/**"
+  
 name: Deploy client to Cpanel 🚀
 jobs:
   deploy:
@@ -35,4 +37,3 @@ jobs:
           username: ${{ secrets.CPANEL_USERNAME }}
           password: ${{ secrets.CPANEL_PASSWORD }}
           local-dir: ./client/dist/
-          dangerous-clean-slate: true
