@@ -35,11 +35,15 @@ const ShareForm = ({ tests, children }: Props) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (selectedVersionIds.length !== tests.length) {
+    const selectedVersions = selectedVersionIds.filter((v) =>
+      tests.some((t) => t.id === v.idTest)
+    );
+    if (selectedVersions.length !== tests.length) {
       return toastError("Debes seleccionar una versión para cada test");
     }
+    const ids = selectedVersions.map((v) => v.idVersion);
     const params =
-      `test=${JSON.stringify(selectedVersionIds.map((v) => v.idVersion))}` +
+      `test=${JSON.stringify(ids)}` +
       `&allocator=${user?.email}` +
       (carpetaId ? `&folder=${carpetaId}` : "");
     const cryptedParams = cypherUrl(params);
@@ -49,15 +53,18 @@ const ShareForm = ({ tests, children }: Props) => {
     setLink(link);
   };
 
+  const titleLink = `QR para compartir los tests de ${formatStringList(tests.map((test) => test.nombre))}`;
   return (
     <div className="flex flex-col">
       {link ? (
-        <>
-          <small className="text-center font-medium text-alto-950 dark:text-alto-50">
-            QR para compartir los tests de{" "}
-            {formatStringList(tests.map((test) => test.nombre))}
+        <div className="flex flex-col items-center justify-between p-4 h-96">
+          <small
+            title={titleLink}
+            className="text-center font-medium text-alto-950 dark:text-alto-50 whitespace-nowrap text-ellipsis overflow-hidden w-full"
+          >
+            {titleLink}
           </small>
-          <div className="w-full aspect-square flex justify-center items-center">
+          <div className="w-[280px] h-[280px] flex justify-center items-center">
             <motion.div
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -101,52 +108,65 @@ const ShareForm = ({ tests, children }: Props) => {
               </Button>
             </div>
           </div>
-        </>
+        </div>
       ) : (
-        <form onSubmit={handleSubmit} className="flex w-full flex-col gap-4">
-          <Input
-            label="Carpeta"
-            type="select"
-            value={carpetaId}
-            onChange={(e) => setCarpetaId(e.target.value)}
-            required
-          >
-            <option value="">Sin clasificación</option>
-            {data?.map((carpeta) => (
-              <option key={carpeta.id} value={carpeta.id}>
-                {carpeta.descripcion}
-              </option>
-            ))}
-          </Input>
-          {children}
-          {tests.map((test) => (
-            <ShareSelectVersion
-              key={test.id}
-              idTest={test.id}
-              nombre={test.nombre}
-              value={
-                selectedVersionIds.find((v) => v.idTest === test.id)?.idVersion
-              }
-              onChange={(newValue) => {
-                if (newValue === null) {
-                  setSelectedVersionIds((prev) =>
-                    prev.filter((v) => v.idTest !== test.id)
-                  );
-                } else {
-                  setSelectedVersionIds((prev) => {
-                    const exist = prev.find((v) => v.idTest === test.id);
-                    if (exist) {
-                      return prev.map((v) =>
-                        v.idTest === test.id ? { ...v, idVersion: newValue } : v
-                      );
-                    }
-                    return [...prev, { idTest: test.id, idVersion: newValue }];
-                  });
+        <form
+          onSubmit={handleSubmit}
+          className="flex w-full flex-col relative h-96"
+        >
+          <div className="flex flex-col flex-1 gap-4 overflow-x-hidden overflow-y-scroll p-4 pr-[8px]">
+            <Input
+              label="Carpeta"
+              type="select"
+              value={carpetaId}
+              onChange={(e) => setCarpetaId(e.target.value)}
+              required
+            >
+              <option value="">Sin clasificación</option>
+              {data?.map((carpeta) => (
+                <option key={carpeta.id} value={carpeta.id}>
+                  {carpeta.descripcion}
+                </option>
+              ))}
+            </Input>
+            {children}
+            {tests.map((test) => (
+              <ShareSelectVersion
+                key={test.id}
+                idTest={test.id}
+                nombre={test.nombre}
+                value={
+                  selectedVersionIds.find((v) => v.idTest === test.id)
+                    ?.idVersion
                 }
-              }}
-            />
-          ))}
-          <Button type="submit">Siguiente</Button>
+                onChange={(newValue) => {
+                  if (newValue === null) {
+                    setSelectedVersionIds((prev) =>
+                      prev.filter((v) => v.idTest !== test.id)
+                    );
+                  } else {
+                    setSelectedVersionIds((prev) => {
+                      const exist = prev.find((v) => v.idTest === test.id);
+                      if (exist) {
+                        return prev.map((v) =>
+                          v.idTest === test.id
+                            ? { ...v, idVersion: newValue }
+                            : v
+                        );
+                      }
+                      return [
+                        ...prev,
+                        { idTest: test.id, idVersion: newValue },
+                      ];
+                    });
+                  }
+                }}
+              />
+            ))}
+          </div>
+          <div className="pb-4 px-4 flex flex-col">
+            <Button type="submit">Siguiente</Button>
+          </div>
         </form>
       )}
     </div>

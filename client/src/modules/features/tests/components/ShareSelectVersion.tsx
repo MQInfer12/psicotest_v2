@@ -29,7 +29,7 @@ const ShareSelectVersion = ({ idTest, nombre, value, onChange }: Props) => {
   return (
     <Input
       type="select"
-      label={nombre + " (Versión)"}
+      label={nombre + ` (versión)`}
       value={value ?? ""}
       required
       onChange={(e) => {

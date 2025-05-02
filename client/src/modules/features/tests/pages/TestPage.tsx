@@ -125,6 +125,7 @@ const TestPage = ({ respuestas = false }: Props) => {
               onClose: () => {
                 setSharedIds([]);
               },
+              bodyPadding: false,
             }
           )}
         </div>

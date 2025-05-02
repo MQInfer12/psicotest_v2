@@ -3,4 +3,5 @@ export enum TestIds {
   KUDER = 2,
   PMA = 3,
   BIG_FIVE = 4,
+  CHASIDE = 5,
 }

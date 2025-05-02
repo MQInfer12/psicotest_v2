@@ -6,6 +6,7 @@ import { TestIds } from "../../tests/types/TestIds";
 import { TestType } from "../../tests/types/TestType";
 import { KuderTestType } from "../../tests/modules/KUDER/types/KuderTestType";
 import { PmaTestType } from "../../tests/modules/PMA/types/PmaTestType";
+import { ChasideTestType } from "../../tests/modules/CHASIDE/types/ChasideTestType";
 
 export interface PunctuationData {
   dimension: string;
@@ -217,6 +218,27 @@ export const getPunctuations = (
           Percentil: "N/A",
         },
       ];
+    case TestIds.CHASIDE:
+      const CHASIDETest = testGeneral as ChasideTestType;
+      return CHASIDETest.dimensiones.map((dimension) => {
+        const res: PunctuationData = {
+          dimension: dimension.descripcion,
+          natural: dimension.items.reduce((sum, item) => {
+            const meetsConditions = item.condiciones.every((condicion) =>
+              resultados.some(
+                (resultado) =>
+                  resultado.idPregunta === condicion.id_pregunta &&
+                  resultado.idOpcion === condicion.id_opcion
+              )
+            );
+            if (meetsConditions) {
+              sum += item.puntuacion;
+            }
+            return sum;
+          }, 0),
+        };
+        return res;
+      });
     default:
       return [];
   }

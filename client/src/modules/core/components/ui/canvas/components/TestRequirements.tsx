@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import Input from "../../Input";
 import { TEST_CAROUSEL_VARIANT } from "../constants/TEST_CAROUSEL_VARIANT";
 import { toastSuccess } from "@/modules/core/utils/toasts";
+import { useEffect, useRef } from "react";
 
 interface Props {
   direction: number;
@@ -59,6 +60,16 @@ const TestRequirements = ({ direction, requirements }: Props) => {
     resolver: yupResolver(UserRequiredDTOSchema),
   });
 
+  const containerRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.scrollTo({
+        top: 0,
+        left: 0,
+      });
+    }
+  }, []);
+
   return (
     <motion.div
       variants={TEST_CAROUSEL_VARIANT}
@@ -68,7 +79,10 @@ const TestRequirements = ({ direction, requirements }: Props) => {
       exit="exit"
       className="absolute inset-0 flex flex-col items-center justify-center"
     >
-      <div className="h-full flex items-center justify-center w-full overflow-auto">
+      <div
+        ref={containerRef}
+        className="h-full flex items-center justify-center w-full overflow-auto"
+      >
         <form
           id="userForm"
           className="flex flex-col items-center gap-4 px-2 py-4 my-auto w-full"

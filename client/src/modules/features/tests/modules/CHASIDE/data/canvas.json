@@ -1,0 +1,65 @@
+[
+  {
+    "type": "paragraph",
+    "content": "El Test de Orientación Vocacional CHASIDE está diseñado para ayudarte a identificar tus intereses y aptitudes profesionales. A través de una serie de preguntas simples, este test explora tus inclinaciones hacia distintas áreas ocupacionales, facilitando una reflexión más clara sobre tu futuro académico y laboral."
+  },
+  {
+    "type": "subtitle",
+    "content": "¿Qué mide el test CHASIDE?"
+  },
+  {
+    "type": "paragraph",
+    "content": "El test evalúa tanto tus intereses como tus aptitudes en siete grandes áreas del conocimiento y la actividad profesional. Cada una de estas áreas está compuesta por ítems que te permitirán descubrir hacia dónde se orienta tu vocación."
+  },
+  {
+    "type": "vignette",
+    "title": "Área Administrativa y Contable",
+    "content": "Relacionada con el cálculo, la organización, la supervisión y la toma de decisiones en el ámbito empresarial y financiero."
+  },
+  {
+    "type": "vignette",
+    "title": "Área Humanística y Social",
+    "content": "Enfocada en la comunicación, la justicia, la sensibilidad social y la interacción con personas."
+  },
+  {
+    "type": "vignette",
+    "title": "Área Artística",
+    "content": "Implica la creatividad, la sensibilidad estética, la innovación y la expresión visual, musical o corporal."
+  },
+  {
+    "type": "vignette",
+    "title": "Área de Ciencias de la Salud",
+    "content": "Relacionada con la ayuda al prójimo, la precisión, el respeto y la empatía hacia los demás."
+  },
+  {
+    "type": "vignette",
+    "title": "Área de Ingeniería y Computación",
+    "content": "Explora habilidades para el pensamiento lógico, el diseño técnico, la programación y el trabajo analítico."
+  },
+  {
+    "type": "vignette",
+    "title": "Área de Defensa y Seguridad",
+    "content": "Orientada a personas con espíritu de justicia, liderazgo, valentía y trabajo en equipo."
+  },
+  {
+    "type": "vignette",
+    "title": "Área de Ciencias Exactas y Agrarias",
+    "content": "Relacionada con la investigación científica, el análisis metódico, el trabajo de campo y la observación sistemática."
+  },
+  {
+    "type": "subtitle",
+    "content": "¿Cómo se responde?"
+  },
+  {
+    "type": "paragraph",
+    "content": "Responde cada pregunta con 'Sí' o 'No' según lo que realmente piensas o sientes. No dejes ítems sin responder. El test no tiene respuestas correctas o incorrectas, simplemente busca reflejar tus intereses y aptitudes."
+  },
+  {
+    "type": "subtitle",
+    "content": "¿Qué obtendrás al finalizar?"
+  },
+  {
+    "type": "paragraph",
+    "content": "Al finalizar el test, recibirás un perfil vocacional que destaca tus áreas más fuertes de interés y aptitud. Este perfil te servirá como guía para considerar carreras compatibles con tu personalidad y habilidades."
+  }
+]
