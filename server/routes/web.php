@@ -18,9 +18,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/reset', function () {
+/* Route::get('/reset', function () {
     Artisan::call("migrate:refresh --seed");
     return 1;
+}); */
+
+Route::get('/foo', function () {
+    return "OK";
 });
 
 Route::get('/link', function () {
