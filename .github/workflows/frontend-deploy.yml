@@ -4,8 +4,8 @@ on:
       - main
     paths:
       - "client/**"
-  
-name: Deploy client to Cpanel 🚀
+
+name: Deploy client to cPanel 🚀
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -30,10 +30,10 @@ jobs:
         working-directory: ./client
         run: npm run build
 
-      - name: Deploy to Cpanel
+      - name: Deploy to cPanel
         uses: SamKirkland/FTP-Deploy-Action@4.1.0
         with:
           server: ${{ secrets.CPANEL_SERVER }}
-          username: ${{ secrets.CPANEL_USERNAME }}
+          username: ${{ secrets.CPANEL_FRONTEND_USERNAME }}
           password: ${{ secrets.CPANEL_PASSWORD }}
           local-dir: ./client/dist/

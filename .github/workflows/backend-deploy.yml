@@ -1,0 +1,36 @@
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "server/**"
+
+name: Deploy server to cPanel 🚀
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the latest code
+        uses: actions/checkout@v2
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          extensions: cli, common, fpm, pgsql, zip, gd, mbstring, curl, xml, bcmath, pdo
+
+      - name: Install composer
+        working-directory: ./server
+        run: composer install --no-dev --optimize-autoloader
+
+      - name: Set environment variables
+        run: |
+          echo "${{ secrets.BACKEND_ENV_FILE }}" > server/.env
+
+      - name: Deploy to cPanel
+        uses: SamKirkland/FTP-Deploy-Action@4.1.0
+        with:
+          server: ${{ secrets.CPANEL_SERVER }}
+          username: ${{ secrets.CPANEL_BACKEND_USERNAME }}
+          password: ${{ secrets.CPANEL_PASSWORD }}
+          local-dir: .

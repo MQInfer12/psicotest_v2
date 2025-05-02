@@ -22,7 +22,10 @@ const ShareButton = ({ idTest, nombreTest }: Props) => {
               nombre: nombreTest,
             },
           ]}
-        />
+        />,
+        {
+          bodyPadding: false,
+        }
       )}
       <Button
         btnType="secondary"
