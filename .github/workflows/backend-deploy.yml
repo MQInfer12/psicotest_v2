@@ -15,7 +15,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: "8.2"
-          extensions: cli, common, fpm, pgsql, zip, gd, mbstring, curl, xml, bcmath, pdo
+          extensions: pgsql, zip, gd, mbstring, curl, xml, bcmath, pdo
 
       - name: Install composer
         working-directory: ./server
@@ -31,4 +31,4 @@ jobs:
           server: ${{ secrets.CPANEL_SERVER }}
           username: ${{ secrets.CPANEL_BACKEND_USERNAME }}
           password: ${{ secrets.CPANEL_PASSWORD }}
-          local-dir: .
+          local-dir: ./server
