@@ -20,6 +20,11 @@ jobs:
         working-directory: ./client
         run: npm install
 
+      - name: Set environment variables
+        run: |
+          echo "VITE_GOOGLE_CLIENT_ID=${{ secrets.VITE_GOOGLE_CLIENT_ID }}" >> $GITHUB_ENV
+          echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" >> $GITHUB_ENV
+
       - name: Build the project
         working-directory: ./client
         run: npm run build
