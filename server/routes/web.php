@@ -21,25 +21,29 @@ Route::get('/', function () {
 Route::get('/link', function () {
     abort_unless(request('token') === env('WEB_ENDPOINTS_SECRET'), 403);
     Artisan::call("storage:link");
-    return 1;
+    $output = Artisan::output();
+    return response($output, 200)->header('Content-Type', 'text/plain');
 });
 
 Route::get('/migrate', function () {
     abort_unless(request('token') === env('WEB_ENDPOINTS_SECRET'), 403);
-    Artisan::call("migrate");
-    return 1;
+    Artisan::call("migrate", ['--force' => true]);
+    $output = Artisan::output();
+    return response($output, 200)->header('Content-Type', 'text/plain');
 });
 
 Route::get('/seed', function () {
     abort_unless(request('token') === env('WEB_ENDPOINTS_SECRET'), 403);
-    Artisan::call("db:seed");
-    return 1;
+    Artisan::call("db:seed", ['--force' => true]);
+    $output = Artisan::output();
+    return response($output, 200)->header('Content-Type', 'text/plain');
 });
 
 Route::get('/backup', function () {
     abort_unless(request('token') === env('WEB_ENDPOINTS_SECRET'), 403);
     Artisan::call("db:backup");
-    return 1;
+    $output = Artisan::output();
+    return response($output, 200)->header('Content-Type', 'text/plain');
 });
 
 Route::get('/restore', function () {
