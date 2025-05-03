@@ -1,0 +1,1155 @@
+{
+    "id": 5,
+    "autor": "John L. Hollan",
+    "nombre": "CHASIDE",
+    "canvas": [
+        {
+            "type": "paragraph",
+            "content": "El Test de Orientación Vocacional CHASIDE está diseñado para ayudarte a identificar tus intereses y aptitudes profesionales. A través de una serie de preguntas simples, este test explora tus inclinaciones hacia distintas áreas ocupacionales, facilitando una reflexión más clara sobre tu futuro académico y laboral."
+        },
+        { "type": "subtitle", "content": "¿Qué mide el test CHASIDE?" },
+        {
+            "type": "paragraph",
+            "content": "El test evalúa tanto tus intereses como tus aptitudes en siete grandes áreas del conocimiento y la actividad profesional. Cada una de estas áreas está compuesta por ítems que te permitirán descubrir hacia dónde se orienta tu vocación."
+        },
+        {
+            "type": "vignette",
+            "title": "Área Administrativa y Contable",
+            "content": "Relacionada con el cálculo, la organización, la supervisión y la toma de decisiones en el ámbito empresarial y financiero."
+        },
+        {
+            "type": "vignette",
+            "title": "Área Humanística y Social",
+            "content": "Enfocada en la comunicación, la justicia, la sensibilidad social y la interacción con personas."
+        },
+        {
+            "type": "vignette",
+            "title": "Área Artística",
+            "content": "Implica la creatividad, la sensibilidad estética, la innovación y la expresión visual, musical o corporal."
+        },
+        {
+            "type": "vignette",
+            "title": "Área de Ciencias de la Salud",
+            "content": "Relacionada con la ayuda al prójimo, la precisión, el respeto y la empatía hacia los demás."
+        },
+        {
+            "type": "vignette",
+            "title": "Área de Ingeniería y Computación",
+            "content": "Explora habilidades para el pensamiento lógico, el diseño técnico, la programación y el trabajo analítico."
+        },
+        {
+            "type": "vignette",
+            "title": "Área de Defensa y Seguridad",
+            "content": "Orientada a personas con espíritu de justicia, liderazgo, valentía y trabajo en equipo."
+        },
+        {
+            "type": "vignette",
+            "title": "Área de Ciencias Exactas y Agrarias",
+            "content": "Relacionada con la investigación científica, el análisis metódico, el trabajo de campo y la observación sistemática."
+        },
+        { "type": "subtitle", "content": "¿Cómo se responde?" },
+        {
+            "type": "paragraph",
+            "content": "Responde cada pregunta con 'Sí' o 'No' según lo que realmente piensas o sientes. No dejes ítems sin responder. El test no tiene respuestas correctas o incorrectas, simplemente busca reflejar tus intereses y aptitudes."
+        },
+        { "type": "subtitle", "content": "¿Qué obtendrás al finalizar?" },
+        {
+            "type": "paragraph",
+            "content": "Al finalizar el test, recibirás un perfil vocacional que destaca tus áreas más fuertes de interés y aptitud. Este perfil te servirá como guía para considerar carreras compatibles con tu personalidad y habilidades."
+        }
+    ],
+    "versions": [
+        {
+            "id": 6,
+            "nombre": "Provincia",
+            "version": 1,
+            "test": {
+                "requerimientos": [
+                    "nombre",
+                    "edad",
+                    "genero",
+                    "telefono",
+                    "nombre_tutor",
+                    "telefono_tutor",
+                    "institucion",
+                    "curso",
+                    "municipio"
+                ],
+                "secciones": [
+                    {
+                        "id": 1,
+                        "items": [
+                            {
+                                "id": 1,
+                                "descripcion": "¿Aceptarías trabajar escribiendo artículos en la sección económica de un diario?"
+                            },
+                            {
+                                "id": 2,
+                                "descripcion": "¿Te ofrecerías para organizar la despedida de soltero de uno de tus amigos?"
+                            },
+                            {
+                                "id": 3,
+                                "descripcion": "¿Te gustaría dirigir un proyecto de urbanización en tu provincia?"
+                            },
+                            {
+                                "id": 4,
+                                "descripcion": "¿A una frustración siempre opones un pensamiento positivo?"
+                            },
+                            {
+                                "id": 5,
+                                "descripcion": "¿Te dedicarías a socorrer a personas accidentadas o atacadas por asaltantes?"
+                            },
+                            {
+                                "id": 6,
+                                "descripcion": "¿Cuándo eras chico, te interesaba saber cómo estaban construidos tus juguetes?"
+                            },
+                            {
+                                "id": 7,
+                                "descripcion": "¿Te interesan más los misterios de la naturaleza que los secretos de la tecnología?"
+                            },
+                            {
+                                "id": 8,
+                                "descripcion": "¿Escuchas atentamente los problemas que te plantean tus amigos?"
+                            },
+                            {
+                                "id": 9,
+                                "descripcion": "¿Te ofrecerías para explicar a tus compañeros un determinado tema que ellos no entendieron?"
+                            },
+                            {
+                                "id": 10,
+                                "descripcion": "¿Eres exigente y crítico con tu equipo de trabajo?"
+                            },
+                            {
+                                "id": 11,
+                                "descripcion": "¿Te atrae armar rompecabezas o puzles?"
+                            },
+                            {
+                                "id": 12,
+                                "descripcion": "¿Puedes establecer la diferencia conceptual entre macroeconomía y microeconomía?"
+                            },
+                            {
+                                "id": 13,
+                                "descripcion": "¿Usar uniforme te hace sentir distinto, importante?"
+                            },
+                            {
+                                "id": 14,
+                                "descripcion": "¿Participarías como profesional en un espectáculo de acrobacia aérea?"
+                            },
+                            {
+                                "id": 15,
+                                "descripcion": "¿Organizas tu dinero de manera que te alcance hasta el próximo cobro?"
+                            },
+                            {
+                                "id": 16,
+                                "descripcion": "¿Convences fácilmente a otras personas sobre la validez de tus argumentos?"
+                            },
+                            {
+                                "id": 17,
+                                "descripcion": "¿Estás informado sobre los nuevos descubrimientos que se están realizando sobre la Teoría del Big- Bang?"
+                            },
+                            {
+                                "id": 18,
+                                "descripcion": "¿Ante una situación de emergencia actúas rápidamente?"
+                            },
+                            {
+                                "id": 19,
+                                "descripcion": "¿Cuándo tienes que resolver un problema matemático, perseveras hasta encontrar la solución?"
+                            },
+                            {
+                                "id": 20,
+                                "descripcion": "¿Si te convocara tu club preferido para planificar, organizar y dirigir un campo de deportes, aceptarías?"
+                            },
+                            {
+                                "id": 21,
+                                "descripcion": "¿Eres el que pone un toque de alegría en las fiestas?"
+                            },
+                            {
+                                "id": 22,
+                                "descripcion": "¿Crees que los detalles son tan importantes como el todo?"
+                            },
+                            {
+                                "id": 23,
+                                "descripcion": "¿Te sentirías a gusto trabajando en un ámbito hospitalario?"
+                            },
+                            {
+                                "id": 24,
+                                "descripcion": "¿Te gustaría participar para mantener el orden ante grandes desórdenes y cataclismos?"
+                            },
+                            {
+                                "id": 25,
+                                "descripcion": "¿Pasarías varias horas leyendo algún libro de tu interés?"
+                            },
+                            {
+                                "id": 26,
+                                "descripcion": "¿Planificas detalladamente tus trabajos antes de empezar?"
+                            },
+                            {
+                                "id": 27,
+                                "descripcion": "¿Entablas una relación casi personal con tu computadora?"
+                            },
+                            {
+                                "id": 28,
+                                "descripcion": "¿Disfrutas modelando con arcilla?"
+                            },
+                            {
+                                "id": 29,
+                                "descripcion": "¿Ayudas habitualmente a los no videntes a cruzar la calle?"
+                            },
+                            {
+                                "id": 30,
+                                "descripcion": "¿Consideras importante que desde la escuela primaria se fomente la actitud crítica y la participación activa?"
+                            },
+                            {
+                                "id": 31,
+                                "descripcion": "¿Aceptarías que las mujeres formaran parte de las fuerzas armadas bajo las mismas normas que los hombres?"
+                            },
+                            {
+                                "id": 32,
+                                "descripcion": "¿Te gustaría crear nuevas técnicas para descubrir las patologías de algunas enfermedades a través del microscopio?"
+                            },
+                            {
+                                "id": 33,
+                                "descripcion": "¿Participarías en una campaña de prevención contra la enfermedad de Chagas?"
+                            },
+                            {
+                                "id": 34,
+                                "descripcion": "¿Te interesan los temas relacionados al pasado y a la evolución del hombre?"
+                            },
+                            {
+                                "id": 35,
+                                "descripcion": "¿Te incluirías en un proyecto de investigación de los movimientos sísmicos y sus consecuencias?"
+                            },
+                            {
+                                "id": 36,
+                                "descripcion": "¿Fuera de los horarios escolares, dedicas algún día de la semana a la realización de actividades corporales?"
+                            },
+                            {
+                                "id": 37,
+                                "descripcion": "¿Te interesan las actividades de mucha acción y de reacción rápida en situaciones imprevistas y de peligro?"
+                            },
+                            {
+                                "id": 38,
+                                "descripcion": "¿Te ofrecerías para colaborar como voluntario en los gabinetes espaciales de la NASA?"
+                            },
+                            {
+                                "id": 39,
+                                "descripcion": "¿Te gusta más el trabajo manual que el trabajo intelectual?"
+                            },
+                            {
+                                "id": 40,
+                                "descripcion": "¿Estarías dispuesto a renunciar a un momento placentero para ofrecer tu servicio como profesional?"
+                            },
+                            {
+                                "id": 41,
+                                "descripcion": "¿Participarías de una investigación sobre la violencia en el fútbol?"
+                            },
+                            {
+                                "id": 42,
+                                "descripcion": "¿Te gustaría trabajar en un laboratorio mientras estudias?"
+                            },
+                            {
+                                "id": 43,
+                                "descripcion": "¿Arriesgarías tu vida para salvar la vida de otro que no conoces?"
+                            },
+                            {
+                                "id": 44,
+                                "descripcion": "¿Te agradaría hacer un curso de primeros auxilios?"
+                            },
+                            {
+                                "id": 45,
+                                "descripcion": "¿Tolerarías empezar tantas veces como fuere necesario hasta obtener el logro deseado?"
+                            },
+                            {
+                                "id": 46,
+                                "descripcion": "¿Distribuyes tus  horarios del día adecuadamente para poder hacer todo lo planeado?"
+                            },
+                            {
+                                "id": 47,
+                                "descripcion": "¿Harías un curso para aprender a fabricar los instrumentos y/ o piezas de las máquinas o aparatos con que trabajas?"
+                            },
+                            {
+                                "id": 48,
+                                "descripcion": "¿Elegirías una profesión en la tuvieras que estar algunos meses alejado de tu familia, por ejemplo, en campamento petrolero?"
+                            },
+                            {
+                                "id": 49,
+                                "descripcion": "¿Te radicarías en una zona agrícola-ganadera para desarrollar tus actividades como profesional?"
+                            },
+                            {
+                                "id": 50,
+                                "descripcion": "¿Cuándo estás en un grupo trabajando, te entusiasma producir ideas originales y que sean tenidas en cuenta?"
+                            },
+                            {
+                                "id": 51,
+                                "descripcion": "¿Te resulta fácil coordinar un grupo de trabajo?"
+                            },
+                            {
+                                "id": 52,
+                                "descripcion": "¿Te resultó interesante el estudio de las ciencias biológicas?"
+                            },
+                            {
+                                "id": 53,
+                                "descripcion": "¿Si una gran empresa solicita un profesional como gerente de comercialización, te sentirías a gusto desempeñando ese rol?"
+                            },
+                            {
+                                "id": 54,
+                                "descripcion": "¿Te incluirías en un proyecto nacional de desarrollo de la principal fuente de recursos de tu provincia?"
+                            },
+                            {
+                                "id": 55,
+                                "descripcion": "¿Tienes interés por saber cuáles son las causas que determinan ciertos fenómenos, aunque saberlo no altere tu vida?"
+                            },
+                            {
+                                "id": 56,
+                                "descripcion": "¿Descubriste algún filósofo o escritor que haya expresado tus mismas ideas con antelación?"
+                            },
+                            {
+                                "id": 57,
+                                "descripcion": "¿Desearías que te regalen algún instrumento musical para tu cumpleaños?"
+                            },
+                            {
+                                "id": 58,
+                                "descripcion": "¿Aceptarías colaborar con el cumplimiento de las normas en lugares públicos?"
+                            },
+                            {
+                                "id": 59,
+                                "descripcion": "¿Crees que tus ideas son importantes, y haces todo lo posible para ponerlas en práctica?"
+                            },
+                            {
+                                "id": 60,
+                                "descripcion": "¿Cuándo se descompone un artefacto en tu casa, te dispones prontamente a repararlo?"
+                            },
+                            {
+                                "id": 61,
+                                "descripcion": "¿Formarías parte de un equipo de trabajo orientado a la preservación de la flora y la fauna en extinción?"
+                            },
+                            {
+                                "id": 62,
+                                "descripcion": "¿Acostumbras a leer revistas relacionadas con los últimos avances científicos y tecnológicos en el área de la salud?"
+                            },
+                            {
+                                "id": 63,
+                                "descripcion": "¿Preservar las raíces culturales de nuestro país, te parece importante y necesario?"
+                            },
+                            {
+                                "id": 64,
+                                "descripcion": "¿Te gustaría realizar una investigación que contribuyera a hacer más justa la distribución de la riqueza?"
+                            },
+                            {
+                                "id": 65,
+                                "descripcion": "¿Te gustaría realizar tareas auxiliares en una nave, como por ejemplo izado y arriado de velas, pintura y conservación del casco, arreglo de averías, conservación de motores, etc?"
+                            },
+                            {
+                                "id": 66,
+                                "descripcion": "¿Crees que un país debe poseer la más alta tecnología armamentista, a cualquier precio?"
+                            },
+                            {
+                                "id": 67,
+                                "descripcion": "¿La libertad y la justicia son valores fundamentales en tu vida?"
+                            },
+                            {
+                                "id": 68,
+                                "descripcion": "¿Aceptarías hacer una práctica rentada en una industria de productos alimenticios en el sector de control de calidad?"
+                            },
+                            {
+                                "id": 69,
+                                "descripcion": "¿Consideras que la salud pública debe ser prioritaria, gratuita y eficiente para todos?"
+                            },
+                            {
+                                "id": 70,
+                                "descripcion": "¿Te interesaría investigar sobre alguna nueva vacuna?"
+                            },
+                            {
+                                "id": 71,
+                                "descripcion": "¿En un equipo de trabajo, preferís el rol de coordinador?"
+                            },
+                            {
+                                "id": 72,
+                                "descripcion": "¿En una discusión entre amigos, te ofreces como mediador?"
+                            },
+                            {
+                                "id": 73,
+                                "descripcion": "¿Estás de acuerdo con la formación de un cuerpo de soldados profesionales?"
+                            },
+                            {
+                                "id": 74,
+                                "descripcion": "¿Lucharías por una causa justa hasta las últimas consecuencias?"
+                            },
+                            {
+                                "id": 75,
+                                "descripcion": "¿Te gustaría investigar científicamente sobre cultivos agrícolas?"
+                            },
+                            {
+                                "id": 76,
+                                "descripcion": "¿Harías un nuevo diseño de una prenda pasada de moda, ante una reunión imprevista?"
+                            },
+                            {
+                                "id": 77,
+                                "descripcion": "¿Visitarías un observatorio astronómico para conocer en acción el funcionamiento de los aparatos?"
+                            },
+                            {
+                                "id": 78,
+                                "descripcion": "¿Dirigirías el área de importación y exportación de una empresa?"
+                            },
+                            {
+                                "id": 79,
+                                "descripcion": "¿Te inhibís al entrar a un lugar nuevo con gente desconocida?"
+                            },
+                            {
+                                "id": 80,
+                                "descripcion": "¿Te gratificaría el trabajar con niños?"
+                            },
+                            {
+                                "id": 81,
+                                "descripcion": "¿Harías el diseño de un afiche para una campaña contra el sida?"
+                            },
+                            {
+                                "id": 82,
+                                "descripcion": "¿Dirigirías un grupo de teatro independiente?"
+                            },
+                            {
+                                "id": 83,
+                                "descripcion": "¿Enviarías tu curriculum a una empresa automotriz que solicita gerente para su área de producción?"
+                            },
+                            {
+                                "id": 84,
+                                "descripcion": "¿Participarías en un grupo de defensa internacional dentro de alguna fuerza armada?"
+                            },
+                            {
+                                "id": 85,
+                                "descripcion": "¿Te costearías tus estudios trabajando en una auditoría?"
+                            },
+                            {
+                                "id": 86,
+                                "descripcion": "¿Eres de los que defienden causas perdidas?"
+                            },
+                            {
+                                "id": 87,
+                                "descripcion": "¿Ante una emergencia epidémica participarías en una campaña brindando tu ayuda?"
+                            },
+                            {
+                                "id": 88,
+                                "descripcion": "¿Sabrías responder que significa ADN y ARN?"
+                            },
+                            {
+                                "id": 89,
+                                "descripcion": "¿Elegirías una carrera cuyo instrumento de trabajo fuere la utilización de un idioma extranjero?"
+                            },
+                            {
+                                "id": 90,
+                                "descripcion": "¿Trabajar con objetos te resulta más gratificante que trabajar con personas?"
+                            },
+                            {
+                                "id": 91,
+                                "descripcion": "¿Te resultaría gratificante ser asesor contable en una empresa reconocida?"
+                            },
+                            {
+                                "id": 92,
+                                "descripcion": "¿Ante un llamado solidario, te ofrecerías para cuidar a un enfermo?"
+                            },
+                            {
+                                "id": 93,
+                                "descripcion": "¿Te atrae investigar sobre los misterios del universo, por ejemplo los agujeros negros?"
+                            },
+                            {
+                                "id": 94,
+                                "descripcion": "¿El trabajo individual te resulta más rápido y efectivo que el trabajo grupal?"
+                            },
+                            {
+                                "id": 95,
+                                "descripcion": "¿Dedicarías parte de tu tiempo a ayudar a personas de zonas carenciadas?"
+                            },
+                            {
+                                "id": 96,
+                                "descripcion": "¿Cuándo elegís tu ropa o decoras un ambiente, tienes en cuenta la combinación de los colores, las telas o el estilo de los muebles?"
+                            },
+                            {
+                                "id": 97,
+                                "descripcion": "¿Te gustaría trabajar como profesional dirigiendo la construcción de una empresa hidroeléctrica?"
+                            },
+                            { "id": 98, "descripcion": "¿Sabes qué es el PBI?" }
+                        ],
+                        "opciones": [
+                            { "id": 1, "descripcion": "Si" },
+                            { "id": 2, "descripcion": "No" }
+                        ]
+                    }
+                ],
+                "dimensiones": [
+                    {
+                        "id": 1,
+                        "descripcion": "C - Intereses",
+                        "items": [
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 1, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 12, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 20, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 53, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 64, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 71, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 78, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 85, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 91, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 98, "id_opcion": 2 }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 2,
+                        "descripcion": "H - Intereses",
+                        "items": [
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 9, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 34, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 80, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 25, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 95, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 67, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 41, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 74, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 56, "id_opcion": 2 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 89, "id_opcion": 2 }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 3,
+                        "descripcion": "A - Intereses",
+                        "items": [
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 21, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 45, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 96, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 57, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 28, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 11, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 5, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 3, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 81, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 36, "id_opcion": 2 }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 4,
+                        "descripcion": "S - Intereses",
+                        "items": [
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 33, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 92, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 70, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 8, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 87, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 62, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 23, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 44, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 16, "id_opcion": 2 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 52, "id_opcion": 2 }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 5,
+                        "descripcion": "I - Intereses",
+                        "items": [
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 75, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 6, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 19, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 38, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 60, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 27, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 83, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 54, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 47, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 97, "id_opcion": 2 }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 6,
+                        "descripcion": "D - Intereses",
+                        "items": [
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 84, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 31, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 48, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 73, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 5, "id_opcion": 2 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 65, "id_opcion": 2 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 14, "id_opcion": 2 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 37, "id_opcion": 2 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 58, "id_opcion": 2 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 24, "id_opcion": 2 }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 7,
+                        "descripcion": "E - Intereses",
+                        "items": [
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 77, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 42, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 88, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 17, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 93, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 32, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 68, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 49, "id_opcion": 2 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 35, "id_opcion": 2 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 61, "id_opcion": 2 }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 8,
+                        "descripcion": "C - Aptitudes",
+                        "items": [
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 15, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 51, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 2, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 46, "id_opcion": 1 }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 9,
+                        "descripcion": "H - Aptitudes",
+                        "items": [
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 63, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 30, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 72, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 86, "id_opcion": 1 }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 10,
+                        "descripcion": "A - Aptitudes",
+                        "items": [
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 22, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 39, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 76, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 82, "id_opcion": 1 }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 11,
+                        "descripcion": "S - Aptitudes",
+                        "items": [
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 69, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 40, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 29, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 4, "id_opcion": 1 }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 12,
+                        "descripcion": "I - Aptitudes",
+                        "items": [
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 26, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 59, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 90, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 10, "id_opcion": 1 }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 13,
+                        "descripcion": "D - Aptitudes",
+                        "items": [
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 13, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 66, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 18, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 43, "id_opcion": 1 }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 14,
+                        "descripcion": "E - Aptitudes",
+                        "items": [
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 94, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 7, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 79, "id_opcion": 1 }
+                                ]
+                            },
+                            {
+                                "puntuacion": 1,
+                                "condiciones": [
+                                    { "id_pregunta": 55, "id_opcion": 1 }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
+}
