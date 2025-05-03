@@ -55,6 +55,7 @@ class Permisos_Seeder extends Seeder
                     Permisos::VER_BLOGS,
                     Permisos::CREAR_BLOGS,
                     Permisos::DESTACAR_BLOGS,
+                    Permisos::VER_REPORTES,
                     Permisos::ADMINISTRAR_PACIENTES,
                 ]
             ]
