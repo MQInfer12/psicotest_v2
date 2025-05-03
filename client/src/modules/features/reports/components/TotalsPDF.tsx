@@ -31,7 +31,7 @@ const Th = ({
       style={{
         flex: 1,
         backgroundColor: COLORS.primary[100],
-        border: 1,
+        borderWidth: 1,
         borderColor: COLORS.primary[200],
         textAlign: "center",
         paddingTop: 4,
@@ -56,7 +56,7 @@ const Td = ({
     <Text
       style={{
         flex: 1,
-        border: 1,
+        borderWidth: 1,
         borderColor: COLORS.primary[200],
         textAlign: "center",
         paddingTop: 4,
@@ -73,7 +73,7 @@ const None = () => {
     <View
       style={{
         flex: 1,
-        border: 1,
+        borderWidth: 1,
         opacity: 0,
       }}
     />
