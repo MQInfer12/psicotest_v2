@@ -24,7 +24,7 @@ jobs:
 
       - name: Set environment variables
         run: |
-          echo "$FRONTEND_ENV_FILE" > client/.env
+          echo "${{ secrets.FRONTEND_ENV_FILE }" > client/.env
 
       - name: Build the project
         working-directory: ./client
