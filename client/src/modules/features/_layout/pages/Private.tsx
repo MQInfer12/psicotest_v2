@@ -40,6 +40,9 @@ const Dashboard = () => {
 
   const { user, state, logout } = useUserContext();
   const url = pathname + buildUrlParams(search);
+
+  console.log(pathname, search, url);
+
   const fromLogoutRef = useRef(false);
 
   //@ts-ignore
