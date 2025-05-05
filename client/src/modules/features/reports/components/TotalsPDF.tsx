@@ -19,6 +19,7 @@ const Row = ({ children }: PropsWithChildren) => {
   );
 };
 
+
 const Th = ({
   children,
   bold,
