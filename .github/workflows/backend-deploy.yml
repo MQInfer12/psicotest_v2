@@ -24,7 +24,8 @@ jobs:
         run: composer install --no-dev --optimize-autoloader
 
       - name: Set environment variables
-        run: echo "${{ secrets.BACKEND_ENV_FILE }}" > server/.env
+        run: |
+          echo "${{ secrets.BACKEND_ENV_FILE }}" > server/.env
 
       - name: Deploy to cPanel
         uses: SamKirkland/FTP-Deploy-Action@4.1.0
