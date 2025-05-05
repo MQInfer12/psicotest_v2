@@ -33,15 +33,15 @@ import { PRIVATE_LINKS } from "../constants/PRIVATE_LINKS";
 import { useMeasureContext } from "../context/MeasureContext";
 
 const Dashboard = () => {
-  const { pathname, search } = useLocation();
   const activeBreadcrumb = useBreadcrumb();
   const navigate = useNavigate();
   const { dark } = useThemeContext();
-
   const { user, state, logout } = useUserContext();
+
+  const { pathname, search } = useLocation();
   const url = pathname + buildUrlParams(search);
 
-  console.log(pathname, search, url);
+  console.log(pathname, search);
 
   const fromLogoutRef = useRef(false);
 
