@@ -3,9 +3,9 @@ import { Document, Image, Page, PDFViewer, View } from "@react-pdf/renderer";
 import { Text } from "../../answers/components/interpretation/GptPdf";
 import { getTodayUtc } from "@/modules/core/utils/getTodayUtc";
 import { formatDate } from "@/modules/core/utils/formatDate";
-import { COLORS } from "@/modules/core/constants/COLORS";
 import React, { PropsWithChildren } from "react";
 import { Totales } from "../api/responses";
+import { useThemeContext } from "@/modules/core/context/ThemeContext";
 
 const Row = ({ children }: PropsWithChildren) => {
   return (
@@ -26,6 +26,8 @@ const Th = ({
   bold?: boolean;
   children?: React.ReactNode;
 }) => {
+  const { COLORS } = useThemeContext();
+
   return (
     <Text
       style={{
@@ -52,6 +54,8 @@ const Td = ({
   bold?: boolean;
   children?: React.ReactNode;
 }) => {
+  const { COLORS } = useThemeContext();
+
   return (
     <Text
       style={{

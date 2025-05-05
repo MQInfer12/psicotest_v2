@@ -49,9 +49,11 @@ const ShareForm = ({ tests, children }: Props) => {
     const cryptedParams = cypherUrl(params);
     const link =
       window.location.href.replaceAll("?", "") +
-      `/share?cparams=${cryptedParams}`;
+      `/share?cparams=${encodeURIComponent(cryptedParams)}`;
     setLink(link);
   };
+
+  console.log(link);
 
   const titleLink = `QR para compartir los tests de ${formatStringList(tests.map((test) => test.nombre))}`;
   return (

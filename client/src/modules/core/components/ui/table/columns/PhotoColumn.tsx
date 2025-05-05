@@ -33,7 +33,7 @@ const PhotoColumn = ({
       <div className="flex-1 flex flex-col gap-1 overflow-hidden">
         <motion.strong
           layoutId={textLayoutId}
-          className="font-medium whitespace-nowrap overflow-hidden text-ellipsis"
+          className="font-medium whitespace-nowrap overflow-hidden text-ellipsis text-alto-950 dark:text-alto-50"
           title={text}
         >
           {text}

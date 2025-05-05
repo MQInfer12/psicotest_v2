@@ -1,4 +1,3 @@
-import { COLORS } from "@/modules/core/constants/COLORS";
 import { useThemeContext } from "@/modules/core/context/ThemeContext";
 import { motion } from "framer-motion";
 
@@ -8,7 +7,7 @@ interface Props {
 }
 
 const Hexagon = ({ size = 240, secondary }: Props) => {
-  const { dark } = useThemeContext();
+  const { dark, COLORS } = useThemeContext();
 
   const primaryAlto = dark ? COLORS.alto[800] : COLORS.alto[200];
   const primary1 = dark ? COLORS.primary[500] : COLORS.primary[200];

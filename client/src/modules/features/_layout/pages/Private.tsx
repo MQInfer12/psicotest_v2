@@ -1,7 +1,11 @@
 import DefaultPhoto from "@/assets/images/defaultPhoto.jpg";
+import UnifranzLogoDark from "@/assets/images/unifranz-logo-dark.png";
+import UnifranzLogo from "@/assets/images/unifranz-logo.png";
 import Icon, { ICON } from "@/modules/core/components/icons/Icon";
 import Loader from "@/modules/core/components/ui/loader/Loader";
 import { useModal } from "@/modules/core/components/ui/modal/useModal";
+import { useThemeContext } from "@/modules/core/context/ThemeContext";
+import { useReturnTo } from "@/modules/core/hooks/navigation/useReturnTo";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import { buildUrlParams } from "@/modules/core/utils/buildUrlParams";
 import { toastConfirm, toastSuccess } from "@/modules/core/utils/toasts";
@@ -27,10 +31,6 @@ import { useBreadcrumb } from "../components/breadcrumb/hooks/useBreadcrumb";
 import { PRIVATE_ASIDE_WIDTH } from "../constants/LAYOUT_SIZES";
 import { PRIVATE_LINKS } from "../constants/PRIVATE_LINKS";
 import { useMeasureContext } from "../context/MeasureContext";
-import UnifranzLogo from "@/assets/images/unifranz-logo.png";
-import UnifranzLogoDark from "@/assets/images/unifranz-logo-dark.png";
-import { useThemeContext } from "@/modules/core/context/ThemeContext";
-import { useReturnTo } from "@/modules/core/hooks/navigation/useReturnTo";
 
 const Dashboard = () => {
   const { pathname, search } = useLocation();
@@ -195,7 +195,10 @@ const Dashboard = () => {
             />
           </div>
         </div>
-        <ThemeButton open={open} />
+        <div className="flex flex-col py-10 gap-4">
+          {/* <ColorButton open={open} /> */}
+          <ThemeButton open={open} />
+        </div>
       </motion.aside>
       <main
         style={{

@@ -6,7 +6,6 @@ import PhotoColumn from "@/modules/core/components/ui/table/columns/PhotoColumn"
 import StateColumn from "@/modules/core/components/ui/table/columns/StateColumn";
 import TableHeader from "@/modules/core/components/ui/table/header/TableHeader";
 import Table from "@/modules/core/components/ui/table/Table";
-import { COLORS } from "@/modules/core/constants/COLORS";
 import { LOCAL_ANSWERS_SEARCH } from "@/modules/core/constants/LOCALS";
 import { useThemeContext } from "@/modules/core/context/ThemeContext";
 import { useDebounce } from "@/modules/core/hooks/useDebounce";
@@ -35,7 +34,7 @@ import { RespuestaEstado } from "../types/RespuestaEstado";
 const columnHelper = createColumnHelper<T_Tests_Respuestas>();
 
 const AnswersPage = () => {
-  const { dark } = useThemeContext();
+  const { dark, COLORS } = useThemeContext();
 
   const { setOpen, modal } = useModal();
   const { setOpen: setOpenDetalle, modal: modalDetalle } = useModal<number>();

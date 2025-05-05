@@ -1,9 +1,6 @@
-import Psicotest from "@/assets/images/logo.png";
-import PsicotestDark from "@/assets/images/logo-dark.png";
 import Appear from "@/modules/core/components/utils/Appear";
-import Neurall from "@/assets/images/neurall.png";
-import clsx from "clsx";
 import { useThemeContext } from "@/modules/core/context/ThemeContext";
+import clsx from "clsx";
 
 interface Props {
   showText?: boolean;
@@ -12,14 +9,14 @@ interface Props {
 }
 
 const Logo = ({ showText = true, slogan = false, autoHideText }: Props) => {
-  const { dark } = useThemeContext();
+  const { images } = useThemeContext();
   return (
     <div className="flex flex-col items-center gap-2">
       <h1 className="text-xl font-light flex gap-2 items-center">
         <img
           className={clsx("w-14 h-auto")}
           alt="neurall-isotipo"
-          src={dark ? PsicotestDark : Psicotest}
+          src={images.logo}
         />
         <Appear
           open={showText}
@@ -28,7 +25,7 @@ const Logo = ({ showText = true, slogan = false, autoHideText }: Props) => {
             autoHideText && "max-sm:hidden"
           )}
         >
-          <img src={Neurall} alt="neurall-logo" className="h-5 w-auto" />
+          <img src={images.title} alt="neurall-logo" className="h-5 w-auto" />
           <small className="text-[10px] self-end opacity-80 leading-none">
             v{APP_VERSION}
           </small>

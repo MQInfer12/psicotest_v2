@@ -1,4 +1,3 @@
-import { COLORS } from "@/modules/core/constants/COLORS";
 import { STORAGE_URL } from "@/modules/core/constants/ENVIRONMENT";
 import { useThemeContext } from "@/modules/core/context/ThemeContext";
 import { formatTime } from "@/modules/core/utils/formatTime";
@@ -40,7 +39,7 @@ interface Props {
 }
 
 const Test = ({ data, test, idRespuesta }: Props) => {
-  const { dark } = useThemeContext();
+  const { dark, COLORS } = useThemeContext();
 
   const { modal, open, setOpen } = useModal();
   const navigate = useNavigate();

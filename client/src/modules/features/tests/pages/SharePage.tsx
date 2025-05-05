@@ -13,6 +13,8 @@ const SharePage = () => {
   const mutation = postData("POST /respuesta");
   const navigate = useNavigate();
 
+  console.log(test, allocator, folder);
+
   useEffect(() => {
     mutation(
       {

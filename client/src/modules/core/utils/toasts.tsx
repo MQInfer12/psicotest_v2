@@ -1,6 +1,6 @@
 import { toast, ExternalToast } from "sonner";
 import Icon from "../components/icons/Icon";
-import { COLORS } from "../constants/COLORS";
+import { DEFAULT_COLORS } from "../constants/COLORS";
 
 interface Options extends ExternalToast {
   title?: string;
@@ -73,11 +73,11 @@ export const toastConfirm = (
       : undefined,
     dismissible: data?.cancelable,
     actionButtonStyle: {
-      backgroundColor: COLORS.primary[800],
+      backgroundColor: "hsl(var(--primary-800))",
     },
     cancelButtonStyle: {
-      backgroundColor: COLORS.alto[50],
-      color: COLORS.alto[950],
+      backgroundColor: DEFAULT_COLORS.alto[50],
+      color: "hsl(var(--primary-950))",
     },
     ...data,
   });

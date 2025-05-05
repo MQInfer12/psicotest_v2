@@ -1,6 +1,5 @@
 import clsx from "clsx";
 import { HTMLMotionProps, motion } from "framer-motion";
-import { COLORS } from "../../constants/COLORS";
 import Icon, { ICON } from "../icons/Icon";
 import { useThemeContext } from "../../context/ThemeContext";
 
@@ -43,7 +42,7 @@ const Button = ({
   ...props
 }: Props) => {
   const getColors = (hover: boolean) => {
-    const { dark } = useThemeContext();
+    const { dark, COLORS } = useThemeContext();
 
     let colors: {
       backgroundColor?: string;

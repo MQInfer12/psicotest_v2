@@ -1,7 +1,6 @@
 import Icon, { ICON } from "@/modules/core/components/icons/Icon";
 import React, { useId, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { COLORS } from "@/modules/core/constants/COLORS";
 import { useThemeContext } from "@/modules/core/context/ThemeContext";
 
 export interface AnswerCardTemplateTab {
@@ -32,7 +31,7 @@ const AnswerCardTemplate = ({ tabs, gridArea }: Props) => {
     throw new Error("tabs tiene que tener al menos un item.");
   }
 
-  const { dark } = useThemeContext();
+  const { dark, COLORS } = useThemeContext();
 
   const id = useId();
   const isTabs = tabs.length > 1;

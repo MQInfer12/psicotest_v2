@@ -1,4 +1,3 @@
-import { COLORS } from "@/modules/core/constants/COLORS";
 import { useThemeContext } from "@/modules/core/context/ThemeContext";
 import { Item, Seccion } from "@/modules/features/tests/types/TestType";
 import { motion } from "framer-motion";
@@ -18,7 +17,7 @@ const TestProgress = ({
   pregunta,
   paused,
 }: Props) => {
-  const { dark } = useThemeContext();
+  const { dark, COLORS } = useThemeContext();
   const sectionProgress = secciones.findIndex((s) => s.id === seccion.id) + 1;
   const preguntaProgress =
     seccion.items.findIndex((p) => p.id === pregunta.id) + 1;

@@ -16,12 +16,14 @@ const ThemeButton = ({ open }: Props) => {
         setTheme({
           auto: false,
           theme: "light",
+          primaryColor: "classic",
         });
         break;
       case 1:
         setTheme({
           auto: false,
           theme: "dark",
+          primaryColor: "unifranz",
         });
         break;
       case 2:
@@ -31,7 +33,7 @@ const ThemeButton = ({ open }: Props) => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center py-10 w-full">
+    <div className="flex flex-col justify-center items-center w-full">
       <motion.button
         key={index}
         layout="preserve-aspect"
