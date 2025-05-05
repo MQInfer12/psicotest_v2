@@ -43,12 +43,12 @@ declare module "@tanstack/react-router" {
 }
 
 createRoot(document.getElementById("root")!).render(
-  <>
+  <StrictMode>
     <Toaster position="bottom-left" />
     <QueryClientProvider client={queryClient}>
       <ThemeContextProvider>
         <RouterProvider router={router} />
       </ThemeContextProvider>
     </QueryClientProvider>
-  </>
+  </StrictMode>
 );
