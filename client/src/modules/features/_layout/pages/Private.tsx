@@ -41,8 +41,6 @@ const Dashboard = () => {
   const { pathname, search } = useLocation();
   const url = pathname + buildUrlParams(search);
 
-  console.log(pathname, search);
-
   const fromLogoutRef = useRef(false);
 
   //@ts-ignore

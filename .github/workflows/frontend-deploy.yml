@@ -20,14 +20,14 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./client
-        run: npm install
+        run: npm install --no-cache
 
       - name: Set environment variables
         run: echo "${{ secrets.FRONTEND_ENV_FILE }}" > client/.env
 
       - name: Build the project
         working-directory: ./client
-        run: npm run build
+        run: npm run build --no-cache
 
       - name: Deploy to cPanel
         uses: SamKirkland/FTP-Deploy-Action@4.1.0
