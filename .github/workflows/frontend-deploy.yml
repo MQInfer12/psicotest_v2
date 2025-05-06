@@ -18,12 +18,9 @@ jobs:
         with:
           node-version: "18"
 
-      - name: Install pnpm
-        run: npm install -g pnpm
-
       - name: Install dependencies
         working-directory: ./client
-        run: pnpm i
+        run: npm i --legacy-peer-deps
 
       - name: Set environment variables
         run: |
@@ -31,7 +28,7 @@ jobs:
 
       - name: Build the project
         working-directory: ./client
-        run: pnpm build
+        run: npm run build
 
       - name: Deploy to cPanel
         uses: SamKirkland/FTP-Deploy-Action@4.1.0
