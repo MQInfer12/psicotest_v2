@@ -2,6 +2,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - "client/**"
 
 name: Deploy client to cPanel 🚀
 jobs:
@@ -16,9 +18,12 @@ jobs:
         with:
           node-version: "18"
 
+      - name: Install pnpm
+        run: npm install -g pnpm
+
       - name: Install dependencies
         working-directory: ./client
-        run: npm i --legacy-peer-deps
+        run: pnpm i
 
       - name: Set environment variables
         run: |
@@ -26,7 +31,7 @@ jobs:
 
       - name: Build the project
         working-directory: ./client
-        run: npm run build
+        run: pnpm build
 
       - name: Deploy to cPanel
         uses: SamKirkland/FTP-Deploy-Action@4.1.0
