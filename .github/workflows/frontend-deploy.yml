@@ -2,8 +2,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - "client/**"
 
 name: Deploy client to cPanel 🚀
 jobs:
