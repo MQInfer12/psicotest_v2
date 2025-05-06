@@ -1,4 +1,3 @@
-import Logo from "@/assets/images/icon.png";
 import { useThemeContext } from "@/modules/core/context/ThemeContext";
 
 interface Props {
@@ -6,7 +5,7 @@ interface Props {
 }
 
 const QRCode = ({ contents }: Props) => {
-  const { dark, COLORS } = useThemeContext();
+  const { dark, COLORS, images } = useThemeContext();
 
   /* useEffect(() => {
     document.getElementById("qr1")?.addEventListener("codeRendered", () => {
@@ -36,7 +35,7 @@ const QRCode = ({ contents }: Props) => {
           backgroundColor: dark ? COLORS.alto[950] : COLORS.alto[50],
         }}
       >
-        <img src={Logo} slot="icon" />
+        <img src={images.logo} slot="icon" />
       </qr-code>
     </div>
   );

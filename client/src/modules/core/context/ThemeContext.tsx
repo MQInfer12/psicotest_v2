@@ -12,27 +12,21 @@ import {
   PRIMARY_COLORS_UNIFRANZ,
 } from "../constants/COLORS";
 
-import LogoClassic from "@/assets/images/logo.png";
-import LogoClassicDark from "@/assets/images/logo-dark.png";
-import TitleClassic from "@/assets/images/neurall.png";
-import LogoUnifranz from "@/assets/images/logo-orange.png";
 import LogoUnifranzDark from "@/assets/images/logo-orange-dark.png";
+import LogoClassic from "@/assets/images/logo.png";
 import TitleUnifranz from "@/assets/images/neurall-orange.png";
+import TitleClassic from "@/assets/images/neurall.png";
 
 type Theme = "light" | "dark";
-
-type PrimaryColor = "classic" | "unifranz";
 
 interface ThemeState {
   auto: boolean;
   theme: Theme;
-  primaryColor: PrimaryColor;
 }
 
 interface Ctx {
   index: number;
   theme: Theme;
-  primaryColor: PrimaryColor;
   setTheme: React.Dispatch<React.SetStateAction<ThemeState>>;
   activateAuto: () => void;
   dark: boolean;
@@ -61,27 +55,15 @@ export const ThemeContextProvider = ({ children }: Props) => {
   const getLocalState = useCallback((): ThemeState => {
     const localState = localStorage.getItem("psicotest_theme");
     if (localState) {
-      const { auto, theme, primaryColor } = JSON.parse(
-        localState
-      ) as ThemeState;
+      const { auto, theme } = JSON.parse(localState) as ThemeState;
       return {
         auto,
         theme: auto ? (mm.matches ? "dark" : "light") : theme,
-        primaryColor:
-          primaryColor ||
-          (auto
-            ? mm.matches
-              ? "unifranz"
-              : "classic"
-            : theme === "dark"
-              ? "unifranz"
-              : "classic"),
       };
     } else {
       return {
         auto: true,
         theme: mm.matches ? "dark" : "light",
-        primaryColor: mm.matches ? "unifranz" : "classic",
       };
     }
   }, []);
@@ -93,7 +75,6 @@ export const ThemeContextProvider = ({ children }: Props) => {
     setTheme({
       auto: true,
       theme: mm.matches ? "dark" : "light",
-      primaryColor: mm.matches ? "unifranz" : "classic",
     });
   };
 
@@ -120,10 +101,9 @@ export const ThemeContextProvider = ({ children }: Props) => {
 
   document.documentElement.classList.toggle("dark", theme === "dark");
 
-  const actualColor = {
-    classic: PRIMARY_COLORS_CLASSIC,
-    unifranz: PRIMARY_COLORS_UNIFRANZ,
-  }[state.primaryColor];
+  const dark = theme === "dark";
+
+  const actualColor = dark ? PRIMARY_COLORS_UNIFRANZ : PRIMARY_COLORS_CLASSIC;
 
   const convertColorFormat = <T extends string>(
     format: "rgb" | "hsl",
@@ -150,9 +130,7 @@ export const ThemeContextProvider = ({ children }: Props) => {
       });
     };
     changeColor();
-  }, [state.primaryColor]);
-
-  const dark = theme === "dark";
+  }, [dark]);
 
   return (
     <ThemeContext.Provider
@@ -160,21 +138,12 @@ export const ThemeContextProvider = ({ children }: Props) => {
         index: auto ? 0 : theme === "light" ? 1 : 2,
         theme,
         setTheme,
-        primaryColor: state.primaryColor,
         activateAuto,
         dark,
         COLORS: { ...DEFAULT_COLORS, primary: actualColorRgb },
         images: {
-          logo:
-            state.primaryColor === "classic"
-              ? dark
-                ? LogoClassicDark
-                : LogoClassic
-              : dark
-                ? LogoUnifranzDark
-                : LogoUnifranz,
-          title:
-            state.primaryColor === "classic" ? TitleClassic : TitleUnifranz,
+          logo: dark ? LogoUnifranzDark : LogoClassic,
+          title: dark ? TitleUnifranz : TitleClassic,
         },
       }}
     >
