@@ -79,7 +79,7 @@ class C_MotivoController extends Controller
 
             $event = $this->createGoogleCalendarEvent($body, $access_token_psicologo, $psicologo);
             if (!$event) {
-                return $this->wrongResponse("Error al reprogramar la cita.");
+                return $this->wrongResponse("Para reprogramar la cita necesitamos permisos para manejar tu calendario de Google, por favor vuelve a iniciar sesión y otorga los permisos necesarios.");
             }
 
             $new_id_calendar = $event->id;

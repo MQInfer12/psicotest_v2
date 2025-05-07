@@ -12,7 +12,20 @@ export const PreAppointmentDTOSchema = yup.object({
   fecha_nacimiento: yup.string().when("$required", (ctx, schema) => {
     const [required] = ctx;
     if (required) {
-      return schema.required("Requerido");
+      return schema
+        .required("Requerido")
+        .test("is-valid-date", "Inválida", (value) => {
+          if (!value) return false;
+          const today = new Date();
+          const inputDate = new Date(value);
+          return inputDate <= today;
+        })
+        .test("is-not-too-young", "Inválida", (value) => {
+          if (!value) return false;
+          const inputDate = new Date(value);
+          const cutoffDate = new Date(new Date().getFullYear() - 10, 0, 0);
+          return inputDate <= cutoffDate;
+        });
     }
     return schema;
   }),

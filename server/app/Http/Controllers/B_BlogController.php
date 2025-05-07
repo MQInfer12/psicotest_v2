@@ -147,9 +147,10 @@ class B_BlogController extends Controller
                     ]
                 ]
             ];
+
             $event = $this->createGoogleCalendarEvent($body, $access_token, $user);
             if (!$event) {
-                return $this->wrongResponse("Error al crear el evento del blog.");
+                return $this->wrongResponse("Para crear el evento necesitamos permisos para manejar tu calendario de Google, por favor vuelve a iniciar sesión y otorga los permisos necesarios.");
             }
 
             $evento = B_Evento::create([
@@ -286,7 +287,7 @@ class B_BlogController extends Controller
 
                     $event = $this->updateGoogleCalendarEvent($asistencia->id_calendar, $body, $access_token, $user);
                     if (!$event) {
-                        return $this->wrongResponse("Error al crear el evento del blog.");
+                        return $this->wrongResponse("Para editar el evento necesitamos permisos para manejar tu calendario de Google, por favor vuelve a iniciar sesión y otorga los permisos necesarios.");
                     }
 
                     $alreadyHasEvent->update([
@@ -334,9 +335,10 @@ class B_BlogController extends Controller
                         ]
                     ]
                 ];
+
                 $event = $this->createGoogleCalendarEvent($body, $access_token, $user);
                 if (!$event) {
-                    return $this->wrongResponse("Error al crear el evento del blog.");
+                    return $this->wrongResponse("Para crear el evento necesitamos permisos para manejar tu calendario de Google, por favor vuelve a iniciar sesión y otorga los permisos necesarios.");
                 }
 
                 $evento = B_Evento::create([
@@ -450,7 +452,7 @@ class B_BlogController extends Controller
 
             $event = $this->createGoogleCalendarEvent($body, $access_token, $user);
             if (!$event) {
-                return $this->wrongResponse("Error al crear la asistencia.");
+                return $this->wrongResponse("Para participar en el evento necesitamos permisos para manejar tu calendario de Google, por favor vuelve a iniciar sesión y otorga los permisos necesarios.");
             }
 
             B_Asistencia::create([

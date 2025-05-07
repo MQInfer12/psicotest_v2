@@ -140,6 +140,7 @@ const ScheduleCard = ({
                 await handleConfirmAppointment();
                 setOpen(false);
               }}
+              withName
             >
               <small className="text-alto-950 dark:text-alto-50 [&>span]:text-primary-500 dark:[&>span]:text-primary-400 text-center mb-2 leading-relaxed">
                 Por favor llena tus datos personales para acceder a la cita del

@@ -165,7 +165,7 @@ class C_CitaController extends Controller
 
         $success = $this->updateGoogleCalendarEvent($cita->id_calendar, $body, $access_token, $user);
         if (!$success) {
-            return $this->wrongResponse("Ocurrió un error al modificar el estado de la cita o se eliminó el evento del calendario.");
+            return $this->wrongResponse("Nos falta permisos para manejar tu calendario de Google o el paciente eliminó el evento de su calendario.");
         }
 
         $cita->estado = $validatedData['estado'];
@@ -259,7 +259,7 @@ class C_CitaController extends Controller
 
         $event = $this->createGoogleCalendarEvent($body, $access_token, $creador_evento);
         if (!$event) {
-            return $this->wrongResponse("Error al crear la cita.");
+            return $this->wrongResponse("Para crear la cita necesitamos permisos para manejar tu calendario de Google, por favor vuelve a iniciar sesión y otorga los permisos necesarios.");
         }
 
         $cita = C_Cita::create([

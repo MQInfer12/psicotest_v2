@@ -33,7 +33,20 @@ export const UserRequiredDTOSchema = yup.object().shape({
     .string()
     .when("$requirements", ([requirements], schema) => {
       if (requirements.includes(Requirements.EDAD))
-        return schema.required("Requerido");
+        return schema
+          .required("Requerido")
+          .test("is-valid-date", "Inválida", (value) => {
+            if (!value) return false;
+            const today = new Date();
+            const inputDate = new Date(value);
+            return inputDate <= today;
+          })
+          .test("is-not-too-young", "Inválida", (value) => {
+            if (!value) return false;
+            const inputDate = new Date(value);
+            const cutoffDate = new Date(new Date().getFullYear() - 10, 0, 0);
+            return inputDate <= cutoffDate;
+          });
       return schema;
     }),
   telefono: yup
