@@ -31,7 +31,7 @@ function RouteComponent() {
   );
 
   if (error) {
-    return <Navigate to="/tests" />;
+    return <Navigate to="/resolve" />;
   }
   if (!data) {
     return <Loader />;

@@ -88,6 +88,7 @@ class T_TestController extends Controller
             if ($respuesta->id_carpeta && !in_array($respuesta->id_carpeta, $availableFolders)) {
                 return $this->wrongResponse('No tienes permisos para acceder a este recurso');
             }
+
             return $this->successResponse(
                 "Test obtenido correctamente.",
                 new T_Test_RespuestaResource($respuesta)

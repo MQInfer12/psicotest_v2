@@ -63,7 +63,9 @@ const DownloadPage = ({ data }: Props) => {
               content={data.interpretacion ?? ""}
             />
           }
-          fileName={`${data.user.nombre.toLocaleLowerCase().replaceAll(" ", "_")}.pdf`}
+          fileName={`${data.user.nombre
+            .toLocaleLowerCase()
+            .replaceAll(" ", "_")}.pdf`}
         >
           <Button
             onClick={() => setClicked(true)}
@@ -77,7 +79,7 @@ const DownloadPage = ({ data }: Props) => {
           <Button
             onClick={() =>
               navigate({
-                to: "/tests",
+                to: "/resolve",
               })
             }
             btnType="secondary"

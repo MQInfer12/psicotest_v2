@@ -21,5 +21,5 @@ export const Route = createFileRoute("/_private/resolve/$idRespuesta")({
       ])
     );
   },
-  errorComponent: (props) => <ErrorComponent {...props} to="/tests" />,
+  errorComponent: (props) => <ErrorComponent {...props} to="/resolve" />,
 });

@@ -20,7 +20,6 @@ import ShareForm from "../components/ShareForm";
 import TestCard from "../components/TestCard";
 import { useUpdateTests } from "../hooks/useUpdateTests";
 import { isForResolveTests } from "../utils/isForResolve";
-import { validateRoute } from "../../_layout/components/breadcrumb/utils/validateRoute";
 
 interface Props {
   respuestas?: boolean;
@@ -134,15 +133,15 @@ const TestPage = ({ respuestas = false }: Props) => {
         data.length === 0 ? (
           <div className="w-full h-full flex items-center justify-center">
             <IconMessage
-              icon={Icon.Types.BRAIN}
+              icon={Icon.Types.QR}
               message="Aún no se te asignó ningún test"
             >
               <div className="mt-4 flex flex-col gap-4 items-center w-80">
                 <small className="text-xs text-alto-700 dark:text-alto-300 text-center leading-normal">
-                  Puedes probar los tests psicológicos de orientación vocacional
-                  que tenemos para ti (35 minutos aprox.)
+                  Puedes resolver tests psicológicos cuando un profesional te
+                  los comparta mediante un enlace o un código QR.
                 </small>
-                <Button
+                {/* <Button
                   icon={Icon.Types.BRAIN}
                   onClick={() =>
                     navigate({
@@ -157,7 +156,7 @@ const TestPage = ({ respuestas = false }: Props) => {
                   reverse
                 >
                   Orientación vocacional
-                </Button>
+                </Button> */}
               </div>
             </IconMessage>
           </div>

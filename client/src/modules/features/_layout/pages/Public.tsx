@@ -15,6 +15,8 @@ import Logo from "../components/Logo";
 import { PUBLIC_NAVBAR_HEIGHT } from "../constants/LAYOUT_SIZES";
 import { useEffect } from "react";
 import { validateRoute } from "../components/breadcrumb/utils/validateRoute";
+import { usePermiso } from "../../auth/hooks/usePermiso";
+import { Permisos } from "../../auth/types/Permisos";
 
 const Public = () => {
   const { state } = useUserContext();
@@ -29,12 +31,19 @@ const Public = () => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
+  const canViewHome = usePermiso([Permisos.VER_HOME]);
+
   if (state !== "unlogged") {
     const isDaily = pathname.startsWith(validateRoute("/daily"));
     return (
       <Navigate
         to={
-          redirect || (isDaily ? pathname.replace("daily", "blogs") : "/tests")
+          redirect ||
+          (isDaily
+            ? pathname.replace("daily", "blogs")
+            : canViewHome
+            ? "/home"
+            : "/tests")
         }
       />
     );

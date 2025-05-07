@@ -8,6 +8,11 @@ interface Breadcrumb {
 }
 
 export const BREADCRUMB: Breadcrumb[] = [
+  {
+    name: "Inicio",
+    match: "/home",
+    icon: Icon.Types.HOME,
+  },
   //? TESTS
   {
     name: "Tests",

@@ -1,7 +1,7 @@
-import { Navigate } from "@tanstack/react-router";
-import { useUserContext } from "../../context/UserContext";
-import { Permisos } from "../../types/Permisos";
 import { toastError } from "@/modules/core/utils/toasts";
+import { Navigate } from "@tanstack/react-router";
+import { usePermiso } from "../../hooks/usePermiso";
+import { Permisos } from "../../types/Permisos";
 
 interface Props {
   permisos: Permisos[];
@@ -10,15 +10,24 @@ interface Props {
 }
 
 const ProtectedRoute = ({ permisos, children, errorMessage }: Props) => {
-  const { user } = useUserContext();
-  if (!permisos.every((permission) => user?.permisos.includes(permission))) {
+  const canAccess = usePermiso(permisos);
+
+  const canViewHome = usePermiso([Permisos.VER_HOME]);
+  const canViewTestAsignacion = usePermiso([Permisos.VER_TESTS_ASIGNACION]);
+  const canViewTestResolucion = usePermiso([Permisos.VER_TESTS_RESOLUCION]);
+
+  if (!canAccess) {
     if (errorMessage) toastError(errorMessage);
     return (
       <Navigate
         to={
-          user?.permisos.includes(Permisos.VER_TESTS_ASIGNACION)
+          canViewHome
+            ? "/home"
+            : canViewTestResolucion
+            ? "/resolve"
+            : canViewTestAsignacion
             ? "/tests"
-            : "/resolve"
+            : "/"
         }
       />
     );

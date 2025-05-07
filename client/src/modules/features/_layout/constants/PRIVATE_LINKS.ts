@@ -11,6 +11,12 @@ interface PrivateLink {
 
 export const PRIVATE_LINKS: PrivateLink[] = [
   {
+    to: "/home",
+    icon: ICON.HOME,
+    title: "Inicio",
+    permisos: [Permisos.VER_HOME],
+  },
+  {
     to: "/tests",
     icon: ICON.BRAIN,
     title: "Tests",

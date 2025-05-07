@@ -13,8 +13,6 @@ const SharePage = () => {
   const mutation = postData("POST /respuesta");
   const navigate = useNavigate();
 
-  console.log(test, allocator, folder);
-
   useEffect(() => {
     mutation(
       {
@@ -29,7 +27,7 @@ const SharePage = () => {
               "¡Felicidades! Ya resolviste todos los tests asignados por tu psicólogo correctamente."
             );
             navigate({
-              to: "/tests",
+              to: "/resolve",
             });
             return;
           }
@@ -43,7 +41,7 @@ const SharePage = () => {
         },
         onError() {
           navigate({
-            to: "/tests",
+            to: "/resolve",
           });
         },
       }

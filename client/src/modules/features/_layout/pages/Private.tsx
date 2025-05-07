@@ -31,6 +31,7 @@ import { useBreadcrumb } from "../components/breadcrumb/hooks/useBreadcrumb";
 import { PRIVATE_ASIDE_WIDTH } from "../constants/LAYOUT_SIZES";
 import { PRIVATE_LINKS } from "../constants/PRIVATE_LINKS";
 import { useMeasureContext } from "../context/MeasureContext";
+import { usePermiso } from "../../auth/hooks/usePermiso";
 
 const Dashboard = () => {
   const activeBreadcrumb = useBreadcrumb();
@@ -90,6 +91,8 @@ const Dashboard = () => {
   const { view } = useSearch({
     strict: false,
   });
+
+  const canViewHome = usePermiso([Permisos.VER_HOME]);
 
   if (state === "unlogged") {
     return (
@@ -157,7 +160,10 @@ const Dashboard = () => {
             }}
             className="flex items-center"
           >
-            <Link to="/tests" className="self-center mx-auto px-4">
+            <Link
+              to={canViewHome ? "/home" : "/tests"}
+              className="self-center mx-auto px-4"
+            >
               <Logo showText={open} />
             </Link>
           </div>

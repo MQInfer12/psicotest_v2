@@ -53,11 +53,13 @@ const ShareForm = ({ tests, children }: Props) => {
     setLink(link);
   };
 
-  const titleLink = `QR para compartir los tests de ${formatStringList(tests.map((test) => test.nombre))}`;
+  const titleLink = `QR para compartir los tests de ${formatStringList(
+    tests.map((test) => test.nombre)
+  )}`;
   return (
     <div className="flex flex-col">
       {link ? (
-        <div className="flex flex-col items-center justify-between p-4 h-96">
+        <div className="flex flex-col items-center justify-between p-4 h-[440px]">
           <small
             title={titleLink}
             className="text-center font-medium text-alto-950 dark:text-alto-50 whitespace-nowrap text-ellipsis overflow-hidden w-full"
@@ -98,7 +100,9 @@ const ShareForm = ({ tests, children }: Props) => {
                   if (!element) return;
                   toJpeg(element).then((dataUrl) => {
                     var link = document.createElement("a");
-                    link.download = `neurall_qr_${tests.map((test) => test.nombre).join("_")}.jpeg`;
+                    link.download = `neurall_qr_${tests
+                      .map((test) => test.nombre)
+                      .join("_")}.jpeg`;
                     link.href = dataUrl;
                     link.click();
                   });
@@ -112,7 +116,7 @@ const ShareForm = ({ tests, children }: Props) => {
       ) : (
         <form
           onSubmit={handleSubmit}
-          className="flex w-full flex-col relative h-96"
+          className="flex w-full flex-col relative h-[440px]"
         >
           <div className="flex flex-col flex-1 gap-4 overflow-x-hidden overflow-y-scroll p-4 pr-[8px]">
             <Input

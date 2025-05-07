@@ -31,7 +31,7 @@ export const Route = createFileRoute("/_private/tests/share")({
   },
   component: () => (
     <ProtectedRoute
-      permisos={[Permisos.PUEDE_SER_ASIGNADO]}
+      permisos={[Permisos.VER_TESTS_RESOLUCION]}
       errorMessage="No tienes permisos para asignarte tests."
     >
       <SharePage />

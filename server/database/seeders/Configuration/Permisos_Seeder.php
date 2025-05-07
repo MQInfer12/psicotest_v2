@@ -67,10 +67,10 @@ class Permisos_Seeder extends Seeder
                 "descripcion" => "Paciente",
                 "por_defecto" => true,
                 "permisos" => [
+                    Permisos::VER_HOME,
                     Permisos::VER_TESTS_RESOLUCION,
-                    Permisos::PUEDE_SER_ASIGNADO,
                     Permisos::VER_CALENDARIO,
-                    Permisos::VER_BLOGS
+                    Permisos::VER_BLOGS,
                 ]
             ]
         );

@@ -1,4 +1,5 @@
 export enum Permisos {
+  VER_HOME = "Ver home",
   VER_TESTS_ASIGNACION = "Ver tests (asignación)",
   VER_TESTS_RESOLUCION = "Ver tests (resolución)",
   COMPARTIR_TEST = "Compartir test",
@@ -8,7 +9,6 @@ export enum Permisos {
   VER_USUARIOS = "Ver usuarios",
   CREAR_TEST = "Crear test",
   EDITAR_TEST = "Editar test",
-  PUEDE_SER_ASIGNADO = "Puede ser asignado",
   CONFIGURAR = "Configurar",
   VER_CITAS = "Ver citas",
   VER_BLOGS = "Ver blogs",
