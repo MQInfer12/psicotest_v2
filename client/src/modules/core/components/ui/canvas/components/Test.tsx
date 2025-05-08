@@ -96,12 +96,12 @@ const Test = ({ data, test, idRespuesta }: Props) => {
 
   const [autoNext, setAutoNext] = useState(true);
   const nextCondition =
-    (seccion?.required ?? true) ? !exist || !finalizedAnimation : false;
+    seccion?.required ?? true ? !exist || !finalizedAnimation : false;
 
   const inLastPregunta = preguntaIndex === preguntas.length - 1;
 
   const allPreguntasChecked = secciones.every((s) =>
-    (s.required ?? true)
+    s.required ?? true
       ? s.items.every((i) => form.map((f) => f.idPregunta).includes(i.id))
       : true
   );
@@ -171,7 +171,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
           }
         });
         if (autoNext) {
-          if ((seccion?.required ?? true) ? nextCondition : !exist) {
+          if (seccion?.required ?? true ? nextCondition : !exist) {
             if (!prev && !inLastPregunta) {
               timerRef.current = setTimeout(() => {
                 setCurrentPage((prev) => {
@@ -452,7 +452,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                         )}
                       </motion.div>
                     </div>
-                    <div className="flex flex-col pt-2 px-4 gap-4 chikito:gap-3">
+                    <div className="flex-1 flex flex-col pt-2 px-4 gap-4 chikito:gap-3">
                       {showTextSection ? (
                         <TestTextSectionForm
                           finished={finished}
@@ -514,7 +514,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
             </TestCarousel>
             <div
               className={clsx(
-                "w-full flex gap-4 diosmio:absolute bottom-6 left-0 px-6",
+                "w-full flex gap-4 pointer-events-none [&_button]:pointer-events-auto lg:diosmio:absolute bottom-6 left-0 px-6",
                 "justify-between"
               )}
             >
