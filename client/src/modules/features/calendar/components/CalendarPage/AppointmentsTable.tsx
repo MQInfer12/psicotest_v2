@@ -1,12 +1,13 @@
 import DefaultPhoto from "@/assets/images/defaultPhoto.jpg";
 import Icon from "@/modules/core/components/icons/Icon";
-import { useModal } from "@/modules/core/components/ui/modal/useModal";
 import DoubleColumn from "@/modules/core/components/ui/table/columns/DoubleColumn";
 import PhotoColumn from "@/modules/core/components/ui/table/columns/PhotoColumn";
 import StateColumn from "@/modules/core/components/ui/table/columns/StateColumn";
 import TableHeader from "@/modules/core/components/ui/table/header/TableHeader";
 import Table from "@/modules/core/components/ui/table/Table";
+import { useReturnTo } from "@/modules/core/hooks/navigation/useReturnTo";
 import { formatDate } from "@/modules/core/utils/formatDate";
+import { validateRoute } from "@/modules/features/_layout/components/breadcrumb/utils/validateRoute";
 import { useUserContext } from "@/modules/features/auth/context/UserContext";
 import { User } from "@/modules/features/users/api/responses";
 import { useNavigate } from "@tanstack/react-router";
@@ -19,51 +20,36 @@ import {
   AppointmentPassedFiltersState,
 } from "../../context/AppointmentPassedContext";
 import { stringFromDate } from "../../utils/stringFromDate";
-import AppointmentHistory from "../AppointmentPage/AppointmentHistory";
 import AppointmentPassedFilters from "./AppointmentPassedFilters";
-import { validateRoute } from "@/modules/features/_layout/components/breadcrumb/utils/validateRoute";
-import { useReturnTo } from "@/modules/core/hooks/navigation/useReturnTo";
 
 const columnHelper = createColumnHelper<Appointment>();
 
 interface Props {
-  isProfile?: User;
+  patient: User;
   data: Appointment[] | undefined;
 }
 
-const AppointmentsTable = ({ isProfile, data }: Props) => {
+const AppointmentsTable = ({ patient, data }: Props) => {
   const { user } = useUserContext();
   const navigate = useNavigate();
   const [filters, setFilters] = useState<AppointmentPassedFiltersState>({
     type: "nombre",
     value: "",
   });
-  const { modal, setOpen: _setOpen } = useModal<Appointment>();
   const { goWithReturnTo } = useReturnTo();
 
   const columns = useMemo(
     () => [
-      columnHelper.accessor(
-        isProfile ? "nombre_psicologo" : "nombre_paciente",
-        {
-          header: isProfile ? "Psicólogo" : "Usuario",
-          cell: (info) => (
-            <PhotoColumn
-              src={
-                (isProfile
-                  ? info.row.original.foto_psicologo
-                  : info.row.original.foto_paciente) || DefaultPhoto
-              }
-              text={info.getValue()}
-              small={
-                isProfile
-                  ? info.row.original.email_psicologo
-                  : info.row.original.email_paciente
-              }
-            />
-          ),
-        }
-      ),
+      columnHelper.accessor("nombre_psicologo", {
+        header: "Psicólogo",
+        cell: (info) => (
+          <PhotoColumn
+            src={info.row.original.foto_psicologo || DefaultPhoto}
+            text={info.getValue()}
+            small={info.row.original.email_psicologo}
+          />
+        ),
+      }),
       columnHelper.accessor("fecha", {
         header: "Fecha",
         cell: (info) => {
@@ -71,7 +57,10 @@ const AppointmentsTable = ({ isProfile, data }: Props) => {
           const isMine = info.row.original.email_psicologo === user?.email;
           return (
             <DoubleColumn
-              text={formatDate(info.row.original.fecha)}
+              text={formatDate(
+                info.row.original.fecha,
+                info.row.original.hora_inicio
+              )}
               small={isMine ? `${day} (Ver)` : day}
               icon={isMine ? Icon.Types.GOOGLE_CALENDAR : undefined}
               onClickSmall={
@@ -110,12 +99,23 @@ const AppointmentsTable = ({ isProfile, data }: Props) => {
       }),
       columnHelper.accessor(
         (row) =>
-          row.derivado_a ? "Derivado" : row.metodo ? "Corregido" : "Ignorado",
+          row.id === patient?.cita_proxima?.id
+            ? "Próximo"
+            : row.derivado_a
+            ? "Derivado"
+            : row.metodo
+            ? "Corregido"
+            : "No asistió",
         {
           header: "Estado",
           cell: (info) => (
             <StateColumn
               data={[
+                {
+                  text: "Próximo",
+                  color: "alto",
+                  condition: info.getValue() === "Próximo",
+                },
                 {
                   text: "Derivado",
                   color: "warning",
@@ -127,9 +127,9 @@ const AppointmentsTable = ({ isProfile, data }: Props) => {
                   condition: info.getValue() === "Corregido",
                 },
                 {
-                  text: "Ignorado",
+                  text: "No asistió",
                   color: "danger",
-                  condition: info.getValue() === "Ignorado",
+                  condition: info.getValue() === "No asistió",
                 },
               ]}
             />
@@ -144,7 +144,10 @@ const AppointmentsTable = ({ isProfile, data }: Props) => {
   );
 
   const getFilteredData = () => {
-    return data?.filter((v) => {
+    const allData = data
+      ? [...data, patient?.cita_proxima].filter((v) => !!v)
+      : undefined;
+    return allData?.filter((v) => {
       const { value } = filters;
       switch (filters.type) {
         case "nombre":
@@ -153,14 +156,18 @@ const AppointmentsTable = ({ isProfile, data }: Props) => {
             .includes(value.trim().toLocaleLowerCase());
         case "estado":
           if (!value) return true;
+          const isProximo = v.id === patient?.cita_proxima?.id;
+          if (value === "Próximo") {
+            return isProximo;
+          }
           if (value === "Corregido") {
             return !!v.metodo && !v.derivado_a;
           }
           if (value === "Derivado") {
             return !!v.derivado_a;
           }
-          if (value === "Ignorado") {
-            return !v.derivado_a && !v.metodo;
+          if (value === "No asistió") {
+            return !v.derivado_a && !v.metodo && !isProximo;
           }
           break;
         case "fecha":
@@ -176,73 +183,43 @@ const AppointmentsTable = ({ isProfile, data }: Props) => {
   const filteredData = getFilteredData();
 
   return (
-    <>
-      {modal(
-        (item) => `Detalles de la cita (${item ? formatDate(item.fecha) : ""})`,
-        (item) =>
-          item &&
-          isProfile && (
-            <div className="h-full w-full">
-              <AppointmentHistory cita={item} paciente={isProfile} />
-            </div>
-          ),
+    <Table
+      border={false}
+      columns={columns}
+      data={filteredData}
+      actions={[
         {
-          width: 900,
-          type: "floating",
-        }
-      )}
-      <Table
-        border={!isProfile}
-        columns={columns}
-        data={filteredData}
-        actions={
-          isProfile
-            ? [
-                {
-                  fn: (row) => {
-                    navigate({
-                      to: "/calendar/$id",
-                      params: { id: String(row.id) },
-                      search: {
-                        returnTo: goWithReturnTo(
-                          validateRoute("/patients/$id", {
-                            id: row.email_paciente,
-                          })
-                        ),
-                      },
-                    });
-                  },
-                  icon: Icon.Types.EYE,
-                  title: "Ver cita previa",
-                  type: "secondary",
-                },
-              ]
-            : [
-                {
-                  fn: (row) =>
-                    navigate({
-                      to: "/calendar/$id",
-                      params: { id: String(row.id) },
-                    }),
-                  icon: Icon.Types.EYE,
-                  title: "Editar",
-                  type: "secondary",
-                },
-              ]
-        }
+          fn: (row) => {
+            navigate({
+              to: "/calendar/$id",
+              params: { id: String(row.id) },
+              search: {
+                returnTo: goWithReturnTo(
+                  validateRoute("/patients/$id", {
+                    id: row.email_paciente,
+                  })
+                ),
+              },
+            });
+          },
+          icon: Icon.Types.EYE,
+          title: "Ver cita",
+          type: "secondary",
+          disabled: (row) => !dayjs(row.fecha).isBefore(dayjs(), "day"),
+        },
+      ]}
+    >
+      <AppointmentPassedContextProvider
+        value={{
+          filters,
+          setFilters,
+        }}
       >
-        <AppointmentPassedContextProvider
-          value={{
-            filters,
-            setFilters,
-          }}
-        >
-          <TableHeader rowsName="citas previas" rowsNameSingular="cita previa">
-            <AppointmentPassedFilters />
-          </TableHeader>
-        </AppointmentPassedContextProvider>
-      </Table>
-    </>
+        <TableHeader rowsName="citas" rowsNameSingular="cita">
+          <AppointmentPassedFilters />
+        </TableHeader>
+      </AppointmentPassedContextProvider>
+    </Table>
   );
 };
 

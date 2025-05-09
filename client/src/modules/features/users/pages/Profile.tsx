@@ -116,7 +116,7 @@ const Profile = ({ email }: Props) => {
             <AppointmentUserContractButton user={data} full />
           </div>
           <div className="flex flex-1 flex-col border border-alto-300/70 dark:border-alto-900 rounded-lg overflow-hidden">
-            <AppointmentsTable isProfile={data} data={citas} />
+            <AppointmentsTable patient={data} data={citas} />
           </div>
         </div>
       )}

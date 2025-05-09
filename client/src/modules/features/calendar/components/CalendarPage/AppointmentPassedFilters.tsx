@@ -47,7 +47,8 @@ const AppointmentPassedFilters = () => {
             <option value="">Cualquiera</option>
             <option value="Corregido">Corregido</option>
             <option value="Derivado">Derivado</option>
-            <option value="Ignorado">Ignorado</option>
+            <option value="No asistió">No asistió</option>
+            <option value="Próximo">Próximo</option>
           </Input>
         ) : filters.type === "fecha" ? (
           <Input

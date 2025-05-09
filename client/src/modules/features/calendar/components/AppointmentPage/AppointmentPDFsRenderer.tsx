@@ -14,16 +14,6 @@ interface Props {
 
 const AppointmentPDFsRenderer = ({ cita, paciente, hasPassed }: Props) => {
   const TABS = [
-    /* {
-      title: "Contrato",
-      component: (
-        <ContractPDF
-          user={paciente}
-          fecha={cita.fecha}
-          nombre_psicologo={cita.nombre_psicologo}
-        />
-      ),
-    }, */
     {
       title: "Ficha",
       component: cita.metodo ? (
@@ -43,7 +33,7 @@ const AppointmentPDFsRenderer = ({ cita, paciente, hasPassed }: Props) => {
   if (!hasPassed || !!cita.derivado_a) {
     TABS.push({
       title: "Derivación",
-      component: cita.metodo ? (
+      component: cita.derivado_a ? (
         <DerivacionPDF cita={cita} user={paciente} />
       ) : (
         <div className="h-full w-full flex items-center justify-center">

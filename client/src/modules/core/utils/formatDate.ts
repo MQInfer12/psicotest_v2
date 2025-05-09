@@ -1,4 +1,4 @@
-export const formatDate = (date: string) => {
+export const formatDate = (date: string, hour?: string) => {
   const MONTHS = [
     "Ene",
     "Feb",
@@ -24,5 +24,5 @@ export const formatDate = (date: string) => {
   const month = MONTHS[_date.getUTCMonth()];
   const year = _date.getUTCFullYear();
 
-  return `${day} ${month}, ${year}`;
+  return `${day} ${month}, ${year}` + (hour ? ` - ${hour.slice(0, 5)}` : "");
 };
