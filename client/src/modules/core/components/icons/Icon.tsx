@@ -85,6 +85,7 @@ import IconSearch from "./tabler/iconSearch";
 import IconMinusCircle from "./tabler/iconMinusCircle";
 import IconCalendarWeek from "./tabler/iconCalendarWeek";
 import IconCalendarUser from "./tabler/iconCalendarUser";
+import IconSend from "./tabler/iconSend";
 
 export enum ICON {
   CHECK = "check",
@@ -190,6 +191,7 @@ export enum ICON {
   WHATSAPP = "whatsapp",
   SEARCH = "search",
   MINUS_CIRCLE = "minus_circle",
+  SEND = "send",
 }
 
 interface Props {
@@ -301,6 +303,7 @@ const Icon = ({ type }: Props) => {
     [ICON.WHATSAPP]: <IconWhatsapp />,
     [ICON.SEARCH]: <IconSearch />,
     [ICON.MINUS_CIRCLE]: <IconMinusCircle />,
+    [ICON.SEND]: <IconSend />,
   };
   return icons[type];
 };

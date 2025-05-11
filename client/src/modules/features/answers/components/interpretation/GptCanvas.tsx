@@ -10,6 +10,7 @@ import { toastConfirm, toastSuccess } from "@/modules/core/utils/toasts";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import { useSendMail } from "../../hooks/useSendMail";
 import { T_Tests_Respuestas } from "@/modules/features/tests/api/responses";
+import useKeys from "@/modules/core/hooks/useKeys";
 
 interface Props {
   content: string;
@@ -41,27 +42,12 @@ const GptCanvas = ({
   const [edit, setEdit] = useState<string | null>(null);
   const [showPDF, setShowPDF] = useState(false);
   const [sendedMail, setSendedMail] = useState(!!alreadySendedMail);
-  const [metaKey, setMetaKey] = useState(false);
+
+  const { shiftKey } = useKeys();
 
   useEffect(() => {
     onChangePDF?.(showPDF);
   }, [showPDF]);
-
-  useEffect(() => {
-    const eventListener = (e: KeyboardEvent) => {
-      setMetaKey(e.shiftKey);
-    };
-    const windowListener = () => setMetaKey(false);
-
-    document.addEventListener("keydown", eventListener);
-    document.addEventListener("keyup", eventListener);
-    window.addEventListener("blur", windowListener);
-    return () => {
-      document.removeEventListener("keydown", eventListener);
-      document.removeEventListener("keyup", eventListener);
-      window.removeEventListener("blur", windowListener);
-    };
-  }, []);
 
   const { postData } = useFetch();
   const patchMutation = postData("PATCH /respuesta/patch/interpretations");
@@ -121,7 +107,9 @@ const GptCanvas = ({
           <>
             <PDFDownloadLink
               document={<GptPdf data={data} content={content} />}
-              fileName={`${data.name.toLocaleLowerCase().replaceAll(" ", "_")}.pdf`}
+              fileName={`${data.name
+                .toLocaleLowerCase()
+                .replaceAll(" ", "_")}.pdf`}
             >
               <Button btnType="secondary" icon={Icon.Types.DOWNLOAD} />
             </PDFDownloadLink>
@@ -179,10 +167,14 @@ const GptCanvas = ({
             />
           </>
         )}
-        {metaKey && !showPDF && !(!!edit || !success || !content || !loaded) ? (
+        {shiftKey &&
+        !showPDF &&
+        !(!!edit || !success || !content || !loaded) ? (
           <PDFDownloadLink
             document={<GptPdf data={data} content={content} />}
-            fileName={`${data.name.toLocaleLowerCase().replaceAll(" ", "_")}.pdf`}
+            fileName={`${data.name
+              .toLocaleLowerCase()
+              .replaceAll(" ", "_")}.pdf`}
           >
             <Button
               disabled={!!edit || !success || !content || !loaded}

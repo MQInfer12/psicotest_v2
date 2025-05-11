@@ -217,16 +217,17 @@ const ScheduleCard = ({
                     handleRespuesta("accepted");
                   }}
                   disabled={loading || estado === "accepted"}
-                  title="Aceptar la cita en el calendario"
+                  title="Aceptar la cita en el calendario (Enviaremos un correo de confirmación al paciente)"
                   icon={
                     estado === "accepted"
                       ? patched
                         ? Icon.Types.CHECK_ANIMATED
                         : Icon.Types.CHECK
-                      : undefined
+                      : Icon.Types.MAIL
                   }
+                  subicon={estado === "accepted" ? undefined : Icon.Types.SEND}
                 >
-                  {estado === "accepted" ? "" : "Aceptar"}
+                  {/* {estado === "accepted" ? "" : "Aceptar"} */}
                 </Button>
                 <Button
                   btnType="secondary"

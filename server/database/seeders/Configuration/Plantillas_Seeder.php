@@ -43,7 +43,7 @@ class Plantillas_Seeder extends Seeder
         IA_Plantilla::updateOrCreate(
             ['id' => 2],
             [
-                "nombre" => "KUDER, PMA v3",
+                "nombre" => "KUDER, PMA v2",
                 "descripcion" => "Plantilla para la creación de informes psicológicos vocacionales para estudiantes de colegio.",
                 "contexto" => file_get_contents(database_path('seeders/Data/Plantillas/2_contexto.txt')),
                 "plantilla" => json_encode(json_decode(file_get_contents(database_path('seeders/Data/Plantillas/2_plantilla.json'))))

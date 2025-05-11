@@ -205,7 +205,9 @@ const AppointmentsTable = ({ patient, data }: Props) => {
           icon: Icon.Types.EYE,
           title: "Ver cita",
           type: "secondary",
-          disabled: (row) => !dayjs(row.fecha).isBefore(dayjs(), "day"),
+          disabled: (row) =>
+            !dayjs(row.fecha).isBefore(dayjs(), "day") &&
+            row.email_psicologo !== user?.email,
         },
       ]}
     >

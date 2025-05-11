@@ -71,14 +71,19 @@ const AppointmentUser = ({ id, user, cita, setData, hasPassed }: Props) => {
     {
       title: "Fecha de nacimiento",
       value: user.fecha_nacimiento
-        ? `${formatDate(user.fecha_nacimiento)} (${measureAge(user.fecha_nacimiento, cita.fecha)} años)`
+        ? `${formatDate(user.fecha_nacimiento)} (${measureAge(
+            user.fecha_nacimiento,
+            cita.fecha
+          )} años)`
         : "-",
       icon: Icon.Types.CAKE,
     },
     {
       title: "Carrera",
       value: user.carrera
-        ? `${user.carrera} ${user.semestre ? `(${abreviaturaOrdinal(user.semestre)} sem.)` : ""}`
+        ? `${user.carrera} ${
+            user.semestre ? `(${abreviaturaOrdinal(user.semestre)} sem.)` : ""
+          }`
         : "-",
       icon: Icon.Types.CAREER,
     },
@@ -114,10 +119,11 @@ const AppointmentUser = ({ id, user, cita, setData, hasPassed }: Props) => {
   ];
 
   if (!hasPassed) {
+    const totalCitas = user.contador_citas + (user.cita_proxima ? 1 : 0);
     DATA.push(
       {
         title: "Citas anteriores",
-        value: `${user.contador_citas} cita${user.contador_citas !== 1 ? "s" : ""} previa${user.contador_citas !== 1 ? "s" : ""}`,
+        value: `${totalCitas} cita${totalCitas !== 1 ? "s" : ""} en total`,
         icon: Icon.Types.CALENDAR_WEEK,
         onClick: () => {
           navigate({
@@ -151,12 +157,18 @@ const AppointmentUser = ({ id, user, cita, setData, hasPassed }: Props) => {
   DATA.push(
     {
       title: "Cita actual",
-      value: `${formatDate(cita.fecha)} ${hasPassed ? `(${getRelativeTime(cita.fecha)})` : `(${cita.hora_inicio.slice(0, 5)} - ${cita.hora_final.slice(0, 5)})`}`,
+      value: `${formatDate(cita.fecha)} ${
+        hasPassed
+          ? `(${getRelativeTime(cita.fecha)})`
+          : `(${cita.hora_inicio.slice(0, 5)} - ${cita.hora_final.slice(0, 5)})`
+      }`,
       icon: Icon.Types.CALENDAR,
     },
     {
       title: "Psicólogo",
-      value: `${cita.nombre_psicologo} ${cita.email_psicologo === me?.email ? "(Tú)" : ""}`,
+      value: `${cita.nombre_psicologo} ${
+        cita.email_psicologo === me?.email ? "(Tú)" : ""
+      }`,
       icon: Icon.Types.CALENDAR_USER,
     }
   );

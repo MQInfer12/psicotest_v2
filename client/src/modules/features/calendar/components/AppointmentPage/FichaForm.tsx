@@ -13,6 +13,7 @@ import { User } from "@/modules/features/users/api/responses";
 import { useUserResumeContext } from "../../context/UserResumeContext";
 
 export enum MetodoConsulta {
+  PrimeraSesion = "Primera sesión",
   BúsquedaPropiaApoyo = "Búsqueda propia de apoyo",
   Derivacion = "Derivación",
   Reconsulta = "Reconsulta",
@@ -43,7 +44,9 @@ const FichaForm = ({ paciente, cita, onSuccess, disabled, preview }: Props) => {
     defaultValues: {
       metodo:
         cita.metodo ??
-        (paciente.contador_citas > 0 && !disabled ? "Reconsulta" : ""),
+        (paciente.contador_citas > 0 && !disabled
+          ? MetodoConsulta.Reconsulta
+          : MetodoConsulta.PrimeraSesion),
       motivo: cita.motivo ?? "",
       antecedentes: cita.antecedentes ?? "",
       observaciones: cita.observaciones ?? "",
@@ -80,15 +83,22 @@ const FichaForm = ({ paciente, cita, onSuccess, disabled, preview }: Props) => {
           type="select"
           required
           error={errors.metodo?.message}
-          disabled={disabled}
+          disabled
           {...register("metodo")}
         >
           <option value="">Selecciona un método</option>
-          <option value={MetodoConsulta.Derivacion}>
-            {MetodoConsulta.Derivacion}
-          </option>
-          <option value={MetodoConsulta.BúsquedaPropiaApoyo}>
-            {MetodoConsulta.BúsquedaPropiaApoyo}
+          {cita.metodo === MetodoConsulta.Derivacion && (
+            <option value={MetodoConsulta.Derivacion}>
+              {MetodoConsulta.Derivacion}
+            </option>
+          )}
+          {cita.metodo === MetodoConsulta.BúsquedaPropiaApoyo && (
+            <option value={MetodoConsulta.BúsquedaPropiaApoyo}>
+              {MetodoConsulta.BúsquedaPropiaApoyo}
+            </option>
+          )}
+          <option value={MetodoConsulta.PrimeraSesion}>
+            {MetodoConsulta.PrimeraSesion}
           </option>
           {paciente.contador_citas > 0 && (
             <option value={MetodoConsulta.Reconsulta}>

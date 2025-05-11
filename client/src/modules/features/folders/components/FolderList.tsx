@@ -9,6 +9,7 @@ import FolderButton from "./FolderButton";
 import FolderForm from "./FolderForm";
 import GroupSubtitle from "./GroupSubtitle";
 import FolderMap from "./FolderMap";
+import useKeys from "@/modules/core/hooks/useKeys";
 
 interface Props {
   data: Folder[] | undefined;
@@ -31,15 +32,20 @@ const FolderList = ({
   const { modal, setOpen } = useModal<
     { type: "edit"; folder: Folder } | { type: "new"; id_grupo: number | null }
   >();
+  const { shiftKey } = useKeys();
 
   const handleSelectFolder = (id: number) => {
-    setSelectedFolders((prev) => {
-      const exists = prev.some((folderId) => folderId === id);
-      if (exists) {
-        return prev.filter((folderId) => folderId !== id);
-      }
-      return [...prev, id];
-    });
+    if (shiftKey) {
+      setSelectedFolders([id]);
+    } else {
+      setSelectedFolders((prev) => {
+        const exists = prev.some((folderId) => folderId === id);
+        if (exists) {
+          return prev.filter((folderId) => folderId !== id);
+        }
+        return [...prev, id];
+      });
+    }
   };
 
   data?.sort((a, b) => {
@@ -54,9 +60,7 @@ const FolderList = ({
         <FolderForm
           folder={item?.type === "edit" ? item.folder : null}
           id_grupo={
-            item?.type === "new"
-              ? item.id_grupo
-              : (item?.folder.id_grupo ?? null)
+            item?.type === "new" ? item.id_grupo : item?.folder.id_grupo ?? null
           }
           onSuccess={(folder) => {
             if (item?.type === "new") {
