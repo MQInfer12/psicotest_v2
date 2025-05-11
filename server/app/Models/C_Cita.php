@@ -18,18 +18,20 @@ class C_Cita extends Model
         'html_link_calendar',
         'creador_calendar',
 
+        'id_caso',
+
         'email_psicologo',
-        'email_paciente',
         'fecha',
         'hora_inicio',
         'hora_final',
 
         'metodo',
+        'id_motivo_consulta',
         'motivo',
         'antecedentes',
         'observaciones',
-        'derivado_a',
-        'resumen'
+
+        'fecha_cierre_clinico',
     ];
 
     public function psicologo()
