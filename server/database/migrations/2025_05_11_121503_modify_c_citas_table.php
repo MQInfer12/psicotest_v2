@@ -1,5 +1,6 @@
 <?php
 
+use App\Constants\MetodoConsulta;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
@@ -27,7 +28,8 @@ return new class extends Migration
             $table->dropColumn(['email_paciente', 'derivado_a', 'resumen']);
 
             //? modificar columnas antiguas
-            $table->string('metodo')->nullable(false)->default('Primera cita del caso')->change();
+            $table->string('metodo')->nullable(false)->default(MetodoConsulta::PRIMERA_SESION_DEL_CASO)->change();
+            $table->string('metodo_inicial')->default(MetodoConsulta::PRIMERA_SESION_DEL_CASO);
         });
     }
 

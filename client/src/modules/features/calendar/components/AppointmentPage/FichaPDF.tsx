@@ -4,8 +4,7 @@ import { measureAge } from "@/modules/core/utils/measureAge";
 import { Text } from "@/modules/features/answers/components/interpretation/GptPdf";
 import { User } from "@/modules/features/users/api/responses";
 import { Document, Page, PDFViewer } from "@react-pdf/renderer";
-import { Appointment } from "../../api/responses";
-import { MetodoConsulta } from "./FichaForm";
+import { Appointment, MetodoConsulta } from "../../api/responses";
 
 interface Props {
   user: User;
@@ -80,7 +79,9 @@ const FichaPDF = ({ user, cita }: Props) => {
               Número de celular de algún pariente:
             </Text>{" "}
             {user.telefono_tutor
-              ? `${user.telefono_tutor} ${user.nombre_tutor ? `(${user.nombre_tutor})` : ""}`
+              ? `${user.telefono_tutor} ${
+                  user.nombre_tutor ? `(${user.nombre_tutor})` : ""
+                }`
               : "-"}
           </Text>
           <Text>

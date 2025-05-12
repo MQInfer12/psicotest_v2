@@ -78,33 +78,6 @@ class U_user extends Authenticatable
         return $this->tienePermiso($this, Permisos::VER_TODAS_LAS_CARPETAS) ? T_Grupo::all() : $this->rol->grupos;
     }
 
-    public function requerimientos()
-    {
-        $this->loadMissing(['respuestas.test_version', 'citas_previas', 'cita_proxima']);
-
-        $requerimientos = $this->respuestas
-            ->pluck('test_version.test')
-            ->filter()
-            ->flatMap(fn($test) => json_decode($test)->requerimientos ?? [])
-            ->unique();
-
-        if ($this->citas_previas->isNotEmpty() || $this->cita_proxima) {
-            $requerimientos = $requerimientos->merge([
-                Requerimientos::NOMBRE,
-                Requerimientos::EDAD,
-                Requerimientos::GENERO,
-                Requerimientos::TELEFONO,
-                Requerimientos::CARRERA,
-                Requerimientos::SEMESTRE,
-                Requerimientos::CODIGO_ESTUDIANTIL,
-                Requerimientos::NOMBRE_TUTOR,
-                Requerimientos::TELEFONO_TUTOR,
-            ])->unique();
-        }
-
-        return $requerimientos->values()->toArray();
-    }
-
     public function carpetas()
     {
         return $this->hasMany(T_Carpeta::class, 'email_user')->where('id_grupo', null)->orderBy('id', 'asc');
@@ -129,17 +102,29 @@ class U_user extends Authenticatable
 
     public function cita_proxima()
     {
-        return $this->hasOne(C_Cita::class, 'email_paciente', 'email')
-            ->whereRaw("CONCAT(fecha, ' ', hora_final) > ?", [Carbon::now()->subHours(4)->format('Y-m-d H:i:s')])
+        return $this->hasOneThrough(
+            C_Cita::class,
+            C_Caso::class,
+            'email_paciente',
+            'id_caso',
+            'email',
+            'id'
+        )->whereRaw("CONCAT(fecha, ' ', hora_final) > ?", [Carbon::now()->subHours(4)->format('Y-m-d H:i:s')])
             ->orderBy('fecha', 'asc')
             ->orderBy('hora_inicio', 'asc');
     }
 
-    public function citas_previas()
+    public function citas()
     {
         return $this
-            ->hasMany(C_Cita::class, 'email_paciente', 'email')
-            ->where('fecha', '<', $this->get_now_local())
+            ->hasManyThrough(
+                C_Cita::class,
+                C_Caso::class,
+                'email_paciente',
+                'id_caso',
+                'email',
+                'id'
+            )
             ->orderBy("fecha", "desc");
     }
 }

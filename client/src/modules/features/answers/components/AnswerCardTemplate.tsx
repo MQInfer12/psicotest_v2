@@ -1,12 +1,15 @@
 import Icon, { ICON } from "@/modules/core/components/icons/Icon";
-import React, { useId, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import { useThemeContext } from "@/modules/core/context/ThemeContext";
+import clsx from "clsx";
+import { AnimatePresence, motion } from "framer-motion";
+import React, { useEffect, useId, useState } from "react";
 
 export interface AnswerCardTemplateTab {
   title: string;
   icon?: ICON;
   component: React.ReactNode;
+  disabled?: boolean;
+  titleProp?: string;
 }
 
 interface Props {
@@ -41,7 +44,7 @@ const AnswerCardTemplate = ({ tabs, gridArea }: Props) => {
   let activeTab: number | null = null;
   /* let direction = 1; */
   if (config) {
-    activeTab = config[0];
+    activeTab = config[0] > tabs.length - 1 ? tabs.length - 1 : config[0];
     /* direction = config[1]; */
   }
 
@@ -50,6 +53,13 @@ const AnswerCardTemplate = ({ tabs, gridArea }: Props) => {
     const newDirection = newTab - activeTab;
     setConfig([newTab, newDirection]);
   };
+
+  useEffect(() => {
+    if (activeTab === null) return;
+    if (activeTab > tabs.length - 1) {
+      setActiveTab(tabs.length - 1);
+    }
+  }, [tabs]);
 
   return (
     <div
@@ -71,11 +81,15 @@ const AnswerCardTemplate = ({ tabs, gridArea }: Props) => {
                     ? COLORS.alto[100]
                     : COLORS.alto[900]
                   : dark
-                    ? COLORS.alto[700]
-                    : COLORS.alto[300],
+                  ? COLORS.alto[700]
+                  : COLORS.alto[300],
             }}
-            className="flex px-2 pb-1 gap-2 relative"
-            onClick={() => setActiveTab(index)}
+            className={clsx(
+              "flex px-2 pb-1 gap-2 relative",
+              tab.disabled && "opacity-40 cursor-auto"
+            )}
+            onClick={tab.disabled ? undefined : () => setActiveTab(index)}
+            title={tab.titleProp}
           >
             <h3 className="text-base font-bold">{tab.title}</h3>
             {tab.icon && (

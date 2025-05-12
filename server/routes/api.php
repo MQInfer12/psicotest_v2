@@ -3,6 +3,7 @@
 use App\Http\Controllers\App_ConfiguracionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\B_BlogController;
+use App\Http\Controllers\C_CasoController;
 use App\Http\Controllers\C_CitaController;
 use App\Http\Controllers\C_HorarioController;
 use App\Http\Controllers\C_MotivoController;
@@ -85,10 +86,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/horario/for/reprogramming', [C_HorarioController::class, 'indexForReprogramming']);
 
     Route::apiResource('/cita', C_CitaController::class);
+    Route::patch('/cita/cerrar/{id}', [C_CitaController::class, 'closeClinically']);
     Route::get('/cita/paciente/{email}/psicotest', [C_CitaController::class, 'showByPatient']);
-    Route::get('/cita/respuesta/status', [C_CitaController::class, 'respuestaStatus']);
+    Route::get('/cita/respuesta/status/{id_calendar}', [C_CitaController::class, 'respuestaStatus']);
     Route::patch('/cita/respuesta/{id}', [C_CitaController::class, 'respuesta']);
     Route::put('/cita/destroy/{id}', [C_CitaController::class, 'destroyWithToken']);
+
+    Route::patch('/caso/cerrar/cita/{id_cita}', [C_CasoController::class, 'cerrarEIniciarNuevoDesdeCita']);
 
     Route::apiResource('/ocupacion', C_OcupacionController::class);
 

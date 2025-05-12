@@ -9,7 +9,7 @@ class C_Caso extends Model
 {
     use HasFactory;
 
-    protected $table = "c_citas";
+    protected $table = "c_casos";
 
     protected $guarded = [];
 
@@ -19,4 +19,14 @@ class C_Caso extends Model
         'motivo_cierre',
         'fecha_cierre'
     ];
+
+    public function paciente()
+    {
+        return $this->belongsTo(U_user::class, 'email_paciente', 'email');
+    }
+
+    public function citas()
+    {
+        return $this->hasMany(C_Cita::class, 'id_caso', 'id');
+    }
 }

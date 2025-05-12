@@ -2,13 +2,17 @@ import { User } from "../../users/api/responses";
 import {
   AppointmentDTO,
   CancelationDTO,
-  DerivacionDTO,
   FichaDTO,
   OcuppationDTO,
   ReprogrammingDTO,
-  ScheduleDTO,
+  ScheduleDTO
 } from "./dtos";
-import { Appointment, Ocuppation, Schedule } from "./responses";
+import {
+  Appointment,
+  AppointmentStatus,
+  Ocuppation,
+  Schedule,
+} from "./responses";
 
 declare global {
   interface EndpointMap {
@@ -63,12 +67,12 @@ declare global {
         paciente: User;
       };
     };
-    "GET /cita/respuesta/status": {
+    "GET /cita/respuesta/status/:id_calendar": {
       params: {
         id_calendar: string;
       };
       request: never;
-      response: "accepted" | "declined" | "needsAction";
+      response: AppointmentStatus;
     };
     "PATCH /cita/respuesta/:id": {
       params: { id: number };
@@ -89,13 +93,18 @@ declare global {
       params: {
         id: number;
       };
-      request: FichaDTO | DerivacionDTO;
+      request: FichaDTO;
       response: Appointment;
     };
     "PUT /cita/destroy/:id": {
       params: { id: number };
       request: null;
       response: User;
+    };
+    "PATCH /cita/cerrar/:id": {
+      params: { id: number };
+      request: null;
+      response: Appointment;
     };
     "PATCH /cita/reprogramacion/:id": {
       params: { id: number };
@@ -106,6 +115,11 @@ declare global {
       params: { id: number };
       request: CancelationDTO;
       response: null;
+    };
+    "PATCH /caso/cerrar/cita/:idCita": {
+      params: { idCita: number };
+      request: null;
+      response: Appointment;
     };
     "GET /ocupacion": {
       params: never;

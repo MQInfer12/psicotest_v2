@@ -7,7 +7,7 @@ import { useCalendarContext } from "../../context/CalendarContext";
 import { getDayIndex } from "../../utils/getDayIndex";
 import { getTimeObject } from "../../utils/getTimeObject";
 import { stringFromDate } from "../../utils/stringFromDate";
-import ScheduleCard from "./ScheduleCard";
+import ScheduleCard from "./cards/ScheduleCard";
 
 const DAYS_FROM_NOW = 7;
 

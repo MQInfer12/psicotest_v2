@@ -59,7 +59,7 @@ class C_MotivoController extends Controller
             }
         }
 
-        $paciente = $cita->paciente;
+        $paciente = $cita->caso->paciente;
         $psicologo = $cita->psicologo;
 
         $new_id_calendar = $cita->id_calendar;
@@ -143,7 +143,7 @@ class C_MotivoController extends Controller
             'descripcion' => $validatedData['descripcion'],
             'tipo' => 'cancelacion',
             'email_psicologo' => $cita->psicologo->email,
-            'email_paciente' => $cita->paciente->email,
+            'email_paciente' => $cita->caso->paciente->email,
             'id_cita' => $cita->id,
             'fecha_anterior' => $cita->fecha,
             'hora_inicio_anterior' => $cita->hora_inicio,

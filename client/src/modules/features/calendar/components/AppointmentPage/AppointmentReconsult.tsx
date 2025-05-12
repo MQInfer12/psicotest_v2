@@ -1,13 +1,14 @@
+import Icon from "@/modules/core/components/icons/Icon";
 import Button from "@/modules/core/components/ui/Button";
 import { useModal } from "@/modules/core/components/ui/modal/useModal";
-import AppointmentForm from "./AppointmentForm";
-import { Appointment } from "../../api/responses";
-import { User } from "@/modules/features/users/api/responses";
 import { SetData } from "@/modules/core/hooks/useFetch/getSetData";
-import Icon from "@/modules/core/components/icons/Icon";
 import { useUserContext } from "@/modules/features/auth/context/UserContext";
-import { stringFromDate } from "../../utils/stringFromDate";
+import { User } from "@/modules/features/users/api/responses";
 import dayjs from "dayjs";
+import { Appointment } from "../../api/responses";
+import { stringFromDate } from "../../utils/stringFromDate";
+import AppointmentForm from "./AppointmentForm";
+import { useNavigate } from "@tanstack/react-router";
 
 interface Props {
   cita: Appointment;
@@ -21,6 +22,7 @@ interface Props {
 const AppointmentReconsult = ({ cita, user, setData }: Props) => {
   const { modal, setOpen } = useModal();
   const { user: me } = useUserContext();
+  const navigate = useNavigate();
 
   const { cita_proxima } = cita;
   const { year, date, day, month } = cita_proxima
@@ -49,9 +51,9 @@ const AppointmentReconsult = ({ cita, user, setData }: Props) => {
             {cita_proxima ? (
               <>
                 <small className="max-w-80 w-full text-alto-950 dark:text-alto-50 opacity-60 leading-relaxed text-center text-xs">
-                  Tienes una cita con el paciente próximamente
+                  La siguiente sesión con el paciente es el día
                 </small>
-                <div className="flex">
+                <div className="flex text-alto-950 dark:text-alto-50">
                   <div className="flex flex-col justify-center items-center w-20 h-20">
                     <p className="text-xs">
                       {day?.toLocaleLowerCase().slice(0, 3)}
@@ -77,26 +79,41 @@ const AppointmentReconsult = ({ cita, user, setData }: Props) => {
                     </span>
                   </div>
                 </div>
-                <Button
-                  onClick={() => {
-                    window.open(
-                      cita_proxima.html_link_calendar +
-                        `&authuser=${me?.email}`,
-                      "_blank"
-                    );
-                  }}
-                  btnSize="small"
-                  btnType="secondary"
-                  icon={Icon.Types.GOOGLE_CALENDAR}
-                >
-                  Ver evento
-                </Button>
+                <div className="flex gap-4">
+                  <Button
+                    onClick={() => {
+                      window.open(
+                        cita_proxima.html_link_calendar +
+                          `&authuser=${me?.email}`,
+                        "_blank"
+                      );
+                    }}
+                    btnSize="small"
+                    btnType="secondary"
+                    icon={Icon.Types.GOOGLE_CALENDAR}
+                  />
+                  <Button
+                    onClick={() => {
+                      navigate({
+                        to: "/calendar/$id",
+                        params: {
+                          id: String(cita_proxima.id),
+                        },
+                      });
+                    }}
+                    btnSize="small"
+                    btnType="secondary"
+                    icon={Icon.Types.EYE}
+                  >
+                    Ver sesión
+                  </Button>
+                </div>
               </>
             ) : (
               <>
                 <small className="max-w-80 w-full text-alto-950 dark:text-alto-50 opacity-60 leading-relaxed text-center text-xs">
                   Cuando hayas terminado de atender al paciente, puedes generar
-                  una nueva cita informándole y preguntando su disponibilidad.
+                  una nueva sesión preguntando su disponibilidad.
                 </small>
                 <Button
                   onClick={() => setOpen(true)}

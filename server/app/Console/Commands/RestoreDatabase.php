@@ -68,7 +68,7 @@ class RestoreDatabase extends Command
     try {
       Artisan::call('db:backup');
       $process->mustRun();
-      Artisan::call('migrate');
+      // Artisan::call('migrate');
       $this->info('The database has been restored successfully.');
       return true;
     } catch (ProcessFailedException $exception) {

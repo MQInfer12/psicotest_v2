@@ -38,10 +38,10 @@ class U_userController extends Controller
         $citas = C_Cita::when(!$puede_ver_todos || $solo_mios, function ($query) use ($request) {
             $query->where('email_psicologo', $request->user()->email);
         })
-            ->with('paciente')
+            ->with('caso.paciente')
             ->get();
 
-        $pacientes = $citas->pluck('paciente')->unique('email')->values();
+        $pacientes = $citas->pluck('caso.paciente')->unique('email')->values();
 
         return $this->successResponse(
             "Pacientes obtenidos correctamente.",
@@ -110,10 +110,10 @@ class U_userController extends Controller
         $citas = C_Cita::when(!$puede_ver_todos, function ($query) use ($request) {
             $query->where('email_psicologo', $request->user()->email);
         })
-            ->with('paciente')
+            ->with('caso.paciente')
             ->get();
 
-        $pacientes = $citas->pluck('paciente')->unique('email')->values();
+        $pacientes = $citas->pluck('caso.paciente')->unique('email')->values();
 
         if (!$pacientes->contains('email', $email)) {
             return $this->wrongResponse("No tienes permisos para ver esto");

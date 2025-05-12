@@ -8,6 +8,9 @@ class U_userResource extends JsonResource
 {
     public function toArray($request)
     {
+        $citas = $this->citas;
+        $cita_proxima = $this->cita_proxima;
+
         return [
             'email' => $this->email,
             'nombre' => $this->nombre,
@@ -28,16 +31,13 @@ class U_userResource extends JsonResource
             'curso' => $this->curso,
             'municipio' => $this->municipio,
 
-            'contador_citas' => count($this->citas_previas),
-            'fecha_ultima_cita' => $this->citas_previas->last() ? $this->citas_previas->last()->fecha : null,
+            'cita_proxima' => $cita_proxima ? new C_CitaResource($cita_proxima) :  null,
+            'contador_citas' => count($citas),
 
             'estado' => $this->estado,
             'permisos' => $this->rol->permisos,
             'grupos' => T_GrupoResource::collection($this->grupos()),
             'id_rol' => $this->id_rol,
-            'cita_proxima' => $this->cita_proxima ? new C_CitaResource($this->cita_proxima) : null,
-
-            /* 'requerimientos' => $this->requerimientos(), */
 
             'disponible' => $this->disponible,
 

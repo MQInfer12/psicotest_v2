@@ -73,17 +73,18 @@ export const BREADCRUMB: Breadcrumb[] = [
   },
   //? GABINETE
   {
-    name: "Pacientes",
+    name: "Historiales",
     match: "/patients",
   },
   {
     name: "Detalles del paciente",
     match: "/patients/$id",
-    icon: Icon.Types.PATIENT,
+    icon: Icon.Types.HISTORY,
   },
   {
     name: "Gabinete",
     match: "/calendar",
+    icon: Icon.Types.CALENDAR,
   },
   {
     name: "Detalles de la cita",

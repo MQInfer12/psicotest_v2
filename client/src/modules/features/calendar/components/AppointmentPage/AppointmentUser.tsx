@@ -2,26 +2,27 @@ import DefaultPhoto from "@/assets/images/defaultPhoto.jpg";
 import Icon from "@/modules/core/components/icons/Icon";
 import Button from "@/modules/core/components/ui/Button";
 import { useModal } from "@/modules/core/components/ui/modal/useModal";
+import { useReturnTo } from "@/modules/core/hooks/navigation/useReturnTo";
+import { SetData } from "@/modules/core/hooks/useFetch/getSetData";
 import { formatDate } from "@/modules/core/utils/formatDate";
-import { getRelativeTime } from "@/modules/core/utils/getRelativeTime";
+import { tiempoRelativo } from "@/modules/core/utils/getRelativeTime";
+import { getTodayUtc } from "@/modules/core/utils/getTodayUtc";
 import { measureAge } from "@/modules/core/utils/measureAge";
 import { toastSuccess } from "@/modules/core/utils/toasts";
 import { validateRoute } from "@/modules/features/_layout/components/breadcrumb/utils/validateRoute";
 import AnswerCardTemplate, {
   AnswerCardTemplateTab,
 } from "@/modules/features/answers/components/AnswerCardTemplate";
+import { useUserContext } from "@/modules/features/auth/context/UserContext";
 import { User } from "@/modules/features/users/api/responses";
 import { useNavigate } from "@tanstack/react-router";
 import clsx from "clsx";
 import { Appointment } from "../../api/responses";
 import PreAppointmentForm from "../CalendarPage/PreAppointmentForm";
-import AppointmentReprogramming from "./AppointmentReprogramming";
-import UserResume from "./UserResume";
 import AppointmentReconsult from "./AppointmentReconsult";
-import { SetData } from "@/modules/core/hooks/useFetch/getSetData";
+import AppointmentReprogramming from "./AppointmentReprogramming";
 import AppointmentUserContractButton from "./AppointmentUserContractButton";
-import { useUserContext } from "@/modules/features/auth/context/UserContext";
-import { useReturnTo } from "@/modules/core/hooks/navigation/useReturnTo";
+import UserResume from "./UserResume";
 
 interface Props {
   id: number;
@@ -49,7 +50,7 @@ function abreviaturaOrdinal(numero: number) {
     11: "11vo",
     12: "12vo",
   };
-  return abreviaturas[numero] || `${numero}°`;
+  return abreviaturas[numero] || `${numero}`;
 }
 
 const AppointmentUser = ({ id, user, cita, setData, hasPassed }: Props) => {
@@ -60,23 +61,17 @@ const AppointmentUser = ({ id, user, cita, setData, hasPassed }: Props) => {
 
   const DATA = [
     {
-      title: "Género",
-      value: user.genero || "-",
+      title: "Género y edad actual",
+      value: `${user.genero} ${
+        user.fecha_nacimiento
+          ? `(${measureAge(user.fecha_nacimiento, getTodayUtc())} años)`
+          : ""
+      }`,
       icon: user.genero
         ? user.genero === "Hombre"
           ? Icon.Types.GENDER_MALE
           : Icon.Types.GENDER_FEMALE
         : Icon.Types.GENDER_NONE,
-    },
-    {
-      title: "Fecha de nacimiento",
-      value: user.fecha_nacimiento
-        ? `${formatDate(user.fecha_nacimiento)} (${measureAge(
-            user.fecha_nacimiento,
-            cita.fecha
-          )} años)`
-        : "-",
-      icon: Icon.Types.CAKE,
     },
     {
       title: "Carrera",
@@ -118,50 +113,75 @@ const AppointmentUser = ({ id, user, cita, setData, hasPassed }: Props) => {
     },
   ];
 
-  if (!hasPassed) {
-    const totalCitas = user.contador_citas + (user.cita_proxima ? 1 : 0);
-    DATA.push(
-      {
-        title: "Citas anteriores",
-        value: `${totalCitas} cita${totalCitas !== 1 ? "s" : ""} en total`,
-        icon: Icon.Types.CALENDAR_WEEK,
-        onClick: () => {
-          navigate({
-            to: "/patients/$id",
-            params: {
-              id: user.email,
-            },
-            search: {
-              returnTo: goWithReturnTo(
-                validateRoute("/calendar/$id", {
-                  id: String(id),
-                })
-              ),
-            },
-          });
-        },
-        disabled: false,
+  DATA.push(
+    {
+      title: "Sesiones anteriores",
+      value: `${user.contador_citas} ${
+        user.contador_citas !== 1 ? "sesiones" : "sesión"
+      } en total`,
+      icon: Icon.Types.CALENDAR_WEEK,
+      onClick: () => {
+        navigate({
+          to: "/patients/$id",
+          params: {
+            id: user.email,
+          },
+          search: {
+            returnTo: goWithReturnTo(
+              validateRoute("/calendar/$id", {
+                id: String(id),
+              })
+            ),
+          },
+        });
       },
-      {
-        title: "Última cita",
-        value: user.fecha_ultima_cita
-          ? `${formatDate(user.fecha_ultima_cita)} (${getRelativeTime(
-              user.fecha_ultima_cita
-            )})`
-          : "Nunca",
-        icon: Icon.Types.TIMELINE,
-      }
-    );
-  }
+      disabled: false,
+    },
+    {
+      title: "Sesión anterior relativa a hoy",
+      value: cita.cita_anterior
+        ? `${formatDate(cita.cita_anterior.fecha)} (${tiempoRelativo(
+            cita.cita_anterior.fecha
+          )})`
+        : "Sin sesiones anteriores a esta",
+      icon: Icon.Types.TIMELINE_DOWN,
+      onClick: () => {
+        navigate({
+          to: "/calendar/$id",
+          params: {
+            id: String(cita.cita_anterior?.id),
+          },
+        });
+      },
+      disabled: !cita.cita_anterior,
+    },
+    {
+      title: "Sesión siguiente relativa a hoy",
+      value: cita.cita_proxima
+        ? `${formatDate(cita.cita_proxima.fecha)} (${tiempoRelativo(
+            cita.cita_proxima.fecha
+          )})`
+        : "Sin sesiones siguientes a esta",
+      icon: Icon.Types.TIMELINE,
+      onClick: () => {
+        navigate({
+          to: "/calendar/$id",
+          params: {
+            id: String(cita.cita_proxima?.id),
+          },
+        });
+      },
+      disabled: !cita.cita_proxima,
+    }
+  );
 
   DATA.push(
     {
       title: "Cita actual",
-      value: `${formatDate(cita.fecha)} ${
-        hasPassed
-          ? `(${getRelativeTime(cita.fecha)})`
-          : `(${cita.hora_inicio.slice(0, 5)} - ${cita.hora_final.slice(0, 5)})`
-      }`,
+      value: `${formatDate(cita.fecha)} ${`(${cita.hora_inicio.slice(
+        0,
+        5
+      )} - ${cita.hora_final.slice(0, 5)})`}`,
       icon: Icon.Types.CALENDAR,
     },
     {
@@ -177,7 +197,7 @@ const AppointmentUser = ({ id, user, cita, setData, hasPassed }: Props) => {
     {
       title: "Paciente",
       component: (
-        <div className="w-full h-full p-4 flex flex-col justify-between">
+        <div className="w-full h-full p-4 flex flex-col justify-between isolate">
           <div className="flex gap-4 max-lg:flex-col max-lg:items-center">
             <div className="flex flex-col h-full max-lg:h-[170px] gap-4">
               <div className="h-[120px] w-[120px] aspect-square z-10 rounded-lg overflow-hidden shadow-md border-4 border-white dark:border-alto-400">
@@ -267,24 +287,30 @@ const AppointmentUser = ({ id, user, cita, setData, hasPassed }: Props) => {
   ];
 
   if (!hasPassed) {
-    tabs.push({
-      title: "Resumen",
-      component: <UserResume user={user} />,
-    });
-
-    if (cita.metodo) {
+    if (cita.cita_anterior) {
       tabs.push({
-        title: "Reconsulta",
-        component: (
-          <AppointmentReconsult cita={cita} user={user} setData={setData} />
-        ),
+        title: "Resumen",
+        component: <UserResume user={user} />,
+        disabled: !cita.cita_anterior.fecha_cierre_clinico,
+        titleProp: !cita.cita_anterior.fecha_cierre_clinico
+          ? "La cita anterior tiene que estar cerrada clínicamente para acceder al resumen"
+          : undefined,
       });
-    } else {
+    }
+    if (!cita.observaciones) {
       tabs.push({
         title: "Reprogramación",
         component: <AppointmentReprogramming cita={cita} user={user} />,
       });
     }
+  }
+  if (cita.observaciones) {
+    tabs.push({
+      title: "Reconsulta",
+      component: (
+        <AppointmentReconsult cita={cita} user={user} setData={setData} />
+      ),
+    });
   }
 
   return (

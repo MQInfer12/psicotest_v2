@@ -7,8 +7,8 @@ import clsx from "clsx";
 import { useMeasureContext } from "../../_layout/context/MeasureContext";
 import { useUserContext } from "../../auth/context/UserContext";
 import AppointmentUserContractButton from "../../calendar/components/AppointmentPage/AppointmentUserContractButton";
-import AppointmentsTable from "../../calendar/components/CalendarPage/AppointmentsTable";
 import PreAppointmentForm from "../../calendar/components/CalendarPage/PreAppointmentForm";
+import ProfileTimeline from "../components/timeline/ProfileTimeline";
 
 interface Props {
   email?: string;
@@ -115,8 +115,9 @@ const Profile = ({ email }: Props) => {
           <div className="self-end">
             <AppointmentUserContractButton user={data} full />
           </div>
-          <div className="flex flex-1 flex-col border border-alto-300/70 dark:border-alto-900 rounded-lg overflow-hidden">
-            <AppointmentsTable patient={data} data={citas} />
+          <div className="flex flex-1 flex-col rounded-lg overflow-hidden">
+            <ProfileTimeline />
+            {/* <AppointmentsTable patient={data} data={citas} /> */}
           </div>
         </div>
       )}

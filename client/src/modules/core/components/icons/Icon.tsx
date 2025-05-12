@@ -86,6 +86,7 @@ import IconMinusCircle from "./tabler/iconMinusCircle";
 import IconCalendarWeek from "./tabler/iconCalendarWeek";
 import IconCalendarUser from "./tabler/iconCalendarUser";
 import IconSend from "./tabler/iconSend";
+import IconHistory from "./tabler/iconHistory";
 
 export enum ICON {
   CHECK = "check",
@@ -188,10 +189,12 @@ export enum ICON {
   INFO = "info",
   ANONYMOUS = "anonymous",
   TIMELINE = "timeline",
+  TIMELINE_DOWN = "timeline_down",
   WHATSAPP = "whatsapp",
   SEARCH = "search",
   MINUS_CIRCLE = "minus_circle",
   SEND = "send",
+  HISTORY = "history",
 }
 
 interface Props {
@@ -299,11 +302,13 @@ const Icon = ({ type }: Props) => {
     [ICON.MINUS]: <IconMinus />,
     [ICON.INFO]: <IconInfo />,
     [ICON.ANONYMOUS]: <IconAnonymous />,
-    [ICON.TIMELINE]: <IconTimelane />,
+    [ICON.TIMELINE]: <IconTimelane type="up" />,
+    [ICON.TIMELINE_DOWN]: <IconTimelane type="down" />,
     [ICON.WHATSAPP]: <IconWhatsapp />,
     [ICON.SEARCH]: <IconSearch />,
     [ICON.MINUS_CIRCLE]: <IconMinusCircle />,
     [ICON.SEND]: <IconSend />,
+    [ICON.HISTORY]: <IconHistory />,
   };
   return icons[type];
 };

@@ -1,53 +1,29 @@
-import useFetch from "@/modules/core/hooks/useFetch/useFetch";
-import { Appointment, Schedule } from "../../api/responses";
-import { calcularTiempo } from "../../utils/calcularTiempo";
-import { toastConfirm, toastSuccess } from "@/modules/core/utils/toasts";
-import { useUserContext } from "../../../auth/context/UserContext";
 import DefaultPhoto from "@/assets/images/defaultPhoto.jpg";
-import { stringFromDate } from "../../utils/stringFromDate";
-import dayjs from "dayjs";
-import { getTokens } from "../../../auth/utils/localStorageToken";
-import { SetData } from "@/modules/core/hooks/useFetch/getSetData";
-import clsx from "clsx";
-import Button from "@/modules/core/components/ui/Button";
 import Icon from "@/modules/core/components/icons/Icon";
-import { useState } from "react";
 import { useModal } from "@/modules/core/components/ui/modal/useModal";
-import PreAppointmentForm from "./PreAppointmentForm";
-import { useNavigate } from "@tanstack/react-router";
+import useFetch from "@/modules/core/hooks/useFetch/useFetch";
+import { toastConfirm, toastSuccess } from "@/modules/core/utils/toasts";
+import dayjs from "dayjs";
+import { useUserContext } from "../../../../auth/context/UserContext";
+import { getTokens } from "../../../../auth/utils/localStorageToken";
+import { Schedule } from "../../../api/responses";
+import { stringFromDate } from "../../../utils/stringFromDate";
+import PreAppointmentForm from "../PreAppointmentForm";
+import CalendarCard from "./CalendarCard";
 
 interface Props {
   horario: Schedule;
   fecha: string;
-  estado?: "accepted" | "declined" | "needsAction" | null;
-  esCita?: boolean;
-  setData?: SetData<Appointment[]>;
-  link?: string;
-  citaCorregida?: boolean;
-  citaDerivada?: string | null;
 }
 
-const ScheduleCard = ({
-  horario,
-  fecha,
-  estado,
-  esCita,
-  setData,
-  link,
-  citaCorregida,
-  citaDerivada,
-}: Props) => {
+const ScheduleCard = ({ horario, fecha }: Props) => {
   const { user, setUser } = useUserContext();
   const { postData } = useFetch();
   const mutation = postData("POST /cita");
-  const patchMutation = postData("PATCH /cita/respuesta/:id");
-  const [patched, setPatched] = useState(false);
-  const [loading, setLoading] = useState(false);
   const { modal, setOpen } = useModal<{
     fecha: string;
     hora: string;
   }>();
-  const navigate = useNavigate();
 
   const hora_inicio = horario.hora_inicio.slice(0, 5);
   const hora_final = horario.hora_final.slice(0, 5);
@@ -56,7 +32,6 @@ const ScheduleCard = ({
     return new Promise((resolve) => {
       const tokens = getTokens();
       if (!tokens) return;
-      setLoading(true);
       mutation(
         {
           id_horario: horario.id,
@@ -67,9 +42,6 @@ const ScheduleCard = ({
             toastSuccess("Cita solicitada con éxito");
             setUser(res.data.paciente);
             resolve(true);
-          },
-          onSettled() {
-            setLoading(false);
           },
         }
       );
@@ -96,32 +68,6 @@ const ScheduleCard = ({
     toastConfirm(
       `¿Quieres solicitar una cita el día ${day.toLocaleLowerCase()}, ${date} de ${month} a las ${hora_inicio}?`,
       handleConfirmAppointment
-    );
-  };
-
-  const handleRespuesta = (estado: "accepted" | "declined") => {
-    if (!setData) return;
-    patchMutation(
-      {
-        estado: "accepted",
-      },
-      {
-        params: {
-          id: horario.id,
-        },
-        onSuccess: (res) => {
-          toastSuccess(
-            {
-              accepted: "Cita aceptada con éxito",
-              declined: "Cita rechazada con éxito",
-            }[estado]
-          );
-          setPatched(true);
-          setData((prev) =>
-            prev.map((cita) => (cita.id === res.data.id ? res.data : cita))
-          );
-        },
-      }
     );
   };
 
@@ -155,7 +101,34 @@ const ScheduleCard = ({
           width: 480,
         }
       )}
-      <div
+
+      <CalendarCard
+        onClick={handleRequestAppointment}
+        title="Horario disponible"
+        responsive={false}
+      >
+        <CalendarCard.Aside date={fecha} responsive={false} />
+        <CalendarCard.Body>
+          <CalendarCard.Header
+            minWidth="0"
+            imageSrc={horario.foto_user ?? DefaultPhoto}
+            headerTexts={[
+              [
+                {
+                  text: horario.nombre_user,
+                },
+                {
+                  text: `${hora_inicio} - ${hora_final}`,
+                  icon: Icon.Types.CLOCK,
+                },
+              ],
+              [],
+            ]}
+          />
+        </CalendarCard.Body>
+      </CalendarCard>
+
+      {/* <div
         onClick={esCita ? () => {} : handleRequestAppointment}
         className={clsx(
           "flex flex-wrap items-center justify-between gap-10 bg-alto-50 dark:bg-alto-1000 px-4 py-2 border border-alto-300/70 dark:border-alto-800 rounded-md shadow-md transition-all duration-300",
@@ -226,9 +199,7 @@ const ScheduleCard = ({
                       : Icon.Types.MAIL
                   }
                   subicon={estado === "accepted" ? undefined : Icon.Types.SEND}
-                >
-                  {/* {estado === "accepted" ? "" : "Aceptar"} */}
-                </Button>
+                />
                 <Button
                   btnType="secondary"
                   btnSize="small"
@@ -259,7 +230,7 @@ const ScheduleCard = ({
             )}
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

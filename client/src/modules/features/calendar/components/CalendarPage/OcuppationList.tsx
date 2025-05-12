@@ -5,8 +5,8 @@ import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import GroupSubtitle from "@/modules/features/folders/components/GroupSubtitle";
 import { Ocuppation } from "../../api/responses";
 import { MONTHS } from "../../data/months";
-import OcuppationCard from "./OcuppationCard";
 import OcuppationForm from "./OcuppationForm";
+import OcuppationCard from "./cards/OcuppationCard";
 
 const OcuppationList = () => {
   const { modal, setOpen } = useModal<Ocuppation>();
@@ -25,6 +25,7 @@ const OcuppationList = () => {
     Record<string, Ocuppation[]>
   >((acc, item) => {
     const date = new Date(item.fecha);
+    date.setHours(date.getHours() + 4);
     const month = MONTHS[date.getMonth()];
     const year = date.getFullYear();
     const key = `${month} ${year}`;
@@ -85,7 +86,7 @@ const OcuppationList = () => {
           )}
           {groupedDataByMonth &&
             Object.keys(groupedDataByMonth).map((month) => (
-              <div className="flex flex-col gap-2" key={month}>
+              <div className="flex flex-col gap-3" key={month}>
                 <GroupSubtitle title={month} />
                 {groupedDataByMonth[month].map((item) => (
                   <OcuppationCard

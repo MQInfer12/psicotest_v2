@@ -14,15 +14,23 @@ class C_CitaRespuestaStatusRequest extends FormRequest
     public function rules()
     {
         return [
-            'id_calendar' => 'required|string',
+            'me' => 'sometimes|boolean',
         ];
     }
 
     public function messages()
     {
         return [
-            'id_calendar.required' => 'El id_calendar es requerido.',
-            'id_calendar.string' => 'El id_calendar tiene que ser un string.',
+            'me.boolean' => 'El parámetro me debe ser verdadero o falso.',
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        if ($this->has('me')) {
+            $this->merge([
+                'me' => filter_var($this->input('me'), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE),
+            ]);
+        }
     }
 }

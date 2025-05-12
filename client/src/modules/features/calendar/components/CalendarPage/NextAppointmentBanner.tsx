@@ -14,22 +14,18 @@ import clsx from "clsx";
 import { useUserContext } from "@/modules/features/auth/context/UserContext";
 import { getTokens } from "@/modules/features/auth/utils/localStorageToken";
 import { stringFromDate } from "../../utils/stringFromDate";
-
-const getIsCurrent = (fecha_cita: string, hora_cita: string) => {
-  const appointmentHour = dayjs(fecha_cita + "T" + hora_cita);
-  const currentHour = dayjs();
-  return currentHour.isAfter(appointmentHour, "second");
-};
+import { calcPassedHour } from "../../utils/calcPassedHour";
 
 const NextAppointmentBanner = () => {
   const { user, setUser } = useUserContext();
   const { fetchData, postData } = useFetch();
   const cancelMutation = postData("PUT /cita/destroy/:id");
-  const { data } = fetchData("GET /cita/respuesta/status", {
-    params: {
+  const { data } = fetchData([
+    "GET /cita/respuesta/status/:id_calendar",
+    {
       id_calendar: user?.cita_proxima?.id_calendar ?? "",
     },
-  });
+  ]);
   const getMutation = postData("GET /me");
 
   const [loading, setLoading] = useState(false);
@@ -40,15 +36,15 @@ const NextAppointmentBanner = () => {
   const hora_final = cita_proxima.hora_final.slice(0, 5);
 
   const [isCurrent, setIsCurrent] = useState(
-    getIsCurrent(cita_proxima.fecha, hora_inicio)
+    calcPassedHour(cita_proxima.fecha, hora_inicio)
   );
   const [hasPassed, setHasPassed] = useState(
-    getIsCurrent(cita_proxima.fecha, hora_final)
+    calcPassedHour(cita_proxima.fecha, hora_final)
   );
   useEffect(() => {
     const interval = setInterval(() => {
-      setIsCurrent(getIsCurrent(cita_proxima.fecha, hora_inicio));
-      setHasPassed(getIsCurrent(cita_proxima.fecha, hora_final));
+      setIsCurrent(calcPassedHour(cita_proxima.fecha, hora_inicio));
+      setHasPassed(calcPassedHour(cita_proxima.fecha, hora_final));
     }, 15000);
 
     return () => clearInterval(interval);
@@ -95,8 +91,8 @@ const NextAppointmentBanner = () => {
             hasPassed
               ? "Tu cita ha finalizado"
               : isCurrent
-                ? "¡Actualmente en cita!"
-                : "¡Tienes una cita!"
+              ? "¡Actualmente en cita!"
+              : "¡Tienes una cita!"
           }
         >
           {!hasPassed && (

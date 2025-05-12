@@ -1,25 +1,32 @@
-export function getRelativeTime(date: string) {
+export function tiempoRelativo(fechaStr: string): string {
+  const fecha = new Date(fechaStr);
+  fecha.setHours(fecha.getHours() + 4);
+  if (isNaN(fecha.getTime())) return "Fecha inválida";
+
+  const ahora = new Date();
+  const diffMs = fecha.getTime() - ahora.getTime();
+
+  const segundos = Math.round(diffMs / 1000);
+  const minutos = Math.round(diffMs / (1000 * 60));
+  const horas = Math.round(diffMs / (1000 * 60 * 60));
+  const dias = Math.round(diffMs / (1000 * 60 * 60 * 24));
+  const semanas = Math.round(diffMs / (1000 * 60 * 60 * 24 * 7));
+  const meses = Math.round(diffMs / (1000 * 60 * 60 * 24 * 30));
+  const años = Math.round(diffMs / (1000 * 60 * 60 * 24 * 365));
+
   const rtf = new Intl.RelativeTimeFormat("es", { numeric: "auto" });
 
-  const now = new Date();
-  const dateObj = new Date(date);
-  dateObj.setHours(dateObj.getHours() + 4);
+  if (Math.abs(segundos) < 60) return rtf.format(segundos, "second");
+  if (Math.abs(minutos) < 60) return rtf.format(minutos, "minute");
+  if (Math.abs(horas) < 24) return rtf.format(horas, "hour");
+  if (Math.abs(dias) < 7) return rtf.format(dias, "day");
 
-  const diff = now.getTime() - dateObj.getTime(); // Diferencia en milisegundos
+  // Semana personalizada (e.g. "la próxima semana")
+  if (Math.abs(semanas) === 1) {
+    return semanas > 0 ? "La próxima semana" : "La semana pasada";
+  }
 
-  const seconds = Math.floor(diff / 1000);
-  const minutes = Math.floor(diff / (1000 * 60));
-  const hours = Math.floor(diff / (1000 * 60 * 60));
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const weeks = Math.floor(days / 7);
-  const months = Math.floor(days / 30);
-  const years = Math.floor(days / 365);
-
-  if (Math.abs(years) >= 1) return rtf.format(-years, "year");
-  if (Math.abs(months) >= 1) return rtf.format(-months, "month");
-  if (Math.abs(weeks) >= 1) return rtf.format(-weeks, "week");
-  if (Math.abs(days) >= 1) return rtf.format(-days, "day");
-  if (Math.abs(hours) >= 1) return rtf.format(-hours, "hour");
-  if (Math.abs(minutes) >= 1) return rtf.format(-minutes, "minute");
-  return rtf.format(seconds * -1, "second");
+  if (Math.abs(semanas) < 5) return rtf.format(semanas, "week");
+  if (Math.abs(meses) < 12) return rtf.format(meses, "month");
+  return rtf.format(años, "year");
 }

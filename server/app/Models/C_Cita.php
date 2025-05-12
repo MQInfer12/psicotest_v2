@@ -26,6 +26,7 @@ class C_Cita extends Model
         'hora_final',
 
         'metodo',
+        'metodo_inicial',
         'id_motivo_consulta',
         'motivo',
         'antecedentes',
@@ -39,15 +40,18 @@ class C_Cita extends Model
         return $this->belongsTo(U_user::class, 'email_psicologo', 'email');
     }
 
-    public function paciente()
+    public function caso()
     {
-        return $this->belongsTo(U_user::class, 'email_paciente', 'email');
+        return $this->belongsTo(C_Caso::class, 'id_caso', 'id');
     }
 
     public function cita_proxima()
     {
-        $siguiente_cita = C_Cita::where('email_psicologo', $this->email_psicologo)
-            ->where('email_paciente', $this->email_paciente)
+        $emailPaciente = $this->caso->email_paciente;
+        $cita_proxima = C_Cita::where('email_psicologo', $this->email_psicologo)
+            ->whereHas('caso', function ($query) use ($emailPaciente) {
+                $query->where('email_paciente', $emailPaciente);
+            })
             ->where(function ($query) {
                 $query->where('fecha', '>', $this->fecha)
                     ->orWhere(function ($query) {
@@ -58,6 +62,26 @@ class C_Cita extends Model
             ->orderBy('fecha', 'asc')
             ->orderBy('hora_inicio', 'asc')
             ->first();
-        return $siguiente_cita;
+        return $cita_proxima;
+    }
+
+    public function cita_anterior()
+    {
+        $emailPaciente = $this->caso->email_paciente;
+        $cita_anterior = C_Cita::where('email_psicologo', $this->email_psicologo)
+            ->whereHas('caso', function ($query) use ($emailPaciente) {
+                $query->where('email_paciente', $emailPaciente);
+            })
+            ->where(function ($query) {
+                $query->where('fecha', '<', $this->fecha)
+                    ->orWhere(function ($query) {
+                        $query->where('fecha', $this->fecha)
+                            ->where('hora_inicio', '<', $this->hora_inicio);
+                    });
+            })
+            ->orderBy('fecha', 'desc')
+            ->orderBy('hora_inicio', 'desc')
+            ->first();
+        return $cita_anterior;
     }
 }

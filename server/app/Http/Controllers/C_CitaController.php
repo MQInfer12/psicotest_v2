@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\MetodoConsulta;
 use App\Constants\Permisos;
 use App\Http\Requests\C_CitaIndexRequest;
 use App\Http\Requests\C_CitaRespuestaRequest;
@@ -10,6 +11,7 @@ use App\Http\Requests\C_CitaStoreRequest;
 use App\Http\Requests\C_CitaUpdateRequest;
 use App\Http\Resources\C_CitaResource;
 use App\Http\Resources\U_userResource;
+use App\Models\C_Caso;
 use App\Models\C_Cita;
 use App\Models\C_Horario;
 use App\Models\C_Ocupacion;
@@ -40,28 +42,32 @@ class C_CitaController extends Controller
 
         $user = $request->user();
 
-        $citas = C_Cita::where('fecha', $previous ? '<' : '>=', $this->get_now_local()->format('Y-m-d'));
+        $citas = $previous ? C_Cita::query() : C_Cita::where('fecha', '>=', $this->get_now_local()->format('Y-m-d'));
 
         if ($email) {
-            $citas = $citas->where('email_paciente', $email);
+            $citas = $citas->whereHas('caso', function ($query) use ($email) {
+                $query->where('email_paciente', $email);
+            });
         } else {
             $citas = $citas->where('email_psicologo', $user->email);
         }
 
         $citas = $citas->get();
 
-        $citas = $previous ? $citas->sortByDesc('fecha') : $citas->sortBy('fecha');
+        $citas = $previous
+            ? $citas->sortByDesc(['fecha', 'hora_inicio'])
+            : $citas->sortBy(['fecha', 'hora_inicio']);
 
-        if (!$previous) {
+        /* if (!$previous) {
             $access_token = $user->raw_access_token();
             if (!$access_token) {
                 return $this->wrongResponse("El token de acceso es requerido.");
             }
             foreach ($citas as $cita) {
                 $event = $this->fetchGoogleCalendarEvent($cita->id_calendar, $access_token, $user);
-                /* if ($event === false) {
-                    return $this->wrongResponse("Ocurrió un error al obtener las citas.");
-                } */
+                // if ($event === false) {
+                //     return $this->wrongResponse("Ocurrió un error al obtener las citas.");
+                // }
                 if ($event) {
                     foreach ($event->attendees as $attendee) {
                         if ($attendee->email == $user->email) {
@@ -73,7 +79,7 @@ class C_CitaController extends Controller
                     $cita->estado = 'needsAction';
                 }
             }
-        }
+        } */
 
         return $this->successResponse(
             "Citas encontradas correctamente.",
@@ -89,16 +95,20 @@ class C_CitaController extends Controller
 
         $puede_ver_todas = $this->tienePermiso($me, Permisos::ADMINISTRAR_PACIENTES);
 
+        $paciente = $cita->caso->paciente;
+
+        //? si no soy el psicólogo y no tengo permisos para ver todas las citas reviso si tengo alguna cita con el paciente
         if ($cita->email_psicologo != $me->email && !$puede_ver_todas) {
-            $citas = C_Cita::where('email_paciente', $cita->email_paciente)
-                ->where('email_psicologo', $me->email)
-                ->get();
+            $citas = C_Cita::whereHas('caso', function ($query) use ($paciente) {
+                $query->where('email_paciente', $paciente->email);
+            })->where('email_psicologo', $me->email)->get();
             if ($citas->isEmpty()) {
                 return $this->wrongResponse("No tienes permisos para ver esto.");
             }
         }
 
-        if ($cita->email_psicologo != $me->email && $puede_ver_todas && $cita->fecha >= $this->get_now_local()->format('Y-m-d')) {
+        //? si no soy el psicólogo y tengo permisos para ver todas las citas reviso si la cita esta cerrada clínicamente
+        if ($cita->email_psicologo != $me->email && $puede_ver_todas && !$cita->fecha_cierre_clinico) {
             return $this->wrongResponse("No tienes permisos para ver esto.");
         }
 
@@ -106,7 +116,7 @@ class C_CitaController extends Controller
             "Cita encontrada correctamente.",
             [
                 'cita' => new C_CitaResource($cita),
-                'paciente' => new U_userResource($cita->paciente)
+                'paciente' => new U_userResource($paciente)
             ]
         );
     }
@@ -116,19 +126,19 @@ class C_CitaController extends Controller
         $user = U_user::findOrFail($email);
         return $this->successResponse(
             "Cita encontrada correctamente.",
-            C_CitaResource::collection($user->citas_previas)
+            C_CitaResource::collection($user->citas)
         );
     }
 
-    public function respuestaStatus(C_CitaRespuestaStatusRequest $request)
+    public function respuestaStatus(C_CitaRespuestaStatusRequest $request, string $id_calendar)
     {
         $access_token = $request->user()->raw_access_token();
         if (!$access_token) {
             return $this->wrongResponse("El token de acceso es inválido.");
         }
 
-        $id_calendar = $request->input('id_calendar');
-        $responseStatus = $this->getAttendeeResponseStatus($id_calendar, $access_token, $request->user());
+        $me = $request->input('me', false);
+        $responseStatus = $this->getAttendeeResponseStatus($id_calendar, $access_token, $request->user(), $me);
 
         if ($responseStatus === false) {
             return $this->wrongResponse("Ocurrió un error al obtener el estado de la cita.");
@@ -262,15 +272,32 @@ class C_CitaController extends Controller
             return $this->wrongResponse("Para crear la cita necesitamos permisos para manejar tu calendario de Google, por favor vuelve a iniciar sesión y otorga los permisos necesarios.");
         }
 
+        $caso = C_Caso::where('email_paciente', $paciente->email)
+            ->whereNull('fecha_cierre')
+            ->first();
+
+        if (!$caso) {
+            $caso = C_Caso::create([
+                'email_paciente' => $paciente->email,
+            ]);
+        }
+
+        $casosAnteriores = $caso->citas->filter(function ($cita) {
+            return $cita->metodo !== MetodoConsulta::INASISTENCIA;
+        });
+        $primeraCita = $casosAnteriores->count() == 0;
+
         $cita = C_Cita::create([
             'id_calendar' => $event->id,
             'html_link_calendar' => $event->htmlLink,
             'creador_calendar' => $creador_evento->email,
+            'id_caso' => $caso->id,
             'email_psicologo' => $horario->email_user,
-            'email_paciente' => $paciente->email,
             'fecha' => $validatedData['fecha'],
             'hora_inicio' => $horario->hora_inicio,
             'hora_final' => $horario->hora_final,
+            'metodo' => $primeraCita ? MetodoConsulta::PRIMERA_SESION_DEL_CASO : MetodoConsulta::RECONSULTA,
+            'metodo_inicial' => $primeraCita ? MetodoConsulta::PRIMERA_SESION_DEL_CASO : MetodoConsulta::RECONSULTA,
         ]);
 
         $paciente->refresh();
@@ -304,6 +331,37 @@ class C_CitaController extends Controller
         );
     }
 
+    public function closeClinically(Request $request, int $id)
+    {
+        $cita = C_Cita::findOrFail($id);
+
+        if ($cita->email_psicologo != $request->user()->email) {
+            return $this->wrongResponse("No tienes permisos para cerrar esta cita.");
+        }
+
+        $cita->update([
+            'fecha_cierre_clinico' => $this->get_now_local()->format('Y-m-d')
+        ]);
+
+        $citasDelCaso = $cita->caso->citas;
+        $citaSinLlenar = $citasDelCaso->where('observaciones', null)->first();
+        $citasLlenadas = $citasDelCaso->where('observaciones', '!=', null);
+
+        if ($citasLlenadas->every(fn($cita) => $cita->metodo === MetodoConsulta::INASISTENCIA)) {
+            if ($citaSinLlenar) {
+                $citaSinLlenar->update([
+                    'metodo' => MetodoConsulta::INASISTENCIA,
+                    'metodo_inicial' => MetodoConsulta::INASISTENCIA,
+                ]);
+            }
+        }
+
+        return $this->successResponse(
+            "Cita cerrada clínicamente correctamente.",
+            new C_CitaResource($cita)
+        );
+    }
+
     public function destroyWithToken(Request $request, int $id)
     {
         $cita = C_Cita::findOrFail($id);
@@ -319,7 +377,12 @@ class C_CitaController extends Controller
             }
         }
 
-        $cita->delete();
+        $caso = $cita->caso;
+        if ($caso->citas->count() == 1) {
+            $caso->delete();
+        } else {
+            $cita->delete();
+        }
 
         $contador = R_Contador::firstOrFail();
         $contador->citas_canceladas += 1;

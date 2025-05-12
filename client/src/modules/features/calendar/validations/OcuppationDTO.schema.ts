@@ -17,5 +17,18 @@ export const OcuppationDTOSchema = yup.object({
       }
     ),
   hora_inicio: yup.string().required("Requerido"),
-  hora_final: yup.string().required("Requerido"),
+  hora_final: yup
+    .string()
+    .required("Requerido")
+    .test(
+      "is-after-start-time",
+      "No menor a la hora de inicio",
+      function (value) {
+        const { fecha, hora_inicio } = this.parent;
+        if (!hora_inicio || !value || !fecha) return false;
+        return dayjs(fecha + " " + value).isAfter(
+          dayjs(fecha + " " + hora_inicio)
+        );
+      }
+    ),
 });

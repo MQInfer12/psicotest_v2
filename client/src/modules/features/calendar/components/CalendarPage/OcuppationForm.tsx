@@ -135,14 +135,16 @@ const OcuppationForm = ({ ocupacion, onSuccess, onSuccessDelete }: Props) => {
         <Button className="flex-1" disabled={loading} type="submit">
           Enviar
         </Button>
-        <Button
-          type="button"
-          className="flex-1"
-          btnType="secondary"
-          onClick={handleDelete}
-        >
-          Eliminar
-        </Button>
+        {ocupacion && (
+          <Button
+            type="button"
+            className="flex-1"
+            btnType="secondary"
+            onClick={handleDelete}
+          >
+            Eliminar
+          </Button>
+        )}
       </div>
     </form>
   );

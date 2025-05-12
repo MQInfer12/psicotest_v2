@@ -144,10 +144,7 @@ const AppointmentsTable = ({ patient, data }: Props) => {
   );
 
   const getFilteredData = () => {
-    const allData = data
-      ? [...data, patient?.cita_proxima].filter((v) => !!v)
-      : undefined;
-    return allData?.filter((v) => {
+    return data?.filter((v) => {
       const { value } = filters;
       switch (filters.type) {
         case "nombre":

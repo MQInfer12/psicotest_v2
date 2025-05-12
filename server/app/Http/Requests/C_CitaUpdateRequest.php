@@ -17,9 +17,7 @@ class C_CitaUpdateRequest extends FormRequest
             'metodo' => 'sometimes|required|string',
             'motivo' => 'sometimes|string|nullable',
             'antecedentes' => 'sometimes|string|nullable',
-            'observaciones' => 'sometimes|required|string',
-            'derivado_a' => 'sometimes|string|nullable',
-            'resumen' => 'sometimes|string|nullable',
+            'observaciones' => 'sometimes|required|string'
         ];
     }
 
@@ -31,9 +29,7 @@ class C_CitaUpdateRequest extends FormRequest
             'motivo.string' => 'El motivo debe ser una cadena de texto',
             'antecedentes.string' => 'Los antecedentes deben ser una cadena de texto',
             'observaciones.required' => 'El reporte de sesión es requerido',
-            'observaciones.string' => 'El reporte de sesión deben ser una cadena de texto',
-            'derivado_a.string' => 'El derivado a debe ser una cadena de texto',
-            'resumen.string' => 'El resumen debe ser una cadena de texto',
+            'observaciones.string' => 'El reporte de sesión deben ser una cadena de texto'
         ];
     }
 }

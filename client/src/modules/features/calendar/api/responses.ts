@@ -8,30 +8,42 @@ export interface Schedule {
   hora_final: string;
 }
 
-export interface Appointment {
+export type AppointmentStatus = "accepted" | "declined" | "needsAction";
+export enum MetodoConsulta {
+  PrimeraSesionDelCaso = "Primera sesión del caso",
+  Reconsulta = "Reconsulta",
+  Inasistencia = "Inasistencia",
+  HistorialExtra = "Historial extra",
+}
+
+export interface AppointmentSimple {
   id: number;
   id_calendar: string;
   html_link_calendar: string;
+
   email_psicologo: string;
   nombre_psicologo: string;
   foto_psicologo: string | null;
+
   email_paciente: string;
   nombre_paciente: string;
   foto_paciente: string | null;
+
   fecha: string;
   hora_inicio: string;
   hora_final: string;
+  fecha_cierre_clinico: string | null;
 
-  metodo: string | null;
+  metodo: MetodoConsulta;
+  metodo_inicial: MetodoConsulta;
   motivo: string | null;
   antecedentes: string | null;
   observaciones: string | null;
-  derivado_a: string | null;
-  resumen: string | null;
+}
 
-  estado: "accepted" | "declined" | "needsAction" | null;
-
+export interface Appointment extends AppointmentSimple {
   cita_proxima: Appointment | null;
+  cita_anterior: Appointment | null;
 }
 
 export interface Ocuppation {
