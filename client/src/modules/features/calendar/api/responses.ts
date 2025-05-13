@@ -20,6 +20,7 @@ export interface AppointmentSimple {
   id: number;
   id_calendar: string;
   html_link_calendar: string;
+  id_caso: number;
 
   email_psicologo: string;
   nombre_psicologo: string;
@@ -33,6 +34,9 @@ export interface AppointmentSimple {
   hora_inicio: string;
   hora_final: string;
   fecha_cierre_clinico: string | null;
+
+  id_motivo_consulta: number | null;
+  descripcion_motivo_consulta: string | null;
 
   metodo: MetodoConsulta;
   metodo_inicial: MetodoConsulta;
@@ -54,4 +58,10 @@ export interface Ocuppation {
   hora_inicio: string;
   hora_final: string;
   citas_colindantes_count: number;
+}
+
+export interface MotivoConsulta {
+  id: number;
+  descripcion: string;
+  deleted_at: string | null;
 }

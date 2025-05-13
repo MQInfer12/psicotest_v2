@@ -15,8 +15,8 @@ const UserResume = ({ user }: Props) => {
     return (
       <div className="w-full h-full flex flex-col gap-4 items-center justify-center">
         <small className="text-alto-950 dark:text-alto-50 opacity-60 max-w-80 text-center">
-          Obtén un resumen acerca del historial del paciente y haz tus propias
-          preguntas.
+          Obtén un resumen acerca del historial confirmado del paciente y haz
+          tus propias preguntas.
         </small>
         <Button
           onClick={() => {

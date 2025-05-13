@@ -33,8 +33,8 @@ const FichaPDF = ({ user, cita }: Props) => {
             FICHA DE APERTURA DEL PACIENTE
           </Text>
           <Text style={{ marginTop: 8 }}>
-            <Text style={{ fontWeight: 700 }}>Fecha y hora de la cita:</Text>{" "}
-            {formatDate(cita.fecha) + " " + cita.hora_inicio.substring(0, 5)}
+            <Text style={{ fontWeight: 700 }}>Fecha y hora de la sesión:</Text>{" "}
+            {formatDate(cita.fecha, cita.hora_inicio)}
           </Text>
           <Text>
             <Text style={{ fontWeight: 700 }}>Fecha del reporte:</Text>{" "}
@@ -85,9 +85,15 @@ const FichaPDF = ({ user, cita }: Props) => {
               : "-"}
           </Text>
           <Text>
-            <Text style={{ fontWeight: 700 }}>Método de la consulta:</Text>{" "}
+            <Text style={{ fontWeight: 700 }}>Tipo de consulta:</Text>{" "}
             {cita.metodo}
           </Text>
+          {cita.id_motivo_consulta && (
+            <Text>
+              <Text style={{ fontWeight: 700 }}>Motivo de consulta:</Text>{" "}
+              {cita.descripcion_motivo_consulta}
+            </Text>
+          )}
           {cita.motivo && (
             <Text
               style={{

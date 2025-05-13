@@ -45,6 +45,11 @@ class C_Cita extends Model
         return $this->belongsTo(C_Caso::class, 'id_caso', 'id');
     }
 
+    public function motivo_consulta()
+    {
+        return $this->belongsTo(C_MotivoConsulta::class, 'id_motivo_consulta', 'id');
+    }
+
     public function cita_proxima()
     {
         $emailPaciente = $this->caso->email_paciente;

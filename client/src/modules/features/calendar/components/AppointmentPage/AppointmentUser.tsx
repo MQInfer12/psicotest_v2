@@ -293,7 +293,7 @@ const AppointmentUser = ({ id, user, cita, setData, hasPassed }: Props) => {
         component: <UserResume user={user} />,
         disabled: !cita.cita_anterior.fecha_cierre_clinico,
         titleProp: !cita.cita_anterior.fecha_cierre_clinico
-          ? "La cita anterior tiene que estar cerrada clínicamente para acceder al resumen"
+          ? "La sesión anterior tiene que estar cerrada clínicamente para acceder al resumen"
           : undefined,
       });
     }

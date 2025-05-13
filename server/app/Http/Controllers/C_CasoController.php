@@ -28,6 +28,7 @@ class C_CasoController extends Controller
         ]);
         $cita->update([
             'metodo' => MetodoConsulta::PRIMERA_SESION_DEL_CASO,
+            'metodo_inicial' => MetodoConsulta::PRIMERA_SESION_DEL_CASO,
             'id_caso' => $casoNuevo->id,
         ]);
         return $this->successResponse(

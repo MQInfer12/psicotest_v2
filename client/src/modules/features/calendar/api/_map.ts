@@ -3,13 +3,15 @@ import {
   AppointmentDTO,
   CancelationDTO,
   FichaDTO,
+  MotivoConsultaDTO,
   OcuppationDTO,
   ReprogrammingDTO,
-  ScheduleDTO
+  ScheduleDTO,
 } from "./dtos";
 import {
   Appointment,
   AppointmentStatus,
+  MotivoConsulta,
   Ocuppation,
   Schedule,
 } from "./responses";
@@ -137,6 +139,26 @@ declare global {
       response: Ocuppation;
     };
     "DELETE /ocupacion/:id": {
+      params: { id: number };
+      request: null;
+      response: null;
+    };
+    "GET /motivo-consulta": {
+      params: never;
+      request: never;
+      response: MotivoConsulta[];
+    };
+    "POST /motivo-consulta": {
+      params: never;
+      request: MotivoConsultaDTO;
+      response: MotivoConsulta;
+    };
+    "PUT /motivo-consulta/:id": {
+      params: { id: number };
+      request: MotivoConsultaDTO;
+      response: MotivoConsulta;
+    };
+    "DELETE /motivo-consulta/:id": {
       params: { id: number };
       request: null;
       response: null;

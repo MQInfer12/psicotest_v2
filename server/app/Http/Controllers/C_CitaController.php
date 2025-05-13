@@ -124,9 +124,12 @@ class C_CitaController extends Controller
     public function showByPatient(string $email)
     {
         $user = U_user::findOrFail($email);
+        $citas = $user->citas->filter(function ($cita) {
+            return $cita->fecha_cierre_clinico !== null;
+        });
         return $this->successResponse(
-            "Cita encontrada correctamente.",
-            C_CitaResource::collection($user->citas)
+            "Citas encontradas correctamente.",
+            C_CitaResource::collection($citas)
         );
     }
 

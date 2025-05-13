@@ -52,6 +52,7 @@ export const UserResumeContextProvider = ({ user, children }: Props) => {
       email: user.email,
     },
   ]);
+
   const { data: config } = fetchData("GET /configuracion");
 
   return (

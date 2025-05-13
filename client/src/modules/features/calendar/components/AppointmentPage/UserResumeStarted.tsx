@@ -41,37 +41,60 @@ const UserResumeStarted = ({ user }: Props) => {
         Con el historial clínico del paciente:\n\n
 
         Nombre: ${user.nombre}\n
-        Edad: ${user.fecha_nacimiento ?? "-"} (${user.fecha_nacimiento ? `${measureAge(user.fecha_nacimiento, getTodayUtc())} años` : "-"})\n
-        Género: ${user.genero || "-"}\n
-        Teléfono: ${user.telefono ?? "-"}\n
-        Correo: ${user.email}\n
-        Contacto (tutor): ${user.nombre_tutor ?? "-"} (Teléfono: ${user.telefono_tutor ?? "-"})\n\n
+        Edad: ${user.fecha_nacimiento ?? "-"} (${
+        user.fecha_nacimiento
+          ? `${measureAge(user.fecha_nacimiento, getTodayUtc())} años`
+          : "-"
+      })\n
+          Género: ${user.genero || "-"}\n
+          Teléfono: ${user.telefono ?? "-"}\n
+          Correo: ${user.email}\n
+          Contacto (tutor): ${user.nombre_tutor ?? "-"} (Teléfono: ${
+        user.telefono_tutor ?? "-"
+      })\n\n
 
-        Historial clínico del paciente:\n
-        ${user.contador_citas > 0 ? `El paciente ha asistido a ${user.contador_citas} citas anteriormente en el gabinete psicológico.` : "El paciente no ha asistido a ninguna cita en el gabinete psicológico previamente."}\n\n
-
+        Las citas se dividen en casos, cada caso tiene un cierto número de sesiones, el caso siempre va a comenzar con una primera sesión del caso y continuar con reconsultas, si el paciente no ha asistido a su sesión se marca como inasistencia.\n
+        Historial clínico del paciente con sus sesiones ya confirmadas clínicamente:\n
         ${
           user.contador_citas > 0
+            ? `El paciente ha asistido a ${citas.length} sesiones anteriormente en el gabinete psicológico.`
+            : "El paciente no ha asistido a ninguna sesión en el gabinete psicológico previamente."
+        }\n\n
+
+        ${
+          citas.length > 0
             ? `
-            Detalles de las citas del paciente:\n\n
+            Detalles de las citas confirmadas del paciente:\n\n
             ${citas.map((cita, index) => {
               return `
                 # cita: ${index + 1}\n
                 Psicólogo que le atendió: ${cita.nombre_psicologo}\n
                 Fecha: ${cita.fecha}\n
                 Hora: ${cita.hora_inicio} hasta ${cita.hora_final}\n
-                Método (se le derivó, vino por cuenta propia o es una reconsulta): ${cita.metodo}\n
-                ${cita.motivo ? `Motivo: ${cita.motivo}` : ""}\n
-                ${cita.antecedentes ? `Antecedentes familiares (escrito por el psicólogo pero narrado por el paciente): ${cita.antecedentes}` : ""}\n
-                Reporte de la sesión (escrito por el psicólogo): ${cita.observaciones}\n
-                Se le derivó a: ${cita.derivado_a ?? "No se le derivó a ninguna otra especialidad"}\n\n
+                Nro caso: ${cita.id_caso}\n
+                Tipo de sesión: ${cita.metodo}\n
+                ${
+                  cita.motivo
+                    ? `Motivo (si es reconsulta, el motivo es adicional a la primera cita del caso): ${cita.motivo}`
+                    : ""
+                }\n
+                ${
+                  cita.antecedentes
+                    ? `Antecedentes familiares (escrito por el psicólogo pero narrado por el paciente, si es una reconsulta son antecedentes familiares adicionales a la primera cita del caso): ${cita.antecedentes}`
+                    : ""
+                }\n
+                Reporte de la sesión (escrito por el psicólogo): ${
+                  cita.observaciones
+                }\n
               `;
             })}
           `
             : ""
         }
 
-        Responde la siguiente pregunta con los datos proporcionados: ${messages[index].question}
+        Responde la siguiente pregunta con los datos proporcionados: ${
+          messages[index].question
+        }
       `,
       (content) => {
         fullContent += content;

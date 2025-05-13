@@ -6,6 +6,7 @@ use App\Http\Controllers\B_BlogController;
 use App\Http\Controllers\C_CasoController;
 use App\Http\Controllers\C_CitaController;
 use App\Http\Controllers\C_HorarioController;
+use App\Http\Controllers\C_MotivoConsultaController;
 use App\Http\Controllers\C_MotivoController;
 use App\Http\Controllers\C_OcupacionController;
 use App\Http\Controllers\IA_PlantillaController;
@@ -84,6 +85,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/horario', C_HorarioController::class);
     Route::get('/horario/for/me', [C_HorarioController::class, 'indexForMe']);
     Route::get('/horario/for/reprogramming', [C_HorarioController::class, 'indexForReprogramming']);
+
+    Route::apiResource('/motivo-consulta', C_MotivoConsultaController::class);
 
     Route::apiResource('/cita', C_CitaController::class);
     Route::patch('/cita/cerrar/{id}', [C_CitaController::class, 'closeClinically']);

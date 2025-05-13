@@ -15,6 +15,7 @@ class C_CitaResource extends JsonResource
 
         return [
             'id' => $this->id,
+            'id_caso' => $this->id_caso,
             'id_calendar' => $this->id_calendar,
             'html_link_calendar' => $this->html_link_calendar,
 
@@ -31,6 +32,9 @@ class C_CitaResource extends JsonResource
             'hora_final' => $this->hora_final,
 
             'fecha_cierre_clinico' => $this->fecha_cierre_clinico,
+
+            'id_motivo_consulta' => $this->id_motivo_consulta,
+            'descripcion_motivo_consulta' => $this->motivo_consulta?->descripcion,
 
             'metodo' => $this->metodo,
             'metodo_inicial' => $this->metodo_inicial,
