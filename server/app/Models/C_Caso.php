@@ -29,4 +29,9 @@ class C_Caso extends Model
     {
         return $this->hasMany(C_Cita::class, 'id_caso', 'id');
     }
+
+    public function derivacion()
+    {
+        return $this->hasOne(C_Derivacion::class, 'id_caso', 'id');
+    }
 }

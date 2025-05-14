@@ -1,17 +1,17 @@
 import { formatDate } from "@/modules/core/utils/formatDate";
+import { getTodayUtc } from "@/modules/core/utils/getTodayUtc";
 import { measureAge } from "@/modules/core/utils/measureAge";
 import { Text } from "@/modules/features/answers/components/interpretation/GptPdf";
 import { User } from "@/modules/features/users/api/responses";
 import { Document, Page, PDFViewer } from "@react-pdf/renderer";
-import { Appointment } from "../../api/responses";
-import { getTodayUtc } from "@/modules/core/utils/getTodayUtc";
+import { Case } from "../../api/responses";
 
 interface Props {
   user: User;
-  cita: Appointment;
+  caso: Case;
 }
 
-const DerivacionPDF = ({ user, cita }: Props) => {
+const DerivacionPDF = ({ user, caso }: Props) => {
   return (
     <PDFViewer height="100%" width="100%">
       <Document title="Ficha de derivación">
@@ -55,7 +55,10 @@ const DerivacionPDF = ({ user, cita }: Props) => {
           <Text>
             <Text style={{ fontWeight: 700 }}>Fecha de nacimiento:</Text>{" "}
             {user.fecha_nacimiento
-              ? `${formatDate(user.fecha_nacimiento)} (${measureAge(user.fecha_nacimiento, cita.fecha)} años)`
+              ? `${formatDate(user.fecha_nacimiento)} (${measureAge(
+                  user.fecha_nacimiento,
+                  getTodayUtc()
+                )} años)`
               : "-"}
           </Text>
           <Text>
@@ -74,7 +77,7 @@ const DerivacionPDF = ({ user, cita }: Props) => {
             <Text style={{ fontWeight: 700 }}>
               Derivado a la especialidad de:
             </Text>{" "}
-            {cita.derivado_a}
+            {caso.derivacion?.derivado_a}
           </Text>
           <Text
             style={{
@@ -83,7 +86,7 @@ const DerivacionPDF = ({ user, cita }: Props) => {
             }}
           >
             SITUACIÓN QUE MOTIVA LA DERIVACIÓN (BREVE DESCRIPCIÓN):
-            <Text>{"\n" + (cita.resumen || "")}</Text>
+            <Text>{"\n" + (caso.derivacion?.resumen || "")}</Text>
           </Text>
           <Text
             style={{

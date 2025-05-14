@@ -1,11 +1,11 @@
 import Loader from "@/modules/core/components/ui/loader/Loader";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
-import CalendarCard from "./cards/CalendarCard";
 import AppointmentCard from "./cards/AppointmentCard";
+import CalendarCard from "./cards/CalendarCard";
 
 const AppointmentsToCome = () => {
   const { fetchData } = useFetch();
-  const { data, setData } = fetchData("GET /cita");
+  const { data } = fetchData("GET /cita");
 
   if (!data)
     return (
@@ -24,7 +24,7 @@ const AppointmentsToCome = () => {
     <main className="flex flex-col flex-1 overflow-x-hidden overflow-y-scroll gap-8 max-lg:overflow-y-hidden">
       <CalendarCard.List>
         {data.map((h) => (
-          <AppointmentCard key={h.id} appointment={h} setData={setData} />
+          <AppointmentCard key={h.id} appointment={h} />
         ))}
       </CalendarCard.List>
     </main>

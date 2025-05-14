@@ -91,11 +91,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/cita', C_CitaController::class);
     Route::patch('/cita/cerrar/{id}', [C_CitaController::class, 'closeClinically']);
     Route::get('/cita/paciente/{email}/psicotest', [C_CitaController::class, 'showByPatient']);
+    Route::get('/cita/historial/{email}/psicotest', [C_CitaController::class, 'showHistory']);
     Route::get('/cita/respuesta/status/{id_calendar}', [C_CitaController::class, 'respuestaStatus']);
     Route::patch('/cita/respuesta/{id}', [C_CitaController::class, 'respuesta']);
     Route::put('/cita/destroy/{id}', [C_CitaController::class, 'destroyWithToken']);
 
     Route::patch('/caso/cerrar/cita/{id_cita}', [C_CasoController::class, 'cerrarEIniciarNuevoDesdeCita']);
+    Route::patch('/caso/cerrar/{id}', [C_CasoController::class, 'cerrarCaso']);
+    Route::patch('/caso/cambiar-nombre/{id}', [C_CasoController::class, 'cambiarNombre']);
 
     Route::apiResource('/ocupacion', C_OcupacionController::class);
 

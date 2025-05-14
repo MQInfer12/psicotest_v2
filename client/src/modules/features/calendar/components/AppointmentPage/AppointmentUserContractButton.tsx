@@ -20,6 +20,8 @@ const AppointmentUserContractButton = ({ user, full }: Props) => {
         {
           width: 900,
           type: "floating",
+          bodyPadding: false,
+          blur: true,
         }
       )}
       <Button

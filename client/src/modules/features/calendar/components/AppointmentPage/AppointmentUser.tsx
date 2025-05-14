@@ -1,5 +1,5 @@
 import DefaultPhoto from "@/assets/images/defaultPhoto.jpg";
-import Icon from "@/modules/core/components/icons/Icon";
+import Icon, { ICON } from "@/modules/core/components/icons/Icon";
 import Button from "@/modules/core/components/ui/Button";
 import { useModal } from "@/modules/core/components/ui/modal/useModal";
 import { useReturnTo } from "@/modules/core/hooks/navigation/useReturnTo";
@@ -53,13 +53,23 @@ function abreviaturaOrdinal(numero: number) {
   return abreviaturas[numero] || `${numero}`;
 }
 
+interface Data {
+  title: string;
+  value: string;
+  icon: ICON;
+  onClick?: () => void;
+  disabled?: boolean;
+}
+
 const AppointmentUser = ({ id, user, cita, setData, hasPassed }: Props) => {
   const { modal, setOpen } = useModal();
   const navigate = useNavigate();
   const { user: me } = useUserContext();
-  const { goWithReturnTo } = useReturnTo();
+  const { goWithReturnTo, returnTo } = useReturnTo();
 
-  const DATA = [
+  const imThePsicologist = cita.email_psicologo === me?.email;
+
+  const DATA: Data[] = [
     {
       title: "Género y edad actual",
       value: `${user.genero} ${
@@ -151,9 +161,14 @@ const AppointmentUser = ({ id, user, cita, setData, hasPassed }: Props) => {
           params: {
             id: String(cita.cita_anterior?.id),
           },
+          search: {
+            returnTo: returnTo ?? undefined,
+          },
         });
       },
-      disabled: !cita.cita_anterior,
+      disabled:
+        !cita.cita_anterior ||
+        (!imThePsicologist && !cita.cita_anterior?.fecha_cierre_clinico),
     },
     {
       title: "Sesión siguiente relativa a hoy",
@@ -169,9 +184,14 @@ const AppointmentUser = ({ id, user, cita, setData, hasPassed }: Props) => {
           params: {
             id: String(cita.cita_proxima?.id),
           },
+          search: {
+            returnTo: returnTo ?? undefined,
+          },
         });
       },
-      disabled: !cita.cita_proxima,
+      disabled:
+        !cita.cita_proxima ||
+        (!imThePsicologist && !cita.cita_proxima?.fecha_cierre_clinico),
     }
   );
 
@@ -260,7 +280,7 @@ const AppointmentUser = ({ id, user, cita, setData, hasPassed }: Props) => {
                             !!data.onClick && !data.disabled,
                         }
                       )}
-                      onClick={data.onClick}
+                      onClick={data.disabled ? undefined : data.onClick}
                     >
                       <div className="min-w-5 max-w-5 aspect-square text-primary-400">
                         <Icon type={data.icon} />

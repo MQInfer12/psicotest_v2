@@ -40,7 +40,7 @@ img {
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-alto-100;
+  @apply bg-alto-200/30;
 }
 html.dark ::-webkit-scrollbar-track {
   @apply bg-alto-950;

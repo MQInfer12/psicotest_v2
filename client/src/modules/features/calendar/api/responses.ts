@@ -50,6 +50,22 @@ export interface Appointment extends AppointmentSimple {
   cita_anterior: Appointment | null;
 }
 
+export interface Case {
+  id: number;
+  email_paciente: string;
+  nombre: string | null;
+  motivo_cierre: string | null;
+  fecha_cierre: string | null;
+  derivacion: Derivation | null;
+}
+
+export interface Derivation {
+  id: number;
+  id_caso: number;
+  derivado_a: string;
+  resumen: string;
+}
+
 export interface Ocuppation {
   id: number;
   email_user: string;
@@ -65,3 +81,16 @@ export interface MotivoConsulta {
   descripcion: string;
   deleted_at: string | null;
 }
+
+export type Historial = (
+  | {
+      tipo: "cita";
+      fecha_hora: string;
+      data: Appointment;
+    }
+  | {
+      tipo: "caso";
+      fecha_hora: string;
+      data: Case;
+    }
+)[];

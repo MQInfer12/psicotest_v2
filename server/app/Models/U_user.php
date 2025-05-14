@@ -127,4 +127,14 @@ class U_user extends Authenticatable
             )
             ->orderBy("fecha", "desc");
     }
+
+    public function casos()
+    {
+        return $this->hasMany(C_Caso::class, 'email_paciente', 'email')->orderBy('id', 'desc');
+    }
+
+    public function notas()
+    {
+        return $this->hasMany(C_Nota::class, 'email_paciente')->orderBy('fecha_hora', 'asc');
+    }
 }

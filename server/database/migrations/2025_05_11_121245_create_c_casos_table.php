@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('email_paciente')->references('email')->on('u_users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('nombre')->nullable();
             $table->string('motivo_cierre')->nullable();
-            $table->date('fecha_cierre')->nullable();
+            $table->timestamp('fecha_cierre')->nullable();
             $table->timestamps();
         });
     }

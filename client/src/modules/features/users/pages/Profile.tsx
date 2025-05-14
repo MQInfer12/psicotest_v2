@@ -16,8 +16,7 @@ interface Props {
 
 const Profile = ({ email }: Props) => {
   const { user, setUser } = useUserContext();
-  const { size, PRIVATE_PADDING_INLINE } = useMeasureContext();
-  const isSmall = size !== "normal";
+  const { PRIVATE_PADDING_INLINE } = useMeasureContext();
 
   const { fetchData } = useFetch();
   const { data, setData, error } = fetchData(
@@ -33,48 +32,22 @@ const Profile = ({ email }: Props) => {
       },
     }
   );
-
-  const { data: citas } = fetchData("GET /cita", {
-    params: {
-      previous: String(true),
-      email: email!,
-    },
-    queryOptions: {
-      gcTime: 0,
-      //@ts-expect-error: email should exist
-      enabled: !!email,
-    },
-  });
-
+  1;
   if (error) return <Navigate to="/patients" />;
   if (!data) return <Loader />;
 
   return (
     <div
       className={clsx("w-full flex-1 overflow-auto", {
-        "gap-y-4 gap-8": !isSmall,
-        "gap-8": isSmall,
-        grid: email,
+        "flex gap-8 max-lg:flex-col": email,
         "flex flex-col items-center": !email,
       })}
       style={{
         paddingBottom: PRIVATE_PADDING_INLINE,
         paddingInline: PRIVATE_PADDING_INLINE,
-        gridTemplateColumns: isSmall ? "1fr" : "480px 1fr",
-        gridTemplateRows: isSmall ? "auto 420px 640px" : "auto 1fr",
-        gridTemplateAreas: isSmall
-          ? `
-          'photo'
-          'form'
-          'table'
-        `
-          : `
-          'photo table'
-          'form table'
-        `,
       }}
     >
-      <div className="flex items-center justify-center">
+      <div className="flex flex-col items-center gap-8">
         <img
           style={{
             gridArea: "photo",
@@ -85,39 +58,38 @@ const Profile = ({ email }: Props) => {
             event.currentTarget.src = DefaultPhoto;
           }}
         />
-      </div>
-      <div
-        className="overflow-y-auto overflow-x-hidden w-[448px] max-w-full"
-        style={{
-          gridArea: "form",
-        }}
-      >
-        <PreAppointmentForm
-          user={data}
-          onSuccess={async (userRes) => {
-            if (userRes.email === user?.email) {
-              setUser(userRes);
-            }
-            toastSuccess("Datos actualizados correctamente");
-            setData(userRes);
+        <div
+          className="overflow-y-auto overflow-x-hidden w-full max-w-full"
+          style={{
+            gridArea: "form",
           }}
-          withName
-          scrollable={false}
-        />
+        >
+          <PreAppointmentForm
+            user={data}
+            onSuccess={async (userRes) => {
+              if (userRes.email === user?.email) {
+                setUser(userRes);
+              }
+              toastSuccess("Datos actualizados correctamente");
+              setData(userRes);
+            }}
+            withName
+            scrollable={false}
+          />
+        </div>
       </div>
       {email && (
         <div
           style={{
             gridArea: "table",
           }}
-          className="w-full h-full flex-1 flex flex-col gap-4 overflow-hidden"
+          className="w-full h-full flex-1 flex flex-col gap-4 min-h-max overflow-hidden"
         >
           <div className="self-end">
             <AppointmentUserContractButton user={data} full />
           </div>
-          <div className="flex flex-1 flex-col rounded-lg overflow-hidden">
-            <ProfileTimeline />
-            {/* <AppointmentsTable patient={data} data={citas} /> */}
+          <div className="flex flex-1 flex-col overflow-hidden">
+            <ProfileTimeline paciente={data} />
           </div>
         </div>
       )}

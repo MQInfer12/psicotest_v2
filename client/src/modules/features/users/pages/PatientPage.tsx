@@ -18,6 +18,7 @@ import {
   PatientTableContextProvider,
   PatientTableFiltersState,
 } from "../context/PatientTableContext";
+import { formatDate } from "@/modules/core/utils/formatDate";
 
 const columnHelper = createColumnHelper<User>();
 
@@ -57,7 +58,10 @@ const PatientPage = () => {
           <DoubleColumn
             text={
               info.row.original.fecha_nacimiento
-                ? `${measureAge(info.row.original.fecha_nacimiento, getTodayUtc())} años`
+                ? `${measureAge(
+                    info.row.original.fecha_nacimiento,
+                    getTodayUtc()
+                  )} años`
                 : "Sin especificar"
             }
             small={info.row.original.genero ?? "Sin especificar"}
@@ -105,6 +109,37 @@ const PatientPage = () => {
                   : "Sin especificar"
               }
               small={String(string)}
+              icon={Icon.Types.CONTACT}
+            />
+          );
+        },
+        meta: {
+          width: 192,
+        },
+      }),
+      columnHelper.accessor("caso_sin_cerrar", {
+        header: "Historial clínico",
+        cell: (info) => {
+          const {
+            caso_sin_cerrar,
+            contador_citas,
+            contador_citas_sin_confirmar,
+            fecha_ultima_cita,
+          } = info.row.original;
+          return (
+            <DoubleColumn
+              text={caso_sin_cerrar ? "Caso abierto" : "Caso cerrado"}
+              textColor={caso_sin_cerrar ? "danger" : "success"}
+              small={
+                contador_citas +
+                ` sesiones ${
+                  !caso_sin_cerrar
+                    ? `(últ. ${formatDate(fecha_ultima_cita!)})`
+                    : contador_citas_sin_confirmar
+                    ? `(${contador_citas_sin_confirmar} sin confirmar)`
+                    : ""
+                }`
+              }
               icon={Icon.Types.CONTACT}
             />
           );

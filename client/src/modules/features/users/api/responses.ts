@@ -25,6 +25,8 @@ export interface User extends Timestamps {
   municipio: string | null;
 
   contador_citas: number;
+  contador_citas_sin_confirmar: number;
+  caso_sin_cerrar: boolean;
   fecha_ultima_cita: string | null;
 
   estado: boolean;

@@ -6,3 +6,4 @@ import {
 
 export type UserDTO = yup.InferType<typeof UserDTOSchema>;
 export type UserRequiredDTO = yup.InferType<typeof UserRequiredDTOSchema>;
+

@@ -123,7 +123,7 @@ const Modal = ({
         "modal-close-button",
         "bg-alto-950/60 dark:bg-alto-50/30 fixed left-0 top-0 h-[100svh] w-full flex items-center z-40",
         {
-          "backdrop-blur-sm": blur,
+          "backdrop-blur-[8px]": blur,
           "justify-center px-5 max-sm:px-2": type === "default",
           "justify-end p-5 max-sm:p-2": type === "floating",
         }
@@ -166,7 +166,7 @@ const Modal = ({
           {
             "border-8 border-alto-100 dark:border-alto-950": onlyContent,
             "rounded-lg": type === "default",
-            "h-full rounded-lg": type === "floating",
+            "h-full rounded-lg overflow-hidden": type === "floating",
           }
         )}
       >
@@ -191,7 +191,7 @@ const Modal = ({
         <main
           className={clsx({
             "pt-0": !titleBar,
-            "flex-1 overflow-auto": !onlyContent,
+            "flex-1 overflow-auto flex flex-col": !onlyContent,
             "p-4": bodyPadding && !onlyContent,
             "rounded-md overflow-hidden": onlyContent,
           })}

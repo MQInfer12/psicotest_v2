@@ -1,7 +1,6 @@
 import AnswerCardTemplate from "@/modules/features/answers/components/AnswerCardTemplate";
 import { User } from "@/modules/features/users/api/responses";
 import { Appointment } from "../../api/responses";
-import DerivacionForm from "./DerivacionForm";
 import FichaForm from "./FichaForm";
 
 interface Props {
@@ -9,13 +8,12 @@ interface Props {
   paciente: User;
 }
 
-const AppointmentHistory = ({ cita, paciente }: Props) => {
+const AppointmentHistory = ({ cita }: Props) => {
   const tabs = [
     {
       title: "Ficha",
       component: (
         <FichaForm
-          paciente={paciente}
           cita={cita}
           disabled
           onSuccess={() => {}}
@@ -24,20 +22,6 @@ const AppointmentHistory = ({ cita, paciente }: Props) => {
       ),
     },
   ];
-
-  if (cita.derivado_a) {
-    tabs.push({
-      title: "Derivación",
-      component: (
-        <DerivacionForm
-          disabled
-          user={paciente}
-          cita={cita}
-          onSuccess={() => {}}
-        />
-      ),
-    });
-  }
 
   return <AnswerCardTemplate gridArea="tabs" tabs={tabs} />;
 };

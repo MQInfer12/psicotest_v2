@@ -2,6 +2,8 @@ import { User } from "../../users/api/responses";
 import {
   AppointmentDTO,
   CancelationDTO,
+  ChangeCaseNameDTO,
+  CloseCaseDTO,
   FichaDTO,
   MotivoConsultaDTO,
   OcuppationDTO,
@@ -11,6 +13,8 @@ import {
 import {
   Appointment,
   AppointmentStatus,
+  Case,
+  Historial,
   MotivoConsulta,
   Ocuppation,
   Schedule,
@@ -58,6 +62,13 @@ declare global {
       };
       request: never;
       response: Appointment[];
+    };
+    "GET /cita/historial/:email/psicotest": {
+      params: {
+        email: string;
+      };
+      request: never;
+      response: Historial;
     };
     "GET /cita/:id": {
       params: {
@@ -122,6 +133,16 @@ declare global {
       params: { idCita: number };
       request: null;
       response: Appointment;
+    };
+    "PATCH /caso/cambiar-nombre/:id": {
+      params: { id: number };
+      request: ChangeCaseNameDTO;
+      response: Case;
+    };
+    "PATCH /caso/cerrar/:id": {
+      params: { id: number };
+      request: CloseCaseDTO;
+      response: Case;
     };
     "GET /ocupacion": {
       params: never;

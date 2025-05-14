@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('c_derivacions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_caso')->constrained('c_casos')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('id_caso')->constrained('c_casos')->cascadeOnUpdate()->cascadeOnDelete()->unique();
             $table->string('derivado_a');
             $table->text('resumen');
             $table->timestamps();

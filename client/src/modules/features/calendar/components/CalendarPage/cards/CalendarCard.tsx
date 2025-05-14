@@ -80,8 +80,13 @@ interface HeaderTitle {
 
 interface HeaderText {
   text: string;
-  icon: ICON;
+  icon?: ICON;
+  src?: string;
 }
+
+const isHeaderText = (item: HeaderTitle | HeaderText): item is HeaderText => {
+  return "icon" in item || "src" in item;
+};
 
 const CalendarCardHeader = ({
   imageSrc,
@@ -109,15 +114,28 @@ const CalendarCardHeader = ({
         )}
         <div className="flex flex-col flex-1 gap-1 justify-center overflow-hidden">
           {headerTexts[0].map((item, index) => {
-            if ("icon" in item)
+            if (isHeaderText(item))
               return (
                 <span
                   key={index}
                   className="flex items-center gap-2 text-xs opacity-80 overflow-hidden"
                 >
-                  <div className="min-w-3 h-3">
-                    <Icon type={item.icon} />
-                  </div>
+                  {item.icon && (
+                    <div className="min-w-3 h-3">
+                      <Icon type={item.icon} />
+                    </div>
+                  )}
+                  {item.src && (
+                    <div className="min-w-4 h-4">
+                      <img
+                        className="w-full h-full border border-primary-200 rounded-sm"
+                        src={item.src}
+                        onError={(event) => {
+                          event.currentTarget.src = DefaultPhoto;
+                        }}
+                      />
+                    </div>
+                  )}
                   <p className="overflow-hidden whitespace-nowrap text-ellipsis">
                     {item.text}
                   </p>
@@ -145,7 +163,16 @@ const CalendarCardHeader = ({
             className="flex items-center gap-2 text-sm opacity-80"
           >
             <div className="w-4 h-4">
-              <Icon type={item.icon} />
+              {item.icon && <Icon type={item.icon} />}
+              {item.src && (
+                <img
+                  className="w-full h-full"
+                  src={item.src}
+                  onError={(event) => {
+                    event.currentTarget.src = DefaultPhoto;
+                  }}
+                />
+              )}
             </div>
             <p className="whitespace-nowrap">{item.text}</p>
           </span>
@@ -157,6 +184,16 @@ const CalendarCardHeader = ({
 
 type CalendarFooterLabelColor = "alto" | "success" | "danger" | "warning";
 
+export interface CalendarCardFooterButton {
+  icon: ICON;
+  subicon?: ICON;
+  text?: string;
+  type?: "primary" | "secondary";
+  onClick: () => void;
+  disabled?: boolean;
+  title?: string;
+}
+
 const CalendarCardFooter = ({
   labels,
   buttons,
@@ -166,15 +203,7 @@ const CalendarCardFooter = ({
     color: CalendarFooterLabelColor;
     icon?: ICON;
   }[];
-  buttons?: {
-    icon: ICON;
-    subicon?: ICON;
-    text?: string;
-    type?: "primary" | "secondary";
-    onClick: () => void;
-    disabled?: boolean;
-    title?: string;
-  }[];
+  buttons?: CalendarCardFooterButton[];
 }) => {
   const getColorsByState = (color: CalendarFooterLabelColor) => {
     switch (color) {

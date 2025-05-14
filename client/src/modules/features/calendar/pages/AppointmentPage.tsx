@@ -18,7 +18,7 @@ const AppointmentPage = () => {
   const { size, PRIVATE_PADDING_INLINE } = useMeasureContext();
   const isSmall = size !== "normal";
   const navigate = useNavigate();
-  const { goWithReturnTo } = useReturnTo();
+  const { goWithReturnTo, returnTo } = useReturnTo();
 
   const { id } = useParams({
     from: "/_private/calendar/$id",
@@ -75,6 +75,9 @@ const AppointmentPage = () => {
                     to: "/calendar/$id",
                     params: {
                       id: String(data.cita.cita_anterior!.id),
+                    },
+                    search: {
+                      returnTo: returnTo ?? undefined,
                     },
                   });
                 }}

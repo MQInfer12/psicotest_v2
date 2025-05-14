@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 interface Props {
   text: string;
   textTitleDetail?: string;
+  textColor?: "alto" | "success" | "danger";
   small?: string;
   smallTitleDetail?: string;
   onClickSmall?: () => void;
@@ -15,6 +16,7 @@ interface Props {
 const DoubleColumn = ({
   text,
   textTitleDetail,
+  textColor,
   small,
   smallTitleDetail,
   icon,
@@ -25,7 +27,13 @@ const DoubleColumn = ({
     <div className="flex-1 flex flex-col gap-1 overflow-hidden">
       <motion.strong
         layoutId={textLayoutId}
-        className="font-medium whitespace-nowrap overflow-hidden text-ellipsis"
+        className={clsx(
+          "font-medium whitespace-nowrap overflow-hidden text-ellipsis",
+          {
+            "text-success": textColor === "success",
+            "text-danger": textColor === "danger",
+          }
+        )}
         title={`${text}${textTitleDetail ? ` (${textTitleDetail})` : ""}`}
       >
         {text}

@@ -8,14 +8,19 @@ import { useUserContext } from "@/modules/features/auth/context/UserContext";
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { Appointment, AppointmentStatus } from "../../../api/responses";
-import CalendarCard from "./CalendarCard";
+import CalendarCard, { CalendarCardFooterButton } from "./CalendarCard";
 import { calcPassedHour } from "../../../utils/calcPassedHour";
 
 interface Props {
   appointment: Appointment;
+  sidebar?: boolean;
+  psicologo?: {
+    nombre: string;
+    foto: string | null;
+  };
 }
 
-const AppointmentCard = ({ appointment }: Props) => {
+const AppointmentCard = ({ appointment, sidebar = true, psicologo }: Props) => {
   const { user } = useUserContext();
   const navigate = useNavigate();
   const { goWithReturnTo } = useReturnTo();
@@ -25,6 +30,9 @@ const AppointmentCard = ({ appointment }: Props) => {
 
   const { fetchData, postData } = useFetch();
   const patchMutation = postData("PATCH /cita/respuesta/:id");
+
+  const imThePsicologist = appointment.email_psicologo === user?.email;
+
   const { data, setData } = fetchData(
     [
       "GET /cita/respuesta/status/:id_calendar",
@@ -35,6 +43,10 @@ const AppointmentCard = ({ appointment }: Props) => {
     {
       params: {
         me: "true",
+      },
+      queryOptions: {
+        //@ts-ignore
+        enabled: imThePsicologist,
       },
     }
   );
@@ -73,9 +85,69 @@ const AppointmentCard = ({ appointment }: Props) => {
   const hora_inicio = appointment.hora_inicio.slice(0, 5);
   const hora_final = appointment.hora_final.slice(0, 5);
 
+  const buttons: CalendarCardFooterButton[] = [];
+  if (imThePsicologist) {
+    buttons.push(
+      {
+        type: "secondary",
+        title:
+          "Aceptar la cita en el calendario (Enviaremos un correo de confirmación al paciente)",
+        icon: !data
+          ? Icon.Types.LOADER
+          : data === "accepted"
+          ? patched
+            ? Icon.Types.CHECK_ANIMATED
+            : Icon.Types.CHECK
+          : Icon.Types.MAIL,
+        subicon: !data || data === "accepted" ? undefined : Icon.Types.SEND,
+        onClick: handleRespuesta,
+        disabled: !data || loading || data === "accepted",
+      },
+      {
+        type: "secondary",
+        icon: Icon.Types.GOOGLE_CALENDAR,
+        onClick: () => {
+          window.open(
+            appointment.html_link_calendar + `&authuser=${user?.email}`,
+            "_blank"
+          );
+        },
+      }
+    );
+  }
+  buttons.push({
+    text: imThePsicologist ? "Atender" : "Detalles",
+    icon: imThePsicologist ? Icon.Types.PENCIL : Icon.Types.EYE,
+    disabled: !imThePsicologist && !appointment.fecha_cierre_clinico,
+    onClick: () => {
+      if (psicologo) {
+        navigate({
+          to: "/calendar/$id",
+          params: {
+            id: String(appointment.id),
+          },
+          search: {
+            returnTo: goWithReturnTo(
+              validateRoute("/patients/$id", {
+                id: String(appointment.email_paciente),
+              })
+            ),
+          },
+        });
+      } else {
+        navigate({
+          to: "/calendar/$id",
+          params: {
+            id: String(appointment.id),
+          },
+        });
+      }
+    },
+  });
+
   return (
     <CalendarCard shadowSuccess={!!appointment.fecha_cierre_clinico}>
-      <CalendarCard.Aside date={appointment.fecha} />
+      {sidebar && <CalendarCard.Aside date={appointment.fecha} />}
       <CalendarCard.Body>
         <CalendarCard.Header
           imageSrc={appointment.foto_paciente ?? DefaultPhoto}
@@ -83,21 +155,24 @@ const AppointmentCard = ({ appointment }: Props) => {
             [
               {
                 text: appointment.nombre_paciente,
-                onClick: () => {
-                  navigate({
-                    to: "/patients/$id",
-                    params: {
-                      id: String(appointment.email_paciente),
+                onClick: psicologo
+                  ? undefined
+                  : () => {
+                      navigate({
+                        to: "/patients/$id",
+                        params: {
+                          id: String(appointment.email_paciente),
+                        },
+                        search: {
+                          returnTo: goWithReturnTo(validateRoute("/calendar")),
+                        },
+                      });
                     },
-                    search: {
-                      returnTo: goWithReturnTo(validateRoute("/calendar")),
-                    },
-                  });
-                },
               },
               {
-                text: appointment.email_paciente,
-                icon: Icon.Types.MAIL,
+                text: psicologo ? psicologo.nombre : appointment.email_paciente,
+                icon: psicologo ? undefined : Icon.Types.MAIL,
+                src: psicologo ? psicologo.foto ?? undefined : undefined,
               },
             ],
             [
@@ -130,46 +205,7 @@ const AppointmentCard = ({ appointment }: Props) => {
                 : undefined,
             },
           ]}
-          buttons={[
-            {
-              type: "secondary",
-              title:
-                "Aceptar la cita en el calendario (Enviaremos un correo de confirmación al paciente)",
-              icon: !data
-                ? Icon.Types.LOADER
-                : data === "accepted"
-                ? patched
-                  ? Icon.Types.CHECK_ANIMATED
-                  : Icon.Types.CHECK
-                : Icon.Types.MAIL,
-              subicon:
-                !data || data === "accepted" ? undefined : Icon.Types.SEND,
-              onClick: handleRespuesta,
-              disabled: !data || loading || data === "accepted",
-            },
-            {
-              type: "secondary",
-              icon: Icon.Types.GOOGLE_CALENDAR,
-              onClick: () => {
-                window.open(
-                  appointment.html_link_calendar + `&authuser=${user?.email}`,
-                  "_blank"
-                );
-              },
-            },
-            {
-              text: "Atender",
-              icon: Icon.Types.PENCIL,
-              onClick: () => {
-                navigate({
-                  to: "/calendar/$id",
-                  params: {
-                    id: String(appointment.id),
-                  },
-                });
-              },
-            },
-          ]}
+          buttons={buttons}
         />
       </CalendarCard.Body>
     </CalendarCard>

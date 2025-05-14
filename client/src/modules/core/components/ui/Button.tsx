@@ -13,6 +13,7 @@ interface Props extends HTMLMotionProps<"button"> {
   danger?: boolean;
   success?: boolean;
   primary?: boolean;
+  alto?: boolean;
   noHover?: boolean;
   icon?: ICON;
   subicon?: ICON;
@@ -30,6 +31,7 @@ const Button = ({
   danger,
   success,
   primary,
+  alto,
   noHover = false,
   icon,
   subicon,
@@ -123,6 +125,9 @@ const Button = ({
     }
     if (success && !disabled && (!hover || noHover)) {
       colors.color = COLORS.success;
+    }
+    if (alto && !disabled && (!hover || noHover)) {
+      colors.color = dark ? COLORS.alto[50] : COLORS.alto[950];
     }
 
     return colors;
