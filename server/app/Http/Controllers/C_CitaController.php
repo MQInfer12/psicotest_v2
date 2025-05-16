@@ -15,6 +15,7 @@ use App\Http\Resources\U_userResource;
 use App\Models\C_Caso;
 use App\Models\C_Cita;
 use App\Models\C_Horario;
+use App\Models\C_Motivo;
 use App\Models\C_Ocupacion;
 use App\Models\R_Contador;
 use App\Models\U_Rol;
@@ -231,6 +232,7 @@ class C_CitaController extends Controller
         $emailPaciente = $validatedData['email_paciente'] ?? null;
         $nombrePaciente = $validatedData['nombre_paciente'] ?? null;
         $anonimo = $validatedData['anonimo'] ?? false;
+        $comprobarOcupaciones = $validatedData['comprobar_ocupaciones'] ?? true;
 
         $nuevoPaciente = null;
         if ($nombrePaciente) {
@@ -273,18 +275,20 @@ class C_CitaController extends Controller
             }
         }
 
-        $ocupacionesProximas = C_Ocupacion::where('fecha', $validatedData['fecha'])
-            ->where('email_user', $horario->email_user)
-            ->get();
+        if ($comprobarOcupaciones) {
+            $ocupacionesProximas = C_Ocupacion::where('fecha', $validatedData['fecha'])
+                ->where('email_user', $horario->email_user)
+                ->get();
 
-        foreach ($ocupacionesProximas as $ocupacion) {
-            if ($this->check_overlaping_hour(
-                $ocupacion->hora_inicio,
-                $ocupacion->hora_final,
-                $horario->hora_inicio,
-                $horario->hora_final
-            )) {
-                return $this->wrongResponse("El horario de la cita se solapa con una ocupación existente.");
+            foreach ($ocupacionesProximas as $ocupacion) {
+                if ($this->check_overlaping_hour(
+                    $ocupacion->hora_inicio,
+                    $ocupacion->hora_final,
+                    $horario->hora_inicio,
+                    $horario->hora_final
+                )) {
+                    return $this->wrongResponse("El horario de la cita no se encuentra disponible.");
+                }
             }
         }
 
@@ -402,6 +406,8 @@ class C_CitaController extends Controller
 
     public function destroyWithToken(Request $request, int $id)
     {
+        $me = $request->user();
+
         $cita = C_Cita::findOrFail($id);
 
         $user_creador = U_user::find($cita->creador_calendar);
@@ -414,6 +420,17 @@ class C_CitaController extends Controller
                 $this->deleteGoogleCalendarEvent($cita->id_calendar, $me->raw_access_token(), $me);
             }
         }
+
+        C_Motivo::create([
+            'descripcion' => "Cita cancelada por el paciente el día " . $this->get_now_local()->format('Y-m-d H:i:s'),
+            'tipo' => 'cancelacion',
+            'email_psicologo' => $cita->email_psicologo,
+            'email_paciente' => $cita->caso->email_paciente,
+            'fecha_anterior' => $cita->fecha,
+            'hora_inicio_anterior' => $cita->hora_inicio,
+            'hora_final_anterior' => $cita->hora_final,
+            'cancelado_por' => $me->email,
+        ]);
 
         $caso = $cita->caso;
         if ($caso->citas->count() == 1) {

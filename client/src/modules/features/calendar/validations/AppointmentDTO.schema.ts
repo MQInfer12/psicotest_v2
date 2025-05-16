@@ -5,7 +5,7 @@ export const AppointmentDTOSchema = yup.object({
   fecha: yup
     .string()
     .required("Requerido")
-    .test(
+    /* .test(
       "is-not-past-date",
       "La fecha no puede ser anterior a la de hoy",
       (value) => {
@@ -15,7 +15,7 @@ export const AppointmentDTOSchema = yup.object({
           inputDate.isSame(dateThreshold) || inputDate.isAfter(dateThreshold)
         );
       }
-    )
+    ) */
     .test(
       "is-not-past-appointment-date",
       "La fecha no puede ser anterior a la de la cita",
@@ -30,6 +30,8 @@ export const AppointmentDTOSchema = yup.object({
         );
       }
     ),
+
   id_horario: yup.number().typeError("Requerido").required("Requerido"),
   email_paciente: yup.string(),
+  comprobar_ocupaciones: yup.boolean(),
 });

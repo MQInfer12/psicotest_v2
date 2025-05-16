@@ -19,6 +19,7 @@ class C_CitaStoreRequest extends FormRequest
             'email_paciente' => 'sometimes|required|string',
             'nombre_paciente' => 'sometimes|required|string',
             'anonimo' => 'sometimes|boolean',
+            'comprobar_ocupaciones' => 'sometimes|boolean',
         ];
     }
 

@@ -33,6 +33,7 @@ const AppointmentForm = ({ cita, user, onSuccess }: Props) => {
     defaultValues: {
       fecha: cita.fecha,
       email_paciente: user.email,
+      comprobar_ocupaciones: false,
     },
     resolver: yupResolver(AppointmentDTOSchema),
     context: {
@@ -42,28 +43,40 @@ const AppointmentForm = ({ cita, user, onSuccess }: Props) => {
 
   const onSubmit = (form: AppointmentDTO) => {
     setLoading(true);
-    patchMutation(form, {
-      onSuccess: (res) => {
-        toastSuccess(res.message);
-        onSuccess(res.data.cita);
+    patchMutation(
+      {
+        ...form,
+        comprobar_ocupaciones: !form.comprobar_ocupaciones,
       },
-      onSettled: () => {
-        setLoading(false);
-      },
-    });
+      {
+        onSuccess: (res) => {
+          toastSuccess(res.message);
+          onSuccess(res.data.cita);
+        },
+        onSettled: () => {
+          setLoading(false);
+        },
+      }
+    );
   };
 
   const selectedDate = watch("fecha");
+  const showAll = watch("comprobar_ocupaciones");
+
   const { data } = fetchData("GET /horario/for/reprogramming", {
     params: {
       fecha: selectedDate,
+      ocultar_ocupados: String(!showAll),
+    },
+    queryOptions: {
+      gcTime: 0,
     },
   });
 
   useEffect(() => {
     //@ts-ignore
     if (data?.length === 0) setValue("id_horario", "");
-  }, [selectedDate]);
+  }, [selectedDate, showAll]);
 
   const dayLessThanAppointmentDate = dayjs(selectedDate).isBefore(
     cita.fecha,
@@ -101,6 +114,20 @@ const AppointmentForm = ({ cita, user, onSuccess }: Props) => {
           </option>
         ))}
       </Input>
+      <div className="flex items-center justify-end">
+        <label
+          htmlFor="checkbox-ocultar-ocupaciones"
+          className="mx-2 text-xs font-semibold whitespace-nowrap text-alto-950 dark:text-alto-50"
+        >
+          Ver horarios ocupados
+        </label>
+        <input
+          className="accent-primary-400"
+          type="checkbox"
+          id="checkbox-ocultar-ocupaciones"
+          {...register("comprobar_ocupaciones")}
+        />
+      </div>
       <Button className="flex-1" disabled={loading} type="submit">
         Enviar
       </Button>

@@ -13,6 +13,7 @@ import {
 import {
   Appointment,
   AppointmentStatus,
+  CancelationReprogrammingMotive,
   Case,
   Historial,
   MotivoConsulta,
@@ -119,6 +120,11 @@ declare global {
       request: null;
       response: Appointment;
     };
+    "GET /motivo/for/canceladas": {
+      params: never;
+      request: never;
+      response: CancelationReprogrammingMotive[];
+    };
     "PATCH /cita/reprogramacion/:id": {
       params: { id: number };
       request: ReprogrammingDTO;
@@ -127,7 +133,7 @@ declare global {
     "PATCH /cita/cancelacion/:id": {
       params: { id: number };
       request: CancelationDTO;
-      response: null;
+      response: User;
     };
     "PATCH /caso/cerrar/cita/:idCita": {
       params: { idCita: number };

@@ -94,3 +94,25 @@ export type Historial = (
       data: Case;
     }
 )[];
+
+export interface CancelationReprogrammingMotive {
+  id: number;
+  id_cita: number;
+  descripcion: string;
+  email_psicologo: string;
+  nombre_psicologo: string;
+  foto_psicologo: string | null;
+  email_paciente: string;
+  nombre_paciente: string;
+  foto_paciente: string | null;
+  email_cancelador: string;
+  nombre_cancelador: string;
+  foto_cancelador: string | null;
+  fecha_anterior: string;
+  hora_inicio_anterior: string;
+  hora_final_anterior: string;
+  fecha_nueva: string | null;
+  hora_inicio_nueva: string | null;
+  hora_final_nueva: string | null;
+  created_at: string;
+}

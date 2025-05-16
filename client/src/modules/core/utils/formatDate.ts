@@ -14,7 +14,7 @@ export const formatDate = (date: string, hour?: string) => {
     "Dic",
   ];
 
-  const _date = new Date(`${date.split("T")[0]}T00:00:00Z`);
+  let _date = new Date(`${date.split("T")[0]}T00:00:00Z`);
 
   if (isNaN(_date.getTime())) {
     return "-";

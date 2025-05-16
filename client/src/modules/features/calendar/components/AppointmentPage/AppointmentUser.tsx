@@ -28,7 +28,6 @@ interface Props {
   id: number;
   user: User;
   cita: Appointment;
-  hasPassed: boolean;
   setData: SetData<{
     cita: Appointment;
     paciente: User;
@@ -61,7 +60,7 @@ interface Data {
   disabled?: boolean;
 }
 
-const AppointmentUser = ({ id, user, cita, setData, hasPassed }: Props) => {
+const AppointmentUser = ({ id, user, cita, setData }: Props) => {
   const { modal, setOpen } = useModal();
   const navigate = useNavigate();
   const { user: me } = useUserContext();
@@ -306,32 +305,33 @@ const AppointmentUser = ({ id, user, cita, setData, hasPassed }: Props) => {
     },
   ];
 
-  if (!hasPassed) {
-    if (cita.cita_anterior) {
-      tabs.push({
-        title: "Resumen",
-        component: <UserResume user={user} />,
-        disabled: !cita.cita_anterior.fecha_cierre_clinico,
-        titleProp: !cita.cita_anterior.fecha_cierre_clinico
-          ? "La sesión anterior tiene que estar cerrada clínicamente para acceder al resumen"
-          : undefined,
-      });
-    }
-    if (!cita.observaciones) {
-      tabs.push({
-        title: "Reprogramación",
-        component: <AppointmentReprogramming cita={cita} user={user} />,
-      });
-    }
-  }
-  if (cita.observaciones) {
-    tabs.push({
-      title: "Reconsulta",
-      component: (
-        <AppointmentReconsult cita={cita} user={user} setData={setData} />
-      ),
-    });
-  }
+  tabs.push({
+    title: "Resumen",
+    component: <UserResume user={user} />,
+    disabled: user.contador_citas_confirmadas === 0,
+    titleProp:
+      user.contador_citas_confirmadas === 0
+        ? "El paciente debe tener al menos una sesión confirmada para acceder al resumen"
+        : undefined,
+  });
+  tabs.push({
+    title: "Reprogramación",
+    component: <AppointmentReprogramming cita={cita} user={user} />,
+    disabled: !!cita.observaciones,
+    titleProp: !!cita.observaciones
+      ? "Una sesión con ficha ya no se puede reprogramar"
+      : undefined,
+  });
+  tabs.push({
+    title: "Reconsulta",
+    component: (
+      <AppointmentReconsult cita={cita} user={user} setData={setData} />
+    ),
+    /* disabled: !cita.observaciones,
+    titleProp: !cita.observaciones
+      ? "Primero llena la ficha del paciente para acceder a la reconsulta"
+      : undefined, */
+  });
 
   return (
     <>

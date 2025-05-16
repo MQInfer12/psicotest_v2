@@ -33,6 +33,7 @@ class U_userResource extends JsonResource
 
             'cita_proxima' => $cita_proxima ? new C_CitaResource($cita_proxima) :  null,
             'contador_citas' => count($citas),
+            'contador_citas_confirmadas' => count($citas->where('fecha_cierre_clinico', '!=', null)),
             'contador_citas_sin_confirmar' => count($citas->where('fecha_cierre_clinico', '=', null)),
             'caso_sin_cerrar' => !!$this->casos->where('fecha_cierre', '=', null)->first(),
             'fecha_ultima_cita' => $citas->first()?->fecha,

@@ -82,6 +82,8 @@ interface HeaderText {
   text: string;
   icon?: ICON;
   src?: string;
+  lines?: 1 | 2 | 3;
+  color?: "success" | "danger" | "warning";
 }
 
 const isHeaderText = (item: HeaderTitle | HeaderText): item is HeaderText => {
@@ -99,10 +101,7 @@ const CalendarCardHeader = ({
 }) => {
   return (
     <header className="flex items-center justify-between gap-4 flex-wrap overflow-hidden">
-      <div
-        className="flex-1 flex gap-4 items-center overflow-hidden"
-        style={{ minWidth }}
-      >
+      <div className="flex-1 flex gap-4 overflow-hidden" style={{ minWidth }}>
         {imageSrc && (
           <img
             className="h-12 w-12 object-cover rounded-md border-2 border-primary-200"
@@ -112,21 +111,21 @@ const CalendarCardHeader = ({
             }}
           />
         )}
-        <div className="flex flex-col flex-1 gap-1 justify-center overflow-hidden">
+        <div className="flex flex-col flex-1 gap-[6px] justify-center overflow-hidden">
           {headerTexts[0].map((item, index) => {
             if (isHeaderText(item))
               return (
                 <span
                   key={index}
-                  className="flex items-center gap-2 text-xs opacity-80 overflow-hidden"
+                  className="flex gap-2 text-xs opacity-80 overflow-hidden"
                 >
                   {item.icon && (
-                    <div className="min-w-3 h-3">
+                    <div className="min-w-[14px] h-[14px] my-[1px]">
                       <Icon type={item.icon} />
                     </div>
                   )}
                   {item.src && (
-                    <div className="min-w-4 h-4">
+                    <div className="min-w-[14px] h-[14px] my-[1px]">
                       <img
                         className="w-full h-full border border-primary-200 rounded-sm"
                         src={item.src}
@@ -136,7 +135,23 @@ const CalendarCardHeader = ({
                       />
                     </div>
                   )}
-                  <p className="overflow-hidden whitespace-nowrap text-ellipsis">
+                  <p
+                    title={item.text}
+                    className={clsx(
+                      item.lines
+                        ? {
+                            "line-clamp-1": item.lines === 1,
+                            "line-clamp-2": item.lines === 2,
+                            "line-clamp-3": item.lines === 3,
+                          }
+                        : "line-clamp-1",
+                      item.color && {
+                        "text-success": item.color === "success",
+                        "text-danger": item.color === "danger",
+                        "text-warning": item.color === "warning",
+                      }
+                    )}
+                  >
                     {item.text}
                   </p>
                 </span>
@@ -149,6 +164,7 @@ const CalendarCardHeader = ({
                   item.onClick && "cursor-pointer hover:underline",
                   "font-bold text-start whitespace-nowrap overflow-hidden text-ellipsis max-md:text-xs text-alto-950 dark:text-alto-50 max-w-max"
                 )}
+                title={item.text}
               >
                 {item.text}
               </p>

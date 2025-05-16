@@ -81,15 +81,15 @@ const TimelineCase = ({
             <div className="w-full h-9 absolute top-0 left-0 flex items-center">
               <span className="w-full h-5 rounded-full border-2 border-primary-400 bg-alto-100 dark:bg-alto-950 z-10" />
             </div>
-            <span className="absolute left-1/2 top-0 h-full border-l border-alto-400" />
+            <span className="absolute left-1/2 top-0 h-full border-l border-alto-400 dark:border-alto-800" />
           </div>
         </div>
-        <div className="flex-1 flex justify-between items-center mb-5 border-b border-b-alto-300 transition-all duration-300 pb-1 overflow-hidden">
+        <div className="flex-1 flex justify-between items-center mb-5 border-b border-b-alto-400 dark:border-alto-800 transition-all duration-300 pb-1 overflow-hidden">
           <div className="flex-1 overflow-hidden">
             <Button
               onClick={() => setOpen(true)}
               btnType="tertiary"
-              className="font-bold px-0 max-w-full"
+              className="font-bold !px-0 max-w-full"
               alto
               title={nombreCaso}
             >

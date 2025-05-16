@@ -50,7 +50,7 @@ const ProfileTimeline = ({ paciente }: Props) => {
                   <div className="w-5 h-full relative isolate">
                     <span className="w-full h-5 rounded-full border-2 border-primary-400 absolute top-0 left-0 bg-alto-100 dark:bg-alto-950 z-10" />
                     {!lastItem && (
-                      <span className="absolute left-1/2 top-0 h-full border-l border-alto-400" />
+                      <span className="absolute left-1/2 top-0 h-full border-l border-alto-400 dark:border-alto-800" />
                     )}
                   </div>
                   <div className="h-5 flex items-center">

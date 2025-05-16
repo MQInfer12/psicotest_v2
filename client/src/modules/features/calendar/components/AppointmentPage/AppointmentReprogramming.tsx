@@ -11,6 +11,7 @@ import { Appointment } from "../../api/responses";
 import { stringFromDate } from "../../utils/stringFromDate";
 import CancelationForm from "./CancelationForm";
 import ReprogrammingForm from "./ReprogrammingForm";
+import { useNavigate } from "@tanstack/react-router";
 
 interface Props {
   cita: Appointment;
@@ -20,6 +21,8 @@ interface Props {
 const localStorageKey = "psicotest-appointments-reprogramming";
 
 const AppointmentReprogramming = ({ cita, user }: Props) => {
+  const navigate = useNavigate();
+
   const [selectedDate, setSelectedDate] = useState(() => {
     const storedData = JSON.parse(
       localStorage.getItem(localStorageKey) || "[]"
@@ -87,7 +90,13 @@ const AppointmentReprogramming = ({ cita, user }: Props) => {
   const { day } = selectedDate
     ? stringFromDate(dayjs(selectedDate))
     : { day: "" };
-  const message = `Hola ${user.nombre.split(" ")[0]}, soy ${me?.nombre.split(" ")[0]}, te escribo del gabinete psicológico para informarte que tu cita esta siendo reprogramada para el día ${day || "DÍA"} ${selectedDate || "YYYY-MM-DD"} a horas ${horarioSeleccionado?.hora_inicio.slice(0, 5) ?? "HH:MM"}, por favor confírmame si estas de acuerdo con la nueva fecha y hora.`;
+  const message = `Hola ${user.nombre.split(" ")[0]}, soy ${
+    me?.nombre.split(" ")[0]
+  }, te escribo del gabinete psicológico para informarte que tu cita esta siendo reprogramada para el día ${
+    day || "DÍA"
+  } ${selectedDate || "YYYY-MM-DD"} a horas ${
+    horarioSeleccionado?.hora_inicio.slice(0, 5) ?? "HH:MM"
+  }, por favor confírmame si estas de acuerdo con la nueva fecha y hora.`;
 
   const dayLessThanToday = dayjs(selectedDate).isBefore(dayjs(), "day");
 
@@ -102,8 +111,15 @@ const AppointmentReprogramming = ({ cita, user }: Props) => {
         />
       )}
       {modalCancelation(
-        "Formulario de reprogramación",
-        <CancelationForm idCita={cita.id} />
+        "Formulario de cancelación",
+        <CancelationForm
+          idCita={cita.id}
+          onSuccess={() => {
+            navigate({
+              to: "/calendar",
+            });
+          }}
+        />
       )}
       <div className="flex h-full w-full overflow-hidden">
         <div className="flex flex-col justify-between gap-4 flex-1 h-full py-4 overflow-hidden">
@@ -175,7 +191,9 @@ const AppointmentReprogramming = ({ cita, user }: Props) => {
               icon={Icon.Types.WHATSAPP}
               onClick={() => {
                 window.open(
-                  `https://wa.me/591${user.telefono}?text=${encodeURIComponent(message)}`,
+                  `https://wa.me/591${user.telefono}?text=${encodeURIComponent(
+                    message
+                  )}`,
                   "_blank"
                 );
               }}
@@ -188,7 +206,11 @@ const AppointmentReprogramming = ({ cita, user }: Props) => {
               icon={Icon.Types.MAIL}
               onClick={() => {
                 window.open(
-                  `mailto:${user.email}?subject=Reprogramación de cita&body=${encodeURIComponent(message)}`,
+                  `mailto:${
+                    user.email
+                  }?subject=Reprogramación de cita&body=${encodeURIComponent(
+                    message
+                  )}`,
                   "_blank"
                 );
               }}

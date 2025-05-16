@@ -51,3 +51,7 @@ Route::get('/restore', function () {
     $success = Artisan::call("db:restore");
     return $success ? "Database restored successfully" : "Database restore failed";
 });
+
+Route::get('/foo', function () {
+    return encrypt("671cad6342829703451172bc8ef2c46e780277081404b664236ed4e9ba5edb7b");
+});

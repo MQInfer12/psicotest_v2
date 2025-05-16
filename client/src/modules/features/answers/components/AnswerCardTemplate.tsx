@@ -68,7 +68,7 @@ const AnswerCardTemplate = ({ tabs, gridArea }: Props) => {
       }}
       className="w-full h-full flex flex-col gap-1 overflow-hidden"
     >
-      <div className="flex">
+      <div className="flex overflow-y-hidden overflow-x-auto">
         {tabs.map((tab, index) => (
           <motion.button
             key={tab.title}

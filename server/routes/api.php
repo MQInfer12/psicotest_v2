@@ -102,6 +102,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::apiResource('/ocupacion', C_OcupacionController::class);
 
+    Route::get('/motivo/for/canceladas', [C_MotivoController::class, 'indexForCanceladas']);
     Route::patch('/cita/reprogramacion/{id}', [C_MotivoController::class, 'reprogramacion']);
     Route::patch('/cita/cancelacion/{id}', [C_MotivoController::class, 'cancelacion']);
 

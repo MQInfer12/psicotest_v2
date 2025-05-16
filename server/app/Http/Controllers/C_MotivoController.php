@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\C_MotivoCancelacionRequest;
 use App\Http\Requests\C_MotivoReprogramacionRequest;
 use App\Http\Resources\C_CitaResource;
+use App\Http\Resources\C_MotivoResource;
+use App\Http\Resources\U_userResource;
 use App\Models\C_Cita;
 use App\Models\C_Horario;
 use App\Models\C_Motivo;
@@ -23,9 +25,27 @@ class C_MotivoController extends Controller
     use GoogleCalendarTrait;
     use TimeTrait;
 
+    public function indexForCanceladas()
+    {
+        $psicologo = request()->user();
+
+        $motivos = C_Motivo::where('tipo', 'cancelacion')
+            ->where('email_psicologo', $psicologo->email)
+            ->where('created_at', '>=', $this->get_now_local()->subDays(30))
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return $this->successResponse(
+            "Motivos de cancelación de los últimos 30 días obtenidos correctamente",
+            C_MotivoResource::collection($motivos)
+        );
+    }
+
     public function reprogramacion(C_MotivoReprogramacionRequest $request, int $id)
     {
+        $me = $request->user();
         $validatedData = $request->validated();
+
         $cita = C_Cita::findOrFail($id);
         $horario = C_Horario::findOrFail($validatedData['id_horario']);
 
@@ -110,6 +130,7 @@ class C_MotivoController extends Controller
             'fecha_nueva' => $validatedData['fecha'],
             'hora_inicio_nueva' => $horario->hora_inicio,
             'hora_final_nueva' => $horario->hora_final,
+            'cancelado_por' => $me->email,
         ]);
 
         $cita->update([
@@ -126,6 +147,8 @@ class C_MotivoController extends Controller
 
     public function cancelacion(C_MotivoCancelacionRequest $request, int $id)
     {
+        $me = $request->user();
+
         $validatedData = $request->validated();
 
         $cita = C_Cita::findOrFail($id);
@@ -148,9 +171,15 @@ class C_MotivoController extends Controller
             'fecha_anterior' => $cita->fecha,
             'hora_inicio_anterior' => $cita->hora_inicio,
             'hora_final_anterior' => $cita->hora_final,
+            'cancelado_por' => $me->email,
         ]);
 
-        $cita->delete();
+        $caso = $cita->caso;
+        if ($caso->citas->count() == 1) {
+            $caso->delete();
+        } else {
+            $cita->delete();
+        }
 
         $contador = R_Contador::firstOrFail();
         $contador->citas_canceladas += 1;
@@ -158,7 +187,7 @@ class C_MotivoController extends Controller
 
         return $this->successResponse(
             "Cita cancelada correctamente.",
-            null
+            new U_userResource($request->user())
         );
     }
 }

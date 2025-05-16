@@ -53,6 +53,7 @@ const ScheduleHeader = () => {
       {modalOcupacion("Ocupaciones", <OcuppationList />, {
         type: "floating",
         bodyPadding: false,
+        width: 480,
       })}
       <div className="flex flex-col gap-4">
         <header className="h-10 flex justify-between">

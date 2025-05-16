@@ -143,7 +143,6 @@ const AppointmentPage = () => {
           user={data.paciente}
           setData={setData}
           cita={data.cita}
-          hasPassed={hasPassed}
         />
         <AnswerCardTemplate gridArea="form" tabs={TABS} />
       </UserResumeContextProvider>

@@ -56,7 +56,10 @@ class C_HorarioController extends Controller
     {
         $user = $request->user();
         $today = $this->get_now_local()->format('Y-m-d');
-        $fecha = $request->query('fecha') ?? $today;
+
+        $fecha = $request->query('fecha', $today);
+        $ocultar_ocupados = $request->query('ocultar_ocupados', 'true') === 'true';
+
         $dayIndex = (date('w', strtotime($fecha)) + 6) % 7;
 
         $horarios = C_Horario::where('email_user', $user->email)
@@ -74,7 +77,7 @@ class C_HorarioController extends Controller
             ->where('email_user', $user->email)
             ->get();
 
-        $disponibles = $horarios->filter(function ($horario) use ($citas, $ocupaciones) {
+        $disponibles = $horarios->filter(function ($horario) use ($citas, $ocupaciones, $ocultar_ocupados) {
             foreach ($citas as $cita) {
                 if ($this->check_overlaping_hour(
                     $cita->hora_inicio,
@@ -86,14 +89,16 @@ class C_HorarioController extends Controller
                 }
             }
 
-            foreach ($ocupaciones as $ocupacion) {
-                if ($this->check_overlaping_hour(
-                    $ocupacion->hora_inicio,
-                    $ocupacion->hora_final,
-                    $horario->hora_inicio,
-                    $horario->hora_final
-                )) {
-                    return false;
+            if ($ocultar_ocupados) {
+                foreach ($ocupaciones as $ocupacion) {
+                    if ($this->check_overlaping_hour(
+                        $ocupacion->hora_inicio,
+                        $ocupacion->hora_final,
+                        $horario->hora_inicio,
+                        $horario->hora_final
+                    )) {
+                        return false;
+                    }
                 }
             }
 

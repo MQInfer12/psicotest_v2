@@ -1,25 +1,24 @@
+import Button from "@/modules/core/components/ui/Button";
 import TextArea from "@/modules/core/components/ui/TextArea";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
-import { useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
-import { CancelationDTO } from "../../api/dtos";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { CancelationDTOSChema } from "../../validations/CancelationDTO.schema";
 import { toastSuccess } from "@/modules/core/utils/toasts";
-import Button from "@/modules/core/components/ui/Button";
+import { User } from "@/modules/features/users/api/responses";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { CancelationDTO } from "../../api/dtos";
+import { CancelationDTOSChema } from "../../validations/CancelationDTO.schema";
 
 interface Props {
   idCita: number;
+  onSuccess: (user: User) => void;
 }
 
-const CancelationForm = ({ idCita }: Props) => {
+const CancelationForm = ({ idCita, onSuccess }: Props) => {
   const [loading, setLoading] = useState(false);
 
   const { postData } = useFetch();
   const patchMutation = postData("PATCH /cita/cancelacion/:id");
-
-  const navigate = useNavigate();
 
   const {
     register,
@@ -40,9 +39,7 @@ const CancelationForm = ({ idCita }: Props) => {
       },
       onSuccess: (res) => {
         toastSuccess(res.message);
-        navigate({
-          to: "/calendar",
-        });
+        onSuccess(res.data);
       },
       onSettled: () => {
         setLoading(false);

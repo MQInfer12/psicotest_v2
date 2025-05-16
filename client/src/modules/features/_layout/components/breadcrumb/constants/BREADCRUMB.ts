@@ -87,7 +87,7 @@ export const BREADCRUMB: Breadcrumb[] = [
     icon: Icon.Types.CALENDAR,
   },
   {
-    name: "Detalles de la cita",
+    name: "Detalles de la sesión",
     match: "/calendar/$id",
     icon: Icon.Types.CALENDAR,
   },

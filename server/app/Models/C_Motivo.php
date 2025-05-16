@@ -25,5 +25,21 @@ class C_Motivo extends Model
         'fecha_nueva',
         'hora_inicio_nueva',
         'hora_final_nueva',
+        'cancelado_por'
     ];
+
+    public function psicologo()
+    {
+        return $this->belongsTo(U_user::class, 'email_psicologo', 'email');
+    }
+
+    public function paciente()
+    {
+        return $this->belongsTo(U_user::class, 'email_paciente', 'email');
+    }
+
+    public function cancelador()
+    {
+        return $this->belongsTo(U_user::class, 'cancelado_por', 'email');
+    }
 }
