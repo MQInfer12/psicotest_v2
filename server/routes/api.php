@@ -8,6 +8,7 @@ use App\Http\Controllers\C_CitaController;
 use App\Http\Controllers\C_HorarioController;
 use App\Http\Controllers\C_MotivoConsultaController;
 use App\Http\Controllers\C_MotivoController;
+use App\Http\Controllers\C_NotaController;
 use App\Http\Controllers\C_OcupacionController;
 use App\Http\Controllers\IA_PlantillaController;
 use App\Http\Controllers\ReportsController;
@@ -99,6 +100,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('/caso/cerrar/cita/{id_cita}', [C_CasoController::class, 'cerrarEIniciarNuevoDesdeCita']);
     Route::patch('/caso/cerrar/{id}', [C_CasoController::class, 'cerrarCaso']);
     Route::patch('/caso/cambiar-nombre/{id}', [C_CasoController::class, 'cambiarNombre']);
+
+    Route::apiResource('/nota', C_NotaController::class);
 
     Route::apiResource('/ocupacion', C_OcupacionController::class);
 

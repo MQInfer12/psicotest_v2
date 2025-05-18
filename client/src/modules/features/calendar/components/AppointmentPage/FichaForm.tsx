@@ -215,73 +215,76 @@ const FichaForm = ({ cita, onSuccess, disabled, preview }: Props) => {
             </div>
 
             {/* MOTIVO DE LA CONSULTA */}
-            {metodo !== MetodoConsulta.Inasistencia && (
-              <div className="flex items-end gap-4">
-                <Input
-                  label={
-                    metodo === MetodoConsulta.Reconsulta
-                      ? "Motivo de la reconsulta (opcional)"
-                      : "Motivo de la consulta"
-                  }
-                  required={metodo !== MetodoConsulta.Reconsulta}
-                  type="select"
-                  disabled={disabled}
-                  {...register("id_motivo_consulta")}
-                  error={errors.id_motivo_consulta?.message}
-                  className={
-                    !id_motivo_consulta
-                      ? "!text-alto-400 dark:!text-alto-700"
-                      : undefined
-                  }
-                  key={motivosConsulta?.length}
-                >
-                  <option value="">
-                    {cita.fecha_cierre_clinico
-                      ? ""
-                      : !motivosConsulta
-                      ? "Cargando..."
-                      : "Seleccionar..."}
-                  </option>
-                  {motivosConsulta
-                    ?.filter(
-                      (v) => !v.deleted_at || v.id === cita.id_motivo_consulta
-                    )
-                    .sort((a, b) => a.descripcion.localeCompare(b.descripcion))
-                    .map((motivo) => (
-                      <option key={motivo.id} value={motivo.id}>
-                        {motivo.descripcion} {motivo.deleted_at && "(X)"}
-                      </option>
+            {metodo !== MetodoConsulta.Inasistencia &&
+              metodo !== MetodoConsulta.Reconsulta && (
+                <div className="flex items-end gap-4">
+                  <Input
+                    label={
+                      metodo === MetodoConsulta.Reconsulta
+                        ? "Motivo de la reconsulta (opcional)"
+                        : "Motivo de la consulta"
+                    }
+                    required={metodo !== MetodoConsulta.Reconsulta}
+                    type="select"
+                    disabled={disabled}
+                    {...register("id_motivo_consulta")}
+                    error={errors.id_motivo_consulta?.message}
+                    className={
+                      !id_motivo_consulta
+                        ? "!text-alto-400 dark:!text-alto-700"
+                        : undefined
+                    }
+                    key={motivosConsulta?.length}
+                  >
+                    <option value="">
+                      {cita.fecha_cierre_clinico
+                        ? ""
+                        : !motivosConsulta
+                        ? "Cargando..."
+                        : "Seleccionar..."}
+                    </option>
+                    {motivosConsulta
+                      ?.filter(
+                        (v) => !v.deleted_at || v.id === cita.id_motivo_consulta
+                      )
+                      .sort((a, b) =>
+                        a.descripcion.localeCompare(b.descripcion)
+                      )
+                      .map((motivo) => (
+                        <option key={motivo.id} value={motivo.id}>
+                          {motivo.descripcion} {motivo.deleted_at && "(X)"}
+                        </option>
+                      ))}
+                  </Input>
+                  {!cita.fecha_cierre_clinico &&
+                    (!id_motivo_consulta ? (
+                      <Button
+                        type="button"
+                        disabled={loading}
+                        icon={Icon.Types.ADD}
+                        btnType="secondary"
+                        title="Añadir nuevo motivo de consulta"
+                        onClick={() => setOpen(true)}
+                      />
+                    ) : (
+                      <Button
+                        type="button"
+                        disabled={loading}
+                        icon={Icon.Types.PENCIL}
+                        btnType="secondary"
+                        title="Editar motivo de consulta"
+                        onClick={() => {
+                          const motivoConsulta = motivosConsulta?.find(
+                            (motivo) =>
+                              String(motivo.id) === String(id_motivo_consulta)
+                          );
+                          if (!motivoConsulta) return;
+                          setOpen(motivoConsulta);
+                        }}
+                      />
                     ))}
-                </Input>
-                {!cita.fecha_cierre_clinico &&
-                  (!id_motivo_consulta ? (
-                    <Button
-                      type="button"
-                      disabled={loading}
-                      icon={Icon.Types.ADD}
-                      btnType="secondary"
-                      title="Añadir nuevo motivo de consulta"
-                      onClick={() => setOpen(true)}
-                    />
-                  ) : (
-                    <Button
-                      type="button"
-                      disabled={loading}
-                      icon={Icon.Types.PENCIL}
-                      btnType="secondary"
-                      title="Editar motivo de consulta"
-                      onClick={() => {
-                        const motivoConsulta = motivosConsulta?.find(
-                          (motivo) =>
-                            String(motivo.id) === String(id_motivo_consulta)
-                        );
-                        if (!motivoConsulta) return;
-                        setOpen(motivoConsulta);
-                      }}
-                    />
-                  ))}
-              </div>
-            )}
+                </div>
+              )}
 
             {metodo !== MetodoConsulta.Inasistencia && (
               <TextArea
@@ -296,16 +299,21 @@ const FichaForm = ({ cita, onSuccess, disabled, preview }: Props) => {
                 placeholder={
                   metodo === MetodoConsulta.Reconsulta &&
                   !cita.fecha_cierre_clinico
-                    ? "AYUDA MEMORIA:\n\n" +
+                    ? "AYUDA MEMORIA DEL CASO:\n\n" +
                       citas
-                        ?.filter((cita) => !!cita.motivo)
-                        .map(
-                          (cita) =>
-                            cita.descripcion_motivo_consulta +
-                            " - " +
-                            cita.motivo +
-                            "\n\n"
+                        ?.filter(
+                          (c) => !!c.motivo && c.id_caso === cita.id_caso
                         )
+                        .map((cita) => {
+                          const motivoConsulta =
+                            cita.descripcion_motivo_consulta;
+                          const str = `${
+                            motivoConsulta
+                              ? `Motivo de consulta del caso: ${motivoConsulta}\n\n`
+                              : ""
+                          }${cita.motivo}\n\n`;
+                          return str;
+                        })
                         .join("")
                     : undefined
                 }
@@ -326,9 +334,11 @@ const FichaForm = ({ cita, onSuccess, disabled, preview }: Props) => {
                 placeholder={
                   metodo === MetodoConsulta.Reconsulta &&
                   !cita.fecha_cierre_clinico
-                    ? "AYUDA MEMORIA:\n\n" +
+                    ? "AYUDA MEMORIA DEL CASO:\n\n" +
                       citas
-                        ?.filter((cita) => !!cita.antecedentes)
+                        ?.filter(
+                          (c) => !!c.antecedentes && c.id_caso === cita.id_caso
+                        )
                         .map((cita) => cita.antecedentes + "\n\n")
                         .join("")
                     : undefined
@@ -336,7 +346,6 @@ const FichaForm = ({ cita, onSuccess, disabled, preview }: Props) => {
                 {...register("antecedentes")}
               />
             )}
-
             <TextArea
               label="Reporte de sesión"
               required

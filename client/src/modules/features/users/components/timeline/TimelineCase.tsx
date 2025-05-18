@@ -7,6 +7,7 @@ import DerivacionPDF from "@/modules/features/calendar/components/AppointmentPag
 import { User } from "../../api/responses";
 import ChangeCaseNameForm from "./ChangeCaseNameForm";
 import CloseCaseForm from "./CloseCaseForm";
+import clsx from "clsx";
 
 interface Props {
   caso: Case;
@@ -14,6 +15,8 @@ interface Props {
   nroCaso: number;
   setData: SetData<Historial>;
   paciente: User;
+  onClickAddNote: () => void;
+  activeButtonAddNote: boolean;
 }
 
 const TimelineCase = ({
@@ -22,12 +25,16 @@ const TimelineCase = ({
   nroCaso,
   setData,
   paciente,
+  activeButtonAddNote,
+  onClickAddNote,
 }: Props) => {
   const casoCerrado = !!caso.fecha_cierre;
-  const { modal, setOpen } = useModal();
+  const { modal, open, setOpen } = useModal();
   const { modal: modalCierre, setOpen: setOpenCierre } = useModal();
 
   const nombreCaso = `Caso${caso.nombre ? `: ${caso.nombre}` : ` ${nroCaso}`}`;
+  const activeButton = activeButtonAddNote || open;
+
   return (
     <>
       {modal(
@@ -36,13 +43,10 @@ const TimelineCase = ({
           idCaso={caso.id}
           nombre={caso.nombre}
           onSuccess={(res) => {
-            setData((prev) =>
-              prev.map((item) =>
-                item.tipo === "caso" && item.data.id === res.id
-                  ? { ...item, data: res }
-                  : item
-              )
-            );
+            setData((prev) => ({
+              ...prev,
+              casos: prev.casos.map((v) => (v.id === res.id ? res : v)),
+            }));
             setOpen(false);
           }}
         />
@@ -53,15 +57,12 @@ const TimelineCase = ({
           <DerivacionPDF user={paciente} caso={caso} />
         ) : (
           <CloseCaseForm
-            idCaso={caso.id}
+            caso={caso}
             onSuccess={(res) => {
-              setData((prev) =>
-                prev.map((item) =>
-                  item.tipo === "caso" && item.data.id === res.id
-                    ? { ...item, data: res }
-                    : item
-                )
-              );
+              setData((prev) => ({
+                ...prev,
+                casos: prev.casos.map((v) => (v.id === res.id ? res : v)),
+              }));
               if (res.motivo_cierre !== "Derivación") {
                 setOpenCierre(false);
               }
@@ -75,12 +76,37 @@ const TimelineCase = ({
           blur: !!caso.derivacion,
         }
       )}
-      <div className="flex gap-2">
+      <div className="flex gap-2 group">
         <div className="flex gap-2">
           <div className="w-5 h-full relative isolate">
-            <div className="w-full h-9 absolute top-0 left-0 flex items-center">
-              <span className="w-full h-5 rounded-full border-2 border-primary-400 bg-alto-100 dark:bg-alto-950 z-10" />
+            <div
+              className={clsx(
+                " flex w-full h-9 absolute top-0 left-0 items-center z-10 transition-all duration-300",
+                casoCerrado &&
+                  (activeButton
+                    ? "opacity-0"
+                    : "group-hover:opacity-0 opacity-100")
+              )}
+            >
+              <span className="w-full h-5 rounded-full border-2 border-primary-500 bg-primary-400 z-10" />
             </div>
+            {casoCerrado && (
+              <div
+                className={clsx(
+                  "flex opacity-0 w-full h-9 absolute top-0 left-0 items-center z-20 transition-all duration-300",
+                  activeButton
+                    ? "opacity-100"
+                    : "group-hover:opacity-100 opacity-0"
+                )}
+              >
+                <button
+                  onClick={onClickAddNote}
+                  className="outline-none text-alto-950/60 dark:text-alto-50 bg-alto-100 dark:bg-alto-950 hover:text-primary-800 dark:hover:text-primary-400 transition-all duration-300"
+                >
+                  <Icon type={Icon.Types.STICKY_NOTE} />
+                </button>
+              </div>
+            )}
             <span className="absolute left-1/2 top-0 h-full border-l border-alto-400 dark:border-alto-800" />
           </div>
         </div>
@@ -117,7 +143,7 @@ const TimelineCase = ({
             >
               {casoCerrado
                 ? caso.derivacion
-                  ? "Derivado"
+                  ? `Derivado a ${caso.derivacion.derivado_a}`
                   : "Caso cerrado"
                 : "Cerrar caso"}
             </Button>

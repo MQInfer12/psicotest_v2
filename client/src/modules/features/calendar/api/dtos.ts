@@ -10,6 +10,7 @@ import { AppointmentDTOSchema } from "../validations/AppointmentDTO.schema";
 import { MotivoConsultaDTOSchema } from "../validations/MotivoConsultaDTO.schema";
 import { ChangeCaseNameDTOSchema } from "../validations/ChangeCaseNameDTO.schema";
 import { CloseCaseDTOSchema } from "../validations/CloseCaseDTO.schema";
+import { NoteDTOSchema } from "../validations/NoteDTO.schema";
 
 export type ScheduleDTO = yup.InferType<typeof ScheduleDTOSchema>;
 export type PreAppointmentDTO = yup.InferType<typeof PreAppointmentDTOSchema>;
@@ -26,3 +27,5 @@ export type MotivoConsultaDTO = yup.InferType<typeof MotivoConsultaDTOSchema>;
 
 export type ChangeCaseNameDTO = yup.InferType<typeof ChangeCaseNameDTOSchema>;
 export type CloseCaseDTO = yup.InferType<typeof CloseCaseDTOSchema>;
+
+export type NoteDTO = yup.InferType<typeof NoteDTOSchema>;

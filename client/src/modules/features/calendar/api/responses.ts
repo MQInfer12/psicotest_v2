@@ -82,18 +82,11 @@ export interface MotivoConsulta {
   deleted_at: string | null;
 }
 
-export type Historial = (
-  | {
-      tipo: "cita";
-      fecha_hora: string;
-      data: Appointment;
-    }
-  | {
-      tipo: "caso";
-      fecha_hora: string;
-      data: Case;
-    }
-)[];
+export type Historial = {
+  citas: Appointment[];
+  casos: Case[];
+  notas: CalendarNote[];
+};
 
 export interface CancelationReprogrammingMotive {
   id: number;
@@ -115,4 +108,19 @@ export interface CancelationReprogrammingMotive {
   hora_inicio_nueva: string | null;
   hora_final_nueva: string | null;
   created_at: string;
+}
+
+export interface CalendarNote {
+  id: number;
+  id_cita: number | null;
+  id_caso: number | null;
+  descripcion: string;
+  email_psicologo: string;
+  nombre_psicologo: string;
+  foto_psicologo: string | null;
+  email_paciente: string;
+  nombre_paciente: string;
+  foto_paciente: string | null;
+  created_at: string;
+  updated_at: string;
 }

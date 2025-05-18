@@ -17,7 +17,8 @@ class C_Caso extends Model
         'email_paciente',
         'nombre',
         'motivo_cierre',
-        'fecha_cierre'
+        'fecha_cierre',
+        'descripcion_cierre'
     ];
 
     public function paciente()

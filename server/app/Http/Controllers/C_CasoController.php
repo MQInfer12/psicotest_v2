@@ -50,6 +50,7 @@ class C_CasoController extends Controller
 
         $caso->update([
             'motivo_cierre' => $validatedData['motivo_cierre'],
+            'descripcion_cierre' => $validatedData['descripcion_cierre'],
             'fecha_cierre' => now(),
         ]);
 
@@ -65,6 +66,7 @@ class C_CasoController extends Controller
         $caso = $cita->caso;
         $caso->update([
             'motivo_cierre' => "Finalizado",
+            'descripcion_cierre' => "Caso cerrado por el sistema para iniciar uno nuevo a partir de la cita " . $cita->id,
             'fecha_cierre' => now(),
         ]);
         $casoNuevo = C_Caso::create([

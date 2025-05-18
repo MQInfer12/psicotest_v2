@@ -6,6 +6,7 @@ import {
   CloseCaseDTO,
   FichaDTO,
   MotivoConsultaDTO,
+  NoteDTO,
   OcuppationDTO,
   ReprogrammingDTO,
   ScheduleDTO,
@@ -13,6 +14,7 @@ import {
 import {
   Appointment,
   AppointmentStatus,
+  CalendarNote,
   CancelationReprogrammingMotive,
   Case,
   Historial,
@@ -61,7 +63,7 @@ declare global {
       params: {
         email: string;
       };
-      request: never;
+      request: null;
       response: Appointment[];
     };
     "GET /cita/historial/:email/psicotest": {
@@ -186,6 +188,21 @@ declare global {
       response: MotivoConsulta;
     };
     "DELETE /motivo-consulta/:id": {
+      params: { id: number };
+      request: null;
+      response: null;
+    };
+    "POST /nota": {
+      params: never;
+      request: NoteDTO;
+      response: CalendarNote;
+    };
+    "PUT /nota/:id": {
+      params: { id: number };
+      request: NoteDTO;
+      response: CalendarNote;
+    };
+    "DELETE /nota/:id": {
       params: { id: number };
       request: null;
       response: null;

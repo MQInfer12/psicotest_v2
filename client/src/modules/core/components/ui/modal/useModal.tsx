@@ -56,5 +56,5 @@ export const useModal = <T,>() => {
     </Modal>
   );
 
-  return { modal, open, setOpen };
+  return { modal, open, item, setOpen };
 };

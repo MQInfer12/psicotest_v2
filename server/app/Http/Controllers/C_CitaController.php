@@ -11,6 +11,7 @@ use App\Http\Requests\C_CitaStoreRequest;
 use App\Http\Requests\C_CitaUpdateRequest;
 use App\Http\Resources\C_CasoResource;
 use App\Http\Resources\C_CitaResource;
+use App\Http\Resources\C_NotaResource;
 use App\Http\Resources\U_userResource;
 use App\Models\C_Caso;
 use App\Models\C_Cita;
@@ -126,9 +127,17 @@ class C_CitaController extends Controller
     public function showByPatient(string $email)
     {
         $user = U_user::findOrFail($email);
-        $citas = $user->citas->filter(function ($cita) {
-            return $cita->fecha_cierre_clinico !== null;
-        });
+
+        $citas = $user->citas
+            ->filter(function ($cita) {
+                return $cita->fecha_cierre_clinico !== null;
+            })
+            ->sortBy([
+                ['fecha', 'asc'],
+                ['hora_inicio', 'asc']
+            ])
+            ->values();
+
         return $this->successResponse(
             "Citas encontradas correctamente.",
             C_CitaResource::collection($citas)
@@ -139,33 +148,24 @@ class C_CitaController extends Controller
     {
         $user = U_user::findOrFail($email);
 
-        $historial = [];
+        $citas = $user->citas
+            ->sortBy([
+                ['fecha', 'desc'],
+                ['hora_inicio', 'desc']
+            ])
+            ->values();
 
-        foreach ($user->casos as $caso) {
-            $citas = $caso->citas()->orderBy('fecha', 'desc')->orderBy('hora_inicio', 'desc')->get();
+        $casos = $user->casos;
 
-            if ($citas->isNotEmpty()) {
-                $historial[] = [
-                    'tipo' => 'caso',
-                    'fecha_hora' => $citas->first()->fecha . ' ' . $citas->first()->hora_inicio,
-                    'data' => new C_CasoResource($caso),
-                ];
-
-                foreach ($citas as $cita) {
-                    $historial[] = [
-                        'tipo' => 'cita',
-                        'fecha_hora' => $cita->fecha . ' ' . $cita->hora_inicio,
-                        'data' => new C_CitaResource($cita),
-                    ];
-                }
-            }
-        }
-
-        $historial = collect($historial)->sortByDesc('fecha_hora')->values();
+        $notas = $user->notas();
 
         return $this->successResponse(
             "Citas encontradas correctamente.",
-            $historial
+            [
+                'citas' => C_CitaResource::collection($citas),
+                'casos' => C_CasoResource::collection($casos),
+                'notas' => C_NotaResource::collection($notas),
+            ]
         );
     }
 

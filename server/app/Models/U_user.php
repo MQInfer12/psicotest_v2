@@ -135,6 +135,11 @@ class U_user extends Authenticatable
 
     public function notas()
     {
-        return $this->hasMany(C_Nota::class, 'email_paciente')->orderBy('fecha_hora', 'asc');
+        $casosIds = $this->casos->pluck('id');
+        $citasIds = C_Cita::whereIn('id_caso', $casosIds)->pluck('id');
+        return C_Nota::whereIn('id_caso', $casosIds)
+            ->orWhereIn('id_cita', $citasIds)
+            ->orderBy('created_at', 'desc')
+            ->get();
     }
 }
