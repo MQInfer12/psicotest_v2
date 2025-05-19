@@ -280,7 +280,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                   direction={direction}
                   text={
                     isLastSection
-                      ? "Se acabó tu tiempo para esta sección, envía tus resultados haciendo click en el botón de terminar."
+                      ? "Se acabó tu tiempo para esta sección, envía tus resultados haciendo click en el botón de continuar."
                       : "Se acabó tu tiempo para esta sección, haz click en el botón de continuar."
                   }
                 />
@@ -566,7 +566,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                     icon={Icon.Types.CHEVRON_RIGHT}
                     onClick={() => handleSend(form)}
                   >
-                    Terminar
+                    Continuar
                   </Button>
                 ) : (
                   <Button
@@ -619,7 +619,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                     icon={Icon.Types.ARROW_RIGHT}
                     onClick={() => handleSend(form)}
                   >
-                    Terminar
+                    Continuar
                   </Button>
                 )
               )}

@@ -194,6 +194,7 @@ const Modal = ({
             "flex-1 overflow-auto flex flex-col": !onlyContent,
             "p-4": bodyPadding && !onlyContent,
             "rounded-md overflow-hidden": onlyContent,
+            "max-h-[90svh]": type === "default",
           })}
         >
           {children}

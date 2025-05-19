@@ -205,6 +205,7 @@ const PatientPage = () => {
         ]}
         columns={columns}
         data={filteredData}
+        savedOffsetKey="patients-table"
       >
         <PatientTableContextProvider
           value={{

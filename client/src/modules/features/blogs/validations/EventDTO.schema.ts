@@ -2,8 +2,8 @@ import * as yup from "yup";
 
 export const EventDTOSchema = yup.object({
   nombre: yup.string().required("El nombre es requerido"),
-  fecha: yup.string().required("*"),
-  hora: yup.string().required("*"),
+  fecha: yup.string().required("Req."),
+  hora: yup.string().required("Req."),
   latitud: yup
     .number()
     .typeError("Ingrese un valor válido")

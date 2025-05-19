@@ -311,7 +311,10 @@ const CreateBlogPage = ({ blog }: Props) => {
             setEvent(null);
             setOpen(false);
           }}
-        />
+        />,
+        {
+          width: 640,
+        }
       )}
       <div
         className="flex h-full flex-col  overflow-scroll isolate"
@@ -381,8 +384,8 @@ const CreateBlogPage = ({ blog }: Props) => {
               portada: img
                 ? URL.createObjectURL(img)
                 : blog
-                  ? STORAGE_URL + blog.portada
-                  : "",
+                ? STORAGE_URL + blog.portada
+                : "",
               destacado: false,
               evento: event
                 ? {
