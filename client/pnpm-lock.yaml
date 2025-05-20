@@ -52,7 +52,7 @@ importers:
         version: 1.9.4
       openai:
         specifier: ^4.86.2
-        version: 4.92.1(zod@3.24.1)
+        version: 4.92.1(zod@3.25.7)
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -74,6 +74,9 @@ importers:
       yup:
         specifier: ^1.4.0
         version: 1.5.0
+      zod:
+        specifier: ^3.25.7
+        version: 3.25.7
     devDependencies:
       '@eslint/js':
         specifier: ^9.9.0
@@ -2141,8 +2144,8 @@ packages:
   yup@1.5.0:
     resolution: {integrity: sha512-NJfBIHnp1QbqZwxcgl6irnDMIsb/7d1prNhFx02f1kp8h+orpi4xs3w90szNpOh68a/iHPdMsYvhZWoDmUvXBQ==}
 
-  zod@3.24.1:
-    resolution: {integrity: sha512-muH7gBL9sI1nciMZV67X5fTKKBLtwpZ5VBp1vsOQzj1MhrBZ4wlVCm3gedKZWLp0Oyel8sIGfeiz54Su+OVT+A==}
+  zod@3.25.7:
+    resolution: {integrity: sha512-YGdT1cVRmKkOg6Sq7vY7IkxdphySKnXhaUmFI4r4FcuFVNgpCb9tZfNwXbT6BPjD5oz0nubFsoo9pIqKrDcCvg==}
 
 snapshots:
 
@@ -2771,7 +2774,7 @@ snapshots:
       '@tanstack/virtual-file-routes': 1.87.6
       prettier: 3.4.2
       tsx: 4.19.2
-      zod: 3.24.1
+      zod: 3.25.7
 
   '@tanstack/router-plugin@1.87.13(vite@5.4.11(@types/node@22.10.2))':
     dependencies:
@@ -2792,7 +2795,7 @@ snapshots:
       babel-dead-code-elimination: 1.0.6
       chokidar: 3.6.0
       unplugin: 1.16.0
-      zod: 3.24.1
+      zod: 3.25.7
     optionalDependencies:
       vite: 5.4.11(@types/node@22.10.2)
     transitivePeerDependencies:
@@ -3628,7 +3631,7 @@ snapshots:
 
   object-hash@3.0.0: {}
 
-  openai@4.92.1(zod@3.24.1):
+  openai@4.92.1(zod@3.25.7):
     dependencies:
       '@types/node': 18.19.86
       '@types/node-fetch': 2.6.12
@@ -3638,7 +3641,7 @@ snapshots:
       formdata-node: 4.4.1
       node-fetch: 2.7.0
     optionalDependencies:
-      zod: 3.24.1
+      zod: 3.25.7
     transitivePeerDependencies:
       - encoding
 
@@ -4084,4 +4087,4 @@ snapshots:
       toposort: 2.0.2
       type-fest: 2.19.0
 
-  zod@3.24.1: {}
+  zod@3.25.7: {}

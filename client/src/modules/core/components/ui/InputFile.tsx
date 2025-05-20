@@ -14,8 +14,13 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   setstate: (newState: File | null) => void;
   validFormats?: string[];
   row?: boolean;
-  inputType?: "image" | "inline";
+  inputType?: "image" | "inline" | "none";
   icon?: ICON;
+  btnIcon?: ICON;
+  btnLabel?: string;
+  btnType?: "primary" | "secondary";
+  emptyOnChange?: boolean;
+  beforeChange?: (next: () => void) => void;
 }
 
 const InputFile = (props: Props) => {
@@ -33,10 +38,16 @@ const InputFile = (props: Props) => {
     row,
     inputType = "image",
     icon,
+    btnIcon,
+    btnLabel,
+    btnType,
+    emptyOnChange,
+    beforeChange,
   } = props;
 
   const [preview, setPreview] = useState<null | string>(null);
   const [sizeError, setSizeError] = useState<string | null>(null);
+  const [counter, setCounter] = useState(0);
 
   const changeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files?.length) return;
@@ -47,6 +58,9 @@ const InputFile = (props: Props) => {
     }
     setSizeError(null);
     setstate(e.target.files[0]);
+    if (emptyOnChange) {
+      setCounter((prev) => prev + 1);
+    }
   };
 
   useEffect(() => {
@@ -61,13 +75,31 @@ const InputFile = (props: Props) => {
     }
   }, [state]);
 
-  const selectInput = () => document.getElementById(id)?.click();
+  const selectInput = () => {
+    document.getElementById(id)?.click();
+  };
 
   const hasImage = preview ?? defaultsrc;
 
   const realError = sizeError ?? error;
 
-  const trueRow = row || inputType === "inline";
+  const trueRow = row || inputType === "inline" || inputType === "none";
+
+  const getInputProps = () => {
+    const newProps = { ...props };
+
+    //@ts-ignore
+    delete newProps.setstate;
+
+    delete newProps.btnType;
+    delete newProps.btnLabel;
+    delete newProps.btnIcon;
+    delete newProps.inputType;
+    delete newProps.emptyOnChange;
+    delete newProps.beforeChange;
+
+    return newProps;
+  };
 
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
@@ -105,83 +137,89 @@ const InputFile = (props: Props) => {
           "gap-4": trueRow,
         })}
       >
-        {inputType === "inline" ? (
-          <div
-            className={clsx("relative isolate flex-1 overflow-hidden", {
-              contents: !icon,
-            })}
-          >
-            <button
-              className={clsx(
-                "text-start w-full border-2 border-dashed border-alto-300/70 dark:border-alto-800 rounded-lg outline-none bg-white dark:bg-alto-1000 dark:[color-scheme:dark] peer",
-                "ring-0 ring-inset ring-primary-400 focus:ring-1 transition-all duration-300",
-                "px-3",
-                "text-sm py-2 h-[38px]",
-                {
-                  "pl-[34px]": !!icon,
-                },
-                "disabled:bg-alto-200/60 dark:disabled:bg-alto-900 disabled:border-primary-200 dark:disabled:border-alto-800",
-                "text-alto-950 dark:text-alto-50 placeholder-alto-400/80 dark:placeholder-alto-700",
-                "whitespace-nowrap text-ellipsis overflow-hidden",
-                className
-              )}
-              onClick={selectInput}
-            >
-              {state
-                ? state.name
-                : (defaultsrc?.split("/").pop() ??
-                  `Seleccionar archivo (max. ${maxsize / 1024}MB)`)}
-            </button>
-            {icon && (
+        {
+          {
+            inline: (
               <div
-                className={clsx(
-                  "h-[38px] top-0 left-0 absolute z-10 aspect-square p-2 text-alto-400 peer-focus:text-primary-500 transition-all duration-300"
-                )}
+                className={clsx("relative isolate flex-1 overflow-hidden", {
+                  contents: !icon,
+                })}
               >
-                <Icon type={icon} />
+                <button
+                  className={clsx(
+                    "text-start w-full border-2 border-dashed border-alto-300/70 dark:border-alto-800 rounded-lg outline-none bg-white dark:bg-alto-1000 dark:[color-scheme:dark] peer",
+                    "ring-0 ring-inset ring-primary-400 focus:ring-1 transition-all duration-300",
+                    "px-3",
+                    "text-sm py-2 h-[38px]",
+                    {
+                      "pl-[34px]": !!icon,
+                    },
+                    "disabled:bg-alto-200/60 dark:disabled:bg-alto-900 disabled:border-primary-200 dark:disabled:border-alto-800",
+                    "text-alto-950 dark:text-alto-50 placeholder-alto-400/80 dark:placeholder-alto-700",
+                    "whitespace-nowrap text-ellipsis overflow-hidden",
+                    className
+                  )}
+                  onClick={selectInput}
+                >
+                  {state
+                    ? state.name
+                    : defaultsrc?.split("/").pop() ??
+                      `Seleccionar archivo (max. ${maxsize / 1024}MB)`}
+                </button>
+                {icon && (
+                  <div
+                    className={clsx(
+                      "h-[38px] top-0 left-0 absolute z-10 aspect-square p-2 text-alto-400 peer-focus:text-primary-500 transition-all duration-300"
+                    )}
+                  >
+                    <Icon type={icon} />
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-        ) : (
-          <button
-            type="button"
-            onClick={selectInput}
-            tabIndex={-1}
-            disabled={disabled}
-            className={clsx(
-              "relative overflow-hidden border-dashed border-2 border-alto-300/70 dark:border-alto-800 rounded-lg outline-none bg-white dark:bg-alto-1000",
-              "transition-all duration-300",
-              "h-[38px]",
-              "disabled:bg-alto-200/60 dark:disabled:bg-alto-900 disabled:border-primary-200 dark:disabled:border-alto-800",
-              "text-alto-950 dark:text-alto-50",
-              {
-                "flex-1 w-full": !row,
-                "flex-1 min-h-32 max-h-32 max-w-64": row,
-              },
-              className
-            )}
-            style={{
-              backgroundImage: `url(${Placeholder})`,
-              backgroundPosition: "center",
-              backgroundSize: "contain",
-              backgroundRepeat: "no-repeat",
-            }}
-          >
-            {!disabled && hasImage && (
-              <img
-                className={
-                  "w-full h-full object-cover pointer-events-none border-0"
-                }
-                src={hasImage}
-              />
-            )}
-            {!hasImage && (
-              <p className="absolute bottom-2 left-1/2 -translate-x-1/2 opacity-40 text-xs whitespace-nowrap">
-                Tamaño máximo: {maxsize / 1024}MB
-              </p>
-            )}
-          </button>
-        )}
+            ),
+            image: (
+              <button
+                type="button"
+                onClick={selectInput}
+                tabIndex={-1}
+                disabled={disabled}
+                className={clsx(
+                  "relative overflow-hidden border-dashed border-2 border-alto-300/70 dark:border-alto-800 rounded-lg outline-none bg-white dark:bg-alto-1000",
+                  "transition-all duration-300",
+                  "h-[38px]",
+                  "disabled:bg-alto-200/60 dark:disabled:bg-alto-900 disabled:border-primary-200 dark:disabled:border-alto-800",
+                  "text-alto-950 dark:text-alto-50",
+                  {
+                    "flex-1 w-full": !row,
+                    "flex-1 min-h-32 max-h-32 max-w-64": row,
+                  },
+                  className
+                )}
+                style={{
+                  backgroundImage: `url(${Placeholder})`,
+                  backgroundPosition: "center",
+                  backgroundSize: "contain",
+                  backgroundRepeat: "no-repeat",
+                }}
+              >
+                {!disabled && hasImage && (
+                  <img
+                    className={
+                      "w-full h-full object-cover pointer-events-none border-0"
+                    }
+                    src={hasImage}
+                  />
+                )}
+                {!hasImage && (
+                  <p className="absolute bottom-2 left-1/2 -translate-x-1/2 opacity-40 text-xs whitespace-nowrap">
+                    Tamaño máximo: {maxsize / 1024}MB
+                  </p>
+                )}
+              </button>
+            ),
+            none: <></>,
+          }[inputType]
+        }
 
         <div
           className={clsx("flex flex-col", {
@@ -191,19 +229,30 @@ const InputFile = (props: Props) => {
           <Button
             className={clsx(!trueRow && "mt-4")}
             type="button"
-            onClick={selectInput}
+            onClick={() => {
+              if (beforeChange) {
+                beforeChange(selectInput);
+              } else {
+                selectInput();
+              }
+            }}
             disabled={disabled}
-            btnType={hasImage ? "secondary" : "primary"}
+            btnType={btnType ?? (hasImage ? "secondary" : "primary")}
+            icon={btnIcon}
           >
-            {hasImage
-              ? `Cambiar ${inputType === "inline" ? "archivo" : "imagen"}`
-              : `Seleccionar ${inputType === "inline" ? "archivo" : "imagen"}`}
+            {btnLabel ??
+              (hasImage
+                ? `Cambiar ${inputType === "inline" ? "archivo" : "imagen"}`
+                : `Seleccionar ${
+                    inputType === "inline" ? "archivo" : "imagen"
+                  }`)}
           </Button>
         </div>
         <input
           id={id}
           onChange={changeFile}
-          {...{ ...props, setstate: undefined }}
+          key={counter}
+          {...getInputProps()}
           className="hidden"
           type="file"
         />

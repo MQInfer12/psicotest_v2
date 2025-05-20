@@ -4,7 +4,12 @@ import Input from "@/modules/core/components/ui/Input";
 import TextArea from "@/modules/core/components/ui/TextArea";
 import useFetch from "@/modules/core/hooks/useFetch/useFetch";
 import { formatDate } from "@/modules/core/utils/formatDate";
-import { toastConfirm, toastSuccess } from "@/modules/core/utils/toasts";
+import {
+  toastConfirm,
+  toastError,
+  toastSuccess,
+  toastWarning,
+} from "@/modules/core/utils/toasts";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -18,6 +23,9 @@ import { useUserResumeContext } from "../../context/UserResumeContext";
 import { FichaDTOSchema } from "../../validations/FichaDTO.schema";
 import { useModal } from "@/modules/core/components/ui/modal/useModal";
 import MotivoConsultaForm from "./MotivoConsultaForm";
+import InputFile from "@/modules/core/components/ui/InputFile";
+import { getAIResponseImage } from "@/modules/features/answers/utils/AIResponseImage";
+import { z } from "zod";
 
 interface Props {
   cita: Appointment;
@@ -26,7 +34,14 @@ interface Props {
   preview?: boolean;
 }
 
+const FichaAIResponseSchema = z.object({
+  descripcion_del_motivo_de_la_consulta: z.string(),
+  antecedentes_e_historia_familiar: z.string(),
+  reporte_de_sesion: z.string(),
+});
+
 const FichaForm = ({ cita, onSuccess, disabled, preview }: Props) => {
+  const [loadingAI, setLoadingAI] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const { citas } = preview ? {} : useUserResumeContext();
@@ -127,12 +142,69 @@ const FichaForm = ({ cita, onSuccess, disabled, preview }: Props) => {
 
   const { metodo, id_motivo_consulta, motivo, antecedentes, observaciones } =
     watch();
+
   const somethingsFilled = [
     motivo,
     antecedentes,
     observaciones,
     id_motivo_consulta,
   ].some(Boolean);
+
+  const somethingsFilledWithoutMotivo = [
+    motivo,
+    antecedentes,
+    observaciones,
+  ].some(Boolean);
+
+  const onChangeFile = (file: File | null) => {
+    if (!file) {
+      return toastWarning("No se ha subido ningún archivo");
+    }
+    setLoadingAI(true);
+    getAIResponseImage(
+      file,
+      FichaAIResponseSchema,
+      (res) => {
+        const parsed = JSON.parse(res);
+        const data = FichaAIResponseSchema.safeParse(parsed).data;
+        if (!data) {
+          return toastWarning("Error al procesar la imagen");
+        }
+        setValue(
+          "motivo",
+          data.descripcion_del_motivo_de_la_consulta ===
+            "Información no disponible"
+            ? ""
+            : data.descripcion_del_motivo_de_la_consulta
+        );
+        setValue(
+          "antecedentes",
+          data.antecedentes_e_historia_familiar === "Información no disponible"
+            ? ""
+            : data.antecedentes_e_historia_familiar
+        );
+        setValue(
+          "observaciones",
+          data.reporte_de_sesion === "Información no disponible"
+            ? ""
+            : data.reporte_de_sesion
+        );
+      },
+      {
+        addedPrompt:
+          "Si no encuentras algun campo en la imagen, responde 'Información no disponible'.",
+        onSuccess: () => {
+          toastSuccess("Imagen procesada correctamente");
+        },
+        onError: () => {
+          toastError("Error al procesar la imagen");
+        },
+        onFinally: () => {
+          setLoadingAI(false);
+        },
+      }
+    );
+  };
 
   return (
     <>
@@ -286,6 +358,36 @@ const FichaForm = ({ cita, onSuccess, disabled, preview }: Props) => {
                 </div>
               )}
 
+            {!disabled && (
+              <div className="self-center">
+                <InputFile
+                  inputType="none"
+                  accept=".jpeg, .png, .jpg"
+                  state={null}
+                  emptyOnChange
+                  setstate={onChangeFile}
+                  btnIcon={loadingAI ? Icon.Types.LOADER : Icon.Types.GPT}
+                  maxsize={1024 * 5}
+                  required
+                  btnLabel="Subir nota física"
+                  btnType={
+                    !somethingsFilledWithoutMotivo ? "primary" : "secondary"
+                  }
+                  disabled={loadingAI || loading}
+                  form="none"
+                  beforeChange={(next) => {
+                    if (somethingsFilledWithoutMotivo) {
+                      toastConfirm("Se reseteará el formulario.", () => {
+                        next();
+                      });
+                    } else {
+                      next();
+                    }
+                  }}
+                />
+              </div>
+            )}
+
             {metodo !== MetodoConsulta.Inasistencia && (
               <TextArea
                 label={
@@ -295,7 +397,7 @@ const FichaForm = ({ cita, onSuccess, disabled, preview }: Props) => {
                 }
                 required={metodo !== MetodoConsulta.Reconsulta}
                 error={errors.motivo?.message}
-                disabled={disabled}
+                disabled={loadingAI || disabled}
                 placeholder={
                   metodo === MetodoConsulta.Reconsulta &&
                   !cita.fecha_cierre_clinico
@@ -330,7 +432,7 @@ const FichaForm = ({ cita, onSuccess, disabled, preview }: Props) => {
                 }
                 required={metodo !== MetodoConsulta.Reconsulta}
                 error={errors.antecedentes?.message}
-                disabled={disabled}
+                disabled={loadingAI || disabled}
                 placeholder={
                   metodo === MetodoConsulta.Reconsulta &&
                   !cita.fecha_cierre_clinico
@@ -350,19 +452,23 @@ const FichaForm = ({ cita, onSuccess, disabled, preview }: Props) => {
               label="Reporte de sesión"
               required
               error={errors.observaciones?.message}
-              disabled={disabled}
+              disabled={loadingAI || disabled}
               {...register("observaciones")}
             />
           </div>
           {!disabled && (
             <div className="p-4 pt-0 bg-alto-50 dark:bg-alto-1000 flex gap-4 pr-[24px]">
-              <Button disabled={loading} type="submit" className="w-full">
+              <Button
+                disabled={loadingAI || loading}
+                type="submit"
+                className="w-full"
+              >
                 Guardar
               </Button>
               {cita.observaciones && (
                 <Button
                   type="button"
-                  disabled={loading}
+                  disabled={loadingAI || loading}
                   btnType="secondary"
                   danger
                   icon={Icon.Types.CANCEL}

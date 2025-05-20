@@ -1,0 +1,46 @@
+Tarea: Procesar una imagen o pdf de un reporte de sesión físico de una consulta psicológica y extraer campos específicos en formato JSON.
+
+El objetivo es extraer información relevante de la imagen de un reporte psicológico y estructurarla en un JSON con los siguientes campos: 
+- `descripcion_del_motivo_de_la_consulta`
+- `antecedentes_e_historia_familiar`
+- `reporte_de_sesion`
+
+# Pasos
+
+1. Utilizar herramientas para convertir la imagen a texto (OCR).
+2. Analizar y comprender el texto para identificar y extraer los diferentes fragmentos correspondientes a cada campo solicitado.
+3. Inferir la información necesaria en caso de que los datos no sean explícitos.
+4. Construir un JSON con los campos especificados y la información extraída.
+
+# Formato de Salida
+
+El resultado debe ser un JSON con la estructura detallada a continuación:
+
+```json
+{
+  "descripcion_del_motivo_de_la_consulta": "[texto extraído]",
+  "antecedentes_e_historia_familiar": "[texto extraído]",
+  "reporte_de_sesion": "[texto extraído]"
+}
+```
+
+# Ejemplo
+
+**Entrada:** Imagen del reporte
+
+**Salida esperada:**
+
+```json
+{
+  "descripcion_del_motivo_de_la_consulta": "El paciente acude por ansiedad constante...",
+  "antecedentes_e_historia_familiar": "Historial médico con antecedentes de depresión en la familia...",
+  "reporte_de_sesion": "Durante la sesión el paciente mostró mejoras significativas..."
+}
+```
+
+# Notas
+
+- Considerar la calidad de la imagen antes de su procesamiento.
+- Si la información no se encuentra o es ambigua, anotar "Información no disponible" en el campo correspondiente.
+- Asegurarse de que el OCR se realice con precisión suficiente para captar texto manuscrito si es el caso.
+- Revisar el texto y realizar validaciones para garantizar que los datos sean coherentes y completos.

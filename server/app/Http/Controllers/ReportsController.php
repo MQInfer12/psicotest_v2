@@ -102,7 +102,7 @@ class ReportsController extends Controller
             $mujeres = 0;
             $citas = C_Cita::where('email_psicologo', $usuarioPsicologoEmail)->get();
             foreach ($citas as $cita) {
-                $genero = $cita->paciente->genero;
+                $genero = $cita->caso->paciente->genero;
                 if ($genero === 'Hombre') {
                     $varones++;
                 } elseif ($genero === 'Mujer') {
@@ -125,7 +125,8 @@ class ReportsController extends Controller
 
         $pasadasSinAtender = C_Cita::where('fecha', '<', $this->get_now_local())->whereNull('metodo')->count();
         $pasadasAtendidas = C_Cita::where('fecha', '<', $this->get_now_local())->whereNotNull('metodo')->count();
-        $pasadasDerivadas = C_Cita::where('fecha', '<', $this->get_now_local())->whereNotNull('derivado_a')->count();
+        $pasadasDerivadas = 0;
+
         $data['gabinete_counters'] = [
             "pasadas_sin_atender" => $pasadasSinAtender,
             "pasadas_atendidas" => $pasadasAtendidas,
