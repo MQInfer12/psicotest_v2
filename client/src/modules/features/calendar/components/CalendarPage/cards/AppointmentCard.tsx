@@ -46,7 +46,7 @@ const AppointmentCard = ({ appointment, sidebar = true, psicologo }: Props) => {
       },
       queryOptions: {
         //@ts-ignore
-        enabled: imThePsicologist,
+        enabled: imThePsicologist && !!appointment.id_calendar,
       },
     }
   );
@@ -86,7 +86,7 @@ const AppointmentCard = ({ appointment, sidebar = true, psicologo }: Props) => {
   const hora_final = appointment.hora_final.slice(0, 5);
 
   const buttons: CalendarCardFooterButton[] = [];
-  if (imThePsicologist) {
+  if (imThePsicologist && !!appointment.id_calendar) {
     buttons.push(
       {
         type: "secondary",
