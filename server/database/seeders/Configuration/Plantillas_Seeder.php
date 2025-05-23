@@ -15,8 +15,8 @@ class Plantillas_Seeder extends Seeder
         IA_Plantilla::updateOrCreate(
             ['id' => 1],
             [
-                "nombre" => "KUDER, PMA v1",
-                "descripcion" => "Plantilla para la creación de informes psicológicos vocacionales para estudiantes de colegio.",
+                "nombre" => "PLANTILLA EJM.",
+                "descripcion" => "Ejemplo de generación de un informe con formato entrelazando información y contexto de uno o más tests psicológicos.",
                 "contexto" => null,
                 "plantilla" => json_encode(json_decode(file_get_contents(database_path('seeders/Data/Plantillas/1_plantilla.json'))))
             ]
@@ -43,8 +43,8 @@ class Plantillas_Seeder extends Seeder
         IA_Plantilla::updateOrCreate(
             ['id' => 2],
             [
-                "nombre" => "KUDER, PMA v2",
-                "descripcion" => "Plantilla para la creación de informes psicológicos vocacionales para estudiantes de colegio.",
+                "nombre" => "OV: KUDER, PMA",
+                "descripcion" => "Plantilla para la generación de informes psicológicos de orientación vocacional para estudiantes de colegio entrelazando información de los tests de KUDER y PMA.",
                 "contexto" => file_get_contents(database_path('seeders/Data/Plantillas/2_contexto.txt')),
                 "plantilla" => json_encode(json_decode(file_get_contents(database_path('seeders/Data/Plantillas/2_plantilla.json'))))
             ]
@@ -65,5 +65,15 @@ class Plantillas_Seeder extends Seeder
                 "id_plantilla" => 2
             ]
         ); */
+
+        IA_Plantilla::updateOrCreate(
+            ['id' => 3],
+            [
+                "nombre" => "OV: CHASIDE",
+                "descripcion" => "Plantilla para la generación de informes psicológicos de orientación vocacional para estudiantes de provincias basado solamente en el test CHASIDE.",
+                "contexto" => file_get_contents(database_path('seeders/Data/Plantillas/3_contexto.txt')),
+                "plantilla" => json_encode(json_decode(file_get_contents(database_path('seeders/Data/Plantillas/3_plantilla.json'))))
+            ]
+        );
     }
 }

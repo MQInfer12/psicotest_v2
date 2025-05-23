@@ -18,7 +18,7 @@ class IA_PlantillaRequest extends FormRequest
             'descripcion' => 'string|required',
             'plantilla' => 'string|required',
             'contexto' => 'string|nullable',
-            'idTests' => 'array|required|min:2',
+            'idTests' => 'array|required|min:1',
             'idTests.*' => 'integer|exists:t_tests,id',
         ];
     }
@@ -34,7 +34,7 @@ class IA_PlantillaRequest extends FormRequest
             'plantilla.string' => 'La configuración de la plantilla tiene que ser una cadena',
             'contexto.string' => 'El contexto tiene que ser una cadena',
             'idTests.array' => 'Los tests tienen que ser un arreglo',
-            'idTests.min' => 'Se requieren al menos 2 tests',
+            'idTests.min' => 'Se requiere al menos 1 test',
             'idTests.*.integer' => 'Los tests tienen que ser enteros',
             'idTests.*.exists' => 'Uno o más tests no existen',
         ];

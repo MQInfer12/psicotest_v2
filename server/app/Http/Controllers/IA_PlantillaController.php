@@ -18,7 +18,7 @@ class IA_PlantillaController extends Controller
 
     public function index()
     {
-        $plantillas = IA_Plantilla::all();
+        $plantillas = IA_Plantilla::orderBy('id')->get();
         return $this->successResponse(
             "Usuarios obtenidos correctamente.",
             IA_PlantillaResource::collection($plantillas)

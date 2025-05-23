@@ -1,0 +1,134 @@
+[
+    { "id": "a", "type": "title", "content": "Instrumentos utilizados" },
+    {
+        "id": "b",
+        "type": "paragraph",
+        "content": "Este informe presenta los resultados del proceso de orientación vocacional realizado con [Nombre del estudiante], con el objetivo de proporcionar una visión integral de las habilidades cognitivas y los intereses vocacionales del evaluado, utilizando los resultados del test de aptitudes y habilidades CHASIDE."
+    },
+    { "id": "c", "type": "title", "content": "Resultados" },
+    {
+        "id": "d",
+        "type": "subtitle",
+        "content": "Intereses Vocacionales"
+    },
+    {
+        "id": "e",
+        "type": "vignette",
+        "title": "Áreas de Interés Alto:",
+        "content": "[Lista las áreas donde el evaluado muestra mayor interés (6, 7, 8, 9 o 10 puntos) según las puntuaciones de las áreas CHASIDE interés]"
+    },
+    {
+        "id": "f",
+        "type": "vignette",
+        "title": "Áreas de Interés Moderado:",
+        "content": "[Lista las áreas de interés parcial (3, 4 o 5 puntos) según las puntuaciones de las áreas CHASIDE interés]"
+    },
+    {
+        "id": "g",
+        "type": "vignette",
+        "title": "Áreas de Interés Bajo:",
+        "content": "[Lista de áreas donde el evaluado muestra menos interés (0, 1 o 2 puntos) o rechazo según las puntuaciones de las áreas CHASIDE interés]"
+    },
+    { "id": "h", "type": "subtitle", "content": "Análisis:" },
+    {
+        "id": "r",
+        "type": "vignette",
+        "title": "",
+        "content": "El evaluado tiene un alto interés en [mencionar áreas específicas del test CHASIDE intereses], lo que sugiere que podría disfrutar y sobresalir en carreras relacionadas con [sugerencias de carreras en base al perfil proporcionado]."
+    },
+    {
+        "id": "i",
+        "type": "vignette",
+        "title": "",
+        "content": "Las áreas de interés bajo indican que sería recomendable evitar carreras en [mencionar áreas de menor interés y rechazo según las puntuaciones de las áreas CHASIDE interés]."
+    },
+    {
+        "id": "j",
+        "type": "subtitle",
+        "content": "Habilidades cognitivas"
+    },
+    {
+        "id": "k",
+        "type": "subtitle",
+        "content": "Rendimiento en Áreas Cognitivas"
+    },
+    {
+        "id": "l",
+        "type": "vignette",
+        "title": "",
+        "content": "[nivel y conclusiones breves en base a la mayor puntuación (4 puntos si existe alguna, si no, 3 puntos y así sucesivamente) del área CHASIDE aptitudes, haz énfasis en la interpretación cualitativa de la puntuación obtenida por el evaluado en este factor]"
+    },
+    {
+        "id": "m",
+        "type": "vignette",
+        "title": "",
+        "content": "[nivel y conclusiones breves en base a la segunda mayor puntuación (3 puntos si existe alguna, si no, 2 puntos y así sucesivamente) del área CHASIDE aptitudes, haz énfasis en la interpretación cualitativa de la puntuación obtenida por el evaluado en este factor]"
+    },
+    {
+        "id": "n",
+        "type": "vignette",
+        "title": "",
+        "content": "[nivel y conclusiones breves en base a la tercera mayor puntuación (2 puntos si existe alguna, si no, 2 puntos y así sucesivamente) del área CHASIDE aptitudes, haz énfasis en la interpretación cualitativa de la puntuación obtenida por el evaluado en este factor]"
+    },
+    { "id": "q", "type": "subtitle", "content": "Análisis:" },
+    {
+        "id": "e53c1604-1895-492f-a811-8fe65c578a8d",
+        "type": "vignette",
+        "title": "",
+        "content": "El evaluado muestra habilidades destacadas en [mencionar las áreas de mayor puntuación del test CHASIDE aptitudes], lo cual sugiere un buen potencial para [áreas o carreras relevantes]."
+    },
+    {
+        "id": "s",
+        "type": "vignette",
+        "title": "",
+        "content": "Las áreas donde se requiere mayor desarrollo son [mencionar áreas con puntuaciones más bajas analizando según información del test CHASIDE aptitudes], lo que podría influir en la elección de carrera."
+    },
+    { "id": "t", "type": "title", "content": "Conclusiones:" },
+    {
+        "id": "u",
+        "type": "paragraph",
+        "content": "De acuerdo al proceso de evaluación realizado, podemos concluir lo siguiente:"
+    },
+    {
+        "id": "v",
+        "type": "vignette",
+        "title": "Fortalezas Cognitivas e Intereses Vocacionales:",
+        "content": "El evaluado tiene capacidades sólidas en [inferir habilidades específicas utilizando las dos mejores puntuaciones del test CHASIDE aptitudes], que son valiosas para [carreras o campos específicos con el perfil de carreras proporcionado], [Realizar cruce de información acerca de las habilidades en las que sobresale el estudiante y compararlas con sus intereses de manera que si es que ambas áreas de habilidad e interés coinciden informarle al estudiante de que podría sobresalir en cierta carrera]."
+    },
+    {
+        "id": "w",
+        "type": "vignette",
+        "title": "Fortalezas personales:",
+        "content": "[Descripción completa acerca de las cualidades que destacan en el estudiante pensando y analizando información entrelazada de las dimensiones CHASIDE intereses y aptitudes.]"
+    },
+    {
+        "id": "x",
+        "type": "vignette",
+        "title": "Áreas de Mejora:",
+        "content": "[Descripción de áreas donde el estudiante podría beneficiarse de desarrollo adicional tomando en cuenta sus habilidades con menor capacidad de manera a incentivarlo a mejorar con el tiempo y ayudarlo de cierta manera a progresar en cuanto a sus intereses.]"
+    },
+    { "id": "y", "type": "title", "content": "Recomendaciones:" },
+    {
+        "id": "z",
+        "type": "paragraph",
+        "content": "Basado en los intereses y habilidades del estudiante, se recomienda las siguientes carreras o áreas de especialización:"
+    },
+    {
+        "id": "aa",
+        "type": "vignette",
+        "title": "[En función de las métricas del PERFIL DE CARRERAS y puntuaciones altas en sus aptitudes entrelazando información con los dos puntajes más altos de sus intereses (si es que por algún casual las aptitudes coinciden con los intereses y coincide con las métricas de la carrera escribir esa carrera directamente, si la persona está interesada en una área para la cual no cuenta con aptitudesa para ella no lo especifiques de ninguna manera)(Si la carrera requiere un Coheficiente Intelectual más elevado que del estudiante considera no ofrecer esa opción y darle otra opción diferente, por ejemplo no le des Psicología a una persona con un Coheficiente Intelectual DEFICIENTE), escribe aquí una opción que se encuentre en la lista de carreras que están en mayúscula en el PERFIL DE CARRERAS, limítate solo a escribir carreras que estén listadas, evita divagar e inventarte carreras nuevas por favor, si escribes una carrera que te inventaste me deberás 100 dólares]:",
+        "content": "[Descripción breve de la opción, ámbitos laborales de la carrera y por qué debería considerar elegir esta opción, debido a la increíble coincidencia de áreas entre sus intereses y habilidades requeridas para acceder a esta carrera]"
+    },
+    {
+        "id": "ab",
+        "type": "vignette",
+        "title": "[En función de las métricas del PERFIL DE CARRERAS y puntuaciones altas en sus aptitudes entrelazando información con los dos puntajes más altos de sus intereses (si es que por algún casual las aptitudes coinciden con los intereses y coincide con las métricas de la carrera escribir esa carrera directamente, si la persona está interesada en una área para la cual no cuenta con aptitudesa para ella no lo especifiques de ninguna manera)(Si la carrera requiere un Coheficiente Intelectual más elevado que del estudiante considera no ofrecer esa opción y darle otra opción diferente, por ejemplo no le des Psicología a una persona con un Coheficiente Intelectual DEFICIENTE), escribe aquí una opción que se encuentre en la lista de carreras que están en mayúscula en el PERFIL DE CARRERAS, limítate solo a escribir carreras que estén listadas, evita divagar e inventarte carreras nuevas por favor, si escribes una carrera que te inventaste me deberás 100 dólares]:",
+        "content": "[Descripción breve de la opción, ámbitos laborales de la carrera y por qué debería elegirla debido a la increíble coindicencia entre sus intereses y habilidades.]"
+    },
+    {
+        "id": "ac",
+        "type": "vignette",
+        "title": "[En función de las métricas del PERFIL DE CARRERAS y puntuaciones altas en sus aptitudes entrelazando información con los dos puntajes más altos de sus intereses (si es que por algún casual las aptitudes coinciden con los intereses y coincide con las métricas de la carrera escribir esa carrera directamente, si la persona está interesada en una área para la cual no cuenta con aptitudesa para ella no lo especifiques de ninguna manera)(Si la carrera requiere un Coheficiente Intelectual más elevado que del estudiante considera no ofrecer esa opción y darle otra opción diferente, por ejemplo no le des Psicología a una persona con un Coheficiente Intelectual DEFICIENTE), escribe aquí una opción que se encuentre en la lista de carreras que están en mayúscula en el PERFIL DE CARRERAS, limítate solo a escribir carreras que estén listadas, evita divagar e inventarte carreras nuevas por favor, si escribes una carrera que te inventaste me deberás 100 dólares]:",
+        "content": "[Descripción breve de la opción, ámbitos laborales de la carrera, especificar cursos y talleres que pueda tomar complementariamente para poder ejercer la carrera de su interés sin problemas.]"
+    }
+]

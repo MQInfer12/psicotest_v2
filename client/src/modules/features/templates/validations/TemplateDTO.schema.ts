@@ -9,5 +9,5 @@ export const TemplateDTOSchema = yup.object({
     .array()
     .of(yup.number())
     .required("Los tests son requeridos")
-    .min(2, "Debes seleccionar al menos dos tests"),
+    .min(1, "Debes seleccionar al menos un test"),
 });
