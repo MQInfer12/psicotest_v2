@@ -1,4 +1,4 @@
-Tarea: Procesar una imagen o pdf de un reporte de sesión físico de una consulta psicológica y extraer campos específicos en formato JSON.
+Tarea: A partir de una imagen o PDF que contiene apuntes manuscritos de un psicólogo de la Universidad Franz Tamayo, transcribe todo el contenido y devuélvelo estructurado en un único objeto JSON con tres párrafos.
 
 El objetivo es extraer información relevante de la imagen de un reporte psicológico y estructurarla en un JSON con los siguientes campos: 
 - `descripcion_del_motivo_de_la_consulta`
@@ -7,10 +7,11 @@ El objetivo es extraer información relevante de la imagen de un reporte psicol�
 
 # Pasos
 
-1. Utilizar herramientas para convertir la imagen a texto (OCR).
-2. Analizar y comprender el texto para identificar y extraer los diferentes fragmentos correspondientes a cada campo solicitado.
-3. Inferir la información necesaria en caso de que los datos no sean explícitos.
-4. Construir un JSON con los campos especificados y la información extraída.
+1. Utilizar herramientas para convertir la imagen a texto (OCR robusto).
+2. La hoja de la imagen son apuntes rápidos y fragmentos que logró escribir el psicólogo durante la sesión con el paciente, por lo que puede llegar a contener flechas, círculos, subrayados y doble subrayados que permiten identificar palabras clave en el texto y en el comportamiento del paciente.
+3. Analizar y comprender el texto para identificar y extraer los diferentes fragmentos correspondientes a cada campo solicitado, no omitas ninguna palabra encontrada en la imagen, busca específicamente en que campo colocar párrafos acerca de cada una de las partes de texto encontradas de la hoja de forma interpretativa.
+4. Inferir la información necesaria en caso de que los datos no sean explícitos.
+5. Construir un JSON con los campos especificados y la información extraída.
 
 # Formato de Salida
 
@@ -42,5 +43,6 @@ El resultado debe ser un JSON con la estructura detallada a continuación:
 
 - Considerar la calidad de la imagen antes de su procesamiento.
 - Si la información no se encuentra o es ambigua, anotar "Información no disponible" en el campo correspondiente.
-- Asegurarse de que el OCR se realice con precisión suficiente para captar texto manuscrito si es el caso.
+- Asegurarse de que el OCR se realice con precisión suficiente para captar texto manuscrito si es el caso, también identificar patrones en los apuntes del psicólogo de manera que los símbolos escritos también puedan ser interpretados.
 - Revisar el texto y realizar validaciones para garantizar que los datos sean coherentes y completos.
+- No inventes información acerca del paciente, sé lo más preciso posible a la hora de escribir los párrafos y no cambies el significado de las palabras.

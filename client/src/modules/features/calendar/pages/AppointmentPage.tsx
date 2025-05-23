@@ -55,6 +55,7 @@ const AppointmentPage = () => {
           key={data.cita.metodo}
           disabled={hasPassed}
           cita={data.cita}
+          paciente={data.paciente}
           onSuccess={(res) => {
             setData((prev) => ({ ...prev, cita: res }));
           }}

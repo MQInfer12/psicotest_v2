@@ -26,8 +26,12 @@ import MotivoConsultaForm from "./MotivoConsultaForm";
 import InputFile from "@/modules/core/components/ui/InputFile";
 import { getAIResponseImage } from "@/modules/features/answers/utils/AIResponseImage";
 import { z } from "zod";
+import { User } from "@/modules/features/users/api/responses";
+import { measureAge } from "@/modules/core/utils/measureAge";
+import { getTodayUtc } from "@/modules/core/utils/getTodayUtc";
 
 interface Props {
+  paciente: User;
   cita: Appointment;
   onSuccess: (data: Appointment) => void;
   disabled: boolean;
@@ -40,7 +44,7 @@ const FichaAIResponseSchema = z.object({
   reporte_de_sesion: z.string(),
 });
 
-const FichaForm = ({ cita, onSuccess, disabled, preview }: Props) => {
+const FichaForm = ({ paciente, cita, onSuccess, disabled, preview }: Props) => {
   const [loadingAI, setLoadingAI] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -191,8 +195,14 @@ const FichaForm = ({ cita, onSuccess, disabled, preview }: Props) => {
         );
       },
       {
-        addedPrompt:
-          "Si no encuentras algun campo en la imagen, responde 'Información no disponible'.",
+        addedPrompt: `El paciente se llama ${paciente.nombre}${
+          paciente.fecha_nacimiento
+            ? `, tiene ${measureAge(
+                paciente.fecha_nacimiento ?? "",
+                getTodayUtc()
+              )} años`
+            : ""
+        }.`,
         onSuccess: () => {
           toastSuccess("Imagen procesada correctamente");
         },
@@ -369,7 +379,9 @@ const FichaForm = ({ cita, onSuccess, disabled, preview }: Props) => {
                   btnIcon={loadingAI ? Icon.Types.LOADER : Icon.Types.GPT}
                   maxsize={1024 * 5}
                   required
-                  btnLabel="Subir nota física"
+                  btnLabel={
+                    loadingAI ? "Analizando texto" : "Subir nota física"
+                  }
                   btnType={
                     !somethingsFilledWithoutMotivo ? "primary" : "secondary"
                   }
