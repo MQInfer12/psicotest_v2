@@ -368,7 +368,7 @@ const FichaForm = ({ paciente, cita, onSuccess, disabled, preview }: Props) => {
                 </div>
               )}
 
-            {!disabled && (
+            {!disabled && metodo !== MetodoConsulta.Inasistencia && (
               <div className="self-center">
                 <InputFile
                   inputType="none"
