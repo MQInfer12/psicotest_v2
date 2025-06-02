@@ -88,7 +88,9 @@ const AgendaColumn = () => {
         </strong>
       </header>
       {!horariosDisponibles ? (
-        <Loader text="Cargando horarios..." delay />
+        <div className="flex-1 flex items-center justify-center">
+          <Loader text="Cargando horarios..." delay />
+        </div>
       ) : horariosPorDia.every((disponibles) => disponibles.length === 0) ? (
         <div className="w-full h-full flex items-center justify-center">
           <IconMessage
