@@ -95,10 +95,14 @@ const PreAppointmentForm = ({
     setValue("semestre", "");
   }, [carrera]);
 
+  const ua = navigator.userAgent.toLowerCase();
+  const isSafariBrowser = /^((?!chrome|android).)*safari/.test(ua);
+
   return (
     <form
-      className={clsx("flex flex-col gap-4 max-h-[80svh]", {
+      className={clsx("flex flex-col gap-4", {
         "overflow-auto": scrollable,
+        "[&>*]:shrink-0": isSafariBrowser
       })}
       onSubmit={handleSubmit(onSubmit)}
     >
