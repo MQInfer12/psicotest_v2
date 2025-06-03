@@ -31,6 +31,8 @@ import TestSection from "./TestSection";
 import TestTextSection from "./TestTextSection";
 import TestTextSectionForm from "./TestTextSectionForm";
 import TestTimeout from "./TestTimeout";
+import { useUserContext } from "@/modules/features/auth/context/UserContext";
+import Secret from "@/assets/sounds/secret.mp3";
 
 interface Props {
   data: T_Test | T_Test_Respuesta;
@@ -40,6 +42,7 @@ interface Props {
 
 const Test = ({ data, test, idRespuesta }: Props) => {
   const { dark, COLORS } = useThemeContext();
+  const { user } = useUserContext();
 
   const { modal, open, setOpen } = useModal();
   const navigate = useNavigate();
@@ -232,6 +235,59 @@ const Test = ({ data, test, idRespuesta }: Props) => {
 
   const requiredRequirements = requirements.length > 0 && !prev;
 
+  const handleAutofill = () => {
+    const audio = new Audio(Secret);
+    audio.volume = 0.2;
+    audio.play().catch((error) => {
+      console.error("Error al reproducir el sonido:", error);
+    });
+    const body: TestForm[] = [];
+    test.secciones.forEach((section) => {
+      const sectionOptions = section.opciones.length;
+      const type = section.type ?? "single";
+      switch (type) {
+        case "multi":
+          section.items.forEach((item) => {
+            const existsBody = form.find((v) => v.idPregunta === item.id);
+            if (!existsBody) {
+              const options: number[] = [];
+              section.opciones.forEach((option) => {
+                const checked = Math.random() >= 0.5;
+                if (checked) {
+                  options.push(option.id);
+                }
+              });
+              body.push({
+                idPregunta: item.id,
+                idOpcion: options,
+              });
+            } else {
+              body.push(existsBody);
+            }
+          });
+          break;
+        case "single":
+          section.items.forEach((item) => {
+            const existsBody = form.find((v) => v.idPregunta === item.id);
+            if (!existsBody) {
+              const randomIndex = Math.floor(Math.random() * sectionOptions);
+              body.push({
+                idPregunta: item.id,
+                idOpcion: section.opciones[randomIndex].id,
+              });
+            } else {
+              body.push(existsBody);
+            }
+          });
+          break;
+      }
+    });
+
+    setForm(body);
+    setPreguntaIndex(preguntas.length - 1, 1);
+    setSectionViews((prev) => prev.map((sv) => ({ ...sv, view: false })));
+  };
+
   const showTextSection = seccion?.type === "text";
   return (
     <>
@@ -253,6 +309,7 @@ const Test = ({ data, test, idRespuesta }: Props) => {
             test={test}
             preguntas={preguntas}
             setSectionViews={setSectionViews}
+            fn={handleAutofill}
           />
           <div className="flex flex-col gap-2 max-h-[90svh] overflow-hidden">
             <div className="petizo:hidden">
@@ -387,6 +444,22 @@ const Test = ({ data, test, idRespuesta }: Props) => {
                             )}
                           >
                             <Icon type={Icon.Types.SWIPE} />
+                          </button>
+                        )}
+                      {!finished &&
+                        !prev &&
+                        user?.email === "maummq@gmail.com" && (
+                          <button
+                            onClick={handleAutofill}
+                            title="Llenar test automáticamente"
+                            disabled={!!exist}
+                            className={clsx(
+                              "w-8 rounded-md aspect-square flex items-center justify-between border border-alto-300/70 dark:border-alto-700 p-1 transition-all duration-300",
+                              "text-success",
+                              "disabled:bg-alto-100 dark:disabled:bg-alto-900 disabled:text-primary-200 dark:disabled:text-alto-800 disabled:border-primary-200 dark:disabled:border-alto-800"
+                            )}
+                          >
+                            <Icon type={Icon.Types.CHECK} />
                           </button>
                         )}
                     </div>
