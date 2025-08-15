@@ -155,6 +155,9 @@ const CloseCaseForm = ({ caso, onSuccess }: Props) => {
               <option value="Psiquiatría">Psiquiatría</option>
               <option value="Psicología">Psicología</option>
               <option value="Neurología">Neurología</option>
+              <option value="Psicología y psiquiatría">
+                Psicología y psiquiatría
+              </option>
             </Input>
             <TextArea
               label="Resumen del caso para el especialista"

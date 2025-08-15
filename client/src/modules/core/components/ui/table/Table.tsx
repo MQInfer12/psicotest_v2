@@ -17,6 +17,7 @@ import Loader from "../loader/Loader";
 import { TableContextProvider } from "./context/TableContext";
 import TableRows from "./TableRows";
 import { ButtonType } from "../Button";
+import { useLocalState } from "@/modules/core/hooks/useLocalState";
 
 export interface TableAction<T> {
   icon: ICON;
@@ -81,7 +82,10 @@ const Table = <T,>({
     defaultFocusedRows ?? []
   );
 
-  const [sorting, setSorting] = useState<ColumnSort[]>([]);
+  const [sorting, setSorting] = useLocalState<ColumnSort[]>(
+    savedOffsetKey ? savedOffsetKey + "-sorting" : null,
+    []
+  );
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
   const table = useReactTable({
