@@ -26,13 +26,15 @@ const ScheduleForm = ({ onSuccess }: Props) => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    defaultValues: {},
+    defaultValues: {
+      minutos: 30,
+      tipo: "Presencial",
+    },
     resolver: yupResolver(ScheduleDTOSchema),
   });
 
   const onSubmit = (form: ScheduleDTO) => {
     setLoading(true);
-    console.log(form);
     postMutation(form, {
       onSuccess: (res) => {
         toastSuccess(res.message);
@@ -67,7 +69,23 @@ const ScheduleForm = ({ onSuccess }: Props) => {
         error={errors.hora_inicio?.message}
         {...register("hora_inicio")}
       />
-      <Input disabled readOnly required value={60} label="Minutos" />
+      <Input
+        label="Minutos"
+        type="number"
+        required
+        error={errors.minutos?.message}
+        {...register("minutos")}
+      />
+      <Input
+        label="Tipo"
+        type="select"
+        error={errors.tipo?.message}
+        {...register("tipo")}
+        required
+      >
+        <option value="Presencial">Presencial</option>
+        <option value="Virtual">Virtual</option>
+      </Input>
       <Button disabled={loading} type="submit">
         Enviar
       </Button>

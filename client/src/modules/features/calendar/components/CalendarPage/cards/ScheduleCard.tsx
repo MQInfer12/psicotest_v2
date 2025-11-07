@@ -107,7 +107,7 @@ const ScheduleCard = ({ horario, fecha }: Props) => {
         title="Horario disponible"
         responsive={false}
       >
-        <CalendarCard.Aside date={fecha} responsive={false} />
+        {/* <CalendarCard.Aside date={fecha} responsive={false} /> */}
         <CalendarCard.Body>
           <CalendarCard.Header
             minWidth="0"
@@ -118,119 +118,27 @@ const ScheduleCard = ({ horario, fecha }: Props) => {
                   text: horario.nombre_user,
                 },
                 {
-                  text: `${hora_inicio} - ${hora_final}`,
-                  icon: Icon.Types.CLOCK,
+                  text: horario.tipo,
+                  icon: {
+                    Presencial: Icon.Types.UNIVERSITY,
+                    Virtual: Icon.Types.VIDEOCALL,
+                  }[horario.tipo],
                 },
               ],
-              [],
+              [
+                {
+                  text: hora_inicio,
+                  icon: Icon.Types.CLOCK_PLAY,
+                },
+                {
+                  text: hora_final,
+                  icon: Icon.Types.CLOCK_PAUSE,
+                },
+              ],
             ]}
           />
         </CalendarCard.Body>
       </CalendarCard>
-
-      {/* <div
-        onClick={esCita ? () => {} : handleRequestAppointment}
-        className={clsx(
-          "flex flex-wrap items-center justify-between gap-10 bg-alto-50 dark:bg-alto-1000 px-4 py-2 border border-alto-300/70 dark:border-alto-800 rounded-md shadow-md transition-all duration-300",
-          {
-            "cursor-pointer hover:shadow-primary-200 dark:hover:shadow-primary-800/20 hover:-translate-y-1":
-              !esCita,
-            "cursor-default": esCita,
-          }
-        )}
-      >
-        <div className="flex-1 flex items-center h-full gap-8 overflow-hidden max-lg:gap-5">
-          <div className="flex flex-col w-12">
-            <strong className="text-xl text-primary-900 dark:text-primary-400">
-              {hora_inicio}
-            </strong>
-            <small className="text-alto-500 dark:text-alto-400">
-              ~ {hora_final}
-            </small>
-          </div>
-          <span className="h-[80%] w-1 rounded-full bg-primary-400" />
-          <div className="flex-1 justify-end overflow-hidden flex items-center flex-wrap gap-2">
-            <div className="flex-1 flex items-center gap-4 overflow-hidden min-w-52">
-              <img
-                className="h-10 w-10 object-cover rounded-md border-2 border-primary-200"
-                src={horario.foto_user ?? DefaultPhoto}
-                onError={(event) => {
-                  event.currentTarget.src = DefaultPhoto;
-                }}
-              />
-              <div className="flex flex-col gap-1 items-start overflow-hidden">
-                <small className="text-alto-500 dark:text-alto-400 text-xs whitespace-nowrap overflow-hidden text-ellipsis w-full flex gap-2">
-                  {citaCorregida ? (
-                    <>
-                      <span className="bg-success/10 text-success px-2 rounded-md">
-                        Corregido
-                      </span>
-                      {citaDerivada && (
-                        <span className="bg-warning/10 text-warning px-2 rounded-md">
-                          Derivado a {citaDerivada}
-                        </span>
-                      )}
-                    </>
-                  ) : (
-                    `${calcularTiempo(hora_inicio, hora_final)} apróx. con:`
-                  )}
-                </small>
-                <p className="font-medium text-start whitespace-nowrap overflow-hidden text-ellipsis w-full max-md:text-xs text-alto-950 dark:text-alto-50">
-                  {horario.nombre_user}
-                </p>
-              </div>
-            </div>
-            {esCita && (
-              <div className="flex gap-2 items-center">
-                <Button
-                  btnType="secondary"
-                  btnSize="small"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleRespuesta("accepted");
-                  }}
-                  disabled={loading || estado === "accepted"}
-                  title="Aceptar la cita en el calendario (Enviaremos un correo de confirmación al paciente)"
-                  icon={
-                    estado === "accepted"
-                      ? patched
-                        ? Icon.Types.CHECK_ANIMATED
-                        : Icon.Types.CHECK
-                      : Icon.Types.MAIL
-                  }
-                  subicon={estado === "accepted" ? undefined : Icon.Types.SEND}
-                />
-                <Button
-                  btnType="secondary"
-                  btnSize="small"
-                  icon={Icon.Types.GOOGLE_CALENDAR}
-                  title="Ver en mi calendario de Google"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    window.open(link + `&authuser=${user?.email}`, "_blank");
-                  }}
-                />
-                <Button
-                  btnSize="small"
-                  icon={Icon.Types.PENCIL}
-                  title="Atender la cita con el paciente"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    navigate({
-                      to: "/calendar/$id",
-                      params: {
-                        id: String(horario.id),
-                      },
-                    });
-                  }}
-                >
-                  Atender
-                </Button>
-              </div>
-            )}
-          </div>
-        </div>
-      </div> */}
     </>
   );
 };

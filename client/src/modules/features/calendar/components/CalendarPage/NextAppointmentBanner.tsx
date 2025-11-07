@@ -107,7 +107,8 @@ const NextAppointmentBanner = () => {
             ) : (
               <div className="flex flex-col items-center gap-4 max-w-80">
                 <small className="text-alto-600 dark:text-alto-400 [&>span]:text-primary-400 text-center text-balance">
-                  <span>{day}</span>, {date} de {month} a las {hora_inicio}
+                  <span>{day}</span>, {date} de {month} a las{" "}
+                  <span>{hora_inicio}</span>
                 </small>
                 <small className="text-alto-600 dark:text-alto-400 [&>span]:text-primary-400 text-center text-balance leading-relaxed">
                   Creamos un evento en tu calendario para hacerte recuerdo una
@@ -115,8 +116,23 @@ const NextAppointmentBanner = () => {
                 </small>
                 <div className="flex flex-col items-center gap-4">
                   <small className="text-alto-600 dark:text-alto-400 [&>span]:text-primary-400 text-center text-balance leading-relaxed">
-                    Google te enviará un correo cuando tu psicólogo acepte tu
-                    invitación.
+                    {/* Google te enviará un correo cuando tu psicólogo acepte tu
+                    invitación. */}
+                    Si tu sesión es{" "}
+                    <b className="text-primary-400">presencial</b> podrás
+                    asistir al{" "}
+                    <a
+                      className="underline hover:opacity-80 transition-all"
+                      href={
+                        cita_proxima.html_link_calendar +
+                        `&authuser=${user?.email}`
+                      }
+                    >
+                      gabinete psicológico
+                    </a>{" "}
+                    de la sede Portales en la hora indicada, si es{" "}
+                    <b className="text-primary-400">virtual</b> el psicólogo te
+                    enviará el enlace de la reunión a tu Whatsapp,
                   </small>
                   <div className="flex items-center gap-4">
                     <img

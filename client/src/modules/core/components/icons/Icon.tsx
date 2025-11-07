@@ -88,6 +88,10 @@ import IconCalendarUser from "./tabler/iconCalendarUser";
 import IconSend from "./tabler/iconSend";
 import IconHistory from "./tabler/iconHistory";
 import IconStickyNote from "./tabler/iconStickyNote";
+import IconUniversity from "./tabler/iconUniversity";
+import IconVideocall from "./tabler/iconVideocall";
+import IconClockPause from "./tabler/iconClockPause";
+import IconClockPlay from "./tabler/iconClockPlay";
 
 export enum ICON {
   CHECK = "check",
@@ -197,6 +201,10 @@ export enum ICON {
   SEND = "send",
   HISTORY = "history",
   STICKY_NOTE = "sticky_note",
+  UNIVERSITY = "university",
+  VIDEOCALL = "videocall",
+  CLOCK_PLAY = "clock_play",
+  CLOCK_PAUSE = "clock_pause",
 }
 
 interface Props {
@@ -312,6 +320,10 @@ const Icon = ({ type }: Props) => {
     [ICON.SEND]: <IconSend />,
     [ICON.HISTORY]: <IconHistory />,
     [ICON.STICKY_NOTE]: <IconStickyNote />,
+    [ICON.UNIVERSITY]: <IconUniversity />,
+    [ICON.VIDEOCALL]: <IconVideocall />,
+    [ICON.CLOCK_PLAY]: <IconClockPlay />,
+    [ICON.CLOCK_PAUSE]: <IconClockPause />,
   };
   return icons[type];
 };

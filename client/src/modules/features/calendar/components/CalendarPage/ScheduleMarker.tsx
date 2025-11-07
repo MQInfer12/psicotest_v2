@@ -83,8 +83,11 @@ const ScheduleMarker = ({ schedule, setData }: Props) => {
             <small className="text-alto-950 dark:text-alto-50">
               {hh1}:{mm1} - {hh2}:{mm2}
             </small>
-            <p className="w-full text-primary-500 dark:text-primary-400 font-bold text-xs whitespace-nowrap overflow-hidden text-ellipsis">
+            <p className="w-full mt-1 text-primary-500 dark:text-primary-400 font-bold text-xs whitespace-nowrap overflow-hidden text-ellipsis">
               {schedule.nombre_user}
+            </p>
+            <p className="w-full text-end dark:text-alto-50 text-alto-950 text-[10px] opacity-50 whitespace-nowrap overflow-hidden text-ellipsis">
+              {schedule.tipo}
             </p>
           </motion.div>
         </div>

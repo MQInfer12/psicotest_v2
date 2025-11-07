@@ -6,8 +6,10 @@ export interface Schedule {
   dia: number;
   hora_inicio: string;
   hora_final: string;
+  tipo: AppointmentType;
 }
 
+export type AppointmentType = "Presencial" | "Virtual";
 export type AppointmentStatus = "accepted" | "declined" | "needsAction";
 export enum MetodoConsulta {
   PrimeraSesionDelCaso = "Primera sesión del caso",
