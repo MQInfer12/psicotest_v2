@@ -16,6 +16,8 @@ class C_HorarioStoreRequest extends FormRequest
         return [
             'dia' => 'required|integer|min:0|max:6',
             'hora_inicio' => 'required|string',
+            'minutos' => 'required|integer',
+            'tipo' => 'required|string',
         ];
     }
 
@@ -28,6 +30,10 @@ class C_HorarioStoreRequest extends FormRequest
             'dia.min' => 'El día no puede ser mayor a 6.',
             'hora_inicio.required' => 'La hora de inicio es requerida.',
             'hora_inicio.string' => 'La hora de inicio tiene que ser un string.',
+            'minutos.required' => 'Los minutos son requeridos.',
+            'minutos.integer' => 'Los minutos tienen que ser un entero.',
+            'tipo.required' => 'El tipo es requerido.',
+            'tipo.string' => 'El tipo tiene que ser un string.',
         ];
     }
 }

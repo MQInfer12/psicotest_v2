@@ -94,7 +94,8 @@ class C_MotivoController extends Controller
                 $horario->hora_inicio,
                 $horario->hora_final,
                 $psicologo->email,
-                $paciente->email
+                $paciente->email,
+                $horario->tipo
             );
 
             $event = $this->createGoogleCalendarEvent($body, $access_token_psicologo, $psicologo);

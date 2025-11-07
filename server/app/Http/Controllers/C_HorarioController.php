@@ -124,7 +124,7 @@ class C_HorarioController extends Controller
     {
         $validatedData = $request->validated();
 
-        $hora_final = date('H:i:s', strtotime($validatedData['hora_inicio'] . ' + 1 hour'));
+        $hora_final = date('H:i:s', strtotime($validatedData['hora_inicio'] . ' + ' . $validatedData['minutos'] . ' minutes'));
 
         $horariosAntes = C_Horario::where('dia', $validatedData['dia'])
             ->where('hora_inicio', '<=', $validatedData['hora_inicio'])
@@ -150,7 +150,8 @@ class C_HorarioController extends Controller
             "email_user" => $request->user()->email,
             "dia" => $validatedData['dia'],
             "hora_inicio" => $validatedData['hora_inicio'],
-            "hora_final" => $hora_final
+            "hora_final" => $hora_final,
+            "tipo" => $validatedData['tipo'],
         ]);
 
         return $this->successResponse(

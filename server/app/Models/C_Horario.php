@@ -17,7 +17,8 @@ class C_Horario extends Model
         'email_user',
         'dia',
         'hora_inicio',
-        'hora_final'
+        'hora_final',
+        'tipo'
     ];
 
     public function user()

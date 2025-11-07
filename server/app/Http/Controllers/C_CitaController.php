@@ -306,6 +306,7 @@ class C_CitaController extends Controller
             $horario->hora_final,
             $creador_evento->email,
             $email_invitado,
+            $horario->tipo,
             $anonimo
         );
 

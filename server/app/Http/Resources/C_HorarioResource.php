@@ -16,6 +16,7 @@ class C_HorarioResource extends JsonResource
             'dia' => $this->dia,
             'hora_inicio' => $this->hora_inicio,
             'hora_final' => $this->hora_final,
+            'tipo' => $this->tipo,
         ];
     }
 }
