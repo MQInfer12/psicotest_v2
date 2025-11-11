@@ -7,6 +7,7 @@ import { toastError } from "../../utils/toasts";
 import { buildUrl, RequestInitWithParams } from "./utils/buildUrl";
 import { BuildedError, handleResponse } from "./utils/handleResponse";
 import { getTokens } from "@/modules/features/auth/utils/localStorageToken";
+import { AUTHORIZATION_HEADER } from "../../constants/HEADERS";
 
 //* FETCHING IN CODE
 export const postData = <K extends keyof EndpointMap>(
@@ -42,7 +43,7 @@ export const postData = <K extends keyof EndpointMap>(
             : JSON.stringify(payload),
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${tokens?.token}`,
+          [AUTHORIZATION_HEADER]: `Bearer ${tokens?.token}`,
           ...config.headers,
         },
         ...config,

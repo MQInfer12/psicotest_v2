@@ -23,6 +23,7 @@ import { getTodayUtc } from "@/modules/core/utils/getTodayUtc";
 import { EventDTO } from "../validations/EventDTO.schema";
 import { useModal } from "@/modules/core/components/ui/modal/useModal";
 import EventForm from "../components/EventForm";
+import { AUTHORIZATION_HEADER } from "@/modules/core/constants/HEADERS";
 
 interface Props {
   blog?: Blog;
@@ -119,7 +120,7 @@ const CreateBlogPage = ({ blog }: Props) => {
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${tokens?.token}`,
+            [AUTHORIZATION_HEADER]: `Bearer ${tokens?.token}`,
           },
           body: data,
         }

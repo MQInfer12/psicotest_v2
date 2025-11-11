@@ -5,6 +5,7 @@ import { handleResponse } from "./handleResponse";
 import { QueryOptions, queryOptions } from "@tanstack/react-query";
 import { getUrlData } from "./getUrlData";
 import { getTokens } from "@/modules/features/auth/utils/localStorageToken";
+import { AUTHORIZATION_HEADER } from "@/modules/core/constants/HEADERS";
 
 //* FETCH DATA FN
 const fetchFn = async <K extends keyof EndpointMap>(
@@ -23,7 +24,7 @@ const fetchFn = async <K extends keyof EndpointMap>(
     ...config,
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token?.token}`,
+      [AUTHORIZATION_HEADER]: `Bearer ${token?.token}`,
       ...config.headers,
     },
   });
