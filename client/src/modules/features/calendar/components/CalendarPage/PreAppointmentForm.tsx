@@ -75,6 +75,7 @@ const PreAppointmentForm = ({
       telefono: user?.telefono ?? undefined,
       nombre_tutor: user?.nombre_tutor ?? undefined,
       telefono_tutor: user?.telefono_tutor ?? undefined,
+      nacionalidad: user?.nacionalidad ?? undefined,
     },
     resolver: yupResolver(PreAppointmentDTOSchema),
     context: {
@@ -228,6 +229,17 @@ const PreAppointmentForm = ({
           {...register("codigo_estudiantil")}
         />
       </div>
+      <Input
+        label="Nacionalidad"
+        type="select"
+        error={errors.nacionalidad?.message}
+        required={required}
+        {...register("nacionalidad")}
+      >
+        <option value="">Selecciona una nacionalidad</option>
+        <option value="Bolivia">Bolivia</option>
+        <option value="Brasil">Brasil</option>
+      </Input>
       <Input
         label={"Nombre del padre / madre / tutor"}
         error={errors.nombre_tutor?.message}

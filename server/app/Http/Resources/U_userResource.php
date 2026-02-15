@@ -30,6 +30,7 @@ class U_userResource extends JsonResource
             'institucion' => $this->institucion,
             'curso' => $this->curso,
             'municipio' => $this->municipio,
+            'nacionalidad' => $this->nacionalidad,
 
             'cita_proxima' => $cita_proxima ? new C_CitaResource($cita_proxima) :  null,
             'contador_citas' => count($citas),

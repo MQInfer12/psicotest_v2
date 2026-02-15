@@ -36,6 +36,7 @@ class U_userUpdateRequest extends FormRequest
             'institucion' => 'string|nullable',
             'curso' => 'string|nullable',
             'municipio' => 'string|nullable',
+            'nacionalidad' => 'string|nullable',
         ];
     }
 
