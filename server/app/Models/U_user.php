@@ -45,7 +45,8 @@ class U_user extends Authenticatable
         'ultima_conexion',
         'institucion',
         'curso',
-        'municipio'
+        'municipio',
+        'nacionalidad'
     ];
 
     public function raw_access_token()

@@ -19,6 +19,7 @@ class U_userStoreRequest extends FormRequest
             'foto' => 'nullable|string',
             'genero' => 'nullable|string',
             'fecha_nacimiento' => 'nullable|date',
+            'nacionalidad' => 'nullable|string',
         ];
     }
 

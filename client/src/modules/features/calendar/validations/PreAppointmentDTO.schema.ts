@@ -95,4 +95,11 @@ export const PreAppointmentDTOSchema = yup.object({
         return isNaN(v) ? null : v;
       });
     }),
+  nacionalidad: yup.string().when("$required", (ctx, schema) => {
+    const [required] = ctx;
+    if (required) {
+      return schema.required("Requerido");
+    }
+    return schema.nullable();
+  }),
 });

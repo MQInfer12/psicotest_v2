@@ -23,6 +23,7 @@ export interface User extends Timestamps {
   institucion: string | null;
   curso: string | null;
   municipio: string | null;
+  nacionalidad: string | null;
 
   contador_citas: number;
   contador_citas_confirmadas: number;
