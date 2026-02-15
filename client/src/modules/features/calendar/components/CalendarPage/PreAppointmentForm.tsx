@@ -52,7 +52,7 @@ const PreAppointmentForm = ({
         onError: () => {
           setLoading(false);
         },
-      }
+      },
     );
   };
 
@@ -84,7 +84,7 @@ const PreAppointmentForm = ({
   });
 
   const [prevCarrera, setPrevCarrera] = useState<string | undefined>(
-    user?.carrera ?? undefined
+    user?.carrera ?? undefined,
   );
   const carrera = watch("carrera");
   const carreraSelected = CAREERS.find((c) => c.name === carrera);
@@ -96,14 +96,10 @@ const PreAppointmentForm = ({
     setValue("semestre", "");
   }, [carrera]);
 
-  const ua = navigator.userAgent.toLowerCase();
-  const isSafariBrowser = /^((?!chrome|android).)*safari/.test(ua);
-
   return (
     <form
-      className={clsx("flex flex-col gap-4", {
+      className={clsx("flex flex-col gap-4 [&>*]:shrink-0", {
         "overflow-auto": scrollable,
-        "[&>*]:shrink-0": isSafariBrowser
       })}
       onSubmit={handleSubmit(onSubmit)}
     >
@@ -239,6 +235,8 @@ const PreAppointmentForm = ({
         <option value="">Selecciona una nacionalidad</option>
         <option value="Bolivia">Bolivia</option>
         <option value="Brasil">Brasil</option>
+        <option value="Chile">Chile</option>
+        <option value="Perú">Perú</option>
       </Input>
       <Input
         label={"Nombre del padre / madre / tutor"}
