@@ -7,10 +7,22 @@ interface Props {
   permisos: Permisos[];
   children: React.ReactNode;
   errorMessage?: string;
+  behavior?: "or" | "and";
+  anotherConditionFn?: () => boolean;
 }
 
-const ProtectedRoute = ({ permisos, children, errorMessage }: Props) => {
-  const canAccess = usePermiso(permisos);
+const ProtectedRoute = ({
+  permisos,
+  children,
+  errorMessage,
+  behavior = "and",
+  anotherConditionFn,
+}: Props) => {
+  const canAccessByPermisos = usePermiso(permisos, behavior);
+  const canAccessByAnotherCondition = anotherConditionFn
+    ? anotherConditionFn()
+    : true;
+  const canAccess = canAccessByPermisos && canAccessByAnotherCondition;
 
   const canViewHome = usePermiso([Permisos.VER_HOME]);
   const canViewTestAsignacion = usePermiso([Permisos.VER_TESTS_ASIGNACION]);

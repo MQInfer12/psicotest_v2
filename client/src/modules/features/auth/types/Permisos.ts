@@ -6,6 +6,7 @@ export enum Permisos {
   VER_RESULTADOS = "Ver resultados",
   VER_PLANTILLAS = "Ver plantillas",
   VER_CALENDARIO = "Ver calendario",
+  VER_CALENDARIO_UNIFRANZ = "Ver calendario unifranz",
   VER_USUARIOS = "Ver usuarios",
   CREAR_TEST = "Crear test",
   EDITAR_TEST = "Editar test",

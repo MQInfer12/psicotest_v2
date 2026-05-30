@@ -7,6 +7,7 @@ interface PrivateLink {
   icon: ICON;
   title: string;
   permisos: Permisos[];
+  behavior?: "or" | "and";
 }
 
 export const PRIVATE_LINKS: PrivateLink[] = [
@@ -44,7 +45,8 @@ export const PRIVATE_LINKS: PrivateLink[] = [
     to: "/calendar",
     icon: Icon.Types.CALENDAR,
     title: "Gabinete",
-    permisos: [Permisos.VER_CALENDARIO],
+    permisos: [Permisos.VER_CALENDARIO, Permisos.VER_CALENDARIO_UNIFRANZ],
+    behavior: "or",
   },
   {
     to: "/patients",

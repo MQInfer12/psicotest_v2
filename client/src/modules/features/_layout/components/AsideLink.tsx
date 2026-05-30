@@ -17,6 +17,7 @@ interface Props extends LinkOptions {
   ) => void;
   permisos: Permisos[];
   behavior: "and" | "or";
+  anotherConditionFn?: () => boolean;
 }
 
 const ASIDE_LINK_CLASSES = () => {
@@ -37,10 +38,13 @@ const AsideLink = ({
   showText = true,
   permisos,
   behavior,
+  anotherConditionFn,
   ...props
 }: Props) => {
-  const render = usePermiso(permisos, behavior);
-  if (!render) return;
+  const renderByPermisos = usePermiso(permisos, behavior);
+  const renderByAnotherCondition = anotherConditionFn ? anotherConditionFn() : true;
+  const render = renderByPermisos && renderByAnotherCondition;
+  if (!render) return null;
 
   const child = (
     <>

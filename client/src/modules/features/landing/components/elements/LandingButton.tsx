@@ -5,12 +5,20 @@ interface Props {
   onClick: () => void;
   type?: "primary" | "secondary";
   max?: boolean;
+  disabled?: boolean;
 }
 
-const LandingButton = ({ children, onClick, type = "primary", max }: Props) => {
+const LandingButton = ({
+  children,
+  onClick,
+  type = "primary",
+  max,
+  disabled = false,
+}: Props) => {
   return (
     <button
       onClick={onClick}
+      disabled={disabled}
       className={clsx(
         "max-sm:text-sm whitespace-nowrap p-2 px-6 rounded-md transition-all duration-300 border",
         {
@@ -19,6 +27,7 @@ const LandingButton = ({ children, onClick, type = "primary", max }: Props) => {
             type === "primary",
           "border-alto-200 dark:border-alto-800 bg-alto-50 dark:bg-alto-950 hover:bg-alto-100 hover:dark:bg-alto-900 active:bg-alto-200 active:dark:bg-alto-800 text-primary-800 dark:text-primary-200":
             type === "secondary",
+          "opacity-60 cursor-not-allowed pointer-events-none": disabled,
         }
       )}
     >

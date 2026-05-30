@@ -10,6 +10,7 @@ class Permisos
   const VER_RESULTADOS = 'Ver resultados';
   const VER_PLANTILLAS = 'Ver plantillas';
   const VER_CALENDARIO = 'Ver calendario';
+  const VER_CALENDARIO_UNIFRANZ = 'Ver calendario unifranz';
   const VER_USUARIOS = 'Ver usuarios';
   const COMPARTIR_TEST = 'Compartir test';
   const CREAR_TEST = 'Crear test';

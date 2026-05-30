@@ -2,7 +2,10 @@ import Landing2 from "@/assets/images/landing-2-min.jpeg";
 import Landing3 from "@/assets/images/landing-3-min.jpg";
 import { validateRoute } from "@/modules/features/_layout/components/breadcrumb/utils/validateRoute";
 import { useUserContext } from "@/modules/features/auth/context/UserContext";
-import { usePermiso } from "@/modules/features/auth/hooks/usePermiso";
+import {
+  useCalendarAccess,
+  usePermiso,
+} from "@/modules/features/auth/hooks/usePermiso";
 import { Permisos } from "@/modules/features/auth/types/Permisos";
 import { ReactNode, useNavigate } from "@tanstack/react-router";
 import clsx from "clsx";
@@ -18,13 +21,14 @@ const ServicesCards = ({ children, type = "primary" }: Props) => {
   const navigate = useNavigate();
   const { state } = useUserContext();
 
-  const canViewCalendar = usePermiso([Permisos.VER_CALENDARIO]);
+  const canViewCalendar = useCalendarAccess();
   const canViewTestResolucion = usePermiso([Permisos.VER_TESTS_RESOLUCION]);
+  const mustUseInstitutionalAccount = state === "logged" && !canViewCalendar;
 
   return (
     <div className="flex gap-16 gap-y-12 flex-wrap items-center justify-center relative isolate">
       {children}
-      {(state === "unlogged" || canViewCalendar) && (
+      {(state === "unlogged" || state === "logged") && (
         <motion.div
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -50,7 +54,7 @@ const ServicesCards = ({ children, type = "primary" }: Props) => {
           />
           <div className="flex flex-col gap-4 p-4">
             <small className="p-1 px-2 text-xs bg-primary-200 text-primary-800 max-w-fit rounded-md">
-              Agenda tu cita presencial en la universidad
+              Citas presenciales/virtuales para alumnos de Unifranz
             </small>
             <div className="flex flex-col gap-2">
               <h3 className="text-xl font-bold">Gabinete psicológico</h3>
@@ -65,6 +69,7 @@ const ServicesCards = ({ children, type = "primary" }: Props) => {
               </motion.p>
             </div>
             <LandingButton
+              disabled={mustUseInstitutionalAccount}
               onClick={() => {
                 if (state === "logged") {
                   navigate({
@@ -80,7 +85,9 @@ const ServicesCards = ({ children, type = "primary" }: Props) => {
                 }
               }}
             >
-              Comenzar
+              {mustUseInstitutionalAccount
+                ? "Usa tu cuenta institucional"
+                : "Comenzar"}
             </LandingButton>
           </div>
         </motion.div>

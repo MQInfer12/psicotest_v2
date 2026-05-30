@@ -31,7 +31,7 @@ import { useBreadcrumb } from "../components/breadcrumb/hooks/useBreadcrumb";
 import { PRIVATE_ASIDE_WIDTH } from "../constants/LAYOUT_SIZES";
 import { PRIVATE_LINKS } from "../constants/PRIVATE_LINKS";
 import { useMeasureContext } from "../context/MeasureContext";
-import { usePermiso } from "../../auth/hooks/usePermiso";
+import { useCalendarAccess, usePermiso } from "../../auth/hooks/usePermiso";
 
 const Dashboard = () => {
   const activeBreadcrumb = useBreadcrumb();
@@ -93,6 +93,7 @@ const Dashboard = () => {
   });
 
   const canViewHome = usePermiso([Permisos.VER_HOME]);
+  const canAccessCalendar = useCalendarAccess();
 
   if (state === "unlogged") {
     return (
@@ -171,11 +172,14 @@ const Dashboard = () => {
             {PRIVATE_LINKS.map((link) => (
               <AsideLink
                 key={link.to}
+                {...link}
                 onClick={size !== "normal" ? () => setOpen(false) : undefined}
                 showText={open}
                 type="link"
-                behavior="and"
-                {...link}
+                behavior={link.behavior ?? "and"}
+                anotherConditionFn={
+                  link.to === "/calendar" ? () => canAccessCalendar : undefined
+                }
               />
             ))}
             <AsideLink

@@ -69,7 +69,7 @@ class Permisos_Seeder extends Seeder
                 "permisos" => [
                     Permisos::VER_HOME,
                     Permisos::VER_TESTS_RESOLUCION,
-                    Permisos::VER_CALENDARIO,
+                    Permisos::VER_CALENDARIO_UNIFRANZ,
                     Permisos::VER_BLOGS,
                 ]
             ]
