@@ -35,6 +35,13 @@ class Permisos_Seeder extends Seeder
             ]
         );
 
+        T_Grupo::updateOrCreate(
+            ['id' => 4],
+            [
+                "descripcion" => "Externo",
+            ]
+        );
+
         //! ROLES
 
         U_Rol::updateOrCreate(
@@ -108,6 +115,21 @@ class Permisos_Seeder extends Seeder
             ]
         );
 
+        U_Rol::updateOrCreate(
+            ["id" => 5],
+            [
+                "descripcion" => "Admisiones Externo",
+                "por_defecto" => false,
+                "permisos" => [
+                    Permisos::VER_TESTS_ASIGNACION,
+                    Permisos::COMPARTIR_TEST,
+                    Permisos::VER_RESULTADOS,
+                    Permisos::CONFIGURAR,
+                    Permisos::VER_BLOGS,
+                ]
+            ]
+        );
+
         //! ROLES CON GRUPOS
 
         T_Grupo_Rol::updateOrCreate(
@@ -123,6 +145,14 @@ class Permisos_Seeder extends Seeder
             [
                 'id_rol' => 4,
                 'id_grupo' => 2,
+            ]
+        );
+
+        T_Grupo_Rol::updateOrCreate(
+            ['id' => 3],
+            [
+                'id_rol' => 5,
+                'id_grupo' => 4,
             ]
         );
     }
